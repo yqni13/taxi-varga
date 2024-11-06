@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'stylesheets/utilities' as sass;
+
+@import 'stylesheets/defines.scss';
+@import 'stylesheets/icons.scss';
+
+
+html {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: sass.$color-fullscale-bg;
+    color: sass.$color-ice-white;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
