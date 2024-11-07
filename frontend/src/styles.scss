@@ -17,3 +17,9 @@ body {
     margin: 0;
     padding: 0;
 }
+
+section {
+    margin-top: sass.$size-section-height;
+    min-height: calc(100vh - sass.$size-section-height);
+    width: 100vw;
+}

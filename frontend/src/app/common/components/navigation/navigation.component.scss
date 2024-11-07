@@ -1,0 +1,45 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+.tava-nav-bar {
+
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: sass.$size-section-height;
+    border-bottom: 2px solid sass.$color-ice-white;
+
+    .tava-nav-logo {
+        width: 75px;
+        aspect-ratio: 1 / 1;
+    }
+    
+    ul {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-inline: 0;
+        margin-block: 0;
+        list-style: none;
+
+        li {
+            text-decoration: none;
+            padding: 0 2.5vw;
+
+            span {
+                cursor: pointer;
+                text-transform: uppercase;
+            }
+        }
+    }
+
+    .tava-nav-routes {
+        
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+}

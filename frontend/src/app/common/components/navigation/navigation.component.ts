@@ -37,6 +37,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
         this.selectedTheme = this.checkThemeSettings();
+        this.translate.use('en');
 
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;
@@ -82,7 +83,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
 
     private checkThemeSettings(): ThemeOption {
         if(this.isLocalStorageAvailable) {
-            const theme = localStorage.getItem('tava-theme');
+            const theme = localStorage.getItem('taxi-varga.at-theme');
             if(!theme) {
                 return ThemeOption.darkMode;
             }
@@ -96,7 +97,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     private setThemeSettings(theme: ThemeOption) {
         if(this.isLocalStorageAvailable) {
             if(theme) {
-                localStorage.setItem("tava-theme", theme);
+                localStorage.setItem("taxi-varga.at-theme", theme);
                 this.document.body.setAttribute("data-theme", theme);
                 return;
             }
