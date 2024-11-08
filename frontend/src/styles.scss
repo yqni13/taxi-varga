@@ -1,0 +1,39 @@
+@use 'stylesheets/utilities' as sass;
+
+@import 'stylesheets/defines.scss';
+@import 'stylesheets/icons.scss';
+
+
+html {
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: sass.$color-fullscale-bg;
+    color: sass.$color-ice-white;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+section {
+    margin-top: var(--size-nav-height);
+    min-height: calc(100vh - var(--size-nav-height));
+    width: 100vw;
+}
+
+header {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+h1 {
+    text-transform: uppercase;
+    font-size: clamp(25px, 4vw, 55px);
+    font-weight: normal;
+    margin: sass.$space50 0;
+    text-align: center;
+}

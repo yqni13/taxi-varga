@@ -1,0 +1,22 @@
+@use 'utilities' as sass;
+
+
+/* NAVBAR DEFINITION */
+[data-nav='mobileMode'] {
+    --size-nav-height: 75px;
+}
+
+[data-nav='desktopMode'] {
+    --size-nav-height: 125px;
+}
+
+/* THEME OPTION DEFINITIONS */
+[data-theme='lightMode'] {
+    --theme-body-bg: #{sass.$color-ice-white};
+    --theme-body-text: #{sass.$color-ice-white};
+}
+
+[data-theme='darkMode'] {
+    --theme-body-bg: #{sass.$color-ice-white};
+    --theme-body-text: #{sass.$color-ice-white};
+}

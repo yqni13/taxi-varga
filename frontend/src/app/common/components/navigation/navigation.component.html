@@ -1,0 +1,31 @@
+<nav class="tava-nav-bar">
+    <ul>        
+        <li *ngIf="!isMobileMode">
+            <img
+                [attr.aria-disabled]="true"
+                class="tava-nav-logo"
+                src="assets/logo.png" 
+                alt="logo to navigate home"
+                routerLink="home"
+            >
+        </li>
+        <li *ngFor="let route of routes">
+            <span
+                class="tava-nav-routes"
+                [attr.aria-disabled]="true"
+                routerLink="{{ route.path }}"
+                routerLinkActive="tava-active-route"
+            >{{!isMobileMode ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="isMobileMode" class="{{route.data?.['icon']}}"></i></span>
+        </li>
+        <li>
+            <span
+                [attr.aria-disabled]="true"
+                [ngClass]="selectedTheme"
+                (click)="switchTheme()"
+                (keydown.enter)="switchTheme()"
+                #themeModeIcon
+            ><i class="icon-ThemeOptions tava-nav-theme-ico"></i>
+            </span>
+        </li>
+    </ul>
+</nav> 

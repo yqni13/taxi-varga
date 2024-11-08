@@ -1,0 +1,26 @@
+{
+    "common": {
+        "footer": {},
+        "navigation": {
+            "about": "About",
+            "home": "Home",
+            "service": "Service"
+        }
+    },
+    "modules": {
+        "about": {},
+        "contact": {},
+        "home": {},
+        "imprint": {},
+        "privacy": {},
+        "service": {}
+    },
+    "shared": {
+        "enum": {
+            "language": {
+                "de": "German",
+                "en": "English"
+            }
+        }
+    }
+}
