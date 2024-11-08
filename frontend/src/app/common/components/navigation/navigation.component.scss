@@ -9,7 +9,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    height: sass.$size-section-height;
+    height: var(--size-nav-height);
     border-bottom: 2px solid sass.$color-ice-white;
 
     .tava-nav-logo {
@@ -30,8 +30,14 @@
             padding: 0 2.5vw;
 
             span {
+                font-size: sass.$font-text-size;
                 cursor: pointer;
                 text-transform: uppercase;
+            }
+
+            i {
+                width: 40px;
+                aspect-ratio: 1/1;
             }
         }
     }

@@ -1,9 +1,18 @@
 /* CUSTOM COLORS */
-
 $color-ice-white: #f0f8ff;
 $color-valid-red: #ea2222;
 $color-accept-green: #209720;
 $color-ocean-blue: #0000cc;
 $color-fullscale-bg: #181818;
 
-$size-section-height: 125px;
+$color-main-green: #80bc84;
+
+
+/* CUSTOM VALUES */
+$space5: 5px;
+$space25: 25px;
+$space50: 50px;
+$space100: 100px;
+
+$font-text-size: clamp(18px, 1.6vw, 25px);
+
