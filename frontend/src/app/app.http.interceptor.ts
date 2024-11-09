@@ -6,11 +6,10 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     return next(req).pipe(
         tap((httpEvent) => {
             if((httpEvent as HttpResponse<any>).status === HttpStatusCode.Ok) {
-                // const httpbody = (httpEvent as HttpResponse<any>);
-                // if(httpbody.body.title && httpbody.body.text) {
-
-                // }
-                console.log('successful communication!');
+                const httpbody = (httpEvent as HttpResponse<any>);
+                if(httpbody.body.title && httpbody.body.text) {
+                    console.log('successful communication!');
+                }
             }
         }),
         catchError((response) => {
