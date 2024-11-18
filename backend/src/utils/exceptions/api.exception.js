@@ -1,9 +1,15 @@
+const { Config } = require('../../configs/config');
 const { ErrorCodes } = require('../../utils/errorCodes.utils');
 const { ErrorStatusCodes } = require('../../utils/errorStatusCodes.utils');
 
 class ApiException extends Error {
     constructor(code, message, data, status = 400) {
         super(message);
+        if(Config.MODE === 'development') {
+            this.message = 'API Error: ' + message;
+        } else {
+            this.message = message;
+        }
         this.name = 'API Error';
         this.code = code;
         this.error = this.constructor.name;

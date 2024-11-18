@@ -1,3 +1,4 @@
+const { Config } = require('../configs/config');
 const { InternalServerException, UnexpectedException } = require('../utils/exceptions/common.exception');
 
 function errorMiddleware(err, req, res, next) {
@@ -10,6 +11,12 @@ function errorMiddleware(err, req, res, next) {
     }
 
     let { message, code, error, status, data, stack } = err;
+
+    if(Config.MODE === 'development') {
+        console.log(`[Exception] ${error}, [Code] ${code}`);
+        console.log(`[Error] ${message}`);
+        console.log(`[Stack] ${stack}`);
+    }
 
     const headers = {
         success: "0",

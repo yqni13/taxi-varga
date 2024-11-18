@@ -1,9 +1,15 @@
+const { Config } = require('../../configs/config');
 const { ErrorCodes } = require('../../utils/errorCodes.utils');
 const { ErrorStatusCodes } = require('../../utils/errorStatusCodes.utils');
 
 class CommonException extends Error {
     constructor(code, message, data, status = 500) {
         super(message);
+        if(Config.MODE === 'development') {
+            this.message = 'Common Error: ' + message;
+        } else {
+            this.message = message;
+        }
         this.name = 'Common Error';
         this.code = code;
         this.error = this.constructor.name;
