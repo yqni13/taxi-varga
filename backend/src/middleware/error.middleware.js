@@ -3,11 +3,14 @@ const { InternalServerException, UnexpectedException } = require('../utils/excep
 
 function errorMiddleware(err, req, res, next) {
 
-    switch(err.status) {
-        case(500):
-            err = new InternalServerException('Internal Server Error');
-        default:
-            err = new UnexpectedException();
+    // switch(err.status) {
+    //     case(500):
+    //         err = new InternalServerException('Internal Server Error');
+    //     default:
+    //         err = new UnexpectedException();
+    // }
+    if((err.status === 500 || !err.message) && !err.isOperational) {
+        err = new InternalServerException('Internal Server Error');
     }
 
     let { message, code, error, status, data, stack } = err;

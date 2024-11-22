@@ -1,8 +1,8 @@
-const calcAtoBRouter = require('../routes/calcAtoB.routes');
+const drivingRouter = require('../routes/driving.routes');
 
 class RoutesLoader {
     static initRoutes(app, version) {
-        app.use(`/api/${version}/calcAtoB`, calcAtoBRouter);
+        app.use(`/api/${version}/driving`, drivingRouter);
     }
 }
 

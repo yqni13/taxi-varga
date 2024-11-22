@@ -1,10 +1,10 @@
 const { basicResponse } = require('../utils/common.utils');
-const CalcAtoBModel = require('../models/calcAtoB.model');
+const DrivingModel = require('../models/driving.model');
 const { UnexpectedException } = require('../utils/exceptions/common.exception');
 
-class CalcAtoBRepository {
+class DrivingRepository {
     calcRoute = async (params) => {
-        let calculation = await CalcAtoBModel.calcRoute(params);
+        let calculation = await DrivingModel.calcRoute(params);
         if(!calculation) {
             throw new UnexpectedException('No logic to calc yet');
         }
@@ -13,4 +13,4 @@ class CalcAtoBRepository {
     }
 }
 
-module.exports = new CalcAtoBRepository;
+module.exports = new DrivingRepository;

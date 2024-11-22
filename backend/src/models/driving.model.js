@@ -1,8 +1,8 @@
-class CalcAtoBModel {
+class DrivingModel {
     calcRoute = async (params = {}) => {
-        console.log('get into model');
+        // console.log('get into model');
         return await {distance: 35, price: 44.50};
     }
 }
 
-module.exports = new CalcAtoBModel;
+module.exports = new DrivingModel;
