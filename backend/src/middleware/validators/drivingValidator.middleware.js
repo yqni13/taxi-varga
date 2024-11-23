@@ -1,6 +1,5 @@
 const { body } = require('express-validator');
 const { stateRegex, streetRegex } = require('../../utils/common.utils');
-const { json } = require('body-parser');
 
 exports.drivingDestinationSchema = [
     body('transport')
