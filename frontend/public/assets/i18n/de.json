@@ -8,7 +8,19 @@
         }
     },
     "modules": {
-        "about": {},
+        "about": {
+            "title": "Über mich und mein Unternehmen",
+            "business": {
+                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) beständig.",
+                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 innerhalb Wiens. Dazu gehört die Mitnahme von Sondergepäck in Form von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut.",
+                "secondary": "Zusätzlich erfülle ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Addressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3)."
+            },
+            "private": {
+                "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
+                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
+                "location": "Tarif-Standort: Wien\nUnternehmenssitz: Leobersdorf"
+            }
+        },
         "contact": {},
         "home": {},
         "imprint": {},

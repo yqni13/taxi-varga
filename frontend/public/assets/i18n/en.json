@@ -8,7 +8,19 @@
         }
     },
     "modules": {
-        "about": {},
+        "about": {
+            "title": "About me and my business",
+            "business": {
+                "workload": "I employed 2 people for the duration of my son's studies, otherwise I work individual without employees in form of EPU (en: single person enterprise).",
+                "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service within Vienna. This includes the transport of special luggage such as pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo.",
+                "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3)."
+            },
+            "private": {
+                "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
+                "second": "In the first three years after changing careers, I worked as a professional driver for the companies Maxi-Mietwagen and Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
+                "location": "Work range: Vienna\nBusiness location: Leobersdorf"
+            }
+        },
         "contact": {},
         "home": {},
         "imprint": {},
