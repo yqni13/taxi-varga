@@ -32,6 +32,10 @@
             "language": {
                 "de": "German",
                 "en": "English"
+            },
+            "theme": {
+                "lightMode": "Light",
+                "darkMode": "Dark"
             }
         }
     }

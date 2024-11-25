@@ -32,6 +32,10 @@
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"
+            },
+            "theme": {
+                "lightMode": "Hell",
+                "darkMode": "Dunkel"
             }
         }
     }

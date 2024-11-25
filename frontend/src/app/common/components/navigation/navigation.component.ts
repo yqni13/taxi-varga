@@ -37,6 +37,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
         this.selectedTheme = this.checkThemeSettings();
+        this.setThemeSettings(this.selectedTheme);
         this.translate.use('en');
 
         this.window = this.document.defaultView;
@@ -67,7 +68,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        console.log();
+        this.applyThemeStyling();
     }
 
     private setNavWidthDynamically(width: number): void {

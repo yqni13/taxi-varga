@@ -7,13 +7,18 @@
 html {
     scrollbar-width: none;
     scroll-behavior: smooth;
+    cursor: context-menu;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
 }
 
 body {
-    background: sass.$color-fullscale-bg;
-    color: sass.$color-ice-white;
+    background: var(--theme-body-bg);
+    color: var(--theme-body-text);
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - var(--size-nav-height));
     margin: 0;
     padding: 0;
 }
@@ -31,9 +36,33 @@ header {
 }
 
 h1 {
-    // text-transform: uppercase;
     font-size: clamp(25px, 4vw, 55px);
     font-weight: normal;
     margin: sass.$space50 0;
     text-align: center;
+}
+
+.tava-active-route {
+    color: var(--theme-main-green)!important;
+    font-weight: bold;
+
+    &:hover::after,
+    &:after {
+        transform: none!important;
+        width: 0%!important;
+    }
+}
+
+.tava-anchor {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--theme-contrast-anchor);
+}
+
+.tava-visible {
+    visibility: visible;
+}
+
+.tava-hidden {
+    visibility: hidden;
 }

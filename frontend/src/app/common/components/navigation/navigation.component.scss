@@ -3,20 +3,23 @@
 
 .tava-nav-bar {
 
+    background-color: var(--theme-nav-bg);
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
     position: fixed;
+    z-index: 999;
     top: 0;
     width: 100%;
     height: var(--size-nav-height);
-    border-bottom: 2px solid sass.$color-ice-white;
+    border-bottom: sass.$nav-border-size solid var(--theme-main-green);
 
     .tava-nav-logo {
         width: 75px;
         aspect-ratio: 1 / 1;
+        cursor: pointer;
     }
-    
+
     ul {
         display: flex;
         flex-direction: row;
@@ -25,27 +28,28 @@
         margin-block: 0;
         list-style: none;
 
+        
         li {
             text-decoration: none;
             padding: 0 2.5vw;
 
+            span:not(.tava-active-route),
+            i:not(.tava-active-route) {
+                &:hover {
+                    opacity: 0.4;
+                }
+            }
+
             span {
                 font-size: sass.$font-text-size;
                 cursor: pointer;
-                text-transform: uppercase;
+                color: var(--theme-nav-text);
             }
 
             i {
                 width: 40px;
                 aspect-ratio: 1/1;
             }
-        }
-    }
-
-    .tava-nav-routes {
-        
-        &:hover {
-            opacity: 0.75;
         }
     }
 }

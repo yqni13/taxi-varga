@@ -1,0 +1,20 @@
+@use '../../../stylesheets/utilities' as sass;
+
+
+header {
+    position: absolute;
+    top: var(--size-nav-height);
+    left: 0;
+    right: 0;
+}
+
+section {
+    height: calc(100vh - var(--size-nav-height));
+}
+
+video {
+    filter: grayscale(0.8) brightness(var(--filter-brightness));
+    width: 100%;
+    height: calc(100vh - var(--size-nav-height));
+    object-fit: cover;
+}

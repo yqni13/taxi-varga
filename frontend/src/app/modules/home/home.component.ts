@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
     selector: 'tava-home',
@@ -9,9 +9,15 @@ import { Component } from "@angular/core";
 
     ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+
+    protected selectedVideo: string;
 
     constructor() {
-        //
+        this.selectedVideo = '';
+    }
+
+    ngOnInit() {
+        this.selectedVideo = 'assets/home-bg-light-trimmed.mp4';
     }
 }

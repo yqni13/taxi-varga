@@ -1,5 +1,15 @@
 <nav class="tava-nav-bar">
-    <ul>        
+    <ul>
+        <li>
+            <span
+                [attr.aria-disabled]="true"
+                [ngClass]="selectedTheme"
+                (click)="switchTheme()"
+                (keydown.enter)="switchTheme()"
+                #themeModeIcon
+            >{{!isMobileMode ? ('shared.enum.theme.' + selectedTheme | translate) : ''}}<i *ngIf="isMobileMode" class="icon-ThemeOptions tava-nav-theme-ico"></i>
+            </span>
+        </li>      
         <li *ngIf="!isMobileMode">
             <img
                 [attr.aria-disabled]="true"
@@ -16,16 +26,6 @@
                 routerLink="{{ route.path }}"
                 routerLinkActive="tava-active-route"
             >{{!isMobileMode ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="isMobileMode" class="{{route.data?.['icon']}}"></i></span>
-        </li>
-        <li>
-            <span
-                [attr.aria-disabled]="true"
-                [ngClass]="selectedTheme"
-                (click)="switchTheme()"
-                (keydown.enter)="switchTheme()"
-                #themeModeIcon
-            ><i class="icon-ThemeOptions tava-nav-theme-ico"></i>
-            </span>
         </li>
     </ul>
 </nav> 

@@ -13,10 +13,18 @@
 /* THEME OPTION DEFINITIONS */
 [data-theme='lightMode'] {
     --theme-body-bg: #{sass.$color-ice-white};
-    --theme-body-text: #{sass.$color-ice-white};
+    --theme-body-text: #{sass.$color-text-black};
+    --theme-nav-bg: #{sass.$color-ice-white};
+    --theme-nav-text: #{sass.$color-text-black};
+    --theme-main-green: #{sass.$color-dark-green};
+    --filter-brightness: 1;
 }
 
 [data-theme='darkMode'] {
-    --theme-body-bg: #{sass.$color-ice-white};
+    --theme-body-bg: #{sass.$color-fullscale-bg};
     --theme-body-text: #{sass.$color-ice-white};
+    --theme-nav-bg: #{sass.$color-fullscale-bg};
+    --theme-nav-text: #{sass.$color-ice-white};
+    --theme-main-green: #{sass.$color-light-green};
+    --filter-brightness: 0.4;
 }
