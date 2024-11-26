@@ -22,7 +22,16 @@
             }
         },
         "contact": {},
-        "home": {},
+        "home": {
+            "content": {
+                "experience": "Beförderungstätigkeit seit 1999",
+                "ev": "Emissionsfrei unterwegs mit Skoda Enyaq iV 80 seit 2020",
+                "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
+                "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
+                "options": "verschiedene Optionen zur Vorbestellung siehe",
+                "payment": "Alle gängigen Zahlungsmittel akzeptiert"
+            }
+        },
         "imprint": {},
         "privacy": {},
         "service": {}

@@ -9,6 +9,44 @@
         </h1>
     </header>
     <div class="tava-home-content">
-
+        <div class="tava-home-content-wrapper">
+            <ul>
+                <li>
+                    <span>
+                        {{'modules.home.content.experience' | translate}}
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        {{'modules.home.content.ev' | translate}}
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        {{'modules.home.content.classification' | translate}}
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        {{'modules.home.content.comfort' | translate}}
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        {{'modules.home.content.options' | translate}}
+                        <a
+                            class="tava-home-link tava-anchor"
+                            [attr.aria-disabled]="true"
+                            href="/service"
+                        >{{('common.navigation.service' | translate)}}</a>
+                    </span>
+                </li>
+                <li>
+                    <span>
+                        {{'modules.home.content.payment' | translate}}
+                    </span>
+                </li>
+            </ul>
+        </div>
     </div>
 </section>

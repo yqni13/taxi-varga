@@ -18,3 +18,39 @@ video {
     height: calc(100vh - var(--size-nav-height));
     object-fit: cover;
 }
+
+.tava-home-content {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    top: calc(var(--size-nav-height) + (sass.$space100 * 2));
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: auto;
+    
+    .tava-home-content-wrapper {        
+        width: 60vw;
+        max-width: 800px;
+        height: auto;
+        backdrop-filter: blur(10px);
+        border-radius: 40px;
+
+        ul {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin: auto sass.$space100;
+            padding-inline: 0;
+            list-style: none;
+            text-align: center;
+
+            li {
+                text-wrap: wrap;
+                text-decoration: none;
+                display: block;
+                margin: sass.$space25 0;                
+            }
+        }
+    }
+}

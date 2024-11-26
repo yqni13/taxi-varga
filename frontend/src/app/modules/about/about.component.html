@@ -1,4 +1,4 @@
-<section class="tava-about">
+<section class="tava-about" ngClass="{{selectedBg}}">
     <header>
         <h1>
             {{'modules.about.title' | translate}}
@@ -12,7 +12,11 @@
             <p>{{'modules.about.private.second' | translate}}</p>
         </div>
         <div class="tava-about-text">
-            <p>{{'modules.about.private.location' | translate}}</p>
+            <p>
+                {{'modules.about.private.workrange' | translate}}
+                <br>
+                {{'modules.about.private.location' | translate}}
+            </p>
         </div>
         <div class="tava-about-text">
             <p>{{'modules.about.business.workload' | translate}}</p>

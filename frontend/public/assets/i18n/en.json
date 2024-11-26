@@ -18,11 +18,21 @@
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
                 "second": "In the first three years after changing careers, I worked as a professional driver for the companies Maxi-Mietwagen and Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
-                "location": "Work range: Vienna\nBusiness location: Leobersdorf"
+                "workrange": "Work range: Vienna",
+                "location": "Business location: Leobersdorf"
             }
         },
         "contact": {},
-        "home": {},
+        "home": {
+            "content": {
+                "experience": "Commercial transportation of passengers since 1999",
+                "ev": "Zero-emission mobility by Skoda Enyaq iV 80 since 2020",
+                "classification": "40100 quality rating: 5.0 (max)",
+                "comfort": "Elevated seat positions for senior friendly entrance/exit",
+                "options": "Various options of reservations see",
+                "payment": "All major payment methods accepted"
+            }
+        },
         "imprint": {},
         "privacy": {},
         "service": {}

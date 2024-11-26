@@ -6,6 +6,7 @@ import { Route, RouterModule } from "@angular/router";
 import _ from 'underscore';
 import { CommonModule, DOCUMENT } from "@angular/common";
 import { ThemeOption } from "../../../shared/enums/theme-options.enum";
+import { ThemeObservationService } from "../../../shared/services/theme-observation.service";
 
 @Component({
     selector: 'tava-navigation',
@@ -33,7 +34,8 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     constructor(
         private readonly navigation: NavigationService,
         @Inject(DOCUMENT) private document: Document,
-        private readonly translate: TranslateService
+        private readonly translate: TranslateService,
+        private readonly themeObservation: ThemeObservationService
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
         this.selectedTheme = this.checkThemeSettings();
@@ -100,10 +102,12 @@ export class NavigationComponent implements OnInit, AfterViewInit {
             if(theme) {
                 localStorage.setItem("taxi-varga.at-theme", theme);
                 this.document.body.setAttribute("data-theme", theme);
+                this.themeObservation.setThemeOption(theme);
                 return;
             }
         }
-
+        
+        this.themeObservation.setThemeOption(ThemeOption.darkMode);
         this.document.body.setAttribute("data-theme", 'darkMode');
     }
 

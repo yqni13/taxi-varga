@@ -2,6 +2,7 @@
 
 @import 'stylesheets/defines.scss';
 @import 'stylesheets/icons.scss';
+@import 'stylesheets/backgrounds.scss';
 
 
 html {
@@ -15,7 +16,6 @@ html {
 }
 
 body {
-    background: var(--theme-body-bg);
     color: var(--theme-body-text);
     width: 100vw;
     height: calc(100vh - var(--size-nav-height));
@@ -36,6 +36,7 @@ header {
 }
 
 h1 {
+    color: var(--theme-main-green);
     font-size: clamp(25px, 4vw, 55px);
     font-weight: normal;
     margin: sass.$space50 0;
