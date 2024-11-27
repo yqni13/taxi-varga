@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ThemeObservationService } from "../../shared/services/theme-observation.service";
 import { Subscription, tap } from "rxjs";
-import { ThemeOption } from "../../shared/enums/theme-options.enum";
+import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 
 @Component({
     selector: 'tava-service',
@@ -32,13 +32,13 @@ export class ServiceComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.subscriptionThemeObservation$ = this.themeObservation.themeOption$.pipe(
-            tap((theme: ThemeOption) => {
+            tap((theme: ThemeOptions) => {
                 switch(theme) {
-                    case(ThemeOption.lightMode): {
+                    case(ThemeOptions.lightMode): {
                         this.selectedBg = 'bg-pattern-light';
                         break;
                     }
-                    case(ThemeOption.darkMode):
+                    case(ThemeOptions.darkMode):
                     default: {
                         this.selectedBg = 'bg-pattern-dark';
                     }

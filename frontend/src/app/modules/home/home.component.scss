@@ -13,7 +13,7 @@ section {
 }
 
 video {
-    filter: grayscale(0.8) brightness(var(--filter-brightness));
+    filter: grayscale(0.8) brightness(var(--filter-brightness)) blur(1px);
     width: 100%;
     height: calc(100vh - var(--size-nav-height));
     object-fit: cover;

@@ -1,16 +1,16 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { ThemeOption } from "../enums/theme-options.enum";
+import { ThemeOptions } from "../enums/theme-options.enum";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThemeObservationService {
 
-    private themeOptionSubject = new BehaviorSubject<ThemeOption>(ThemeOption.darkMode);
+    private themeOptionSubject = new BehaviorSubject<ThemeOptions>(ThemeOptions.darkMode);
     themeOption$ = this.themeOptionSubject.asObservable();
 
-    setThemeOption(theme: ThemeOption) {
+    setThemeOption(theme: ThemeOptions) {
         this.themeOptionSubject.next(theme);
     }
 }

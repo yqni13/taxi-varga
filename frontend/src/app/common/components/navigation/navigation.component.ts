@@ -5,7 +5,7 @@ import { NavigationService } from "../../../shared/services/navigation.service";
 import { Route, RouterModule } from "@angular/router";
 import _ from 'underscore';
 import { CommonModule, DOCUMENT } from "@angular/common";
-import { ThemeOption } from "../../../shared/enums/theme-options.enum";
+import { ThemeOptions } from "../../../shared/enums/theme-options.enum";
 import { ThemeObservationService } from "../../../shared/services/theme-observation.service";
 
 @Component({
@@ -24,7 +24,7 @@ export class NavigationComponent implements OnInit, AfterViewInit {
     @ViewChild("themeModeIcon") themeModeIcon!: ElementRef;
 
     protected routes: Route[];
-    protected selectedTheme: ThemeOption;
+    protected selectedTheme: ThemeOptions;
     protected isMobileMode: boolean;
 
     private maxMobileWidth: number;
@@ -84,20 +84,20 @@ export class NavigationComponent implements OnInit, AfterViewInit {
         }
     }
 
-    private checkThemeSettings(): ThemeOption {
+    private checkThemeSettings(): ThemeOptions {
         if(this.isLocalStorageAvailable) {
             const theme = localStorage.getItem('taxi-varga.at-theme');
             if(!theme) {
-                return ThemeOption.darkMode;
+                return ThemeOptions.darkMode;
             }
 
-            return String(theme) === 'lightMode' ? ThemeOption.lightMode : ThemeOption.darkMode;
+            return String(theme) === 'lightMode' ? ThemeOptions.lightMode : ThemeOptions.darkMode;
         }
 
-        return ThemeOption.darkMode;
+        return ThemeOptions.darkMode;
     }
 
-    private setThemeSettings(theme: ThemeOption) {
+    private setThemeSettings(theme: ThemeOptions) {
         if(this.isLocalStorageAvailable) {
             if(theme) {
                 localStorage.setItem("taxi-varga.at-theme", theme);
@@ -107,29 +107,29 @@ export class NavigationComponent implements OnInit, AfterViewInit {
             }
         }
         
-        this.themeObservation.setThemeOption(ThemeOption.darkMode);
+        this.themeObservation.setThemeOption(ThemeOptions.darkMode);
         this.document.body.setAttribute("data-theme", 'darkMode');
     }
 
     protected switchTheme() {
         if(this.isLocalStorageAvailable) {
-            if (this.selectedTheme === ThemeOption.darkMode) {
-                this.selectedTheme = ThemeOption.lightMode;
+            if (this.selectedTheme === ThemeOptions.darkMode) {
+                this.selectedTheme = ThemeOptions.lightMode;
             } else {
-                this.selectedTheme = ThemeOption.darkMode
+                this.selectedTheme = ThemeOptions.darkMode
             }
 
             this.setThemeSettings(this.selectedTheme);
             return;
         }
 
-        this.selectedTheme = ThemeOption.darkMode;
+        this.selectedTheme = ThemeOptions.darkMode;
         this.setThemeSettings(this.selectedTheme);
     }
 
     private applyThemeStyling() {
         if(this.themeModeIcon) {
-            this.themeModeIcon.nativeElement.classList.remove(ThemeOption.darkMode, ThemeOption.lightMode);
+            this.themeModeIcon.nativeElement.classList.remove(ThemeOptions.darkMode, ThemeOptions.lightMode);
             this.themeModeIcon.nativeElement.classList.add(this.selectedTheme);
         }
     }

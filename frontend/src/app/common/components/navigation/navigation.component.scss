@@ -36,7 +36,7 @@
             span:not(.tava-active-route),
             i:not(.tava-active-route) {
                 &:hover {
-                    opacity: 0.4;
+                    opacity: sass.$link-hover-opacity;
                 }
             }
 
