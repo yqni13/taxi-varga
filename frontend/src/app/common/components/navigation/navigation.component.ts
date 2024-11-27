@@ -36,7 +36,6 @@ export class NavigationComponent implements OnInit {
         
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
-        this.translate.use('en');
 
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;

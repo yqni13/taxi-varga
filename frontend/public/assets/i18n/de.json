@@ -2,7 +2,8 @@
     "common": {
         "footer": {
             "content": {
-                "copyright": "Alle Rechte vorbehalten."
+                "copyright": "Alle Rechte vorbehalten.",
+                "language": "Wählen Sie Ihre Sprache:"
             },
             "title": {
                 "imprint": "Impressum"

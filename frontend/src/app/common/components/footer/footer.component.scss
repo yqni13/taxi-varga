@@ -85,3 +85,68 @@ footer {
     width: 27px;
     height: 27px;
 }
+.icon-Language {
+    margin-left: calc(sass.$space5 * 2);
+    width: 25px;
+    height: 25px;
+}
+
+.tava-footer-language {
+    margin-top: sass.$space5;
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    padding-top: sass.$lang-icon-buffer;
+
+    .tava-footer-language-select {
+        display: flex;
+        align-items: center;
+    }
+
+    .tava-footer-language-select:hover {
+        opacity: 0.3;
+        .tava-footer-language-list:not(:hover) {
+            opacity: 1;
+        }
+    }
+
+    span:hover {
+        // disable basic hover effect of li>span
+        opacity: 1;
+    }
+
+    .tava-footer-language-list {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        bottom: -5px;
+        left: -5px;
+        border: solid 2px var(--theme-main-green);
+        border-radius: 5px;
+        padding: 15px 0;
+        background-color: transparent;
+        box-shadow: 0 4px 30px rbga(0, 0, 0, 0.1);
+        backdrop-filter: blur(6.7px);
+        -webkit-backdrop-filter: blur(6.7px);
+        text-wrap: nowrap;
+
+        .tava-language-option-select {
+            padding: 10px 15px 30px 15px;
+            font-weight: bold;
+            cursor: default;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .tava-language-options {
+            padding: 5px 0 5px 15px;
+            font-weight: bold;
+
+
+            &:hover {
+                opacity: 0.3;
+            }
+        }
+    }
+}

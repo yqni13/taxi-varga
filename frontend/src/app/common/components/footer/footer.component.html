@@ -30,29 +30,29 @@
                     <i class="{{selectedTheme === themes.darkMode ? 'icon-darkMode' : 'icon-lightMode'}}" #themeIcon></i>
                     </span>
                 </li>
-                <!-- <li class="tava-footer-language tava-language-element">
+                <li class="tava-footer-language tava-language-element">
                     <div class="tava-footer-language-select tava-language-element">
                         <span
                             class="tava-language-element"
                             [attr.aria-disabled]="true"
-                            (click)="openLanguageList()"
-                            (keydown.enter)="openLanguageList()"
-                        >{{'shared.enum.language.' + this.selectedLanguage | translate}}</span>
+                            (click)="openLanguageWindow()"
+                            (keydown.enter)="openLanguageWindow()"
+                        >{{'shared.enum.language.' + selectedLanguage | translate}}</span>
                         <i class="icon-Language tava-language-element"></i>
                     </div>
-                    <div *ngIf="showLanguageList" class="tava-footer-language-list tava-language-element">
+                    <div *ngIf="showLanguageWindow" class="tava-footer-language-list tava-language-element">
                         <span 
                             class="tava-language-option-select tava-language-element"
                         >{{'common.footer.content.language' | translate}}</span>
                         <span
-                            *ngFor="let option of language | keyvalue"
+                            *ngFor="let option of languages | keyvalue"
                             class="tava-language-options"
                             [attr.aria-disabled]="true"
-                            (click)="setLanguageData(language[option.value])"
-                            (keydown.enter)="setLanguageData(language[option.value])"
+                            (click)="setLanguage(languages[option.value])"
+                            (keydown.enter)="setLanguage(languages[option.value])"
                         >{{'shared.enum.language.' + option.key | translate}}</span>
                     </div>
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>
