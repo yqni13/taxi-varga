@@ -5,7 +5,7 @@ import { ThemeOptions } from "../enums/theme-options.enum";
 @Injectable({
     providedIn: 'root'
 })
-export class ThemeObservationService {
+export class ObservationService {
 
     private themeOptionSubject = new BehaviorSubject<ThemeOptions>(ThemeOptions.darkMode);
     themeOption$ = this.themeOptionSubject.asObservable();

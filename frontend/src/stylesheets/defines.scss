@@ -18,6 +18,7 @@
     --theme-nav-text: #{sass.$color-text-black};
     --theme-main-green: #{sass.$color-dark-green};
     --filter-brightness: 1;
+    --divider-opacity: 0.8;
 }
 
 [data-theme='darkMode'] {
@@ -27,4 +28,5 @@
     --theme-nav-text: #{sass.$color-ice-white};
     --theme-main-green: #{sass.$color-light-green};
     --filter-brightness: 0.4;
+    --divider-opacity: 0.1;
 }

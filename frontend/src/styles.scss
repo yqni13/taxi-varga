@@ -57,7 +57,7 @@ h1 {
 .tava-anchor {
     cursor: pointer;
     font-weight: bold;
-    color: var(--theme-contrast-anchor);
+    color: var(--theme-main-green);
 }
 
 .tava-visible {
@@ -66,4 +66,11 @@ h1 {
 
 .tava-hidden {
     visibility: hidden;
+}
+
+.tava-divider {
+    border: 1px inset sass.$color-ice-white;
+    opacity: var(--divider-opacity);
+    width: 300px;
+    margin: calc(sass.$space5 * 3) 0;
 }

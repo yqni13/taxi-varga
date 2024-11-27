@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { ThemeObservationService } from "../../shared/services/theme-observation.service";
+import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 
@@ -23,7 +23,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly translate: TranslateService,
-        private readonly themeObservation: ThemeObservationService
+        private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
 
@@ -31,7 +31,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.subscriptionThemeObservation$ = this.themeObservation.themeOption$.pipe(
+        this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
                     case(ThemeOptions.lightMode): {

@@ -1,0 +1,87 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+footer {
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--theme-nav-bg);
+}
+
+
+.tava-footer-credits {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    color: var(--theme-main-green);
+
+    h3 {
+        font-weight: normal;
+        padding-left: 33%;
+        margin: sass.$space5 0;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .tava-copyright-wrapper {
+        padding-left: 33%;
+    }
+    .icon-Copyright {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        margin-right: sass.$space5;
+        top:5px;
+    }
+}
+
+.tava-footer-links {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin-left: 100px;
+
+            span {
+                cursor: pointer;
+                color: var(--theme-nav-text);
+                font-size: sass.$font-text-size;
+
+                &:hover {
+                    opacity: sass.$link-hover-opacity;
+                }
+            }
+        }
+
+        .tava-li-divider {
+            text-align: center;
+            margin-left: 0;
+        }
+    }
+}
+
+.icon-lightMode {
+    background-color: sass.$color-icon-sun;
+    position: absolute;
+    margin-left: calc(sass.$space5 * 2);
+    width: 27px;
+    height: 27px;
+}
+.icon-darkMode {
+    background-color: sass.$color-icon-moon;
+    position: absolute;
+    margin-left: calc(sass.$space5 * 2);
+    width: 27px;
+    height: 27px;
+}

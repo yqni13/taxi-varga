@@ -1,45 +1,37 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
-import { CarouselComponent } from "../../common/components/carousel/carousel.component";
 
 @Component({
-    selector: 'tava-about',
-    templateUrl: './about.component.html',
-    styleUrl: './about.component.scss',
+    selector: 'tava-imprint',
+    templateUrl: './imprint.component.html',
+    styleUrl: './imprint.componpent.scss',
     standalone: true,
     imports: [
-        CarouselComponent,
         CommonModule,
-        TranslateModule,
+        RouterModule,
+        TranslateModule
     ]
 })
-export class AboutComponent implements OnInit, OnDestroy {
+export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
-    protected images: string[];
-    private subscriptionObservation$: Subscription;
+    private subscriptionThemeObservation$: Subscription;
 
     constructor(
         private readonly translate: TranslateService,
         private readonly observation: ObservationService
     ) {
-        this.images = [
-            'assets/foto4.jpg',
-            'assets/foto11.jpg',
-            'assets/foto5.jpg',
-            'assets/foto1.jpg',
-            'assets/foto7.jpg'
-        ];
         this.selectedBg = '';
-        this.subscriptionObservation$ = new Subscription();
+        this.subscriptionThemeObservation$ = new Subscription();
     }
 
     ngOnInit() {
-        this.subscriptionObservation$ = this.observation.themeOption$.pipe(
+        this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
                     case(ThemeOptions.lightMode): {
@@ -56,6 +48,6 @@ export class AboutComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.subscriptionObservation$.unsubscribe();
+        this.subscriptionThemeObservation$.unsubscribe();
     }
 }

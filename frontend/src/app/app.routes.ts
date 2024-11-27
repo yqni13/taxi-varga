@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { AboutComponent } from './modules/about/about.component';
 import { ServiceComponent } from './modules/service/service.component';
+import { ImprintComponent } from './modules/imprint/imprint.component';
 
 export const routes: Routes = [
     {
@@ -24,11 +25,11 @@ export const routes: Routes = [
         component: ServiceComponent,
         data: {title: 'service', showInNavbar: true, showInFooter: false, icon: 'icon-service'}
     },
-    // {
-    //     path: 'imprint',
-    //     component: ImprintComponent,
-    //     data: {title: 'imprint', showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
-    // },
+    {
+        path: 'imprint',
+        component: ImprintComponent,
+        data: {title: 'imprint', showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
+    },
     // {
     //     path: 'contact',
     //     component: ContactComponent,

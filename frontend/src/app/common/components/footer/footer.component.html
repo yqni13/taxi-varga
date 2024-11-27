@@ -1,0 +1,59 @@
+<footer>
+    <div class="tava-footer-credits">
+        <h3>Ing. Laszlo Varga</h3>
+        <div class="tava-copyright-wrapper">
+            <i class="icon-Copyright"></i>
+            <a class="tava-anchor" href="{{creatorURL}}" target="_blank">yqni13</a>
+            <span>. {{'common.footer.content.copyright' | translate}}</span>
+        </div>
+    </div>
+    <div class="tava-footer-links">
+        <div class="tava-footer-links-wrapper">
+            <ul>
+                <li *ngFor="let route of routes">
+                    <span
+                        [attr.aria-disabled]="true"
+                        routerLink="{{route.path}}"
+                    >{{'common.footer.title.' + route.data?.['title'] | translate}}</span>
+                </li>
+                <li class="tava-li-divider">
+                    <div class="tava-divider"></div>
+                </li>
+                <li>
+                    <span
+                        [attr.aria-disabled]="true"
+                        [ngClass]="selectedTheme"
+                        (click)="setTheme()"
+                        (keydown.enter)="setTheme()"
+                        #themeMode
+                    >{{'shared.enum.theme.' + selectedTheme | translate}}
+                    <i class="{{selectedTheme === themes.darkMode ? 'icon-darkMode' : 'icon-lightMode'}}" #themeIcon></i>
+                    </span>
+                </li>
+                <!-- <li class="tava-footer-language tava-language-element">
+                    <div class="tava-footer-language-select tava-language-element">
+                        <span
+                            class="tava-language-element"
+                            [attr.aria-disabled]="true"
+                            (click)="openLanguageList()"
+                            (keydown.enter)="openLanguageList()"
+                        >{{'shared.enum.language.' + this.selectedLanguage | translate}}</span>
+                        <i class="icon-Language tava-language-element"></i>
+                    </div>
+                    <div *ngIf="showLanguageList" class="tava-footer-language-list tava-language-element">
+                        <span 
+                            class="tava-language-option-select tava-language-element"
+                        >{{'common.footer.content.language' | translate}}</span>
+                        <span
+                            *ngFor="let option of language | keyvalue"
+                            class="tava-language-options"
+                            [attr.aria-disabled]="true"
+                            (click)="setLanguageData(language[option.value])"
+                            (keydown.enter)="setLanguageData(language[option.value])"
+                        >{{'shared.enum.language.' + option.key | translate}}</span>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</footer>
