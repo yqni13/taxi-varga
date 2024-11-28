@@ -29,7 +29,9 @@ export class AboutComponent implements OnInit, OnDestroy {
     ) {
         this.images = [
             'assets/foto4.jpg',
+            'assets/foto3.jpg',
             'assets/foto11.jpg',
+            'assets/foto8.jpg',
             'assets/foto5.jpg',
             'assets/foto1.jpg',
             'assets/foto7.jpg'

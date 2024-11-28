@@ -55,8 +55,8 @@ footer {
 
             span {
                 cursor: pointer;
-                color: var(--theme-nav-text);
-                font-size: sass.$font-text-size;
+                color: var(--theme-main-green);
+                font-size: sass.$footer-text-size;
 
                 &:hover {
                     opacity: sass.$link-hover-opacity;
@@ -75,20 +75,20 @@ footer {
     background-color: sass.$color-icon-sun;
     position: absolute;
     margin-left: calc(sass.$space5 * 2);
-    width: 27px;
-    height: 27px;
+    width: sass.$footer-text-size;
+    height: sass.$footer-text-size;
 }
 .icon-darkMode {
     background-color: sass.$color-icon-moon;
     position: absolute;
     margin-left: calc(sass.$space5 * 2);
-    width: 27px;
-    height: 27px;
+    width: sass.$footer-text-size;
+    height: sass.$footer-text-size;
 }
 .icon-Language {
     margin-left: calc(sass.$space5 * 2);
-    width: 25px;
-    height: 25px;
+    width: calc(sass.$footer-text-size - 2px);
+    height: calc(sass.$footer-text-size - 2px);
 }
 
 .tava-footer-language {
