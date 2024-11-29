@@ -4,6 +4,7 @@ import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
+import { RouterModule } from "@angular/router";
 
 @Component({
     selector: 'tava-service',
@@ -12,6 +13,7 @@ import { ThemeOptions } from "../../shared/enums/theme-options.enum";
     standalone: true,
     imports: [
         CommonModule,
+        RouterModule,
         TranslateModule
     ]
 })

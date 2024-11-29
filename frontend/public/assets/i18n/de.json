@@ -12,13 +12,13 @@
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
-            "service": "Dienstleistung"
+            "service": "Beförderungsangebot"
         }
     },
     "modules": {
         "about": {
             "business": {
-                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 innerhalb Wiens. Dazu gehört die Mitnahme von Sondergepäck in Form von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut.",
+                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 innerhalb Wiens. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
                 "secondary": "Zusätzlich erfülle ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Addressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
                 "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) beständig."
             },
@@ -34,10 +34,13 @@
             "content": {
                 "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
                 "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "ev": "Emissionsfrei unterwegs mit Skoda Enyaq iV 80 seit 2020",
+                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
                 "experience": "Beförderungstätigkeit seit 1999",
-                "options": "verschiedene Optionen zur Vorbestellung siehe",
-                "payment": "Alle gängigen Zahlungsmittel akzeptiert"
+                "payment": "Alle gängigen Zahlungsmittel akzeptiert",
+                "time": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)"
+            },
+            "highlights": {
+                "zero-emission": "Emissionsfrei"
             }
         },
         "imprint": {
@@ -45,7 +48,30 @@
         },
         "privacy": {},
         "service": {
-            "content": {},
+            "content": {
+                "airport": {
+                    "calc": "Angebot berechnen",
+                    "check": "check input",
+                    "confirm": "Auftrag absenden",
+                    "option": {
+                        "subtitle": "ab Wien",
+                        "title": "Flughafen"
+                    },
+                    "title": "Flughafen - Routendetails"
+                },
+                "destination": {
+                    "option": {
+                        "subtitle": "beliebige Abfahrt/Ankunft",
+                        "title": "Pauschalfahrt"
+                    }
+                },
+                "flatrate": {
+                    "option": {
+                        "subtitle": "beliebige Abfahrt/Ankunft",
+                        "title": "Zeitmiete"
+                    }
+                }
+            },
             "title": "Beförderungsangebot"
         }
     },

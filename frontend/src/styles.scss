@@ -43,6 +43,14 @@ h1 {
     text-align: center;
 }
 
+h2 {
+    color: var(--theme-main-green);
+    font-size: clamp(22px, 3.2vw, 44px);
+    font-weight: normal;
+    margin: calc(sass.$space25 + 5px) 0;
+    text-align: center;
+}
+
 .tava-active-route {
     color: var(--theme-main-green)!important;
     font-weight: bold;
@@ -55,9 +63,17 @@ h1 {
 }
 
 .tava-anchor {
+    font-weight: bold;
+    color: var(--theme-main-green);
+}
+
+.tava-link {
     cursor: pointer;
     font-weight: bold;
     color: var(--theme-main-green);
+    &:hover {
+        opacity: 0.4;
+    }
 }
 
 .tava-visible {
@@ -73,4 +89,48 @@ h1 {
     opacity: var(--divider-opacity);
     width: 300px;
     margin: calc(sass.$space5 * 3) 0;
+}
+
+.tava-button-submit {    
+    background-color: sass.$color-ice-white;
+    background-image: none;
+    border: 1px solid sass.$color-grey-light;
+    border-radius: 10px;
+    box-shadow: sass.$color-grey-light 4px 4px 0 0,#000 4px 4px 0 1px;
+    box-sizing: border-box;
+    color: var(--theme-main-green);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0 5px 10px 0;
+    overflow: visible;
+    padding: 8px 20px;
+    text-align: center;
+    text-transform: none;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    &:focus {
+        text-decoration: none;
+    }
+
+    &:hover {
+        text-decoration: none;
+        color: var(--theme-main-green);
+    }
+
+    &:active {
+        box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+        outline: 0;
+    }
+
+    &:not([disabled]):active {
+        box-shadow: sass.$color-grey-light 2px 2px 0 0, #000 2px 2px 0 1px;
+        transform: translate(2px, 2px);
+    }
 }

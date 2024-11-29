@@ -18,7 +18,7 @@
     "modules": {
         "about": {
             "business": {
-                "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service within Vienna. This includes the transport of special luggage such as pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo.",
+                "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service within Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
                 "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3).",
                 "workload": "I employed 2 people for the duration of my son's studies, otherwise I work individual without employees in form of EPU (en: single person enterprise)."
             },
@@ -35,10 +35,13 @@
             "content": {
                 "classification": "40100 quality rating: 5.0 (max)",
                 "comfort": "Elevated seat positions for senior friendly entrance/exit",
-                "ev": "Zero-emission mobility by Skoda Enyaq iV 80 since 2020",
+                "ev": " mobility by Skoda Enyaq iV 80 since 2020",
                 "experience": "Commercial transportation of passengers since 1999",
-                "options": "Various options of reservations see",
-                "payment": "All major payment methods accepted"
+                "payment": "All major payment methods accepted",
+                "time": "Business hours: 04:00 - 12:00 (off-time on request)"
+            },
+            "highlights": {
+                "zero-emission": "Zero-emission"
             }
         },
         "imprint": {
@@ -46,7 +49,35 @@
         },
         "privacy": {},
         "service": {
-            "content": {},
+            "content": {
+                "airport": {
+                    "calc": "calculate price",
+                    "check": "check input",
+                    "confirm": "confirm order",
+                    "option": {
+                        "subtitle": "off Vienna",
+                        "title": "Airport"
+                    },
+                    "title": "Airport - route details"
+                },
+                "destination": {
+                    "option": {
+                        "subtitle": "arbitrary arrival/departure",
+                        "title": "Destination"
+                    }
+                },
+                "flatrate": {
+                    "option": {
+                        "subtitle": "arbitrary arrival/departure",
+                        "title": "Flatrate"
+                    }
+                }
+            },
+            "options": {
+                "airport": "Airport",
+                "destination": "Destination",
+                "flatrate": "Flatrate"
+            },
             "title": "Transportation service"
         }
     },
