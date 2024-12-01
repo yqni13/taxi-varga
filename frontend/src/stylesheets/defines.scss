@@ -4,10 +4,12 @@
 /* NAVBAR DEFINITION */
 [data-nav='mobileMode'] {
     --size-nav-height: 75px;
+    --size-footer-height: 300px;
 }
 
 [data-nav='desktopMode'] {
     --size-nav-height: 125px;
+    --size-footer-height: 300px;
 }
 
 /* THEME OPTION DEFINITIONS */

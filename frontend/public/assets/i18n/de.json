@@ -12,6 +12,7 @@
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
+            "samples": "Beispiele",
             "service": "Beförderungsangebot"
         }
     },
@@ -47,6 +48,9 @@
             "title": "Impressum"
         },
         "privacy": {},
+        "samples": {
+            "title": "Pauschalfahrt Beispiele"
+        },
         "service": {
             "content": {
                 "airport": {

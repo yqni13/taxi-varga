@@ -25,7 +25,7 @@ body {
 
 section {
     margin-top: var(--size-nav-height);
-    min-height: calc(100vh - var(--size-nav-height));
+    min-height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
     width: 100vw;
 }
 

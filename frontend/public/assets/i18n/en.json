@@ -12,6 +12,7 @@
         "navigation": {
             "about": "About",
             "home": "Home",
+            "samples": "Samples",
             "service": "Service"
         }
     },
@@ -48,6 +49,9 @@
             "title": "Imprint"
         },
         "privacy": {},
+        "samples": {
+            "title": "Flatrate samples"
+        },
         "service": {
             "content": {
                 "airport": {

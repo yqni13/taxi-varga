@@ -1,1 +1,81 @@
-{}
+{
+    "samples-content-option1": {
+        "entry0": {
+            "price": "95,-",
+            "route": "Wien - St. Pölten"
+        },
+        "entry1": {
+            "price": "125,-",
+            "route": "Wien - Bratislava"
+        },
+        "entry2": {
+            "price": "205,-",
+            "route": "Wien - Brünn"
+        },
+        "entry3": {
+            "price": "260,-",
+            "route": "Wien - Linz"
+        },
+        "entry4": {
+            "price": "270,-",
+            "route": "Wien - Graz"
+        },
+        "entry5": {
+            "price": "345,-",
+            "route": "Wien - Budapest"
+        },
+        "entry6": {
+            "price": "430,-",
+            "route": "Wien - Salzburg"
+        },
+        "entry7": {
+            "price": "575,-",
+            "route": "Wien - München"
+        }
+    },
+    "samples-content-option2": {
+        "entry0": {
+            "price": "60,-",
+            "route": "Leobersdorf - Wien Hauptbahnhof"
+        },
+        "entry1": {
+            "price": "65,-",
+            "route": "Leobersdorf - AKH Wien"
+        },
+        "entry2": {
+            "price": "72,-",
+            "route": "Leobersdorf - Flughafen Schwechat"
+        }
+    },
+    "samples-content-option3": {
+        "entry0": {
+            "price": "77.-",
+            "route": "Enzesfeld/Lindabrunn - Flughafen Schwechat"
+        },
+        "entry1": {
+            "price": "85.-",
+            "route": "Berndorf - Flughafen Schwechat"
+        },
+        "entry2": {
+            "price": "95,-",
+            "route": "Wiener Neustadt - Flughafen Schwechat"
+        },
+        "entry3": {
+            "price": "102,-",
+            "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Schwechat"
+        },
+        "entry4": {
+            "price": "120,-",
+            "route": "Mattersburg - Flughafen Schwechat"
+        },
+        "entry5": {
+            "price": "120,-",
+            "route": "Neunkirchen/Ternitz - Flughafen Schwechat"
+        }
+    },
+    "samples-utility": {
+        "addendum": "ab €",
+        "price": "Preis",
+        "route": "Route"
+    }
+}
