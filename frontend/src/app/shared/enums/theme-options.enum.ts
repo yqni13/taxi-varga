@@ -1,6 +1,6 @@
-export type ThemeOption = 'lightMode' | 'darkMode';
+export type ThemeOptions = 'lightMode' | 'darkMode';
 
-export const ThemeOption = {
-    lightMode: 'lightMode' as ThemeOption,
-    darkMode: 'darkMode' as ThemeOption
+export const ThemeOptions = {
+    lightMode: 'lightMode' as ThemeOptions,
+    darkMode: 'darkMode' as ThemeOptions
 };

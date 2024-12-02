@@ -2,25 +2,30 @@
 
 @import 'stylesheets/defines.scss';
 @import 'stylesheets/icons.scss';
+@import 'stylesheets/backgrounds.scss';
 
 
 html {
     scrollbar-width: none;
     scroll-behavior: smooth;
+    cursor: context-menu;
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
 }
 
 body {
-    background: sass.$color-fullscale-bg;
-    color: sass.$color-ice-white;
+    color: var(--theme-body-text);
     width: 100vw;
-    height: 100vh;
-    margin: 0;
+    height: 100%;
+    margin: var(--size-nav-height) 0 0 0;
     padding: 0;
 }
 
 section {
     margin-top: var(--size-nav-height);
-    min-height: calc(100vh - var(--size-nav-height));
+    min-height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
     width: 100vw;
 }
 
@@ -31,9 +36,101 @@ header {
 }
 
 h1 {
-    text-transform: uppercase;
+    color: var(--theme-main-green);
     font-size: clamp(25px, 4vw, 55px);
     font-weight: normal;
     margin: sass.$space50 0;
     text-align: center;
+}
+
+h2 {
+    color: var(--theme-main-green);
+    font-size: clamp(22px, 3.2vw, 44px);
+    font-weight: normal;
+    margin: calc(sass.$space25 + 5px) 0;
+    text-align: center;
+}
+
+.tava-active-route {
+    color: var(--theme-main-green)!important;
+    font-weight: bold;
+
+    &:hover::after,
+    &:after {
+        transform: none!important;
+        width: 0%!important;
+    }
+}
+
+.tava-anchor {
+    font-weight: bold;
+    color: var(--theme-main-green);
+}
+
+.tava-link {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--theme-main-green);
+    &:hover {
+        opacity: 0.4;
+    }
+}
+
+.tava-visible {
+    visibility: visible;
+}
+
+.tava-hidden {
+    visibility: hidden;
+}
+
+.tava-divider {
+    border: 1px inset sass.$color-ice-white;
+    opacity: var(--divider-opacity);
+    width: 300px;
+    margin: calc(sass.$space5 * 3) 0;
+}
+
+.tava-button-submit {    
+    background-color: sass.$color-ice-white;
+    background-image: none;
+    border: 1px solid sass.$color-grey-light;
+    border-radius: 10px;
+    box-shadow: sass.$color-grey-light 4px 4px 0 0,#000 4px 4px 0 1px;
+    box-sizing: border-box;
+    color: var(--theme-main-green);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    line-height: 20px;
+    margin: 0 5px 10px 0;
+    overflow: visible;
+    padding: 8px 20px;
+    text-align: center;
+    text-transform: none;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-transform: uppercase;
+
+    &:focus {
+        text-decoration: none;
+    }
+
+    &:hover {
+        text-decoration: none;
+        color: var(--theme-main-green);
+    }
+
+    &:active {
+        box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
+        outline: 0;
+    }
+
+    &:not([disabled]):active {
+        box-shadow: sass.$color-grey-light 2px 2px 0 0, #000 2px 2px 0 1px;
+        transform: translate(2px, 2px);
+    }
 }

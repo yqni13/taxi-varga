@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './modules/home/home.component';
 import { AboutComponent } from './modules/about/about.component';
-import { ServiceComponent } from './modules/service/service.component';
+import { ImprintComponent } from './modules/imprint/imprint.component';
+import { SamplesComponent } from './modules/samples/samples.component';
 
 export const routes: Routes = [
     {
@@ -21,14 +22,19 @@ export const routes: Routes = [
     },
     {
         path: 'service',
-        component: ServiceComponent,
-        data: {title: 'service', showInNavbar: true, showInFooter: false, icon: 'icon-service'}
+        data: {title: 'service', showInNavbar: true, showInFooter: false, icon: 'icon-service'},
+        loadChildren: () => import('./modules/service/service.routes').then(feature => feature.serviceRoutes)
     },
-    // {
-    //     path: 'imprint',
-    //     component: ImprintComponent,
-    //     data: {title: 'imprint', showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
-    // },
+    {
+        path: 'imprint',
+        component: ImprintComponent,
+        data: {title: 'imprint', showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
+    },
+    {
+        path: 'samples',
+        component: SamplesComponent,
+        data: {title: 'samples', showInNavbar: true, showInFooter: false, icon: 'icon-samples'}
+    },
     // {
     //     path: 'contact',
     //     component: ContactComponent,

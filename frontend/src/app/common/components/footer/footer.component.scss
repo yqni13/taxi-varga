@@ -1,0 +1,152 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+footer {
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--theme-nav-bg);
+}
+
+
+.tava-footer-credits {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    place-content: center;
+    color: var(--theme-main-green);
+
+    h3 {
+        font-weight: normal;
+        padding-left: 33%;
+        margin: sass.$space5 0;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .tava-copyright-wrapper {
+        padding-left: 33%;
+    }
+    .icon-Copyright {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        margin-right: sass.$space5;
+        top:5px;
+    }
+}
+
+.tava-footer-links {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        li {
+            margin-left: 100px;
+
+            span {
+                cursor: pointer;
+                color: var(--theme-main-green);
+                font-size: sass.$footer-text-size;
+
+                &:hover {
+                    opacity: sass.$link-hover-opacity;
+                }
+            }
+        }
+
+        .tava-li-divider {
+            text-align: center;
+            margin-left: 0;
+        }
+    }
+}
+
+.icon-lightMode {
+    background-color: sass.$color-icon-sun;
+    position: absolute;
+    margin-left: calc(sass.$space5 * 2);
+    width: sass.$footer-text-size;
+    height: sass.$footer-text-size;
+}
+.icon-darkMode {
+    background-color: sass.$color-icon-moon;
+    position: absolute;
+    margin-left: calc(sass.$space5 * 2);
+    width: sass.$footer-text-size;
+    height: sass.$footer-text-size;
+}
+.icon-Language {
+    margin-left: calc(sass.$space5 * 2);
+    width: calc(sass.$footer-text-size - 2px);
+    height: calc(sass.$footer-text-size - 2px);
+}
+
+.tava-footer-language {
+    margin-top: sass.$space5;
+    position: relative;
+    display: inline-flex;
+    cursor: pointer;
+    padding-top: sass.$lang-icon-buffer;
+
+    .tava-footer-language-select {
+        display: flex;
+        align-items: center;
+    }
+
+    .tava-footer-language-select:hover {
+        opacity: 0.3;
+        .tava-footer-language-list:not(:hover) {
+            opacity: 1;
+        }
+    }
+
+    span:hover {
+        // disable basic hover effect of li>span
+        opacity: 1;
+    }
+
+    .tava-footer-language-list {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        bottom: -5px;
+        left: -5px;
+        border: solid 2px var(--theme-main-green);
+        border-radius: 5px;
+        padding: 15px 0;
+        background-color: transparent;
+        box-shadow: 0 4px 30px rbga(0, 0, 0, 0.1);
+        backdrop-filter: blur(6.7px);
+        -webkit-backdrop-filter: blur(6.7px);
+        text-wrap: nowrap;
+
+        .tava-language-option-select {
+            padding: 10px 15px 30px 15px;
+            font-weight: bold;
+            cursor: default;
+            &:hover {
+                opacity: 1;
+            }
+        }
+
+        .tava-language-options {
+            padding: 5px 0 5px 15px;
+            font-weight: bold;
+
+
+            &:hover {
+                opacity: 0.3;
+            }
+        }
+    }
+}
