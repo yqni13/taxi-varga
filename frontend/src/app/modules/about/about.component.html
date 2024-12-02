@@ -1,7 +1,32 @@
-<section class="tava-about">
+<section class="tava-about" ngClass="{{selectedBg}}">
     <header>
         <h1>
-            welcome to about component.
+            {{'modules.about.title' | translate}}
         </h1>
     </header>
+    <div class="tava-about-content">
+        <div class="tava-about-text">
+            <p>{{'modules.about.private.first' | translate}}</p>
+        </div>
+        <div class="tava-about-text">
+            <p>{{'modules.about.private.second' | translate}}</p>
+        </div>
+        <div class="tava-about-text">
+            <p>
+                {{'modules.about.private.workrange' | translate}}
+                <br>
+                {{'modules.about.private.location' | translate}}
+            </p>
+        </div>
+        <div class="tava-about-text">
+            <p>{{'modules.about.business.workload' | translate}}</p>
+        </div>
+        <div class="tava-about-text">
+            <p>{{'modules.about.business.primary' | translate}}</p>
+        </div>
+        <div class="tava-about-text">
+            <p>{{'modules.about.business.secondary' | translate}}</p>
+        </div>
+    </div>
+    <tava-carousel [slides]="images"></tava-carousel>
 </section>

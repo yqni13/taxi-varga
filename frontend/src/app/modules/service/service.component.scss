@@ -1,0 +1,52 @@
+@use '../../../stylesheets/utilities' as sass;
+
+
+.tava-service-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tava-service-content-wrapper {
+    width: 50vw;
+    max-width: 600px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: sass.$space50 0;
+    border: solid sass.$nav-border-size var(--theme-main-green);
+    border-radius: 5px;
+    
+    .tava-button-wrapper {
+        width: fit-content;
+        margin: sass.$space25 0;
+    }
+}
+
+.tava-service-route {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: sass.$space25 0;
+    img {
+        width: 25vh;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .tava-anchor {
+        font-size: 22px;
+        text-transform: uppercase;
+    }
+
+    .tava-service-route-description {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        text-align: center;
+    }
+}

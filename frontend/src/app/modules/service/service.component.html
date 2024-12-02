@@ -1,7 +1,48 @@
-<section class="tava-service">
+<section class="tava-service" ngClass="{{selectedBg}}">
     <header>
         <h1>
-            welcome to service component.
+            {{'modules.service.title' | translate}}
         </h1>
     </header>
+    <div class="tava-service-content">
+        <div class="tava-service-route">
+            <img 
+                class="tava-link"
+                src="assets/service/select-airport.jpg"
+                alt="404 image not found"
+                [routerLink]="'airport'"
+                [attr.aria-disabled]="true"
+            >
+            <div class="tava-service-route-description">
+                <span class="tava-anchor">{{'modules.service.content.airport.option.title' | translate}}</span>
+                <span>{{'modules.service.content.airport.option.subtitle' | translate}}</span>
+            </div>
+        </div>
+        <div class="tava-service-route">
+            <img 
+                class="tava-link"
+                src="assets/service/select-destination.jpg"
+                alt="404 image not found"
+                [routerLink]="'destination'"
+                [attr.aria-disabled]="true"
+            >
+            <div class="tava-service-route-description">
+                <span class="tava-anchor">{{'modules.service.content.destination.option.title' | translate}}</span>
+                <span>{{'modules.service.content.destination.option.subtitle' | translate}}</span>
+            </div>
+        </div>
+        <div class="tava-service-route">
+            <img 
+                class="tava-link"
+                src="assets/service/select-flatrate.jpg"
+                alt="404 image not found"
+                [routerLink]="'flatrate'"
+                [attr.aria-disabled]="true"
+            >
+            <div class="tava-service-route-description">
+                <span class="tava-anchor">{{'modules.service.content.flatrate.option.title' | translate}}</span>
+                <span>{{'modules.service.content.flatrate.option.subtitle' | translate}}</span>
+            </div>
+        </div>
+    </div>
 </section>

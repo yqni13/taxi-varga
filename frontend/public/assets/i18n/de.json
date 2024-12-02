@@ -1,25 +1,93 @@
 {
     "common": {
-        "footer": {},
+        "footer": {
+            "content": {
+                "copyright": "Alle Rechte vorbehalten.",
+                "language": "Wählen Sie Ihre Sprache:"
+            },
+            "title": {
+                "imprint": "Impressum"
+            }
+        },
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
-            "service": "Dienstleistung"
+            "samples": "Beispiele",
+            "service": "Beförderungsangebot"
         }
     },
     "modules": {
-        "about": {},
+        "about": {
+            "business": {
+                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 innerhalb Wiens. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
+                "secondary": "Zusätzlich erfülle ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Addressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
+                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) beständig."
+            },
+            "private": {
+                "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
+                "location": "Tarif-Standort: Wien\nUnternehmenssitz: Leobersdorf",
+                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen)."
+            },
+            "title": "Über mich und mein Unternehmen"
+        },
         "contact": {},
-        "home": {},
-        "imprint": {},
+        "home": {
+            "content": {
+                "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
+                "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
+                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
+                "experience": "Beförderungstätigkeit seit 1999",
+                "payment": "Alle gängigen Zahlungsmittel akzeptiert",
+                "time": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)"
+            },
+            "highlights": {
+                "zero-emission": "Emissionsfrei"
+            }
+        },
+        "imprint": {
+            "title": "Impressum"
+        },
         "privacy": {},
-        "service": {}
+        "samples": {
+            "title": "Pauschalfahrt Beispiele"
+        },
+        "service": {
+            "content": {
+                "airport": {
+                    "calc": "Angebot berechnen",
+                    "check": "check input",
+                    "confirm": "Auftrag absenden",
+                    "option": {
+                        "subtitle": "ab Wien",
+                        "title": "Flughafen"
+                    },
+                    "title": "Flughafen - Routendetails"
+                },
+                "destination": {
+                    "option": {
+                        "subtitle": "beliebige Abfahrt/Ankunft",
+                        "title": "Pauschalfahrt"
+                    }
+                },
+                "flatrate": {
+                    "option": {
+                        "subtitle": "beliebige Abfahrt/Ankunft",
+                        "title": "Zeitmiete"
+                    }
+                }
+            },
+            "title": "Beförderungsangebot"
+        }
     },
     "shared": {
         "enum": {
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"
+            },
+            "theme": {
+                "darkMode": "Dunkel",
+                "lightMode": "Hell"
             }
         }
     }

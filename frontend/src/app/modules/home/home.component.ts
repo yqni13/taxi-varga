@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
+import { TranslateModule, TranslateService } from "@ngx-translate/core";
 
 @Component({
     selector: 'tava-home',
@@ -6,12 +7,18 @@ import { Component } from "@angular/core";
     styleUrl: './home.component.scss',
     standalone: true,
     imports: [
-
+        TranslateModule
     ]
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-    constructor() {
-        //
+    protected selectedVideo: string;
+
+    constructor(private translate: TranslateService) {
+        this.selectedVideo = '';
+    }
+
+    ngOnInit() {
+        this.selectedVideo = 'assets/home-bg-light-trimmed.mp4';
     }
 }

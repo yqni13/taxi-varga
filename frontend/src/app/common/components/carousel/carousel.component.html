@@ -1,0 +1,32 @@
+<div class="tava-carousel-wrapper">
+    <div class="tava-carousel-slides" [style.transform]="getTransform()">
+        <div class="tava-carousel-slide" *ngFor="let slide of slides">            
+            <ng-container *ngIf="slideTemplate; else defaultTemplate">
+                <ng-container *ngTemplateOutlet="slideTemplate; context: { $implicit: slide }"></ng-container>
+            </ng-container>
+            <ng-template #defaultTemplate>
+                <div class="tava-carousel-default-wrapper">
+                    <div class="tava-carousel-default-img">
+                        <img
+                            src="{{slide}}" 
+                            alt="404-picture-not-found"
+                            [attr.aria-disabled]="true"
+                        >
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+    <i 
+        [attr.aria-disabled]="true"
+        class="icon-Arrow tava-arrow-left"
+        (click)="prev()"
+        (keydown.enter)="prev()"
+    ></i>
+    <i 
+        [attr.aria-disabled]="true"
+        class="icon-Arrow tava-arrow-right"
+        (click)="next()"
+        (keydown.enter)="next()"
+    ></i>
+</div>

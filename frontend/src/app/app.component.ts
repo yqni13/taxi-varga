@@ -2,6 +2,7 @@ import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
 import { CommonModule, DOCUMENT } from '@angular/common';
+import { FooterComponent } from './common/components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
   imports: [
     CommonModule,
     NavigationComponent,
+    FooterComponent,
     RouterOutlet
   ],
 })

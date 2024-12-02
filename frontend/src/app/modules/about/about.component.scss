@@ -1,0 +1,14 @@
+@use '../../../stylesheets/utilities' as sass;
+
+
+.tava-about-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.tava-about-text {
+    width: 60vw;
+    max-width: 700px;
+    margin: 0 auto;
+}
