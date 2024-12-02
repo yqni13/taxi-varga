@@ -5,6 +5,7 @@ import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
+import * as content from "../../../../public/assets/i18n/content-en.json";
 
 @Component({
     selector: 'tava-samples',
@@ -20,6 +21,9 @@ import { RouterModule } from "@angular/router";
 export class SamplesComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
+    protected samplesOption1Length: number;
+    protected samplesOption2Length: number;
+    protected samplesOption3Length: number;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -28,6 +32,9 @@ export class SamplesComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
+        this.samplesOption1Length = Object.keys(content["samples-content-option1"]).length;
+        this.samplesOption2Length = Object.keys(content["samples-content-option2"]).length;
+        this.samplesOption3Length = Object.keys(content["samples-content-option3"]).length;
 
         this.subscriptionThemeObservation$ = new Subscription();
     }
