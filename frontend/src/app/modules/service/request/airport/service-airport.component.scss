@@ -1,0 +1,46 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-service-airport-content {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tava-service-airport-content-input-offer,
+.tava-service-airport-content-input-order {
+    div {
+        margin: sass.$space5 0;
+    }
+
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    max-width: 400px;
+
+    input {
+        margin-right: calc(sass.$space5 * 3);
+    }
+    
+    .airport-input input,
+    .airport-dropdown select {
+        width: 250px;
+        padding: sass.$space5 0;
+    }
+
+    .airport-checkbox {
+        margin-left: sass.$space50;
+    }
+}
+
+.tava-button-wrapper {
+    margin: sass.$space25 0;
+}
+
+.final-message {
+    text-align: center;
+    color: var(--theme-body-text);
+    font-size: 40px;
+    font-weight: bold;
+}
