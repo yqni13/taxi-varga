@@ -18,6 +18,9 @@ import { CommonModule } from "@angular/common";
 export class ServiceDestinationComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
+    protected hasOffer: boolean;
+    protected hasOrder: boolean;
+    protected hasConfirmed: boolean;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -26,8 +29,26 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
+        this.hasOffer = false;
+        this.hasOrder = false;
+        this.hasConfirmed = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+    }
+
+    nextOffer() {
+        console.log('continue with offer');
+        this.hasOffer = true;
+    }
+
+    nextOrder() {
+        console.log('continue with order');
+        this.hasOrder = true;
+    }
+
+    nextConfirm() {
+        console.log('offer confirmed');
+        this.hasConfirmed = true;
     }
 
     ngOnInit() {

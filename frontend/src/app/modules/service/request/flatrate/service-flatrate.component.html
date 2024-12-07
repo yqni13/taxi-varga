@@ -1,7 +1,103 @@
 <section class="tava-service-flatrate" ngClass="{{selectedBg}}">
     <header>
-        <h1>
-            service - flatrate
-        </h1>
+        <h2>
+            {{'modules.service.content.flatrate.title' | translate}}
+        </h2>
     </header>
+    <div class="tava-service-flatrate-content">
+        <div *ngIf="!hasOffer" class="tava-service-flatrate-content-input-offer">
+            <div class="flatrate-input">
+                <input type="text" id="addressStart" name="addressStart" placeholder="Start address">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="addressEnd" name="addressEnd" placeholder="End address">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="notes" name="notes" placeholder="Notes">
+            </div>
+            <div class="flatrate-input">
+                <input type="datetime-local" id="datetime" name="datetime">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="addressStopover" name="addressStopover" placeholder="Stopover address">
+            </div>
+            <div class="flatrate-input">
+                <input type="datetime-local" id="datetime" name="datetimeStopover">
+            </div>
+        </div>
+        <div *ngIf="!hasOffer" class="tava-button-wrapper">
+            <button
+                class="tava-button-submit"
+                [attr.aria-disabled]="true"
+                (click)="nextOffer()"
+                (keydown.enter)="nextOffer()"
+            >{{'modules.service.commands.calc' | translate}}</button>
+        </div>
+        <div *ngIf="hasOffer && !hasConfirmed" class="tava-service-flatrate-content-offer">
+            <p>
+                1. Destination Start: Vienna International flatrate (departure)<br>
+                2. Destination End: Anton Bruckner-Gasse 11, 2544 Leobersdorf (Austria)<br>
+                3. Date of pick-up: 17.01.2025<br>
+                4. Time of pick-up: 07:52 AM<br>
+                5. Distance: 49.6km<br>
+                6. Estimated duration: 00:41 (hh:mm)<br>
+                <br>
+                Price calculation based on licensed Vienna taxi rate!<br>
+                --------------------------<br>
+                Estimated price: 86.07 EUR
+            </p>
+        </div>
+        <div *ngIf="hasOffer && !hasOrder" class="tava-service-flatrate-content-input-order">
+            <div class="flatrate-dropdown">
+                <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="title" name="title" placeholder="Title">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="firstname" name="firstname" placeholder="First name">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="lastname" name="lastname" placeholder="Last name">
+            </div>
+            <div class="flatrate-input">
+                <input type="text" id="phone" name="phone" placeholder="Phone number">
+            </div>
+            <div class="flatrate-input">
+                <input type="email" id="email" name="email" placeholder="Email">
+            </div>
+        </div>
+        <div *ngIf="hasOffer && !hasOrder" class="tava-button-wrapper">
+            <button
+                class="tava-button-submit"
+                [attr.aria-disabled]="true"
+                (click)="nextOrder()"
+                (keydown.enter)="nextOrder()"
+            >{{'modules.service.commands.check' | translate}}</button>
+        </div>
+        <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-flatrate-content-order">
+            <p>
+                1. Contact: Mr Ing. Laszlo Varga<br>
+                2. Phone: 06644465466<br>
+                3. Email: laszlovarga&#64;gmx.at<br>
+            </p>
+        </div>
+        <div *ngIf="hasOrder && !hasConfirmed">
+            <p>
+                I accept that canceling my order is free only up to 24 hours before desired time of departure (with taxi) and afterwards I have to pay 50% of total cost.
+            </p>
+        </div>
+        <div *ngIf="hasOffer && hasOrder && !hasConfirmed" class="tava-button-wrapper">
+            <button
+                class="tava-button-submit"
+                [attr.aria-disabled]="true"
+                (click)="nextConfirm()"
+                (keydown.enter)="nextConfirm()"
+            >{{'modules.service.commands.confirm' | translate}}</button>
+        </div>
+        <span *ngIf="hasConfirmed" class="final-message">Your request was sent successfully!<br>Processing takes 1-2 work days.</span>
+    </div>
 </section>

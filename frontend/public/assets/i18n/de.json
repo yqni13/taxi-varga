@@ -52,11 +52,13 @@
             "title": "Pauschalfahrt Beispiele"
         },
         "service": {
+            "commands": {
+                "calc": "Angebot berechnen",
+                "check": "Daten überprüfen",
+                "confirm": "Auftrag absenden"
+            },
             "content": {
                 "airport": {
-                    "calc": "Angebot berechnen",
-                    "check": "check input",
-                    "confirm": "Auftrag absenden",
                     "option": {
                         "subtitle": "ab Wien",
                         "title": "Flughafen"
@@ -67,13 +69,15 @@
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Pauschalfahrt"
-                    }
+                    },
+                    "title": "Pauschalfahrt - Routendetails"
                 },
                 "flatrate": {
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Zeitmiete"
-                    }
+                    },
+                    "title": "Zeitmiete - Routendetails"
                 }
             },
             "title": "Beförderungsangebot"

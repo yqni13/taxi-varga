@@ -53,11 +53,13 @@
             "title": "Flatrate samples"
         },
         "service": {
+            "commands": {
+                "calc": "calculate price",
+                "check": "check input",
+                "confirm": "confirm order"
+            },
             "content": {
                 "airport": {
-                    "calc": "calculate price",
-                    "check": "check input",
-                    "confirm": "confirm order",
                     "option": {
                         "subtitle": "off Vienna",
                         "title": "Airport"
@@ -68,13 +70,15 @@
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
                         "title": "Destination"
-                    }
+                    },
+                    "title": "Destination - route details"
                 },
                 "flatrate": {
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
                         "title": "Flatrate"
-                    }
+                    },
+                    "title": "Flatrate - route details"
                 }
             },
             "options": {
