@@ -2,7 +2,7 @@ const { basicResponse } = require('../utils/common.utils');
 const DrivingModel = require('../models/driving.model');
 const { UnexpectedException } = require('../utils/exceptions/common.exception');
 
-class DrivingRepository {
+class DrivingService {
     calcAirportRoute = async (params) => {
         let calculation = await DrivingModel.calcAirportRoute(params);
         if(!calculation) {
@@ -31,4 +31,4 @@ class DrivingRepository {
     }
 }
 
-module.exports = new DrivingRepository;
+module.exports = new DrivingService;

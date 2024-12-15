@@ -2,7 +2,7 @@ const { basicResponse } = require('../utils/common.utils');
 const MailingModel = require('../models/mailing.model');
 const { UnexpectedException } = require('../utils/exceptions/common.exception');
 
-class MailingRepository {
+class MailingService {
     sendMail = async (params) => {
         let mail = await MailingModel.sendMail(params);
         if(!mail) {
@@ -13,4 +13,4 @@ class MailingRepository {
     }
 }
 
-module.exports = new MailingRepository;
+module.exports = new MailingService;
