@@ -71,11 +71,11 @@ exports.drivingFlatrateSchema = [
 ]
 
 exports.drivingAirportSchema = [
-    body('passengers')
+    body('zipCode')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail()
-        .isInt({min: 1})
-        .withMessage('driving-invalid-passengers-min')
+        .isInt({min: 1010, max: 1220})
+        .withMessage('driving-invalid-zipcode-vienna')
 ]
