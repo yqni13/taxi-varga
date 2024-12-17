@@ -11,6 +11,11 @@ exports.drivingDestinationSchema = [
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
+        .bail(),
+    body('back2home')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
         .bail()
     // body('transport')
     //     .trim()
