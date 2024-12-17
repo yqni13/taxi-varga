@@ -1,0 +1,9 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-validation-errors {
+    color: sass.$color-valid-red;
+    font-size: 8px;
+    font-weight: bold;
+    padding: 2px 7px;
+}

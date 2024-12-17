@@ -1,0 +1,12 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-text-wrapper {
+    // use ngStyle for width to style lvl above => <tava-textinput>
+    display: grid;
+    
+    input {
+        width: calc(100% - 12px);
+        padding: 8.5px sass.$form-padding-small;
+    }
+}

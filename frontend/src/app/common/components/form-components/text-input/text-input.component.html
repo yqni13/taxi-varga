@@ -1,0 +1,12 @@
+<div class="tava-text-wrapper {{className}}" ngClass="{{ngClass}}">
+    <input 
+        type="{{inputType}}"
+        placeholder="{{placeholder}}"
+        [readonly]="readonly"
+        [formControl]="formControl"
+    >
+    <tava-validation
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
+    ></tava-validation>
+</div>
