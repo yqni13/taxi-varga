@@ -1,6 +1,6 @@
 const { NotFoundException } = require("../utils/exceptions/common.exception");
 
-const GoogleAPI = 'API';
+const GoogleAPI = require('../services/google-api.service');
 
 class DrivingModel {
     calcAirportRoute = (params) => {
@@ -27,14 +27,13 @@ class DrivingModel {
         return {price: price};
     }
 
-    calcDestinationRoute = (params) => {
+    calcDestinationRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
 
-        const routeData = GoogleAPI;
-        
-        return {};
+        const routeData = await GoogleAPI.requestDistanceMatrix(params);
+        return {routeData};
     }
     
     calcFlatrateRoute = async (params) => {

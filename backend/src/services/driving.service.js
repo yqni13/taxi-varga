@@ -12,9 +12,9 @@ class DrivingService {
         return basicResponse(calculation, 1, "Success");
     }
     
-    calcDestinationRoute = (params) => {
+    calcDestinationRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = DrivingModel.calcDestinationRoute(hasParams ? params : {});
+        let calculation = await DrivingModel.calcDestinationRoute(hasParams ? params : {});
         if(!calculation) {
             throw new UnexpectedException('No logic to calc yet'); //TODO(yqni13): replace with regarding error
         }

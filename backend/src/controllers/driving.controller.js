@@ -8,10 +8,9 @@ class DrivingController {
         res.send(response);
     }
 
-    calcDrivingDestination = (req, res, next) => {
+    calcDrivingDestination = async (req, res, next) => {
         checkValidation(req);
-        console.log(req.body); // result == {}
-        const response = DrivingService.calcDestinationRoute(req.body);
+        const response = await DrivingService.calcDestinationRoute(req.body);
         res.send(response);
     }
 
