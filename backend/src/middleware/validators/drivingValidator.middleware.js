@@ -2,62 +2,77 @@ const { body } = require('express-validator');
 const { stateRegex, streetRegex } = require('../../utils/common.utils');
 
 exports.drivingDestinationSchema = [
-    body('transport')
+    body('origins')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
+        .bail(),
+    body('destinations')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
+        .bail(),
+    body('back2home')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail()
-        .equals('drive')
-        .withMessage('driving-invalid-transport'),
-    body('street')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isLength({max: 50})
-        .withMessage('driving-invalid-street-length'),
-        // .matches(streetRegex)
-        // .withMessage('driving-invalid-street-regex'),
-    body('number')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required'),
-    body('info')
-        .optional()
-        .trim(),
-    body('zipCode')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isLength({min: 4, max: 5})
-        .withMessage('driving-invalid-zipCode'),
-    body('city')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isLength({max: 50})
-        .withMessage('driving-invalid-city-length')
-        .matches(stateRegex)
-        .withMessage('driving-invalid-city-regex'),
-    body('country')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isLength({max: 50})
-        .withMessage('driving-invalid-country-length')
-        .matches(stateRegex)
-        .withMessage('driving-invalid-country-regex'),
-    body('date')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required'),
-    body('time')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
+    // body('transport')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
+    //     .bail()
+    //     .equals('drive')
+    //     .withMessage('driving-invalid-transport'),
+    // body('street')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
+    //     .bail()
+    //     .isLength({max: 50})
+    //     .withMessage('driving-invalid-street-length'),
+    //     // .matches(streetRegex)
+    //     // .withMessage('driving-invalid-street-regex'),
+    // body('number')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required'),
+    // body('info')
+    //     .optional()
+    //     .trim(),
+    // body('zipCode')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
+    //     .bail()
+    //     .isLength({min: 4, max: 5})
+    //     .withMessage('driving-invalid-zipCode'),
+    // body('city')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
+    //     .bail()
+    //     .isLength({max: 50})
+    //     .withMessage('driving-invalid-city-length')
+    //     .matches(stateRegex)
+    //     .withMessage('driving-invalid-city-regex'),
+    // body('country')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
+    //     .bail()
+    //     .isLength({max: 50})
+    //     .withMessage('driving-invalid-country-length')
+    //     .matches(stateRegex)
+    //     .withMessage('driving-invalid-country-regex'),
+    // body('date')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required'),
+    // body('time')
+    //     .trim()
+    //     .notEmpty()
+    //     .withMessage('basic-invalid-required')
 ];
 // TODO(yqni13): add validation for time and date
 exports.drivingFlatrateSchema = [
@@ -71,11 +86,11 @@ exports.drivingFlatrateSchema = [
 ]
 
 exports.drivingAirportSchema = [
-    body('passengers')
+    body('zipCode')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail()
-        .isInt({min: 1})
-        .withMessage('driving-invalid-passengers-min')
+        .isInt({min: 1010, max: 1220})
+        .withMessage('driving-invalid-zipcode-vienna')
 ]

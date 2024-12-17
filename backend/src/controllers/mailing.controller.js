@@ -1,10 +1,10 @@
-const MailingRepository = require('../repositories/mailing.repository');
+const MailingService = require('../services/mailing.service');
 const { checkValidation } = require('../middleware/validation.middleware');
 
 class MailingController {
     createMail = async (req, res, next) => {
         checkValidation(req);
-        const response = await MailingRepository.sendMail(req.body);
+        const response = await MailingService.sendMail(req.body);
         res.send(response);
     }
 }
