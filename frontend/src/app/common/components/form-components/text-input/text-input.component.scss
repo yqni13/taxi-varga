@@ -10,3 +10,7 @@
         padding: 8.5px sass.$form-padding-small;
     }
 }
+
+input[type="datetime-local"] {
+    font-family: sass.$font-text-family;
+}

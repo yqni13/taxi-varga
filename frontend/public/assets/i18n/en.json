@@ -14,6 +14,10 @@
             "home": "Home",
             "samples": "Samples",
             "service": "Service"
+        },
+        "validation": {
+            "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+            "required": "Field \"{{fieldName}}\" is required."
         }
     },
     "modules": {
@@ -67,6 +71,13 @@
                     "title": "Airport - route details"
                 },
                 "destination": {
+                    "labels": {
+                        "back2home": "I want to return to my pickup address.",
+                        "datetime": "Date & time (pickup)",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "placeholder": "Type address"
+                    },
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
                         "title": "Destination"
@@ -79,12 +90,13 @@
                         "title": "Flatrate"
                     },
                     "title": "Flatrate - route details"
+                },
+                "form": {
+                    "back2home": "Return home",
+                    "datetime": "Date & time",
+                    "destination": "Destination address",
+                    "origin": "Pickup address"
                 }
-            },
-            "options": {
-                "airport": "Airport",
-                "destination": "Destination",
-                "flatrate": "Flatrate"
             },
             "title": "Transportation service"
         }

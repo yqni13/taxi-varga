@@ -6,24 +6,54 @@
     </header>
     <div class="tava-service-destination-content">
         <div *ngIf="!hasOffer" class="tava-service-destination-content-input-offer">
-            <div class="destination-input">
-                <input type="text" id="addressStart" name="addressStart" placeholder="Start address">
-            </div>
-            <div class="destination-input">
-                <input type="text" id="addressEnd" name="addressEnd" placeholder="End address">
-            </div>
-            <div class="destination-input">
-                <input type="text" id="notes" name="notes" placeholder="Notes">
-            </div>
-            <div class="destination-input">
-                <input type="datetime-local" id="datetime" name="datetime">
-            </div>
+            <form [formGroup]="serviceForm">
+                <div class="tava-service-destination-block" id="form-origin">
+                    <span class="tava-service-block-label">
+                        {{'modules.service.content.destination.labels.origin' | translate}}
+                    </span>
+                    <tava-textinput
+                        [className]="'tava-form'"
+                        [inputType]="'text'"
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate) + '*'"
+                        [formControl]="serviceForm.get('originAddress') | controlCast"
+                        [fieldName]="'modules.service.content.form.origin' | translate"
+                    ></tava-textinput>
+                </div>
+                <div class="tava-service-destination-block" id="form-destination">
+                    <span class="tava-service-block-label">
+                        {{'modules.service.content.destination.labels.destination' | translate}}
+                    </span>
+                    <tava-textinput
+                        [className]="'tava-form'"
+                        [inputType]="'text'"
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate) + '*'"
+                        [formControl]="serviceForm.get('destinationAddress') | controlCast"
+                        [fieldName]="'modules.service.content.form.destination' | translate"
+                    ></tava-textinput>                    
+                </div>
+                <div class="tava-service-destination-block" id="form-checkbox">
+                    <input class="tava-text-input-checkbox" type="checkbox" (change)="getCheckboxValue($event)">
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.destination.labels.back2home' | translate}}
+                    </span>
+                </div>
+                <div class="tava-service-destination-block" id="form-datetime">
+                    <span class="tava-service-block-label">
+                        {{'modules.service.content.destination.labels.datetime' | translate}}
+                    </span>
+                    <tava-textinput
+                        [inputType]="'datetime-local'"
+                        [formControl]="serviceForm.get('datetime') | controlCast"
+                        [fieldName]="'modules.service.content.form.datetime' | translate"
+                    ></tava-textinput>
+                </div>
+            </form>
         </div>
         <div *ngIf="!hasOffer" class="tava-button-wrapper">
             <button
                 class="tava-button-submit"
                 [attr.aria-disabled]="true"
-                (click)="nextOffer()"
+                (click)="onSubmit()"
                 (keydown.enter)="nextOffer()"
             >{{'modules.service.commands.calc' | translate}}</button>
         </div>
