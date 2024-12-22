@@ -1,0 +1,15 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+$select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-padding);
+
+.tava-select-wrapper {
+    // use ngStyle for width to style lvl above => <tava-selectinput>
+    display: grid;
+    margin-right: -1px; // to adapt calculating width as last-right form element
+    
+    select {
+        width: calc(100% - sass.$select-balance-padding);
+        padding: 7.5px 0 7.5px $select-left-padding;
+    }
+}

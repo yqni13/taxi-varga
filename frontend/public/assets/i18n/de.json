@@ -91,10 +91,33 @@
                     "title": "Zeitmiete - Routendetails"
                 },
                 "form": {
-                    "back2home": "Rückkehr",
-                    "datetime": "Datum & Uhrzeit",
-                    "destination": "Zieladresse",
-                    "origin": "Abholadresse"
+                    "customer": {
+                        "email": "Email Adresse",
+                        "firstName": "Vorname",
+                        "gender": "Anrede",
+                        "lastName": "Nachname",
+                        "phone": "Telefon-Nummer",
+                        "placeholder": {
+                            "email": "john.smith@demo.com",
+                            "gender": "Anrede auswählen",
+                            "phone": "+43 664 123 45 67"
+                        },
+                        "title": "Titel"
+                    },
+                    "offer": {
+                        "datetime": "Datum & Uhrzeit",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse"
+                    },
+                    "order": {
+                        "date": "Datum der Abholung",
+                        "distance": "Distanz in Summe",
+                        "duration": "Zeit in Summe",
+                        "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
+                        "price": "Geschätzter Preis",
+                        "time": "Zeit der Abholung",
+                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr Baustellen, oder Verkehrsunfällen variieren."
+                    }
                 }
             },
             "title": "Beförderungsangebot"
@@ -102,6 +125,10 @@
     },
     "shared": {
         "enum": {
+            "gender": {
+                "female": "Frau",
+                "male": "Herr"
+            },
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"

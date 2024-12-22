@@ -92,10 +92,33 @@
                     "title": "Flatrate - route details"
                 },
                 "form": {
-                    "back2home": "Return home",
-                    "datetime": "Date & time",
-                    "destination": "Destination address",
-                    "origin": "Pickup address"
+                    "customer": {
+                        "email": "Email address",
+                        "firstName": "First name",
+                        "gender": "Form of address",
+                        "lastName": "Last name",
+                        "phone": "Phone number",
+                        "placeholder": {
+                            "email": "john.smith@demo.com",
+                            "gender": "Select form of address",
+                            "phone": "+43 664 123 45 67"
+                        },
+                        "title": "Title"
+                    },
+                    "offer": {
+                        "datetime": "Date & time",
+                        "destination": "Destination address",
+                        "origin": "Pickup address"
+                    },
+                    "order": {
+                        "date": "Date of pick-up",
+                        "distance": "Total distance",
+                        "duration": "Estimated duration (depending on traffic)",
+                        "licence": "Price calculation based on licensed Vienna taxi rate!",
+                        "price": "Estimated price",
+                        "time": "Time of pick-up",
+                        "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
+                    }
                 }
             },
             "title": "Transportation service"
@@ -103,6 +126,10 @@
     },
     "shared": {
         "enum": {
+            "gender": {
+                "female": "Ms.",
+                "male": "Mr."
+            },
             "language": {
                 "de": "German",
                 "en": "English"

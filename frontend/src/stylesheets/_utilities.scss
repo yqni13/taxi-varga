@@ -19,6 +19,7 @@ $color-icon-moon: #b17a0b;
 
 /* CUSTOM VALUES */
 $space5: 5px;
+$space15: 15px;
 $space25: 25px;
 $space50: 50px;
 $space100: 100px;
@@ -35,3 +36,7 @@ $font-text-size: clamp(18px, 1.6vw, 25px);
 $footer-text-size: clamp(16px, 1.2vw, 25px);
 
 $font-text-family: "Optima", sans-serif;
+
+/* IMPORTANT! <select> uses padding-left: 4px intern (don't know yet to change that) */
+$select-balance-padding: 4px;
+/* DO NOT CHANGE! this is used to balance! */
