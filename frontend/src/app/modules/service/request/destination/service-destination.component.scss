@@ -24,10 +24,6 @@
     background: none;
     cursor: pointer;
 }
-.tava-text-input-checkbox:checked {
-    background-color: green;
-}
-
 
 .tava-service-destination-block {
     display: flex;
@@ -41,15 +37,57 @@
     margin-bottom: sass.$space5;
 }
 
+.tava-service-destination-content-sum-offer {
+    width: 33vw;
+    max-width: 500px;
+    
+    .tava-service-destination-offer-sum {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding: sass.$space5 0;
+
+        .tava-service-destination-offer-sum-left {
+            text-align: end;
+            width: 33%;
+        }
+        .tava-service-destination-offer-sum-right {
+            text-align: start;
+            width: 67%;
+            margin-left: sass.$space5;
+        }
+    }
+
+    #tava-service-offer-warnings{
+        display: flex;
+        flex-direction: columns;
+        flex-wrap: wrap;
+        margin: sass.$space15 0 sass.$space25 0;
+        text-align: center;
+        border: 1px inset var(--theme-body-text);
+        border-radius: sass.$space15;
+        padding: sass.$space15;
+        font-style: italic;
+        span {
+            opacity: 0.8;
+        }
+    }
+
+    #tava-service-offer-price .tava-service-destination-offer-sum-right {
+        font-weight: bold;
+        color: var(--theme-main-green);
+        text-decoration: underline double var(--theme-main-green);
+    }
+}
 
 .tava-service-destination-content-input-offer,
 .tava-service-destination-content-input-order {
     display: flex;
     flex-direction: column;
-    width: auto;
-    max-width: 400px;
+    width: 50vw;
+    max-width: 500px;
     border: 2px solid grey;
-    border-radius: 15px;
+    border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;
 
     input {
@@ -65,6 +103,32 @@
     .destination-checkbox {
         margin-left: sass.$space50;
     }
+}
+
+.tava-service-destination-content-input-order {
+    margin: sass.$space50 0;
+}
+
+.tava-service-destination-customer-block {
+    display: flex;
+    flex-direction: row;
+    margin: sass.$space15 0;
+}
+
+.tava-service-form-customer-single {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tava-service-form-customer-double {
+    display: flex;
+    flex-direction: column;
+    width: 47.5%;
+}
+
+#tava-service-customer-double-right {
+    margin-left: 5%;
 }
 
 .tava-button-wrapper {

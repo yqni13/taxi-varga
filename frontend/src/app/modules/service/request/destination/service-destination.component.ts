@@ -8,6 +8,9 @@ import { CommonModule, DOCUMENT } from "@angular/common";
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { CastAbstract2FormControlPipe } from "../../../../common/pipes/cast-abstract2form-control.pipe";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
+import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
+import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
+import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
 
 @Component({
     selector: 'tava-service-destination',
@@ -16,8 +19,11 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
     standalone: true,
     imports: [
         CastAbstract2FormControlPipe,
+        CurrencyFormatPipe,
         CommonModule,
         ReactiveFormsModule,
+        SelectInputComponent,
+        TextareaInputComponent,
         TextInputComponent,
         TranslateModule
     ]
@@ -35,6 +41,7 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
 
     private subscriptionThemeObservation$: Subscription;
     private window: any;
+    private customerData: string[];
 
     constructor(
         private readonly fb: FormBuilder,
@@ -51,6 +58,15 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
     
         this.subscriptionThemeObservation$ = new Subscription();
         this.window = this.document.defaultView;
+        this.customerData = [
+            'gender',
+            'title',
+            'firstName',
+            'lastName',
+            'phone',
+            'email',
+            'note'
+        ];
     }
 
     ngOnInit() {
@@ -85,39 +101,61 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            originAddress: '',
-            destinationAddress: '',            
+            originAddress: 'VIE',
+            destinationAddress: '150',            
             back2home: false,
-            datetime: ''
+            datetime: '2024-12-23T00:04'
         });
+        // this.serviceForm.patchValue({
+        //     originAddress: '',
+        //     destinationAddress: '',            
+        //     back2home: false,
+        //     datetime: ''
+        // });
     }
 
     getCheckboxValue(event: any) {
         this.serviceForm.get('back2home')?.setValue(event.target?.checked);
     }
 
-    googlePlacesAutocomplete() {
-        if((this.window as any).google) {
-            new google.maps.places.Autocomplete(
-                this.originSearchInput.nativeElement
-            );
-        } else {
-            console.error('Google Maps API failed to load.');
-        }
-    }
+    // googlePlacesAutocomplete() {
+    //     if((this.window as any).google) {
+    //         new google.maps.places.Autocomplete(
+    //             this.originSearchInput.nativeElement
+    //         );
+    //     } else {
+    //         console.error('Google Maps API failed to load.');
+    //     }
+    // }
 
-    onSubmit() {
+    onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
-        console.log("form values: ", this.serviceForm);
+        console.log(this.serviceForm);
 
         if(this.serviceForm.invalid) {
             return;
         }
+
+        this.hasOffer = true;
+        this.addCustomerData2Form();
     }
 
-    nextOffer() {
-        console.log('continue with offer');
-        this.hasOffer = true;
+    addCustomerData2Form() {
+        Object.values(this.customerData).forEach((element) => {
+            if(element !== 'title' && element !== 'note') {
+                this.serviceForm.addControl(element, new FormControl('', Validators.required));
+            } else {
+                this.serviceForm.addControl(element, new FormControl(''))
+            }
+        })
+    }
+
+    onSubmitOrder() {
+        this.serviceForm.markAllAsTouched();
+
+        if(this.serviceForm.invalid) {
+            return;
+        }
     }
 
     nextOrder() {
