@@ -92,15 +92,20 @@
                 },
                 "form": {
                     "customer": {
-                        "email": "Email Adresse",
+                        "email": "Email-Adresse",
                         "firstName": "Vorname",
                         "gender": "Anrede",
                         "lastName": "Nachname",
+                        "note": "Notiz",
                         "phone": "Telefon-Nummer",
                         "placeholder": {
-                            "email": "john.smith@demo.com",
+                            "email": "max.mustermann@demo.at",
+                            "firstName": "z.B.: Max",
                             "gender": "Anrede auswählen",
-                            "phone": "+43 664 123 45 67"
+                            "lastName": "z.B.: Mustermann",
+                            "note": "Fügen Sie eine persönliche Notiz hinzu wenn erforderlich.",
+                            "phone": "+43 664 123 45 67",
+                            "title": "z.B.: Ing."
                         },
                         "title": "Titel"
                     },
@@ -110,11 +115,13 @@
                         "origin": "Abholadresse"
                     },
                     "order": {
+                        "contact": "Kontakt",
                         "date": "Datum der Abholung",
                         "distance": "Distanz in Summe",
                         "duration": "Zeit in Summe",
                         "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price": "Geschätzter Preis",
+                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist und danach 50% der Gesamtkosten im Falle eines Stornos oder Versäumnis fällig werden.",
                         "time": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr Baustellen, oder Verkehrsunfällen variieren."
                     }

@@ -11,6 +11,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
 import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
+import { ConvertingService } from "../../../../shared/services/converting.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -38,6 +39,8 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
     protected hasConfirmed: boolean;
 
     protected serviceForm: FormGroup;
+    protected customer: string;
+    protected termsAcceptance: boolean;
 
     private subscriptionThemeObservation$: Subscription;
     private window: any;
@@ -47,6 +50,7 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
         private readonly fb: FormBuilder,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
+        private readonly convertingService: ConvertingService,
         @Inject(DOCUMENT) private document: Document
     ) {
         this.selectedBg = '';
@@ -55,6 +59,8 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
         this.hasConfirmed = false;
 
         this.serviceForm = new FormGroup({});
+        this.customer = '';
+        this.termsAcceptance = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
         this.window = this.document.defaultView;
@@ -94,28 +100,47 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
-            datetime: new FormControl('', Validators.required)
+            datetime: new FormControl('', Validators.required),
+            pickupDATE: new FormControl(''),
+            pickupTIME: new FormControl(''),
+            distance: new FormControl(''),
+            duration: new FormControl(''),
+            price: new FormControl('')
         });
     }
 
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            originAddress: 'VIE',
-            destinationAddress: '150',            
+            originAddress: 'Vienna International Airport',
+            destinationAddress: 'Anton Bruckner-Gasse 11, 2544 Leobersdorf',
             back2home: false,
-            datetime: '2024-12-23T00:04'
+            datetime: '2024-12-23T01:38',
+            pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T01:38'),
+            pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T01:38'),
+            distance: '49.6 km',
+            duration: '36 min',
+            price: '72'
         });
         // this.serviceForm.patchValue({
         //     originAddress: '',
         //     destinationAddress: '',            
         //     back2home: false,
-        //     datetime: ''
+        //     datetime: '',
+        //     pickupDATE: '',
+        //     pickupTIME: '',
+        //     distance: '',
+        //     duration: '',
+        //     price: ''
         // });
     }
 
-    getCheckboxValue(event: any) {
+    getBack2HomeCheckboxValue(event: any) {
         this.serviceForm.get('back2home')?.setValue(event.target?.checked);
+    }
+
+    getTermsCheckboxValue(event: any) {
+        this.termsAcceptance = event.target?.checked;
     }
 
     // googlePlacesAutocomplete() {
@@ -142,7 +167,9 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
 
     addCustomerData2Form() {
         Object.values(this.customerData).forEach((element) => {
-            if(element !== 'title' && element !== 'note') {
+            if(element === 'email') {
+                this.serviceForm.addControl(element, new FormControl('', [Validators.required, Validators.email]));
+            } else if(element !== 'title' && element !== 'note') {
                 this.serviceForm.addControl(element, new FormControl('', Validators.required));
             } else {
                 this.serviceForm.addControl(element, new FormControl(''))
@@ -156,14 +183,23 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
         if(this.serviceForm.invalid) {
             return;
         }
-    }
 
-    nextOrder() {
-        console.log('continue with order');
         this.hasOrder = true;
+        this.editFinalOrder();
     }
 
-    nextConfirm() {
+    editFinalOrder() {
+        const title = this.serviceForm.get('title')?.value !== ''
+            ? this.serviceForm.get('title')?.value + ' '
+            : ''
+        this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
+    }
+
+    submitOrder() {
+        if(!this.termsAcceptance) {
+            return;
+        }
+
         console.log('offer confirmed');
         this.hasConfirmed = true;
     }

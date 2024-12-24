@@ -6,7 +6,6 @@
     display: grid;
 
     textarea {
-        width: calc(100% - 12px);
         padding: 7.5px sass.$form-padding-small;
         scroll-padding-block: 7.5px sass.$form-padding-small;
         font-family: sass.$font-text-family;

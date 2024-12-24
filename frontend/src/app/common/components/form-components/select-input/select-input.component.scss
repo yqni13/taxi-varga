@@ -9,7 +9,7 @@ $select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-paddi
     margin-right: -1px; // to adapt calculating width as last-right form element
     
     select {
-        width: calc(100% - sass.$select-balance-padding);
-        padding: 7.5px 0 7.5px $select-left-padding;
+        width: 100%;
+        padding: 9.5px 0 9.5px $select-left-padding;
     }
 }

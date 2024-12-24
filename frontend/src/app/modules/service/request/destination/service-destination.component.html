@@ -34,7 +34,7 @@
                     ></tava-textinput>                    
                 </div>
                 <div class="tava-service-destination-block" id="form-checkbox">
-                    <input class="tava-text-input-checkbox" type="checkbox" (change)="getCheckboxValue($event)">
+                    <input class="tava-text-input-checkbox" type="checkbox" (change)="getBack2HomeCheckboxValue($event)">
                     <span class="tava-service-block-input">
                         {{'modules.service.content.destination.labels.back2home' | translate}}
                     </span>
@@ -62,6 +62,38 @@
 
         <!-- 1ST SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
         <div *ngIf="hasOffer && !hasConfirmed" class="tava-service-destination-content-sum-offer">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.order.contact' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{('shared.enum.gender.' + serviceForm.get('gender')?.value | translate) + customer}}
+                </span>
+            </div>
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.customer.phone' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{serviceForm.get('phone')?.value}}
+                </span>
+            </div>
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.customer.email' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{serviceForm.get('email')?.value}}
+                </span>
+            </div>
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum" id="tava-service-offer-customer-last">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.customer.note' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{serviceForm.get('note')?.value !== '' ? serviceForm.get('note')?.value : '-/-'}}
+                </span>
+            </div>
             <div class="tava-service-destination-offer-sum">
                 <span class="tava-service-destination-offer-sum-left">
                     {{('modules.service.content.form.offer.origin' | translate) + ':'}}
@@ -83,7 +115,7 @@
                     {{('modules.service.content.form.order.date' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('destinationAddress')?.value}}
+                    {{serviceForm.get('pickupDATE')?.value}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum">
@@ -91,7 +123,7 @@
                     {{('modules.service.content.form.order.time' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('destinationAddress')?.value}}
+                    {{serviceForm.get('pickupTIME')?.value}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum">
@@ -99,7 +131,7 @@
                     {{('modules.service.content.form.order.distance' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('destinationAddress')?.value}}
+                    {{serviceForm.get('distance')?.value}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum">
@@ -107,7 +139,7 @@
                     {{('modules.service.content.form.order.duration' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('destinationAddress')?.value}}
+                    {{serviceForm.get('duration')?.value}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-warnings">
@@ -123,7 +155,13 @@
                     {{('modules.service.content.form.order.price' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('destinationAddress')?.value | currencyFormat}}
+                    {{serviceForm.get('price')?.value | currencyFormat}}
+                </span>
+            </div>
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+                <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
+                <span class="tava-service-block-input">
+                    {{'modules.service.content.form.order.terms' | translate}}
                 </span>
             </div>
         </div>
@@ -200,7 +238,7 @@
                             {{'modules.service.content.form.customer.email' | translate}}
                         </span>
                         <tava-textinput
-                            [inputType]="'text'"
+                            [inputType]="'email'"
                             [formControl]="serviceForm.get('email') | controlCast"
                             [placeholder]="'modules.service.content.form.customer.placeholder.email' | translate"
                             [fieldName]="'modules.service.content.form.customer.email' | translate"
@@ -226,28 +264,26 @@
             <button
                 class="tava-button-submit"
                 [attr.aria-disabled]="true"
-                (click)="nextOrder()"
-                (keydown.enter)="nextOrder()"
+                (click)="onSubmitOrder()"
+                (keydown.enter)="onSubmitOrder()"
             >{{'modules.service.commands.check' | translate}}</button>
         </div>
-        <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-content-order">
-            <p>
-                1. Contact: Mr Ing. Laszlo Varga<br>
-                2. Phone: 06644465466<br>
-                3. Email: laszlovarga&#64;gmx.at<br>
-            </p>
-        </div>
-        <div *ngIf="hasOrder && !hasConfirmed">
-            <p>
-                I accept that canceling my order is free only up to 24 hours before desired time of departure (with taxi) and afterwards I have to pay 50% of total cost.
-            </p>
-        </div>
-        <div *ngIf="hasOffer && hasOrder && !hasConfirmed" class="tava-button-wrapper">
+        <!-- <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+            <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
+            <span class="tava-service-block-input">
+                {{'modules.service.content.form.order.terms' | translate}}
+            </span>
+        </div> -->
+        <div 
+            *ngIf="hasOffer && hasOrder && !hasConfirmed" 
+            class="tava-button-wrapper" 
+            [ngClass]="termsAcceptance ? '' : 'tava-order-submit-invalid'" 
+        >
             <button
                 class="tava-button-submit"
                 [attr.aria-disabled]="true"
-                (click)="nextConfirm()"
-                (keydown.enter)="nextConfirm()"
+                (click)="submitOrder()"
+                (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
         <span *ngIf="hasConfirmed" class="final-message">Your request was sent successfully!<br>Processing takes 1-2 work days.</span>

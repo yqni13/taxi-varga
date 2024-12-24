@@ -15,10 +15,9 @@
 }
 
 .tava-text-input-checkbox {
-    width: calc(sass.$space5 * 4);
-    height: calc(sass.$space5 * 4);
+    transform: scale(1.5);
     padding: 0;
-    margin: 0 calc(sass.$space5 * 2);
+    margin: 0 calc(sass.$space25 + sass.$space5);
 
     /* hide default checkbox */
     background: none;
@@ -38,9 +37,12 @@
 }
 
 .tava-service-destination-content-sum-offer {
-    width: 33vw;
-    max-width: 500px;
-    
+    width: 50vw;
+    max-width: 550px;
+    padding: calc(sass.$space25 / 2) sass.$space25;
+    border: 2px solid grey;
+    border-radius: sass.$space15;
+
     .tava-service-destination-offer-sum {
         display: flex;
         flex-direction: row;
@@ -58,10 +60,15 @@
         }
     }
 
+    #tava-service-offer-customer-last {
+        margin-bottom: sass.$space25;
+    }
+
     #tava-service-offer-warnings{
         display: flex;
-        flex-direction: columns;
+        flex-direction: column;
         flex-wrap: wrap;
+        width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
         border: 1px inset var(--theme-body-text);
@@ -85,14 +92,14 @@
     display: flex;
     flex-direction: column;
     width: 50vw;
-    max-width: 500px;
+    max-width: 550px;
     border: 2px solid grey;
     border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;
 
-    input {
-        margin-right: calc(sass.$space5 * 3);
-    }
+    // input {
+    //     margin-right: calc(sass.$space5 * 3);
+    // }
     
     .destination-input input,
     .destination-dropdown select {
@@ -135,9 +142,28 @@
     margin: sass.$space25 0;
 }
 
+.tava-service-destination-terms {
+    display: flex;
+    padding: calc(sass.$space25 / 2) sass.$space25;
+    margin-top: sass.$space15;
+
+    span {
+        font-style: italic;
+        opacity: 0.8;
+    }
+}
+
 .final-message {
     text-align: center;
     color: var(--theme-body-text);
     font-size: 40px;
     font-weight: bold;
+}
+
+.tava-order-submit-invalid button {
+    color: grey;
+    user-select: none;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.2;
 }

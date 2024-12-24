@@ -97,11 +97,16 @@
                         "firstName": "First name",
                         "gender": "Form of address",
                         "lastName": "Last name",
+                        "note": "Note",
                         "phone": "Phone number",
                         "placeholder": {
                             "email": "john.smith@demo.com",
+                            "firstName": "e.g.: John",
                             "gender": "Select form of address",
-                            "phone": "+43 664 123 45 67"
+                            "lastName": "e.g.: Smith",
+                            "note": "Add your personal note if required.",
+                            "phone": "+43 664 123 45 67",
+                            "title": "e.g.: Ing."
                         },
                         "title": "Title"
                     },
@@ -111,11 +116,13 @@
                         "origin": "Pickup address"
                     },
                     "order": {
+                        "contact": "Contact",
                         "date": "Date of pick-up",
                         "distance": "Total distance",
-                        "duration": "Estimated duration (depending on traffic)",
+                        "duration": "Estimated duration",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
                         "price": "Estimated price",
+                        "terms": "I accept that canceling my order is free only up to 24 hours before desired time of departure (with taxi) and afterwards I have to pay 50% of total cost in case of cancelation or unexcused absence.",
                         "time": "Time of pick-up",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
