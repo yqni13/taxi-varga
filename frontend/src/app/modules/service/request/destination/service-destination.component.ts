@@ -1,6 +1,7 @@
+import { AfterViewInit, Renderer2 } from '@angular/core';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { Subscription, tap } from "rxjs";
+import { filter, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -12,6 +13,7 @@ import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pip
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
 import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
 import { ConvertingService } from "../../../../shared/services/converting.service";
+import { HttpObservationService } from '../../../../shared/services/http-observation.service';
 
 @Component({
     selector: 'tava-service-destination',
@@ -29,7 +31,7 @@ import { ConvertingService } from "../../../../shared/services/converting.servic
         TranslateModule
     ]
 })
-export class ServiceDestinationComponent implements OnInit, OnDestroy {
+export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @ViewChild('originSearchInput', {static: true}) originSearchInput!: ElementRef;
 
@@ -43,14 +45,18 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
     protected termsAcceptance: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionHttpObservationDriving$: Subscription;
+    private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
     private customerData: string[];
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly renderer2: Renderer2,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly convertingService: ConvertingService,
+        private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
     ) {
         this.selectedBg = '';
@@ -63,6 +69,8 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
         this.termsAcceptance = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionHttpObservationDriving$ = new Subscription();
+        this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -93,6 +101,26 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
 
         this.initEdit();
         // this.googlePlacesAutocomplete();
+    }
+
+    ngAfterViewInit() {
+        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingDestinationStatus$.pipe(
+            filter((x) => !!x),
+            tap((isStatus200: boolean) => {
+                if(isStatus200) {
+                    // stop loading animation and forward to next step
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
+            filter((x) => !!x),
+            tap((isStatus200: boolean) => {
+                if(isStatus200) {
+                    // do what needs and get to last message in process
+                }
+            })
+        ).subscribe();
     }
 
     private initForm() {
@@ -206,5 +234,7 @@ export class ServiceDestinationComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionHttpObservationDriving$.unsubscribe();
+        this.subscriptionHttpObservationEmail$.unsubscribe();
     }
 }

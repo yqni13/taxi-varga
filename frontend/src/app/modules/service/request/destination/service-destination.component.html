@@ -160,7 +160,10 @@
             </div>
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
-                <span class="tava-service-block-input">
+                <span
+                    class="tava-service-block-input"
+                    [ngClass]="!termsAcceptance ? 'tava-message-invalid' : ''"
+                >
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
             </div>
@@ -268,12 +271,6 @@
                 (keydown.enter)="onSubmitOrder()"
             >{{'modules.service.commands.check' | translate}}</button>
         </div>
-        <!-- <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
-            <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
-            <span class="tava-service-block-input">
-                {{'modules.service.content.form.order.terms' | translate}}
-            </span>
-        </div> -->
         <div 
             *ngIf="hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 

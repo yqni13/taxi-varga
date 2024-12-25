@@ -123,7 +123,7 @@
                         "price": "Geschätzter Preis",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist und danach 50% der Gesamtkosten im Falle eines Stornos oder Versäumnis fällig werden.",
                         "time": "Zeit der Abholung",
-                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr Baustellen, oder Verkehrsunfällen variieren."
+                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 }
             },

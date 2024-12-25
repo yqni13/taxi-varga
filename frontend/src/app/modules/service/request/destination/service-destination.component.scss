@@ -113,7 +113,7 @@
 }
 
 .tava-service-destination-content-input-order {
-    margin: sass.$space50 0;
+    margin: sass.$space50 0 0 0;
 }
 
 .tava-service-destination-customer-block {
@@ -139,7 +139,7 @@
 }
 
 .tava-button-wrapper {
-    margin: sass.$space25 0;
+    margin: sass.$space50 0;
 }
 
 .tava-service-destination-terms {
@@ -150,6 +150,10 @@
     span {
         font-style: italic;
         opacity: 0.8;
+    }
+
+    .tava-message-invalid {
+        color: sass.$color-valid-red;
     }
 }
 
