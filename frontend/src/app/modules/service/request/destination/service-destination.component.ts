@@ -1,6 +1,5 @@
-import { AfterViewInit, Renderer2 } from '@angular/core';
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -14,6 +13,7 @@ import { SelectInputComponent } from "../../../../common/components/form-compone
 import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
 import { ConvertingService } from "../../../../shared/services/converting.service";
 import { HttpObservationService } from '../../../../shared/services/http-observation.service';
+import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -43,6 +43,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected serviceForm: FormGroup;
     protected customer: string;
     protected termsAcceptance: boolean;
+    protected loadOfferResponse: boolean;
+    protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
@@ -52,9 +54,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     constructor(
         private readonly fb: FormBuilder,
-        private readonly renderer2: Renderer2,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
+        private readonly drivingAPIService: DrivingAPIService,
         private readonly convertingService: ConvertingService,
         private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
@@ -67,6 +69,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm = new FormGroup({});
         this.customer = '';
         this.termsAcceptance = false;
+        this.loadOfferResponse = false;
+        this.loadOrderResponse = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
@@ -105,11 +109,14 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     ngAfterViewInit() {
         this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingDestinationStatus$.pipe(
-            filter((x) => !!x),
+            filter((x) => x || !x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // stop loading animation and forward to next step
+                    this.hasOffer = true;
+                } else {
+                    // TODO(yqni13): set form invalid or show general error message
                 }
+                this.loadOfferResponse = false;
             })
         ).subscribe();
 
@@ -119,6 +126,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
                 if(isStatus200) {
                     // do what needs and get to last message in process
                 }
+                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -183,14 +191,20 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
-        console.log(this.serviceForm);
 
         if(this.serviceForm.invalid) {
             return;
         }
 
-        this.hasOffer = true;
         this.addCustomerData2Form();
+        this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendDestinationRequest().subscribe(data => {
+            console.log('response data: ', data);
+        });
+        this.loadOfferResponse = true;
+        // setTimeout(() => {
+        //     this.loadOfferResponse = false;
+        // }, 1500);
     }
 
     addCustomerData2Form() {
@@ -228,8 +242,11 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             return;
         }
 
-        console.log('offer confirmed');
-        this.hasConfirmed = true;
+        this.loadOrderResponse = true;
+        setTimeout(() => {
+            this.hasConfirmed = true;
+            this.loadOrderResponse = false;
+        }, 1500);
     }
 
     ngOnDestroy() {

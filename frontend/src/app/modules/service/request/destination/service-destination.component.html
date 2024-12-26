@@ -61,7 +61,7 @@
         </div>
 
         <!-- 1ST SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
-        <div *ngIf="hasOffer && !hasConfirmed" class="tava-service-destination-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-destination-content-sum-offer">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum">
                 <span class="tava-service-destination-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -170,7 +170,7 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="hasOffer && !hasOrder" class="tava-service-destination-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-destination-content-input-order">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-destination-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
@@ -263,7 +263,7 @@
                 </div>
             </form>
         </div>
-        <div *ngIf="hasOffer && !hasOrder" class="tava-button-wrapper">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button
                 class="tava-button-submit"
                 [attr.aria-disabled]="true"
@@ -272,7 +272,7 @@
             >{{'modules.service.commands.check' | translate}}</button>
         </div>
         <div 
-            *ngIf="hasOffer && hasOrder && !hasConfirmed" 
+            *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
             [ngClass]="termsAcceptance ? '' : 'tava-order-submit-invalid'" 
         >
@@ -284,5 +284,10 @@
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
         <span *ngIf="hasConfirmed" class="final-message">Your request was sent successfully!<br>Processing takes 1-2 work days.</span>
+    </div>
+    <div class="tava-loading-animation" [ngClass]="(loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
     </div>
 </section>

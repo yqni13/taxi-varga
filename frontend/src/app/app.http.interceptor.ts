@@ -38,13 +38,21 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 console.log('snackbar?');
             }
             if(response.url.includes('/driving/airport')) {
-                httpObservationService.setDrivingAirportStatus(false);
+                setTimeout(() => {
+                    httpObservationService.setDrivingAirportStatus(false);
+                }, 1000);
             } else if(response.url.includes('/driving/destination')) {
-                httpObservationService.setDrivingDestinationStatus(false);
+                setTimeout(() => {
+                    httpObservationService.setDrivingDestinationStatus(false);
+                }, 1000)
             } else if(response.url.includes('/driving/flatrate')) {
-                httpObservationService.setDrivingFlatrateStatus(false);
+                setTimeout(() => {
+                    httpObservationService.setDrivingFlatrateStatus(false);
+                }, 1000)
             } else if(response.url.includes('/mailing/send')) {
-                httpObservationService.setEmailStatus(false);
+                setTimeout(() => {
+                    httpObservationService.setEmailStatus(false);
+                }, 1000)
             }
             return of(response);
         })
