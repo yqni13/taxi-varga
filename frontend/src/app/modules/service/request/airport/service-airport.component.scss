@@ -8,20 +8,115 @@
     align-items: center;
 }
 
-.tava-service-airport-content-input-offer,
-.tava-service-airport-content-input-order {
-    div {
+#form-radio {
+    display: flex;
+    flex-direction: row;
+
+    label {
         margin: sass.$space5 0;
     }
 
+    .tava-form-radio-left {
+        width: 50%;
+        text-align: left;
+        margin-left: sass.$space25;
+    }
+    
+    .tava-form-radio-right {
+        width: 50%;
+        text-align: right;
+        margin-right: sass.$space25;
+    }
+}
+
+#form-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tava-text-input-checkbox {
+    transform: scale(1.5);
+    padding: 0;
+    margin: 0 calc(sass.$space25 + sass.$space5);
+
+    /* hide default checkbox */
+    background: none;
+    cursor: pointer;
+}
+
+.tava-service-airport-block {
     display: flex;
     flex-direction: column;
-    width: auto;
-    max-width: 400px;
+    margin: sass.$space25 0;
+}
 
-    input {
-        margin-right: calc(sass.$space5 * 3);
+.tava-service-block-label {
+    color: sass.$color-grey-label;
+    text-shadow: 0.6px 0.6px;
+    margin-bottom: sass.$space5;
+}
+
+.tava-service-airport-content-sum-offer {
+    width: 50vw;
+    max-width: 550px;
+    padding: calc(sass.$space25 / 2) sass.$space25;
+    border: 2px solid grey;
+    border-radius: sass.$space15;
+
+    .tava-service-airport-offer-sum {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding: sass.$space5 0;
+
+        .tava-service-airport-offer-sum-left {
+            text-align: end;
+            width: 33%;
+        }
+        .tava-service-airport-offer-sum-right {
+            text-align: start;
+            width: 67%;
+            margin-left: sass.$space5;
+        }
     }
+
+    #tava-service-offer-customer-last {
+        margin-bottom: sass.$space25;
+    }
+
+    #tava-service-offer-warnings{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: auto;
+        margin: sass.$space15 0 sass.$space25 0;
+        text-align: center;
+        border: 1px inset var(--theme-body-text);
+        border-radius: sass.$space15;
+        padding: sass.$space15;
+        font-style: italic;
+        span {
+            opacity: 0.8;
+        }
+    }
+
+    #tava-service-offer-price .tava-service-airport-offer-sum-right {
+        font-weight: bold;
+        color: var(--theme-main-green);
+        text-decoration: underline double var(--theme-main-green);
+    }
+}
+
+.tava-service-airport-content-input-offer,
+.tava-service-airport-content-input-order {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    max-width: 550px;
+    border: 2px solid grey;
+    border-radius: sass.$space15;
+    padding: calc(sass.$space25 / 2) sass.$space50;
     
     .airport-input input,
     .airport-dropdown select {
@@ -34,8 +129,49 @@
     }
 }
 
+.tava-service-airport-content-input-order {
+    margin: sass.$space50 0 0 0;
+}
+
+.tava-service-airport-customer-block {
+    display: flex;
+    flex-direction: row;
+    margin: sass.$space15 0;
+}
+
+.tava-service-form-customer-single {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tava-service-form-customer-double {
+    display: flex;
+    flex-direction: column;
+    width: 47.5%;
+}
+
+#tava-service-customer-double-right {
+    margin-left: 5%;
+}
+
 .tava-button-wrapper {
-    margin: sass.$space25 0;
+    margin: sass.$space50 0;
+}
+
+.tava-service-airport-terms {
+    display: flex;
+    padding: calc(sass.$space25 / 2) sass.$space25;
+    margin-top: sass.$space15;
+
+    span {
+        font-style: italic;
+        opacity: 0.8;
+    }
+
+    .tava-message-invalid {
+        color: sass.$color-valid-red;
+    }
 }
 
 .final-message {
@@ -43,4 +179,69 @@
     color: var(--theme-body-text);
     font-size: 40px;
     font-weight: bold;
+}
+
+.tava-order-submit-invalid button {
+    color: grey;
+    user-select: none;
+    cursor: default;
+    pointer-events: none;
+    opacity: 0.2;
+}
+
+.tava-loading-animation {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(1px);
+
+    $offset: 187;
+    $duration: 1.4s;
+
+    .spinner {
+        animation: rotator $duration linear infinite;
+        width: 65px;
+        height: 65px;
+    }
+
+    @keyframes rotator {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(270deg); }
+    }
+
+    .path {
+        stroke-dasharray: $offset;
+        stroke-dashoffset: 0;
+        transform-origin: center;
+        animation:
+            dash $duration ease-in-out infinite, 
+            colors calc($duration * 4) ease-in-out infinite;
+    }
+
+    @keyframes colors {
+        0% { stroke: #4285F4; }
+        25% { stroke: #DE3E35; }
+        50% { stroke: #F7C223; }
+        75% { stroke: #1B9A59; }
+        100% { stroke: #4285F4; }
+    }
+
+    @keyframes dash {
+        0% { stroke-dashoffset: $offset; }
+        50% {
+            stroke-dashoffset: calc($offset / 4);
+            transform:rotate(135deg);
+        }
+        100% {
+            stroke-dashoffset: $offset;
+            transform:rotate(450deg);
+        }
+    }
 }

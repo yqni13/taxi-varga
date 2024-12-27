@@ -64,6 +64,14 @@
             },
             "content": {
                 "airport": {
+                    "labels": {
+                        "arrival": "Arrival at Vienna Airport",
+                        "datetime": "Date & time (pickup)",
+                        "departure": "Departure of Vienna Airport",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "placeholder": "Type address"
+                    },
                     "option": {
                         "subtitle": "off Vienna",
                         "title": "Airport"

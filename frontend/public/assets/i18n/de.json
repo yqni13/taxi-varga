@@ -63,6 +63,14 @@
             },
             "content": {
                 "airport": {
+                    "labels": {
+                        "arrival": "Ankunft am Flughafen Wien",
+                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "departure": "Abflug vom Flughafen Wien",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "placeholder": "Adresse auswählen"
+                    },
                     "option": {
                         "subtitle": "ab Wien",
                         "title": "Flughafen"

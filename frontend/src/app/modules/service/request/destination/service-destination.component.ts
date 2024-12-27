@@ -151,9 +151,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             originAddress: 'Vienna International Airport',
             destinationAddress: 'Anton Bruckner-Gasse 11, 2544 Leobersdorf',
             back2home: false,
-            datetime: '2024-12-23T01:38',
-            pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T01:38'),
-            pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T01:38'),
+            datetime: '2024-12-23T07:38',
+            pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T07:38'),
+            pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T07:38'),
             distance: '49.6 km',
             duration: '36 min',
             price: '72'
@@ -197,14 +197,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
 
         this.addCustomerData2Form();
-        this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
-        this.drivingAPIService.sendDestinationRequest().subscribe(data => {
-            console.log('response data: ', data);
-        });
+        // this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
+        // this.drivingAPIService.sendDestinationRequest().subscribe(data => {
+        //     console.log('response data: ', data);
+        // });
+        this.hasOffer = true;
         this.loadOfferResponse = true;
-        // setTimeout(() => {
-        //     this.loadOfferResponse = false;
-        // }, 1500);
+        setTimeout(() => {
+            this.loadOfferResponse = false;
+        }, 1500);
     }
 
     addCustomerData2Form() {
