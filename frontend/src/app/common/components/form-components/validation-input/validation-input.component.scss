@@ -3,7 +3,8 @@
 
 .tava-validation-errors {
     color: sass.$color-valid-red;
-    font-size: 8px;
-    font-weight: bold;
+    font-size: 10px;
+    font-weight: normal;
     padding: 2px 7px;
+    margin-top: calc(sass.$space5 / 2);
 }

@@ -14,6 +14,8 @@ import { DrivingAPIService } from "../../../../shared/services/driving-api.servi
 import { ConvertingService } from "../../../../shared/services/converting.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
+import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
+import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 
 @Component({
     selector: 'tava-service-airport',
@@ -24,6 +26,8 @@ import { TextInputComponent } from "../../../../common/components/form-component
         CastAbstract2FormControlPipe,
         CommonModule,
         CurrencyFormatPipe,
+        DistanceFormatPipe,
+        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,
@@ -153,8 +157,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             datetime: '2024-12-23T09:38',
             pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T09:38'),
             pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T09:38'),
-            distance: '49.6 km',
-            duration: '36 min',
+            distance: 49.6,
+            duration: 36,
             price: '72'
         });
     }

@@ -17,7 +17,7 @@
 .tava-text-input-checkbox {
     transform: scale(1.5);
     padding: 0;
-    margin: 0 calc(sass.$space25 + sass.$space5);
+    margin: 0 calc(sass.$space15 + sass.$space5);
 
     /* hide default checkbox */
     background: none;
@@ -85,6 +85,10 @@
         color: var(--theme-main-green);
         text-decoration: underline double var(--theme-main-green);
     }
+    
+    #tava-service-offer-price {
+        margin: calc(sass.$space15 + 20px) 0 sass.$space15 0;
+    }
 }
 
 .tava-service-destination-content-input-offer,
@@ -141,7 +145,6 @@
 .tava-service-destination-terms {
     display: flex;
     padding: calc(sass.$space25 / 2) sass.$space25;
-    margin-top: sass.$space15;
 
     span {
         font-style: italic;

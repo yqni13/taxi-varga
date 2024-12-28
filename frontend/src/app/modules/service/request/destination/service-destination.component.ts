@@ -14,6 +14,8 @@ import { TextareaInputComponent } from "../../../../common/components/form-compo
 import { ConvertingService } from "../../../../shared/services/converting.service";
 import { HttpObservationService } from '../../../../shared/services/http-observation.service';
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
+import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
+import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 
 @Component({
     selector: 'tava-service-destination',
@@ -24,6 +26,8 @@ import { DrivingAPIService } from "../../../../shared/services/driving-api.servi
         CastAbstract2FormControlPipe,
         CurrencyFormatPipe,
         CommonModule,
+        DistanceFormatPipe,
+        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,
@@ -43,6 +47,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected serviceForm: FormGroup;
     protected customer: string;
     protected termsAcceptance: boolean;
+    protected surchargeParkingAcceptance: boolean;
+    protected surchargeFuelAcceptance: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
@@ -69,6 +75,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm = new FormGroup({});
         this.customer = '';
         this.termsAcceptance = false;
+        this.surchargeParkingAcceptance = false;
+        this.surchargeFuelAcceptance = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
     
@@ -154,8 +162,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             datetime: '2024-12-23T07:38',
             pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T07:38'),
             pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T07:38'),
-            distance: '49.6 km',
-            duration: '36 min',
+            distance: 251.6,
+            duration: 199,
             price: '72'
         });
         // this.serviceForm.patchValue({
@@ -177,6 +185,14 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     getTermsCheckboxValue(event: any) {
         this.termsAcceptance = event.target?.checked;
+    }
+
+    getSurchargeFuelCheckboxValue(event: any) {
+        this.surchargeFuelAcceptance = event.target?.checked;
+    }
+
+    getSurchargeParkingCheckboxValue(event: any) {
+        this.surchargeParkingAcceptance = event.target?.checked;
     }
 
     // googlePlacesAutocomplete() {
@@ -236,6 +252,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             ? this.serviceForm.get('title')?.value + ' '
             : ''
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
+        if(this.serviceForm.get('distance')?.value < 250) {
+            this.surchargeFuelAcceptance = true;
+        }
     }
 
     submitOrder() {

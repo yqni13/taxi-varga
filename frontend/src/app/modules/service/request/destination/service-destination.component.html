@@ -131,7 +131,7 @@
                     {{('modules.service.content.form.order.distance' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('distance')?.value}}
+                    {{serviceForm.get('distance')?.value | distanceFormat}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum">
@@ -139,7 +139,7 @@
                     {{('modules.service.content.form.order.duration' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('duration')?.value}}
+                    {{serviceForm.get('duration')?.value | durationFormat}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-warnings">
@@ -152,7 +152,7 @@
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-price">
                 <span class="tava-service-destination-offer-sum-left">
-                    {{('modules.service.content.form.order.price' | translate) + ':'}}
+                    {{('modules.service.content.form.order.priceEstimated' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
                     {{serviceForm.get('price')?.value | currencyFormat}}
@@ -165,6 +165,24 @@
                     [ngClass]="!termsAcceptance ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.terms' | translate}}
+                </span>
+            </div>
+            <div *ngIf="serviceForm.get('distance')?.value >= 250 && hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+                <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeFuelCheckboxValue($event)">
+                <span
+                    class="tava-service-block-input"
+                    [ngClass]="!surchargeFuelAcceptance ? 'tava-message-invalid' : ''"
+                >
+                    {{'modules.service.content.form.order.surchargeFuel' | translate}}
+                </span>
+            </div>
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+                <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
+                <span
+                    class="tava-service-block-input"
+                    [ngClass]="!surchargeParkingAcceptance ? 'tava-message-invalid' : ''"
+                >
+                    {{'modules.service.content.form.order.surchargeParking' | translate}}
                 </span>
             </div>
         </div>
@@ -274,7 +292,7 @@
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
-            [ngClass]="termsAcceptance ? '' : 'tava-order-submit-invalid'" 
+            [ngClass]="termsAcceptance && surchargeFuelAcceptance && surchargeParkingAcceptance ? '' : 'tava-order-submit-invalid'" 
         >
             <button
                 class="tava-button-submit"
