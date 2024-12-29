@@ -16,6 +16,7 @@ import { HttpObservationService } from "../../../../shared/services/http-observa
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
+import { VarDirective } from "../../../../common/directives/ng-var.directive";
 
 @Component({
     selector: 'tava-service-airport',
@@ -32,7 +33,8 @@ import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pip
         SelectInputComponent,
         TextareaInputComponent,
         TextInputComponent,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy {

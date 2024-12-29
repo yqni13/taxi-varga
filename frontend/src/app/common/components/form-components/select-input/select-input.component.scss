@@ -13,3 +13,10 @@ $select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-paddi
         padding: 9.5px 0 9.5px $select-left-padding;
     }
 }
+
+i {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    margin: calc(sass.$space5 / 2) sass.$space15 0 0;
+}

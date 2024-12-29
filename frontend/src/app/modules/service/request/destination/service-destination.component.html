@@ -11,24 +11,24 @@
             <form [formGroup]="serviceForm">
                 <div class="tava-service-destination-block" id="form-origin">
                     <span class="tava-service-block-label">
-                        {{'modules.service.content.destination.labels.origin' | translate}}
+                        {{('modules.service.content.destination.labels.origin' | translate) + '*'}}
                     </span>
                     <tava-textinput
                         [className]="'tava-form'"
                         [inputType]="'text'"
-                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate) + '*'"
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                     ></tava-textinput>
                 </div>
                 <div class="tava-service-destination-block" id="form-destination">
                     <span class="tava-service-block-label">
-                        {{'modules.service.content.destination.labels.destination' | translate}}
+                        {{('modules.service.content.destination.labels.destination' | translate) + '*'}}
                     </span>
                     <tava-textinput
                         [className]="'tava-form'"
                         [inputType]="'text'"
-                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate) + '*'"
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('destinationAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.destination' | translate"
                     ></tava-textinput>                    
@@ -41,7 +41,7 @@
                 </div>
                 <div class="tava-service-destination-block" id="form-datetime">
                     <span class="tava-service-block-label">
-                        {{'modules.service.content.destination.labels.datetime' | translate}}
+                        {{('modules.service.content.destination.labels.datetime' | translate) + '*'}}
                     </span>
                     <tava-textinput
                         [inputType]="'datetime-local'"
@@ -193,7 +193,7 @@
                 <div class="tava-service-destination-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
                         <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.gender' | translate}}
+                            {{('modules.service.content.form.customer.gender' | translate) + '*'}}
                         </span>
                         <tava-selectinput
                             [className]="'tava-form'"
@@ -219,7 +219,7 @@
                 <div class="tava-service-destination-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
                         <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.firstName' | translate}}
+                            {{('modules.service.content.form.customer.firstName' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'text'"
@@ -230,7 +230,7 @@
                     </div>
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
                         <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.lastName' | translate}}
+                            {{('modules.service.content.form.customer.lastName' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'text'"
@@ -243,7 +243,7 @@
                 <div class="tava-service-destination-customer-block">
                     <div class="tava-service-form-customer-single">
                         <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.phone' | translate}}
+                            {{('modules.service.content.form.customer.phone' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'text'"
@@ -256,7 +256,7 @@
                 <div class="tava-service-destination-customer-block">
                     <div class="tava-service-form-customer-single">
                         <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.email' | translate}}
+                            {{('modules.service.content.form.customer.email' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'email'"

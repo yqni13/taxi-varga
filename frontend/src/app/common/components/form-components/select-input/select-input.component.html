@@ -10,6 +10,7 @@
             value="{{option.value}}"
         >{{optionsTranslateRoot + option.key | translate}}</option>
     </select>
+    <i class="icon-warning" *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"></i>
     <tava-validation
         [ngControl]="formControl"
         [fieldName]="fieldName"

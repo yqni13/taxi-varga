@@ -64,6 +64,7 @@
             },
             "content": {
                 "airport": {
+                    "block-validation": "Please select your option of arrival or departure.",
                     "labels": {
                         "arrival": "Arrival at Vienna Airport",
                         "datetime": "Date & time (pickup)",

@@ -5,6 +5,11 @@
         [readonly]="readonly"
         [formControl]="formControl"
     >
+    <i
+        class="icon-warning"
+        *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+        [ngClass]="classNameWarningIcon"
+    ></i>
     <tava-validation
         [ngControl]="formControl"
         [fieldName]="fieldName"

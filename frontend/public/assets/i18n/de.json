@@ -63,6 +63,7 @@
             },
             "content": {
                 "airport": {
+                    "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
                     "labels": {
                         "arrival": "Ankunft am Flughafen Wien",
                         "datetime": "Datum & Uhrzeit (Abholung)",

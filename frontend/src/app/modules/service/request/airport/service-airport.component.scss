@@ -10,28 +10,47 @@
 
 #form-radio {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
-    label {
-        margin: sass.$space5 0;
+    .tava-service-airport-radio-wrapper {
+        display: flex;
+        flex-direction: row;
 
-        input {
-            margin-right: calc(sass.$space15 - sass.$space5);
+        label {
+            margin: sass.$space5 0;
+    
+            input {
+                margin-right: calc(sass.$space15 - sass.$space5);
+            }
+        }
+
+        .tava-form-radio-left {
+            width: 50%;
+            text-align: left;
+            margin-left: sass.$space25;
+        }
+
+        .tava-form-radio-right {
+            width: 50%;
+            text-align: right;
+            margin-right: sass.$space25;
         }
     }
 
-    .tava-form-radio-left {
-        width: 50%;
-        text-align: left;
-        margin-left: sass.$space25;
-    }
-    
-    .tava-form-radio-right {
-        width: 50%;
-        text-align: right;
-        margin-right: sass.$space25;
+    .tava-service-airport-block-validation {
+        display: flex;
+        justify-content: center;
+        margin-top: sass.$space5;
+
+        span {
+            color: sass.$color-valid-red;
+            font-size: sass.$font-valid-size;
+            align-content: center;
+            margin-right: calc(sass.$space15 / 2);
+        }
     }
 }
+
 
 #form-checkbox {
     display: flex;

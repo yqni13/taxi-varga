@@ -36,6 +36,8 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
 
     @Output() byChange: EventEmitter<any>;
 
+    protected classNameWarningIcon: string;
+
     private subscription$: Subscription;
 
     constructor() {
@@ -49,6 +51,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.className = '';
         this.ngClass = '';
         this.byChange = new EventEmitter<any>();
+        this.classNameWarningIcon = '';
         this.subscription$ = new Subscription();
     }
     
@@ -56,6 +59,18 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.subscription$ = this.formControl.valueChanges.subscribe(change => {
             this.byChange.emit(change);
         })
+        this.configWarningIconByInputType();
+    }
+
+    configWarningIconByInputType() {
+        switch(this.inputType) {
+            case('datetime-local'): {
+                this.classNameWarningIcon = 'tava-warning-input-datetime-local';
+                break;
+            }
+            default:
+                this.classNameWarningIcon = 'tava-warning-input-text';
+        }
     }
 
     ngOnDestroy() {

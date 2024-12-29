@@ -14,3 +14,18 @@
 input[type="datetime-local"] {
     font-family: sass.$font-text-family;
 }
+
+i {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    // TODO(yqni13): adapt hard coded styling for different device sizes
+}
+
+.tava-warning-input-text {
+    margin: calc(sass.$space5 / 2) sass.$space5 0 0;
+}
+
+.tava-warning-input-datetime-local {
+    margin: calc(sass.$space5 / 2) sass.$space25 0 0;
+}
