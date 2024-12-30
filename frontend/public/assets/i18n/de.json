@@ -114,16 +114,16 @@
                 "form": {
                     "customer": {
                         "email": "Email-Adresse",
-                        "firstName": "Vorname",
+                        "first-name": "Vorname",
                         "gender": "Anrede",
-                        "lastName": "Nachname",
+                        "last-name": "Nachname",
                         "note": "Notiz",
                         "phone": "Telefon-Nummer",
                         "placeholder": {
                             "email": "max.mustermann@demo.at",
-                            "firstName": "z.B.: Max",
+                            "first-name": "z.B.: Max",
                             "gender": "Anrede auswählen",
-                            "lastName": "z.B.: Mustermann",
+                            "last-name": "z.B.: Mustermann",
                             "note": "Fügen Sie eine persönliche Notiz hinzu wenn erforderlich.",
                             "phone": "+43 664 123 45 67",
                             "title": "z.B.: Ing."

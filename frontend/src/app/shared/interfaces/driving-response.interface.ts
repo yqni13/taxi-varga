@@ -1,17 +1,15 @@
 export interface DrivingAirportResponse {
-    price: number,
     distance: number,
-    time: number // TODO(yqni13): not implemented at the moment
+    duration: number,
+    price: number,
 }
 
 export interface DrivingDestinationResponse {
-    price: number,
     distance: number,
-    time: number
+    duration: number,
+    price: number,
 }
 
 export interface DrivingFlatrateResponse {
     price: number,
-    distance: number,
-    time: number // TODO(yqni13): not implemented at the moment
 }

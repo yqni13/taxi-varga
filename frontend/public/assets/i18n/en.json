@@ -115,16 +115,16 @@
                 "form": {
                     "customer": {
                         "email": "Email address",
-                        "firstName": "First name",
+                        "first-name": "First name",
                         "gender": "Form of address",
-                        "lastName": "Last name",
+                        "last-name": "Last name",
                         "note": "Note",
                         "phone": "Phone number",
                         "placeholder": {
                             "email": "john.smith@demo.com",
-                            "firstName": "e.g.: John",
+                            "first-name": "e.g.: John",
                             "gender": "Select form of address",
-                            "lastName": "e.g.: Smith",
+                            "last-name": "e.g.: Smith",
                             "note": "Add your personal note if required.",
                             "phone": "+43 664 123 45 67",
                             "title": "e.g.: Ing."

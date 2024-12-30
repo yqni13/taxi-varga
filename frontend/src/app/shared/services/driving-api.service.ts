@@ -28,7 +28,6 @@ export class DrivingAPIService {
         this.dataAirport = {
             origin: '',
             destination: '',
-            datetime: ''
         };
         this.dataDestination = {
             origin: '',
@@ -36,7 +35,9 @@ export class DrivingAPIService {
             back2home: false
         };
         this.dataFlatrate = {
-            origin: ''
+            origin: '',
+            destination: '',
+            tenancy: ''
         }
     }
 

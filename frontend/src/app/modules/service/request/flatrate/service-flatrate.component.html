@@ -206,24 +206,24 @@
                 <div class="tava-service-flatrate-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
                         <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.firstName' | translate) + '*'}}
+                            {{('modules.service.content.form.customer.first-name' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'text'"
                             [formControl]="serviceForm.get('firstName') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.firstName' | translate"
-                            [fieldName]="'modules.service.content.form.customer.firstName' | translate"
+                            [placeholder]="'modules.service.content.form.customer.placeholder.first-name' | translate"
+                            [fieldName]="'modules.service.content.form.customer.first-name' | translate"
                         ></tava-textinput>
                     </div>
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
                         <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.lastName' | translate) + '*'}}
+                            {{('modules.service.content.form.customer.last-name' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'text'"
                             [formControl]="serviceForm.get('lastName') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.lastName' | translate"
-                            [fieldName]="'modules.service.content.form.customer.lastName' | translate"
+                            [placeholder]="'modules.service.content.form.customer.placeholder.last-name' | translate"
+                            [fieldName]="'modules.service.content.form.customer.last-name' | translate"
                         ></tava-textinput>
                     </div>
                 </div>

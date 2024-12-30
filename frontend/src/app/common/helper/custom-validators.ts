@@ -12,8 +12,7 @@ export const invalidTenancyValueValidator = (): ValidatorFn => {
 
 export const requiredTenancyValueValidator = (): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const val = control?.value as string;
-        if(val === '') {
+        if((control?.value as string) === '') {
             return { requiredTenancyValue: true };
         }
         return null;

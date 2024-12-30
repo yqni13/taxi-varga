@@ -5,10 +5,6 @@ import { Injectable } from "@angular/core";
 })
 export class DateTimeService {
 
-    constructor() {
-        //
-    }
-
     getDateFromTimestamp(timestamp: string, stampFormat?: boolean): string {
         const date = new Date(timestamp);
         const day = date.getDate() < 10 ? `0${date.getDate()}` : date.getDate().toString();
