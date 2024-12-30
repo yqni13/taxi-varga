@@ -20,6 +20,8 @@ import { RouterModule } from "@angular/router";
 export class ServiceComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
+    protected authorAirportImg: string;
+    protected authorFlatrateImg: string;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -28,6 +30,8 @@ export class ServiceComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
+        this.authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
+        this.authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';
 
         this.subscriptionThemeObservation$ = new Subscription();
     }

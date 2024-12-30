@@ -76,7 +76,7 @@
                         "placeholder": "Type address"
                     },
                     "option": {
-                        "subtitle": "off Vienna",
+                        "subtitle": "off/to Vienna",
                         "title": "Airport"
                     },
                     "title": "Airport - route details"
@@ -154,11 +154,13 @@
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
                 }
-            },
-            "title": "Transportation service"
+            }
         }
     },
     "shared": {
+        "assets": {
+            "author": "\u00a9 image"
+        },
         "enum": {
             "gender": {
                 "female": "Ms.",

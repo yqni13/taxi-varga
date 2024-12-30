@@ -75,8 +75,8 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "ab Wien",
-                        "title": "Flughafen"
+                        "subtitle": "ab/nach Wien",
+                        "title": "Flughafenfahrt"
                     },
                     "title": "Flughafen - Routendetails"
                 },
@@ -153,11 +153,13 @@
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 }
-            },
-            "title": "Beförderungsangebot"
+            }
         }
     },
     "shared": {
+        "assets": {
+            "author": "\u00a9 bild"
+        },
         "enum": {
             "gender": {
                 "female": "Frau",
