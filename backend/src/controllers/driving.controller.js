@@ -1,25 +1,23 @@
-const DrivingRepository = require('../repositories/driving.repository');
+const DrivingService = require('../services/driving.service');
 const { checkValidation } = require('../middleware/validation.middleware');
 
 class DrivingController {
+    calcDrivingAirport = (req, res, next) => {
+        checkValidation(req);
+        const response = DrivingService.calcAirportRoute(req.body);
+        res.send(response);
+    }
+
     calcDrivingDestination = async (req, res, next) => {
         checkValidation(req);
-        console.log(req.body); // result == {}
-        const response = await DrivingRepository.calcDestinationRoute(req.body);
+        const response = await DrivingService.calcDestinationRoute(req.body);
         res.send(response);
     }
 
-    calcDrivingFlatrate = async (req, res, next) => {
+    calcDrivingFlatrate = (req, res, next) => {
         checkValidation(req);
         console.log(req.body); // result == {}
-        const response = await DrivingRepository.calcFlatrateRoute(req.body);
-        res.send(response);
-    }
-
-    calcDrivingAirport = async (req, res, next) => {
-        checkValidation(req);
-        console.log(req.body); // result == {}
-        const response = await DrivingRepository.calcAirportRoute(req.body);
+        const response = DrivingService.calcFlatrateRoute(req.body);
         res.send(response);
     }
 }

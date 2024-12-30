@@ -11,6 +11,7 @@ $color-dark-green: #006005;
 
 $color-grey-light: #dbdbdb;
 $color-grey-dark: #3c3c3b;
+$color-grey-label: #9898989f;
 
 $color-icon-sun: #e59429;
 $color-icon-moon: #b17a0b;
@@ -18,9 +19,12 @@ $color-icon-moon: #b17a0b;
 
 /* CUSTOM VALUES */
 $space5: 5px;
+$space15: 15px;
 $space25: 25px;
 $space50: 50px;
 $space100: 100px;
+
+$form-padding-small: 5px;
 
 $nav-border-size: 2px;
 $carousel-arrow-size: 30px;
@@ -29,4 +33,11 @@ $lang-icon-buffer: 2px;
 $link-hover-opacity: 0.4;
 
 $font-text-size: clamp(18px, 1.6vw, 25px);
+$font-valid-size: 12px;
 $footer-text-size: clamp(16px, 1.2vw, 25px);
+
+$font-text-family: "Optima", sans-serif;
+
+/* IMPORTANT! <select> uses padding-left: 4px intern (don't know yet to change that) */
+$select-balance-padding: 4px;
+/* DO NOT CHANGE! this is used to balance! */

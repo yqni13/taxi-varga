@@ -14,6 +14,12 @@
             "home": "Startseite",
             "samples": "Beispiele",
             "service": "Beförderungsangebot"
+        },
+        "validation": {
+            "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
+            "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
+            "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
+            "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden."
         }
     },
     "modules": {
@@ -52,11 +58,22 @@
             "title": "Pauschalfahrt Beispiele"
         },
         "service": {
+            "commands": {
+                "calc": "Angebot berechnen",
+                "check": "Daten überprüfen",
+                "confirm": "Auftrag absenden"
+            },
             "content": {
                 "airport": {
-                    "calc": "Angebot berechnen",
-                    "check": "check input",
-                    "confirm": "Auftrag absenden",
+                    "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
+                    "labels": {
+                        "arrival": "Ankunft am Flughafen Wien",
+                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "departure": "Abflug vom Flughafen Wien",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "placeholder": "Adresse auswählen"
+                    },
                     "option": {
                         "subtitle": "ab Wien",
                         "title": "Flughafen"
@@ -64,15 +81,76 @@
                     "title": "Flughafen - Routendetails"
                 },
                 "destination": {
+                    "labels": {
+                        "back2home": "Ich möchte zur Abholadresse zurückkehren.",
+                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "placeholder": "Adresse auswählen"
+                    },
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Pauschalfahrt"
-                    }
+                    },
+                    "title": "Pauschalfahrt - Routendetails"
                 },
                 "flatrate": {
+                    "labels": {
+                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "placeholder": {
+                            "address": "Adresse auswählen",
+                            "tenancy": "Mietdauer (h) auswählen"
+                        },
+                        "tenancy": "Mietdauer (angefangene Stunden)"
+                    },
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Zeitmiete"
+                    },
+                    "title": "Zeitmiete - Routendetails"
+                },
+                "form": {
+                    "customer": {
+                        "email": "Email-Adresse",
+                        "first-name": "Vorname",
+                        "gender": "Anrede",
+                        "last-name": "Nachname",
+                        "note": "Notiz",
+                        "phone": "Telefon-Nummer",
+                        "placeholder": {
+                            "email": "max.mustermann@demo.at",
+                            "first-name": "z.B.: Max",
+                            "gender": "Anrede auswählen",
+                            "last-name": "z.B.: Mustermann",
+                            "note": "Fügen Sie eine persönliche Notiz hinzu wenn erforderlich.",
+                            "phone": "+43 664 123 45 67",
+                            "title": "z.B.: Ing."
+                        },
+                        "title": "Titel"
+                    },
+                    "offer": {
+                        "datetime": "Datum & Uhrzeit",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "tenancy": "Mietdauer"
+                    },
+                    "order": {
+                        "contact": "Kontakt",
+                        "date": "Datum der Abholung",
+                        "distance": "Distanz in Summe",
+                        "duration": "Zeit in Summe",
+                        "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
+                        "price-estimated": "Geschätzter Preis",
+                        "price-fixed": "Pauschalpreis",
+                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
+                        "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
+                        "tenancy": "gewählte Mietdauer",
+                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
+                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
+                        "time": "Zeit der Abholung",
+                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 }
             },
@@ -81,6 +159,10 @@
     },
     "shared": {
         "enum": {
+            "gender": {
+                "female": "Frau",
+                "male": "Herr"
+            },
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"

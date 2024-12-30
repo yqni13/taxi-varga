@@ -10,6 +10,10 @@
     padding-bottom: sass.$space50;
 }
 
+#tava-table-head-route {
+    text-align: end;
+}
+
 td {
     text-align: end;
     padding: sass.$space5 0;
@@ -27,13 +31,14 @@ td {
 }
 
 .tava-samples-route {
-    width: 300px;
+    width: 250px;
     text-wrap: wrap;
 }
 
 .tava-samples-colon {
     padding-right: sass.$space5;
     text-align: start;
+    padding-right: sass.$space25;
 }
 
 .tava-samples-price {

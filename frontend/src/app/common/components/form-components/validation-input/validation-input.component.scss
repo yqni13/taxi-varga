@@ -1,0 +1,10 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-validation-errors {
+    color: sass.$color-valid-red;
+    font-size: sass.$font-valid-size;
+    font-weight: normal;
+    padding: 2px 7px;
+    margin-top: calc(sass.$space5 / 2);
+}

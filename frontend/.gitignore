@@ -2,11 +2,14 @@
 
 # Compiled output
 .env
+client-cert.crt
+client-cert.key
 /dist
 /tmp
 /out-tsc
 /bazel-out
 desktop.ini
+/src/environments/.env
 
 # Node
 /node_modules

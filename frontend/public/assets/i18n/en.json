@@ -14,6 +14,12 @@
             "home": "Home",
             "samples": "Samples",
             "service": "Service"
+        },
+        "validation": {
+            "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+            "required": "Field \"{{fieldName}}\" is required.",
+            "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
+            "tenancy-invalid-value": "Tenancy must be selected in full hours."
         }
     },
     "modules": {
@@ -53,11 +59,22 @@
             "title": "Flatrate samples"
         },
         "service": {
+            "commands": {
+                "calc": "calculate price",
+                "check": "check input",
+                "confirm": "confirm order"
+            },
             "content": {
                 "airport": {
-                    "calc": "calculate price",
-                    "check": "check input",
-                    "confirm": "confirm order",
+                    "block-validation": "Please select your option of arrival or departure.",
+                    "labels": {
+                        "arrival": "Arrival at Vienna Airport",
+                        "datetime": "Date & time (pickup)",
+                        "departure": "Departure of Vienna Airport",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "placeholder": "Type address"
+                    },
                     "option": {
                         "subtitle": "off Vienna",
                         "title": "Airport"
@@ -65,28 +82,88 @@
                     "title": "Airport - route details"
                 },
                 "destination": {
+                    "labels": {
+                        "back2home": "I want to return to my pickup address.",
+                        "datetime": "Date & time (pickup)",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "placeholder": "Type address"
+                    },
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
                         "title": "Destination"
-                    }
+                    },
+                    "title": "Destination - route details"
                 },
                 "flatrate": {
+                    "labels": {
+                        "datetime": "Date & time (pickup)",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "placeholder": {
+                            "address": "Type address",
+                            "tenancy": "Select rental hours"
+                        },
+                        "tenancy": "Tenancy (started hours)"
+                    },
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
                         "title": "Flatrate"
+                    },
+                    "title": "Flatrate - route details"
+                },
+                "form": {
+                    "customer": {
+                        "email": "Email address",
+                        "first-name": "First name",
+                        "gender": "Form of address",
+                        "last-name": "Last name",
+                        "note": "Note",
+                        "phone": "Phone number",
+                        "placeholder": {
+                            "email": "john.smith@demo.com",
+                            "first-name": "e.g.: John",
+                            "gender": "Select form of address",
+                            "last-name": "e.g.: Smith",
+                            "note": "Add your personal note if required.",
+                            "phone": "+43 664 123 45 67",
+                            "title": "e.g.: Ing."
+                        },
+                        "title": "Title"
+                    },
+                    "offer": {
+                        "datetime": "Date & time",
+                        "destination": "Destination address",
+                        "origin": "Pickup address",
+                        "tenancy": "Tenancy"
+                    },
+                    "order": {
+                        "contact": "Contact",
+                        "date": "Date of pick-up",
+                        "distance": "Total distance",
+                        "duration": "Estimated duration",
+                        "licence": "Price calculation based on licensed Vienna taxi rate!",
+                        "price-estimated": "Estimated price",
+                        "price-fixed": "Fixed price",
+                        "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (€ 0,07/km after 250th km).",
+                        "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
+                        "tenancy": "selected tenancy",
+                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
+                        "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
+                        "time": "Time of pick-up",
+                        "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
                 }
-            },
-            "options": {
-                "airport": "Airport",
-                "destination": "Destination",
-                "flatrate": "Flatrate"
             },
             "title": "Transportation service"
         }
     },
     "shared": {
         "enum": {
+            "gender": {
+                "female": "Ms.",
+                "male": "Mr."
+            },
             "language": {
                 "de": "German",
                 "en": "English"
