@@ -25,8 +25,8 @@ export class FooterComponent implements OnInit, AfterViewInit {
     @HostListener('window:click', ['$event'])
     clickOutside($event: any) {
         if(!$event.target.className.includes('tava-language-element')) {
-                this.showLanguageWindow = false;
-            }
+            this.showLanguageWindow = false;
+        }
     }
 
     @ViewChild('themeMode') themeMode?: ElementRef; 

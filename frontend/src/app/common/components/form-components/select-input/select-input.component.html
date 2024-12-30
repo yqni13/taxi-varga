@@ -1,0 +1,18 @@
+<div class="tava-select-wrapper {{className}}" ngClass="{{ngClass}}">
+    <select 
+        [formControl]="formControl" 
+        (change)="selectOption($event)"
+    >
+        <option value="" disabled>{{placeholder}}</option>
+        <hr>
+        <option 
+            *ngFor="let option of options | keyvalue" 
+            value="{{option.value}}"
+        >{{optionsTranslateRoot + option.key | translate}}</option>
+    </select>
+    <i class="icon-warning" *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"></i>
+    <tava-validation
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
+    ></tava-validation>
+</div>

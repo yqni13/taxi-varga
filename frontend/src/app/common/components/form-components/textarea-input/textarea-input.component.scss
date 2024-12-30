@@ -1,0 +1,13 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-textarea-wrapper {
+    // use ngStyle for width to style lvl above => <tava-textareainput>
+    display: grid;
+
+    textarea {
+        padding: 7.5px sass.$form-padding-small;
+        scroll-padding-block: 7.5px sass.$form-padding-small;
+        font-family: sass.$font-text-family;
+    }
+}

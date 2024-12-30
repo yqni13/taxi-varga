@@ -1,0 +1,19 @@
+<ng-container *tavaVar="ngControl as control">
+    <div class="tava-validation-errors" *ngIf="control.invalid && (control.dirty || control.touched)">
+        <div *ngIf="control.hasError('required')">
+            {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
+        </div>
+        <div *ngIf="control.hasError('email')">
+            {{ 'common.validation.email-invalid' | translate: {fieldName: fieldName} }}
+        </div>
+        <div *ngIf="control.hasError('invalidTenancyValue')">
+            {{ 'common.validation.tenancy-invalid-value' | translate }}
+        </div>
+        <div *ngIf="control.hasError('invalidTenancyLimit')">
+            {{ 'common.validation.tenancy-invalid-limit' | translate }}
+        </div>
+        <div *ngIf="control.hasError('requiredTenancyValue')">
+            {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
+        </div>
+    </div>
+</ng-container>

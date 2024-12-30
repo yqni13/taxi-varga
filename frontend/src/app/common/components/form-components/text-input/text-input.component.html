@@ -1,0 +1,19 @@
+<div class="tava-text-wrapper {{className}}" ngClass="{{ngClass}}">
+    <input 
+        type="{{inputType}}"
+        placeholder="{{placeholder}}"
+        [readonly]="readonly"
+        [formControl]="formControl"
+        min="{{minVal}}"
+        max="{{maxVal}}"
+    >
+    <i
+        class="icon-warning"
+        *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+        [ngClass]="classNameWarningIcon"
+    ></i>
+    <tava-validation
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
+    ></tava-validation>
+</div>

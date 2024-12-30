@@ -1,0 +1,11 @@
+<div class="tava-textarea-wrapper {{className}}" ngClass="{{ngClass}}">
+    <textarea
+        placeholder="{{placeholder}}"
+        [formControl]="formControl"
+        rows="{{rows}}"
+    ></textarea>
+    <tava-validation
+    [ngControl]="formControl"
+    [fieldName]="fieldName"
+    ></tava-validation>
+</div>
