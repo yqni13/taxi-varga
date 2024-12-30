@@ -24,10 +24,14 @@
     cursor: pointer;
 }
 
+#form-origin {
+    margin-top: sass.$space25;
+}
+
 .tava-service-destination-block {
     display: flex;
     flex-direction: column;
-    margin: sass.$space25 0;
+    margin-bottom: sass.$space25;
 }
 
 .tava-service-block-label {

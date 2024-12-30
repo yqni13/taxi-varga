@@ -11,7 +11,7 @@ import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } 
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
 import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
-import { ConvertingService } from "../../../../shared/services/converting.service";
+import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
@@ -62,7 +62,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
-        private readonly convertingService: ConvertingService,
+        private readonly datetimeService: DateTimeService,
         private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
     ) {
@@ -156,13 +156,17 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             airport: '',
             originAddress: '',
             destinationAddress: '',
-            datetime: '2024-12-23T09:38',
-            pickupDATE: this.convertingService.getDateFromTimestamp('2024-12-23T09:38'),
-            pickupTIME: this.convertingService.getTimeFromTimestamp('2024-12-23T09:38'),
+            datetime: '2025-01-31T11:27',
+            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
+            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
             distance: 49.6,
             duration: 36,
             price: '72'
         });
+    }
+
+    restrictDatePicker(): string {
+        return this.datetimeService.getTodayStartingTimestamp();
     }
 
     getDirectionRadioValue(event: any) {

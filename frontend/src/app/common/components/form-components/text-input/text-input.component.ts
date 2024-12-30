@@ -33,10 +33,15 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     @Input() inputType: string;
     @Input() className: string;
     @Input() ngClass: string;
+    @Input() minValString: string;
+    @Input() minValNumber: number | null;
+    @Input() maxValNumber: number | null;
 
     @Output() byChange: EventEmitter<any>;
 
     protected classNameWarningIcon: string;
+    protected minVal: unknown;
+    protected maxVal: unknown;
 
     private subscription$: Subscription;
 
@@ -50,6 +55,9 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.inputType = '';
         this.className = '';
         this.ngClass = '';
+        this.minValString = '';
+        this.minValNumber = null;
+        this.maxValNumber = null;
         this.byChange = new EventEmitter<any>();
         this.classNameWarningIcon = '';
         this.subscription$ = new Subscription();
@@ -60,12 +68,32 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
             this.byChange.emit(change);
         })
         this.configWarningIconByInputType();
+        this.configMinMaxValues();
+    }
+
+    configMinMaxValues() {
+        switch(this.inputType) {
+            case('datetime-local'): {
+                this.minVal = this.minValString;
+                this.maxVal = '';
+                break;
+            }
+            case('number'): {
+                this.minVal = this.minValNumber;
+                this.maxVal = this.maxValNumber;
+                break;
+            }
+        }
     }
 
     configWarningIconByInputType() {
         switch(this.inputType) {
             case('datetime-local'): {
                 this.classNameWarningIcon = 'tava-warning-input-datetime-local';
+                break;
+            }
+            case('number'): {
+                this.classNameWarningIcon = 'tava-warning-input-number';
                 break;
             }
             default:

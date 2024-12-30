@@ -17,7 +17,9 @@
         },
         "validation": {
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
-            "required": "Das Feld \"{{fieldName}}\" ist erforderlich."
+            "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
+            "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
+            "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden."
         }
     },
     "modules": {
@@ -93,6 +95,16 @@
                     "title": "Pauschalfahrt - Routendetails"
                 },
                 "flatrate": {
+                    "labels": {
+                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "destination": "Zieladresse",
+                        "origin": "Abholadresse",
+                        "placeholder": {
+                            "address": "Adresse auswählen",
+                            "tenancy": "Mietdauer (h) auswählen"
+                        },
+                        "tenancy": "Mietdauer (angefangene Stunden)"
+                    },
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Zeitmiete"
@@ -121,7 +133,8 @@
                     "offer": {
                         "datetime": "Datum & Uhrzeit",
                         "destination": "Zieladresse",
-                        "origin": "Abholadresse"
+                        "origin": "Abholadresse",
+                        "tenancy": "Mietdauer"
                     },
                     "order": {
                         "contact": "Kontakt",
@@ -129,11 +142,13 @@
                         "distance": "Distanz in Summe",
                         "duration": "Zeit in Summe",
                         "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
-                        "priceEstimated": "Geschätzter Preis",
-                        "priceFixed": "Pauschalpreis",
-                        "surchargeFuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
-                        "surchargeParking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
+                        "price-estimated": "Geschätzter Preis",
+                        "price-fixed": "Pauschalpreis",
+                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
+                        "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
+                        "tenancy": "gewählte Mietdauer",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
+                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
                         "time": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }

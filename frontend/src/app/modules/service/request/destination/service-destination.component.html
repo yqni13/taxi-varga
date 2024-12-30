@@ -45,6 +45,7 @@
                     </span>
                     <tava-textinput
                         [inputType]="'datetime-local'"
+                        [minValString]="restrictDatePicker()"
                         [formControl]="serviceForm.get('datetime') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.datetime' | translate"
                     ></tava-textinput>
@@ -152,7 +153,7 @@
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-price">
                 <span class="tava-service-destination-offer-sum-left">
-                    {{('modules.service.content.form.order.priceEstimated' | translate) + ':'}}
+                    {{('modules.service.content.form.order.price-estimated' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
                     {{serviceForm.get('price')?.value | currencyFormat}}
@@ -173,7 +174,7 @@
                     class="tava-service-block-input"
                     [ngClass]="!surchargeFuelAcceptance ? 'tava-message-invalid' : ''"
                 >
-                    {{'modules.service.content.form.order.surchargeFuel' | translate}}
+                    {{'modules.service.content.form.order.surcharge-fuel' | translate}}
                 </span>
             </div>
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
@@ -182,7 +183,7 @@
                     class="tava-service-block-input"
                     [ngClass]="!surchargeParkingAcceptance ? 'tava-message-invalid' : ''"
                 >
-                    {{'modules.service.content.form.order.surchargeParking' | translate}}
+                    {{'modules.service.content.form.order.surcharge-parking' | translate}}
                 </span>
             </div>
         </div>
