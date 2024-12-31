@@ -34,6 +34,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     @Input() className: string;
     @Input() ngClass: string;
     @Input() minValString: string;
+    @Input() maxValString: string;
     @Input() minValNumber: number | null;
     @Input() maxValNumber: number | null;
 
@@ -56,6 +57,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.className = '';
         this.ngClass = '';
         this.minValString = '';
+        this.maxValString = '';
         this.minValNumber = null;
         this.maxValNumber = null;
         this.byChange = new EventEmitter<any>();
@@ -75,7 +77,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         switch(this.inputType) {
             case('datetime-local'): {
                 this.minVal = this.minValString;
-                this.maxVal = '';
+                this.maxVal = this.maxValString;
                 break;
             }
             case('number'): {

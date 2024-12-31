@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import moment from "moment";
 
 @Injectable({
     providedIn: 'root'
@@ -27,6 +28,12 @@ export class DateTimeService {
     getTodayStartingTimestamp(): string {
         const today = new Date();
         const date = this.getDateFromTimestamp(today.toString(), true);
-        return `${date}T00:00:00`;
+        return `${date}T00:00`;
+    }
+
+    get24HoursRestrictionTimestamp(start: string): string {
+        const startInSeconds = Math.floor((new Date(start)).getTime() / 1000);
+        const limitInSeconds = new Date((startInSeconds + (24 * 60 * 60)) * 1000);
+        return moment(limitInSeconds).format('YYYY-MM-DDTHH:mm');
     }
 }

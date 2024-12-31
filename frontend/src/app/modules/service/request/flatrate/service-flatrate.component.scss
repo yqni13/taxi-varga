@@ -28,6 +28,36 @@
     margin-top: sass.$space25;
 }
 
+#tava-service-flatrate-tenancy-value {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 11px 8.5px;
+    border: 1px solid sass.$color-text-black;
+    border-radius: 2px;
+    background-color: sass.$color-ice-white;
+    color: sass.$color-text-black;
+    cursor: not-allowed;
+}
+
+.tava-datetime-double {
+    flex-direction: row!important;
+
+    .tava-service-tenancy-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #tava-service-flatrate-tenancy-left {
+        margin-right: sass.$space15;
+        width: calc(100% - sass.$space15);
+    }
+    
+    #tava-service-flatrate-tenancy-right {
+        margin-left: sass.$space15;
+        width: calc(100% - sass.$space15);
+    }
+}
+
 .tava-service-flatrate-block {
     display: flex;
     flex-direction: column;

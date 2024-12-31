@@ -97,14 +97,15 @@
                 },
                 "flatrate": {
                     "labels": {
-                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "origin": "Abholadresse",
                         "placeholder": {
                             "address": "Adresse auswählen",
                             "tenancy": "Mietdauer (h) auswählen"
                         },
-                        "tenancy": "Mietdauer (angefangene Stunden)"
+                        "tenancy": "verrechnete Mietdauer"
                     },
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
@@ -147,7 +148,7 @@
                         "price-fixed": "Pauschalpreis",
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
-                        "tenancy": "gewählte Mietdauer",
+                        "tenancy": "verrechnete Mietdauer",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
                         "time": "Zeit der Abholung",

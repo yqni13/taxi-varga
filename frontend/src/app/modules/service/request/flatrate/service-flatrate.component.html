@@ -32,7 +32,55 @@
                     [fieldName]="'modules.service.content.form.offer.destination' | translate"
                 ></tava-textinput>                    
             </div>
-            <div class="tava-service-flatrate-block" id="form-tenancy">
+            <div class="tava-service-flatrate-block tava-datetime-double">
+                <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-left">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.flatrate.labels.datetime-start' | translate) + '*'}}
+                    </span>
+                    <tava-textinput
+                        [inputType]="'datetime-local'"
+                        [minValString]="restrictDatePickerStart()"
+                        [formControl]="serviceForm.get('datetimeStart') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                        (byChange)="restrictDatePickerEnd()"
+                    ></tava-textinput>
+                </div>
+                <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-right">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.flatrate.labels.datetime-end' | translate) + '*'}}
+                    </span>
+                    <tava-textinput
+                        [inputType]="'datetime-local'"
+                        [minValString]="restrictDatePickerStart()"
+                        [maxValString]="maxTenancyStamp"
+                        [formControl]="serviceForm.get('datetimeEnd') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                    ></tava-textinput>
+                </div>
+            </div>
+            <!-- <div class="tava-service-flatrate-block" id="form-datetime-start">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.flatrate.labels.datetime-start' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [inputType]="'datetime-local'"
+                    [minValString]="restrictDatePickerStart()"
+                    [formControl]="serviceForm.get('datetimeStart') | controlCast"
+                    [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                ></tava-textinput>
+            </div>
+            <div class="tava-service-flatrate-block" id="form-datetime-end">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.flatrate.labels.datetime-end' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [inputType]="'datetime-local'"
+                    [minValString]="restrictDatePickerEnd()"
+                    [formControl]="serviceForm.get('datetimeEnd') | controlCast"
+                    [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                ></tava-textinput>
+            </div> -->
+            <!-- <div class="tava-service-flatrate-block" id="form-tenancy">
                 <span class="tava-service-block-label">
                     {{('modules.service.content.flatrate.labels.tenancy' | translate) + '*'}}
                 </span>
@@ -45,18 +93,7 @@
                     [formControl]="serviceForm.get('tenancy') | controlCast"
                     [fieldName]="'modules.service.content.form.offer.tenancy' | translate"
                 ></tava-textinput>                    
-            </div>
-            <div class="tava-service-flatrate-block" id="form-datetime">
-                <span class="tava-service-block-label">
-                    {{('modules.service.content.flatrate.labels.datetime' | translate) + '*'}}
-                </span>
-                <tava-textinput
-                    [inputType]="'datetime-local'"
-                    [minValString]="restrictDatePicker()"
-                    [formControl]="serviceForm.get('datetime') | controlCast"
-                    [fieldName]="'modules.service.content.form.offer.datetime' | translate"
-                ></tava-textinput>
-            </div>
+            </div> -->
         </div>
         <div *ngIf="!hasOffer" class="tava-button-wrapper">
             <button

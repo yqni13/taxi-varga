@@ -97,14 +97,15 @@
                 },
                 "flatrate": {
                     "labels": {
-                        "datetime": "Date & time (pickup)",
+                        "datetime-end": "Date & time (return)",
+                        "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
                         "origin": "Pickup address",
                         "placeholder": {
                             "address": "Type address",
                             "tenancy": "Select rental hours"
                         },
-                        "tenancy": "Tenancy (started hours)"
+                        "tenancy": "Tenancy"
                     },
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
@@ -147,7 +148,7 @@
                         "price-fixed": "Fixed price",
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (€ 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "tenancy": "selected tenancy",
+                        "tenancy": "charged tenancy",
                         "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
                         "time": "Time of pick-up",

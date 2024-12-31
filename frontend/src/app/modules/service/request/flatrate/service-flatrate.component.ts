@@ -39,6 +39,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
     protected hasConfirmed: boolean;
 
     protected serviceForm: FormGroup;
+    protected maxTenancyStamp: string;
     protected customer: string;
     protected termsAcceptance: boolean;
     protected surchargeParkingAcceptance: boolean;
@@ -65,6 +66,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.hasConfirmed = false;
 
         this.serviceForm = new FormGroup({});
+        this.maxTenancyStamp = '';
         this.customer = '';
         this.termsAcceptance = false;
         this.surchargeParkingAcceptance = false;
@@ -112,7 +114,8 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
                 CustomValidators.requiredTenancyValueValidator(),
                 CustomValidators.invalidTenancyLimitValidator(),
             ]),
-            datetime: new FormControl('', Validators.required),
+            datetimeStart: new FormControl('', Validators.required),
+            datetimeEnd: new FormControl('', Validators.required),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             price: new FormControl(''),
@@ -124,16 +127,22 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.serviceForm.patchValue({
             originAddress: 'Gerichtsweg 43, 2540 Bad Vöslau',
             destinationAddress: 'Kröpfelsteigstraße 8, 2371 Hinterbrühl',
-            tenancy: '5',
-            datetime: '2025-01-31T11:27',
+            tenancy: '3',
+            datetimeStart: '',
+            datetimeEnd: '',
             pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
             pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
             price: 210
         })
     }
 
-    restrictDatePicker(): string {
+    restrictDatePickerStart(): string {
         return this.datetimeService.getTodayStartingTimestamp();
+    }
+
+    restrictDatePickerEnd() {
+        // TODO(yqni13): maxValString must subscribe to changes of value
+        this.maxTenancyStamp = this.datetimeService.get24HoursRestrictionTimestamp(this.serviceForm.get('datetimeStart')?.value);
     }
 
     getTermsCheckboxValue(event: any) {
