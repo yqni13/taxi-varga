@@ -170,6 +170,11 @@
                 "de": "German",
                 "en": "English"
             },
+            "service": {
+                "airport": "Airport",
+                "destination": "Destination",
+                "flatrate": "Flatrate"
+            },
             "theme": {
                 "darkMode": "Dark",
                 "lightMode": "Light"

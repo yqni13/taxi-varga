@@ -31,8 +31,9 @@
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
-                "location": "Tarif-Standort: Wien\nUnternehmenssitz: Leobersdorf",
-                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen)."
+                "location": "Unternehmenssitz: Leobersdorf",
+                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
+                "workrange": "Tarif-Standort: Wien"
             },
             "title": "Über mich und mein Unternehmen"
         },
@@ -168,6 +169,11 @@
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"
+            },
+            "service": {
+                "airport": "Flughafenfahrt",
+                "destination": "Pauschalfahrt",
+                "flatrate": "Zeitmiete"
             },
             "theme": {
                 "darkMode": "Dunkel",

@@ -32,7 +32,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
         this.selectedBg = '';
         this.authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
         this.authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';
-
         this.subscriptionThemeObservation$ = new Subscription();
     }
 

@@ -18,6 +18,12 @@ class CommonException extends Error {
     }
 }
 
+class AuthenticationException extends CommonException {
+    constructor(data) {
+        super(ErrorCodes.AuthenticationException, 'Invalid service authentication', data, ErrorStatusCodes.AuthenticationException);
+    }
+}
+
 class InternalServerException extends CommonException {
     constructor(data) {
         super(ErrorCodes.InternalServerException, 'Server not connected', data, ErrorStatusCodes.InternalServerException);
@@ -37,6 +43,7 @@ class UnexpectedException extends CommonException {
 }
 
 module.exports = {
+    AuthenticationException,
     InternalServerException,
     NotFoundException,
     UnexpectedException

@@ -15,6 +15,8 @@
 
 .triple-inner {
     width: 34%;
+    border-left: 2px solid var(--theme-main-green);
+    border-right: 2px solid var(--theme-main-green);
 }
 
 .tava-service-route {
@@ -24,7 +26,7 @@
     img {
         width: 100%;
         height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
-        object-fit: fill;
+        object-fit: cover;
         filter: grayscale(1) brightness(0.7);
 
         &:hover {

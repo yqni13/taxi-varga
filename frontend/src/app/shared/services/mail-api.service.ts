@@ -2,22 +2,23 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "../../../environments/environment";
+import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";
+import { TranslateService } from "@ngx-translate/core";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MailAPIService {
-    private mailData: any;
+    private mailData: MailingRequest;
     private url: string;
 
-    constructor(private readonly http: HttpClient) {
+    constructor(
+        private readonly http: HttpClient,
+        private readonly translate: TranslateService
+    ) {
         this.mailData = {
-            honorifics: '',
-            title: '',
-            firstName: '',
-            lastName: '',
-            phone: '',
-            email: '',
+            sender: '',
+            subject: '',
             body: ''
         }
         // TODO(yqni13): clean input before use
@@ -25,40 +26,25 @@ export class MailAPIService {
         this.url = environment.API_BASE_URL + '/api/v1/mailing';
     }
 
-    setMailData(data: any) {
+    setMailData(data: MailingMessage) {
+
+        const msgStart = `Anfrage für Service: ${this.translate.get('shared.enum.service.' + data.service)}`;
+
+        const msgCustomer = `Daten zur Person:\n${this.translate.get('shared.enum.gender.' + data.gender)} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\n\nPersönliche Notiz:\n${data.note ? data.note : '--'}`;
+
+        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${data.origin}\nZieladresse: ${data.destination}\n${data.service === 'destination' && data.back2home ? 'Möchte zur Abholadresse anschließend zurückgebracht werden (JA).\n' : ''}Datum der Abholung: ${data.date}\nZeitpunkt der Abholung: ${data.time}`;
+
+        const msgServiceFixed = `Distanz: ${data.distance}\nFahrtdauer: ${data.duration}\nPreis: ${data.price}`;
+        const msgServiceFlatrate = `Mietdauer: ${data.tenancy}\nGeschätzter Preis: ${data.price}`;
+        
         this.mailData = {
-            honorifics: data.honorifics,
-            title: data.title,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            phone: data.phone,
-            email: data.email,
-            body: data.message
-        };
-    }
-
-    private configMailData() {
-        // this.mailData.subject = this.mailData.subject === SubjectOptions.artOrder 
-        // ? `${this.mailData.subject}: ${this.mailData.referenceNr}`
-        // : this.mailData.subject;
-
-        // const msgPartType = this.mailData.type === ArtworkOptions.originalORprint
-        //     ? `${ArtworkOptions.original} & ${ArtworkOptions.print}`
-        //     : this.mailData.type;
-
-        // const msgTitle = this.mailData.title !== ''
-        //     ? `${this.mailData.title} `
-        //     : ''
-
-        // const msgArtworkData = (this.mailData.referenceNr === undefined || this.mailData.referenceNr?.length > 0)
-        //     ? this.mailData.referenceNr?.toUpperCase() + `\nType: ${msgPartType}`
-        //     : `--`
-
-        // this.mailData.body = `This email was sent by: ${this.mailData.honorifics} ${msgTitle}${this.mailData.firstName} ${this.mailData.lastName}\nReference-Number: ${msgArtworkData}\n\nMessage: ${this.mailData.body}`
+            sender: data.email,
+            subject: `Anfrage: ${data.service}`,
+            body: `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+        }
     }
 
     sendMail() {
-        this.configMailData();
         return this.http.post(this.url, this.mailData, { observe: 'response' });        
     }
 }
