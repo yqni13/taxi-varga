@@ -3,7 +3,7 @@ import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output }
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AbstractInputComponent } from "../abstract-input.component";
-import { Subscription } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 
 @Component({
@@ -34,7 +34,8 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     @Input() className: string;
     @Input() ngClass: string;
     @Input() minValString: string;
-    @Input() maxValString: string;
+    @Input() minStringObservable: Observable<string>;
+    @Input() maxStringObservable: Observable<string>;
     @Input() minValNumber: number | null;
     @Input() maxValNumber: number | null;
 
@@ -44,7 +45,9 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     protected minVal: unknown;
     protected maxVal: unknown;
 
-    private subscription$: Subscription;
+    private subscriptionFormControl$: Subscription;
+    private subscriptionMinValString$: Subscription;
+    private subscriptionMaxValString$: Subscription;
 
     constructor() {
         super();
@@ -57,34 +60,37 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.className = '';
         this.ngClass = '';
         this.minValString = '';
-        this.maxValString = '';
+        this.minStringObservable = new Observable<string>();
+        this.maxStringObservable = new Observable<string>();
         this.minValNumber = null;
         this.maxValNumber = null;
         this.byChange = new EventEmitter<any>();
         this.classNameWarningIcon = '';
-        this.subscription$ = new Subscription();
+        this.subscriptionFormControl$ = new Subscription();
+        this.subscriptionMinValString$ = new Subscription();
+        this.subscriptionMaxValString$ = new Subscription();
     }
     
     ngOnInit() {
-        this.subscription$ = this.formControl.valueChanges.subscribe(change => {
+        this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
             this.byChange.emit(change);
+        })
+        this.subscriptionMinValString$ = this.minStringObservable.subscribe(val => {
+            this.minVal = val ?? this.minValNumber;
+        })
+        this.subscriptionMaxValString$ = this.maxStringObservable.subscribe(val => {
+            this.maxVal = val ?? this.maxValNumber;
         })
         this.configWarningIconByInputType();
         this.configMinMaxValues();
     }
 
     configMinMaxValues() {
-        switch(this.inputType) {
-            case('datetime-local'): {
-                this.minVal = this.minValString;
-                this.maxVal = this.maxValString;
-                break;
-            }
-            case('number'): {
-                this.minVal = this.minValNumber;
-                this.maxVal = this.maxValNumber;
-                break;
-            }
+        if(this.inputType === 'datetime-local' && this.minVal !== '') {
+            this.minVal = this.minValString;
+        } else if(this.inputType === 'number') {
+            this.minVal = this.minValNumber;
+            this.maxVal = this.maxValNumber;
         }
     }
 
@@ -104,6 +110,8 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     }
 
     ngOnDestroy() {
-        this.subscription$.unsubscribe();
+        this.subscriptionFormControl$.unsubscribe();
+        this.subscriptionMinValString$.unsubscribe();
+        this.subscriptionMaxValString$.unsubscribe();
     }
 }

@@ -19,6 +19,8 @@
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
+            "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",
+            "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden."
         }
     },

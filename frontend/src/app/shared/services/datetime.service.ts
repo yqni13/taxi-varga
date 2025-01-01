@@ -25,9 +25,9 @@ export class DateTimeService {
         return `${hours}:${minutes}`
     }
 
-    getTodayStartingTimestamp(): string {
-        const today = new Date();
-        const date = this.getDateFromTimestamp(today.toString(), true);
+    getTodayStartingTimestamp(today: boolean, selectedDate?: string): string {
+        const timestamp = !today && selectedDate ? new Date(selectedDate) : new Date();
+        const date = this.getDateFromTimestamp(timestamp.toString(), true);
         return `${date}T00:00`;
     }
 

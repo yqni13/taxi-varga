@@ -39,10 +39,10 @@
                     </span>
                     <tava-textinput
                         [inputType]="'datetime-local'"
-                        [minValString]="restrictDatePickerStart()"
+                        [minValString]="restrictDatePickerStart(true)"
                         [formControl]="serviceForm.get('datetimeStart') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.datetime' | translate"
-                        (byChange)="restrictDatePickerEnd()"
+                        (byChange)="configDateTimeEnd($event)"
                     ></tava-textinput>
                 </div>
                 <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-right">
@@ -51,8 +51,9 @@
                     </span>
                     <tava-textinput
                         [inputType]="'datetime-local'"
-                        [minValString]="restrictDatePickerStart()"
-                        [maxValString]="maxTenancyStamp"
+                        [ngClass]="!serviceForm.get('datetimeStart')?.value ? 'tava-input-inactive' : ''"
+                        [minStringObservable]="minTenancyStamp$"
+                        [maxStringObservable]="maxTenancyStamp$"
                         [formControl]="serviceForm.get('datetimeEnd') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.datetime' | translate"
                     ></tava-textinput>

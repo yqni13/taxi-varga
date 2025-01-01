@@ -19,6 +19,8 @@
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
+            "tenancy-invalid-lower-limit": "Tenancy can not be negative.",
+            "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours."
         }
     },

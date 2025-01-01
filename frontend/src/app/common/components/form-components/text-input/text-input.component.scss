@@ -15,6 +15,12 @@ input[type="datetime-local"] {
     font-family: sass.$font-text-family;
 }
 
+.tava-input-inactive input {
+    pointer-events: none;
+    opacity: 0.5;
+    color: grey;
+}
+
 i {
     position: absolute;
     display: flex;

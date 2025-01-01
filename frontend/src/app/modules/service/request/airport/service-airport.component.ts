@@ -166,7 +166,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     restrictDatePicker(): string {
-        return this.datetimeService.getTodayStartingTimestamp();
+        return this.datetimeService.getTodayStartingTimestamp(true);
     }
 
     getDirectionRadioValue(event: any) {

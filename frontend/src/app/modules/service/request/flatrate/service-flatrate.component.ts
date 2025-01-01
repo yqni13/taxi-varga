@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import { Subscription, tap } from "rxjs";
+import { Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -39,7 +39,8 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
     protected hasConfirmed: boolean;
 
     protected serviceForm: FormGroup;
-    protected maxTenancyStamp: string;
+    protected minTenancyStamp$: Subject<string>;
+    protected maxTenancyStamp$: Subject<string>;
     protected customer: string;
     protected termsAcceptance: boolean;
     protected surchargeParkingAcceptance: boolean;
@@ -66,7 +67,8 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.hasConfirmed = false;
 
         this.serviceForm = new FormGroup({});
-        this.maxTenancyStamp = '';
+        this.minTenancyStamp$ = new Subject<string>();
+        this.maxTenancyStamp$ = new Subject<string>();
         this.customer = '';
         this.termsAcceptance = false;
         this.surchargeParkingAcceptance = false;
@@ -109,13 +111,9 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.serviceForm = this.fb.group({
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),
-            tenancy: new FormControl('', [
-                CustomValidators.invalidTenancyValueValidator(),
-                CustomValidators.requiredTenancyValueValidator(),
-                CustomValidators.invalidTenancyLimitValidator(),
-            ]),
+            tenancy: new FormControl(''),
             datetimeStart: new FormControl('', Validators.required),
-            datetimeEnd: new FormControl('', Validators.required),
+            datetimeEnd: new FormControl('', CustomValidators.requiredTenancyValidator()),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             price: new FormControl(''),
@@ -136,13 +134,26 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         })
     }
 
-    restrictDatePickerStart(): string {
-        return this.datetimeService.getTodayStartingTimestamp();
+    restrictDatePickerStart(today: boolean): string {
+        if(today) {
+            return this.datetimeService.getTodayStartingTimestamp(true);
+        } else {
+            return this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value);
+        }
     }
 
-    restrictDatePickerEnd() {
-        // TODO(yqni13): maxValString must subscribe to changes of value
-        this.maxTenancyStamp = this.datetimeService.get24HoursRestrictionTimestamp(this.serviceForm.get('datetimeStart')?.value);
+    configDateTimeEnd($event: any) {
+        const restrictDateTime = this.datetimeService.get24HoursRestrictionTimestamp($event);
+        this.minTenancyStamp$.next(this.datetimeService.getTodayStartingTimestamp(false, $event));
+        this.maxTenancyStamp$.next(restrictDateTime);
+        this.serviceForm.get('datetimeEnd')?.clearValidators();
+        this.serviceForm.get('datetimeEnd')?.setValidators([
+            CustomValidators.requiredTenancyValidator(),
+            CustomValidators.invalidTenancyLowerLimitValidator($event),
+            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime)
+        ]);
+        this.serviceForm.get('datetimeEnd')?.setValue('');
+        this.serviceForm.get('datetimeEnd')?.markAsUntouched();
     }
 
     getTermsCheckboxValue(event: any) {

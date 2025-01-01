@@ -169,7 +169,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     restrictDatePicker(): string {
-        return this.datetimeService.getTodayStartingTimestamp();
+        return this.datetimeService.getTodayStartingTimestamp(true);
     }
 
     getBack2HomeCheckboxValue(event: any) {
