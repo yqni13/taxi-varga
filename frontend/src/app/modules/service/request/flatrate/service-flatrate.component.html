@@ -157,7 +157,7 @@
             </div>
             <div class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
-                    {{('modules.service.content.form.order.date' | translate) + ':'}}
+                    {{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-flatrate-offer-sum-right">
                     {{serviceForm.get('pickupDATE')?.value}}
@@ -165,10 +165,29 @@
             </div>
             <div class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
-                    {{('modules.service.content.form.order.time' | translate) + ':'}}
+                    {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-flatrate-offer-sum-right">
                     {{serviceForm.get('pickupTIME')?.value}}
+                </span>
+            </div>
+            <div
+                class="tava-service-flatrate-offer-sum"
+                *ngIf="!checkDateEqualDate()"
+            >
+                <span class="tava-service-flatrate-offer-sum-left">
+                    {{('modules.service.content.form.order.date-dropoff' | translate) + ':'}}
+                </span>
+                <span class="tava-service-flatrate-offer-sum-right">
+                    {{serviceForm.get('dropOffDATE')?.value}}
+                </span>
+            </div>
+            <div class="tava-service-flatrate-offer-sum">
+                <span class="tava-service-flatrate-offer-sum-left">
+                    {{('modules.service.content.form.order.time-dropoff' | translate) + ':'}}
+                </span>
+                <span class="tava-service-flatrate-offer-sum-right">
+                    {{serviceForm.get('dropOffTIME')?.value}}
                 </span>
             </div>
             <div class="tava-service-flatrate-offer-sum">

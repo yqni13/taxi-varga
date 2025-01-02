@@ -1,0 +1,53 @@
+@use '../../../stylesheets/utilities' as sass;
+
+
+.tava-head-message {
+    font-style: italic;
+    color: var(--theme-main-green);
+    width: 50%;
+    align-self: center;
+}
+
+.tava-imprint-content {
+    
+
+    h2 {
+        margin-top: calc(sass.$space50 + sass.$space25);
+    }
+
+    h3 {
+        margin-top: sass.$space50;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--theme-main-green);
+
+        &:hover {
+            opacity: 0.6;
+        }
+    }
+
+    p {
+        text-align: justify;
+        line-height: 26px;
+    }
+}
+
+.tava-head-message {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+    text-align: -o-center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: sass.$space15 0;
+    
+    p {
+        width: 60vw;
+        font-size: clamp(14px, 1.8vw, 17px);
+    }
+}

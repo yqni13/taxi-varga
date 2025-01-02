@@ -54,6 +54,7 @@
             }
         },
         "imprint": {
+            "message": "",
             "title": "Impressum"
         },
         "privacy": {},
@@ -142,7 +143,8 @@
                     },
                     "order": {
                         "contact": "Kontakt",
-                        "date": "Datum der Abholung",
+                        "date-dropoff": "Datum der Ankunft",
+                        "date-pickup": "Datum der Abholung",
                         "distance": "Distanz in Summe",
                         "duration": "Zeit in Summe",
                         "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
@@ -153,7 +155,8 @@
                         "tenancy": "verrechnete Mietdauer",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
-                        "time": "Zeit der Abholung",
+                        "time-dropoff": "Zeit-Ziel der Ankunft",
+                        "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 }

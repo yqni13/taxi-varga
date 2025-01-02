@@ -28,17 +28,16 @@
     align-items: center;
 }
 
-$img-width: 50vw;
+$img-width: 80vw;
 
 .tava-carousel-default-img {
-    width: 70vw;
-    max-width: 900px;
     display: flex;
     justify-content: center;
     
     img {
         object-fit: cover;
         width: $img-width;
+        max-width: 700px;
         height: auto;
         padding: 3px;
         border: 2px solid var(--theme-main-green);

@@ -36,4 +36,14 @@ export class DateTimeService {
         const limitInSeconds = new Date((startInSeconds + (24 * 60 * 60)) * 1000);
         return moment(limitInSeconds).format('YYYY-MM-DDTHH:mm');
     }
+
+    getTimeDifferenceInHoursRoundUp(start: string, end: string): string {
+        const difference = new Date(end).getTime() - new Date(start).getTime();
+        const fromMillisecondsToHours = (1 / 1000 / 60 / 60);
+        return Math.ceil(difference * fromMillisecondsToHours).toString();
+    }
+
+    hasSameDate(start: string, end: string): boolean {
+        return (new Date(start).getDate()) === (new Date(end).getDate());
+    }
 }

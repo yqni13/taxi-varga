@@ -54,6 +54,7 @@
             }
         },
         "imprint": {
+            "message": "The textual content is currently only in german language available. We will provide the translations as soon as possible.",
             "title": "Imprint"
         },
         "privacy": {},
@@ -142,7 +143,8 @@
                     },
                     "order": {
                         "contact": "Contact",
-                        "date": "Date of pick-up",
+                        "date-dropoff": "Date of drop-off",
+                        "date-pickup": "Date of pick-up",
                         "distance": "Total distance",
                         "duration": "Estimated duration",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
@@ -153,7 +155,8 @@
                         "tenancy": "charged tenancy",
                         "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time": "Time of pick-up",
+                        "time-dropoff": "Time target of drop-off",
+                        "time-pickup": "Time of pick-up",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
                 }

@@ -1,8 +1,9 @@
 @use 'stylesheets/utilities' as sass;
 
+@import 'stylesheets/backgrounds.scss';
 @import 'stylesheets/defines.scss';
 @import 'stylesheets/icons.scss';
-@import 'stylesheets/backgrounds.scss';
+@import 'stylesheets/media.scss';
 
 
 html {
@@ -28,6 +29,8 @@ section {
     margin-top: var(--size-nav-height);
     min-height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
     width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 header {

@@ -2,14 +2,14 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { Subscription, tap } from "rxjs";
+import { Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'tava-imprint',
     templateUrl: './imprint.component.html',
-    styleUrl: './imprint.componpent.scss',
+    styleUrl: './imprint.component.scss',
     standalone: true,
     imports: [
         CommonModule,
@@ -20,6 +20,8 @@ import { CommonModule } from "@angular/common";
 export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
+    protected selectedLanguage$: Subject<string>;
+
     private subscriptionThemeObservation$: Subscription;
 
     constructor(
@@ -27,6 +29,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
+        this.selectedLanguage$ = new Subject<string>();
         this.subscriptionThemeObservation$ = new Subscription();
     }
 
@@ -45,6 +48,10 @@ export class ImprintComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+
+        this.translate.onLangChange.subscribe(val => {
+            this.selectedLanguage$.next(val.lang);
+        })
     }
 
     ngOnDestroy() {

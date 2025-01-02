@@ -1,0 +1,11 @@
+@use '../stylesheets/utilities' as sass;
+
+
+@media screen and (width >= sass.$device-desktop-xk) {
+    .tava-imprint {
+
+        .tava-imprint-content {
+            margin: sass.$space50 calc(sass.$space100 * 2);
+        }
+    }
+}

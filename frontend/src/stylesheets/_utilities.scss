@@ -1,3 +1,10 @@
+/* CUSTOM DEVICE SIZES */
+$device-desktop-xk: 1440px;
+$device-tablet-landscape: 1024px;
+$device-phone-landscape: 768px;
+$device-phone-portrait: 500px;
+$device-small-any: 400px;
+
 /* CUSTOM COLORS */
 $color-ice-white: #f0f8ff;
 $color-valid-red: #ea2222;
@@ -22,6 +29,7 @@ $space5: 5px;
 $space15: 15px;
 $space25: 25px;
 $space50: 50px;
+$space75: 75px;
 $space100: 100px;
 
 $form-padding-small: 5px;

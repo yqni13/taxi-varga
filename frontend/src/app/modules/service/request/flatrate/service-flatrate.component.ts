@@ -116,6 +116,8 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
             datetimeEnd: new FormControl('', CustomValidators.requiredTenancyValidator()),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
+            dropOffDATE: new FormControl(''),
+            dropOffTIME: new FormControl(''),
             price: new FormControl(''),
         });
     }
@@ -125,12 +127,14 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.serviceForm.patchValue({
             originAddress: 'Gerichtsweg 43, 2540 Bad Vöslau',
             destinationAddress: 'Kröpfelsteigstraße 8, 2371 Hinterbrühl',
-            tenancy: '3',
+            tenancy: '',
             datetimeStart: '',
             datetimeEnd: '',
-            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
-            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
-            price: 210
+            pickupDATE: '',
+            pickupTIME: '',
+            dropOffDATE: '',
+            dropOffTIME: '',
+            price: '210'
         })
     }
 
@@ -164,6 +168,13 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.surchargeParkingAcceptance = event.target?.checked;
     }
 
+    checkDateEqualDate(): boolean {
+        return this.datetimeService.hasSameDate(
+            this.serviceForm.get('datetimeStart')?.value,
+            this.serviceForm.get('datetimeEnd')?.value
+        )
+    }
+
     onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
@@ -171,7 +182,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.addCustomerData2Form();
+        this.configServiceForm();
         this.hasOffer = true;
         this.loadOfferResponse = true;
         setTimeout(() => {
@@ -179,7 +190,23 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         }, 1500);
     }
 
-    addCustomerData2Form() {
+    configServiceForm() {
+        this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifferenceInHoursRoundUp(
+            this.serviceForm.get('datetimeStart')?.value,
+            this.serviceForm.get('datetimeEnd')?.value
+        ));
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
+            this.serviceForm.get('datetimeStart')?.value
+        ));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
+            this.serviceForm.get('datetimeStart')?.value
+        ));
+        this.serviceForm.get('dropOffDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
+            this.serviceForm.get('datetimeEnd')?.value
+        ));
+        this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
+            this.serviceForm.get('datetimeEnd')?.value
+        ));
         Object.values(this.customerData).forEach((element) => {
             if(element === 'email') {
                 this.serviceForm.addControl(element, new FormControl('', [Validators.required, Validators.email]));
