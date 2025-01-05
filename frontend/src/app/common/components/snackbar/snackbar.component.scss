@@ -1,0 +1,90 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+.tava-snackbar-container {
+    width: fit-content;
+    max-width: 400px;
+    display: flex;
+    flex-direction: row;
+    background-color: sass.$color-fullscale-bg;
+    margin: 25px;
+}
+
+.snackbar-error {
+    span,
+    i {
+        color: var(--theme-snackbar-error);
+    }
+}
+.snackbar-info {
+    span,
+    i {
+        color: var(--theme-snackbar-info);
+    }
+}
+.snackbar-success {
+    span,
+    i {
+        color: var(--theme-snackbar-success);
+    }
+}
+.snackbar-warning {
+    span,
+    i {
+        color: var(--theme-snackbar-warning);
+    }
+}
+
+.tava-snackbar-content {
+    display: flex;
+    flex-direction: column;
+    
+    .tava-snackbar-title {
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 5px 0;
+
+        span {
+            padding-left: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            align-content: center;
+        }
+        h4 {
+            color: sass.$color-ice-white;
+            padding: 0 15px;
+            margin-block: 0;
+            margin-inline: 0;
+        }
+    }
+    .tava-snackbar-text {        
+        color: sass.$color-ice-white;
+        padding: 0 15px;
+        margin-block: 0;
+        margin-inline: 0;
+        font-size: 12px;
+    }
+}
+
+.tava-singleline {
+    align-self: center;
+    padding: 25px 0;
+
+    div {
+        padding: 0!important;
+    }
+}
+
+.tava-multiline {
+    padding: 15px 0;
+}
+
+.tava-snackbar-btn {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+
+    i {
+        cursor: pointer;
+    }
+}
