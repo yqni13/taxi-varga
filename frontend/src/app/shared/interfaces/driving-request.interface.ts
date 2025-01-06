@@ -1,6 +1,6 @@
 export declare interface DrivingAirportRequest {
-    origin: string,
-    destination: string,
+    origin: string | null,
+    destination: string | null,
 }
 
 export declare interface DrivingDestinationRequest {

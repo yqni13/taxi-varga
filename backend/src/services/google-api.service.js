@@ -13,7 +13,7 @@ class GoogleMapsAPI {
         //     origins = origins.slice(0, -3);
         // } else {
         // }
-        origins = params['origins'];
+        origins = params['origin'];
 
         let destinations = '';
         // if(params['destinations'].length > 1) {
@@ -23,7 +23,7 @@ class GoogleMapsAPI {
         //     destinations = destinations.slice(0, -3);
         // } else {
         // }
-        destinations = params['destinations'];
+        destinations = params['destination'];
 
         origins = origins.replaceAll('+', '%20')
         destinations = destinations.replaceAll('+', '%20')

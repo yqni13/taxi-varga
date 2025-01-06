@@ -82,7 +82,8 @@
                         "subtitle": "off/to Vienna",
                         "title": "Airport"
                     },
-                    "title": "Airport - route details"
+                    "title": "Airport - route details",
+                    "vie-schwechat": "Vienna International Airport"
                 },
                 "destination": {
                     "labels": {

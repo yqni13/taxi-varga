@@ -130,7 +130,16 @@
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.offer.origin' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span
+                    *ngIf="serviceForm.get('originAddress')?.value === 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
+                    {{'modules.service.content.airport.vie-schwechat' | translate}}
+                </span>
+                <span
+                    *ngIf="serviceForm.get('originAddress')?.value !== 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
                     {{serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
@@ -138,7 +147,16 @@
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.offer.destination' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span
+                    *ngIf="serviceForm.get('destinationAddress')?.value === 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
+                    {{'modules.service.content.airport.vie-schwechat' | translate}}
+                </span>
+                <span
+                    *ngIf="serviceForm.get('destinationAddress')?.value !== 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
                     {{serviceForm.get('destinationAddress')?.value}}
                 </span>
             </div>

@@ -82,7 +82,8 @@
                         "subtitle": "ab/nach Wien",
                         "title": "Flughafenfahrt"
                     },
-                    "title": "Flughafen - Routendetails"
+                    "title": "Flughafen - Routendetails",
+                    "vie-schwechat": "Flughafen Wien Schwechat"
                 },
                 "destination": {
                     "labels": {

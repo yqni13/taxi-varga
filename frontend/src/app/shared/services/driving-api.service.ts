@@ -1,7 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
@@ -21,9 +20,10 @@ export class DrivingAPIService {
     private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
 
     constructor(private readonly http: HttpClient) {
-        this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
-        this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
-        this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
+        this.urlAirport = '/api/v1/driving/airport'
+        // this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
+        this.urlDestination = '/api/v1/driving/destination'
+        this.urlFlatrate = '/api/v1/driving/flatrate'
     
         this.dataAirport = {
             origin: '',
@@ -42,7 +42,10 @@ export class DrivingAPIService {
     }
 
     setDataAirport(data: any) {
-        this.dataAirport = data;
+        this.dataAirport = {
+            origin: data.originAddress !== null ? this.configAddressString(data.originAddress) : null,
+            destination: data.destinationAddress !== null ? this.configAddressString(data.destinationAddress) : null,
+        }
     }
 
     setDataDestination(data: any) {
@@ -54,7 +57,11 @@ export class DrivingAPIService {
     }
 
     setDataFlatrate(data: any) {
-        this.dataFlatrate = data;
+        this.dataFlatrate = {
+            origin: this.configAddressString(data.originAddress),
+            destination: this.configAddressString(data.destinationAddress),
+            tenancy: data.tenancy
+        };
     }
 
     configAddressString(data: string): string {

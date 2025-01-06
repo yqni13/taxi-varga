@@ -113,13 +113,12 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     ngAfterViewInit() {
-        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingDestinationStatus$.pipe(
+        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingAirportStatus$.pipe(
             filter((x) => x || !x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                } else {
-                    // TODO(yqni13): set form invalid or show general error message
+                    this.addCustomerData2Form();
                 }
                 this.loadOfferResponse = false;
             })
@@ -156,12 +155,12 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             airport: '',
             originAddress: '',
             destinationAddress: '',
-            datetime: '2025-01-31T11:27',
-            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
-            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
-            distance: 49.6,
-            duration: 36,
-            price: '72'
+            datetime: '',
+            pickupDATE: '',
+            pickupTIME: '',
+            distance: null,
+            duration: null,
+            price: null
         });
     }
 
@@ -179,14 +178,13 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     configAddressFields(direction: string) {
-        const airport = 'Flughafen Wien Schwechat';
         if(direction === 'arrival') {
-            this.serviceForm.get('originAddress')?.setValue(airport);
+            this.serviceForm.get('originAddress')?.setValue(null);
             this.serviceForm.get('destinationAddress')?.setValue('');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
         } else if(direction === 'departure') {
-            this.serviceForm.get('destinationAddress')?.setValue(airport);
+            this.serviceForm.get('destinationAddress')?.setValue(null);
             this.serviceForm.get('originAddress')?.setValue('');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
             this.serviceForm.get('originAddress')?.markAsUntouched();
@@ -195,16 +193,17 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
+
         if(this.serviceForm.invalid) {
             return;
         }
 
-        this.addCustomerData2Form();
-        this.hasOffer = true;
+        this.drivingAPIService.setDataAirport(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendAirportRequest().subscribe(data => {
+            this.addResponseRouteData2Form(data);
+        })
         this.loadOfferResponse = true;
-        setTimeout(() => {
-            this.loadOfferResponse = false;
-        }, 1500);
+
     }
 
     addCustomerData2Form() {
@@ -217,6 +216,24 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
                 this.serviceForm.addControl(element, new FormControl(''))
             }
         })
+    }
+
+    addResponseRouteData2Form(response: any) {
+        const datetime = this.serviceForm.get('datetime')?.value;
+        const origin = response.body?.body.routeData.origin;
+        const destination = response.body?.body.routeData.destination;
+        
+        if(origin === 'vie-schwechat') {
+            this.serviceForm.get('originAddress')?.setValue(origin);
+        } else {
+            this.serviceForm.get('destinationAddress')?.setValue(destination);
+        }
+        
+        this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.duration);
+        this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
     }
 
     onSubmitOrder() {

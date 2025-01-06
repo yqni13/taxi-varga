@@ -121,8 +121,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                } else {
-                    // TODO(yqni13): set form invalid or show general error message
+                    this.addCustomerData2Form();
                 }
                 this.loadOfferResponse = false;
             })
@@ -156,15 +155,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            originAddress: 'Vienna International Airport',
-            destinationAddress: 'Anton Bruckner-Gasse 11, 2544 Leobersdorf',
+            originAddress: 'Lazarettgasse 16, 1090 Wien',
+            destinationAddress: 'Grenzgasse 20, Hirtenberg',
             back2home: false,
-            datetime: '2025-01-31T11:27',
-            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
-            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
-            distance: 251.6,
-            duration: 199,
-            price: '72'
+            datetime: '',
+            pickupDATE: '',
+            pickupTIME: '',
+            distance: null,
+            duration: null,
+            price: null
         });
     }
 
@@ -205,16 +204,20 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             return;
         }
 
-        this.addCustomerData2Form();
-        // this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
-        // this.drivingAPIService.sendDestinationRequest().subscribe(data => {
-        //     console.log('response data: ', data);
-        // });
-        this.hasOffer = true;
+        this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendDestinationRequest().subscribe(data => {
+            this.addResponseRouteData2Form(data);
+        });
         this.loadOfferResponse = true;
-        setTimeout(() => {
-            this.loadOfferResponse = false;
-        }, 1500);
+    }
+
+    addResponseRouteData2Form(response: any) {
+        const datetime = this.serviceForm.get('datetime')?.value;
+        this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.time);
+        this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
     }
 
     addCustomerData2Form() {

@@ -1,19 +1,38 @@
 const { NotFoundException } = require("../utils/exceptions/common.exception");
+const Utils = require("../utils/common.utils")
 require('dotenv').config();
 const GoogleAPI = require('../services/google-api.service');
 
 class DrivingModel {
-    calcAirportRoute = (params) => {
+    calcAirportRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
 
+        // CONFIGURE PARAMETERS
+        const airport = "vie-schwechat";
         const districtRange42 = [11, 10, 3, 2, 4, 1];
         const districtRange45 = [5, 6, 7, 8, 9, 12, 15, 20];
-        const districtRange48 = [14, 16, 17, 18, 19, 21, 22, 23];
-        const district = Number(params['zipCode'].slice(1,3));
-        let price;
+        const districtRange48 = [13, 14, 16, 17, 18, 19, 21, 22, 23];
+        let district, origin, destination, price;
 
+        if(params['origin'] !== null) {
+            origin = params['origin'];
+            destination = airport;
+            district = Utils.getZipCode(origin);
+        } else if(params['destination'] !== null) {
+            destination = params['destination'];
+            origin = airport;
+            district = Utils.getZipCode(destination);
+        }
+
+        // GOOGLE ROUTE CALC
+        const route = await GoogleAPI.requestDistanceMatrix({origin: origin, destination: destination});
+        const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000 to get total km
+        const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60 to get total minutes
+
+        // PRICE CALC BASED ON ZIPCODE
+        district = Number(district.slice(1,3));
         if(districtRange42.includes(district)) {
             price = 42;
         } else if(districtRange45.includes(district)) {
@@ -23,8 +42,16 @@ class DrivingModel {
         } else {
             throw new NotFoundException('Vienna zip code not found');
         }
-        
-        return {price: price};
+
+        return {
+            routeData: {
+                origin: origin,
+                destination: destination,
+                duration: Math.ceil(duration),
+                distance: Math.ceil(distance),
+                price: price
+            }
+        };
     }
 
     calcDestinationRoute = async (params) => {
@@ -47,8 +74,8 @@ class DrivingModel {
         //home -> customer departure address (h2cda)
         let approachCosts = 0;
         const h2cda = await GoogleAPI.requestDistanceMatrix({
-            origins: process.env.HOME_ADDRESS,
-            destinations: params['origins']
+            origin: process.env.HOME_ADDRESS,
+            destination: params['origin']
         });
 
         if(h2cda.rows[0].elements[0].distance.value <= 8000) {
@@ -73,8 +100,8 @@ class DrivingModel {
             totalServiceDistance = (serviceDrive.rows[0].elements[0].distance.value) / 1000;
             totalServiceTime = (serviceDrive.rows[0].elements[0].duration.value) / 60;
             homeReturn = await GoogleAPI.requestDistanceMatrix({
-                origins: params['destinations'],
-                destinations: process.env.HOME_ADDRESS
+                origin: params['destination'],
+                destination: process.env.HOME_ADDRESS
             });
         }
 
@@ -90,9 +117,11 @@ class DrivingModel {
             ? approachCosts 
             : (homeReturn.rows[0].elements[0].distance.value / 1000) * priceReturn;
 
-        result['price'] = approachCosts + serviceDriveWayCost + serviceDriveTimeCost + homeReturnPrice;
-        result['distance'] = totalServiceDistance;
-        result['time'] = totalServiceTime;
+        result['price'] = Math.floor(approachCosts + serviceDriveWayCost + serviceDriveTimeCost + homeReturnPrice);
+        result['distance'] = (totalServiceDistance % 1 > 5) 
+            ? Math.ceil(totalServiceDistance) 
+            : Math.floor(totalServiceDistance);
+        result['time'] = Math.ceil(totalServiceTime);
 
         return {routeData: result};
     }
@@ -100,6 +129,10 @@ class DrivingModel {
     calcFlatrateRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
+        }
+
+        let result = {
+            price: 0,
         }
         
         const routeData = GoogleAPI;

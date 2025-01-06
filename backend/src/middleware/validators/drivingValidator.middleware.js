@@ -1,13 +1,28 @@
 const { body } = require('express-validator');
 const { stateRegex, streetRegex } = require('../../utils/common.utils');
 
+
+exports.drivingAirportSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
+        .optional({nullable: true})
+        .bail(),
+        body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
+        .optional({nullable: true})
+]
+
 exports.drivingDestinationSchema = [
-    body('origins')
+    body('origin')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail(),
-    body('destinations')
+    body('destination')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
@@ -83,14 +98,4 @@ exports.drivingFlatrateSchema = [
         .bail()
         .isInt({min: 1})
         .withMessage('Must be an integer')
-]
-
-exports.drivingAirportSchema = [
-    body('zipCode')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isInt({min: 1010, max: 1220})
-        .withMessage('driving-invalid-zipcode-vienna')
 ]

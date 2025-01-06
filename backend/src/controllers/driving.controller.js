@@ -2,9 +2,9 @@ const DrivingService = require('../services/driving.service');
 const { checkValidation } = require('../middleware/validation.middleware');
 
 class DrivingController {
-    calcDrivingAirport = (req, res, next) => {
+    calcDrivingAirport = async (req, res, next) => {
         checkValidation(req);
-        const response = DrivingService.calcAirportRoute(req.body);
+        const response = await DrivingService.calcAirportRoute(req.body);
         res.send(response);
     }
 
