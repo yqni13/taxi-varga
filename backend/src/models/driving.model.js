@@ -10,24 +10,22 @@ class DrivingModel {
         }
 
         // CONFIGURE PARAMETERS
-        const airport = "vie-schwechat";
         const districtRange42 = [11, 10, 3, 2, 4, 1];
         const districtRange45 = [5, 6, 7, 8, 9, 12, 15, 20];
         const districtRange48 = [13, 14, 16, 17, 18, 19, 21, 22, 23];
-        let district, origin, destination, price;
+        let district, price;
 
-        if(params['origin'] !== null) {
-            origin = params['origin'];
-            destination = airport;
-            district = Utils.getZipCode(origin);
-        } else if(params['destination'] !== null) {
-            destination = params['destination'];
-            origin = airport;
-            district = Utils.getZipCode(destination);
+        if(params['origin'] === 'vie-schwechat') {
+            district = Utils.getZipCode(params['destination']);
+        } else if(params['destination'] === 'vie-schwechat') {
+            district = Utils.getZipCode(params['origin']);
         }
 
         // GOOGLE ROUTE CALC
-        const route = await GoogleAPI.requestDistanceMatrix({origin: origin, destination: destination});
+        const route = await GoogleAPI.requestDistanceMatrix({
+            origin: params['origin'], 
+            destination: params['destination']
+        });
         const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000 to get total km
         const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60 to get total minutes
 
@@ -45,8 +43,6 @@ class DrivingModel {
 
         return {
             routeData: {
-                origin: origin,
-                destination: destination,
                 duration: Math.ceil(duration),
                 distance: Math.ceil(distance),
                 price: price
@@ -71,7 +67,7 @@ class DrivingModel {
         const priceMore30km = 0.5;
         const priceReturn = 0.5;
 
-        //home -> customer departure address (h2cda)
+        //home to customer departure address (h2cda)
         let approachCosts = 0;
         const h2cda = await GoogleAPI.requestDistanceMatrix({
             origin: process.env.HOME_ADDRESS,
@@ -131,13 +127,41 @@ class DrivingModel {
             return {error: 'no params found'};
         }
 
-        let result = {
-            price: 0,
-        }
-        
-        const routeData = GoogleAPI;
+        const priceApproachPerKm = 0.5;
+        const priceReturnPerKm = 0.5;
+        const priceFlatratePerHour = 40;
+        let totalCost = 0;
 
-        return {};
+        const tenancy = params['tenancy'] * priceFlatratePerHour; 
+
+        const approachRoute = await GoogleAPI.requestDistanceMatrix({
+            origin: process.env.HOME_ADDRESS,
+            destination: params['origin']
+        });
+        const approachDistance = ((approachRoute.rows[0].elements[0].distance.value) / 1000);
+        const approachCost = (approachDistance % 1) > 5
+            ? Math.ceil(approachDistance) * priceApproachPerKm
+            : Math.floor(approachDistance) * priceApproachPerKm;
+
+        if(params['origin'] !== params['destination']) {
+            const returnRoute = await GoogleAPI.requestDistanceMatrix({
+                origin: params['destination'],
+                destination: process.env.HOME_ADDRESS
+            });
+            const returnDistance = ((returnRoute.rows[0].elements[0].distance.value) / 1000);
+            const returnCost = (returnDistance % 1) > 5
+                ? Math.ceil(returnDistance) * priceReturnPerKm
+                : Math.floor(returnDistance) * priceReturnPerKm;
+            totalCost = tenancy + approachCost + returnCost;
+        } else {
+            totalCost = tenancy + (approachCost * 2);
+        }
+
+        return { 
+            routeData: {
+                price: Math.ceil(totalCost)
+            }
+        };
     }
 }
 

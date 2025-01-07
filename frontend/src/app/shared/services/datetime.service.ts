@@ -36,10 +36,10 @@ export class DateTimeService {
         return `${this.getDateFromTimestamp(new Date(limit).toString(), true)}T${this.getTimeFromTimestamp(new Date(limit).toString())}`;
     }
 
-    getTimeDifferenceInHoursRoundUp(start: string, end: string): string {
+    getTimeDifferenceInHoursRoundUp(start: string, end: string): number {
         const difference = new Date(end).getTime() - new Date(start).getTime();
         const fromMillisecondsToHours = (1 / 1000 / 60 / 60);
-        return Math.ceil(difference * fromMillisecondsToHours).toString();
+        return Math.ceil(difference * fromMillisecondsToHours);
     }
 
     hasSameDate(start: string, end: string): boolean {

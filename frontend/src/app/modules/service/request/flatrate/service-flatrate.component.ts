@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
-import { Subject, Subscription, tap } from "rxjs";
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -14,6 +14,7 @@ import { HttpObservationService } from "../../../../shared/services/http-observa
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
+import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -31,7 +32,7 @@ import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pip
         TranslateModule
     ]
 })
-export class ServiceFlatrateComponent implements OnInit, OnDestroy {
+export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected selectedBg: string;
     protected hasOffer: boolean;
@@ -48,6 +49,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
 
     private window: any;
@@ -58,6 +60,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly datetimeService: DateTimeService,
+        private readonly drivingAPIService: DrivingAPIService,
         private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
     ) {
@@ -76,6 +79,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.loadOrderResponse = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
@@ -107,6 +111,29 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.initEdit();
     }
 
+    ngAfterViewInit() {
+        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingFlatrateStatus$.pipe(
+            filter((x) => x || !x),
+            tap((isStatus200: boolean) => {
+                if(isStatus200) {
+                    this.hasOffer = true;
+                    this.addCustomerData2Form();
+                }
+                this.loadOfferResponse = false;
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
+            filter((x) => !!x),
+            tap((isStatus200: boolean) => {
+                if(isStatus200) {
+                    // do what needs and get to last message in process
+                }
+                this.loadOrderResponse = false;
+            })
+        ).subscribe();
+    }
+
     private initForm() {
         this.serviceForm = this.fb.group({
             originAddress: new FormControl('', Validators.required),
@@ -127,14 +154,14 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.serviceForm.patchValue({
             originAddress: 'Gerichtsweg 43, 2540 Bad Vöslau',
             destinationAddress: 'Kröpfelsteigstraße 8, 2371 Hinterbrühl',
-            tenancy: '',
+            tenancy: null,
             datetimeStart: '',
             datetimeEnd: '',
             pickupDATE: '',
             pickupTIME: '',
             dropOffDATE: '',
             dropOffTIME: '',
-            price: '210'
+            price: null
         })
     }
 
@@ -182,19 +209,20 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
             return;
         }
 
-        this.configServiceForm();
-        this.hasOffer = true;
+        this.configDateTimeData();
+        this.drivingAPIService.setDataFlatrate(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendFlatrateRequest().subscribe(data => {
+            this.addResponseRouteData2Form(data);
+        })
         this.loadOfferResponse = true;
-        setTimeout(() => {
-            this.loadOfferResponse = false;
-        }, 1500);
     }
 
-    configServiceForm() {
+    configDateTimeData() {
         this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifferenceInHoursRoundUp(
             this.serviceForm.get('datetimeStart')?.value,
             this.serviceForm.get('datetimeEnd')?.value
         ));
+        
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
             this.serviceForm.get('datetimeStart')?.value
         ));
@@ -207,6 +235,9 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
         this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
             this.serviceForm.get('datetimeEnd')?.value
         ));
+    }
+
+    addCustomerData2Form() {
         Object.values(this.customerData).forEach((element) => {
             if(element === 'email') {
                 this.serviceForm.addControl(element, new FormControl('', [Validators.required, Validators.email]));
@@ -216,6 +247,10 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
                 this.serviceForm.addControl(element, new FormControl(''))
             }
         })
+    }
+
+    addResponseRouteData2Form(response: any) {
+        this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
     }
 
     onSubmitOrder() {
@@ -250,6 +285,7 @@ export class ServiceFlatrateComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }
 }

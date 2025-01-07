@@ -42,9 +42,14 @@ export class DrivingAPIService {
     }
 
     setDataAirport(data: any) {
+        const airport = 'vie-schwechat';
         this.dataAirport = {
-            origin: data.originAddress !== null ? this.configAddressString(data.originAddress) : null,
-            destination: data.destinationAddress !== null ? this.configAddressString(data.destinationAddress) : null,
+            origin: data.originAddress !== airport 
+                ? this.configAddressString(data.originAddress) 
+                : data.originAddress,
+            destination: data.destinationAddress !== airport 
+                ? this.configAddressString(data.destinationAddress) 
+                : data.destinationAddress,
         }
     }
 

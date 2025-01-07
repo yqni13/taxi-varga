@@ -179,12 +179,12 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     configAddressFields(direction: string) {
         if(direction === 'arrival') {
-            this.serviceForm.get('originAddress')?.setValue(null);
+            this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('destinationAddress')?.setValue('');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
         } else if(direction === 'departure') {
-            this.serviceForm.get('destinationAddress')?.setValue(null);
+            this.serviceForm.get('destinationAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('originAddress')?.setValue('');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
             this.serviceForm.get('originAddress')?.markAsUntouched();
@@ -219,16 +219,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     addResponseRouteData2Form(response: any) {
-        const datetime = this.serviceForm.get('datetime')?.value;
-        const origin = response.body?.body.routeData.origin;
-        const destination = response.body?.body.routeData.destination;
-        
-        if(origin === 'vie-schwechat') {
-            this.serviceForm.get('originAddress')?.setValue(origin);
-        } else {
-            this.serviceForm.get('destinationAddress')?.setValue(destination);
-        }
-        
+        const datetime = this.serviceForm.get('datetime')?.value;        
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
         this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.duration);
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);

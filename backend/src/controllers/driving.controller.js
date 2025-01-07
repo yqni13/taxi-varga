@@ -14,10 +14,9 @@ class DrivingController {
         res.send(response);
     }
 
-    calcDrivingFlatrate = (req, res, next) => {
+    calcDrivingFlatrate = async (req, res, next) => {
         checkValidation(req);
-        console.log(req.body); // result == {}
-        const response = DrivingService.calcFlatrateRoute(req.body);
+        const response = await DrivingService.calcFlatrateRoute(req.body);
         res.send(response);
     }
 }
