@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -55,10 +55,13 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
+    private scrollAnchor!: HTMLElement;
     private customerData: string[];
+    private delay: any;
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
@@ -91,6 +94,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             'email',
             'note'
         ];
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -110,6 +114,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         ).subscribe();
 
         this.initEdit();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
     }
 
     ngAfterViewInit() {
@@ -119,6 +124,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
                 if(isStatus200) {
                     this.hasOffer = true;
                     this.addCustomerData2Form();
+                    this.httpObservationService.setDrivingAirportStatus(false);
                 }
                 this.loadOfferResponse = false;
             })
@@ -164,6 +170,13 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         });
     }
 
+    scrollToTop() {
+        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+            this.scrollAnchor.scrollTo(0,0);
+            this.document.scrollingElement.scrollTop = 0;
+        }
+    }
+
     restrictDatePicker(): string {
         return this.datetimeService.getTodayStartingTimestamp(true);
     }
@@ -191,7 +204,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         }
     }
 
-    onSubmitOffer() {
+    async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -204,6 +217,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         })
         this.loadOfferResponse = true;
 
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     addCustomerData2Form() {
@@ -227,7 +242,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
     }
 
-    onSubmitOrder() {
+    async onSubmitOrder() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -236,6 +251,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
         this.hasOrder = true;
         this.editFinalOrder();
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     editFinalOrder() {
@@ -245,7 +263,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
     }
 
-    submitOrder() {
+    async submitOrder() {
         if(!this.termsAcceptance) {
             return;
         }
@@ -255,6 +273,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             this.hasConfirmed = true;
             this.loadOrderResponse = false;
         }, 1500);
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     ngOnDestroy() {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -53,10 +53,13 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     private subscriptionHttpObservationEmail$: Subscription;
 
     private window: any;
+    private scrollAnchor!: HTMLElement;
     private customerData: string[];
+    private delay: any;
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly datetimeService: DateTimeService,
@@ -91,6 +94,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             'email',
             'note'
         ];
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -108,7 +112,9 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                 }
             })
         ).subscribe();
+
         this.initEdit();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
     }
 
     ngAfterViewInit() {
@@ -118,6 +124,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                 if(isStatus200) {
                     this.hasOffer = true;
                     this.addCustomerData2Form();
+                    this.httpObservationService.setDrivingFlatrateStatus(false);
                 }
                 this.loadOfferResponse = false;
             })
@@ -165,6 +172,13 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         })
     }
 
+    scrollToTop() {
+        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+            this.scrollAnchor.scrollTo(0,0);
+            this.document.scrollingElement.scrollTop = 0;
+        }
+    }
+
     restrictDatePickerStart(today: boolean): string {
         if(today) {
             return this.datetimeService.getTodayStartingTimestamp(true);
@@ -202,7 +216,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         )
     }
 
-    onSubmitOffer() {
+    async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -215,6 +229,9 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             this.addResponseRouteData2Form(data);
         })
         this.loadOfferResponse = true;
+        
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     configDateTimeData() {
@@ -253,7 +270,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
     }
 
-    onSubmitOrder() {
+    async onSubmitOrder() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -262,6 +279,8 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
         this.hasOrder = true;
         this.editFinalOrder();
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     editFinalOrder() {
@@ -271,7 +290,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
     }
 
-    submitOrder() {
+    async submitOrder() {
         if(!this.termsAcceptance) {
             return;
         }
@@ -281,6 +300,9 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             this.hasConfirmed = true;
             this.loadOrderResponse = false;
         }, 1500);
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     ngOnDestroy() {

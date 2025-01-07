@@ -56,10 +56,13 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
+    private scrollAnchor!: HTMLElement;
+    private delay: any;
     private customerData: string[];
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
@@ -93,6 +96,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             'email',
             'note'
         ];
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -112,6 +116,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         ).subscribe();
 
         this.initEdit();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
         // this.googlePlacesAutocomplete();
     }
 
@@ -122,6 +127,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
                 if(isStatus200) {
                     this.hasOffer = true;
                     this.addCustomerData2Form();
+                    this.httpObservationService.setDrivingDestinationStatus(false);
                 }
                 this.loadOfferResponse = false;
             })
@@ -167,6 +173,13 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         });
     }
 
+    scrollToTop() {
+        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+            this.scrollAnchor.scrollTo(0,0);
+            this.document.scrollingElement.scrollTop = 0;
+        }
+    }
+
     restrictDatePicker(): string {
         return this.datetimeService.getTodayStartingTimestamp(true);
     }
@@ -197,7 +210,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     //     }
     // }
 
-    onSubmitOffer() {
+    async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -209,6 +222,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             this.addResponseRouteData2Form(data);
         });
         this.loadOfferResponse = true;
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     addResponseRouteData2Form(response: any) {
@@ -232,7 +247,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         })
     }
 
-    onSubmitOrder() {
+    async onSubmitOrder() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -241,6 +256,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.hasOrder = true;
         this.editFinalOrder();
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     editFinalOrder() {
@@ -253,7 +270,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
     }
 
-    submitOrder() {
+    async submitOrder() {
         if(!this.termsAcceptance) {
             return;
         }
@@ -263,6 +280,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             this.hasConfirmed = true;
             this.loadOrderResponse = false;
         }, 1500);
+        
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     ngOnDestroy() {
