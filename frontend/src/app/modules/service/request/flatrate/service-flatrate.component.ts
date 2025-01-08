@@ -235,7 +235,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     configDateTimeData() {
-        this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifferenceInHoursRoundUp(
+        this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifference(
             this.serviceForm.get('datetimeStart')?.value,
             this.serviceForm.get('datetimeEnd')?.value
         ));
@@ -268,6 +268,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
     addResponseRouteData2Form(response: any) {
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+    
     }
 
     async onSubmitOrder() {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { filter, Subscription, tap } from "rxjs";
+import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -16,6 +16,7 @@ import { HttpObservationService } from '../../../../shared/services/http-observa
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
+import { VarDirective } from "../../../../common/directives/ng-var.directive";
 
 @Component({
     selector: 'tava-service-destination',
@@ -32,7 +33,8 @@ import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pip
         SelectInputComponent,
         TextareaInputComponent,
         TextInputComponent,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -43,6 +45,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected hasOffer: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
+    protected pickupTimeByLang$: Subject<string>;
+    protected pickupTimeByLangStatic: string;
 
     protected serviceForm: FormGroup;
     protected customer: string;
@@ -53,6 +57,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
+    private subscriptionPickupTimeObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
@@ -74,7 +80,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.hasOffer = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
-
+        this.pickupTimeByLang$ = new Subject<string>();
+        this.pickupTimeByLangStatic = '';
+        
         this.serviceForm = new FormGroup({});
         this.customer = '';
         this.termsAcceptance = false;
@@ -82,8 +90,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.surchargeFuelAcceptance = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
-    
+        
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionLangObservation$ = new Subscription();
+        this.subscriptionPickupTimeObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -114,6 +124,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
                 }
             })
         ).subscribe();
+
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+            this.configPickupTimeByLanguage(val.lang);
+        })
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
@@ -150,6 +164,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
             datetime: new FormControl('', Validators.required),
+            latency: new FormControl(''),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),
@@ -164,6 +179,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             originAddress: 'Lazarettgasse 16, 1090 Wien',
             destinationAddress: 'Grenzgasse 20, Hirtenberg',
             back2home: false,
+            latency: '00:00',
             datetime: '',
             pickupDATE: '',
             pickupTIME: '',
@@ -186,6 +202,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     getBack2HomeCheckboxValue(event: any) {
         this.serviceForm.get('back2home')?.setValue(event.target?.checked);
+        if(!event.target?.checked) {
+            this.serviceForm.get('latency')?.setValue('00:00');
+        }
     }
 
     getTermsCheckboxValue(event: any) {
@@ -233,6 +252,23 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
+        this.serviceForm.get('latency')?.setValue(
+            this.datetimeService.getRoundUpTime30MinSteps(this.serviceForm.get('latency')?.value, false)
+        );
+        
+        this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('pickupTIME')?.value,
+            this.translate.currentLang
+        );
+    }
+
+    configPickupTimeByLanguage(lang: string) {
+        const time = this.serviceForm.get('pickupTIME')?.value;
+        if(time === '') {
+            return;
+        }
+
+        this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
     }
 
     addCustomerData2Form() {
@@ -287,6 +323,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionLangObservation$.unsubscribe();
+        this.subscriptionPickupTimeObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

@@ -39,6 +39,17 @@
                         {{'modules.service.content.destination.labels.back2home' | translate}}
                     </span>
                 </div>
+                <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-destination-block" id="form-latency">
+                    <tava-textinput
+                        [ngClass]="'tava-input-time'"
+                        [inputType]="'time'"
+                        [formControl]="serviceForm.get('latency') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.latency' | translate"
+                    ></tava-textinput>
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.destination.labels.latency' | translate}}
+                    </span>
+                </div>
                 <div class="tava-service-destination-block" id="form-datetime">
                     <span class="tava-service-block-label">
                         {{('modules.service.content.destination.labels.datetime' | translate) + '*'}}
@@ -111,6 +122,14 @@
                     {{serviceForm.get('destinationAddress')?.value}}
                 </span>
             </div>
+            <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-destination-offer-sum">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.offer.back2home' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{serviceForm.get('originAddress')?.value}}
+                </span>
+            </div>
             <div class="tava-service-destination-offer-sum">
                 <span class="tava-service-destination-offer-sum-left">
                     {{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
@@ -119,12 +138,15 @@
                     {{serviceForm.get('pickupDATE')?.value}}
                 </span>
             </div>
-            <div class="tava-service-destination-offer-sum">
+            <div class="tava-service-destination-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
                 <span class="tava-service-destination-offer-sum-left">
                     {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
-                <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('pickupTIME')?.value}}
+                <span *ngIf="pickup !== null" class="tava-service-destination-offer-sum-right">
+                    {{pickup}}
+                </span>
+                <span *ngIf="pickup === null" class="tava-service-destination-offer-sum-right">
+                    {{pickupTimeByLangStatic}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum">
@@ -141,6 +163,14 @@
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
                     {{serviceForm.get('duration')?.value | durationFormat}}
+                </span>
+            </div>
+            <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-destination-offer-sum">
+                <span class="tava-service-destination-offer-sum-left">
+                    {{('modules.service.content.form.order.latency' | translate) + ':'}}
+                </span>
+                <span class="tava-service-destination-offer-sum-right">
+                    {{serviceForm.get('latency')?.value + ' h'}}
                 </span>
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-warnings">

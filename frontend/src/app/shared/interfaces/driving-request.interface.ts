@@ -6,11 +6,12 @@ export declare interface DrivingAirportRequest {
 export declare interface DrivingDestinationRequest {
     origin: string,
     destination: string,
-    back2home: boolean
+    back2home: boolean,
+    latency: number
 }
 
 export declare interface DrivingFlatrateRequest {
     origin: string,
     destination: string,
-    tenancy: string,
+    tenancy: number,
 }

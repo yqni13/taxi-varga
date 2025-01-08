@@ -90,6 +90,7 @@
                         "back2home": "Ich möchte zur Abholadresse zurückkehren.",
                         "datetime": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
                         "origin": "Abholadresse",
                         "placeholder": "Adresse auswählen"
                     },
@@ -137,8 +138,10 @@
                         "title": "Titel"
                     },
                     "offer": {
+                        "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
                         "destination": "Zieladresse",
+                        "latency": "Wartezeit",
                         "origin": "Abholadresse",
                         "tenancy": "Mietdauer"
                     },
@@ -146,8 +149,9 @@
                         "contact": "Kontakt",
                         "date-dropoff": "Datum der Ankunft",
                         "date-pickup": "Datum der Abholung",
-                        "distance": "Distanz in Summe",
-                        "duration": "Zeit in Summe",
+                        "distance": "Fahrstrecke",
+                        "duration": "Fahrzeit",
+                        "latency": "verrechnete Wartezeit",
                         "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "Geschätzter Preis",
                         "price-fixed": "Pauschalpreis",

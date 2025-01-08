@@ -90,6 +90,7 @@
                         "back2home": "I want to return to my pickup address.",
                         "datetime": "Date & time (pickup)",
                         "destination": "Destination address",
+                        "latency": "My required time between arrival and return.",
                         "origin": "Pickup address",
                         "placeholder": "Type address"
                     },
@@ -137,8 +138,10 @@
                         "title": "Title"
                     },
                     "offer": {
+                        "back2home": "Return",
                         "datetime": "Date & time",
                         "destination": "Destination address",
+                        "latency": "Waiting time",
                         "origin": "Pickup address",
                         "tenancy": "Tenancy"
                     },
@@ -146,8 +149,9 @@
                         "contact": "Contact",
                         "date-dropoff": "Date of drop-off",
                         "date-pickup": "Date of pick-up",
-                        "distance": "Total distance",
-                        "duration": "Estimated duration",
+                        "distance": "Driven distance",
+                        "duration": "Driving time",
+                        "latency": "Waiting time",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",

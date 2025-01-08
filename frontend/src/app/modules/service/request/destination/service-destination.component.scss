@@ -8,16 +8,25 @@
     align-items: center;
 }
 
-#form-checkbox {
+#form-checkbox,
+#form-latency {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
+#form-latency span {
+    align-self: start;
+    margin-top: 9px;
+}
+
 .tava-text-input-checkbox {
+    $checkbox-scaled-width: 13px;
+    $input-time-width: 100px;
+
     transform: scale(1.5);
     padding: 0;
-    margin: 0 calc(sass.$space15 + sass.$space5);
+    margin: 0 calc(sass.$space15 + sass.$space5) 0 calc($input-time-width - $checkbox-scaled-width);
 
     /* hide default checkbox */
     background: none;

@@ -5,6 +5,7 @@ import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { Observable } from "rxjs";
+import { DateTimeService } from './datetime.service';
 
 @Injectable({
     providedIn: 'root'
@@ -19,7 +20,10 @@ export class DrivingAPIService {
     private dataDestination: DrivingRequest.DrivingDestinationRequest;
     private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
 
-    constructor(private readonly http: HttpClient) {
+    constructor(
+        private readonly http: HttpClient,
+        private readonly datetimeService: DateTimeService
+    ) {
         this.urlAirport = '/api/v1/driving/airport'
         // this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
         this.urlDestination = '/api/v1/driving/destination'
@@ -32,12 +36,13 @@ export class DrivingAPIService {
         this.dataDestination = {
             origin: '',
             destination: '',
-            back2home: false
+            back2home: false,
+            latency: 0
         };
         this.dataFlatrate = {
             origin: '',
             destination: '',
-            tenancy: ''
+            tenancy: 0
         }
     }
 
@@ -57,7 +62,8 @@ export class DrivingAPIService {
         this.dataDestination = {
             origin: this.configAddressString(data.originAddress),
             destination: this.configAddressString(data.destinationAddress),
-            back2home: data.back2home
+            back2home: data.back2home,
+            latency: this.datetimeService.getTimeInTotalMinutes(data.latency)
         };
     }
 
@@ -65,7 +71,7 @@ export class DrivingAPIService {
         this.dataFlatrate = {
             origin: this.configAddressString(data.originAddress),
             destination: this.configAddressString(data.destinationAddress),
-            tenancy: data.tenancy
+            tenancy: this.datetimeService.getTimeInTotalMinutes(data.tenancy)
         };
     }
 

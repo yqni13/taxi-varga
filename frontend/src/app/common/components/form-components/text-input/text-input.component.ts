@@ -104,6 +104,10 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
                 this.classNameWarningIcon = 'tava-warning-input-number';
                 break;
             }
+            case('time'): {
+                this.classNameWarningIcon = 'tava-warning-input-time';
+                break;
+            }
             default:
                 this.classNameWarningIcon = 'tava-warning-input-text';
         }
