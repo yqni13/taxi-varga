@@ -17,6 +17,18 @@ export class DateTimeService {
         return `${day}.${month}.${date.getFullYear()}`
     }
 
+    getTimeFromTotalMinutes(time: number): string {
+        const hours = (time >= 60)
+            ? Math.floor(time / 60) >= 10
+                ? Math.floor(time / 60)
+                : `0${Math.floor(time / 60)}`
+            : '00';
+        const minutes = (time % 60 > 9)
+            ? time % 60
+            : `0${time}`;
+        return `${hours}:${minutes}`;
+    }
+
     getTimeFromTimestamp(timestamp: string): string {
         const time = new Date(timestamp);
         const hours = time.getHours() < 10 ? `0${time.getHours()}` : `${time.getHours()}`;
@@ -57,6 +69,9 @@ export class DateTimeService {
     }
 
     getTimeInTotalMinutes(time: string): number {
+        if(time[0] === '2' && time[1] === '4') {
+            return 24 * 60;
+        }
         const hours = new Date(`2025-01-01T${time}:00`).getHours();
         const minutes = new Date(`2025-01-01T${time}:00`).getMinutes();
         return (hours * 60) + minutes;

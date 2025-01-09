@@ -17,6 +17,7 @@ import { DrivingAPIService } from "../../../../shared/services/driving-api.servi
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
+import * as CustomValidators from "../../../../common/helper/custom-validators";
 
 @Component({
     selector: 'tava-service-destination',
@@ -58,7 +59,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     private subscriptionThemeObservation$: Subscription;
     private subscriptionLangObservation$: Subscription;
-    private subscriptionPickupTimeObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
@@ -93,7 +93,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         
         this.subscriptionThemeObservation$ = new Subscription();
         this.subscriptionLangObservation$ = new Subscription();
-        this.subscriptionPickupTimeObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -164,7 +163,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
             datetime: new FormControl('', Validators.required),
-            latency: new FormControl(''),
+            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),
@@ -324,7 +323,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
         this.subscriptionLangObservation$.unsubscribe();
-        this.subscriptionPickupTimeObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

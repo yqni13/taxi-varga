@@ -6,15 +6,6 @@
         <div *ngIf="control.hasError('email')">
             {{ 'common.validation.email-invalid' | translate: {fieldName: fieldName} }}
         </div>
-        <!-- <div *ngIf="control.hasError('invalidTenancyValue')">
-            {{ 'common.validation.tenancy-invalid-value' | translate }}
-        </div>
-        <div *ngIf="control.hasError('invalidTenancyLimit')">
-            {{ 'common.validation.tenancy-invalid-limit' | translate }}
-        </div> -->
-        <!-- <div *ngIf="control.hasError('requiredTenancyValue')">
-            {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
-        </div> -->
         <div *ngIf="control.hasError('requiredTenancy')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>
@@ -23,6 +14,12 @@
         </div>
         <div *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
+        </div>
+        <div *ngIf="control.hasError('maxLatency')">
+            {{ 'common.validation.latency-invalid-upper-limit' | translate }}
+        </div>
+        <div *ngIf="control.hasError('invalidAirportTime')">
+            {{ 'common.validation.airport-invalid-time' | translate }}
         </div>
     </div>
 </ng-container>

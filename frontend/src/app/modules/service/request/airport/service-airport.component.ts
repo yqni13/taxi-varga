@@ -17,6 +17,7 @@ import { TextInputComponent } from "../../../../common/components/form-component
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
+import * as CustomValidators from "../../../../common/helper/custom-validators";
 
 @Component({
     selector: 'tava-service-airport',
@@ -146,7 +147,10 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             airport: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
             destinationAddress: new FormControl(''),  
-            datetime: new FormControl('', Validators.required),
+            datetime: new FormControl('', [
+                Validators.required,
+                CustomValidators.invalidAirportTimeValidator(this.datetimeService)
+            ]),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),
@@ -236,7 +240,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     addResponseRouteData2Form(response: any) {
         const datetime = this.serviceForm.get('datetime')?.value;        
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
-        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.duration);
+        this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.duration));
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
