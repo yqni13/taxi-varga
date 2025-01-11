@@ -23,6 +23,18 @@ export const invalidTenancyLowerLimitValidator = (minLimit: string): ValidatorFn
     }
 }
 
+export const invalidZeroTenancyValidator = (datetimeService: DateTimeService, start: string): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        if(control?.value !== '' && control?.value !== null) {
+            const difference = datetimeService.getTimeDifferenceAsNumber(start, control?.value)
+            if(difference === 0) {
+                return { invalidZeroTenancy: true };
+            }
+        }
+        return null;
+    }
+}
+
 export const requiredTenancyValidator = (): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         if(control?.value === '' || control?.value === null) {

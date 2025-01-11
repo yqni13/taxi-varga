@@ -26,8 +26,8 @@ class MailingModel {
 
         const mailOptions = {
             from: process.env.SECRET_EMAIL_SENDER,
-            replyTo: sender,
-            to: process.env.SECRET_EMAIL_RECEIVER,
+            // to: process.env.SECRET_EMAIL_RECEIVER,
+            to: sender,
             subject: subject,
             text: message
         };
@@ -43,7 +43,7 @@ class MailingModel {
                 result = info.response;
             }
         })
-        return await {response: result};
+        return {response: result};
     }
 }
 

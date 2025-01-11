@@ -1,50 +1,107 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
 import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";
 import { TranslateService } from "@ngx-translate/core";
+import { DateTimeService } from "./datetime.service";
+import { MailTranslateService } from "./mail-translate.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MailAPIService {
     private mailData: MailingRequest;
-    private url: string;
+    private urlSend: string;
+    private divider: string;
+
+    private translateData: any;
 
     constructor(
         private readonly http: HttpClient,
-        private readonly translate: TranslateService
+        private readonly translate: TranslateService,
+        private readonly datetimeService: DateTimeService,
+        private readonly mailTranslateService: MailTranslateService
     ) {
         this.mailData = {
             sender: '',
             subject: '',
             body: ''
         }
+
+        this.translateData = {
+            service: '',
+            gender: ''
+        }
+
+        this.divider = `
+        ----------------------------------------------------------------------------------------
+        ----------------------------------------------------------------------------------------
+        `;
         // TODO(yqni13): clean input before use
 
-        this.url = environment.API_BASE_URL + '/api/v1/mailing';
+        this.urlSend = '/api/v1/mailing/send';
+        // this.url = environment.API_BASE_URL + '/api/v1/mailing';
     }
 
     setMailData(data: MailingMessage) {
 
-        const msgStart = `Anfrage für Service: ${this.translate.get('shared.enum.service.' + data.service)}`;
+        data.phone = this.removeEmptySpacesInString(data.phone);
 
-        const msgCustomer = `Daten zur Person:\n${this.translate.get('shared.enum.gender.' + data.gender)} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\n\nPersönliche Notiz:\n${data.note ? data.note : '--'}`;
+        // german version
+        const declareGerman = 'Deutsche Version:';
+        const declareEnglish = 'English version:';
 
-        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${data.origin}\nZieladresse: ${data.destination}\n${data.service === 'destination' && data.back2home ? 'Möchte zur Abholadresse anschließend zurückgebracht werden (JA).\n' : ''}Datum der Abholung: ${data.date}\nZeitpunkt der Abholung: ${data.time}`;
-
-        const msgServiceFixed = `Distanz: ${data.distance}\nFahrtdauer: ${data.duration}\nPreis: ${data.price}`;
-        const msgServiceFlatrate = `Mietdauer: ${data.tenancy}\nGeschätzter Preis: ${data.price}`;
+        const hasLatency = data.latency ? this.datetimeService.getTimeInTotalMinutes(data.latency) > 0 : false;
         
+        const bodyInGerman = this.configEmailBodyInGerman(data, hasLatency);
+        const bodyInEnglish = this.configEmailBodyInEnglish(data, hasLatency);
+
         this.mailData = {
             sender: data.email,
-            subject: `Anfrage: ${data.service}`,
-            body: `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
-        }
+            subject: `Anfrage/Request: Taxi-Varga Service`,
+            body: `${declareGerman}\n${bodyInGerman}\n\n${this.divider}\n\n${declareEnglish}\n${bodyInEnglish}`
+        };
+    }
+
+    configEmailBodyInGerman(data: MailingMessage, hasLatency: boolean): string {
+        this.translateData.service = this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`);
+        this.translateData.gender = this.mailTranslateService.getTranslationDE(`shared.enum.gender.${data.gender}`);
+
+        const msgStart = `Anfrage für Service: ${this.translateData.service}`;
+
+        const msgCustomer = `Daten zur Person:\n${this.translateData.gender} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? data.note : '--'}`;
+
+        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${data.origin}\nZieladresse: ${data.destination}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.origin : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+
+        const msgServiceFixed = `Distanz: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: € ${data.price},--`;
+
+        const msgServiceFlatrate = `${data.dropoffDATE && data.pickupDATE !== data.dropoffDATE ? 'Datum der Ankunft: ' + data.dropoffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropoffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: € ${data.price},--`;
+
+        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+    }
+    
+    configEmailBodyInEnglish(data: MailingMessage, hasLatency: boolean): string {
+        this.translateData.service = this.mailTranslateService.getTranslationEN(`shared.enum.service.${data.service}`);
+        this.translateData.gender = this.mailTranslateService.getTranslationEN(`shared.enum.gender.${data.gender}`);
+
+        const msgStart = `Request for service: ${this.translateData.service}`;
+
+        const msgCustomer = `Customer data:\n${this.translateData.gender} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note:\n${data.note ? data.note : '--'}`;
+
+        const msgServiceBasic = `Service data:\nPickup address: ${data.origin}\nDestination address: ${data.destination}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.origin : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${this.datetimeService.getTimeFromLanguage(data.pickupTIME, 'en')}`;
+
+        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: € ${data.price},--`;
+
+        const msgServiceFlatrate = `${data.dropoffDATE && data.pickupDATE !== data.dropoffDATE ? 'Date of dropoff: ' + data.dropoffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropoffTIME ? this.datetimeService.getTimeFromLanguage(data.dropoffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: € ${data.price},--`;
+
+        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+    }
+
+    removeEmptySpacesInString(text: string): string {
+        return text.replaceAll(' ', '');
     }
 
     sendMail() {
-        return this.http.post(this.url, this.mailData, { observe: 'response' });        
+        return this.http.post(this.urlSend, this.mailData, { observe: 'response' });        
     }
 }

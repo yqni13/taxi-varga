@@ -6,6 +6,9 @@
         <div *ngIf="control.hasError('email')">
             {{ 'common.validation.email-invalid' | translate: {fieldName: fieldName} }}
         </div>
+        <div *ngIf="control.hasError('invalidZeroTenancy')">
+            {{ 'common.validation.tenancy-invalid-zero' | translate }}
+        </div>
         <div *ngIf="control.hasError('requiredTenancy')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>

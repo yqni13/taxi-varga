@@ -194,6 +194,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
+            CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
             CustomValidators.invalidTenancyLowerLimitValidator($event),
             CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime)
         ]);
@@ -235,7 +236,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     configDateTimeData() {
-        this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifference(
+        this.serviceForm.get('tenancy')?.setValue(this.datetimeService.getTimeDifferenceAsString(
             this.serviceForm.get('datetimeStart')?.value,
             this.serviceForm.get('datetimeEnd')?.value
         ));

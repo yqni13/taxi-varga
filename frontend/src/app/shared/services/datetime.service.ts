@@ -77,7 +77,12 @@ export class DateTimeService {
         return (hours * 60) + minutes;
     }
 
-    getTimeDifference(start: string, end: string): string {
+    getTimeDifferenceAsNumber(start: string, end: string): number {
+        const asString = this.getTimeDifferenceAsString(start, end);
+        return this.getTimeInTotalMinutes(asString);
+    }
+
+    getTimeDifferenceAsString(start: string, end: string): string {
         const difference = new Date(end).getTime() - new Date(start).getTime();
         const fromMillisecondsToMinutes = (1 / 1000 / 60);
         return this.getRoundUpTime30MinSteps((difference * fromMillisecondsToMinutes), true);
@@ -96,4 +101,6 @@ export class DateTimeService {
 
         return `${hours}:${minutes}`;
     }
+
+
 }

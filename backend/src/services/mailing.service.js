@@ -1,14 +1,10 @@
 const { basicResponse } = require('../utils/common.utils');
 const MailingModel = require('../models/mailing.model');
-const { UnexpectedException } = require('../utils/exceptions/common.exception');
 
 class MailingService {
     sendMail = async (params) => {
-        let mail = await MailingModel.sendMail(params);
-        if(!mail) {
-            throw new UnexpectedException('No logic to handle mail yet');
-        }
-
+        const hasParams = Object.keys(params).length !== 0;
+        let mail = await MailingModel.sendMail(hasParams ? params : {});
         return basicResponse(mail, 1, "Success");
     }
 }

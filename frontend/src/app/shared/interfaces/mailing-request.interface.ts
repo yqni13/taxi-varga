@@ -16,10 +16,13 @@ export declare interface MailingMessage {
     origin: string,
     destination: string,
     back2home?: boolean,
-    date: string,
-    time: string,
+    pickupDATE: string,
+    pickupTIME: string,
+    dropoffDATE?: string,
+    dropoffTIME?: string,
     tenancy?: string,
+    latency?: string,
     duration?: string,
-    distance?: string,
-    price: string
+    distance?: number,
+    price: number
 }

@@ -28,7 +28,7 @@ exports.drivingDestinationSchema = [
         .withMessage('basic-invalid-required')
         .bail(),
     body('latency')
-        .isInt({max: 721}) // 12 hours * 60 minutes + 1 (does not compare equal to)
+        .isInt({max: 720})
         .withMessage('basic-invalid-number')
 ];
 
@@ -44,6 +44,6 @@ exports.drivingFlatrateSchema = [
     body('tenancy')
         .exists()
         .withMessage('basic-invalid-required')
-        .isInt({ min: 30, max: 1441 }) // 24 hours * 60 minutes + 1 (does not compare equal to)
+        .isInt({ min: 30, max: 1440 })
         .withMessage('basic-invalid-tenancy')
 ];
