@@ -18,6 +18,7 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
+import { MailAPIService } from "../../../../shared/services/mail-api.service";
 
 @Component({
     selector: 'tava-service-airport',
@@ -64,6 +65,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
+        private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
@@ -135,7 +137,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             filter((x) => !!x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // do what needs and get to last message in process
+                    this.hasConfirmed = true;
+                    this.httpObservationService.setEmailStatus(false);
                 }
                 this.loadOrderResponse = false;
             })
@@ -144,6 +147,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     private initForm() {
         this.serviceForm = this.fb.group({
+            service: new FormControl(''),
             airport: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
             destinationAddress: new FormControl(''),  
@@ -162,6 +166,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
+            service: 'airport',
             airport: '',
             originAddress: '',
             destinationAddress: '',
@@ -273,10 +278,10 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         }
 
         this.loadOrderResponse = true;
-        setTimeout(() => {
-            this.hasConfirmed = true;
-            this.loadOrderResponse = false;
-        }, 1500);
+        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        this.mailAPIService.sendMail().subscribe(data => {
+            console.log("response Email: ", data);
+        })
 
         await this.delay(100);
         this.scrollToTop();

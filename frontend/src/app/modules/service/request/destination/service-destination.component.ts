@@ -18,6 +18,7 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
+import { MailAPIService } from "../../../../shared/services/mail-api.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -70,6 +71,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
+        private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
@@ -150,7 +152,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             filter((x) => !!x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // do what needs and get to last message in process
+                    this.hasConfirmed = true;
+                    this.httpObservationService.setEmailStatus(false);
                 }
                 this.loadOrderResponse = false;
             })
@@ -159,6 +162,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     private initForm() {
         this.serviceForm = this.fb.group({
+            service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
@@ -175,6 +179,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
+            service: 'destination',
             originAddress: 'Lazarettgasse 16, 1090 Wien',
             destinationAddress: 'Grenzgasse 20, Hirtenberg',
             back2home: false,
@@ -311,10 +316,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
 
         this.loadOrderResponse = true;
-        setTimeout(() => {
-            this.hasConfirmed = true;
-            this.loadOrderResponse = false;
-        }, 1500);
+        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        this.mailAPIService.sendMail().subscribe(data => {
+            console.log("response Email: ", data);
+        })
         
         await this.delay(100);
         this.scrollToTop();

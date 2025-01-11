@@ -15,6 +15,7 @@ import { DateTimeService } from "../../../../shared/services/datetime.service";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
+import { MailAPIService } from "../../../../shared/services/mail-api.service";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -61,6 +62,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
+        private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly datetimeService: DateTimeService,
         private readonly drivingAPIService: DrivingAPIService,
@@ -134,7 +136,8 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             filter((x) => !!x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // do what needs and get to last message in process
+                    this.hasConfirmed = true;
+                    this.httpObservationService.setEmailStatus(false);
                 }
                 this.loadOrderResponse = false;
             })
@@ -143,6 +146,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
     private initForm() {
         this.serviceForm = this.fb.group({
+            service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),
             tenancy: new FormControl(''),
@@ -159,6 +163,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
+            service: 'flatrate',
             originAddress: 'Gerichtsweg 43, 2540 Bad Vöslau',
             destinationAddress: 'Kröpfelsteigstraße 8, 2371 Hinterbrühl',
             tenancy: null,
@@ -298,10 +303,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.loadOrderResponse = true;
-        setTimeout(() => {
-            this.hasConfirmed = true;
-            this.loadOrderResponse = false;
-        }, 1500);
+        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        this.mailAPIService.sendMail().subscribe(data => {
+            console.log("response Email: ", data);
+        })
 
         await this.delay(100);
         this.scrollToTop();

@@ -23,7 +23,7 @@ export class MailTranslateService {
     }
 
     getTranslationEN(path: string): string {
-        if(path === '' || path === undefined) {
+        if(path === '' || path.includes('undefined')) {
             return '[TRANSLATION PATH NOT FOUND]';
         }
 
@@ -31,7 +31,7 @@ export class MailTranslateService {
     }
 
     getTranslationDE(path: string): string {
-        if(path === '' || path === undefined) {
+        if(path === '' || path.includes('undefined')) {
             return '[TRANSLATION PATH NOT FOUND]';
         }
 
