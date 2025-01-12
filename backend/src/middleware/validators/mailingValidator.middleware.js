@@ -1,11 +1,18 @@
 const { body } = require('express-validator');
 
 exports.mailingSchema = [
-    body('person')
+    body('sender')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
-        .bail()
-        .isIn(["male", "female"])
-        .withMessage('mailing-invalid-person-gender')
+        .isEmail()
+        .withMessage('basic-invalid-email'),
+    body('subject')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required'),
+    body('body')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
 ]

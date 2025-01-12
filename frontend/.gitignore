@@ -11,6 +11,17 @@ client-cert.key
 desktop.ini
 /src/environments/.env
 
+# public/images
+/public/assets/service/service-airport_big.jpg
+/public/assets/service/service-airport_01.jpg
+/public/assets/service/service-airport_02.jpg
+/public/assets/service/service-destination_big.jpg
+/public/assets/service/service-destination_02.jpg
+/public/assets/service/service-destination_03.jpg
+/public/assets/service/service-flatrate_big.jpg
+/public/assets/service/service-flatrate_02.jpg
+/public/assets/service/service-flatrate_03.jpg
+
 # Node
 /node_modules
 npm-debug.log

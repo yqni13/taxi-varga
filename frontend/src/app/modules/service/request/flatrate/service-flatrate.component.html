@@ -7,7 +7,7 @@
     <div class="tava-service-flatrate-content">
 
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-flatrate-content-input-offer">
+        <div *ngIf="!hasOffer" class="tava-service-flatrate-content-input-offer tava-service-form">
             <div class="tava-service-flatrate-block" id="form-origin">
                 <span class="tava-service-block-label">
                     {{('modules.service.content.flatrate.labels.origin' | translate) + '*'}}
@@ -32,30 +32,32 @@
                     [fieldName]="'modules.service.content.form.offer.destination' | translate"
                 ></tava-textinput>                    
             </div>
-            <div class="tava-service-flatrate-block" id="form-tenancy">
-                <span class="tava-service-block-label">
-                    {{('modules.service.content.flatrate.labels.tenancy' | translate) + '*'}}
-                </span>
-                <tava-textinput
-                    [className]="'tava-form'"
-                    [inputType]="'number'"
-                    [minValNumber]="1"
-                    [maxValNumber]="24"
-                    [placeholder]="('modules.service.content.flatrate.labels.placeholder.tenancy' | translate)"
-                    [formControl]="serviceForm.get('tenancy') | controlCast"
-                    [fieldName]="'modules.service.content.form.offer.tenancy' | translate"
-                ></tava-textinput>                    
-            </div>
-            <div class="tava-service-flatrate-block" id="form-datetime">
-                <span class="tava-service-block-label">
-                    {{('modules.service.content.flatrate.labels.datetime' | translate) + '*'}}
-                </span>
-                <tava-textinput
-                    [inputType]="'datetime-local'"
-                    [minValString]="restrictDatePicker()"
-                    [formControl]="serviceForm.get('datetime') | controlCast"
-                    [fieldName]="'modules.service.content.form.offer.datetime' | translate"
-                ></tava-textinput>
+            <div class="tava-service-flatrate-block tava-datetime-double">
+                <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-left">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.flatrate.labels.datetime-start' | translate) + '*'}}
+                    </span>
+                    <tava-textinput
+                        [inputType]="'datetime-local'"
+                        [minValString]="restrictDatePickerStart(true)"
+                        [formControl]="serviceForm.get('datetimeStart') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                        (byChange)="configDateTimeEnd($event)"
+                    ></tava-textinput>
+                </div>
+                <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-right">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.flatrate.labels.datetime-end' | translate) + '*'}}
+                    </span>
+                    <tava-textinput
+                        [inputType]="'datetime-local'"
+                        [ngClass]="!serviceForm.get('datetimeStart')?.value ? 'tava-input-inactive' : ''"
+                        [minStringObservable]="minTenancyStamp$"
+                        [maxStringObservable]="maxTenancyStamp$"
+                        [formControl]="serviceForm.get('datetimeEnd') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                    ></tava-textinput>
+                </div>
             </div>
         </div>
         <div *ngIf="!hasOffer" class="tava-button-wrapper">
@@ -68,7 +70,7 @@
         </div>
 
         <!-- SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-flatrate-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-flatrate-content-sum-offer tava-service-form">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -119,7 +121,7 @@
             </div>
             <div class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
-                    {{('modules.service.content.form.order.date' | translate) + ':'}}
+                    {{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-flatrate-offer-sum-right">
                     {{serviceForm.get('pickupDATE')?.value}}
@@ -127,10 +129,29 @@
             </div>
             <div class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
-                    {{('modules.service.content.form.order.time' | translate) + ':'}}
+                    {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-flatrate-offer-sum-right">
                     {{serviceForm.get('pickupTIME')?.value}}
+                </span>
+            </div>
+            <div
+                class="tava-service-flatrate-offer-sum"
+                *ngIf="!checkDateEqualDate()"
+            >
+                <span class="tava-service-flatrate-offer-sum-left">
+                    {{('modules.service.content.form.order.date-dropoff' | translate) + ':'}}
+                </span>
+                <span class="tava-service-flatrate-offer-sum-right">
+                    {{serviceForm.get('dropOffDATE')?.value}}
+                </span>
+            </div>
+            <div class="tava-service-flatrate-offer-sum">
+                <span class="tava-service-flatrate-offer-sum-left">
+                    {{('modules.service.content.form.order.time-dropoff' | translate) + ':'}}
+                </span>
+                <span class="tava-service-flatrate-offer-sum-right">
+                    {{serviceForm.get('dropOffTIME')?.value}}
                 </span>
             </div>
             <div class="tava-service-flatrate-offer-sum">
@@ -175,7 +196,7 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-flatrate-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-flatrate-content-input-order tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-flatrate-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">

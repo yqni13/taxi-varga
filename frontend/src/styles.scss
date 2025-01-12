@@ -1,8 +1,9 @@
 @use 'stylesheets/utilities' as sass;
 
+@import 'stylesheets/backgrounds.scss';
 @import 'stylesheets/defines.scss';
 @import 'stylesheets/icons.scss';
-@import 'stylesheets/backgrounds.scss';
+@import 'stylesheets/media.scss';
 
 
 html {
@@ -28,6 +29,8 @@ section {
     margin-top: var(--size-nav-height);
     min-height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
     width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -133,5 +136,62 @@ h2 {
     &:not([disabled]):active {
         box-shadow: sass.$color-grey-light 2px 2px 0 0, #000 2px 2px 0 1px;
         transform: translate(2px, 2px);
+    }
+}
+
+.tava-loading-animation {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    position: fixed;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(1px);
+
+    $offset: 187;
+    $duration: 1.4s;
+
+    .spinner {
+        animation: rotator $duration linear infinite;
+        width: 65px;
+        height: 65px;
+    }
+
+    @keyframes rotator {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(270deg); }
+    }
+
+    .path {
+        stroke-dasharray: $offset;
+        stroke-dashoffset: 0;
+        transform-origin: center;
+        animation:
+            dash $duration ease-in-out infinite, 
+            colors calc($duration * 4) ease-in-out infinite;
+    }
+
+    @keyframes colors {
+        0% { stroke: #4285F4; }
+        25% { stroke: #DE3E35; }
+        50% { stroke: #F7C223; }
+        75% { stroke: #1B9A59; }
+        100% { stroke: #4285F4; }
+    }
+
+    @keyframes dash {
+        0% { stroke-dashoffset: $offset; }
+        50% {
+            stroke-dashoffset: calc($offset / 4);
+            transform:rotate(135deg);
+        }
+        100% {
+            stroke-dashoffset: $offset;
+            transform:rotate(450deg);
+        }
     }
 }

@@ -4,13 +4,11 @@
 footer {
     height: 300px;
     display: flex;
-    flex-direction: row;
     background-color: var(--theme-nav-bg);
 }
 
 
 .tava-footer-credits {
-    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -19,15 +17,11 @@ footer {
 
     h3 {
         font-weight: normal;
-        padding-left: 33%;
         margin: sass.$space5 0;
-        font-size: 28px;
+        font-size: sass.$footer-h3-size;
         font-weight: bold;
     }
 
-    .tava-copyright-wrapper {
-        padding-left: 33%;
-    }
     .icon-Copyright {
         position: relative;
         width: 20px;
@@ -35,10 +29,16 @@ footer {
         margin-right: sass.$space5;
         top:5px;
     }
+
+    .tava-copyright-wrapper {
+        span,
+        a {
+            font-size: sass.$footer-copyright-size;
+        }
+    }
 }
 
 .tava-footer-links {
-    width: 60%;
     height: 100%;
     display: flex;
     flex-direction: row;

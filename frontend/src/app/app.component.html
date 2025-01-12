@@ -3,6 +3,9 @@
 
     <router-outlet></router-outlet>
 
+    <div class="tava-component-snackbar" *ngIf="snackbarService.snackbarCollection.length > 0">
+        <tava-snackbar *ngFor="let snackbar of snackbarService.snackbarCollection" [snackbarMsg]="snackbar"></tava-snackbar>
+    </div>
 
 </div>
 <tava-footer></tava-footer>

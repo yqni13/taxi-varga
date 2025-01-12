@@ -3,6 +3,8 @@ import { NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from './common/components/footer/footer.component';
+import { SnackbarComponent } from './common/components/snackbar/snackbar.component';
+import { SnackbarMessageService } from './shared/services/snackbar.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,8 @@ import { FooterComponent } from './common/components/footer/footer.component';
     CommonModule,
     NavigationComponent,
     FooterComponent,
-    RouterOutlet
+    RouterOutlet,
+    SnackbarComponent
   ],
 })
 export class AppComponent implements OnInit {
@@ -23,6 +26,7 @@ export class AppComponent implements OnInit {
   private scrollAnchor!: HTMLElement;
 
   constructor(
+    protected readonly snackbarService: SnackbarMessageService,
     @Inject(DOCUMENT) private document: Document,
     private readonly elRef: ElementRef,
     private readonly router: Router,

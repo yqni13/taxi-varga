@@ -11,8 +11,29 @@
     }
 }
 
+input[type="text"] {
+    padding: 9.5px sass.$form-padding-small;
+}
+
 input[type="datetime-local"] {
     font-family: sass.$font-text-family;
+    padding: 8.5px sass.$form-padding-small;
+}
+
+.tava-input-time {
+    width: 100px;
+    margin-right: calc(sass.$space15 + sass.$space5);
+    
+    input {
+        padding: 7px sass.$form-padding-small;
+        font-family: sass.$font-text-family;
+    }
+}
+
+.tava-input-inactive input {
+    pointer-events: none;
+    opacity: 0.5;
+    color: grey;
 }
 
 i {
@@ -31,5 +52,9 @@ i {
 }
 
 .tava-warning-input-datetime-local {
+    margin: calc(sass.$space5 / 2) sass.$space25 0 0;
+}
+
+.tava-warning-input-time {
     margin: calc(sass.$space5 / 2) sass.$space25 0 0;
 }

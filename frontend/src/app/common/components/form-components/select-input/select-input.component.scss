@@ -11,6 +11,10 @@ $select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-paddi
     select {
         width: 100%;
         padding: 9.5px 0 9.5px $select-left-padding;
+
+        option {
+            font-size: sass.$input-text-size;
+        }
     }
 }
 

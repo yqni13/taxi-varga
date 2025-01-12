@@ -1,0 +1,19 @@
+<div class="tava-snackbar-container" [ngClass]="'snackbar-' + snackbarClass">
+    <div class="tava-snackbar-content" [ngClass]="!!snackbarMsg.text ? 'tava-multiline' : 'tava-singleline'">
+        <div class="tava-snackbar-title">
+            <span>{{snackbarMsg.type}}: </span>
+            <h4>{{snackbarMsg.title}}</h4>
+        </div>
+        <div class="tava-snackbar-text" *ngIf="!!snackbarMsg.text">
+            {{snackbarMsg.text}}
+        </div>
+    </div>
+    <div class="tava-snackbar-btn" *ngIf="!snackbarMsg.autoClose">
+        <i 
+            class="icon-CloseX" 
+            (click)="close()" 
+            (keydown.enter)="close()"
+            [attr.aria-disabled]="true"
+        ></i>
+    </div>
+</div>

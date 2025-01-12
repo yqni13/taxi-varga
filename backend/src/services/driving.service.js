@@ -1,34 +1,22 @@
 const { basicResponse } = require('../utils/common.utils');
 const DrivingModel = require('../models/driving.model');
-const { UnexpectedException, NotFoundException } = require('../utils/exceptions/common.exception');
 
 class DrivingService {
-    calcAirportRoute = (params) => {
+    calcAirportRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = DrivingModel.calcAirportRoute(hasParams ? params : {});
-        if(!calculation) {
-            throw new NotFoundException('Vienna zip code not found'); //TODO(yqni13): replace with regarding error
-        }
+        let calculation = await DrivingModel.calcAirportRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
     
     calcDestinationRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = await DrivingModel.calcDestinationRoute(hasParams ? params : {});
-        if(!calculation) {
-            throw new UnexpectedException('No logic to calc yet'); //TODO(yqni13): replace with regarding error
-        }
-        
+        let calculation = await DrivingModel.calcDestinationRoute(hasParams ? params : {});        
         return basicResponse(calculation, 1, "Success");
     }
     
-    calcFlatrateRoute = (params) => {
+    calcFlatrateRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = DrivingModel.calcFlatrateRoute(hasParams ? params : {});
-        if(!calculation) {
-            throw new UnexpectedException('No logic to calc yet'); //TODO(yqni13): replace with regarding error
-        }
-
+        let calculation = await DrivingModel.calcFlatrateRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 }

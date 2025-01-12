@@ -2,9 +2,9 @@ const DrivingService = require('../services/driving.service');
 const { checkValidation } = require('../middleware/validation.middleware');
 
 class DrivingController {
-    calcDrivingAirport = (req, res, next) => {
+    calcDrivingAirport = async (req, res, next) => {
         checkValidation(req);
-        const response = DrivingService.calcAirportRoute(req.body);
+        const response = await DrivingService.calcAirportRoute(req.body);
         res.send(response);
     }
 
@@ -14,10 +14,9 @@ class DrivingController {
         res.send(response);
     }
 
-    calcDrivingFlatrate = (req, res, next) => {
+    calcDrivingFlatrate = async (req, res, next) => {
         checkValidation(req);
-        console.log(req.body); // result == {}
-        const response = DrivingService.calcFlatrateRoute(req.body);
+        const response = await DrivingService.calcFlatrateRoute(req.body);
         res.send(response);
     }
 }
