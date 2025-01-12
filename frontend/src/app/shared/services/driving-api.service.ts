@@ -26,6 +26,8 @@ export class DrivingAPIService {
         private readonly datetimeService: DateTimeService
     ) {
         // this.urlAirport = '/api/v1/driving/airport'
+        // this.urlDestination = '/api/v1/driving/destination'
+        // this.urlFlatrate = '/api/v1/driving/flatrate'
         this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
         this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
         this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
