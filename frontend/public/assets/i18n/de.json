@@ -121,6 +121,7 @@
                     },
                     "title": "Zeitmiete - Routendetails"
                 },
+                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "form": {
                     "customer": {
                         "email": "Email-Adresse",

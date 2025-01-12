@@ -121,6 +121,7 @@
                     },
                     "title": "Flatrate - route details"
                 },
+                "final": "Thank you for your request. Confirmation or refusal (checking appointment) will follow soon.",
                 "form": {
                     "customer": {
                         "email": "Email address",
