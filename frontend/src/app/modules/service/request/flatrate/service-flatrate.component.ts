@@ -164,8 +164,8 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.initForm();
         this.serviceForm.patchValue({
             service: 'flatrate',
-            originAddress: 'Gerichtsweg 43, 2540 Bad Vöslau',
-            destinationAddress: 'Kröpfelsteigstraße 8, 2371 Hinterbrühl',
+            originAddress: '',
+            destinationAddress: '',
             tenancy: null,
             datetimeStart: '',
             datetimeEnd: '',
