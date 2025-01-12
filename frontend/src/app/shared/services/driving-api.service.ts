@@ -6,6 +6,7 @@ import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { Observable } from "rxjs";
 import { DateTimeService } from './datetime.service';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -24,10 +25,10 @@ export class DrivingAPIService {
         private readonly http: HttpClient,
         private readonly datetimeService: DateTimeService
     ) {
-        this.urlAirport = '/api/v1/driving/airport'
-        // this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
-        this.urlDestination = '/api/v1/driving/destination'
-        this.urlFlatrate = '/api/v1/driving/flatrate'
+        // this.urlAirport = '/api/v1/driving/airport'
+        this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
+        this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
+        this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
     
         this.dataAirport = {
             origin: '',

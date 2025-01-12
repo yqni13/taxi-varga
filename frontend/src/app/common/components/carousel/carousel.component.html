@@ -17,16 +17,22 @@
             </ng-template>
         </div>
     </div>
-    <i 
-        [attr.aria-disabled]="true"
-        class="icon-Arrow tava-arrow-left"
-        (click)="prev()"
-        (keydown.enter)="prev()"
-    ></i>
-    <i 
-        [attr.aria-disabled]="true"
-        class="icon-Arrow tava-arrow-right"
-        (click)="next()"
-        (keydown.enter)="next()"
-    ></i>
+    <div class="tava-carousel-arrow-wrapper">
+        <div class="tava-carousel-arrow" id="tava-carousel-arrow-left">
+            <i 
+                [attr.aria-disabled]="true"
+                class="icon-Arrow tava-arrow-left"
+                (click)="prev()"
+                (keydown.enter)="prev()"
+            ></i>
+        </div>
+        <div class="tava-carousel-arrow" id="tava-carousel-arrow-right">
+            <i 
+                [attr.aria-disabled]="true"
+                class="icon-Arrow tava-arrow-right"
+                (click)="next()"
+                (keydown.enter)="next()"
+            ></i>
+        </div>
+    </div>
 </div>

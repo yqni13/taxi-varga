@@ -5,6 +5,7 @@ import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.in
 import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "./datetime.service";
 import { MailTranslateService } from "./mail-translate.service";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -41,8 +42,8 @@ export class MailAPIService {
         `;
         // TODO(yqni13): clean input before use
 
-        this.urlSend = '/api/v1/mailing/send';
-        // this.url = environment.API_BASE_URL + '/api/v1/mailing';
+        // this.urlSend = '/api/v1/mailing/send';
+        this.urlSend = environment.API_BASE_URL + '/api/v1/mailing';
     }
 
     setMailData(data: MailingMessage) {

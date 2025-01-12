@@ -13,7 +13,7 @@
     .tava-about {
         .tava-about-content {
             .tava-about-text {
-                width: 60vw;
+                width: 80vw;
                 max-width: 700px;
                 text-align: justify;
                 margin: 0 auto;
@@ -93,8 +93,8 @@
     .tava-about {
         .tava-about-content {
             .tava-about-text {
-                width: 70vw;
-                max-width: 800px;
+                width: 80vw;
+                max-width: 700px;
                 text-align: justify;
                 margin: 0 auto;
             }
@@ -168,16 +168,6 @@
 
 // 500px > width <= 768px
 @media screen and (width <= sass.$device-phone-landscape) {
-    .tava-about {
-        .tava-about-content {
-            .tava-about-text {
-                width: auto;
-                max-width: none;
-                text-align: justify;
-                margin: 0 sass.$space75;
-            }
-        }
-    }
     
     .tava-service {
         .tava-service-content {

@@ -26,8 +26,8 @@ class MailingModel {
 
         const mailOptions = {
             from: process.env.SECRET_EMAIL_SENDER,
-            // to: process.env.SECRET_EMAIL_RECEIVER,
-            to: sender,
+            to: process.env.SECRET_EMAIL_RECEIVER,
+            replyTo: sender,
             subject: subject,
             text: message
         };
