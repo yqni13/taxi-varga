@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -17,6 +17,8 @@ import { TextInputComponent } from "../../../../common/components/form-component
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
+import * as CustomValidators from "../../../../common/helper/custom-validators";
+import { MailAPIService } from "../../../../shared/services/mail-api.service";
 
 @Component({
     selector: 'tava-service-airport',
@@ -55,11 +57,15 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
+    private scrollAnchor!: HTMLElement;
     private customerData: string[];
+    private delay: any;
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
+        private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
@@ -91,6 +97,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             'email',
             'note'
         ];
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -110,16 +117,17 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         ).subscribe();
 
         this.initEdit();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
     }
 
     ngAfterViewInit() {
-        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingDestinationStatus$.pipe(
+        this.subscriptionHttpObservationDriving$ = this.httpObservationService.drivingAirportStatus$.pipe(
             filter((x) => x || !x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                } else {
-                    // TODO(yqni13): set form invalid or show general error message
+                    this.addCustomerData2Form();
+                    this.httpObservationService.setDrivingAirportStatus(false);
                 }
                 this.loadOfferResponse = false;
             })
@@ -129,7 +137,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             filter((x) => !!x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // do what needs and get to last message in process
+                    this.hasConfirmed = true;
+                    this.httpObservationService.setEmailStatus(false);
                 }
                 this.loadOrderResponse = false;
             })
@@ -138,10 +147,14 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     private initForm() {
         this.serviceForm = this.fb.group({
+            service: new FormControl(''),
             airport: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
             destinationAddress: new FormControl(''),  
-            datetime: new FormControl('', Validators.required),
+            datetime: new FormControl('', [
+                Validators.required,
+                CustomValidators.invalidAirportTimeValidator(this.datetimeService)
+            ]),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),
@@ -153,20 +166,28 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
+            service: 'airport',
             airport: '',
             originAddress: '',
             destinationAddress: '',
-            datetime: '2025-01-31T11:27',
-            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
-            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
-            distance: 49.6,
-            duration: 36,
-            price: '72'
+            datetime: '',
+            pickupDATE: '',
+            pickupTIME: '',
+            distance: null,
+            duration: null,
+            price: null
         });
     }
 
+    scrollToTop() {
+        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+            this.scrollAnchor.scrollTo(0,0);
+            this.document.scrollingElement.scrollTop = 0;
+        }
+    }
+
     restrictDatePicker(): string {
-        return this.datetimeService.getTodayStartingTimestamp();
+        return this.datetimeService.getTodayStartingTimestamp(true);
     }
 
     getDirectionRadioValue(event: any) {
@@ -179,32 +200,34 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     configAddressFields(direction: string) {
-        const airport = 'Flughafen Wien Schwechat';
         if(direction === 'arrival') {
-            this.serviceForm.get('originAddress')?.setValue(airport);
+            this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('destinationAddress')?.setValue('');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
         } else if(direction === 'departure') {
-            this.serviceForm.get('destinationAddress')?.setValue(airport);
+            this.serviceForm.get('destinationAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('originAddress')?.setValue('');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
             this.serviceForm.get('originAddress')?.markAsUntouched();
         }
     }
 
-    onSubmitOffer() {
+    async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
+
         if(this.serviceForm.invalid) {
             return;
         }
 
-        this.addCustomerData2Form();
-        this.hasOffer = true;
+        this.drivingAPIService.setDataAirport(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendAirportRequest().subscribe(data => {
+            this.addResponseRouteData2Form(data);
+        })
         this.loadOfferResponse = true;
-        setTimeout(() => {
-            this.loadOfferResponse = false;
-        }, 1500);
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     addCustomerData2Form() {
@@ -219,7 +242,16 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         })
     }
 
-    onSubmitOrder() {
+    addResponseRouteData2Form(response: any) {
+        const datetime = this.serviceForm.get('datetime')?.value;        
+        this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+        this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.duration));
+        this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
+    }
+
+    async onSubmitOrder() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -228,6 +260,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
         this.hasOrder = true;
         this.editFinalOrder();
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     editFinalOrder() {
@@ -237,16 +272,19 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
     }
 
-    submitOrder() {
+    async submitOrder() {
         if(!this.termsAcceptance) {
             return;
         }
 
         this.loadOrderResponse = true;
-        setTimeout(() => {
-            this.hasConfirmed = true;
-            this.loadOrderResponse = false;
-        }, 1500);
+        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        this.mailAPIService.sendMail().subscribe(data => {
+            console.log("response Email: ", data);
+        })
+
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     ngOnDestroy() {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
-import { filter, Subscription, tap } from "rxjs";
+import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -16,6 +16,9 @@ import { HttpObservationService } from '../../../../shared/services/http-observa
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
+import { VarDirective } from "../../../../common/directives/ng-var.directive";
+import * as CustomValidators from "../../../../common/helper/custom-validators";
+import { MailAPIService } from "../../../../shared/services/mail-api.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -32,7 +35,8 @@ import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pip
         SelectInputComponent,
         TextareaInputComponent,
         TextInputComponent,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -43,6 +47,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected hasOffer: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
+    protected pickupTimeByLang$: Subject<string>;
+    protected pickupTimeByLangStatic: string;
 
     protected serviceForm: FormGroup;
     protected customer: string;
@@ -53,14 +59,19 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
+    private scrollAnchor!: HTMLElement;
+    private delay: any;
     private customerData: string[];
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
+        private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
@@ -71,7 +82,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.hasOffer = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
-
+        this.pickupTimeByLang$ = new Subject<string>();
+        this.pickupTimeByLangStatic = '';
+        
         this.serviceForm = new FormGroup({});
         this.customer = '';
         this.termsAcceptance = false;
@@ -79,8 +92,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.surchargeFuelAcceptance = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
-    
+        
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -93,6 +107,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             'email',
             'note'
         ];
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -111,7 +126,12 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             })
         ).subscribe();
 
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+            this.configPickupTimeByLanguage(val.lang);
+        })
+
         this.initEdit();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
         // this.googlePlacesAutocomplete();
     }
 
@@ -121,8 +141,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                } else {
-                    // TODO(yqni13): set form invalid or show general error message
+                    this.addCustomerData2Form();
+                    this.httpObservationService.setDrivingDestinationStatus(false);
                 }
                 this.loadOfferResponse = false;
             })
@@ -132,7 +152,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             filter((x) => !!x),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
-                    // do what needs and get to last message in process
+                    this.hasConfirmed = true;
+                    this.httpObservationService.setEmailStatus(false);
                 }
                 this.loadOrderResponse = false;
             })
@@ -141,10 +162,12 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     private initForm() {
         this.serviceForm = this.fb.group({
+            service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
             datetime: new FormControl('', Validators.required),
+            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),
@@ -156,24 +179,36 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            originAddress: 'Vienna International Airport',
-            destinationAddress: 'Anton Bruckner-Gasse 11, 2544 Leobersdorf',
+            service: 'destination',
+            originAddress: 'Lazarettgasse 16, 1090 Wien',
+            destinationAddress: 'Grenzgasse 20, Hirtenberg',
             back2home: false,
-            datetime: '2025-01-31T11:27',
-            pickupDATE: this.datetimeService.getDateFromTimestamp('2025-01-31T11:27'),
-            pickupTIME: this.datetimeService.getTimeFromTimestamp('2025-01-31T11:27'),
-            distance: 251.6,
-            duration: 199,
-            price: '72'
+            latency: '00:00',
+            datetime: '',
+            pickupDATE: '',
+            pickupTIME: '',
+            distance: null,
+            duration: null,
+            price: null
         });
     }
 
+    scrollToTop() {
+        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+            this.scrollAnchor.scrollTo(0,0);
+            this.document.scrollingElement.scrollTop = 0;
+        }
+    }
+
     restrictDatePicker(): string {
-        return this.datetimeService.getTodayStartingTimestamp();
+        return this.datetimeService.getTodayStartingTimestamp(true);
     }
 
     getBack2HomeCheckboxValue(event: any) {
         this.serviceForm.get('back2home')?.setValue(event.target?.checked);
+        if(!event.target?.checked) {
+            this.serviceForm.get('latency')?.setValue('00:00');
+        }
     }
 
     getTermsCheckboxValue(event: any) {
@@ -198,23 +233,46 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     //     }
     // }
 
-    onSubmitOffer() {
+    async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
             return;
         }
 
-        this.addCustomerData2Form();
-        // this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
-        // this.drivingAPIService.sendDestinationRequest().subscribe(data => {
-        //     console.log('response data: ', data);
-        // });
-        this.hasOffer = true;
+        this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
+        this.drivingAPIService.sendDestinationRequest().subscribe(data => {
+            this.addResponseRouteData2Form(data);
+        });
         this.loadOfferResponse = true;
-        setTimeout(() => {
-            this.loadOfferResponse = false;
-        }, 1500);
+        await this.delay(100);
+        this.scrollToTop();
+    }
+
+    addResponseRouteData2Form(response: any) {
+        const datetime = this.serviceForm.get('datetime')?.value;
+        this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.time);
+        this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
+        this.serviceForm.get('latency')?.setValue(
+            this.datetimeService.getRoundUpTime30MinSteps(this.serviceForm.get('latency')?.value, false)
+        );
+        
+        this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('pickupTIME')?.value,
+            this.translate.currentLang
+        );
+    }
+
+    configPickupTimeByLanguage(lang: string) {
+        const time = this.serviceForm.get('pickupTIME')?.value;
+        if(time === '') {
+            return;
+        }
+
+        this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
     }
 
     addCustomerData2Form() {
@@ -229,7 +287,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         })
     }
 
-    onSubmitOrder() {
+    async onSubmitOrder() {
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
@@ -238,6 +296,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.hasOrder = true;
         this.editFinalOrder();
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     editFinalOrder() {
@@ -250,20 +310,24 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
     }
 
-    submitOrder() {
+    async submitOrder() {
         if(!this.termsAcceptance) {
             return;
         }
 
         this.loadOrderResponse = true;
-        setTimeout(() => {
-            this.hasConfirmed = true;
-            this.loadOrderResponse = false;
-        }, 1500);
+        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        this.mailAPIService.sendMail().subscribe(data => {
+            console.log("response Email: ", data);
+        })
+        
+        await this.delay(100);
+        this.scrollToTop();
     }
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

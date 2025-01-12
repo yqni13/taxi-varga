@@ -1,29 +1,66 @@
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { DateTimeService } from "../../shared/services/datetime.service";
 
-export const invalidTenancyValueValidator = (): ValidatorFn => {
+export const invalidTenancyUpperLimitValidator = (maxLimit: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const val = control?.value as string;
-        if(val.includes(',') || val.includes('.')) {
-            return { invalidTenancyValue: true };
+        const currentDateTime = (new Date(control?.value).getTime());
+        const limitDateTime = (new Date(maxLimit).getTime());
+        if(currentDateTime > limitDateTime) {
+            return { invalidTenancyUpperLimit: true };
         }
         return null;
     }
 }
 
-export const requiredTenancyValueValidator = (): ValidatorFn => {
+export const invalidTenancyLowerLimitValidator = (minLimit: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        if((control?.value as string) === '') {
-            return { requiredTenancyValue: true };
+        const currentDateTime = (new Date(control?.value).getTime());
+        const limitDateTime = (new Date(minLimit).getTime());
+        if(currentDateTime < limitDateTime) {
+            return { invalidTenancyLowerLimit: true };
         }
         return null;
     }
 }
 
-export const invalidTenancyLimitValidator = (): ValidatorFn => {
+export const invalidZeroTenancyValidator = (datetimeService: DateTimeService, start: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const val = control?.value as number;
-        if(control?.value !== '' && val < 1 || val > 24) {
-            return { invalidTenancyLimit: true };
+        if(control?.value !== '' && control?.value !== null) {
+            const difference = datetimeService.getTimeDifferenceAsNumber(start, control?.value)
+            if(difference === 0) {
+                return { invalidZeroTenancy: true };
+            }
+        }
+        return null;
+    }
+}
+
+export const requiredTenancyValidator = (): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        if(control?.value === '' || control?.value === null) {
+            return { requiredTenancy: true };
+        }
+        return null;
+    }
+}
+
+export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const time = datetimeService.getTimeInTotalMinutes(control?.value);
+        // 8h max (work day)
+        if(time > (60 * 8)) {
+            return { maxLatency: true };
+        }
+        return null;
+    }
+}
+
+export const invalidAirportTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        // business time in Vienna 4am - 12pm
+        if(time <= (60 * 4) || time >= (60 * 12)) {
+            return { invalidAirportTime: true };
         }
         return null;
     }

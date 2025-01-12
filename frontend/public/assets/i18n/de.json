@@ -16,10 +16,15 @@
             "service": "Beförderungsangebot"
         },
         "validation": {
+            "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
+            "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
-            "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden."
+            "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",
+            "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
+            "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
+            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen."
         }
     },
     "modules": {
@@ -31,8 +36,9 @@
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
-                "location": "Tarif-Standort: Wien\nUnternehmenssitz: Leobersdorf",
-                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen)."
+                "location": "Unternehmenssitz: Leobersdorf",
+                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
+                "workrange": "Tarif-Standort: Wien"
             },
             "title": "Über mich und mein Unternehmen"
         },
@@ -51,6 +57,7 @@
             }
         },
         "imprint": {
+            "message": "",
             "title": "Impressum"
         },
         "privacy": {},
@@ -75,16 +82,18 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "ab Wien",
-                        "title": "Flughafen"
+                        "subtitle": "ab/nach Wien",
+                        "title": "Flughafenfahrt"
                     },
-                    "title": "Flughafen - Routendetails"
+                    "title": "Flughafen - Routendetails",
+                    "vie-schwechat": "Flughafen Wien Schwechat"
                 },
                 "destination": {
                     "labels": {
                         "back2home": "Ich möchte zur Abholadresse zurückkehren.",
                         "datetime": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
                         "origin": "Abholadresse",
                         "placeholder": "Adresse auswählen"
                     },
@@ -96,14 +105,15 @@
                 },
                 "flatrate": {
                     "labels": {
-                        "datetime": "Datum & Uhrzeit (Abholung)",
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "origin": "Abholadresse",
                         "placeholder": {
                             "address": "Adresse auswählen",
                             "tenancy": "Mietdauer (h) auswählen"
                         },
-                        "tenancy": "Mietdauer (angefangene Stunden)"
+                        "tenancy": "verrechnete Mietdauer"
                     },
                     "option": {
                         "subtitle": "beliebige Abfahrt/Ankunft",
@@ -131,33 +141,40 @@
                         "title": "Titel"
                     },
                     "offer": {
+                        "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
                         "destination": "Zieladresse",
+                        "latency": "Wartezeit",
                         "origin": "Abholadresse",
                         "tenancy": "Mietdauer"
                     },
                     "order": {
                         "contact": "Kontakt",
-                        "date": "Datum der Abholung",
-                        "distance": "Distanz in Summe",
-                        "duration": "Zeit in Summe",
+                        "date-dropoff": "Datum der Ankunft",
+                        "date-pickup": "Datum der Abholung",
+                        "distance": "Fahrtstrecke",
+                        "duration": "Fahrtzeit",
+                        "latency": "verrechnete Wartezeit",
                         "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "Geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
-                        "tenancy": "gewählte Mietdauer",
+                        "tenancy": "verrechnete Mietdauer",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
-                        "time": "Zeit der Abholung",
+                        "time-dropoff": "Zeit-Ziel der Ankunft",
+                        "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 }
-            },
-            "title": "Beförderungsangebot"
+            }
         }
     },
     "shared": {
+        "assets": {
+            "author": "\u00a9 bild"
+        },
         "enum": {
             "gender": {
                 "female": "Frau",
@@ -166,6 +183,11 @@
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"
+            },
+            "service": {
+                "airport": "Flughafenfahrt",
+                "destination": "Pauschalfahrt",
+                "flatrate": "Zeitmiete"
             },
             "theme": {
                 "darkMode": "Dunkel",

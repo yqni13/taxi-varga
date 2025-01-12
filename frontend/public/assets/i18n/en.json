@@ -16,10 +16,15 @@
             "service": "Service"
         },
         "validation": {
+            "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+            "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
-            "tenancy-invalid-value": "Tenancy must be selected in full hours."
+            "tenancy-invalid-lower-limit": "Tenancy can not be negative.",
+            "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
+            "tenancy-invalid-value": "Tenancy must be selected in full hours.",
+            "tenancy-invalid-zero": "Tenancy can not be zero."
         }
     },
     "modules": {
@@ -52,6 +57,7 @@
             }
         },
         "imprint": {
+            "message": "The textual content is currently only in german language available. We will provide the translations as soon as possible.",
             "title": "Imprint"
         },
         "privacy": {},
@@ -76,16 +82,18 @@
                         "placeholder": "Type address"
                     },
                     "option": {
-                        "subtitle": "off Vienna",
+                        "subtitle": "off/to Vienna",
                         "title": "Airport"
                     },
-                    "title": "Airport - route details"
+                    "title": "Airport - route details",
+                    "vie-schwechat": "Vienna International Airport"
                 },
                 "destination": {
                     "labels": {
                         "back2home": "I want to return to my pickup address.",
                         "datetime": "Date & time (pickup)",
                         "destination": "Destination address",
+                        "latency": "My required time between arrival and return.",
                         "origin": "Pickup address",
                         "placeholder": "Type address"
                     },
@@ -97,14 +105,15 @@
                 },
                 "flatrate": {
                     "labels": {
-                        "datetime": "Date & time (pickup)",
+                        "datetime-end": "Date & time (return)",
+                        "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
                         "origin": "Pickup address",
                         "placeholder": {
                             "address": "Type address",
                             "tenancy": "Select rental hours"
                         },
-                        "tenancy": "Tenancy (started hours)"
+                        "tenancy": "Tenancy"
                     },
                     "option": {
                         "subtitle": "arbitrary arrival/departure",
@@ -132,33 +141,40 @@
                         "title": "Title"
                     },
                     "offer": {
+                        "back2home": "Return",
                         "datetime": "Date & time",
                         "destination": "Destination address",
+                        "latency": "Waiting time",
                         "origin": "Pickup address",
                         "tenancy": "Tenancy"
                     },
                     "order": {
                         "contact": "Contact",
-                        "date": "Date of pick-up",
-                        "distance": "Total distance",
-                        "duration": "Estimated duration",
+                        "date-dropoff": "Date of drop-off",
+                        "date-pickup": "Date of pick-up",
+                        "distance": "Driven distance",
+                        "duration": "Driving time",
+                        "latency": "Waiting time",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (€ 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "tenancy": "selected tenancy",
+                        "tenancy": "charged tenancy",
                         "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time": "Time of pick-up",
+                        "time-dropoff": "Time target of drop-off",
+                        "time-pickup": "Time of pick-up",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
                 }
-            },
-            "title": "Transportation service"
+            }
         }
     },
     "shared": {
+        "assets": {
+            "author": "\u00a9 image"
+        },
         "enum": {
             "gender": {
                 "female": "Ms.",
@@ -167,6 +183,11 @@
             "language": {
                 "de": "German",
                 "en": "English"
+            },
+            "service": {
+                "airport": "Airport",
+                "destination": "Destination",
+                "flatrate": "Flatrate"
             },
             "theme": {
                 "darkMode": "Dark",

@@ -1,0 +1,273 @@
+@use '../stylesheets/utilities' as sass;
+
+
+/* prevent printing webpage */
+@media print {
+    html, body {
+        display: none;
+    }
+}
+
+// width > 1440px
+@media screen and (width > sass.$device-desktop-xk) {
+    .tava-about {
+        .tava-about-content {
+            .tava-about-text {
+                width: 80vw;
+                max-width: 700px;
+                text-align: justify;
+                margin: 0 auto;
+            }
+        }
+    }
+
+    .tava-imprint {
+        
+        .tava-imprint-content {
+            margin: sass.$space50 calc(sass.$space100 * 2);
+        }
+    }
+
+    .tava-service {
+        .tava-service-content {
+            flex-direction: row;
+
+            .triple-outer {
+                width: 33%;
+            }
+
+            .triple-inner {
+                width: 34%;
+            }
+
+            .tava-service-route {
+
+                .tava-author {
+                    width: 33%;
+                }
+            }
+        }
+    }
+
+    .tava-service-flatrate {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
+    }
+
+    .tava-service-airport,
+    .tava-service-destination,
+    .tava-service-flatrate {
+        .tava-service-form {
+            width: 50vw;
+            max-width: 600px;
+        }
+
+        .tava-service-form-customer-double {
+            flex-direction: column;
+            width: 47.5%;
+        }
+    }
+
+    footer {
+        flex-direction: row;
+
+        .tava-footer-credits {
+            width: 40%;
+            text-align: left;
+
+            h3,
+            .tava-copyright-wrapper {
+                padding-left: 33%;
+            }
+        }
+
+        .tava-footer-links {
+            width: 60%;
+        }
+    }
+}
+
+// 1024px > width <= 1440px
+@media screen and (width <= sass.$device-desktop-xk) {
+    .tava-about {
+        .tava-about-content {
+            .tava-about-text {
+                width: 80vw;
+                max-width: 700px;
+                text-align: justify;
+                margin: 0 auto;
+            }
+        }
+    }
+    
+    .tava-service {
+        .tava-service-content {
+            flex-direction: row;
+
+            .triple-outer {
+                width: 33%;
+            }
+
+            .triple-inner {
+                width: 34%;
+            }
+
+            .tava-service-route {
+
+                .tava-author {
+                    width: 33%;
+                }
+            }
+        }
+    }
+
+    .tava-service-flatrate {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
+    }
+
+    .tava-service-airport,
+    .tava-service-destination,
+    .tava-service-flatrate {
+        .tava-service-form {
+            width: 50vw;
+            max-width: 600px;
+        }
+
+        .tava-service-form-customer-double {
+            flex-direction: column;
+            width: 47.5%;
+        }
+    }
+
+    footer {
+        flex-direction: row;
+
+        .tava-footer-credits {
+            width: 40%;
+            text-align: left;
+
+            h3,
+            .tava-copyright-wrapper {
+                padding-left: 33%;
+            }
+        }
+
+        .tava-footer-links {
+            width: 60%;
+        }
+    }
+}
+
+// 768px > width <= 1024px
+@media screen and (width <= sass.$device-tablet-landscape) {
+    
+}
+
+// 500px > width <= 768px
+@media screen and (width <= sass.$device-phone-landscape) {
+    
+    .tava-service {
+        .tava-service-content {
+            flex-direction: column;
+
+            .triple-outer,
+            .triple-inner {
+                width: 100%;
+            }
+
+            .tava-service-route {
+
+                .tava-author {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .tava-service-flatrate {
+        .tava-datetime-double {
+            flex-direction: column!important;
+
+            #tava-service-flatrate-tenancy-left {
+                margin-right: 0!important;
+                margin-bottom: sass.$space25;
+                width: 100%!important;
+            }
+
+            #tava-service-flatrate-tenancy-right {
+                margin-left: 0!important;
+                width: 100%!important;
+            }
+        }
+    }
+
+    .tava-service-airport,
+    .tava-service-destination,
+    .tava-service-flatrate {
+        .tava-service-form {
+            $padding-portrait-size: calc(sass.$space25 / 2);
+            $padding-landscape-size: sass.$space25;
+            $margin-landscape-size: sass.$space50;
+
+            width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
+            max-width: 500px;
+            margin: 0 $margin-landscape-size;
+            padding: $padding-portrait-size $padding-landscape-size;
+        }
+    }
+
+    footer {
+        flex-direction: column-reverse;
+
+        .tava-footer-credits {
+            width: 100%;
+            text-align: center;
+            
+            h3,
+            .tava-copyright-wrapper {
+                padding-left: 0;
+            }
+        }
+
+        .tava-footer-links {
+            width: 100%;
+            margin-top: sass.$space25;
+        }
+    }
+}
+
+// width <= 500px
+@media screen and (width <= sass.$device-phone-portrait) {
+    .tava-service-airport,
+    .tava-service-destination,
+    .tava-service-flatrate {
+        .tava-service-form {
+            $padding-portrait-size: calc(sass.$space25 / 2);
+            $padding-landscape-size: sass.$space25;
+            $margin-landscape-size: sass.$space25;
+
+            width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
+            max-width: none;
+            margin: 0 $margin-landscape-size;
+            padding: $padding-portrait-size $padding-landscape-size;
+        }
+
+        .double-block {
+            flex-direction: column!important;
+        }
+        
+        #tava-service-customer-double-left {
+            width: 100%!important;
+            margin-right: 0!important;
+            margin-bottom: sass.$space15;
+        }
+
+        #tava-service-customer-double-right {
+            width: 100%!important;
+            margin-left: 0!important;
+        }
+    }
+}

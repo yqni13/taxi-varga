@@ -1,3 +1,10 @@
+/* CUSTOM DEVICE SIZES */
+$device-desktop-xk: 1440px;
+$device-tablet-landscape: 1024px;
+$device-phone-landscape: 768px;
+$device-phone-portrait: 500px;
+$device-small-any: 400px;
+
 /* CUSTOM COLORS */
 $color-ice-white: #f0f8ff;
 $color-valid-red: #ea2222;
@@ -16,12 +23,26 @@ $color-grey-label: #9898989f;
 $color-icon-sun: #e59429;
 $color-icon-moon: #b17a0b;
 
+/* snackbar color definitions */
+$color-lightmode-error: #b01515;
+$color-darkmode-error: #d62323;
+
+$color-lightmode-info: #384bfbe6;
+$color-darkmode-info: #235cb1;
+
+$color-lightmode-success: #2f7b34;
+$color-darkmode-success: #006005;
+
+$color-lightmode-warning: #e59429;
+$color-darkmode-warning: #b17a0b;
+
 
 /* CUSTOM VALUES */
 $space5: 5px;
 $space15: 15px;
 $space25: 25px;
 $space50: 50px;
+$space75: 75px;
 $space100: 100px;
 
 $form-padding-small: 5px;
@@ -32,9 +53,13 @@ $lang-icon-buffer: 2px;
 
 $link-hover-opacity: 0.4;
 
-$font-text-size: clamp(18px, 1.6vw, 25px);
-$font-valid-size: 12px;
+$nav-text-size: clamp(18px, 1.8vw, 25px);
+$content-text-size: clamp(14px, 1.8vw, 18px);
+$input-text-size: clamp(12px, 1.7vw, 16px);
+$validation-text-size: clamp(10px, 1.5vw, 14px);
 $footer-text-size: clamp(16px, 1.2vw, 25px);
+$footer-h3-size: clamp(22px, 1.4vw, 28px);
+$footer-copyright-size: clamp(12px, 1vw, 18px);
 
 $font-text-family: "Optima", sans-serif;
 

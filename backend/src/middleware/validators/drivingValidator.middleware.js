@@ -1,13 +1,23 @@
 const { body } = require('express-validator');
-const { stateRegex, streetRegex } = require('../../utils/common.utils');
+
+exports.drivingAirportSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required'),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required')
+];
 
 exports.drivingDestinationSchema = [
-    body('origins')
+    body('origin')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail(),
-    body('destinations')
+    body('destination')
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
@@ -16,81 +26,24 @@ exports.drivingDestinationSchema = [
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
-        .bail()
-    // body('transport')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
-    //     .bail()
-    //     .equals('drive')
-    //     .withMessage('driving-invalid-transport'),
-    // body('street')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
-    //     .bail()
-    //     .isLength({max: 50})
-    //     .withMessage('driving-invalid-street-length'),
-    //     // .matches(streetRegex)
-    //     // .withMessage('driving-invalid-street-regex'),
-    // body('number')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required'),
-    // body('info')
-    //     .optional()
-    //     .trim(),
-    // body('zipCode')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
-    //     .bail()
-    //     .isLength({min: 4, max: 5})
-    //     .withMessage('driving-invalid-zipCode'),
-    // body('city')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
-    //     .bail()
-    //     .isLength({max: 50})
-    //     .withMessage('driving-invalid-city-length')
-    //     .matches(stateRegex)
-    //     .withMessage('driving-invalid-city-regex'),
-    // body('country')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
-    //     .bail()
-    //     .isLength({max: 50})
-    //     .withMessage('driving-invalid-country-length')
-    //     .matches(stateRegex)
-    //     .withMessage('driving-invalid-country-regex'),
-    // body('date')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required'),
-    // body('time')
-    //     .trim()
-    //     .notEmpty()
-    //     .withMessage('basic-invalid-required')
+        .bail(),
+    body('latency')
+        .isInt({max: 720})
+        .withMessage('basic-invalid-number')
 ];
-// TODO(yqni13): add validation for time and date
-exports.drivingFlatrateSchema = [
-    body('passengers')
-        .trim()
-        .notEmpty()
-        .withMessage('basic-invalid-required')
-        .bail()
-        .isInt({min: 1})
-        .withMessage('Must be an integer')
-]
 
-exports.drivingAirportSchema = [
-    body('zipCode')
+exports.drivingFlatrateSchema = [
+    body('origin')
         .trim()
         .notEmpty()
+        .withMessage('basic-invalid-required'),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('basic-invalid-required'),
+    body('tenancy')
+        .exists()
         .withMessage('basic-invalid-required')
-        .bail()
-        .isInt({min: 1010, max: 1220})
-        .withMessage('driving-invalid-zipcode-vienna')
-]
+        .isInt({ min: 30, max: 1440 })
+        .withMessage('basic-invalid-tenancy')
+];

@@ -9,5 +9,9 @@
         padding: 7.5px sass.$form-padding-small;
         scroll-padding-block: 7.5px sass.$form-padding-small;
         font-family: sass.$font-text-family;
+
+        input {
+            font-size: sass.$input-text-size;
+        }
     }
 }

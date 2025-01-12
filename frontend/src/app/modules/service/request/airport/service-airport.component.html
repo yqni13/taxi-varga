@@ -7,7 +7,7 @@
     <div class="tava-service-airport-content">
 
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-airport-content-input-offer">
+        <div *ngIf="!hasOffer" class="tava-service-airport-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
                 <div
                     class="tava-service-airport-block"
@@ -93,7 +93,7 @@
         </div>
 
         <!-- SUM OF PROCESSED DATA (FROM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-airport-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-airport-content-sum-offer tava-service-form">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum">
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -130,7 +130,16 @@
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.offer.origin' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span
+                    *ngIf="serviceForm.get('originAddress')?.value === 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
+                    {{'modules.service.content.airport.vie-schwechat' | translate}}
+                </span>
+                <span
+                    *ngIf="serviceForm.get('originAddress')?.value !== 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
                     {{serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
@@ -138,13 +147,22 @@
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.offer.destination' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span
+                    *ngIf="serviceForm.get('destinationAddress')?.value === 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
+                    {{'modules.service.content.airport.vie-schwechat' | translate}}
+                </span>
+                <span
+                    *ngIf="serviceForm.get('destinationAddress')?.value !== 'vie-schwechat'"
+                    class="tava-service-airport-offer-sum-right"
+                >
                     {{serviceForm.get('destinationAddress')?.value}}
                 </span>
             </div>
             <div class="tava-service-airport-offer-sum">
                 <span class="tava-service-airport-offer-sum-left">
-                    {{('modules.service.content.form.order.date' | translate) + ':'}}
+                    {{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-airport-offer-sum-right">
                     {{serviceForm.get('pickupDATE')?.value}}
@@ -152,7 +170,7 @@
             </div>
             <div class="tava-service-airport-offer-sum">
                 <span class="tava-service-airport-offer-sum-left">
-                    {{('modules.service.content.form.order.time' | translate) + ':'}}
+                    {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
                 <span class="tava-service-airport-offer-sum-right">
                     {{serviceForm.get('pickupTIME')?.value}}
@@ -171,7 +189,7 @@
                     {{('modules.service.content.form.order.duration' | translate) + ':'}}
                 </span>
                 <span class="tava-service-airport-offer-sum-right">
-                    {{serviceForm.get('duration')?.value | durationFormat}}
+                    {{serviceForm.get('duration')?.value + ' h'}}
                 </span>
             </div>
             <div class="tava-service-airport-offer-sum" id="tava-service-offer-warnings">
@@ -202,7 +220,7 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-airport-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-airport-content-input-order tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-airport-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
