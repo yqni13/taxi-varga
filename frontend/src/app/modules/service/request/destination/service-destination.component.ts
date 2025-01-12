@@ -180,8 +180,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.initForm();
         this.serviceForm.patchValue({
             service: 'destination',
-            originAddress: 'Lazarettgasse 16, 1090 Wien',
-            destinationAddress: 'Grenzgasse 20, Hirtenberg',
+            originAddress: '',
+            destinationAddress: '',
             back2home: false,
             latency: '00:00',
             datetime: '',
