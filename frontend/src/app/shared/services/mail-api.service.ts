@@ -43,7 +43,7 @@ export class MailAPIService {
         // TODO(yqni13): clean input before use
 
         // this.urlSend = '/api/v1/mailing/send';
-        this.urlSend = environment.API_BASE_URL + '/api/v1/mailing';
+        this.urlSend = environment.API_BASE_URL + '/api/v1/mailing/send';
     }
 
     setMailData(data: MailingMessage) {
