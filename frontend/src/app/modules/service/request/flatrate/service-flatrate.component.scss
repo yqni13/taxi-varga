@@ -40,7 +40,7 @@
 }
 
 .tava-datetime-double {
-    flex-direction: row!important;
+    flex-direction: row;
 
     .tava-service-tenancy-wrapper {
         display: flex;
@@ -71,8 +71,6 @@
 }
 
 .tava-service-flatrate-content-sum-offer {
-    width: 50vw;
-    max-width: 550px;
     padding: calc(sass.$space25 / 2) sass.$space25;
     border: 2px solid grey;
     border-radius: sass.$space15;
@@ -129,8 +127,6 @@
 .tava-service-flatrate-content-input-order {
     display: flex;
     flex-direction: column;
-    width: 50vw;
-    max-width: 550px;
     border: 2px solid grey;
     border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;

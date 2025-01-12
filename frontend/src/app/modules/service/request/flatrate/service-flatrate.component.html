@@ -7,7 +7,7 @@
     <div class="tava-service-flatrate-content">
 
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-flatrate-content-input-offer">
+        <div *ngIf="!hasOffer" class="tava-service-flatrate-content-input-offer tava-service-form">
             <div class="tava-service-flatrate-block" id="form-origin">
                 <span class="tava-service-block-label">
                     {{('modules.service.content.flatrate.labels.origin' | translate) + '*'}}
@@ -70,7 +70,7 @@
         </div>
 
         <!-- SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-flatrate-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-flatrate-content-sum-offer tava-service-form">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-flatrate-offer-sum">
                 <span class="tava-service-flatrate-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -196,7 +196,7 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-flatrate-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-flatrate-content-input-order tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-flatrate-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">

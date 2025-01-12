@@ -18,7 +18,7 @@
         "validation": {
             "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
-            "latency-invalid-upper-limit": "Die Wartezeit darf 12h nicht überschreiten.",
+            "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
             "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",

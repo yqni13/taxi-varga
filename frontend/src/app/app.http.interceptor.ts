@@ -45,7 +45,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
 
 export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
+    console.log('response error: ', response);
     if(response.url.includes('/driving/airport')) {
         await delay(1000);
         httpObservationService.setDrivingAirportStatus(false);
@@ -60,20 +60,28 @@ export async function handleError(response: any, httpObservationService: HttpObs
         httpObservationService.setEmailStatus(false);
     }
 
-    if(response.status === 0) {
+    // if(response.status === 0) {
+    //     snackbarService.notify({
+    //         title: 'Unexpected Server Error',
+    //         text: 'Service not available at the moment.',
+    //         autoClose: false,
+    //         type: SnackbarOption.error
+    //     })
+    // }
+    if(response.status === 500 || response.status === 535) {
         snackbarService.notify({
-            title: 'Unexpected Server Error',
-            text: 'Service not available at the moment.',
+            title: response.statusText,
+            text: response.error.message,
             autoClose: false,
             type: SnackbarOption.error
         })
     }
-    if(response.status === 500 || response.status === 535) {
+    if(response.status >= 400 && response.status < 500) {
         snackbarService.notify({
-            title: response.error.title,
-            text: response.error.text,
+            title: response.error.headers.error,
+            text: response.error.headers.data.msg,
             autoClose: false,
-            type: SnackbarOption.error
+            type: SnackbarOption.error,
         })
     }
 }

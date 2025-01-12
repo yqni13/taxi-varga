@@ -6,10 +6,10 @@
     justify-content: center;
     flex-direction: column;
     margin-bottom: sass.$space50;
+
+    p {
+        font-size: sass.$content-text-size;
+    }
 }
 
-.tava-about-text {
-    width: 60vw;
-    max-width: 700px;
-    margin: 0 auto;
-}
+

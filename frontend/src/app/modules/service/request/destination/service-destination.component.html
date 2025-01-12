@@ -7,7 +7,7 @@
     <div class="tava-service-destination-content">
         
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-destination-content-input-offer">
+        <div *ngIf="!hasOffer" class="tava-service-destination-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-destination-block" id="form-origin">
                     <span class="tava-service-block-label">
@@ -73,7 +73,7 @@
         </div>
 
         <!-- SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-destination-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-destination-content-sum-offer tava-service-form">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-offer-sum">
                 <span class="tava-service-destination-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -219,9 +219,9 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-destination-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-destination-content-input-order tava-service-form">
             <form [formGroup]="serviceForm">
-                <div class="tava-service-destination-customer-block">
+                <div class="tava-service-destination-customer-block double-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
                         <span class="tava-service-block-label">
                             {{('modules.service.content.form.customer.gender' | translate) + '*'}}
@@ -247,7 +247,7 @@
                         ></tava-textinput>
                     </div>
                 </div>
-                <div class="tava-service-destination-customer-block">
+                <div class="tava-service-destination-customer-block double-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
                         <span class="tava-service-block-label">
                             {{('modules.service.content.form.customer.first-name' | translate) + '*'}}

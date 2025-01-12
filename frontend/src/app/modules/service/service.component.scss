@@ -6,15 +6,9 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    flex-direction: row;
-}
-
-.triple-outer {
-    width: 33%;
 }
 
 .triple-inner {
-    width: 34%;
     border-left: 2px solid var(--theme-main-green);
     border-right: 2px solid var(--theme-main-green);
 }
@@ -66,7 +60,6 @@
         display: flex;
         align-self: end;
         justify-content: right;
-        width: 33%;
         
         a {
             padding: sass.$space5 sass.$space15;

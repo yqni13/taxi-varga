@@ -18,7 +18,7 @@
         "validation": {
             "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
-            "latency-invalid-upper-limit": "Latency must not be bigger than 12h.",
+            "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
             "tenancy-invalid-lower-limit": "Tenancy can not be negative.",

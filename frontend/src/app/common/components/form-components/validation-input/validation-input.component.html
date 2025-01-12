@@ -1,27 +1,27 @@
 <ng-container *tavaVar="ngControl as control">
     <div class="tava-validation-errors" *ngIf="control.invalid && (control.dirty || control.touched)">
-        <div *ngIf="control.hasError('required')">
+        <div class="tava-validation-message" *ngIf="control.hasError('required')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>
-        <div *ngIf="control.hasError('email')">
+        <div class="tava-validation-message" *ngIf="control.hasError('email')">
             {{ 'common.validation.email-invalid' | translate: {fieldName: fieldName} }}
         </div>
-        <div *ngIf="control.hasError('invalidZeroTenancy')">
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidZeroTenancy')">
             {{ 'common.validation.tenancy-invalid-zero' | translate }}
         </div>
-        <div *ngIf="control.hasError('requiredTenancy')">
+        <div class="tava-validation-message" *ngIf="control.hasError('requiredTenancy')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>
-        <div *ngIf="control.hasError('invalidTenancyLowerLimit')">
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyLowerLimit')">
             {{ 'common.validation.tenancy-invalid-lower-limit' | translate }}
         </div>
-        <div *ngIf="control.hasError('invalidTenancyUpperLimit')">
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
         </div>
-        <div *ngIf="control.hasError('maxLatency')">
+        <div class="tava-validation-message" *ngIf="control.hasError('maxLatency')">
             {{ 'common.validation.latency-invalid-upper-limit' | translate }}
         </div>
-        <div *ngIf="control.hasError('invalidAirportTime')">
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidAirportTime')">
             {{ 'common.validation.airport-invalid-time' | translate }}
         </div>
     </div>

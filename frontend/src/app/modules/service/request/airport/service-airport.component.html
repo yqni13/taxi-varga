@@ -7,7 +7,7 @@
     <div class="tava-service-airport-content">
 
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-airport-content-input-offer">
+        <div *ngIf="!hasOffer" class="tava-service-airport-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
                 <div
                     class="tava-service-airport-block"
@@ -93,7 +93,7 @@
         </div>
 
         <!-- SUM OF PROCESSED DATA (FROM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-airport-content-sum-offer">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-airport-content-sum-offer tava-service-form">
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum">
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
@@ -220,7 +220,7 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-airport-content-input-order">
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-airport-content-input-order tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-airport-customer-block">
                     <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">

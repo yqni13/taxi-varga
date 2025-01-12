@@ -1,14 +1,15 @@
-
 # yqni13 taxi-varga
-$\texttt{\color{teal}{v0.0.0}}$
+$\texttt{\color{teal}{v1.0.0-beta}}$
 
-
+More details follow.
 
 <br><br>
 
 <div>
     <img src="frontend/public/assets/readme/responsive_overview.png" alt="no responsive design at the moment">
 </div>
+
+
 
 ### Technology
 
