@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "start-local-ssl": "set HTTPS=true && set SSL_CRT_FILE=D:/Dokumente/GitHub/taxi-varga/frontend/localhost.crt && set SSL_KEY_FILE=D:/Dokumente/GitHub/taxi-varga/frontend/localhost.key && set NODE_TLS_REJECT_UNAUTHORIZED=0 && ng serve --ssl true --open",
-    "start:prod": "node set-env.ts && ng build --configuration production",
+    "start:prod": "node set-env.ts && ng serve --configuration production",
     "build": "ng build",
     "build:prod": "node set-env.ts && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
