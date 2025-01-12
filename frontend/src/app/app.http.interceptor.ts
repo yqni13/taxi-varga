@@ -60,14 +60,6 @@ export async function handleError(response: any, httpObservationService: HttpObs
         httpObservationService.setEmailStatus(false);
     }
 
-    // if(response.status === 0) {
-    //     snackbarService.notify({
-    //         title: 'Unexpected Server Error',
-    //         text: 'Service not available at the moment.',
-    //         autoClose: false,
-    //         type: SnackbarOption.error
-    //     })
-    // }
     if(response.status === 500 || response.status === 535) {
         snackbarService.notify({
             title: response.statusText,
@@ -79,7 +71,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
     if(response.status >= 400 && response.status < 500) {
         snackbarService.notify({
             title: response.error.headers.error,
-            text: response.error.headers.data.msg,
+            text: response.error.headers.message,
             autoClose: false,
             type: SnackbarOption.error,
         })
