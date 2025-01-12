@@ -5,31 +5,31 @@
             "route": "Wien - St. Pölten"
         },
         "entry1": {
-            "price": "125,-",
+            "price": "120,-",
             "route": "Wien - Bratislava"
         },
         "entry2": {
-            "price": "205,-",
+            "price": "195,-",
             "route": "Wien - Brünn"
         },
         "entry3": {
-            "price": "260,-",
+            "price": "240,-",
             "route": "Wien - Linz"
         },
         "entry4": {
-            "price": "270,-",
+            "price": "260,-",
             "route": "Wien - Graz"
         },
         "entry5": {
-            "price": "345,-",
+            "price": "330,-",
             "route": "Wien - Budapest"
         },
         "entry6": {
-            "price": "430,-",
+            "price": "390,-",
             "route": "Wien - Salzburg"
         },
         "entry7": {
-            "price": "575,-",
+            "price": "545,-",
             "route": "Wien - München"
         }
     },
@@ -49,27 +49,27 @@
     },
     "samples-content-option3": {
         "entry0": {
-            "price": "77.-",
+            "price": "75.-",
             "route": "Enzesfeld/Lindabrunn - Flughafen Schwechat"
         },
         "entry1": {
-            "price": "85.-",
+            "price": "80.-",
             "route": "Berndorf - Flughafen Schwechat"
         },
         "entry2": {
-            "price": "95,-",
+            "price": "90,-",
             "route": "Wiener Neustadt - Flughafen Schwechat"
         },
         "entry3": {
-            "price": "102,-",
+            "price": "95,-",
             "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Schwechat"
         },
         "entry4": {
-            "price": "120,-",
+            "price": "110,-",
             "route": "Mattersburg - Flughafen Schwechat"
         },
         "entry5": {
-            "price": "120,-",
+            "price": "110,-",
             "route": "Neunkirchen/Ternitz - Flughafen Schwechat"
         }
     },
