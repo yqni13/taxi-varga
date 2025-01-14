@@ -19,12 +19,12 @@ MiddlewareLoader.init(app);
 
 // const port = process.env.PORT || 3000;
 // https.createServer(options, app).listen(port, () => {
-//     console.log(`Server running on port ${port}!`)
+//     console.log(`LOCAL SSL SERVER ACTIVE ON PORT ${port}!`)
 // });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-    console.log(`Server running on port ${port}!`);
+    console.log(`TAXI-VARGA SERVER RUNNING ON PORT: ${port}!`);
 });
 
 module.exports = app;
