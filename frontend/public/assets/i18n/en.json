@@ -9,6 +9,12 @@
                 "imprint": "Imprint"
             }
         },
+        "interceptor": {
+            "email": {
+                "success-title": "THANK YOU FOR REQUESTING",
+                "success-text": "Confirmation or refusal (checking appointment) will follow soon. We got your request by this email address: "
+            }
+        },
         "navigation": {
             "about": "About",
             "home": "Home",

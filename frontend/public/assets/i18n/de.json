@@ -9,6 +9,12 @@
                 "imprint": "Impressum"
             }
         },
+        "interceptor": {
+            "email": {
+                "success-title": "DANKE FÜR IHRE ANFRAGE",
+                "success-text": "Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze. Wir haben Ihre Anfrage unter dieser Email-Adresse erhalten: "
+            }
+        },
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
