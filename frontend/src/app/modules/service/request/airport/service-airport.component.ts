@@ -19,6 +19,7 @@ import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pip
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'tava-service-airport',
@@ -64,6 +65,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     constructor(
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
+        private readonly router: Router,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -139,6 +141,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
+                    this.router.navigate(['/service']);
                 }
                 this.loadOrderResponse = false;
             })

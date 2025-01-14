@@ -16,6 +16,7 @@ import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -61,6 +62,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     constructor(
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
+        private readonly router: Router,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -138,6 +140,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
+                    this.router.navigate(['/service']);
                 }
                 this.loadOrderResponse = false;
             })

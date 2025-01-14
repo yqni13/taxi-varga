@@ -5,10 +5,14 @@ import { catchError, Observable, of, tap } from "rxjs";
 import { HttpObservationService } from "./shared/services/http-observation.service";
 import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
+import { MailTranslateService } from "./shared/services/mail-translate.service";
+import { TranslateService } from "@ngx-translate/core";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const httpObservationService = inject(HttpObservationService);
+    const mailTranslateService = inject(MailTranslateService);
     const snackbarService = inject(SnackbarMessageService);
+    const translate = inject(TranslateService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return next(req).pipe(
@@ -30,6 +34,16 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
                     httpObservationService.setEmailStatus(true);
+                    snackbarService.notify({
+                        title: translate.currentLang === 'en'
+                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-title')
+                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-title'),
+                        text: translate.currentLang === 'en'
+                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + (httpEvent as HttpResponse<any>).body.body.response.sender
+                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + (httpEvent as HttpResponse<any>).body.body.response.sender,
+                        autoClose: false,
+                        type: SnackbarOption.success,
+                    })
                 }
             }
         }),
