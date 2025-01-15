@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
-import { filter, Subscription, tap } from "rxjs";
+import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
@@ -46,6 +46,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     protected hasOffer: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
+    protected pickupTimeByLang$: Subject<string>;
+    protected pickupTimeByLangStatic: string;
     protected direction: string;
 
     protected serviceForm: FormGroup;
@@ -55,6 +57,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private window: any;
@@ -78,6 +81,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.hasOffer = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
+        this.pickupTimeByLang$ = new Subject<string>();
+        this.pickupTimeByLangStatic = '';
         this.direction = '';
     
         this.serviceForm = new FormGroup({});
@@ -87,6 +92,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.loadOrderResponse = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -117,6 +123,10 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
                 }
             })
         ).subscribe();
+
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+            this.configPickupTimeByLanguage(val.lang);
+        })
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
@@ -202,6 +212,15 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.termsAcceptance = event.target?.checked;
     }
 
+    configPickupTimeByLanguage(lang: string) {
+        const time = this.serviceForm.get('pickupTIME')?.value;
+        if(time === '') {
+            return;
+        }
+
+        this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
+    }
+
     configAddressFields(direction: string) {
         if(direction === 'arrival') {
             this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
@@ -223,6 +242,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             return;
         }
 
+        this.configDateTimeData();
         this.drivingAPIService.setDataAirport(this.serviceForm.getRawValue());
         this.drivingAPIService.sendAirportRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -245,13 +265,20 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         })
     }
 
+    configDateTimeData() {
+        const datetime = this.serviceForm.get('datetime')?.value;
+        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
+        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
+        this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('pickupTIME')?.value,
+            this.translate.currentLang
+        );
+    }
+
     addResponseRouteData2Form(response: any) {
-        const datetime = this.serviceForm.get('datetime')?.value;        
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
         this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.duration));
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
-        this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
-        this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
     }
 
     async onSubmitOrder() {
@@ -292,6 +319,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

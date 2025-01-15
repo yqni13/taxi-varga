@@ -17,6 +17,7 @@ import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pip
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
+import { VarDirective } from "../../../../common/directives/ng-var.directive";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -31,7 +32,8 @@ import { Router } from "@angular/router";
         SelectInputComponent,
         TextareaInputComponent,
         TextInputComponent,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -40,6 +42,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     protected hasOffer: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
+    protected pickupTimeByLang$: Subject<string>;
+    protected dropoffTimeByLang$: Subject<string>;
+    protected pickupTimeByLangStatic: string;
+    protected dropoffTimeByLangStatic: string;
 
     protected serviceForm: FormGroup;
     protected minTenancyStamp$: Subject<string>;
@@ -51,6 +57,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
 
@@ -75,6 +82,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.hasOffer = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
+        this.pickupTimeByLang$ = new Subject<string>();
+        this.pickupTimeByLangStatic = '';
+        this.dropoffTimeByLang$ = new Subject<string>();
+        this.dropoffTimeByLangStatic = '';
 
         this.serviceForm = new FormGroup({});
         this.minTenancyStamp$ = new Subject<string>();
@@ -86,6 +97,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.loadOrderResponse = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -116,6 +128,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                 }
             })
         ).subscribe();
+
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+            this.configPickupTimeByLanguage(val.lang);
+        });
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
@@ -261,6 +277,25 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
             this.serviceForm.get('datetimeEnd')?.value
         ));
+
+        this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('pickupTIME')?.value,
+            this.translate.currentLang
+        );
+        this.dropoffTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('dropOffTIME')?.value,
+            this.translate.currentLang
+        );
+    }
+
+    configPickupTimeByLanguage(lang: string) {
+        const time = this.serviceForm.get('pickupTIME')?.value;
+        if(time === '') {
+            return;
+        }
+
+        this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
+        this.dropoffTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
     }
 
     addCustomerData2Form() {
@@ -317,6 +352,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

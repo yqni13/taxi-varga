@@ -130,7 +130,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
             this.configPickupTimeByLanguage(val.lang);
-        })
+        });
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
@@ -243,6 +243,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             return;
         }
 
+        this.configDateTimeData();
         this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
         this.drivingAPIService.sendDestinationRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -253,10 +254,13 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     addResponseRouteData2Form(response: any) {
-        const datetime = this.serviceForm.get('datetime')?.value;
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
         this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.time);
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+    }
+
+    configDateTimeData() {
+        const datetime = this.serviceForm.get('datetime')?.value;
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
         this.serviceForm.get('latency')?.setValue(

@@ -35,14 +35,18 @@ class GoogleMapsAPI {
         destinations = destinations.replaceAll('+', '%20')
 
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${process.env.GOOGLE_API_KEY}`;
+
+        let result;
         await axios.get(url)
             .then(response => {
-                return response.data;
+                result = response.data;
             })
             .catch(error => {
                 console.log('google error: ', error.message);
-                return error.message;
+                result = error.message;
         })
+
+        return result;
     }
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
