@@ -5,62 +5,109 @@
         </h1>
     </header>
     <div class="tava-samples-content">
-        <table>
-            <thead>
-                <tr>
-                    <th id="tava-table-head-route">{{'samples-utility.route' | translate}}</th>
-                    <th></th>
-                    <th></th>
-                    <th>{{'samples-utility.price' | translate}}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="tava-samples-divider-head">
-                    <td></td>
-                </tr>
-                <tr *ngFor="let entry of [].constructor(samplesOption1Length); let i = index">
-                    <td class="tava-samples-route">
-                        {{'samples-content-option1.entry' + i + '.route' | translate}}
-                    </td>
-                    <td class="tava-samples-colon">:</td>
-                    <td class="tava-samples-addendum">
-                        {{'samples-utility.addendum' | translate}}
-                    </td>
-                    <td class="tava-samples-price">
-                        {{'samples-content-option1.entry' + i + '.price' | translate}}
-                    </td>
-                </tr>
-                <tr class="tava-samples-divider">
-                    <td></td>
-                </tr>
-                <tr *ngFor="let entry of [].constructor(samplesOption2Length); let i = index">
-                    <td class="tava-samples-route">
-                        {{'samples-content-option2.entry' + i + '.route' | translate}}
-                    </td>
-                    <td class="tava-samples-colon">:</td>
-                    <td class="tava-samples-addendum">
-                        {{'samples-utility.addendum' | translate}}
-                    </td>
-                    <td class="tava-samples-price">
-                        {{'samples-content-option2.entry' + i + '.price' | translate}}
-                    </td>
-                </tr>
-                <tr class="tava-samples-divider">
-                    <td></td>
-                </tr>
-                <tr *ngFor="let entry of [].constructor(samplesOption3Length); let i = index">
-                    <td class="tava-samples-route">
-                        {{'samples-content-option3.entry' + i + '.route' | translate}}
-                    </td>
-                    <td class="tava-samples-colon">:</td>
-                    <td class="tava-samples-addendum">
-                        {{'samples-utility.addendum' | translate}}
-                    </td>
-                    <td class="tava-samples-price">
-                        {{'samples-content-option3.entry' + i + '.price' | translate}}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="tava-samples-table-wrapper">
+            <div class="tava-samples-table-header">
+                <span>
+                    {{'samples-header.option1' | translate}}
+                </span>
+            </div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let entry of [].constructor(samplesOption1Length); let i = index">
+                        <td class="tava-samples-route">
+                            {{'samples-content-option1.entry' + i + '.route' | translate}}
+                        </td>
+                        <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-addendum">
+                            {{'samples-utility.addendum' | translate}}
+                        </td>
+                        <td class="tava-samples-price">
+                            {{'samples-content-option1.entry' + i + '.price' | translate}}
+                        </td>
+                        <td class="tava-samples-currency">
+                            {{'samples-utility.currency' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tava-samples-table-wrapper">
+            <div class="tava-samples-table-header">
+                <span>
+                    {{'samples-header.option2' | translate}}
+                </span>
+            </div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let entry of [].constructor(samplesOption2Length); let i = index">
+                        <td class="tava-samples-route">
+                            {{'samples-content-option2.entry' + i + '.route' | translate}}
+                        </td>
+                        <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-addendum">
+                            {{'samples-utility.addendum' | translate}}
+                        </td>
+                        <td class="tava-samples-price">
+                            {{'samples-content-option2.entry' + i + '.price' | translate}}
+                        </td>
+                        <td class="tava-samples-currency">
+                            {{'samples-utility.currency' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tava-samples-table-wrapper">
+            <div class="tava-samples-table-header">
+                <span>
+                    {{'samples-header.option3' | translate}}
+                </span>
+            </div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let entry of [].constructor(samplesOption3Length); let i = index">
+                        <td class="tava-samples-route">
+                            {{'samples-content-option3.entry' + i + '.route' | translate}}
+                        </td>
+                        <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-addendum">
+                            {{'samples-utility.addendum' | translate}}
+                        </td>
+                        <td class="tava-samples-price">
+                            {{'samples-content-option3.entry' + i + '.price' | translate}}
+                        </td>
+                        <td class="tava-samples-currency">
+                            {{'samples-utility.currency' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tava-samples-table-wrapper">
+            <div class="tava-samples-table-header">
+                <span>
+                    {{'samples-header.option4' | translate}}
+                </span>
+            </div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
+                        <td class="tava-samples-route">
+                            {{'samples-content-option4.entry' + i + '.route' | translate}}
+                        </td>
+                        <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-addendum">
+                            {{'samples-utility.addendum' | translate}}
+                        </td>
+                        <td class="tava-samples-price">
+                            {{'samples-content-option4.entry' + i + '.price' | translate}}
+                        </td>
+                        <td class="tava-samples-currency">
+                            {{'samples-utility.currency' | translate}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>

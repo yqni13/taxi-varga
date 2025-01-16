@@ -77,7 +77,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
     if(response.status === 500 || response.status === 535) {
         snackbarService.notify({
             title: response.statusText,
-            text: response.error.message,
+            text: 'Connection to the backend failed. Please contact support.',
             autoClose: false,
             type: SnackbarOption.error
         })

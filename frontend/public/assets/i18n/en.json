@@ -36,7 +36,7 @@
     "modules": {
         "about": {
             "business": {
-                "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service within Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
+                "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service in Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
                 "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3).",
                 "workload": "I employed 2 people for the duration of my son's studies, otherwise I work individual without employees in form of EPU (en: single person enterprise)."
             },
@@ -104,7 +104,7 @@
                         "placeholder": "Type address"
                     },
                     "option": {
-                        "subtitle": "arbitrary arrival/departure",
+                        "subtitle": "off/to Lower Austria",
                         "title": "Destination"
                     },
                     "title": "Destination - route details"
@@ -122,7 +122,6 @@
                         "tenancy": "Tenancy"
                     },
                     "option": {
-                        "subtitle": "arbitrary arrival/departure",
                         "title": "Flatrate"
                     },
                     "title": "Flatrate - route details"

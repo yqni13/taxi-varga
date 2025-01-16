@@ -28,6 +28,33 @@
         }
     }
 
+    .tava-samples {
+        .tava-samples-table-wrapper {
+            flex-direction: row;
+            border-radius: sass.$space15;
+            border: 2px outset var(--theme-main-green);
+            padding: sass.$space50;
+
+            table {
+                width: 450px;
+            }
+
+            td {
+                font-size: 16px;
+            }
+
+            .tava-samples-table-header {
+                justify-content: start;
+                width: 250px;
+                margin-bottom: none;
+
+                span {
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+
     .tava-service {
         .tava-service-content {
             flex-direction: row;
@@ -100,6 +127,33 @@
             }
         }
     }
+
+    .tava-samples {
+        .tava-samples-table-wrapper {
+            flex-direction: row;
+            border-radius: sass.$space15;
+            border: 2px outset var(--theme-main-green);
+            padding: sass.$space50;
+
+            table {
+                width: 450px;
+            }
+
+            td {
+                font-size: 16px;
+            }
+
+            .tava-samples-table-header {
+                justify-content: start;
+                width: 250px;
+                margin-bottom: none;
+
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
     
     .tava-service {
         .tava-service-content {
@@ -163,12 +217,51 @@
 
 // 768px > width <= 1024px
 @media screen and (width <= sass.$device-tablet-landscape) {
-    
+    .tava-samples {
+        .tava-samples-table-wrapper {
+            flex-direction: column;
+            padding: sass.$space15;
+            border: outset 2px var(--theme-main-green);
+            border-radius: sass.$space15;
+            $wrapper-width: 450px;
+
+            .tava-samples-table-header {
+                justify-content: center;
+                width: $wrapper-width;
+                margin-bottom: sass.$space25;
+            }
+        }
+    }
 }
 
 // 500px > width <= 768px
 @media screen and (width <= sass.$device-phone-landscape) {
-    
+    .tava-samples {
+        .tava-samples-content {
+            padding-bottom: sass.$space25!important;
+
+            .tava-samples-table-wrapper {
+                $wrapper-width: 400px;
+
+                table {
+                    width: $wrapper-width;
+                }
+
+                td {
+                    font-size: 14px;
+                }
+
+                .tava-samples-table-header {
+                    width: $wrapper-width;
+                }
+
+                .tava-samples-route {
+                    width: 240px!important;
+                }
+            }
+        }
+    }
+
     .tava-service {
         .tava-service-content {
             flex-direction: column;
@@ -241,6 +334,46 @@
 
 // width <= 500px
 @media screen and (width <= sass.$device-phone-portrait) {
+    .tava-samples {
+        .tava-samples-content {
+            padding-bottom: 0!important;
+
+            .tava-samples-table-wrapper {
+                margin: 0 10vw sass.$space50 10vw;
+    
+                table {
+                    width: auto;
+                }
+    
+                td {
+                    font-size: clamp(9px, 2.4vw, 11px);
+                }
+    
+                .tava-samples-table-header {
+                    width: auto;
+    
+                    span {
+                        font-size: 12px;
+                    }
+                }
+    
+                .tava-samples-route {
+                    width: fit-content;
+                }
+    
+                .tava-samples-addendum {
+                    width: 15px!important;
+                }
+                .tava-samples-price {
+                    width: 25px!important;
+                }
+                .tava-samples-currency {
+                    width: 30px!important;
+                }
+            }
+        }
+    }
+
     .tava-service-airport,
     .tava-service-destination,
     .tava-service-flatrate {
