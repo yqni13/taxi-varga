@@ -1,6 +1,11 @@
 @use '../../../stylesheets/utilities' as sass;
 
 
+$colon-width: 10px;
+$addendum-width: 35px;
+$price-width: 50px;
+$currency-width: 40px;
+
 .tava-samples-content {
     width: 100%;
     height: 100%;
@@ -8,6 +13,25 @@
     flex-direction: column;
     align-items: center;
     padding-bottom: sass.$space50;
+}
+
+.tava-samples-table-wrapper {
+    display: flex;
+    margin-bottom: sass.$space50;
+}
+
+.tava-samples-table-header {
+    display: flex;
+
+    span {
+        width: 150px;
+        text-align: center;
+        align-content: center;
+        white-space: pre-line;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--theme-main-green);
+    }
 }
 
 #tava-table-head-route {
@@ -20,29 +44,26 @@ td {
     border-bottom: solid 1px rgba(128, 128, 128, 0.595);
 }
 
-.tava-samples-divider-head td {
-    border: none;
-    padding: sass.$space5 0;
-}
-
-.tava-samples-divider td {
-    border: none;
-    padding: calc(sass.$space5 * 3) 0;
-}
-
 .tava-samples-route {
-    width: 250px;
+    width: 290px;
     text-wrap: wrap;
+    white-space: pre-line;
 }
 
 .tava-samples-colon {
-    padding-right: sass.$space5;
     text-align: start;
-    padding-right: sass.$space25;
+    width: $colon-width;
+}
+
+.tava-samples-addendum {
+    width: $addendum-width;
 }
 
 .tava-samples-price {
     padding-left: calc(sass.$space5 * 2);
+    width: $price-width;
 }
 
-
+.tava-samples-currency {
+    width: $currency-width;
+}

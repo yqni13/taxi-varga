@@ -36,9 +36,9 @@
     "modules": {
         "about": {
             "business": {
-                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 innerhalb Wiens. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich erfülle ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
-                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) beständig."
+                "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
+                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
+                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) tätig."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
@@ -88,7 +88,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "ab/nach Wien",
+                        "subtitle": "von/nach Wien",
                         "title": "Flughafenfahrt"
                     },
                     "title": "Flughafen - Routendetails",
@@ -104,7 +104,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "beliebige Abfahrt/Ankunft",
+                        "subtitle": "von/nach Niederösterreich",
                         "title": "Pauschalfahrt"
                     },
                     "title": "Pauschalfahrt - Routendetails"
@@ -122,7 +122,6 @@
                         "tenancy": "verrechnete Mietdauer"
                     },
                     "option": {
-                        "subtitle": "beliebige Abfahrt/Ankunft",
                         "title": "Zeitmiete"
                     },
                     "title": "Zeitmiete - Routendetails"
@@ -162,7 +161,7 @@
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
                         "latency": "verrechnete Wartezeit",
-                        "licence": "Die Preisberechnung basiert auf dem gültigen, lizensierten Wiener Taxi-Tarif!",
+                        "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "Geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",

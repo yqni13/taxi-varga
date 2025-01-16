@@ -168,12 +168,15 @@
                     {{serviceForm.get('pickupDATE')?.value}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
+            <div class="tava-service-airport-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
                 <span class="tava-service-airport-offer-sum-left">
                     {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
-                    {{serviceForm.get('pickupTIME')?.value}}
+                <span *ngIf="pickup !== null" class="tava-service-airport-offer-sum-right">
+                    {{pickup}}
+                </span>
+                <span *ngIf="pickup === null" class="tava-service-airport-offer-sum-right">
+                    {{pickupTimeByLangStatic}}
                 </span>
             </div>
             <div class="tava-service-airport-offer-sum">

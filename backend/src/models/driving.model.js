@@ -12,7 +12,7 @@ class DrivingModel {
         }
 
         // CONFIGURE PARAMETERS
-        const districtRange42 = [11, 10, 3, 2, 4, 1];
+        const districtRange42 = [1, 2, 3, 4, 10, 11];
         const districtRange45 = [5, 6, 7, 8, 9, 12, 15, 20];
         const districtRange48 = [13, 14, 16, 17, 18, 19, 21, 22, 23];
         let district, price;
@@ -23,11 +23,11 @@ class DrivingModel {
             district = Utils.getZipCode(params['origin']);
         }
 
-        // GOOGLE ROUTE CALC
         const route = await GoogleAPI.requestDistanceMatrix({
             origin: params['origin'], 
             destination: params['destination']
         });
+        
         const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000 to get total km
         const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60 to get total minutes
 
@@ -57,13 +57,31 @@ class DrivingModel {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
-
         params['back2home'] = params['back2home'] === 'true' ? true : false;
         params['latency'] = Number(params['latency']);
+        
+        // GET ROUTE DATA
+        const response = await GoogleAPI.requestRouteMatrix(params);
+        const home2origin = response.find(obj => { 
+            return obj.originIndex === 0 && obj.destinationIndex === 1;
+        });
+        const origin2destination = response.find(obj => { 
+            return obj.originIndex === 1 && obj.destinationIndex === 0;
+        });
+        const destination2origin = response.find(obj => {
+            return obj.originIndex === 2 && obj.destinationIndex === 1;
+        });
+        const destination2home = response.find(obj => {
+            return obj.originIndex === 2 && obj.destinationIndex === 2;
+        });
+        const origin2home = response.find(obj => {
+            return obj.originIndex === 1 && obj.destinationIndex === 2;
+        })
+
         let result = {
             price: 0,
             distance: 0,
-            time: 0
+            time: 0,
         }
         const priceApproachLess8km = 4;
         const priceApproachMore8km = 0.5;
@@ -71,27 +89,14 @@ class DrivingModel {
         const priceMore30km = 0.5;
         const priceReturn = 0.5;
         const priceLatency30min = 12;
-
-        //home to customer departure address (h2cda)
         let approachCosts = 0;
-        const h2cda = await GoogleAPI.requestDistanceMatrix({
-            origin: process.env.HOME_ADDRESS,
-            destination: params['origin']
-        });
 
-        const approachDistance = h2cda.rows[0].elements[0].distance.value / 1000
-
-        if(approachDistance <= 8) {
+        if(home2origin.distanceMeters <= 8) {
             approachCosts = priceApproachLess8km;
         } else {
-            approachCosts = approachDistance * priceApproachMore8km;
+            approachCosts = home2origin.distanceMeters * priceApproachMore8km;
         }
 
-        // customer departure address -> customer arrival address (serviceDrive)
-        const serviceDrive = await GoogleAPI.requestDistanceMatrix(params);
-
-        // return to home
-        let homeReturn = 0;
         let serviceDriveTimeCost = 0;
         let serviceDriveDistanceCost = 0;
         let totalServiceDistance = 0;
@@ -99,17 +104,13 @@ class DrivingModel {
         let totalServiceTime = 0;
 
         if(params['back2home'] === true) {
-            payingServiceDistance = (serviceDrive.rows[0].elements[0].distance.value) / 1000;
-            totalServiceDistance = (serviceDrive.rows[0].elements[0].distance.value * 2) / 1000;
-            totalServiceTime = (serviceDrive.rows[0].elements[0].duration.value * 2) / 60;
+            payingServiceDistance = origin2destination.distanceMeters;
+            totalServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters
+            totalServiceTime = origin2destination.duration + destination2origin.duration
         } else if(params['back2home'] === false) {
-            totalServiceDistance = serviceDrive.rows[0].elements[0].distance.value / 1000;
+            totalServiceDistance = origin2destination.distanceMeters;
             payingServiceDistance = totalServiceDistance;
-            totalServiceTime = serviceDrive.rows[0].elements[0].duration.value / 60;
-            homeReturn = await GoogleAPI.requestDistanceMatrix({
-                origin: params['destination'],
-                destination: process.env.HOME_ADDRESS
-            });
+            totalServiceTime = origin2destination.duration
         }
 
         if(totalServiceDistance <= 30) {
@@ -120,16 +121,22 @@ class DrivingModel {
             serviceDriveDistanceCost = payingServiceDistance * priceMore30km;
         }
 
-        const returnCosts = params['back2home'] === true
-            ? (approachDistance * priceReturn) + (Math.ceil(params['latency'] / 30) * priceLatency30min)
-            : (homeReturn.rows[0].elements[0].distance.value / 1000) * priceReturn;
+        // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
+        const latencyCosts = (params['latency'] / 60) > 1
+            ? (2 * priceLatency30min) + (((params['latency'] - 60) / 30) * (priceLatency30min / 2))
+            : (params['latency'] / 30) * priceLatency30min;
 
-        const totalCost = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
+        const returnCosts = params['back2home'] === true
+            ? (origin2home.distanceMeters * priceReturn) + latencyCosts
+            : destination2home.distanceMeters * priceReturn;
+
+        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
+
         result['time'] = Math.ceil(totalServiceTime);
 
-        result['price'] = (totalCost % 1) >= 5
-            ? Math.ceil(totalCost)
-            : Math.floor(totalCost);
+        result['price'] = (totalCosts % 1) >= 5
+            ? Math.ceil(totalCosts)
+            : Math.floor(totalCosts);
 
         result['distance'] = (totalServiceDistance % 1) >= 5 
             ? Math.ceil(totalServiceDistance) 

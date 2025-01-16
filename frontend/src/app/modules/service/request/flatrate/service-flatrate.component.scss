@@ -71,8 +71,8 @@
 }
 
 .tava-service-flatrate-content-sum-offer {
-    padding: calc(sass.$space25 / 2) sass.$space25;
-    border: 2px solid grey;
+    padding: calc((sass.$space25 / 2) + sass.$space15) sass.$space25;
+    border: 2px outset grey;
     border-radius: sass.$space15;
 
     .tava-service-flatrate-offer-sum {
@@ -103,23 +103,24 @@
         width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
-        border: 1px inset var(--theme-body-text);
+        border: 1px outset var(--theme-snackbar-warning);
         border-radius: sass.$space15;
         padding: sass.$space15;
         font-style: italic;
+        color: var(--theme-snackbar-warning);
         span {
-            opacity: 0.8;
+            opacity: var(--warning-opacity);
+            text-shadow: 1px 1px 5px var(--warning-shadow);
         }
     }
 
     #tava-service-offer-price .tava-service-flatrate-offer-sum-right {
         font-weight: bold;
         color: var(--theme-main-green);
-        text-decoration: underline double var(--theme-main-green);
     }
     
     #tava-service-offer-price {
-        margin: calc(sass.$space15 + 20px) 0 sass.$space15 0;
+        margin: calc(sass.$space15 + 20px) 0 0 0;
     }
 }
 
@@ -127,7 +128,7 @@
 .tava-service-flatrate-content-input-order {
     display: flex;
     flex-direction: column;
-    border: 2px solid grey;
+    border: 2px outset grey;
     border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;
     

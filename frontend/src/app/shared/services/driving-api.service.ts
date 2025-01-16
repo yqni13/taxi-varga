@@ -1,5 +1,5 @@
-import { HttpResponse } from '@angular/common/http';
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
@@ -34,7 +34,7 @@ export class DrivingAPIService {
     
         this.dataAirport = {
             origin: '',
-            destination: '',
+            destination: ''
         };
         this.dataDestination = {
             origin: '',
@@ -57,7 +57,7 @@ export class DrivingAPIService {
                 : data.originAddress,
             destination: data.destinationAddress !== airport 
                 ? this.configAddressString(data.destinationAddress) 
-                : data.destinationAddress,
+                : data.destinationAddress
         }
     }
 
