@@ -181,7 +181,7 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-flatrate-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -190,7 +190,7 @@
                     {{'modules.service.content.form.order.terms-flatrate' | translate: {fieldValue: serviceForm.get('price')?.value} }}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-flatrate-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"

@@ -211,7 +211,7 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"

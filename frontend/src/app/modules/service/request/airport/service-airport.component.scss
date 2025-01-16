@@ -62,7 +62,7 @@
 .tava-text-input-checkbox {
     transform: scale(1.5);
     padding: 0;
-    margin: 0 calc(sass.$space15 + sass.$space5);
+    margin: 0 sass.$space50;
 
     /* hide default checkbox */
     background: none;
@@ -91,6 +91,7 @@
         flex-direction: row;
         width: 100%;
         padding: sass.$space5 0;
+        align-items: end;
 
         .tava-service-airport-offer-sum-left {
             text-align: end;
@@ -184,19 +185,23 @@
     margin: sass.$space50 0;
 }
 
-.tava-service-airport-terms {
+.tava-service-terms {
     display: flex;
     padding: calc(sass.$space25 / 2) sass.$space25;
-    margin-top: sass.$space15;
 
     span {
         font-style: italic;
+        text-align: justify;
         opacity: 0.8;
     }
 
     .tava-message-invalid {
         color: sass.$color-valid-red;
     }
+}
+
+.tava-first-term {
+    margin-top: calc(35px - 12.5px);
 }
 
 .final-message {

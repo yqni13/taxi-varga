@@ -312,9 +312,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             ? this.serviceForm.get('title')?.value + ' '
             : ''
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
-        if(this.serviceForm.get('distance')?.value < 250) {
-            this.surchargeFuelAcceptance = true;
-        }
     }
 
     async submitOrder() {

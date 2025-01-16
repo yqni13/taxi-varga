@@ -189,7 +189,7 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -198,7 +198,7 @@
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
             </div>
-            <div *ngIf="serviceForm.get('distance')?.value >= 250 && hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeFuelCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -207,7 +207,7 @@
                     {{'modules.service.content.form.order.surcharge-fuel' | translate}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-destination-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"

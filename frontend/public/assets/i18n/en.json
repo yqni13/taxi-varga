@@ -43,7 +43,7 @@
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
                 "location": "Business location: Leobersdorf",
-                "second": "In the first three years after changing careers, I worked as a professional driver for the companies Maxi-Mietwagen and Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
+                "second": "In the first three years after changing careers, I worked as limited partner (ger: \"Kommanditist\") at Maxi-Mietwagen and as chauffeur for Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
                 "workrange": "Work range: Vienna"
             },
             "title": "About me and my business"
@@ -51,6 +51,7 @@
         "contact": {},
         "home": {
             "content": {
+                "capacity": "Transport max. 4 people",
                 "classification": "40100 quality rating: 5.0 (max)",
                 "comfort": "Elevated seat positions for senior friendly entrance/exit",
                 "ev": " mobility by Skoda Enyaq iV 80 since 2020",
@@ -161,13 +162,14 @@
                         "distance": "Driven distance",
                         "duration": "Driving time",
                         "latency": "Waiting time",
+                        "latency-calc": "The first hour waiting time costs 24,00 EUR and every following hour 12,00 EUR. Every half hour or part thereof is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
-                        "price-estimated": "Estimated price",
+                        "price-estimated": "estimated price",
                         "price-fixed": "Fixed price",
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (€ 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
                         "tenancy": "charged tenancy",
-                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
+                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
                         "time-dropoff": "Time target of drop-off",
                         "time-pickup": "Time of pick-up",

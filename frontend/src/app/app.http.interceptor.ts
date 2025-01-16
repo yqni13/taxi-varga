@@ -74,10 +74,19 @@ export async function handleError(response: any, httpObservationService: HttpObs
         httpObservationService.setEmailStatus(false);
     }
 
+    if(response.status === 0 && (response.url.includes('/driving/') || response.url.includes('/mailing/'))) {
+        snackbarService.notify({
+            title: 'Server Connection Error',
+            text: 'Connection to the backend missing. Please try again later.',
+            autoClose: false,
+            type: SnackbarOption.error
+        })
+    }
+
     if(response.status === 500 || response.status === 535) {
         snackbarService.notify({
             title: response.statusText,
-            text: 'Connection to the backend failed. Please contact support.',
+            text: 'Server services failed. Please contact support.',
             autoClose: false,
             type: SnackbarOption.error
         })
