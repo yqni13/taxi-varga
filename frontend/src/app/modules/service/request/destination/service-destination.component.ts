@@ -133,7 +133,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         });
 
         this.initEdit();
-        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
         // this.googlePlacesAutocomplete();
     }
 

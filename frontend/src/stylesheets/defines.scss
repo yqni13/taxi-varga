@@ -25,6 +25,8 @@
     --theme-snackbar-warning: #{sass.$color-lightmode-warning};
     --filter-brightness: 1;
     --divider-opacity: 0.8;
+    --warning-opacity: 0.7;
+    --warning-shadow: #{sass.$color-ice-white};
 }
 
 [data-theme='darkMode'] {
@@ -39,4 +41,6 @@
     --theme-snackbar-warning: #{sass.$color-darkmode-warning};
     --filter-brightness: 0.4;
     --divider-opacity: 0.1;
+    --warning-opacity: 0.6;
+    --warning-shadow: #{sass.$color-text-black};
 }

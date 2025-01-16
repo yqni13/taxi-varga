@@ -129,7 +129,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         })
 
         this.initEdit();
-        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-airport");
     }
 
     ngAfterViewInit() {

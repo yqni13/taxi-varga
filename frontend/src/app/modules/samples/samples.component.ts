@@ -24,6 +24,7 @@ export class SamplesComponent implements OnInit, OnDestroy {
     protected samplesOption1Length: number;
     protected samplesOption2Length: number;
     protected samplesOption3Length: number;
+    protected samplesOption4Length: number;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -35,6 +36,7 @@ export class SamplesComponent implements OnInit, OnDestroy {
         this.samplesOption1Length = Object.keys(content["samples-content-option1"]).length;
         this.samplesOption2Length = Object.keys(content["samples-content-option2"]).length;
         this.samplesOption3Length = Object.keys(content["samples-content-option3"]).length;
+        this.samplesOption4Length = Object.keys(content["samples-content-option4"]).length;
 
         this.subscriptionThemeObservation$ = new Subscription();
     }
