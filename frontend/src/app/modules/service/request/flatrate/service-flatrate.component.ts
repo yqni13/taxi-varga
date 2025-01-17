@@ -170,7 +170,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),
             tenancy: new FormControl(''),
-            datetimeStart: new FormControl('', Validators.required),
+            datetimeStart: new FormControl('', [
+                Validators.required,
+                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+            ]),
             datetimeEnd: new FormControl('', CustomValidators.requiredTenancyValidator()),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),

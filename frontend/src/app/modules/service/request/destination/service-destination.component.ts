@@ -170,7 +170,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             originAddress: new FormControl('', Validators.required),
             destinationAddress: new FormControl('', Validators.required),            
             back2home: new FormControl(''),
-            datetime: new FormControl('', Validators.required),
+            datetime: new FormControl('', [
+                Validators.required,
+                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+            ]),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),

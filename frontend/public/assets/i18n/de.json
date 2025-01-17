@@ -23,6 +23,7 @@
         },
         "validation": {
             "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",

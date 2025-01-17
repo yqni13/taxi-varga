@@ -169,7 +169,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             destinationAddress: new FormControl(''),  
             datetime: new FormControl('', [
                 Validators.required,
-                CustomValidators.invalidAirportTimeValidator(this.datetimeService)
+                CustomValidators.invalidAirportTimeValidator(this.datetimeService),
+                CustomValidators.negativeDateTimeValidator(this.datetimeService)
             ]),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
