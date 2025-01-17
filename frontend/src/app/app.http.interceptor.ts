@@ -48,7 +48,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
             }
         }),
         catchError((response) => {
-            handleError(response, httpObservationService, snackbarService).catch((err) => {
+            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate).catch((err) => {
                 console.error('Error handling failed', err);
             })
             
@@ -57,7 +57,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     )
 }
 
-export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService) {
+export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     console.log('response error: ', response);
     if(response.url.includes('/driving/airport')) {
@@ -81,17 +81,27 @@ export async function handleError(response: any, httpObservationService: HttpObs
             autoClose: false,
             type: SnackbarOption.error
         })
-    }
-
-    if(response.status === 500 || response.status === 535) {
+    } else if(response.status === 500 || response.status === 535) {
         snackbarService.notify({
             title: response.statusText,
             text: 'Server services failed. Please contact support.',
             autoClose: false,
             type: SnackbarOption.error
         })
-    }
-    if(response.status >= 400 && response.status < 500) {
+    } else if(response.status === 400) {
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
+        snackbarService.notify({
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
+                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.${response.error.headers.data[0].msg}`)
+                : mailTranslateService.getTranslationEN(`${path}.data.${response.error.headers.data[0].msg}`),
+            autoClose: false,
+            type: SnackbarOption.error,
+        })
+    } else if(response.status > 400 && response.status < 500) {
         snackbarService.notify({
             title: response.error.headers.error,
             text: response.error.headers.message,

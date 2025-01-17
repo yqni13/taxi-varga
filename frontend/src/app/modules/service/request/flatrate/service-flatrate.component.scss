@@ -80,7 +80,7 @@
         flex-direction: row;
         width: 100%;
         padding: sass.$space5 0;
-        align-items: end;
+        align-items: center;
 
         .tava-service-flatrate-offer-sum-left {
             text-align: end;
@@ -112,6 +112,7 @@
         span {
             opacity: var(--warning-opacity);
             text-shadow: 1px 1px 5px var(--warning-shadow);
+            margin: calc(sass.$space5 / 2);
         }
     }
 

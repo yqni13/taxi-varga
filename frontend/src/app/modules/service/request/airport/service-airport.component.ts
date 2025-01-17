@@ -52,7 +52,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     protected serviceForm: FormGroup;
     protected customer: string;
-    protected termsAcceptance: boolean;
+    protected termCancellation: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
@@ -83,11 +83,11 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
         this.pickupTimeByLangStatic = '';
-        this.direction = '';
+        this.direction = 'departure';
     
         this.serviceForm = new FormGroup({});
         this.customer = '';
-        this.termsAcceptance = false;
+        this.termCancellation = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
     
@@ -146,14 +146,17 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         ).subscribe();
         
         this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
-            filter((x) => !!x),
+            // tap((status) => console.log('Before filter: ', status)),
+            // HINT: BehaviorSubject(false) is ignored by !!x in filter
+            filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
                     this.router.navigate(['/service']);
+                } else if(!isStatus200) {
+                    this.resetOrderStatus();
                 }
-                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -209,7 +212,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     getTermsCheckboxValue(event: any) {
-        this.termsAcceptance = event.target?.checked;
+        this.termCancellation = event.target?.checked;
     }
 
     configPickupTimeByLanguage(lang: string) {
@@ -303,7 +306,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     }
 
     async submitOrder() {
-        if(!this.termsAcceptance) {
+        if(!this.termCancellation) {
             return;
         }
 
@@ -315,6 +318,13 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
         await this.delay(100);
         this.scrollToTop();
+    }
+
+    resetOrderStatus() {
+        this.termCancellation = false;
+        this.loadOrderResponse = false;
+        this.loadOfferResponse = false;
+        this.hasOrder = false;
     }
 
     ngOnDestroy() {

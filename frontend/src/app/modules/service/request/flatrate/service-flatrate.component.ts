@@ -51,8 +51,8 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     protected minTenancyStamp$: Subject<string>;
     protected maxTenancyStamp$: Subject<string>;
     protected customer: string;
-    protected termsAcceptance: boolean;
-    protected surchargeParkingAcceptance: boolean;
+    protected termCancellation: boolean;
+    protected termSurchargeParking: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
@@ -91,8 +91,8 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.minTenancyStamp$ = new Subject<string>();
         this.maxTenancyStamp$ = new Subject<string>();
         this.customer = '';
-        this.termsAcceptance = false;
-        this.surchargeParkingAcceptance = false;
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
     
@@ -151,14 +151,15 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         ).subscribe();
 
         this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
-            filter((x) => !!x),
+            filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
                     this.router.navigate(['/service']);
+                } else if(!isStatus200) {
+                    this.resetOrderStatus();
                 }
-                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -227,11 +228,11 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     getTermsCheckboxValue(event: any) {
-        this.termsAcceptance = event.target?.checked;
+        this.termCancellation = event.target?.checked;
     }
 
     getSurchargeParkingCheckboxValue(event: any) {
-        this.surchargeParkingAcceptance = event.target?.checked;
+        this.termSurchargeParking = event.target?.checked;
     }
 
     checkDateEqualDate(): boolean {
@@ -336,7 +337,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     async submitOrder() {
-        if(!this.termsAcceptance) {
+        if(!this.termCancellation) {
             return;
         }
 
@@ -348,6 +349,14 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
         await this.delay(100);
         this.scrollToTop();
+    }
+
+    resetOrderStatus() {
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.loadOrderResponse = false;
+        this.loadOfferResponse = false;
+        this.hasOrder = false;
     }
 
     ngOnDestroy() {

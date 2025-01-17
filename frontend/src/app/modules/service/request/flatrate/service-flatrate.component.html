@@ -172,6 +172,9 @@
                 <span>
                     {{('modules.service.content.form.order.licence' | translate)}}
                 </span>
+                <span>
+                    {{('modules.service.content.form.order.tenancy-calc' | translate)}}
+                </span>
             </div>
             <div class="tava-service-flatrate-offer-sum" id="tava-service-offer-price">
                 <span class="tava-service-flatrate-offer-sum-left">
@@ -185,7 +188,7 @@
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!termsAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termCancellation ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.terms-flatrate' | translate: {fieldValue: serviceForm.get('price')?.value} }}
                 </span>
@@ -194,7 +197,7 @@
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!surchargeParkingAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termSurchargeParking ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.surcharge-parking' | translate}}
                 </span>
@@ -306,7 +309,7 @@
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
-            [ngClass]="termsAcceptance && surchargeParkingAcceptance ? '' : 'tava-order-submit-invalid'" 
+            [ngClass]="termCancellation && termSurchargeParking ? '' : 'tava-order-submit-invalid'" 
         >
             <button
                 class="tava-button-submit"

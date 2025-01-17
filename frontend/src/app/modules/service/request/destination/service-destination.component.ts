@@ -53,9 +53,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     protected serviceForm: FormGroup;
     protected customer: string;
-    protected termsAcceptance: boolean;
-    protected surchargeParkingAcceptance: boolean;
-    protected surchargeFuelAcceptance: boolean;
+    protected termCancellation: boolean;
+    protected termSurchargeParking: boolean;
+    protected termSurchargeFuel: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
@@ -89,9 +89,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         
         this.serviceForm = new FormGroup({});
         this.customer = '';
-        this.termsAcceptance = false;
-        this.surchargeParkingAcceptance = false;
-        this.surchargeFuelAcceptance = false;
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.termSurchargeFuel = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
         
@@ -151,14 +151,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         ).subscribe();
 
         this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
-            filter((x) => !!x),
+            filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
                     this.router.navigate(['/service']);
+                } else if(!isStatus200) {
+                    this.resetOrderStatus();
                 }
-                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -215,15 +216,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     getTermsCheckboxValue(event: any) {
-        this.termsAcceptance = event.target?.checked;
+        this.termCancellation = event.target?.checked;
     }
 
     getSurchargeFuelCheckboxValue(event: any) {
-        this.surchargeFuelAcceptance = event.target?.checked;
+        this.termSurchargeFuel = event.target?.checked;
     }
 
     getSurchargeParkingCheckboxValue(event: any) {
-        this.surchargeParkingAcceptance = event.target?.checked;
+        this.termSurchargeParking = event.target?.checked;
     }
 
     // googlePlacesAutocomplete() {
@@ -315,7 +316,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     async submitOrder() {
-        if(!this.termsAcceptance) {
+        if(!this.termCancellation) {
             return;
         }
 
@@ -327,6 +328,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         
         await this.delay(100);
         this.scrollToTop();
+    }
+
+    resetOrderStatus() {
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.termSurchargeFuel = false;
+        this.loadOfferResponse = false;
+        this.loadOrderResponse = false;
+        this.hasOrder = false;
     }
 
     ngOnDestroy() {

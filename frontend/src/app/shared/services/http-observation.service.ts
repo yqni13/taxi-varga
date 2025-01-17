@@ -9,7 +9,7 @@ export class HttpObservationService {
     private drivingAirportStatusSubject = new BehaviorSubject<boolean>(false);
     private drivingDestinationStatusSubject = new BehaviorSubject<boolean>(false);
     private drivingFlatrateStatusSubject = new BehaviorSubject<boolean>(false);
-    private emailStatusSubject = new BehaviorSubject<boolean>(false);
+    private emailStatusSubject = new BehaviorSubject<boolean | null>(null);
 
     drivingAirportStatus$ = this.drivingAirportStatusSubject.asObservable();
     drivingDestinationStatus$ = this.drivingDestinationStatusSubject.asObservable();

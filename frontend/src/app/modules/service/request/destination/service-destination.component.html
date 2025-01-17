@@ -180,6 +180,9 @@
                 <span>
                     {{('modules.service.content.form.order.licence' | translate)}}
                 </span>
+                <span>
+                    {{'modules.service.content.form.order.latency-calc' | translate}}
+                </span>
             </div>
             <div class="tava-service-destination-offer-sum" id="tava-service-offer-price">
                 <span class="tava-service-destination-offer-sum-left">
@@ -193,7 +196,7 @@
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!termsAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termCancellation ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
@@ -202,7 +205,7 @@
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeFuelCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!surchargeFuelAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termSurchargeFuel ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.surcharge-fuel' | translate}}
                 </span>
@@ -211,7 +214,7 @@
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!surchargeParkingAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termSurchargeParking ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.surcharge-parking' | translate}}
                 </span>
@@ -323,7 +326,7 @@
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
-            [ngClass]="termsAcceptance && surchargeFuelAcceptance && surchargeParkingAcceptance ? '' : 'tava-order-submit-invalid'" 
+            [ngClass]="termCancellation && termSurchargeFuel && termSurchargeParking ? '' : 'tava-order-submit-invalid'" 
         >
             <button
                 class="tava-button-submit"

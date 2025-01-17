@@ -11,8 +11,8 @@
         },
         "interceptor": {
             "email": {
-                "success-title": "DANKE FÜR IHRE ANFRAGE",
-                "success-text": "Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze. Wir haben Ihre Anfrage unter dieser Email-Adresse erhalten: "
+                "success-text": "Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze. Wir haben Ihre Anfrage unter dieser Email-Adresse erhalten: ",
+                "success-title": "DANKE FÜR IHRE ANFRAGE"
             }
         },
         "navigation": {
@@ -30,7 +30,15 @@
             "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
-            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen."
+            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
+            "validate-backend": {
+                "data": {
+                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com"
+                },
+                "header": {
+                    "InvalidPropertiesException": "Ungültiger Datensatz"
+                }
+            }
         }
     },
     "modules": {
@@ -110,6 +118,7 @@
                     },
                     "title": "Pauschalfahrt - Routendetails"
                 },
+                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "flatrate": {
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
@@ -127,7 +136,6 @@
                     },
                     "title": "Zeitmiete - Routendetails"
                 },
-                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "form": {
                     "customer": {
                         "email": "Email-Adresse",
@@ -166,12 +174,13 @@
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
-                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
+                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
                         "tenancy": "verrechnete Mietdauer",
+                        "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
-                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
-                        "time-dropoff": "Zeit-Ziel der Ankunft",
+                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
+                        "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
