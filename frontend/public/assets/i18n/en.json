@@ -11,7 +11,7 @@
         },
         "interceptor": {
             "email": {
-                "success-text": "Confirmation or refusal (checking appointment) will follow soon. We got your request by this email address: ",
+                "success-text": "Confirmation or refusal will follow soon. We got your request by this email address: ",
                 "success-title": "THANK YOU FOR REQUESTING"
             }
         },

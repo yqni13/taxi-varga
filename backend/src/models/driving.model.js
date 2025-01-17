@@ -1,7 +1,7 @@
-const { NotFoundException } = require("../utils/exceptions/common.exception");
-const Utils = require("../utils/common.utils")
 require('dotenv').config();
-const GoogleAPI = require('../services/google-api.service');
+const Utils = require("../utils/common.utils")
+const GoogleRoutes = require('../services/google-routes/google-routes.api');
+const { NotFoundException } = require("../utils/exceptions/common.exception");
 
 class DrivingModel {
 
@@ -23,7 +23,7 @@ class DrivingModel {
             district = Utils.getZipCode(params['origin']);
         }
 
-        const route = await GoogleAPI.requestDistanceMatrix({
+        const route = await GoogleRoutes.requestMapsMatrix({
             origin: params['origin'], 
             destination: params['destination']
         });
@@ -61,7 +61,7 @@ class DrivingModel {
         params['latency'] = Number(params['latency']);
         
         // GET ROUTE DATA
-        const response = await GoogleAPI.requestRouteMatrix(params);
+        const response = await GoogleRoutes.requestRouteMatrix(params);
         const home2origin = response.find(obj => { 
             return obj.originIndex === 0 && obj.destinationIndex === 1;
         });
@@ -158,7 +158,7 @@ class DrivingModel {
 
         const tenancy = (params['tenancy'] / 30) * priceFlatrate30Min; 
 
-        const approachRoute = await GoogleAPI.requestDistanceMatrix({
+        const approachRoute = await GoogleRoutes.requestMapsMatrix({
             origin: process.env.HOME_ADDRESS,
             destination: params['origin']
         });
@@ -168,7 +168,7 @@ class DrivingModel {
             : Math.floor(approachDistance) * priceApproachPerKm;
 
         if(params['origin'] !== params['destination']) {
-            const returnRoute = await GoogleAPI.requestDistanceMatrix({
+            const returnRoute = await GoogleRoutes.requestMapsMatrix({
                 origin: params['destination'],
                 destination: process.env.HOME_ADDRESS
             });

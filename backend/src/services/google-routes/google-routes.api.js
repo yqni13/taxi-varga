@@ -1,9 +1,9 @@
 require('dotenv').config();
 const axios = require('axios');
-const Utilities = require('../utils/common.utils');
+const Utilities = require('../../utils/common.utils');
 
-class GoogleMapsAPI {
-    getRoutesMatrixHeader() {
+class GoogleRoutesAPI {
+    getRoutesHeader() {
         return {
             'Content-Type': 'application/json',
             'X-Goog-Api-Key': process.env.GOOGLE_API_KEY,
@@ -11,23 +11,11 @@ class GoogleMapsAPI {
         }
     }
 
-    getRoutesSingleHeader() {
-        return {
-            'Content-Type': 'application/json',
-            'X-Goog-Api-Key': process.env.GOOGLE_API_KEY,
-            'X-Goog-FieldMask': 'routes.distanceMeters,routes.duration,routes.routeLabels,routes.routeToken'
-        }
-    }
-
-    getRoutesMatrixURL() {
+    getRoutesURL() {
         return 'https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix';
     }
 
-    getRoutesSingleURL() {
-        return 'https://routes.googleapis.com/directions/v2:computeRoutes';
-    }
-
-    requestDistanceMatrix = async (params) => {
+    requestMapsMatrix = async (params) => {
         let origins = params['origin'];
         let destinations = params['destination'];
 
@@ -44,7 +32,7 @@ class GoogleMapsAPI {
             .catch(error => {
                 console.log('google error: ', error.message);
                 result = error.message;
-        })
+            })
 
         return result;
     }
@@ -54,8 +42,8 @@ class GoogleMapsAPI {
         const origin = params['origin'].replaceAll('+', ' ');
         const destination = params['destination'].replaceAll('+', ' ');
 
-        const headers = this.getRoutesMatrixHeader()
-        const url = this.getRoutesMatrixURL();
+        const headers = this.getRoutesHeader()
+        const url = this.getRoutesURL();
 
         const requestData = {
             "origins": [
@@ -112,44 +100,6 @@ class GoogleMapsAPI {
         });
         return result;
     }
-
-    // // request single route A => B
-    // requestEcoFriendlyRoute = async (params) => {
-    //     const origins = params['origin'].replaceAll('+', ' ');
-    //     const destinations = params['destination'].replaceAll('+', ' ');
-
-    //     const headers = this.getRoutesSingleHeader();
-    //     const url = this.getRoutesSingleURL();
-
-    //     const requestData = {
-    //         "origin": {
-    //             "address": origins
-    //         },
-    //         "destination": {
-    //             "address": destinations
-    //         },
-    //         "routeModifiers": {
-    //             "vehicleInfo": {
-    //                 "emissionType": "ELECTRIC"
-    //             }
-    //         },
-    //         "travelMode": "DRIVE",
-    //         "routingPreference": "TRAFFIC_AWARE_OPTIMAL",
-    //         "requestedReferenceRoutes": ["FUEL_EFFICIENT"]
-    //     }
-
-    //     let result;
-    //     await axios.post(url, requestData, { headers })
-    //         .then(response => {
-    //             result = response.data;
-    //         })
-    //         .catch(error => {
-    //             console.log('google request error: ', error.message);
-    //             result = error.message;
-    //         })
-
-    //     return result;
-    // }
 }
 
-module.exports = new GoogleMapsAPI;
+module.exports = new GoogleRoutesAPI;
