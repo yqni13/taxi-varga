@@ -11,8 +11,8 @@
         },
         "interceptor": {
             "email": {
-                "success-title": "DANKE FÜR IHRE ANFRAGE",
-                "success-text": "Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze. Wir haben Ihre Anfrage unter dieser Email-Adresse erhalten: "
+                "success-text": "Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze. Wir haben Ihre Anfrage unter dieser Email-Adresse erhalten: ",
+                "success-title": "DANKE FÜR IHRE ANFRAGE"
             }
         },
         "navigation": {
@@ -23,6 +23,7 @@
         },
         "validation": {
             "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
@@ -30,7 +31,15 @@
             "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
-            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen."
+            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
+            "validate-backend": {
+                "data": {
+                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com"
+                },
+                "header": {
+                    "InvalidPropertiesException": "Ungültiger Datensatz"
+                }
+            }
         }
     },
     "modules": {
@@ -43,7 +52,7 @@
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
                 "location": "Unternehmenssitz: Leobersdorf",
-                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen und Taxi Göring als Berufsfahrer. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
+                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen als Kommanditist und Taxi Göring als Chauffeur. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
                 "workrange": "Tarif-Standort: Wien"
             },
             "title": "Über mich und mein Unternehmen"
@@ -51,6 +60,7 @@
         "contact": {},
         "home": {
             "content": {
+                "capacity": "Beförderung max. 4 Personen",
                 "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
                 "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
                 "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
@@ -109,6 +119,7 @@
                     },
                     "title": "Pauschalfahrt - Routendetails"
                 },
+                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "flatrate": {
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
@@ -126,7 +137,6 @@
                     },
                     "title": "Zeitmiete - Routendetails"
                 },
-                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "form": {
                     "customer": {
                         "email": "Email-Adresse",
@@ -161,15 +171,17 @@
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
                         "latency": "verrechnete Wartezeit",
+                        "latency-calc": "Die 1. Stunde Wartezeit kostet 24,00 EUR und jede weitere Stunde dann 12,00 EUR. Verrechnet wird jede angefangene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
-                        "price-estimated": "Geschätzter Preis",
+                        "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
-                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (€ 0,07/km ab 250ter km).",
+                        "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
                         "tenancy": "verrechnete Mietdauer",
-                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig.",
-                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten (€ {{fieldValue}},-) zur Zahlung fällig.",
-                        "time-dropoff": "Zeit-Ziel der Ankunft",
+                        "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
+                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
+                        "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
+                        "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }

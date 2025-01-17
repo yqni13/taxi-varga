@@ -11,11 +11,11 @@ exports.getZipCode = (address) => {
 }
 
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {
-    return Number((value.replaceAll('s', '') / 60).toFixed(1));
+    return value === null || value === undefined ? 0 : Number((value.replaceAll('s', '') / 60).toFixed(1));
 }
 
 exports.getDistanceInKmFromRoutesMatrix = (value) => {
-    return Number((value / 1000).toFixed(1))
+    return value === null || value === undefined ? 0 : Number((value / 1000).toFixed(1));
 }
 
 exports.stateRegex = new RegExp(/([A-Za-zäöüÄÖÜ ])\w+/g)

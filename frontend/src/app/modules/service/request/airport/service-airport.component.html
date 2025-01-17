@@ -211,11 +211,11 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
-                    [ngClass]="!termsAcceptance ? 'tava-message-invalid' : ''"
+                    [ngClass]="!termCancellation ? 'tava-message-invalid' : ''"
                 >
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
@@ -327,7 +327,7 @@
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
-            [ngClass]="termsAcceptance ? '' : 'tava-order-submit-invalid'" 
+            [ngClass]="termCancellation ? '' : 'tava-order-submit-invalid'" 
         >
             <button
                 class="tava-button-submit"

@@ -65,3 +65,13 @@ export const invalidAirportTimeValidator = (datetimeService: DateTimeService) : 
         return null;
     }
 }
+
+export const negativeDateTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const difference = datetimeService.getTimeDifferenceNoLimit(new Date().toString(), control?.value);
+        if(difference < -1) {
+            return { negativeDateTime: true };
+        }
+        return null;
+    }
+}

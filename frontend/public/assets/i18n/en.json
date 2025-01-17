@@ -11,8 +11,8 @@
         },
         "interceptor": {
             "email": {
-                "success-title": "THANK YOU FOR REQUESTING",
-                "success-text": "Confirmation or refusal (checking appointment) will follow soon. We got your request by this email address: "
+                "success-text": "Confirmation or refusal (checking appointment) will follow soon. We got your request by this email address: ",
+                "success-title": "THANK YOU FOR REQUESTING"
             }
         },
         "navigation": {
@@ -23,6 +23,7 @@
         },
         "validation": {
             "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
+            "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
             "required": "Field \"{{fieldName}}\" is required.",
@@ -30,7 +31,15 @@
             "tenancy-invalid-lower-limit": "Tenancy can not be negative.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
-            "tenancy-invalid-zero": "Tenancy can not be zero."
+            "tenancy-invalid-zero": "Tenancy can not be zero.",
+            "validate-backend": {
+                "data": {
+                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com"
+                },
+                "header": {
+                    "InvalidPropertiesException": "Invalid data"
+                }
+            }
         }
     },
     "modules": {
@@ -43,7 +52,7 @@
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
                 "location": "Business location: Leobersdorf",
-                "second": "In the first three years after changing careers, I worked as a professional driver for the companies Maxi-Mietwagen and Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
+                "second": "In the first three years after changing careers, I worked as limited partner (ger: \"Kommanditist\") at Maxi-Mietwagen and as chauffeur for Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
                 "workrange": "Work range: Vienna"
             },
             "title": "About me and my business"
@@ -51,6 +60,7 @@
         "contact": {},
         "home": {
             "content": {
+                "capacity": "Transport max. 4 people",
                 "classification": "40100 quality rating: 5.0 (max)",
                 "comfort": "Elevated seat positions for senior friendly entrance/exit",
                 "ev": " mobility by Skoda Enyaq iV 80 since 2020",
@@ -109,6 +119,7 @@
                     },
                     "title": "Destination - route details"
                 },
+                "final": "Thank you for your request. Confirmation or refusal (checking appointment) will follow soon.",
                 "flatrate": {
                     "labels": {
                         "datetime-end": "Date & time (return)",
@@ -126,7 +137,6 @@
                     },
                     "title": "Flatrate - route details"
                 },
-                "final": "Thank you for your request. Confirmation or refusal (checking appointment) will follow soon.",
                 "form": {
                     "customer": {
                         "email": "Email address",
@@ -161,15 +171,17 @@
                         "distance": "Driven distance",
                         "duration": "Driving time",
                         "latency": "Waiting time",
+                        "latency-calc": "The first hour waiting time costs 24,00 EUR and every following hour 12,00 EUR. Every half hour or part thereof is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
-                        "price-estimated": "Estimated price",
+                        "price-estimated": "estimated price",
                         "price-fixed": "Fixed price",
-                        "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (€ 0,07/km after 250th km).",
+                        "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
                         "tenancy": "charged tenancy",
-                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours.",
-                        "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs (€ {{fieldValue}},-) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time-dropoff": "Time target of drop-off",
+                        "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
+                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
+                        "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs ({{fieldValue}},00 EUR) in case of cancelation or unexcused absence within these last 24 hours.",
+                        "time-dropoff": "estimated drop-off",
                         "time-pickup": "Time of pick-up",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
