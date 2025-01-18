@@ -1,0 +1,31 @@
+<div class="tava-address-wrapper {{className}}" ngClass="{{ngClass}}">
+    <input 
+        type="text"
+        class="tava-address-input-text"
+        placeholder="{{placeholder}}"
+        [formControl]="formControl"
+        max="{{maxVal}}"
+    >
+    <i
+        class="icon-warning"
+        *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+        [ngClass]="'tava-warning-address-text'"
+    ></i>
+    <tava-validation
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
+    ></tava-validation>
+    <div *ngIf="showOptions">
+        <div 
+            *ngFor="let option of options" 
+            class="tava-address-input-options"
+            (click)="selectPlace(option.placeId)"
+            (keydown.enter)="selectPlace(option.placeId)"
+            [attr.aria-disabled]="true"
+        >
+            <span>
+                {{option.descriptionFull}}
+            </span>
+        </div>
+    </div>
+</div>

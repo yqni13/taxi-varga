@@ -1,4 +1,4 @@
-export interface DrivingAirportResponse {
+export declare interface DrivingAirportResponse {
     body: {
         routeData: {
             distance: number,
@@ -8,7 +8,7 @@ export interface DrivingAirportResponse {
     }
 }
 
-export interface DrivingDestinationResponse {
+export declare interface DrivingDestinationResponse {
     body: {
         routeData: {
             distance: number,
@@ -18,7 +18,7 @@ export interface DrivingDestinationResponse {
     }
 }
 
-export interface DrivingFlatrateResponse {
+export declare interface DrivingFlatrateResponse {
     body: {
         routeData: {
             price: number,

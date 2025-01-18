@@ -91,7 +91,7 @@ class GoogleRoutesAPI {
             })
             .catch(error => {
                 console.log('google request error: ', error.message);
-                result = error;
+                return error;
             })
         
         result.forEach((entry) => {
