@@ -56,28 +56,29 @@
     "samples-content-option4": {
         "entry0": {
             "price": "185,00",
-            "route": "Vienna - Golf Club Himberg"
+            "route": "Vienna - Golf Club Himberg - Vienna"
         },
         "entry1": {
             "price": "190,00",
-            "route": "Vienna - Golf Club Fontana"
+            "route": "Vienna - Golf Club Fontana - Vienna"
         },
         "entry2": {
             "price": "205,00",
-            "route": "Vienna - Golf Club Schönborn"
+            "route": "Vienna - Golf Club Schönborn - Vienna"
         },
         "entry3": {
             "price": "235,00",
-            "route": "Vienna - Golf Club Föhrenwald"
+            "route": "Vienna - Golf Club Föhrenwald - Vienna"
         },
         "entry4": {
             "price": "270,00",
-            "route": "Vienna - Golf Club Adamstal"
+            "route": "Vienna - Golf Club Adamstal - Vienna"
         }
     },
     "samples-utility": {
         "addendum": "from",
         "currency": "EUR",
+        "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee)",
         "price": "Price",
         "route": "Route"
     },

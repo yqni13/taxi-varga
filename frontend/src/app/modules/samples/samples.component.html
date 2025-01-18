@@ -14,7 +14,7 @@
             <table>
                 <tbody>
                     <tr *ngFor="let entry of [].constructor(samplesOption1Length); let i = index">
-                        <td class="tava-samples-route">
+                        <td class="tava-samples-route tava-table-no-addendum">
                             {{'samples-content-option1.entry' + i + '.route' | translate}}
                         </td>
                         <td class="tava-samples-colon">:</td>
@@ -87,6 +87,13 @@
                 </span>
             </div>
             <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">
+                            {{'samples-utility.header-golf' | translate}}
+                        </th>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
                         <td class="tava-samples-route">
