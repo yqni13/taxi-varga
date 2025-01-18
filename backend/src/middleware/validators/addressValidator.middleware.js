@@ -10,17 +10,11 @@ exports.autocompleteSchema = [
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail()
-        .custom((value) =>{
-            if(value !== 'de' && value !== 'en') {
-                throw new Error();
-            }
-            return true;
-        })
-        .withMessage('basic-invalid-language')
+        .custom((value) => validateLanguageCompatible(value))
 ];
 
 exports.placeSchema = [
-    body('token')
+    body('placeId')
         .exists()
         .withMessage('basic-invalid-required'),
     body('language')
@@ -28,10 +22,19 @@ exports.placeSchema = [
         .notEmpty()
         .withMessage('basic-invalid-required')
         .bail()
-        .custom((value) =>{
-            if(value !== 'de' && value !== 'en') {
-                throw new Error();
-            }
-        })
-        .withMessage('basic-invalid-language')
+        .custom((value) => validateLanguageCompatible(value))
 ]
+
+const validateLanguageCompatible = (language) => {
+    const langArray = [
+        "de",
+        "en"
+    ];
+
+    if(!langArray.includes(language)) {
+        console.log("throws error, but why");
+        throw new Error('basic-invalid-language');
+    }
+
+    return true;
+}

@@ -2,15 +2,15 @@ const AddressService = require('../services/address.service');
 const { checkValidation } = require('../middleware/validation.middleware');
 
 class AddressController {
-    getAutocompletePlaces = async (req, res, next) => {
+    getPlaceAutocomplete = async (req, res, next) => {
         checkValidation(req);
-        const response = await AddressService.getAutocompletePlaces(req.body);
+        const response = await AddressService.getList(req.body);
         res.send(response);
     }
 
-    getPlace = async (req, res, next) => {
+    getPlaceDetails = async (req, res, next) => {
         checkValidation(req);
-        const response = await AddressService.getPlace(req.body);
+        const response = await AddressService.getDetails(req.body);
         res.send(response);
     }
 }

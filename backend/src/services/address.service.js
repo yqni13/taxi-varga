@@ -2,15 +2,15 @@ const { basicResponse } = require('../utils/common.utils');
 const AddressModel = require('../models/address.model');
 
 class AddressService {
-    getAutocompletePlaces = async (params) => {
+    getList = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const result = await AddressModel.getListOfPlaces(hasParams ? params : {});
+        const result = await AddressModel.getPlaceAutocomplete(hasParams ? params : {});
         return basicResponse(result, 1, "Success");
     }
 
-    getPlace = async (params) => {
+    getDetails = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const result = await AddressModel.getSinglePlace(hasParams ? params : {});
+        const result = await AddressModel.getPlaceDetails(hasParams ? params : {});
         return basicResponse(result, 1, "Success");
     }
 }

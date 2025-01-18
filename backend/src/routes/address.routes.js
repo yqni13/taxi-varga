@@ -7,7 +7,7 @@ const {
     placeSchema
 } = require('../middleware/validators/addressValidator.middleware');
 
-router.post('/autocomplete', autocompleteSchema, awaitHandlerFactory(addressController.getAutocompletePlaces));
-router.post('/place', placeSchema, awaitHandlerFactory(addressController.getPlace));
+router.post('/autocomplete', autocompleteSchema, awaitHandlerFactory(addressController.getPlaceAutocomplete));
+router.post('/details', placeSchema, awaitHandlerFactory(addressController.getPlaceDetails));
 
 module.exports = router;
