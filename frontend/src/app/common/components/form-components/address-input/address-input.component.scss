@@ -6,12 +6,9 @@
     
     input {
         width: calc(100% - 12px);
-        padding: 8.5px sass.$form-padding-small;
+        padding: 9.5px sass.$form-padding-small;
+        border-radius: calc(sass.$space5 + 1px);
     }
-}
-
-input[type="text"] {
-    padding: 9.5px sass.$form-padding-small;
 }
 
 i {
@@ -25,31 +22,38 @@ i {
     margin: calc(sass.$space5 / 2) sass.$space5 0 0;
 }
 
-.tava-address-input-options {
-    $option-border-thickness: 4px;
-    display: flex;
-    width: calc(100% + ($option-border-thickness) / 2);
-    cursor: pointer;
-    overflow: hidden;
+.tava-address-input-options-wrapper {
+    width: 100%;
     background-color: sass.$color-default-white;
     border: solid 1px sass.$color-default-white;
-    
-    span {
-        width: 100%;
-        padding: 8.5px 5px;
-        border: solid calc($option-border-thickness / 2) sass.$color-text-black;
+    border-end-start-radius: calc(sass.$space5 + 1px);
+    border-end-end-radius: calc(sass.$space5 + 1px);
+    overflow: hidden;
+
+    .tava-address-input-options {
+        $option-border-thickness: 4px;
+        display: flex;
+        cursor: pointer;
+        margin: 0 1px 1px 1px;
+
+        border: 1px solid sass.$color-text-black;
         border-top: none;
-        border-radius: 2px;
-        font-size: 13px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        color: sass.$color-text-black;
+        border-bottom-left-radius: sass.$space5;
+        border-bottom-right-radius: sass.$space5;
 
-        &:hover {
-            color: var(--option-hover-active);
-            font-weight: bold;
+        span {
+            width: 100%;
+            padding: 8.5px 5px;
+            font-size: 13px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: sass.$color-text-black;
 
+            &:hover {
+                color: var(--option-hover-active);
+                font-weight: bold;
+            }
         }
     }
 }

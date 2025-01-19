@@ -11,21 +11,21 @@
         *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
         [ngClass]="'tava-warning-address-text'"
     ></i>
-    <tava-validation
-        [ngControl]="formControl"
-        [fieldName]="fieldName"
-    ></tava-validation>
-    <div *ngIf="showOptions">
+    <div *ngIf="showOptions" class="tava-address-input-options-wrapper">
         <div 
-            *ngFor="let option of options" 
-            class="tava-address-input-options"
-            (click)="selectPlace(option.placeId)"
-            (keydown.enter)="selectPlace(option.placeId)"
-            [attr.aria-disabled]="true"
+        *ngFor="let option of options" 
+        class="tava-address-input-options"
+        (click)="selectPlace(option.placeId)"
+        (keydown.enter)="selectPlace(option.placeId)"
+        [attr.aria-disabled]="true"
         >
             <span>
                 {{option.descriptionFull}}
             </span>
         </div>
     </div>
+    <tava-validation
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
+    ></tava-validation>
 </div>

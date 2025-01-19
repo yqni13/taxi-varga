@@ -5,6 +5,7 @@ import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.in
 import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "./datetime.service";
 import { MailTranslateService } from "./mail-translate.service";
+import { UtilsService } from "./utils.service";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -19,6 +20,7 @@ export class MailAPIService {
 
     constructor(
         private readonly http: HttpClient,
+        private readonly utils: UtilsService,
         private readonly translate: TranslateService,
         private readonly datetimeService: DateTimeService,
         private readonly mailTranslateService: MailTranslateService
@@ -48,7 +50,7 @@ export class MailAPIService {
 
     setMailData(data: MailingMessage) {
 
-        data.phone = this.removeEmptySpacesInString(data.phone);
+        data.phone = this.utils.configPhoneNumber(data.phone);
 
         // german version
         const declareGerman = 'Deutsche Version';
@@ -110,10 +112,6 @@ export class MailAPIService {
         const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
         return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
-    }
-
-    removeEmptySpacesInString(text: string): string {
-        return text.replaceAll(' ', '');
     }
 
     sendMail() {

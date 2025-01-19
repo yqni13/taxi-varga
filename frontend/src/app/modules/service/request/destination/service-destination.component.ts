@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -20,6 +20,8 @@ import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
+import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
+import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 
 @Component({
     selector: 'tava-service-destination',
@@ -27,6 +29,7 @@ import { Router } from "@angular/router";
     styleUrl: './service-destination.component.scss',
     standalone: true,
     imports: [
+        AddressInputComponent,
         CastAbstract2FormControlPipe,
         CurrencyFormatPipe,
         CommonModule,
@@ -42,8 +45,7 @@ import { Router } from "@angular/router";
 })
 export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('originSearchInput', {static: true}) originSearchInput!: ElementRef;
-
+    protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
     protected hasOrder: boolean;
@@ -134,7 +136,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
-        // this.googlePlacesAutocomplete();
     }
 
     ngAfterViewInit() {
@@ -168,7 +169,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
+            originDetails: new FormControl(''),
             destinationAddress: new FormControl('', Validators.required),            
+            destinationDetails: new FormControl(''),
             back2home: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
@@ -188,7 +191,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm.patchValue({
             service: 'destination',
             originAddress: '',
+            originDetails: null,
             destinationAddress: '',
+            destinationDetails: null,
             back2home: false,
             latency: '00:00',
             datetime: '',
@@ -230,15 +235,13 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.termSurchargeParking = event.target?.checked;
     }
 
-    // googlePlacesAutocomplete() {
-    //     if((this.window as any).google) {
-    //         new google.maps.places.Autocomplete(
-    //             this.originSearchInput.nativeElement
-    //         );
-    //     } else {
-    //         console.error('Google Maps API failed to load.');
-    //     }
-    // }
+    getAddressDetails(event: any, option: AddressOptions) {
+        if(option === AddressOptions.origin) {
+            this.serviceForm.get('originDetails')?.setValue(event);
+        } else {
+            this.serviceForm.get('destinationDetails')?.setValue(event);
+        }
+    }
 
     async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();

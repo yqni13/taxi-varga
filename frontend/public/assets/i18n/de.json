@@ -34,7 +34,10 @@
             "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
             "validate-backend": {
                 "data": {
-                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com"
+                    "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
+                    "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
+                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
+                    "basic-invalid-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
                 },
                 "header": {
                     "InvalidPropertiesException": "Ungültiger Datensatz"
@@ -57,7 +60,6 @@
             },
             "title": "Über mich und mein Unternehmen"
         },
-        "contact": {},
         "home": {
             "content": {
                 "capacity": "Beförderung max. 4 Personen",
@@ -76,7 +78,6 @@
             "message": "",
             "title": "Impressum"
         },
-        "privacy": {},
         "samples": {
             "title": "Pauschalfahrt Beispiele"
         },
@@ -119,7 +120,6 @@
                     },
                     "title": "Pauschalfahrt - Routendetails"
                 },
-                "final": "Danke für Ihre Anfrage. Eine Bestätigung zum Auftrag oder Ablehnung (Termin überprüfen) folgt in Kürze.",
                 "flatrate": {
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",

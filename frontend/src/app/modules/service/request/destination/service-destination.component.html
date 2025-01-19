@@ -13,25 +13,23 @@
                     <span class="tava-service-block-label">
                         {{('modules.service.content.destination.labels.origin' | translate) + '*'}}
                     </span>
-                    <tava-textinput
-                        [className]="'tava-form'"
-                        [inputType]="'text'"
+                    <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
-                    ></tava-textinput>
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.origin)"
+                    ></tava-addressinput>
                 </div>
                 <div class="tava-service-destination-block" id="form-destination">
                     <span class="tava-service-block-label">
                         {{('modules.service.content.destination.labels.destination' | translate) + '*'}}
                     </span>
-                    <tava-textinput
-                        [className]="'tava-form'"
-                        [inputType]="'text'"
+                    <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('destinationAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.destination' | translate"
-                    ></tava-textinput>                    
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.destination)"
+                    ></tava-addressinput>                    
                 </div>
                 <div class="tava-service-destination-block" id="form-checkbox">
                     <input class="tava-text-input-checkbox" type="checkbox" (change)="getBack2HomeCheckboxValue($event)">
@@ -335,9 +333,6 @@
                 (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
-        <span *ngIf="hasConfirmed" class="final-message">
-            {{'modules.service.content.final' | translate}}
-        </span>
     </div>
     <div class="tava-loading-animation" [ngClass]="(loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
         <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">

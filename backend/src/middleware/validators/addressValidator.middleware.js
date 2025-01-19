@@ -32,7 +32,6 @@ const validateLanguageCompatible = (language) => {
     ];
 
     if(!langArray.includes(language)) {
-        console.log("throws error, but why");
         throw new Error('basic-invalid-language');
     }
 

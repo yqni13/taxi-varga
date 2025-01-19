@@ -5,11 +5,6 @@ exports.basicResponse = (body, success, message) => {
     };
 };
 
-exports.getZipCode = (address) => {
-    const addressArr = address.split(',');
-    return addressArr[1].match(/\d+/)[0]; // return 1160 from address 'Savoyenstraße 2, 1160 Wien'
-}
-
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {
     return value === null || value === undefined ? 0 : Number((value.replaceAll('s', '') / 60).toFixed(1));
 }

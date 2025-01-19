@@ -18,9 +18,9 @@ class DrivingModel {
         let district, price;
 
         if(params['origin'] === 'vie-schwechat') {
-            district = Utils.getZipCode(params['destination']);
+            district = params['destinationDetails']['zipCode'];
         } else if(params['destination'] === 'vie-schwechat') {
-            district = Utils.getZipCode(params['origin']);
+            district = params['originDetails']['zipCode'];
         }
 
         const route = await GoogleRoutes.requestMapsMatrix({
@@ -57,6 +57,7 @@ class DrivingModel {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
+
         params['back2home'] = params['back2home'] === 'true' ? true : false;
         params['latency'] = Number(params['latency']);
         

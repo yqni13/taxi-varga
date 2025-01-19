@@ -34,7 +34,10 @@
             "tenancy-invalid-zero": "Tenancy can not be zero.",
             "validate-backend": {
                 "data": {
-                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com"
+                    "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
+                    "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
+                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                    "basic-invalid-required": "Not all necessary data were transferred. Please check your input."
                 },
                 "header": {
                     "InvalidPropertiesException": "Invalid data"
@@ -57,7 +60,6 @@
             },
             "title": "About me and my business"
         },
-        "contact": {},
         "home": {
             "content": {
                 "capacity": "Transport max. 4 people",
@@ -76,7 +78,6 @@
             "message": "The textual content is currently only in german language available. We will provide the translations as soon as possible.",
             "title": "Imprint"
         },
-        "privacy": {},
         "samples": {
             "title": "Flatrate samples"
         },
@@ -119,7 +120,6 @@
                     },
                     "title": "Destination - route details"
                 },
-                "final": "Thank you for your request. Confirmation or refusal (checking appointment) will follow soon.",
                 "flatrate": {
                     "labels": {
                         "datetime-end": "Date & time (return)",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -32,10 +32,10 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     @HostListener('window:click', ['$event'])
     clickOutside($event: any) {
-        if(!$event.target.className.includes('tava-address-wrapper') || !$event.target.className.includes('tava-address-input.origin')) {
-            this.showOptions = false;
-        } else if($event.target.className.includes('tava-address-wrapper') && this.options.length > 0) {
+        if($event.target.className.includes('tava-address-input-text')) {
             this.showOptions = true;
+        } else if(!$event.target.className.includes('tava-address-wrapper')) {
+            this.showOptions = false;
         }
     }
 
@@ -54,10 +54,10 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     protected showOptions: boolean;
 
+    private delay: any;
     private subscriptionFormControl$: Subscription;
 
     constructor(
-        private readonly elRef: ElementRef,
         private readonly translate: TranslateService,
         private readonly addressApiService: AddressAPIService,
     ) {
@@ -76,25 +76,27 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
         this.showOptions = false;
         this.subscriptionFormControl$ = new Subscription();
+
+        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
-            // TODO(yqni13): remove byChange? not used so far..
-            this.byChange.emit(changes);
+            if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
+                this.placeControl = new FormControl();
+                this.byPlaceSelection.emit(this.placeControl?.value);
+            }
             if(this.placeControl?.value !== null) {
                 this.byPlaceSelection.emit(this.placeControl?.value);
             }
-            if(this.placeControl?.value === null || this.placeControl?.value.address !== this.formControl?.value) {
+            if(this.placeControl?.value === null) {
                 this.getOptions();
             }
+            this.byChange.emit(changes);
         });
-
-        // TODO(yqni13): save whole object in formControl and use value to display part of it?
     }
     
     getOptions() {
-        this.options = [];
         this.placeControl = new FormControl();
         if(this.formControl?.value !== '' && !this.exceptions.includes(this.formControl?.value)) {
             const data = {
@@ -106,7 +108,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
                 if(data.body?.body.placeData.status !== 'ZERO_RESULTS') {
                     this.confOptions(data);
                 } else {
-                    this.options = [];
+                    this.options.length = 0;
                     this.showOptions = false;
                 }
             })
@@ -116,6 +118,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
 
     confOptions(data: any) {
+        this.delay(100);
+        this.options.length = 0;
         data.body?.body.placeData.predictions.forEach((entry: any) => {
             this.options.push({
                 descriptionFull: entry['description'],
@@ -133,29 +137,36 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
         this.addressApiService.setDataDetails(data);
         this.addressApiService.sendDetailsRequest().subscribe(data => {
-            // TODO(yqni13): fail case?
             this.placeControl?.setValue(this.getAddressDetailsFromResponse(data));
             this.formControl?.setValue(this.placeControl?.value.address);
-            this.options = [];
+            this.options.length = 0;
             this.showOptions = false;
         })
     }
 
     getAddressDetailsFromResponse(data: any): AddressDetailsResponse {
-        const array = data.body?.body.placeData.result.address_components;
-        const street_number = array.filter((entry: any) => entry.types[0] === 'street_number').map((entry: any) => entry.long_name);
-        const street = array.filter((entry: any) => entry.types[0] === 'route').map((entry: any) => entry.long_name);
-        const city = array.filter((entry: any) => entry.types[0] === 'locality').map((entry: any) => entry.long_name);
-        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.long_name);
-        const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.long_name);
-        const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.long_name);
+        if(data.body?.body.placeData.status === 'INVALID_REQUEST') {
+            return {
+                address: '',
+                zipCode: '',
+                province: '',
+                country: ''
+            }
+        }
 
-        // TODO(yqni13): adapt to responses without certain elements (eg Flughafen Wien)
+        const array = data.body?.body.placeData.result.address_components;
+        const route = array.filter((entry: any) => entry.types[0] === 'route').map((entry: any) => entry.long_name);
+        const name = data.body?.body.placeData.result.name;
+        const address = data.body?.body.placeData.result.formatted_address;
+        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => JSON.stringify(entry.long_name));
+        const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.long_name as string);
+        const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.long_name as string);
+
         return {
-            address: `${street} ${street_number}, ${zipCode} ${city}, ${country}`,
-            zipCode: zipCode,
-            province: province,
-            country: country
+            address: route.length === 0 ? name : address,
+            zipCode: zipCode[0] as string,
+            province: province[0] as string,
+            country: country[0] as string
         }
     }
 

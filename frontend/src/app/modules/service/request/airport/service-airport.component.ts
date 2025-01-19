@@ -170,9 +170,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             service: new FormControl(''),
             airport: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
-            originPlace: new FormControl(''),
+            originDetails: new FormControl(''),
             destinationAddress: new FormControl(''),  
-            destinationPlace: new FormControl(''),
+            destinationDetails: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.invalidAirportTimeValidator(this.datetimeService),
@@ -192,9 +192,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             service: 'airport',
             airport: '',
             originAddress: '',
-            originPlace: '',
+            originDetails: null,
             destinationAddress: '',
-            destinationPlace: '',
+            destinationDetails: null,
             datetime: '',
             pickupDATE: '',
             pickupTIME: '',
@@ -226,9 +226,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     getAddressDetails(event: any, option: AddressOptions) {
         if(option === AddressOptions.origin) {
-            this.serviceForm.get('originPlace')?.setValue(event);
+            this.serviceForm.get('originDetails')?.setValue(event);
         } else {
-            this.serviceForm.get('destinationPlace')?.setValue(event);
+            this.serviceForm.get('destinationDetails')?.setValue(event);
         }
     }
 
