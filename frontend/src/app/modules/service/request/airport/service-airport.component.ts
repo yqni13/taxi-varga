@@ -15,7 +15,6 @@ import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
-import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
@@ -34,7 +33,6 @@ import { AddressOptions } from "../../../../shared/enums/address-options.enum";
         CommonModule,
         CurrencyFormatPipe,
         DistanceFormatPipe,
-        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,

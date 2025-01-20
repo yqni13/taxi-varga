@@ -160,7 +160,7 @@
                     {{('modules.service.content.form.order.duration' | translate) + ':'}}
                 </span>
                 <span class="tava-service-destination-offer-sum-right">
-                    {{serviceForm.get('duration')?.value | durationFormat}}
+                    {{serviceForm.get('duration')?.value + ' h'}}
                 </span>
             </div>
             <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-destination-offer-sum">

@@ -15,7 +15,6 @@ import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from '../../../../shared/services/http-observation.service';
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
-import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
@@ -34,7 +33,6 @@ import { AddressOptions } from "../../../../shared/enums/address-options.enum";
         CurrencyFormatPipe,
         CommonModule,
         DistanceFormatPipe,
-        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,
@@ -262,7 +260,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     addResponseRouteData2Form(response: any) {
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
-        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.time);
+        this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.time));
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
     }
 
