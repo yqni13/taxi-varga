@@ -56,28 +56,29 @@
     "samples-content-option4": {
         "entry0": {
             "price": "185,00",
-            "route": "Wien - Golfclub Himberg"
+            "route": "Wien - Golfclub Himberg - Wien"
         },
         "entry1": {
             "price": "190,00",
-            "route": "Wien - Golfclub Fontana"
+            "route": "Wien - Golfclub Fontana - Wien"
         },
         "entry2": {
             "price": "205,00",
-            "route": "Wien - Golfclub Schönborn"
+            "route": "Wien - Golfclub Schönborn - Wien"
         },
         "entry3": {
             "price": "235,00",
-            "route": "Wien - Golfclub Föhrenwald"
+            "route": "Wien - Golfclub Föhrenwald - Wien"
         },
         "entry4": {
             "price": "270,00",
-            "route": "Wien - Golfclub Adamstal"
+            "route": "Wien - Golfclub Adamstal - Wien"
         }
     },
     "samples-utility": {
         "addendum": "ab",
         "currency": "EUR",
+        "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee)",
         "price": "Preis",
         "route": "Route"
     },

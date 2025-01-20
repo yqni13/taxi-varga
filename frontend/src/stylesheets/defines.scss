@@ -27,6 +27,7 @@
     --divider-opacity: 0.8;
     --warning-opacity: 0.7;
     --warning-shadow: #{sass.$color-ice-white};
+    --option-hover-active: #{sass.$color-light-green};
 }
 
 [data-theme='darkMode'] {
@@ -43,4 +44,5 @@
     --divider-opacity: 0.1;
     --warning-opacity: 0.6;
     --warning-shadow: #{sass.$color-text-black};
+    --option-hover-active: #{sass.$color-dark-green};
 }

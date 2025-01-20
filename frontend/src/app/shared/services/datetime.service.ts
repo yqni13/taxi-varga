@@ -25,7 +25,7 @@ export class DateTimeService {
             : '00';
         const minutes = (time % 60 > 9)
             ? time % 60
-            : `0${time}`;
+            : `0${time % 60}`;
         return `${hours}:${minutes}`;
     }
 

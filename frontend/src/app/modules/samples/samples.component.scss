@@ -38,6 +38,15 @@ $currency-width: 40px;
     text-align: end;
 }
 
+th {
+    text-shadow: 1px 1px 5px var(--warning-shadow);
+    opacity: 0.8;
+    font-style: italic;
+    font-weight: normal;
+    white-space: pre-line;
+    color: sass.$color-grey-light;
+}
+
 td {
     text-align: end;
     padding: sass.$space5 0;
@@ -48,6 +57,10 @@ td {
     width: 290px;
     text-wrap: wrap;
     white-space: pre-line;
+}
+
+.tava-table-no-addendum {
+    width: 100%;
 }
 
 .tava-samples-colon {
