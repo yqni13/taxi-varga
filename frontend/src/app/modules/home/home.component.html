@@ -1,55 +1,83 @@
 <section class="tava-home">
-    <video autoplay loop [muted]="'muted'">
-        <source src="{{selectedVideo}}" type="video/mp4"/>
-        Your browser does not support video files of type ".mp4". 
-    </video>
-    <header>
-        <h1>
-            Taxi Varga
-        </h1>
-    </header>
-    <div class="tava-home-content">
-        <div class="tava-home-content-wrapper">
-            <ul>
-                <li>
-                    <span>
-                        {{'modules.home.content.experience' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        {{'modules.home.content.time' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span class="tava-anchor">
-                        {{'modules.home.highlights.zero-emission' | translate}}
-                    </span>
-                    <span>
-                        {{'modules.home.content.ev' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        {{'modules.home.content.classification' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        {{'modules.home.content.comfort' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        {{'modules.home.content.capacity' | translate}}
-                    </span>
-                </li>
-                <li>
-                    <span>
-                        {{'modules.home.content.payment' | translate}}
-                    </span>
-                </li>
-            </ul>
+    <div class="tava-home-video-wrapper">
+        <video autoplay loop [muted]="'muted'">
+            <source src="{{selectedVideo}}" type="video/mp4"/>
+            Your browser does not support video files of type ".mp4". 
+        </video>
+        <header>
+            <h1>
+                Taxi Varga
+            </h1>
+        </header>
+        <div class="tava-home-content">
+            <div class="tava-home-img-wrapper">
+                <img src="assets/UI/home_profile.png" alt="404 not found">
+            </div>
+            <div class="tava-home-content-wrapper">
+                <ul>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.experience' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.time' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <div>
+                                <span class="tava-anchor">
+                                    {{'modules.home.highlights.zero-emission' | translate}}
+                                </span>
+                                <span>
+                                    {{'modules.home.content.ev' | translate}}
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.classification' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.comfort' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.capacity' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="tava-home-content-li-wrapper">
+                            <i class="icon-Taxi"></i>
+                            <span>
+                                {{'modules.home.content.payment' | translate}}
+                            </span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>

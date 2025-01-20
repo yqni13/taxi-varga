@@ -2,54 +2,86 @@
 
 
 header {
-    position: absolute;
-    top: var(--size-nav-height);
-    left: 0;
-    right: 0;
+    position: relative;
 }
 
 section {
-    height: calc(100vh - var(--size-nav-height));
+    height: auto;
 }
 
-video {
-    filter: grayscale(0.8) brightness(var(--filter-brightness)) blur(1px);
-    width: 100%;
-    height: calc(100vh - var(--size-nav-height));
-    object-fit: cover;
+.tava-home-video-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: start;
+    justify-content: center;
+
+    video {
+        filter: grayscale(0.8) brightness(var(--filter-brightness)) blur(1px);
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
 }
+
 
 .tava-home-content {
     display: flex;
-    justify-content: center;
-    position: absolute;
-    top: calc(var(--size-nav-height) + (sass.$space100 * 2));
-    left: 0;
-    right: 0;
     width: 100vw;
-    height: auto;
+    height: 100%;
+    position: relative;
     
-    .tava-home-content-wrapper {        
-        width: 60vw;
-        max-width: 800px;
-        height: auto;
-        backdrop-filter: blur(10px);
-        border-radius: 40px;
+    .tava-home-img-wrapper {
+        position: relative;
+        margin-bottom: sass.$space50;
 
+        img {
+            aspect-ratio: 1 / 1;
+            border: solid 3px var(--theme-main-green);
+            border-radius:50%;
+        }
+    }
+
+    .tava-home-content-wrapper {        
+        height: auto;
+        margin-bottom: sass.$space50;
+        display: flex;
+        justify-content: center;
+        
         ul {
+            border-radius: 40px;
+            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             flex-direction: column;
-            margin: auto sass.$space100;
             padding-inline: 0;
-            list-style: none;
-            text-align: center;
+            text-align: start;
 
             li {
                 text-wrap: wrap;
-                text-decoration: none;
-                display: block;
-                margin: sass.$space25 0;   
+                display: flex;
+                margin: sass.$space25 0; 
+
+                .tava-home-content-li-wrapper {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    i {
+                        margin-right: sass.$space15;
+                        min-width: 30px;
+                        min-height: 30px;
+                    }
+                }
                 
                 span {
                     font-weight: bold;

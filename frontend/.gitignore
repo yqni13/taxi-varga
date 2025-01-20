@@ -21,6 +21,9 @@ desktop.ini
 /public/assets/service/service-flatrate_big.jpg
 /public/assets/service/service-flatrate_02.jpg
 /public/assets/service/service-flatrate_03.jpg
+/public/assets/UI/taxi_symbol.png
+/public/assets/UI/taxi_symbol.xcf
+/public/assets/UI/taxi_symbol_small.png
 
 # Node
 /node_modules
