@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest } from "../interfaces/address-request.interface";
 import { UtilsService } from "./utils.service";
 import { Observable } from "rxjs";
-// import { environment } from "../../../environments/environment";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -21,10 +21,10 @@ export class AddressAPIService {
         private readonly http: HttpClient,
         private readonly utils: UtilsService
     ) {
-        this.urlAutocomplete = '/api/v1/address/autocomplete';
-        this.urlDetails = '/api/v1/address/details';
-        // this.urlAutocomplete = `${environment.API_BASE_URL}/api/v1/address/autocomplete`;
-        // this.urlDetails = `${environment.API_BASE_URL}/api/v1/address/details`;
+        // this.urlAutocomplete = '/api/v1/address/autocomplete';
+        // this.urlDetails = '/api/v1/address/details';
+        this.urlAutocomplete = `${environment.API_BASE_URL}/api/v1/address/autocomplete`;
+        this.urlDetails = `${environment.API_BASE_URL}/api/v1/address/details`;
 
         this.dataAutocomplete = {
             address: '',

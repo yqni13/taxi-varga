@@ -37,6 +37,7 @@
                     "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
                     "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
                     "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                    "basic-invalid-language": "The selected language is not available for Google Translate in search results. Please choose another language.",
                     "basic-invalid-required": "Not all necessary data were transferred. Please check your input."
                 },
                 "header": {
