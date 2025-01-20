@@ -15,11 +15,12 @@ import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
-import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
+import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
+import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 
 @Component({
     selector: 'tava-service-airport',
@@ -27,11 +28,11 @@ import { Router } from "@angular/router";
     styleUrl: './service-airport.component.scss',
     standalone: true,
     imports: [
+        AddressInputComponent,
         CastAbstract2FormControlPipe,
         CommonModule,
         CurrencyFormatPipe,
         DistanceFormatPipe,
-        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,
@@ -42,6 +43,7 @@ import { Router } from "@angular/router";
 })
 export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
     protected hasOrder: boolean;
@@ -83,7 +85,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
         this.pickupTimeByLangStatic = '';
-        this.direction = 'departure';
+        this.direction = '';
     
         this.serviceForm = new FormGroup({});
         this.customer = '';
@@ -166,7 +168,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             service: new FormControl(''),
             airport: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
+            originDetails: new FormControl(''),
             destinationAddress: new FormControl(''),  
+            destinationDetails: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.invalidAirportTimeValidator(this.datetimeService),
@@ -186,7 +190,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             service: 'airport',
             airport: '',
             originAddress: '',
+            originDetails: null,
             destinationAddress: '',
+            destinationDetails: null,
             datetime: '',
             pickupDATE: '',
             pickupTIME: '',
@@ -214,6 +220,14 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     getTermsCheckboxValue(event: any) {
         this.termCancellation = event.target?.checked;
+    }
+
+    getAddressDetails(event: any, option: AddressOptions) {
+        if(option === AddressOptions.origin) {
+            this.serviceForm.get('originDetails')?.setValue(event);
+        } else {
+            this.serviceForm.get('destinationDetails')?.setValue(event);
+        }
     }
 
     configPickupTimeByLanguage(lang: string) {

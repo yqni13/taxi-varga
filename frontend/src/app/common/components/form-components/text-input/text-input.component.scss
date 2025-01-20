@@ -7,7 +7,8 @@
     
     input {
         width: calc(100% - 12px);
-        padding: 8.5px sass.$form-padding-small;
+        padding: 9.5px sass.$form-padding-small;
+        border-radius: calc(sass.$space5 + 1px);
     }
 }
 

@@ -6,6 +6,7 @@ import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { Observable } from "rxjs";
 import { DateTimeService } from './datetime.service';
+import { UtilsService } from './utils.service';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -23,6 +24,7 @@ export class DrivingAPIService {
 
     constructor(
         private readonly http: HttpClient,
+        private readonly utils: UtilsService,
         private readonly datetimeService: DateTimeService
     ) {
         // this.urlAirport = '/api/v1/driving/airport'
@@ -31,20 +33,26 @@ export class DrivingAPIService {
         this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
         this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
         this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
-    
+
         this.dataAirport = {
             origin: '',
-            destination: ''
+            originDetails: null,
+            destination: '',
+            destinationDetails: null
         };
         this.dataDestination = {
             origin: '',
+            originDetails: null,
             destination: '',
+            destinationDetails: null,
             back2home: false,
             latency: 0
         };
         this.dataFlatrate = {
             origin: '',
+            originDetails: null,
             destination: '',
+            destinationDetails: null,
             tenancy: 0
         }
     }
@@ -53,18 +61,26 @@ export class DrivingAPIService {
         const airport = 'vie-schwechat';
         this.dataAirport = {
             origin: data.originAddress !== airport 
-                ? this.configAddressString(data.originAddress) 
+                ? this.utils.configAPIAddressString(data.originAddress) 
                 : data.originAddress,
+            originDetails: data.originAddress !== airport
+                ? data.originDetails
+                : null,
             destination: data.destinationAddress !== airport 
-                ? this.configAddressString(data.destinationAddress) 
-                : data.destinationAddress
+                ? this.utils.configAPIAddressString(data.destinationAddress) 
+                : data.destinationAddress,
+            destinationDetails: data.destinationAddress !== airport
+                ? data.destinationDetails
+                : null
         }
     }
 
     setDataDestination(data: any) {
         this.dataDestination = {
-            origin: this.configAddressString(data.originAddress),
-            destination: this.configAddressString(data.destinationAddress),
+            origin: this.utils.configAPIAddressString(data.originAddress),
+            originDetails: data.originDetails,
+            destination: this.utils.configAPIAddressString(data.destinationAddress),
+            destinationDetails: data.destinationDetails,
             back2home: data.back2home,
             latency: this.datetimeService.getTimeInTotalMinutes(data.latency)
         };
@@ -72,14 +88,12 @@ export class DrivingAPIService {
 
     setDataFlatrate(data: any) {
         this.dataFlatrate = {
-            origin: this.configAddressString(data.originAddress),
-            destination: this.configAddressString(data.destinationAddress),
+            origin: this.utils.configAPIAddressString(data.originAddress),
+            originDetails: data.originDetails,
+            destination: this.utils.configAPIAddressString(data.destinationAddress),
+            destinationDetails: data.destinationDetails,
             tenancy: this.datetimeService.getTimeInTotalMinutes(data.tenancy)
         };
-    }
-
-    configAddressString(data: string): string {
-        return data = data.replaceAll(' ', '+');
     }
 
     sendAirportRequest(): Observable<HttpResponse<DrivingResponse.DrivingAirportResponse>> {
