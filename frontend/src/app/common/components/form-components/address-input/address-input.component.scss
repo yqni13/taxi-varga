@@ -22,6 +22,16 @@ i {
     margin: calc(sass.$space5 / 2) sass.$space5 0 0;
 }
 
+#google-logo {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    margin-top: 47px;
+    margin-right: 5px;
+    padding: 0 sass.$space5;
+    background-color: sass.$color-default-white;
+}
+
 .tava-address-input-options-wrapper {
     width: 100%;
     background-color: sass.$color-default-white;

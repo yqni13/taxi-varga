@@ -11,6 +11,9 @@
         *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
         [ngClass]="'tava-warning-address-text'"
     ></i>
+    <div *ngIf="showOptions && options.length > 0" id="google-logo">
+        <img src="/assets/UI/google_on_white.png" alt="404 not found">
+    </div>
     <div *ngIf="showOptions" class="tava-address-input-options-wrapper">
         <div 
         *ngFor="let option of options" 
