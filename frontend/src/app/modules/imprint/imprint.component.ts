@@ -21,6 +21,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
     protected selectedLanguage$: Subject<string>;
+    protected version: string;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -30,6 +31,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
     ) {
         this.selectedBg = '';
         this.selectedLanguage$ = new Subject<string>();
+        this.version = 'v1.0.0-beta.1';
         this.subscriptionThemeObservation$ = new Subscription();
     }
 

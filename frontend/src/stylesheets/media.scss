@@ -146,7 +146,42 @@
             width: 60%;
         }
     }
+
+    @media screen and (height > 1000px) {
+        .tava-service {
+            .tava-service-content {
+                flex-direction: column;
+
+                .triple-outer,
+                .triple-inner {
+                    width: 100%;
+                    border: none;
+
+                    .tava-service-route-description {
+                        padding: calc(sass.$space25 + sass.$space5)!important;
+                        .tava-anchor {
+                            font-size: 34px;
+                        }
+                        .tava-anchor-sub {
+                            font-size:27px;
+                        }
+                    }
+                }
+                
+                .tava-service-route {
+                    
+                    .tava-author {
+                        width: 100%;
+                        a {
+                            font-size: 22px!important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
+
 
 // 1024px > width <= 1440px
 @media screen and (width <= sass.$device-desktop-xk) {
@@ -284,6 +319,40 @@
 
         .tava-footer-links {
             width: 60%;
+        }
+    }
+
+    @media screen and (height > 800px) {
+        .tava-service {
+            .tava-service-content {
+                flex-direction: column;
+
+                .triple-outer,
+                .triple-inner {
+                    width: 100%;
+                    border: none;
+
+                    .tava-service-route-description {
+                        padding: calc(sass.$space25 + sass.$space5)!important;
+                        .tava-anchor {
+                            font-size: 28px;
+                        }
+                        .tava-anchor-sub {
+                            font-size:22px;
+                        }
+                    }
+                }
+                
+                .tava-service-route {
+                    
+                    .tava-author {
+                        width: 100%;
+                        a {
+                            font-size: 16px!important;
+                        }
+                    }
+                }
+            }
         }
     }
 }
