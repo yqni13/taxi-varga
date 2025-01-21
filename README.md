@@ -90,7 +90,7 @@ The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify
 All services take input for calculating the offer by addresses, timestamps and checkboxes/radio buttons as well as customer data like name, email, phone and notes. For full control, custom form components in combination with custom validation are used. The example of figure 2 shows built-in required-validator as well as custom time-related validation to be highlighted via red warning symbol and regarding validation message. Data validated by backend inform user via (custom) snackbar-message of invalid input.
 
 <div align="center">
-    <img src="frontend/public/assets/docs/custom_forms+validation.png" alt="&nbsp;no picture found">
+    <img src="frontend/public/assets/docs/custom_forms_validation.png" alt="&nbsp;no picture found">
     Figure 2
 </div>
 
@@ -112,7 +112,7 @@ Data from Google, based on the RoutesAPI and PlacesAPI, is used for the calculat
 The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 4). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language (see custom-translate-loader.ts). 
 
 <div align="center">
-    <img src="frontend/public/assets/docs/theme+i18n.gif" alt="&nbsp;no picture found">
+    <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
     Figure 4
 </div>
 
