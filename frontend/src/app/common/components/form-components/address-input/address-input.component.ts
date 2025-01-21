@@ -7,6 +7,7 @@ import { AbstractInputComponent } from "../abstract-input.component";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
 import { AddressAPIService } from "../../../../shared/services/address-api.service";
+import { v4 as uuidv4 } from 'uuid';
 import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../shared/interfaces/address-response.interface";
 
 @Component({
@@ -55,6 +56,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     protected showOptions: boolean;
 
     private delay: any;
+    private sessionToken: string;
     private subscriptionFormControl$: Subscription;
 
     constructor(
@@ -75,14 +77,17 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.byChange = new EventEmitter<any>();
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
         this.showOptions = false;
+        this.sessionToken = '';
         this.subscriptionFormControl$ = new Subscription();
 
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
+        this.sessionToken = uuidv4();
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
             if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
+                this.sessionToken = uuidv4();
                 this.placeControl = new FormControl();
                 this.byPlaceSelection.emit(this.placeControl?.value);
             }
@@ -101,7 +106,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         if(this.formControl?.value !== '' && !this.exceptions.includes(this.formControl?.value)) {
             const data = {
                 address: this.formControl?.value,
-                language: this.translate.currentLang
+                language: this.translate.currentLang,
+                sessionToken: this.sessionToken
             }
             this.addressApiService.setDataAutocomplete(data);
             this.addressApiService.sendAutocompleteRequest().subscribe(data => {
@@ -133,12 +139,14 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     selectPlace(id: string) {
         const data = {
             placeId: id,
-            language: this.translate.currentLang
+            language: this.translate.currentLang,
+            sessionToken: this.sessionToken
         }
         this.addressApiService.setDataDetails(data);
         this.addressApiService.sendDetailsRequest().subscribe(data => {
             this.placeControl?.setValue(this.getAddressDetailsFromResponse(data));
             this.formControl?.setValue(this.placeControl?.value.address);
+            this.sessionToken = '';
             this.options.length = 0;
             this.showOptions = false;
         })

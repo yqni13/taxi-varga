@@ -1,5 +1,5 @@
 # yqni13 taxi-varga
-$\texttt{\color{teal}{v1.0.0-beta.1}}$
+$\texttt{\color{teal}{v1.0.0-beta.2}}$
 
 
 <br><br>
@@ -121,16 +121,14 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.0-beta\ >>\ {\color{pink}1.0.0-beta.1}}$
+### $\textsf{last\ update\ 1.0.0-beta.1\ >>\ {\color{pink}1.0.0-beta.2}}$
 
-- $\textsf{\color{green}Change:}$ Update README.md to describe current project version.
-- $\textsf{\color{green}Change:}$ Adapted responsive design regarding device height.
+- $\textsf{\color{red}Patch:}$ Added sessionToken to address-input.component to upgrade billing efficency (now only a session is charged instead of each request).
 
 <br>
 
 ### Aimed objectives for next $\textsf{\color{green}minor}$ update:
 <dl>
     <dd>- update Google Places API to Places API (New)</dd>
-    <dd>- add session token to GooglePlacesAPI autocomplete/details</dd>
     <dd>- update email format</dd>
 </dl>
