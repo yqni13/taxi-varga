@@ -5,6 +5,7 @@ import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.in
 import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "./datetime.service";
 import { MailTranslateService } from "./mail-translate.service";
+import { UtilsService } from "./utils.service";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -19,6 +20,7 @@ export class MailAPIService {
 
     constructor(
         private readonly http: HttpClient,
+        private readonly utils: UtilsService,
         private readonly translate: TranslateService,
         private readonly datetimeService: DateTimeService,
         private readonly mailTranslateService: MailTranslateService
@@ -48,7 +50,7 @@ export class MailAPIService {
 
     setMailData(data: MailingMessage) {
 
-        data.phone = this.removeEmptySpacesInString(data.phone);
+        data.phone = this.utils.configPhoneNumber(data.phone);
 
         // german version
         const declareGerman = 'Deutsche Version';
@@ -82,9 +84,9 @@ export class MailAPIService {
 
         const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${this.translateData.origin}\nZieladresse: ${this.translateData.destination}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
-        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: € ${data.price},--`;
+        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
 
-        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: € ${data.price},--`;
+        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
 
         return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
     }
@@ -105,15 +107,11 @@ export class MailAPIService {
 
         const msgServiceBasic = `Service data:\nPickup address: ${this.translateData.origin}\nDestination address: ${this.translateData.destination}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${this.datetimeService.getTimeFromLanguage(data.pickupTIME, 'en')}`;
 
-        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: € ${data.price},--`;
+        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
 
-        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: € ${data.price},--`;
+        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
         return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
-    }
-
-    removeEmptySpacesInString(text: string): string {
-        return text.replaceAll(' ', '');
     }
 
     sendMail() {

@@ -5,6 +5,7 @@ exports.mailingSchema = [
         .trim()
         .notEmpty()
         .withMessage('basic-invalid-required')
+        .bail()
         .isEmail()
         .withMessage('basic-invalid-email'),
     body('subject')

@@ -42,7 +42,7 @@
     .tava-snackbar-title {
         display: flex;
         flex-direction: row;
-        padding: 0 0 5px 0;
+        padding: 0 0 15px 0;
 
         span {
             padding-left: 15px;
@@ -55,6 +55,8 @@
             padding: 0 15px;
             margin-block: 0;
             margin-inline: 0;
+            font-size: 15px;
+            align-self: end;
         }
     }
     .tava-snackbar-text {        
@@ -63,6 +65,7 @@
         margin-block: 0;
         margin-inline: 0;
         font-size: 12px;
+        white-space: pre-line;
     }
 }
 

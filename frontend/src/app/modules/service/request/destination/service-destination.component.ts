@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../../../shared/enums/theme-options.enum";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
@@ -15,10 +15,12 @@ import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from '../../../../shared/services/http-observation.service';
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
-import { DurationFormatPipe } from "../../../../common/pipes/duration-format.pipe";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { Router } from "@angular/router";
+import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
+import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 
 @Component({
     selector: 'tava-service-destination',
@@ -26,11 +28,11 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
     styleUrl: './service-destination.component.scss',
     standalone: true,
     imports: [
+        AddressInputComponent,
         CastAbstract2FormControlPipe,
         CurrencyFormatPipe,
         CommonModule,
         DistanceFormatPipe,
-        DurationFormatPipe,
         ReactiveFormsModule,
         SelectInputComponent,
         TextareaInputComponent,
@@ -41,8 +43,7 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
 })
 export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('originSearchInput', {static: true}) originSearchInput!: ElementRef;
-
+    protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
     protected hasOrder: boolean;
@@ -52,9 +53,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     protected serviceForm: FormGroup;
     protected customer: string;
-    protected termsAcceptance: boolean;
-    protected surchargeParkingAcceptance: boolean;
-    protected surchargeFuelAcceptance: boolean;
+    protected termCancellation: boolean;
+    protected termSurchargeParking: boolean;
+    protected termSurchargeFuel: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
@@ -70,6 +71,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     constructor(
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
+        private readonly router: Router,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -87,9 +89,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         
         this.serviceForm = new FormGroup({});
         this.customer = '';
-        this.termsAcceptance = false;
-        this.surchargeParkingAcceptance = false;
-        this.surchargeFuelAcceptance = false;
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.termSurchargeFuel = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
         
@@ -128,11 +130,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
             this.configPickupTimeByLanguage(val.lang);
-        })
+        });
 
         this.initEdit();
-        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
-        // this.googlePlacesAutocomplete();
+        this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
     }
 
     ngAfterViewInit() {
@@ -149,13 +150,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         ).subscribe();
 
         this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
-            filter((x) => !!x),
+            filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
+                    this.router.navigate(['/service']);
+                } else if(!isStatus200) {
+                    this.resetOrderStatus();
                 }
-                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -164,9 +167,14 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
+            originDetails: new FormControl(''),
             destinationAddress: new FormControl('', Validators.required),            
+            destinationDetails: new FormControl(''),
             back2home: new FormControl(''),
-            datetime: new FormControl('', Validators.required),
+            datetime: new FormControl('', [
+                Validators.required,
+                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+            ]),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
@@ -181,7 +189,9 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.serviceForm.patchValue({
             service: 'destination',
             originAddress: '',
+            originDetails: null,
             destinationAddress: '',
+            destinationDetails: null,
             back2home: false,
             latency: '00:00',
             datetime: '',
@@ -212,26 +222,24 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     getTermsCheckboxValue(event: any) {
-        this.termsAcceptance = event.target?.checked;
+        this.termCancellation = event.target?.checked;
     }
 
     getSurchargeFuelCheckboxValue(event: any) {
-        this.surchargeFuelAcceptance = event.target?.checked;
+        this.termSurchargeFuel = event.target?.checked;
     }
 
     getSurchargeParkingCheckboxValue(event: any) {
-        this.surchargeParkingAcceptance = event.target?.checked;
+        this.termSurchargeParking = event.target?.checked;
     }
 
-    // googlePlacesAutocomplete() {
-    //     if((this.window as any).google) {
-    //         new google.maps.places.Autocomplete(
-    //             this.originSearchInput.nativeElement
-    //         );
-    //     } else {
-    //         console.error('Google Maps API failed to load.');
-    //     }
-    // }
+    getAddressDetails(event: any, option: AddressOptions) {
+        if(option === AddressOptions.origin) {
+            this.serviceForm.get('originDetails')?.setValue(event);
+        } else {
+            this.serviceForm.get('destinationDetails')?.setValue(event);
+        }
+    }
 
     async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
@@ -240,6 +248,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             return;
         }
 
+        this.configDateTimeData();
         this.drivingAPIService.setDataDestination(this.serviceForm.getRawValue());
         this.drivingAPIService.sendDestinationRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -250,10 +259,13 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     }
 
     addResponseRouteData2Form(response: any) {
-        const datetime = this.serviceForm.get('datetime')?.value;
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
-        this.serviceForm.get('duration')?.setValue(response.body?.body.routeData.time);
+        this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.time));
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
+    }
+
+    configDateTimeData() {
+        const datetime = this.serviceForm.get('datetime')?.value;
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(datetime));
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(datetime));
         this.serviceForm.get('latency')?.setValue(
@@ -305,13 +317,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             ? this.serviceForm.get('title')?.value + ' '
             : ''
         this.customer = ` ${title}${this.serviceForm.get('firstName')?.value} ${this.serviceForm.get('lastName')?.value}`;
-        if(this.serviceForm.get('distance')?.value < 250) {
-            this.surchargeFuelAcceptance = true;
-        }
     }
 
     async submitOrder() {
-        if(!this.termsAcceptance) {
+        if(!this.termCancellation) {
             return;
         }
 
@@ -323,6 +332,15 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         
         await this.delay(100);
         this.scrollToTop();
+    }
+
+    resetOrderStatus() {
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.termSurchargeFuel = false;
+        this.loadOfferResponse = false;
+        this.loadOrderResponse = false;
+        this.hasOrder = false;
     }
 
     ngOnDestroy() {

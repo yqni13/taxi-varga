@@ -14,7 +14,7 @@
                 [attr.aria-disabled]="true"
             >
                 <span class="tava-anchor">{{'modules.service.content.airport.option.title' | translate}}</span>
-                <span>{{'modules.service.content.airport.option.subtitle' | translate}}</span>
+                <span class="tava-anchor-sub">{{'modules.service.content.airport.option.subtitle' | translate}}</span>
             </div>
             <span class="tava-author author-dark-bg">
                 <a href="{{authorAirportImg}}" target="_blank">{{'shared.assets.author' | translate}}</a>
@@ -34,7 +34,7 @@
                 [attr.aria-disabled]="true"
             >
                 <span class="tava-anchor">{{'modules.service.content.destination.option.title' | translate}}</span>
-                <span>{{'modules.service.content.destination.option.subtitle' | translate}}</span>
+                <span class="tava-anchor-sub">{{'modules.service.content.destination.option.subtitle' | translate}}</span>
             </div>
         </div>
         <div class="tava-service-route triple-outer">
@@ -47,11 +47,11 @@
             >
             <div
                 class="tava-service-route-description"
+                id="tava-service-route-description-flatrate"
                 [routerLink]="'flatrate'"
                 [attr.aria-disabled]="true"
             >
                 <span class="tava-anchor">{{'modules.service.content.flatrate.option.title' | translate}}</span>
-                <span>{{'modules.service.content.flatrate.option.subtitle' | translate}}</span>
             </div>
             <span class="tava-author author-light-bg">
                 <a href="{{authorFlatrateImg}}" target="_blank">{{'shared.assets.author' | translate}}</a>

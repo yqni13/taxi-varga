@@ -53,8 +53,8 @@
 }
 
 .tava-service-destination-content-sum-offer {
-    padding: calc(sass.$space25 / 2) sass.$space25;
-    border: 2px solid grey;
+    padding: calc((sass.$space25 / 2) + sass.$space15) sass.$space25;
+    border: 2px outset grey;
     border-radius: sass.$space15;
 
     .tava-service-destination-offer-sum {
@@ -62,6 +62,7 @@
         flex-direction: row;
         width: 100%;
         padding: sass.$space5 0;
+        align-items: center;
 
         .tava-service-destination-offer-sum-left {
             text-align: end;
@@ -85,23 +86,25 @@
         width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
-        border: 1px inset var(--theme-body-text);
+        border: 1px outset var(--theme-snackbar-warning);
         border-radius: sass.$space15;
         padding: sass.$space15;
         font-style: italic;
+        color: var(--theme-snackbar-warning);
         span {
-            opacity: 0.8;
+            opacity: var(--warning-opacity);
+            text-shadow: 1px 1px 5px var(--warning-shadow);
+            margin: calc(sass.$space5 / 2);
         }
     }
 
     #tava-service-offer-price .tava-service-destination-offer-sum-right {
         font-weight: bold;
         color: var(--theme-main-green);
-        text-decoration: underline double var(--theme-main-green);
     }
     
     #tava-service-offer-price {
-        margin: calc(sass.$space15 + 20px) 0 sass.$space15 0;
+        margin: calc(sass.$space15 + 20px) 0 0 0;
     }
 }
 
@@ -109,7 +112,7 @@
 .tava-service-destination-content-input-order {
     display: flex;
     flex-direction: column;
-    border: 2px solid grey;
+    border: 2px outset grey;
     border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;
     
@@ -154,18 +157,23 @@
     margin: sass.$space50 0;
 }
 
-.tava-service-destination-terms {
+.tava-service-terms {
     display: flex;
     padding: calc(sass.$space25 / 2) sass.$space25;
 
     span {
         font-style: italic;
+        text-align: justify;
         opacity: 0.8;
     }
 
     .tava-message-invalid {
         color: sass.$color-valid-red;
     }
+}
+
+.tava-first-term {
+    margin-top: calc(35px - 12.5px);
 }
 
 .final-message {

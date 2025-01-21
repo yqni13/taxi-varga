@@ -7,43 +7,53 @@ class MailingModel {
         const sender = params['sender'];
         const subject = params['subject'];
         const message = params['body'];
-        var result;
-
-        const transporter = nodemailer.createTransport({
-            service: 'gmx',
-            host: 'mail.gmx.com',
-            port: 465,
-            secure: true,
-            tls: {
-                ciphers: 'SSLv3',
-                rejectUnauthorized: false
-            },
-            auth: {
-                user: process.env.SECRET_EMAIL_SENDER,
-                pass: process.env.SECRET_EMAIL_PASS
-            }
-        });
 
         const mailOptions = {
             from: process.env.SECRET_EMAIL_SENDER,
             to: process.env.SECRET_EMAIL_RECEIVER,
-            replyTo: sender,
             subject: subject,
             text: message
         };
+        
+        const success = await this.wrapedSendMail(mailOptions);
+        
+        return {response: {
+            success: success,
+            sender: sender
+        }};
+    }
 
-        transporter.sendMail(mailOptions, (error, info) => {
-            if(error) {
-                if(error.responseCode === 535) {
-                    throw new AuthenticationException();
-                } else {
-                    throw new InternalServerException();
+    async wrapedSendMail(mailOptions) {
+        return new Promise((resolve, reject) => {
+            const transporter = nodemailer.createTransport({
+                service: 'gmx',
+                host: 'mail.gmx.com',
+                port: 465,
+                secure: true,
+                tls: {
+                    secure: true,
+                    ciphers: 'SSLv3',
+                    rejectUnauthorized: false
+                },
+                auth: {
+                    user: process.env.SECRET_EMAIL_SENDER,
+                    pass: process.env.SECRET_EMAIL_PASS
                 }
-            } else {
-                result = info.response;
-            }
+            });
+
+            transporter.sendMail(mailOptions, function(error, info) {
+                if(error) {
+                    reject(false);
+                    if(error.responseCode === 535) {
+                        throw new AuthenticationException();
+                    } else {
+                        throw new InternalServerException();
+                    }
+                } else {
+                    resolve(true);
+                }
+            })
         })
-        return {response: result};
     }
 }
 

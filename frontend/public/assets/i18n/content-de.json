@@ -1,81 +1,91 @@
 {
     "samples-content-option1": {
         "entry0": {
-            "price": "95,-",
-            "route": "Wien - St. Pölten"
+            "price": "42,00",
+            "route": "Wien Bezirk (1, 2, 3, 4, 10, 11)\n- Flughafen Wien"
         },
         "entry1": {
-            "price": "125,-",
-            "route": "Wien - Bratislava"
+            "price": "45,00",
+            "route": "Wien Bezirk (5, 6, 7, 8, 9, 12, 15, 20)\n- Flughafen Wien"
         },
         "entry2": {
-            "price": "205,-",
-            "route": "Wien - Brünn"
-        },
-        "entry3": {
-            "price": "260,-",
-            "route": "Wien - Linz"
-        },
-        "entry4": {
-            "price": "270,-",
-            "route": "Wien - Graz"
-        },
-        "entry5": {
-            "price": "345,-",
-            "route": "Wien - Budapest"
-        },
-        "entry6": {
-            "price": "430,-",
-            "route": "Wien - Salzburg"
-        },
-        "entry7": {
-            "price": "575,-",
-            "route": "Wien - München"
+            "price": "48,00",
+            "route": "Wien Bezirk\n(13, 14, 16, 17, 18, 19, 21, 22, 23)\n- Flughafen Wien"
         }
     },
     "samples-content-option2": {
         "entry0": {
-            "price": "60,-",
+            "price": "60,00",
             "route": "Leobersdorf - Wien Hauptbahnhof"
         },
         "entry1": {
-            "price": "65,-",
+            "price": "65,00",
             "route": "Leobersdorf - AKH Wien"
         },
         "entry2": {
-            "price": "72,-",
-            "route": "Leobersdorf - Flughafen Schwechat"
+            "price": "69,00",
+            "route": "Leobersdorf - Flughafen Wien"
         }
     },
     "samples-content-option3": {
         "entry0": {
-            "price": "77.-",
-            "route": "Enzesfeld/Lindabrunn - Flughafen Schwechat"
+            "price": "72,00",
+            "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
         },
         "entry1": {
-            "price": "85.-",
-            "route": "Berndorf - Flughafen Schwechat"
+            "price": "80,00",
+            "route": "Berndorf - Flughafen Wien"
         },
         "entry2": {
-            "price": "95,-",
-            "route": "Wiener Neustadt - Flughafen Schwechat"
+            "price": "90,00",
+            "route": "Wiener Neustadt - Flughafen Wien"
         },
         "entry3": {
-            "price": "102,-",
-            "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Schwechat"
+            "price": "95,00",
+            "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Wien"
         },
         "entry4": {
-            "price": "120,-",
-            "route": "Mattersburg - Flughafen Schwechat"
+            "price": "110,00",
+            "route": "Mattersburg - Flughafen Wien"
         },
         "entry5": {
-            "price": "120,-",
-            "route": "Neunkirchen/Ternitz - Flughafen Schwechat"
+            "price": "110,00",
+            "route": "Neunkirchen/Ternitz - Flughafen Wien"
+        }
+    },
+    "samples-content-option4": {
+        "entry0": {
+            "price": "185,00",
+            "route": "Wien - Golfclub Himberg - Wien"
+        },
+        "entry1": {
+            "price": "190,00",
+            "route": "Wien - Golfclub Fontana - Wien"
+        },
+        "entry2": {
+            "price": "205,00",
+            "route": "Wien - Golfclub Schönborn - Wien"
+        },
+        "entry3": {
+            "price": "235,00",
+            "route": "Wien - Golfclub Föhrenwald - Wien"
+        },
+        "entry4": {
+            "price": "270,00",
+            "route": "Wien - Golfclub Adamstal - Wien"
         }
     },
     "samples-utility": {
-        "addendum": "ab €",
+        "addendum": "ab",
+        "currency": "EUR",
+        "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee)",
         "price": "Preis",
         "route": "Route"
+    },
+    "samples-header": {
+        "option1": "Wien\n-\nFlughafen",
+        "option2": "Leobersdorf\n-\nöffentliche Einrichtungen",
+        "option3": "Niederösterreich / Burgenland\n-\nFlughafen",
+        "option4": "Wien\n-\nGolfclub\n(Niederösterreich)"
     }
 }

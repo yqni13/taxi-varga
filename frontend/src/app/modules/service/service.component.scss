@@ -20,6 +20,7 @@
     img {
         width: 100%;
         height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
+        min-height: 300px;
         object-fit: cover;
         filter: grayscale(1) brightness(0.7);
 
@@ -53,6 +54,10 @@
         span:nth-child(2) {
             color: sass.$color-ice-white;
         }
+    }
+
+    #tava-service-route-description-flatrate span {
+        padding: 9px 0;
     }
 
     .tava-author {

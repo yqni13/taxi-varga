@@ -24,5 +24,8 @@
         <div class="tava-validation-message" *ngIf="control.hasError('invalidAirportTime')">
             {{ 'common.validation.airport-invalid-time' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeDateTime')">
+            {{ 'common.validation.datetime-invalid-negative' | translate }}
+        </div>
     </div>
 </ng-container>

@@ -16,6 +16,10 @@ import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { Router } from "@angular/router";
+import { VarDirective } from "../../../../common/directives/ng-var.directive";
+import { AddressOptions } from "../../../../shared/enums/address-options.enum";
+import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -23,6 +27,7 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
     styleUrl: './service-flatrate.component.scss',
     standalone: true,
     imports: [
+        AddressInputComponent,
         CastAbstract2FormControlPipe,
         CommonModule,
         CurrencyFormatPipe,
@@ -30,26 +35,33 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
         SelectInputComponent,
         TextareaInputComponent,
         TextInputComponent,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
+    protected pickupTimeByLang$: Subject<string>;
+    protected dropoffTimeByLang$: Subject<string>;
+    protected pickupTimeByLangStatic: string;
+    protected dropoffTimeByLangStatic: string;
 
     protected serviceForm: FormGroup;
     protected minTenancyStamp$: Subject<string>;
     protected maxTenancyStamp$: Subject<string>;
     protected customer: string;
-    protected termsAcceptance: boolean;
-    protected surchargeParkingAcceptance: boolean;
+    protected termCancellation: boolean;
+    protected termSurchargeParking: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
 
@@ -61,6 +73,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     constructor(
         private readonly fb: FormBuilder,
         private readonly elRef: ElementRef,
+        private readonly router: Router,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -73,17 +86,22 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.hasOffer = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
+        this.pickupTimeByLang$ = new Subject<string>();
+        this.pickupTimeByLangStatic = '';
+        this.dropoffTimeByLang$ = new Subject<string>();
+        this.dropoffTimeByLangStatic = '';
 
         this.serviceForm = new FormGroup({});
         this.minTenancyStamp$ = new Subject<string>();
         this.maxTenancyStamp$ = new Subject<string>();
         this.customer = '';
-        this.termsAcceptance = false;
-        this.surchargeParkingAcceptance = false;
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
     
         this.subscriptionThemeObservation$ = new Subscription();
+        this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.window = this.document.defaultView;
@@ -115,6 +133,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             })
         ).subscribe();
 
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+            this.configPickupTimeByLanguage(val.lang);
+        });
+
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
     }
@@ -133,13 +155,15 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         ).subscribe();
 
         this.subscriptionHttpObservationEmail$ = this.httpObservationService.emailStatus$.pipe(
-            filter((x) => !!x),
+            filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObservationService.setEmailStatus(false);
+                    this.router.navigate(['/service']);
+                } else if(!isStatus200) {
+                    this.resetOrderStatus();
                 }
-                this.loadOrderResponse = false;
             })
         ).subscribe();
     }
@@ -148,9 +172,14 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
+            originDetails: new FormControl(''),
             destinationAddress: new FormControl('', Validators.required),
+            destinationDetails: new FormControl(''),
             tenancy: new FormControl(''),
-            datetimeStart: new FormControl('', Validators.required),
+            datetimeStart: new FormControl('', [
+                Validators.required,
+                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+            ]),
             datetimeEnd: new FormControl('', CustomValidators.requiredTenancyValidator()),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
@@ -165,7 +194,9 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm.patchValue({
             service: 'flatrate',
             originAddress: '',
+            originDetails: null,
             destinationAddress: '',
+            destinationDetails: null,
             tenancy: null,
             datetimeStart: '',
             datetimeEnd: '',
@@ -208,12 +239,20 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     getTermsCheckboxValue(event: any) {
-        this.termsAcceptance = event.target?.checked;
+        this.termCancellation = event.target?.checked;
     }
 
     getSurchargeParkingCheckboxValue(event: any) {
-        this.surchargeParkingAcceptance = event.target?.checked;
+        this.termSurchargeParking = event.target?.checked;
     }
+
+    getAddressDetails(event: any, option: AddressOptions) {
+            if(option === AddressOptions.origin) {
+                this.serviceForm.get('originDetails')?.setValue(event);
+            } else {
+                this.serviceForm.get('destinationDetails')?.setValue(event);
+            }
+        }
 
     checkDateEqualDate(): boolean {
         return this.datetimeService.hasSameDate(
@@ -258,6 +297,25 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
             this.serviceForm.get('datetimeEnd')?.value
         ));
+
+        this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('pickupTIME')?.value,
+            this.translate.currentLang
+        );
+        this.dropoffTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
+            this.serviceForm.get('dropOffTIME')?.value,
+            this.translate.currentLang
+        );
+    }
+
+    configPickupTimeByLanguage(lang: string) {
+        const time = this.serviceForm.get('pickupTIME')?.value;
+        if(time === '') {
+            return;
+        }
+
+        this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
+        this.dropoffTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
     }
 
     addCustomerData2Form() {
@@ -298,7 +356,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     }
 
     async submitOrder() {
-        if(!this.termsAcceptance) {
+        if(!this.termCancellation) {
             return;
         }
 
@@ -312,8 +370,17 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.scrollToTop();
     }
 
+    resetOrderStatus() {
+        this.termCancellation = false;
+        this.termSurchargeParking = false;
+        this.loadOrderResponse = false;
+        this.loadOfferResponse = false;
+        this.hasOrder = false;
+    }
+
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
+        this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
     }

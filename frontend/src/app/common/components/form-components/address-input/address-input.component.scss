@@ -1,0 +1,69 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-address-wrapper {
+    display: grid;
+    
+    input {
+        width: calc(100% - 12px);
+        padding: 9.5px sass.$form-padding-small;
+        border-radius: calc(sass.$space5 + 1px);
+    }
+}
+
+i {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    // TODO(yqni13): adapt hard coded styling for different device sizes
+}
+
+.tava-warning-address-text {
+    margin: 4px sass.$space5 0 0;
+}
+
+#google-logo {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    margin-top: 47px;
+    margin-right: 5px;
+    padding: 0 sass.$space5;
+    background-color: sass.$color-default-white;
+}
+
+.tava-address-input-options-wrapper {
+    width: 100%;
+    background-color: sass.$color-default-white;
+    border: solid 1px sass.$color-default-white;
+    border-end-start-radius: calc(sass.$space5 + 1px);
+    border-end-end-radius: calc(sass.$space5 + 1px);
+    overflow: hidden;
+
+    .tava-address-input-options {
+        $option-border-thickness: 4px;
+        display: flex;
+        cursor: pointer;
+        margin: 0 1px 1px 1px;
+
+        border: 1px solid sass.$color-text-black;
+        border-top: none;
+        border-bottom-left-radius: sass.$space5;
+        border-bottom-right-radius: sass.$space5;
+
+        span {
+            width: 100%;
+            padding: 8.5px 5px;
+            font-size: 13px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            color: sass.$color-text-black;
+
+            &:hover {
+                color: var(--option-hover-active);
+                font-weight: bold;
+            }
+        }
+    }
+}

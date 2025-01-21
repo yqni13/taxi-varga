@@ -5,8 +5,7 @@ const envConfigFile = `import { Environment } from "./environment.model";
 
 export const environment: Environment = {
     production: true,
-    API_BASE_URL: '${process.env['API_URL']}',
-    GOOGLE_API_KEY: '${process.env['GOOGLE_KEY']}'
+    API_BASE_URL: '${process.env['API_URL']}'
 };
 `;
 fs.writeFileSync(targetPath, envConfigFile);
