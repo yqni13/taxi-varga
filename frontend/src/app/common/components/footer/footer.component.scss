@@ -5,6 +5,7 @@ footer {
     height: 300px;
     display: flex;
     background-color: var(--theme-nav-bg);
+    border-top: sass.$nav-border-size solid var(--theme-main-green);
 }
 
 

@@ -28,26 +28,30 @@ export class AddressAPIService {
 
         this.dataAutocomplete = {
             address: '',
-            language: ''
+            language: '',
+            sessiontoken: ''
         };
 
         this.dataDetails = {
             placeId: '',
-            language: ''
+            language: '',
+            sessiontoken: ''
         };
     }
 
     setDataAutocomplete(data: any) {
         this.dataAutocomplete = {
             address: this.utils.configAPIAddressString(data.address),
-            language: data.language
+            language: data.language,
+            sessiontoken: data.sessionToken
         }
     }
 
     setDataDetails(data: any) {
         this.dataDetails = {
             placeId: data.placeId,
-            language: data.language
+            language: data.language,
+            sessiontoken: data.sessionToken
         }
     }
 
