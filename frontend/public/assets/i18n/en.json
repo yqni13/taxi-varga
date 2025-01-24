@@ -63,15 +63,15 @@
         },
         "home": {
             "content": {
-                "capacity": "Transport max. 4 people",
-                "classification": "40100 quality rating: 5.0 (max)",
-                "comfort": "Elevated seat positions for senior friendly entrance/exit",
-                "ev": " mobility by Skoda Enyaq iV 80 since 2020",
-                "experience": "Commercial transportation of passengers since 1999",
-                "payment": "All major payment methods accepted",
-                "time": "Business hours: 04:00 - 12:00 (off-time on request)"
+                "entry0": "Business hours: 04:00 - 12:00 (off-time on request)",
+                "entry1": "40100 quality rating: 5.0 (max)",
+                "entry2": "Elevated seat positions for senior friendly entrance/exit",
+                "entry3": "Transport max. 4 people",
+                "entry4": "All major payment methods accepted"
             },
             "highlights": {
+                "ev": " mobility by Skoda Enyaq iV 80 since 2020",
+                "start": "Commercial transportation of passengers since 1999",
                 "zero-emission": "Zero-emission"
             }
         },

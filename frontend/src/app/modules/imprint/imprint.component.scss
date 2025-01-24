@@ -3,7 +3,7 @@
 
 .tava-head-message {
     font-style: italic;
-    color: var(--theme-main-green);
+    color: var(--theme-palette-highlight);
     width: 50%;
     align-self: center;
 }
@@ -21,11 +21,16 @@
 
     a {
         text-decoration: none;
-        color: var(--theme-main-green);
+        color: var(--theme-palette-highlight);
 
         &:hover {
             opacity: 0.6;
         }
+    }
+
+    .tava-imprint-hint {
+        color: var(--theme-palette-contrast);
+        font-weight: bold;
     }
 
     p {
