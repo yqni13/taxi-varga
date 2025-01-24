@@ -60,7 +60,7 @@
         .tava-samples-table-wrapper {
             flex-direction: row;
             border-radius: sass.$space15;
-            border: 2px outset var(--theme-main-green);
+            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -235,7 +235,7 @@
         .tava-samples-table-wrapper {
             flex-direction: row;
             border-radius: sass.$space15;
-            border: 2px outset var(--theme-main-green);
+            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -380,7 +380,7 @@
         .tava-samples-table-wrapper {
             flex-direction: column;
             padding: sass.$space15;
-            border: outset 2px var(--theme-main-green);
+            border: outset 2px var(--theme-palette-highlight);
             border-radius: sass.$space15;
             $wrapper-width: 450px;
 

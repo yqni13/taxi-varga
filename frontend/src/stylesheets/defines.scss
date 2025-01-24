@@ -16,9 +16,11 @@
 [data-theme='lightMode'] {
     --theme-body-bg: #{sass.$color-ice-white};
     --theme-body-text: #{sass.$color-text-black};
-    --theme-nav-bg: #{sass.$color-grey-light};
     --theme-nav-text: #{sass.$color-text-black};
-    --theme-main-green: #{sass.$color-dark-green};
+    --theme-palette-background: #{sass.$color-light-background};
+    --theme-palette-highlight: #{sass.$color-light-highlight};
+    --theme-palette-contrast: #{sass.$color-light-contrast};
+    --theme-palette-secondary: #{sass.$color-light-secondary};
     --theme-snackbar-error: #{sass.$color-lightmode-error};
     --theme-snackbar-info: #{sass.$color-lightmode-info};
     --theme-snackbar-success: #{sass.$color-lightmode-success};
@@ -33,9 +35,11 @@
 [data-theme='darkMode'] {
     --theme-body-bg: #{sass.$color-grey-dark};
     --theme-body-text: #{sass.$color-ice-white};
-    --theme-nav-bg: #{sass.$color-fullscale-bg};
     --theme-nav-text: #{sass.$color-ice-white};
-    --theme-main-green: #{sass.$color-light-green};
+    --theme-palette-background: #{sass.$color-dark-background};
+    --theme-palette-highlight: #{sass.$color-dark-highlight};
+    --theme-palette-contrast: #{sass.$color-dark-contrast};
+    --theme-palette-secondary: #{sass.$color-dark-secondary};
     --theme-snackbar-error: #{sass.$color-darkmode-error};
     --theme-snackbar-info: #{sass.$color-darkmode-info};
     --theme-snackbar-success: #{sass.$color-darkmode-success};

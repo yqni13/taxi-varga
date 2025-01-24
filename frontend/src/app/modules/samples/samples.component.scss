@@ -30,7 +30,7 @@ $currency-width: 40px;
         white-space: pre-line;
         font-weight: bold;
         text-transform: uppercase;
-        color: var(--theme-main-green);
+        color: var(--theme-palette-highlight);
     }
 }
 
@@ -44,7 +44,7 @@ th {
     font-style: italic;
     font-weight: normal;
     white-space: pre-line;
-    color: sass.$color-grey-light;
+    color: var(--theme-palette-contrast);
 }
 
 td {
