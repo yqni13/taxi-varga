@@ -18,6 +18,7 @@ $color-dark-green: #006005;
 $color-grey-light: #a39f9f;
 $color-grey-dark: #3c3c3b;
 $color-grey-label: #9898989f;
+$color-grey-lightmode: #999999;
 
 $color-icon-sun: #e59429;
 $color-icon-moon: #b17a0b;
@@ -42,7 +43,7 @@ $color-dark-contrast: $color-icon-moon;
 $color-dark-secondary: #00a8c6;
 
 /* COLOR PALETTE :LIGHT: */
-$color-light-background: #f7e4be;
+$color-light-background: $color-grey-lightmode;
 $color-light-highlight: $color-dark-green;
 $color-light-contrast: $color-icon-sun;
 $color-light-secondary: #40c0cb;
