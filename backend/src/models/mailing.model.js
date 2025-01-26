@@ -3,7 +3,11 @@ const { AuthenticationException, InternalServerException } = require("../utils/e
 const nodemailer = require('nodemailer');
 
 class MailingModel {
-    sendMail = async (params = {}) => {
+    sendMail = async (params) => {
+        if(!Object.keys(params).length) {
+            return { error: 'no params found' };
+        }
+
         const sender = params['sender'];
         const subject = params['subject'];
         const message = params['body'];

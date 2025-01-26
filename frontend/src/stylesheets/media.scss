@@ -52,7 +52,9 @@
     .tava-imprint {
         
         .tava-imprint-content {
-            margin: sass.$space50 calc(sass.$space100 * 2);
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
         }
     }
 
@@ -227,7 +229,9 @@
     .tava-imprint {
         
         .tava-imprint-content {
-            margin: sass.$space25 calc(sass.$space75 * 2);
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
         }
     }
 
