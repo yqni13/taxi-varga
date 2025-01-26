@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
@@ -21,7 +22,8 @@ export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
     protected selectedLanguage$: Subject<string>;
-    protected version: string;
+    protected devData: any;
+    protected ownerData: any;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -31,8 +33,23 @@ export class ImprintComponent implements OnInit, OnDestroy {
     ) {
         this.selectedBg = '';
         this.selectedLanguage$ = new Subject<string>();
-        this.version = 'v1.0.0-beta.2';
         this.subscriptionThemeObservation$ = new Subscription();
+        
+        this.devData = {
+            project: 'taxi-varga',
+            version: 'v1.0.0-beta.2',
+            github: 'https://github.com/yqni13/taxi-varga',
+            portfolio: 'https://yqni13.com',
+            email: 'lukas.varga@yqni13.com'
+        };
+
+        this.ownerData = {
+            name: 'Ing. Laszlo Varga',
+            address: 'Anton Bruckner-Gasse 11\n2544 Leobersdorf, Österreich',
+            uid: 'ATU60067019',
+            email: 'laszlovarga@gmx.at',
+            phone: '+436644465466',
+        };
     }
 
     ngOnInit() {

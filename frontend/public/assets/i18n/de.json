@@ -63,20 +63,19 @@
         },
         "home": {
             "content": {
-                "capacity": "Beförderung max. 4 Personen",
-                "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
-                "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
-                "experience": "Beförderungstätigkeit seit 1999",
-                "payment": "Alle gängigen Zahlungsmittel akzeptiert",
-                "time": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)"
+                "entry0": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
+                "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
+                "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
+                "entry3": "Beförderung max. 4 Personen",
+                "entry4": "Alle gängigen Zahlungsmittel akzeptiert"
             },
             "highlights": {
+                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
+                "start": "Beförderungstätigkeit seit 1999",
                 "zero-emission": "Emissionsfrei"
             }
         },
         "imprint": {
-            "message": "",
             "title": "Impressum"
         },
         "samples": {

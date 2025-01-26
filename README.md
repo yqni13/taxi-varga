@@ -11,41 +11,21 @@ $\texttt{\color{teal}{v1.0.0-beta.2}}$
 ### Technology
 
 <br>
-<div style="display:flex; flex-direction:row;">    
-    <div style="display:flex;flex-direction:column">
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular">&nbsp;&nbsp;Angular</div>
-        <div style="display:flex; align-items: center"><img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS">&nbsp;&nbsp;RxJS</div>
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;ESLint</div>
-    </div>
-    <div style="display:flex;flex-direction:column">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </div>
-    <div style="display:flex;flex-direction:column">
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js">&nbsp;&nbsp;Node.js</div>
-        <div style="display:flex; align-items: center"><img src="frontend/public/assets/docs/icons/express.png" alt="Express">&nbsp;&nbsp;Express</div>
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;i18n</div>
-    </div>
-    <div style="display:flex;flex-direction:column">
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </div>
-    <div style="display:flex;flex-direction:column">
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI">&nbsp;&nbsp;Google Places API</div>
-        <div style="display:flex; align-items:center"><img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI">&nbsp;&nbsp;Google Routes API</div>
-    </div>
+<div style="display:flex; align-items:center;">
+    <img src="frontend/public/assets/docs/icons/angular.png" alt="Angular">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI">&nbsp;&nbsp;
+</div>
+
+<div style="display:flex; align-items:center">
+    <img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/express.png" alt="Express">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI">&nbsp;&nbsp;
+</div>
+    
+<div style="display:flex; align-items:center">
+    <img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;
 </div>
 
 <br>
@@ -90,7 +70,7 @@ The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify
 All services take input for calculating the offer by addresses, timestamps and checkboxes/radio buttons as well as customer data like name, email, phone and notes. For full control, custom form components in combination with custom validation are used. The example of figure 2 shows built-in required-validator as well as custom time-related validation to be highlighted via red warning symbol and regarding validation message. Data validated by backend inform user via (custom) snackbar-message of invalid input.
 
 <div align="center">
-    <img src="frontend/public/assets/docs/custom_forms_validation.png" alt="&nbsp;no picture found">
+    <img src="frontend/public/assets/docs/custom_forms_validation_smaller.png" alt="404 no picture found">
     Figure 2
 </div>
 

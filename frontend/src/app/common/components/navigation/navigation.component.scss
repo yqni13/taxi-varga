@@ -3,7 +3,7 @@
 
 .tava-nav-bar {
 
-    background-color: var(--theme-nav-bg);
+    background-color: var(--theme-palette-background);
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
@@ -12,10 +12,10 @@
     top: 0;
     width: 100%;
     height: var(--size-nav-height);
-    border-bottom: sass.$nav-border-size solid var(--theme-main-green);
+    border-bottom: sass.$nav-border-size solid var(--theme-palette-highlight);
 
     .tava-nav-logo {
-        width: 75px;
+        width: 90px;
         aspect-ratio: 1 / 1;
         cursor: pointer;
     }

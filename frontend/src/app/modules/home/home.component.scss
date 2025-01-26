@@ -46,7 +46,7 @@ section {
 
         img {
             aspect-ratio: 1 / 1;
-            border: solid 3px var(--theme-main-green);
+            border: solid 3px var(--theme-palette-contrast);
             border-radius:50%;
         }
     }
@@ -59,7 +59,7 @@ section {
         
         ul {
             border-radius: 40px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(15px);
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -76,10 +76,10 @@ section {
                     flex-direction: row;
                     align-items: center;
 
-                    i {
+                    img {
                         margin-right: sass.$space15;
-                        min-width: 30px;
-                        min-height: 30px;
+                        width: 30px;
+                        height: 30px;
                     }
                 }
                 

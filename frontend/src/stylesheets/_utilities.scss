@@ -9,8 +9,6 @@ $device-small-any: 400px;
 $color-ice-white: #f0f8ff;
 $color-default-white: #ffffff;
 $color-valid-red: #ea2222;
-$color-accept-green: #209720;
-$color-ocean-blue: #0000cc;
 $color-fullscale-bg: #181818;
 
 $color-text-black: #161515;
@@ -20,6 +18,7 @@ $color-dark-green: #006005;
 $color-grey-light: #a39f9f;
 $color-grey-dark: #3c3c3b;
 $color-grey-label: #9898989f;
+$color-grey-lightmode: #999999;
 
 $color-icon-sun: #e59429;
 $color-icon-moon: #b17a0b;
@@ -37,6 +36,17 @@ $color-darkmode-success: #006005;
 $color-lightmode-warning: #e59429;
 $color-darkmode-warning: #b17a0b;
 
+/* COLOR PALETTE :DARK: */
+$color-dark-background: $color-fullscale-bg;
+$color-dark-highlight: $color-light-green;
+$color-dark-contrast: $color-icon-moon;
+$color-dark-secondary: #00a8c6;
+
+/* COLOR PALETTE :LIGHT: */
+$color-light-background: $color-grey-lightmode;
+$color-light-highlight: $color-dark-green;
+$color-light-contrast: $color-icon-sun;
+$color-light-secondary: #40c0cb;
 
 /* CUSTOM VALUES */
 $space5: 5px;
