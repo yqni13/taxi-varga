@@ -6,5 +6,7 @@ module.exports.ErrorStatusCodes = {
     InvalidPropertiesException: 400,
     InvalidTokenException: 401,
     UnexpectedException: 500,
-    HealthCheckFailedException: 503
+    HealthCheckFailedException: 503,
+    InvalidCredentialsException: 401,
+    AuthSecretNotFoundException: 404,
 }

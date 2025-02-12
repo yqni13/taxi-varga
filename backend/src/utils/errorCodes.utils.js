@@ -6,5 +6,8 @@ module.exports.ErrorCodes = {
     InvalidTokenException: 4,
     UnexpectedException: 5,
     UnimplementedException: 6,
-    HealthCheckFailedException: 7
+    HealthCheckFailedException: 7,
+    InvalidCredentialsException: 8,
+    AuthSecretNotFoundException: 9,
+    TokenMissingException: 10,
 };
