@@ -1,8 +1,11 @@
 require('dotenv').config();
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { 
-    InvalidCredentialsException 
+    InvalidCredentialsException,
+    TokenMissingException
 } = require('../utils/exceptions/auth.exception');
+const { Config } = require('../configs/config');
 
 const auth = () => {
     return async function (req, res, next) {
@@ -13,26 +16,20 @@ const auth = () => {
                 throw new TokenMissingException('no token set');
             }
 
-            const privateKey = Config.AUTH_KEY;
+            const privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
             const token = authHeader.replace(bearer, '');
             const decode = jwt.verify(token, privateKey);
 
             if(decode.id !== Config.AUTH_ID) {
                 throw new InvalidCredentialsException('invalid identifier');
             }
-
+            
             next();
 
         } catch(error) {
-            error.status = 401;
             console.log('AUTH ERROR ON VERIFICATION (Auth Model): ', error.message);
-            next({
-                body: {
-                    error: error
-                },
-                code: 0,
-                msg: this.msg0
-            });
+            error.status = 401;
+            next(error);
         }
         
     };

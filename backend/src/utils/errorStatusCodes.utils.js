@@ -9,4 +9,5 @@ module.exports.ErrorStatusCodes = {
     HealthCheckFailedException: 503,
     InvalidCredentialsException: 401,
     AuthSecretNotFoundException: 404,
+    JWTExpirationException: 401,
 }

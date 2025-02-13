@@ -18,6 +18,12 @@ class AuthException extends Error {
     }
 }
 
+class JWTExpirationException extends AuthException {
+    constructor (message = 'The session expired after 30 minutes.', data){
+        super(ErrorCodes.JWTExpirationException, message, data);
+    }
+}
+
 class TokenMissingException extends AuthException {
     constructor (message, data){
         super(ErrorCodes.TokenMissingException, message, data);
@@ -38,5 +44,7 @@ class AuthSecretNotFoundException extends AuthException {
 
 module.exports = {
     InvalidCredentialsException,
-    AuthSecretNotFoundException
+    AuthSecretNotFoundException,
+    TokenMissingException,
+    JWTExpirationException
 }

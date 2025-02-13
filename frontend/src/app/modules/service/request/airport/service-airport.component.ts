@@ -21,6 +21,9 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
 import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 import { AddressOptions } from "../../../../shared/enums/address-options.enum";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { TokenService } from "../../../../shared/services/token.service";
 
 @Component({
     selector: 'tava-service-airport',
@@ -69,8 +72,10 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly auth: AuthService,
         private readonly elRef: ElementRef,
         private readonly router: Router,
+        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -128,6 +133,11 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
 
         this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
             this.configPickupTimeByLanguage(val.lang);
+        })
+
+        this.auth.initSession(ServiceOptions.airport);
+        this.auth.sendInitRequest().subscribe(response => {
+            this.tokenService.setToken(response.body?.body.token);
         })
 
         this.initEdit();
@@ -263,7 +273,11 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.configDateTimeData();
         this.drivingAPIService.setDataAirport(this.serviceForm.getRawValue());
         this.drivingAPIService.sendAirportRequest().subscribe(data => {
+            // TODO(yqni13): HttpErrorResponse not recognized at this point
+            const err = (data as any).error?.headers.error;
+            this.resetOnExpiredSession(err);
             this.addResponseRouteData2Form(data);
+            console.log("service airport: ", data);
         })
         this.loadOfferResponse = true;
 
@@ -340,6 +354,12 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.loadOrderResponse = false;
         this.loadOfferResponse = false;
         this.hasOrder = false;
+    }
+
+    private resetOnExpiredSession(error: string | null) {
+        if(error && error === 'JWTExpirationException') {
+            this.router.navigate(['/service']);
+        }
     }
 
     ngOnDestroy() {

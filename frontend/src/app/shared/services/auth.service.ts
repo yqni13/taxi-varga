@@ -35,7 +35,7 @@ export class AuthService {
         }
     }
 
-    sendInitRequest(): Observable<HttpResponse<string>> {
-        return this.http.post<string>(this.url, this.credentials, { observe: 'response' });
+    sendInitRequest(): Observable<HttpResponse<any>> {
+        return this.http.post<any>(this.url, this.credentials, { observe: 'response' });
     }
 }

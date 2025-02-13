@@ -10,4 +10,5 @@ module.exports.ErrorCodes = {
     InvalidCredentialsException: 8,
     AuthSecretNotFoundException: 9,
     TokenMissingException: 10,
+    JWTExpirationException: 11,
 };

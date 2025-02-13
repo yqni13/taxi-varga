@@ -1,26 +1,31 @@
-import { Injectable } from "@angular/core";
-import { ServiceOptions } from "../enums/service-options.enum";
+import { isPlatformBrowser } from "@angular/common";
+import { inject, Injectable, PLATFORM_ID } from "@angular/core";
 
 @Injectable({
     providedIn: 'root'
 })
 export class TokenService {
 
-    private identifier = 'taxi-varga_'
+    private identifier = 'taxi-varga_sessionToken';
+    private readonly platformId = inject(PLATFORM_ID);
 
-    setToken(key: ServiceOptions, token: string) {
-        sessionStorage.setItem(this.identifier + key, token);
+    setToken(token: string) {
+        if(this.checkSessionStorage()) {
+            sessionStorage?.setItem(this.identifier, token);
+        }
     }
 
-    getToken(key: ServiceOptions): string | null {
-        return sessionStorage.getItem(this.identifier + key);
+    getToken(): string | null {
+        return this.checkSessionStorage() ? sessionStorage?.getItem(this.identifier) : null;
     }
 
-    removeToken(key: ServiceOptions) {
-        sessionStorage.removeItem(this.identifier + key);
+    removeToken() {
+        if(this.checkSessionStorage()) {
+            sessionStorage?.removeItem(this.identifier);
+        }
     }
 
-    clearSession() {
-        sessionStorage.clear();
+    private checkSessionStorage(): boolean {
+        return isPlatformBrowser(this.platformId) ? true : false;
     }
 }

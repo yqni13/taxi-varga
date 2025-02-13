@@ -1,10 +1,12 @@
 require('dotenv').config();
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const CryptoJS = require('crypto-js');
 const { 
     AuthSecretNotFoundException, 
     InvalidCredentialsException 
 } = require('../utils/exceptions/auth.exception');
+const { Config } = require('../configs/config')
 
 class AuthModel {
     msg0 = '';
@@ -31,13 +33,19 @@ class AuthModel {
             throw new AuthSecretNotFoundException('private id not set');
         }
 
-        const privateKey = Config.AUTH_KEY;
+        let privateKey;
+        if(Config.MODE === 'development') {
+            privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
+        } else {
+            privateKey = Config.AUTH_KEY
+        }
+
         if(!privateKey) {
             throw new AuthSecretNotFoundException('private key not set');
         }
 
-        const authentication = CryptoJS.AES.decrypt(params['pass'], privateKey).toString(CryptoJS.enc.Utf8);
-        const validRange = new Date.now().getTime();
+        const authentication = String(CryptoJS.AES.decrypt(params['pass'].toString(), privateKey));
+        const validRange = Date.now();
         const initTime = Number(authentication.substring(32, authentication.length)) + (3 * 60 * 1000);
         if(authentication.substring(0,32) !== Config.AUTH_PASS && initTime > validRange) {
             throw new InvalidCredentialsException('invalid password');
@@ -45,7 +53,7 @@ class AuthModel {
 
         const payload = {
             id: id,
-            user: params['user'] + String(new Date.now().getTime()),
+            user: params['user'] + String(Date.now()),
             role: 'user'
         }
 
@@ -58,7 +66,9 @@ class AuthModel {
 
         const token = jwt.sign(payload, privateKey, options)
         return {
-            body: token,
+            body: {
+                token: token
+            },
             code: 1,
             msg: this.msg1
         }
