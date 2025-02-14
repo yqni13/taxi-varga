@@ -3,3 +3,4 @@
 server.cert
 server.key
 /dev_ssl
+private_key.pem

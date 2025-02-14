@@ -65,6 +65,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
     private window: any;
     private scrollAnchor!: HTMLElement;
     private customerData: string[];
@@ -102,6 +103,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
+        this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -168,6 +170,16 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
                     this.router.navigate(['/service']);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorSubject$.pipe(
+            filter((x) => x && x.status === 401),
+            tap((response: any) => {
+                if(response.error.headers.error === 'JWTExpirationException') {
+                    this.httpObservationService.setErrorStatus(null);
+                    this.router.navigate(['/service']);
                 }
             })
         ).subscribe();
@@ -273,11 +285,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.configDateTimeData();
         this.drivingAPIService.setDataAirport(this.serviceForm.getRawValue());
         this.drivingAPIService.sendAirportRequest().subscribe(data => {
-            // TODO(yqni13): HttpErrorResponse not recognized at this point
-            const err = (data as any).error?.headers.error;
-            this.resetOnExpiredSession(err);
             this.addResponseRouteData2Form(data);
-            console.log("service airport: ", data);
         })
         this.loadOfferResponse = true;
 
@@ -356,16 +364,11 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.hasOrder = false;
     }
 
-    private resetOnExpiredSession(error: string | null) {
-        if(error && error === 'JWTExpirationException') {
-            this.router.navigate(['/service']);
-        }
-    }
-
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
         this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
+        this.subscriptionHttpObservationError$.unsubscribe();
     }
 }

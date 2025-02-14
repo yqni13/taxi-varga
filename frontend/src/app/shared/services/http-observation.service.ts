@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
@@ -10,11 +11,13 @@ export class HttpObservationService {
     private drivingDestinationStatusSubject = new BehaviorSubject<boolean>(false);
     private drivingFlatrateStatusSubject = new BehaviorSubject<boolean>(false);
     private emailStatusSubject = new BehaviorSubject<boolean | null>(null);
+    private errorStatusSubject = new BehaviorSubject<any>(null);
 
     drivingAirportStatus$ = this.drivingAirportStatusSubject.asObservable();
     drivingDestinationStatus$ = this.drivingDestinationStatusSubject.asObservable();
     drivingFlatrateStatus$ = this.drivingFlatrateStatusSubject.asObservable();
     emailStatus$ = this.emailStatusSubject.asObservable();
+    errorSubject$ = this.errorStatusSubject.asObservable();
 
     setDrivingAirportStatus(isStatus200: boolean) {
         this.drivingAirportStatusSubject.next(isStatus200);
@@ -30,5 +33,9 @@ export class HttpObservationService {
 
     setEmailStatus(isStatus200: boolean) {
         this.emailStatusSubject.next(isStatus200);
+    }
+
+    setErrorStatus(error: any) {
+        this.errorStatusSubject.next(error);
     }
 }

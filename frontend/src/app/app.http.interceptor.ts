@@ -73,6 +73,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
         await delay(1000);
         httpObservationService.setEmailStatus(false);
     }
+    httpObservationService.setErrorStatus(response);
 
     if(response.status === 0 && (response.url.includes('/driving/') || response.url.includes('/mailing/'))) {
         snackbarService.notify({
@@ -99,6 +100,21 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 ? mailTranslateService.getTranslationDE(`${path}.data.${response.error.headers.data[0].msg}`)
                 : mailTranslateService.getTranslationEN(`${path}.data.${response.error.headers.data[0].msg}`),
             autoClose: false,
+            type: SnackbarOption.error,
+        })
+    } else if(response.status === 401) {
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
+        const message = response.error.headers.message.replace('Auth Error: ', '');
+        snackbarService.notify({
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
+                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
+                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
+            autoClose: true,
+            displayTime: 5000,
             type: SnackbarOption.error,
         })
     } else if(response.status > 400 && response.status < 500) {

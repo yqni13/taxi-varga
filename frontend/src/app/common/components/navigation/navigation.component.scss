@@ -15,9 +15,17 @@
     border-bottom: sass.$nav-border-size solid var(--theme-palette-highlight);
 
     .tava-nav-logo {
+        cursor: pointer;
+    }
+
+    .mobile-size {
+        width: 40px;
+        aspect-ratio: 1 / 1;
+    }
+
+    .stationary-size {
         width: 90px;
         aspect-ratio: 1 / 1;
-        cursor: pointer;
     }
 
     ul {

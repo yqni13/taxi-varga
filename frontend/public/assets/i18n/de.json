@@ -38,10 +38,12 @@
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
                     "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "basic-invalid-language": "Die gewählte Sprache ist nicht für Google Übersetzungen bei Such-Ergebnissen verfügbar. Bitte wählen Sie eine andere Sprache.",
-                    "basic-invalid-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
+                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen."
                 },
                 "header": {
-                    "InvalidPropertiesException": "Ungültiger Datensatz"
+                    "InvalidPropertiesException": "Ungültiger Datensatz",
+                    "JWTExpirationException": "Sitzung abgelaufen"
                 }
             }
         }

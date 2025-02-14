@@ -52,8 +52,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
-
-        this.tokenService.removeToken();
     }
 
     ngOnDestroy() {

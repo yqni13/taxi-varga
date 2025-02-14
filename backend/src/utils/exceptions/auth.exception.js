@@ -19,7 +19,7 @@ class AuthException extends Error {
 }
 
 class JWTExpirationException extends AuthException {
-    constructor (message = 'The session expired after 30 minutes.', data){
+    constructor (message = 'backend-jwt-expiration', data){
         super(ErrorCodes.JWTExpirationException, message, data);
     }
 }
