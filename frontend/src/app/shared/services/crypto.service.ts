@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
-import * as CryptoJS from 'crypto-js';
+import * as Forge from 'node-forge';
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -8,17 +8,23 @@ import { environment } from "../../../environments/environment";
 })
 export class CryptoService {
 
-    private privateKey: string;
+    private publicKey: string;
 
     constructor() {
-        this.privateKey = environment.PRIVATE_KEY;
+        this.publicKey = environment.PUBLIC_KEY;
     }
 
-    encryptData(data: any): string {
-        return CryptoJS.AES.encrypt(data, this.privateKey).toString();
-    }
+    encryptRSA(data: any): string {
+        const rsa = Forge.pki.publicKeyFromPem(this.publicKey);
+        const chunkSize = 86;
+        let encoded = '';
 
-    decryptData(data: string): string {
-        return CryptoJS.AES.decrypt(data, this.privateKey).toString(CryptoJS.enc.Utf8);
+        for(let i = 0; i < data.length; i += chunkSize) {
+            const chunk = data.substring(i, i + chunkSize);
+            const encodedChunk = rsa.encrypt(chunk);
+            encoded += Forge.util.encode64(encodedChunk);
+        }
+
+        return encoded;
     }
 }

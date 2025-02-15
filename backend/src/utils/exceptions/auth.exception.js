@@ -25,7 +25,7 @@ class JWTExpirationException extends AuthException {
 }
 
 class TokenMissingException extends AuthException {
-    constructor (message, data){
+    constructor (message = 'backend-jwt-missing', data){
         super(ErrorCodes.TokenMissingException, message, data);
     }
 }

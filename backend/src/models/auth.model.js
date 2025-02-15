@@ -1,12 +1,12 @@
 require('dotenv').config();
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const CryptoJS = require('crypto-js');
 const { 
     AuthSecretNotFoundException, 
     InvalidCredentialsException 
 } = require('../utils/exceptions/auth.exception');
 const { Config } = require('../configs/config')
+const Decryption = require('../utils/decryption.utils');
 
 class AuthModel {
     msg0 = '';
@@ -28,32 +28,48 @@ class AuthModel {
             };
         }
 
+        // ENCRYPT / COMPARE - LOGIN DATA
         const id = Config.AUTH_ID;
         if(!id) {
-            throw new AuthSecretNotFoundException('private id not set');
+            throw new AuthSecretNotFoundException('backend-404-id');
         }
 
+        const user = Config.AUTH_USER;
+        if(!user) {
+            throw new AuthSecretNotFoundException('backend-404-user');
+        }
+
+        const password = Config.AUTH_PASS;
+        if(!password) {
+            throw new AuthSecretNotFoundException('backend-404-pass');
+        }
+
+        if(!Config.AUTH_KEY) {
+            throw new AuthSecretNotFoundException('backend-404-key');
+        }
         let privateKey;
         if(Config.MODE === 'development') {
             privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
         } else {
-            privateKey = Config.AUTH_KEY
+            privateKey = Config.AUTH_KEY;
         }
 
-        if(!privateKey) {
-            throw new AuthSecretNotFoundException('private key not set');
+        const decryptedUser = Decryption.decryptionRSA(params['user'], privateKey);
+        if(decryptedUser !== user) {
+            throw new InvalidCredentialsException('backend-invalid-user');
         }
 
-        const authentication = String(CryptoJS.AES.decrypt(params['pass'].toString(), privateKey));
+        const decryptedPass = Decryption.decryptionRSA(params['pass'], privateKey);
         const validRange = Date.now();
-        const initTime = Number(authentication.substring(32, authentication.length)) + (3 * 60 * 1000);
-        if(authentication.substring(0,32) !== Config.AUTH_PASS && initTime > validRange) {
-            throw new InvalidCredentialsException('invalid password');
+        const initTime = Number(decryptedPass.substring(32, decryptedPass.length)) + (3 * 60 * 1000);
+        if(decryptedPass.substring(0,32) !== password && initTime > validRange) {
+            throw new InvalidCredentialsException('backend-invalid-pass');
         }
 
+        // CREATE - SESSION TOKEN
         const payload = {
             id: id,
-            user: params['user'] + String(Date.now()),
+            user: decryptedUser + String(Date.now()),
             role: 'user'
         }
 

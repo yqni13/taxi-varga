@@ -36,14 +36,26 @@
                 "data": {
                     "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
                     "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
-                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
-                    "basic-invalid-language": "The selected language is not available for Google Translate in search results. Please choose another language.",
+                    "backend-404-id": "Secret data ID is missing. Please try again later or contact support.",
+                    "backend-404-key": "Secret data KEY is missing. Please try again later or contact support.",
+                    "backend-404-pass": "Secret data PASS is missing. Please try again later or contact support.",
+                    "backend-404-user": "Secret data USER is missing. Please try again later or contact support.",
+                    "backend-auth-email": "Email service not available. Please try again later or contact support.",
+                    "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
+                    "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                    "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
+                    "backend-jwt-expiration": "The session expired after 30 minutes.",
+                    "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
                     "backend-required": "Not all necessary data were transferred. Please check your input.",
-                    "backend-jwt-expiration": "The session expired after 30 minutes."
+                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                    "basic-invalid-language": "The selected language is not available for Google Translate in search results. Please choose another language."
                 },
                 "header": {
+                    "AuthSecretNotFoundException": "Env variable missing",
+                    "InvalidCredentialsException": "Invalid credentials",
                     "InvalidPropertiesException": "Invalid data",
-                    "JWTExpirationException": "Expired session"
+                    "JWTExpirationException": "Expired session",
+                    "TokenMissingException": "Session token missing"
                 }
             }
         }

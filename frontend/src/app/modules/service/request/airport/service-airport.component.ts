@@ -140,7 +140,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.auth.initSession(ServiceOptions.airport);
         this.auth.sendInitRequest().subscribe(response => {
             this.tokenService.setToken(response.body?.body.token);
-        })
+        });
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-airport");
@@ -175,9 +175,9 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         ).subscribe();
 
         this.subscriptionHttpObservationError$ = this.httpObservationService.errorSubject$.pipe(
-            filter((x) => x && x.status === 401),
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status)),
             tap((response: any) => {
-                if(response.error.headers.error === 'JWTExpirationException') {
+                if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
                     this.httpObservationService.setErrorStatus(null);
                     this.router.navigate(['/service']);
                 }

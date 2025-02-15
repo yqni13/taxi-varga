@@ -13,7 +13,7 @@ const auth = () => {
             const authHeader = req.headers.authorization;
             const bearer = 'Bearer ';
             if (!authHeader || !authHeader.startsWith(bearer)) {
-                throw new TokenMissingException('no token set');
+                throw new TokenMissingException();
             }
 
             const privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
@@ -21,7 +21,7 @@ const auth = () => {
             const decode = jwt.verify(token, privateKey);
 
             if(decode.id !== Config.AUTH_ID) {
-                throw new InvalidCredentialsException('invalid identifier');
+                throw new InvalidCredentialsException('backend-invalid-id');
             }
             
             next();

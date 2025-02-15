@@ -59,7 +59,9 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
 
 export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    console.log('response error: ', response);
+    
+    
+    
     if(response.url.includes('/driving/airport')) {
         await delay(1000);
         httpObservationService.setDrivingAirportStatus(false);
@@ -73,8 +75,8 @@ export async function handleError(response: any, httpObservationService: HttpObs
         await delay(1000);
         httpObservationService.setEmailStatus(false);
     }
-    httpObservationService.setErrorStatus(response);
 
+    // user response log
     if(response.status === 0 && (response.url.includes('/driving/') || response.url.includes('/mailing/'))) {
         snackbarService.notify({
             title: 'Server Connection Error',
@@ -82,14 +84,25 @@ export async function handleError(response: any, httpObservationService: HttpObs
             autoClose: false,
             type: SnackbarOption.error
         })
-    } else if(response.status === 500 || response.status === 535) {
+    } 
+    // SERVER CONNECTION
+    else if(response.status === 500) {
+        Object.assign(response, {
+            error: {
+                headers: {
+                    error: 'InternalServerException'
+                }
+            }
+        })
         snackbarService.notify({
             title: response.statusText,
-            text: 'Server services failed. Please contact support.',
+            text: 'Server failed. Please contact support.',
             autoClose: false,
             type: SnackbarOption.error
         })
-    } else if(response.status === 400) {
+    } 
+    // PROPERTY VALIDATION
+    else if(response.status === 400) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
         snackbarService.notify({
@@ -102,7 +115,9 @@ export async function handleError(response: any, httpObservationService: HttpObs
             autoClose: false,
             type: SnackbarOption.error,
         })
-    } else if(response.status === 401) {
+    } 
+    // AUTHORIZATION | AUTHENTICATION
+    else if(response.status === 401 || response.status === 404) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
         const message = response.error.headers.message.replace('Auth Error: ', '');
@@ -113,11 +128,12 @@ export async function handleError(response: any, httpObservationService: HttpObs
             text: currentLang === 'de'
                 ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
                 : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
-            autoClose: true,
-            displayTime: 5000,
+            autoClose: false,
             type: SnackbarOption.error,
         })
-    } else if(response.status > 400 && response.status < 500) {
+    } 
+    // OTHER VALIDATION
+    else if(response.status >= 402 && response.status < 500 || response.status === 535) {
         snackbarService.notify({
             title: response.error.headers.error,
             text: response.error.headers.message,
@@ -125,4 +141,8 @@ export async function handleError(response: any, httpObservationService: HttpObs
             type: SnackbarOption.error,
         })
     }
+
+    // browser response log
+    console.log('response error: ', response);
+    httpObservationService.setErrorStatus(response);
 }

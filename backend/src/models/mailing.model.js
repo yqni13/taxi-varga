@@ -1,6 +1,9 @@
 require('dotenv').config();
-const { AuthenticationException, InternalServerException } = require("../utils/exceptions/common.exception");
 const nodemailer = require('nodemailer');
+const { 
+    AuthenticationException, 
+    UnexpectedException 
+} = require("../utils/exceptions/common.exception");
 
 class MailingModel {
     sendMail = async (params) => {
@@ -49,9 +52,9 @@ class MailingModel {
                 if(error) {
                     reject(false);
                     if(error.responseCode === 535) {
-                        throw new AuthenticationException();
+                        throw new AuthenticationException('backend-auth-email');
                     } else {
-                        throw new InternalServerException();
+                        throw new UnexpectedException('Unexpected error email');
                     }
                 } else {
                     resolve(true);

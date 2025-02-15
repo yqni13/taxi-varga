@@ -1,3 +1,4 @@
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subject, Subscription, tap } from "rxjs";
@@ -20,6 +21,9 @@ import { Router } from "@angular/router";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { TokenService } from "../../../../shared/services/token.service";
+import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -64,6 +68,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
 
     private window: any;
     private scrollAnchor!: HTMLElement;
@@ -72,8 +77,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly auth: AuthService,
         private readonly elRef: ElementRef,
         private readonly router: Router,
+        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -104,6 +111,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
+        this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -137,6 +145,11 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             this.configPickupTimeByLanguage(val.lang);
         });
 
+        this.auth.initSession(ServiceOptions.flatrate);
+        this.auth.sendInitRequest().subscribe(response => {
+            this.tokenService.setToken(response.body?.body.token);
+        });
+
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
     }
@@ -163,6 +176,16 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                     this.router.navigate(['/service']);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorSubject$.pipe(
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
+            tap((response: any) => {
+                if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
+                    this.httpObservationService.setErrorStatus(null);
+                    this.router.navigate(['/service']);
                 }
             })
         ).subscribe();
@@ -383,5 +406,6 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
+        this.subscriptionHttpObservationError$.unsubscribe();
     }
 }

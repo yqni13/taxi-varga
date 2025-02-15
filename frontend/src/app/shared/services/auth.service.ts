@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
-import { environment } from '../../../environments/environment';
 import { DateTimeService } from "./datetime.service";
 import { Observable } from "rxjs";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { CryptoService } from "./crypto.service";
 import { ServiceOptions } from "../enums/service-options.enum";
+import { environment } from '../../../environments/environment';
+import { AuthRequest } from "../interfaces/auth-request.interface";
 
 
 @Injectable({
@@ -13,24 +14,45 @@ import { ServiceOptions } from "../enums/service-options.enum";
 })
 export class AuthService {
     private url: string;
-    private credentials: any;
+    private credentials: AuthRequest;
+    private exceptions: string[];
+    private statusCodes: string[];
 
     constructor(
         private readonly http: HttpClient,
         private readonly crypto: CryptoService,
         private readonly datetime: DateTimeService
     ) {
-        this.url = '/api/v1/auth/init';
-        // this.url = environment.API_BASE_URL + '/api/v1/auth/init';
-        this.credentials = {};
+        // this.url = '/api/v1/auth/init';
+        this.url = `${environment.API_BASE_URL}/api/v1/auth/init`;
+        this.credentials = {
+            user: '',
+            pass: '',
+            aud: ''
+        };
+        this.exceptions = [
+            'JWTExpirationException',
+            'TokenMissingException',
+            'InvalidCredentialsException',
+            'InternalServerException',
+            'AuthSecretNotFoundException'
+        ];
+        this.statusCodes = ['401', '404', '500'];
+    }
+
+    getExceptionCollection(): string[] {
+        return this.exceptions;
+    }
+
+    getExceptionStatusCodes(): string[] {
+        return this.statusCodes;
     }
 
     initSession(service: ServiceOptions) {
-        const user = 'guest';
         const addition = this.datetime.getCurrentTimeInMilliseconds();
         this.credentials = {
-            user: user,
-            pass: this.crypto.encryptData(environment.AUTH_PASSWORD + addition.toString()),
+            user: this.crypto.encryptRSA(environment.AUTH_USER),
+            pass: this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
             aud: service
         }
     }

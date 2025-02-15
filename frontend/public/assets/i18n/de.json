@@ -36,14 +36,26 @@
                 "data": {
                     "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
-                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
-                    "basic-invalid-language": "Die gewählte Sprache ist nicht für Google Übersetzungen bei Such-Ergebnissen verfügbar. Bitte wählen Sie eine andere Sprache.",
+                    "backend-404-id": "Umgebungsvariable ID fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-key": "Umgebungsvariable KEY fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-pass": "Umgebungsvariable PASS fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-user": "Umgebungsvariable USER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
+                    "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
                     "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen."
+                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
+                    "basic-invalid-language": "Die gewählte Sprache ist nicht für Google Übersetzungen bei Such-Ergebnissen verfügbar. Bitte wählen Sie eine andere Sprache."
                 },
                 "header": {
+                    "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
+                    "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
-                    "JWTExpirationException": "Sitzung abgelaufen"
+                    "JWTExpirationException": "Sitzung abgelaufen",
+                    "TokenMissingException": "Sitzungs-Token fehlt"
                 }
             }
         }

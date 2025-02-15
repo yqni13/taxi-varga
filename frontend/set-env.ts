@@ -6,8 +6,9 @@ const envConfigFile = `import { Environment } from "./environment.model";
 export const environment: Environment = {
     production: true,
     API_BASE_URL: '${process.env['API_URL']}',
-    AUTH_KEY: '${process.env['AUTH_PASSWORD']}',
-    PRIVATE_KEY: '${process.env['PRIVATE_CRYPTO_KEY']}
+    AUTH_USER: '${process.env['AUTH_USER']}',
+    AUTH_PASSWORD: '${process.env['AUTH_PASS']},
+    PUBLIC_KEY: '${process.env['PUBLIC_KEY']}
 };
 `;
 fs.writeFileSync(targetPath, envConfigFile);
