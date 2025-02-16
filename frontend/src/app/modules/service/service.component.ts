@@ -5,7 +5,6 @@ import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
-import { TokenService } from "../../shared/services/token.service";
 
 @Component({
     selector: 'tava-service',
@@ -27,7 +26,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
     private subscriptionThemeObservation$: Subscription;
 
     constructor(
-        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
         private readonly observation: ObservationService
     ) {

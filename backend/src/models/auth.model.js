@@ -29,6 +29,11 @@ class AuthModel {
         }
 
         // ENCRYPT / COMPARE - LOGIN DATA
+        const position = Number(Config.PASS_POSITION);
+        if(!position) {
+            throw new AuthSecretNotFoundException('backend-404-position');
+        }
+        
         const id = Config.AUTH_ID;
         if(!id) {
             throw new AuthSecretNotFoundException('backend-404-id');
@@ -60,9 +65,7 @@ class AuthModel {
         }
 
         const decryptedPass = Decryption.decryptionRSA(params['pass'], privateKey);
-        const validRange = Date.now();
-        const initTime = Number(decryptedPass.substring(32, decryptedPass.length)) + (3 * 60 * 1000);
-        if(decryptedPass.substring(0,32) !== password && initTime > validRange) {
+        if(decryptedPass.substring(0, position) !== password) {
             throw new InvalidCredentialsException('backend-invalid-pass');
         }
 

@@ -36,6 +36,9 @@
                 "data": {
                     "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
+                    "backend-404-emailpass": "Umgebungsvariable EMAIL_PASS fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-emailreceiver": "Umgebungsvariable EMAIL_RECEIVER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-emailsender": "Umgebungsvariable EMAIL_SENDER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-404-id": "Umgebungsvariable ID fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-404-key": "Umgebungsvariable KEY fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-404-pass": "Umgebungsvariable PASS fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",

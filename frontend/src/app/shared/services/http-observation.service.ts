@@ -17,7 +17,7 @@ export class HttpObservationService {
     drivingDestinationStatus$ = this.drivingDestinationStatusSubject.asObservable();
     drivingFlatrateStatus$ = this.drivingFlatrateStatusSubject.asObservable();
     emailStatus$ = this.emailStatusSubject.asObservable();
-    errorSubject$ = this.errorStatusSubject.asObservable();
+    errorStatus$ = this.errorStatusSubject.asObservable();
 
     setDrivingAirportStatus(isStatus200: boolean) {
         this.drivingAirportStatusSubject.next(isStatus200);

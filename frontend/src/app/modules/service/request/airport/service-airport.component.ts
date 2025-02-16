@@ -49,6 +49,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
+    protected hasToken: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
@@ -87,6 +88,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
     ) {
         this.selectedBg = '';
         this.hasOffer = false;
+        this.hasToken = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
@@ -140,6 +142,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.auth.initSession(ServiceOptions.airport);
         this.auth.sendInitRequest().subscribe(response => {
             this.tokenService.setToken(response.body?.body.token);
+            this.hasToken = true;
         });
 
         this.initEdit();
@@ -174,8 +177,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             })
         ).subscribe();
 
-        this.subscriptionHttpObservationError$ = this.httpObservationService.errorSubject$.pipe(
-            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status)),
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorStatus$.pipe(
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
             tap((response: any) => {
                 if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
                     this.httpObservationService.setErrorStatus(null);

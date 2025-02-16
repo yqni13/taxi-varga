@@ -5,7 +5,6 @@ const { JWTExpirationException } = require('../utils/exceptions/auth.exception')
 function errorMiddleware(err, req, res, next) {
 
     if((err.status === 500 || !err.message) && !err.isOperational) {
-        console.log("ERROR MIDDLEWARE: ", err);
         err = new InternalServerException('Internal Server Error');
     } else if(err.status === 401 && err.message === 'jwt expired') {
         err = new JWTExpirationException();

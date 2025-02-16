@@ -1,4 +1,3 @@
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { filter, Subject, Subscription, tap } from "rxjs";
@@ -48,6 +47,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
+    protected hasToken: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
@@ -91,6 +91,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     ) {
         this.selectedBg = '';
         this.hasOffer = false;
+        this.hasToken = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
@@ -148,6 +149,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.auth.initSession(ServiceOptions.flatrate);
         this.auth.sendInitRequest().subscribe(response => {
             this.tokenService.setToken(response.body?.body.token);
+            this.hasToken = true;
         });
 
         this.initEdit();
@@ -180,7 +182,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             })
         ).subscribe();
 
-        this.subscriptionHttpObservationError$ = this.httpObservationService.errorSubject$.pipe(
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorStatus$.pipe(
             filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
             tap((response: any) => {
                 if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {

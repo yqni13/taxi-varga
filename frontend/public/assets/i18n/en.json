@@ -36,6 +36,9 @@
                 "data": {
                     "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
                     "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
+                    "backend-404-emailpass": "Secret data EMAIL_PASS is missing. Please try again later or contact support.",
+                    "backend-404-emailreceiver": "Secret data EMAIL_RECEIVER is missing. Please try again later or contact support.",
+                    "backend-404-emailsender": "Secret data EMAIL_SENDER is missing. Please try again later or contact support.",
                     "backend-404-id": "Secret data ID is missing. Please try again later or contact support.",
                     "backend-404-key": "Secret data KEY is missing. Please try again later or contact support.",
                     "backend-404-pass": "Secret data PASS is missing. Please try again later or contact support.",

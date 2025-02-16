@@ -39,9 +39,9 @@ export class AppComponent implements OnInit {
         this.scrollToTop();
 
         // destroy session (token) leaving a service mask
-        const values = Object.values(ServiceOptions) as string[];
+        const servicePaths = Object.values(ServiceOptions) as string[];
         const currentPath = event.url.startsWith('/') ? event.url.replace('/', '') : event.url;
-        if(!values.includes(currentPath)) {
+        if(!servicePaths.includes(currentPath)) {
           this.tokenService.removeToken();
         }
       }
