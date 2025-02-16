@@ -43,7 +43,7 @@
             width: fit-content;
             color: var(--theme-palette-secondary);
             font-style: italic;
-            text-shadow: 1px 1px 5px sass.$color-fullscale-bg;
+            text-shadow: 1px 1px 5px var(--warning-shadow);
             padding: sass.$space15;
             border: 1px outset var(--theme-body-text);
         }

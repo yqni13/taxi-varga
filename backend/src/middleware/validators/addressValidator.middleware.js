@@ -4,11 +4,11 @@ exports.autocompleteSchema = [
     body('address')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('language')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
         .bail()
         .custom((value) => validateLanguageCompatible(value))
 ];
@@ -16,11 +16,11 @@ exports.autocompleteSchema = [
 exports.placeSchema = [
     body('placeId')
         .exists()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('language')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
         .bail()
         .custom((value) => validateLanguageCompatible(value))
 ]

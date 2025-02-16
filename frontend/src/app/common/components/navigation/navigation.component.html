@@ -1,9 +1,10 @@
 <nav class="tava-nav-bar">
     <ul>
-        <li *ngIf="deviceMode === deviceOptions.stationary">
+        <li>
             <img
                 [attr.aria-disabled]="true"
                 class="tava-nav-logo"
+                [ngClass]="deviceMode === deviceOptions.mobile ? 'mobile-size' : 'stationary-size'"
                 src="assets/logo.png" 
                 alt="logo to navigate home"
                 routerLink="home"

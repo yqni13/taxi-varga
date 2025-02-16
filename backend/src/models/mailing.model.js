@@ -1,6 +1,11 @@
 require('dotenv').config();
-const { AuthenticationException, InternalServerException } = require("../utils/exceptions/common.exception");
 const nodemailer = require('nodemailer');
+const { 
+    AuthenticationException, 
+    UnexpectedException 
+} = require("../utils/exceptions/common.exception");
+const { AuthSecretNotFoundException } = require('../utils/exceptions/auth.exception');
+const { Config } = require('../configs/config');
 
 class MailingModel {
     sendMail = async (params) => {
@@ -8,18 +13,33 @@ class MailingModel {
             return { error: 'no params found' };
         }
 
+        const emailSender = Config.EMAIL_SENDER;
+        if(!emailSender) {
+            throw new AuthSecretNotFoundException('backend-404-emailsender');
+        }
+
+        const emailReceiver = Config.EMAIL_RECEIVER;
+        if(!emailReceiver) {
+            throw new AuthSecretNotFoundException('backend-404-emailreceiver');
+        }
+
+        const emailPass = Config.EMAIL_PASS;
+        if(!emailPass) {
+            throw new AuthSecretNotFoundException('backend-404-emailpass');
+        }
+
         const sender = params['sender'];
         const subject = params['subject'];
         const message = params['body'];
 
         const mailOptions = {
-            from: process.env.SECRET_EMAIL_SENDER,
-            to: process.env.SECRET_EMAIL_RECEIVER,
+            from: emailSender,
+            to: emailReceiver,
             subject: subject,
             text: message
         };
         
-        const success = await this.wrapedSendMail(mailOptions);
+        const success = await this.wrapedSendMail(mailOptions, emailSender, emailPass);
         
         return {response: {
             success: success,
@@ -27,7 +47,7 @@ class MailingModel {
         }};
     }
 
-    async wrapedSendMail(mailOptions) {
+    async wrapedSendMail(mailOptions, emailSender, emailPass) {
         return new Promise((resolve, reject) => {
             const transporter = nodemailer.createTransport({
                 service: 'gmx',
@@ -40,18 +60,19 @@ class MailingModel {
                     rejectUnauthorized: false
                 },
                 auth: {
-                    user: process.env.SECRET_EMAIL_SENDER,
-                    pass: process.env.SECRET_EMAIL_PASS
+                    user: emailSender,
+                    pass: emailPass
                 }
             });
 
             transporter.sendMail(mailOptions, function(error, info) {
                 if(error) {
+                    console.log("mail error: ", error);
                     reject(false);
                     if(error.responseCode === 535) {
-                        throw new AuthenticationException();
+                        throw new AuthenticationException('backend-auth-email');
                     } else {
-                        throw new InternalServerException();
+                        throw new UnexpectedException('Unexpected error email');
                     }
                 } else {
                     resolve(true);

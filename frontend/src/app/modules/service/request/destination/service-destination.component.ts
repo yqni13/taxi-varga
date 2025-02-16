@@ -21,6 +21,9 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
 import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 import { AddressOptions } from "../../../../shared/enums/address-options.enum";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { TokenService } from "../../../../shared/services/token.service";
+import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 
 @Component({
     selector: 'tava-service-destination',
@@ -46,6 +49,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
+    protected hasToken: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
@@ -63,6 +67,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
     private window: any;
     private scrollAnchor!: HTMLElement;
     private delay: any;
@@ -70,8 +75,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly auth: AuthService,
         private readonly elRef: ElementRef,
         private readonly router: Router,
+        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
@@ -82,6 +89,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     ) {
         this.selectedBg = '';
         this.hasOffer = false;
+        this.hasToken = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
@@ -99,6 +107,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
+        this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -132,6 +141,12 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             this.configPickupTimeByLanguage(val.lang);
         });
 
+        this.auth.initSession(ServiceOptions.destination);
+        this.auth.sendInitRequest().subscribe(response => {
+            this.tokenService.setToken(response.body?.body.token);
+            this.hasToken = true;
+        });
+
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
     }
@@ -158,6 +173,16 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
                     this.router.navigate(['/service']);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorStatus$.pipe(
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
+            tap((response: any) => {
+                if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
+                    this.httpObservationService.setErrorStatus(null);
+                    this.router.navigate(['/service']);
                 }
             })
         ).subscribe();
@@ -348,5 +373,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
+        this.subscriptionHttpObservationError$.unsubscribe();
     }
 }

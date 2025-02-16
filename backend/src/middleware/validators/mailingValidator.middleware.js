@@ -4,16 +4,16 @@ exports.mailingSchema = [
     body('sender')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
         .bail()
         .isEmail()
         .withMessage('basic-invalid-email'),
     body('subject')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('body')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
 ]

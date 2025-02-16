@@ -5,13 +5,13 @@ exports.drivingAirportSchema = [
     body('origin')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('originDetails')
         .custom((value, { req }) => validateAirportServiceAddress(value, req.body.origin)),
     body('destination')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('destinationDetails')
         .custom((value, { req }) => validateAirportServiceAddress(value, req.body.destination))
 ];
@@ -20,19 +20,19 @@ exports.drivingDestinationSchema = [
     body('origin')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('originDetails')
         .custom((value, { req }) => validatePlaceDetails(req.body.origin, value)),
     body('destination')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('destinationDetails')
         .custom((value, { req }) => validatePlaceDetails(req.body.destination, value)),
     body('back2home')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('latency')
         .isInt({max: 720})
         .withMessage('basic-invalid-number')
@@ -42,18 +42,18 @@ exports.drivingFlatrateSchema = [
     body('origin')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('originDetails')
         .custom((value, { req }) => validatePlaceDetails(req.body.origin, value)),
     body('destination')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),    
+        .withMessage('backend-required'),    
     body('destinationDetails')
         .custom((value, { req }) => validatePlaceDetails(req.body.destination, value)),
     body('tenancy')
         .exists()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
         .bail()
         .isInt({ min: 30, max: 1440 })
         .withMessage('basic-invalid-tenancy')

@@ -1,7 +1,6 @@
 # See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
 
 # Compiled output
-.env
 client-cert.crt
 client-cert.key
 /dist
@@ -9,7 +8,12 @@ client-cert.key
 /out-tsc
 /bazel-out
 desktop.ini
+
+# secrets
+set-env.dev.ts
 /src/environments/.env
+.env
+public_key.pem
 
 # public/images
 /public/assets/service/service-airport_big.jpg

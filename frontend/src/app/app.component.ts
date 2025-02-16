@@ -5,6 +5,8 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { SnackbarComponent } from './common/components/snackbar/snackbar.component';
 import { SnackbarMessageService } from './shared/services/snackbar.service';
+import { ServiceOptions } from './shared/enums/service-options.enum';
+import { TokenService } from './shared/services/token.service';
 
 @Component({
   selector: 'app-root',
@@ -28,12 +30,20 @@ export class AppComponent implements OnInit {
   constructor(
     protected readonly snackbarService: SnackbarMessageService,
     @Inject(DOCUMENT) private document: Document,
+    private readonly tokenService: TokenService,
     private readonly elRef: ElementRef,
     private readonly router: Router,
   ) {
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
         this.scrollToTop();
+
+        // destroy session (token) leaving a service mask
+        const servicePaths = Object.values(ServiceOptions) as string[];
+        const currentPath = event.url.startsWith('/') ? event.url.replace('/', '') : event.url;
+        if(!servicePaths.includes(currentPath)) {
+          this.tokenService.removeToken();
+        }
       }
     });
   }
