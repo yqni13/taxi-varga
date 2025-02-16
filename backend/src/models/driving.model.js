@@ -141,7 +141,9 @@ class DrivingModel {
 
         result['distance'] = (totalServiceDistance % 1) >= 5 
             ? Math.ceil(totalServiceDistance) 
-            : Math.floor(totalServiceDistance);
+            : totalServiceDistance < 1
+                ? totalServiceDistance
+                : Math.floor(totalServiceDistance);
 
         return {routeData: result};
     }
