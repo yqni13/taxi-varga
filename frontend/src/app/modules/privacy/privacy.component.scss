@@ -24,12 +24,21 @@
                 flex-direction: row;
                 align-items: center;
             }
-            
-            img {
-                width: 30px;
-                height: 30px;
+
+            .tava-privacy-content-li-img-wrapper {
+                display: flex;
                 margin-right: sass.$space15;
+                padding: sass.$space5;
+                background-color: var(--privacy-list-bg);
+                border: var(--privacy-list-border);
+                border-radius: 50%;
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                }
             }
+            
             
             a {
                 cursor: pointer;
@@ -52,6 +61,7 @@
         color: var(--theme-palette-contrast);
 
         &:hover {
+            // color: var(--theme-palette-contrast);
             opacity: 0.6;
         }
     }
