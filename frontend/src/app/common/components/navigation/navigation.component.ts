@@ -2,10 +2,11 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
-import { Route, RouterModule } from "@angular/router";
+import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
 import _ from 'underscore';
 import { CommonModule, DOCUMENT } from "@angular/common";
 import { DeviceOptions } from "../../../shared/enums/device-option.enum";
+import { filter } from "rxjs";
 
 @Component({
     selector: 'tava-navigation',
@@ -30,6 +31,7 @@ export class NavigationComponent implements OnInit {
     private isLocalStorageAvailable: any;
 
     constructor(
+        private readonly router: Router,
         private readonly navigation: NavigationService,
         @Inject(DOCUMENT) private document: Document,
         private readonly translate: TranslateService,
@@ -41,6 +43,13 @@ export class NavigationComponent implements OnInit {
         this.maxMobileWidth = 1024;
         this.routes = [];
         this.deviceMode = DeviceOptions.mobile;
+
+        this.router.events
+        .pipe(filter(evt => evt instanceof NavigationEnd))
+        .subscribe((event: any) => {
+            this.navigation.setPreviousUrl(this.navigation.getCurrentUrl());
+            this.navigation.setCurrentUrl(event.url);
+        })
     }
 
     ngOnInit() {

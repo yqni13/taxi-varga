@@ -23,6 +23,7 @@ import { AddressInputComponent } from "../../../../common/components/form-compon
 import { AuthService } from "../../../../shared/services/auth.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { NavigationService } from "../../../../shared/services/navigation.service";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -82,6 +83,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         private readonly router: Router,
         private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
+        private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly datetimeService: DateTimeService,
@@ -148,7 +150,10 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
         this.auth.initSession(ServiceOptions.flatrate);
         this.auth.sendInitRequest().subscribe(response => {
-            this.tokenService.setToken(response.body?.body.token);
+            // avoid refreshing token after reload of webpage
+            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+                this.tokenService.setToken(response.body?.body.token);
+            }
             this.hasToken = true;
         });
 

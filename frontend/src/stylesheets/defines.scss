@@ -30,6 +30,8 @@
     --warning-opacity: 0.7;
     --warning-shadow: #{sass.$color-ice-white};
     --option-hover-active: #{sass.$color-light-green};
+    --privacy-list-bg: #{sass.$color-logo-green};
+    --privacy-list-border: #{1.5px solid sass.$color-light-contrast};
 }
 
 [data-theme='darkMode'] {
@@ -49,4 +51,6 @@
     --warning-opacity: 0.6;
     --warning-shadow: #{sass.$color-text-black};
     --option-hover-active: #{sass.$color-dark-green};
+    --privacy-list-bg: none;
+    --privacy-list-border: none;
 }

@@ -28,7 +28,8 @@ export class MailAPIService {
         this.mailData = {
             sender: '',
             subject: '',
-            body: ''
+            body: '',
+            confirm: ''
         }
 
         this.translateData = {
@@ -61,10 +62,14 @@ export class MailAPIService {
         const bodyInGerman = this.configEmailBodyDE(data, hasLatency);
         const bodyInEnglish = this.configEmailBodyEN(data, hasLatency);
 
+        const confirmInGerman = this.configEmailConfirmDE(data);
+        const confirmInEnglish = this.configEmailConfirmEN(data);
+
         this.mailData = {
             sender: data.email,
             subject: `Anfrage/Request: Taxi-Varga Service`,
-            body: `${declareGerman}\n${bodyInGerman}\n\n${this.divider}\n\n${declareEnglish}\n${bodyInEnglish}`
+            body: `${declareGerman}\n${bodyInGerman}\n\n${this.divider}\n\n${declareEnglish}\n${bodyInEnglish}`,
+            confirm: `\n${declareGerman}\n${confirmInGerman}\n${this.divider}\n\n${declareEnglish}\n${confirmInEnglish}`
         };
     }
 
@@ -90,6 +95,28 @@ export class MailAPIService {
 
         return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
     }
+
+    configEmailConfirmDE(data: MailingMessage): string {
+        let introduction: string;
+        if(data.gender === 'female') {
+            introduction = data.title 
+                ? `Sehr geehrte Frau ${data.title} ${data.lastName}!`
+                : `Sehr geehrte Frau ${data.lastName}!`;
+        } else {
+            introduction = data.title 
+                ? `Sehr geehrter Herr ${data.title} ${data.lastName}!`
+                : `Sehr geehrter Herr ${data.lastName}!`;
+        }
+
+        return `
+        ${introduction}
+
+        Vielen Dank für Ihre Anfrage bei taxi-varga.
+        Wir werden uns sobald wie möglich bei Ihnen melden!
+
+        Bitte antworten Sie NICHT auf dieses automatische Mail.
+        `
+    }
     
     configEmailBodyEN(data: MailingMessage, hasLatency: boolean): string {        
         this.translateData.origin = data.service === 'airport' && data.airport === 'arrival'
@@ -112,6 +139,28 @@ export class MailAPIService {
         const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
         return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+    }
+
+    configEmailConfirmEN(data: MailingMessage): string {
+        let introduction: string;
+        if(data.gender === 'female') {
+            introduction = data.title 
+                ? `Dear ${data.title} ${data.lastName}!`
+                : `Dear Madam ${data.lastName}!`;
+        } else {
+            introduction = data.title 
+                ? `Dear ${data.title} ${data.lastName}!`
+                : `Dear Mr. ${data.lastName}!`;
+        }
+
+        return `
+        ${introduction}
+
+        Thank you for your inquiry at taxi-varga. 
+        We will get back to you as soon as possible!
+        
+        Please DO NOT reply to this automatic mail.
+        `
     }
 
     sendMail() {

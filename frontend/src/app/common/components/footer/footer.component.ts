@@ -39,6 +39,7 @@ export class FooterComponent implements OnInit, AfterViewInit {
     protected routes: Route[];
     protected selectedTheme: ThemeOptions;
     protected themes = ThemeOptions;
+    protected currentYear: string;
 
     constructor(
         private readonly themeHandler: ThemeHandlerService,
@@ -55,6 +56,7 @@ export class FooterComponent implements OnInit, AfterViewInit {
         this.showLanguageWindow = false;
         this.creatorURL = 'https://yqni13.com';
         this.routes = [];
+        this.currentYear = new Date().getFullYear().toString();
     }
 
     protected setTheme() {

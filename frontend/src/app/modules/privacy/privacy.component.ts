@@ -1,53 +1,36 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { RouterModule } from "@angular/router";
-import { ObservationService } from "../../shared/services/observation.service";
+import { CommonModule, DOCUMENT } from "@angular/common";
+import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
-import { CommonModule } from "@angular/common";
+import * as content from "../../../../public/assets/i18n/privacy-en.json";
 
 @Component({
-    selector: 'tava-imprint',
-    templateUrl: './imprint.component.html',
-    styleUrl: './imprint.component.scss',
+    selector: 'app-privacy',
+    templateUrl: './privacy.component.html',
+    styleUrl: './privacy.component.scss',
     standalone: true,
     imports: [
         CommonModule,
-        RouterModule,
         TranslateModule
     ]
 })
-export class ImprintComponent implements OnInit, OnDestroy {
+export class PrivacyComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
-    protected devData: any;
-    protected ownerData: any;
+    protected privacyData: string[];
 
     private subscriptionThemeObservation$: Subscription;
 
     constructor(
         private readonly translate: TranslateService,
-        private readonly observation: ObservationService
+        private readonly observation: ObservationService,
+        @Inject(DOCUMENT) private readonly document: Document
     ) {
         this.selectedBg = '';
+        this.privacyData = this.configContentLoop();
         this.subscriptionThemeObservation$ = new Subscription();
-        
-        this.devData = {
-            project: 'taxi-varga',
-            version: 'v1.0.0-beta.2',
-            github: 'https://github.com/yqni13/taxi-varga',
-            portfolio: 'https://yqni13.com',
-            email: 'lukas.varga@yqni13.com'
-        };
-
-        this.ownerData = {
-            name: 'Ing. Laszlo Varga',
-            address: 'Anton Bruckner-Gasse 11\n2544 Leobersdorf, Österreich',
-            uid: 'ATU60067019',
-            email: 'laszlovarga@gmx.at',
-            phone: '+436644465466',
-        };
     }
 
     ngOnInit() {
@@ -67,6 +50,15 @@ export class ImprintComponent implements OnInit, OnDestroy {
         ).subscribe();
     }
 
+    private configContentLoop() {
+        const usedNumberOfElements = Object.keys(content['z-content-privacy']['headers']);
+        return usedNumberOfElements.filter(item => item !== 'complaint');
+    }
+
+    navigateToHeader(id: string) {
+        this.document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+    
     ngOnDestroy() {
         this.subscriptionThemeObservation$.unsubscribe();
     }

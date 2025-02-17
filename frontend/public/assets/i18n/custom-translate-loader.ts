@@ -19,6 +19,7 @@ export class CustomTranslateLoader implements TranslateLoader {
         const paths = [
             `${this.prefix}${language}.json`,
             `${this.prefix}imprint-${language}.json`,
+            `${this.prefix}privacy-${language}.json`,
             `${this.prefix}samples-${language}.json`
         ];
 

@@ -6,7 +6,8 @@
                 "language": "Select your language:"
             },
             "title": {
-                "imprint": "Imprint"
+                "imprint": "Imprint",
+                "privacy": "Privacy police"
             }
         },
         "interceptor": {
@@ -28,7 +29,7 @@
             "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
-            "tenancy-invalid-lower-limit": "Tenancy can not be negative.",
+            "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
             "tenancy-invalid-zero": "Tenancy can not be zero.",
@@ -73,7 +74,7 @@
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
                 "location": "Business location: Leobersdorf",
-                "second": "In the first three years after changing careers, I worked as limited partner (ger: \"Kommanditist\") at Maxi-Mietwagen and as chauffeur for Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
+                "second": "I then changed careers, worked for 3 years as a limited partner (ger: \"Kommanditist\") at Maxi-Autovermietung and as a chauffeur at Taxi Göring. After successfully passing the entrepreneur's exam, I founded my own taxi company in 1999 as an EPU (single-person enterprise) and run the taxi business continuously in 1-shift operation.",
                 "workrange": "Work range: Vienna"
             },
             "title": "About me and my business"
@@ -94,6 +95,9 @@
         },
         "imprint": {
             "title": "Imprint"
+        },
+        "privacy": {
+            "title": "Privacy policy"
         },
         "samples": {
             "title": "Flatrate samples"
@@ -188,7 +192,7 @@
                         "distance": "Driven distance",
                         "duration": "Driving time",
                         "latency": "Waiting time",
-                        "latency-calc": "The first hour waiting time costs 24,00 EUR and every following hour 12,00 EUR. Every half hour or part thereof is charged.",
+                        "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
                         "price-estimated": "estimated price",
                         "price-fixed": "Fixed price",

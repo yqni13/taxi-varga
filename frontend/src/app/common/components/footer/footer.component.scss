@@ -54,6 +54,7 @@ footer {
 
         li {
             margin-left: 100px;
+            margin-top: sass.$space5;
 
             span {
                 cursor: pointer;
@@ -94,7 +95,6 @@ footer {
 }
 
 .tava-footer-language {
-    margin-top: sass.$space5;
     position: relative;
     display: inline-flex;
     cursor: pointer;

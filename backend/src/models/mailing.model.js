@@ -30,19 +30,29 @@ class MailingModel {
 
         const sender = params['sender'];
         const subject = params['subject'];
-        const message = params['body'];
+        const msgRequest = params['body'];
+        const msgConfirm = params['confirm'];
 
-        const mailOptions = {
+        const mailOptionsRequest = {
             from: emailSender,
             to: emailReceiver,
             subject: subject,
-            text: message
+            text: msgRequest
         };
+
+        const mailOptionsConfirm = {
+            from: emailSender,
+            to: sender,
+            subject: 'taxi-varga, request received',
+            text: msgConfirm
+        }
         
-        const success = await this.wrapedSendMail(mailOptions, emailSender, emailPass);
+        const sendRequest = await this.wrapedSendMail(mailOptionsRequest, emailSender, emailPass);
+        const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, emailSender, emailPass);
         
         return {response: {
-            success: success,
+            sendRequestTo: sendRequest,
+            confirmedRequestFrom: confirmRequest,
             sender: sender
         }};
     }

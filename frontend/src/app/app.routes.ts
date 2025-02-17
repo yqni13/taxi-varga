@@ -3,6 +3,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { AboutComponent } from './modules/about/about.component';
 import { ImprintComponent } from './modules/imprint/imprint.component';
 import { SamplesComponent } from './modules/samples/samples.component';
+import { PrivacyComponent } from './modules/privacy/privacy.component';
 
 export const routes: Routes = [
     {
@@ -35,14 +36,9 @@ export const routes: Routes = [
         component: SamplesComponent,
         data: {title: 'samples', showInNavbar: true, showInFooter: false, icon: 'icon-samples'}
     },
-    // {
-    //     path: 'contact',
-    //     component: ContactComponent,
-    //     data: {title: 'contact', showInNavbar: false, showInFooter: true, icon: 'icon-contact'}
-    // },
-    // {
-    //     path: 'privacy',
-    //     component: PrivacyComponent,
-    //     data: {title: 'privacy', showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
-    // }
+    {
+        path: 'privacy',
+        component: PrivacyComponent,
+        data: {title: 'privacy', showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
+    }
 ];

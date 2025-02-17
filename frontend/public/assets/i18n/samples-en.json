@@ -56,23 +56,23 @@
         },
         "samples-content-option4": {
             "entry0": {
-                "price": "185,00",
+                "price": "146,00",
                 "route": "Vienna - Golf Club Himberg - Vienna"
             },
             "entry1": {
-                "price": "190,00",
+                "price": "152,00",
                 "route": "Vienna - Golf Club Fontana - Vienna"
             },
             "entry2": {
-                "price": "205,00",
+                "price": "162,00",
                 "route": "Vienna - Golf Club Schönborn - Vienna"
             },
             "entry3": {
-                "price": "235,00",
+                "price": "197,00",
                 "route": "Vienna - Golf Club Föhrenwald - Vienna"
             },
             "entry4": {
-                "price": "270,00",
+                "price": "227,00",
                 "route": "Vienna - Golf Club Adamstal - Vienna"
             }
         },
