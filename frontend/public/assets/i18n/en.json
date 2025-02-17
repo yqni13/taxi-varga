@@ -6,7 +6,8 @@
                 "language": "Select your language:"
             },
             "title": {
-                "imprint": "Imprint"
+                "imprint": "Imprint",
+                "privacy": "Privacy police"
             }
         },
         "interceptor": {
@@ -94,6 +95,9 @@
         },
         "imprint": {
             "title": "Imprint"
+        },
+        "privacy": {
+            "title": "Privacy policy"
         },
         "samples": {
             "title": "Flatrate samples"

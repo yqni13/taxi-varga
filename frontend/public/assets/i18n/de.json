@@ -6,7 +6,8 @@
                 "language": "Wählen Sie Ihre Sprache:"
             },
             "title": {
-                "imprint": "Impressum"
+                "imprint": "Impressum",
+                "privacy": "Datenschutz"
             }
         },
         "interceptor": {
@@ -94,6 +95,9 @@
         },
         "imprint": {
             "title": "Impressum"
+        },
+        "privacy": {
+            "title": "Datenschutz"
         },
         "samples": {
             "title": "Pauschalfahrt Beispiele"
@@ -198,6 +202,7 @@
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
+                        "terms-general": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle.",
                         "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."

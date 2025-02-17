@@ -1,0 +1,73 @@
+<section class="tava-privacy" ngClass="{{selectedBg}}">
+    <header>
+        <h1>{{'modules.privacy.title' | translate}}</h1>
+    </header>
+    <div class="tava-privacy-content">
+        <ul>
+            <li *ngFor="let head of privacyData">
+                <div class="tava-privacy-content-li-wrapper">
+                    <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
+                    <a
+                        [attr.aria-disabled]="true"
+                        (click)="navigateToHeader('tava-privacy-id-' + head)"
+                        (keydown.enter)="navigateToHeader('tava-privacy-id-' + head)"
+                    >{{'z-content-privacy.headers.' + head | translate}}</a>
+                </div>
+            </li>
+            <li>
+                <div class="tava-privacy-content-li-wrapper">
+                    <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
+                    <a
+                        [attr.aria-disabled]="true"
+                        (click)="navigateToHeader('tava-privacy-id-complaint')"
+                        (keydown.enter)="navigateToHeader('tava-privacy-id-complaint')"
+                    >{{'z-content-privacy.headers.complaint' | translate}}</a>
+                </div>
+            </li>
+        </ul>
+        <div class="tava-privacy-content-wrapper" *ngFor="let item of privacyData">
+            <h3 id="{{'tava-privacy-id-' + item}}">
+                {{'z-content-privacy.headers.' + item | translate}}
+            </h3>
+            <div class="tava-privacy-content-p">
+                <span>
+                    {{'z-content-privacy.content.' + item | translate}}
+                </span>
+            </div>
+        </div>
+        <div class="tava-privacy-content-wrapper">
+            <h3 id="tava-privacy-id-complaint">
+                {{'z-content-privacy.headers.complaint' | translate}}
+            </h3>
+            <div class="tava-privacy-content-p">
+                <span>
+                    {{'z-content-privacy.content.complaint.text' | translate }}
+                </span>
+                <span>
+                    {{'z-content-privacy.content.complaint.authority' | translate}}
+                </span>
+                <span>
+                    {{'z-content-privacy.content.complaint.address0' | translate}}
+                </span>
+                <span>
+                    {{'z-content-privacy.content.complaint.address1' | translate}}
+                </span>
+                <span>
+                    <a href="tel:{{'z-content-privacy.content.complaint.phone' | translate}}">
+                        {{'z-content-privacy.content.complaint.phone' | translate}}
+                    </a>
+                </span>
+                <span>
+                    <a href="mailto:{{'z-content-privacy.content.complaint.mail' | translate}}">
+                        {{'z-content-privacy.content.complaint.mail' | translate}}
+                    </a>
+                </span>
+                <span>
+                    <a href="{{'z-content-privacy.content.complaint.web' | translate}}" target="_blank">
+                        {{'z-content-privacy.content.complaint.web' | translate}}
+                    </a>
+                </span>
+            </div>
+        </div>
+    </div>
+</section>

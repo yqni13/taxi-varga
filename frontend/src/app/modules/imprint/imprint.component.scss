@@ -1,22 +1,11 @@
 @use '../../../stylesheets/utilities' as sass;
 
 
-.tava-head-message {
-    font-style: italic;
-    color: var(--theme-palette-highlight);
-    width: 50%;
-    align-self: center;
-}
-
 .tava-imprint-content {
     display: flex;
     flex-direction: column;
     white-space: pre-line;
     margin-bottom: sass.$space50;
-
-    h2 {
-        margin-top: calc(sass.$space50 + sass.$space25);
-    }
 
     h3 {
         font-size: 1.4em;
