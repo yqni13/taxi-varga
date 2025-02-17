@@ -24,6 +24,7 @@ import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { NavigationService } from "../../../../shared/services/navigation.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -80,6 +81,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         private readonly router: Router,
         private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
+        private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
         private readonly drivingAPIService: DrivingAPIService,
@@ -143,7 +145,10 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
         this.auth.initSession(ServiceOptions.destination);
         this.auth.sendInitRequest().subscribe(response => {
-            this.tokenService.setToken(response.body?.body.token);
+            // avoid refreshing token after reload of webpage
+            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+                this.tokenService.setToken(response.body?.body.token);
+            }
             this.hasToken = true;
         });
 

@@ -15,5 +15,9 @@ exports.mailingSchema = [
     body('body')
         .trim()
         .notEmpty()
+        .withMessage('backend-required'),
+    body('confirm')
+        .trim()
+        .notEmpty()
         .withMessage('backend-required')
 ]
