@@ -4,19 +4,12 @@ exports.mailingSchema = [
     body('sender')
         .trim()
         .notEmpty()
-        .withMessage('backend-required')
-        .bail()
-        .isEmail()
-        .withMessage('basic-invalid-email'),
+        .withMessage('backend-required'),
     body('subject')
         .trim()
         .notEmpty()
         .withMessage('backend-required'),
     body('body')
-        .trim()
-        .notEmpty()
-        .withMessage('backend-required'),
-    body('confirm')
         .trim()
         .notEmpty()
         .withMessage('backend-required')

@@ -391,7 +391,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })

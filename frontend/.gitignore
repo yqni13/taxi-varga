@@ -14,6 +14,7 @@ set-env.dev.ts
 /src/environments/.env
 .env
 public_key.pem
+private_key.pem
 
 # public/images
 /public/assets/service/service-airport_big.jpg

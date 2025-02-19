@@ -16,7 +16,7 @@ const auth = () => {
                 throw new TokenMissingException();
             }
 
-            const privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
+            const privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
             const token = authHeader.replace(bearer, '');
             const decode = jwt.verify(token, privateKey);
 

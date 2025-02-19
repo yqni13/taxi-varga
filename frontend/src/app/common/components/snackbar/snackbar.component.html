@@ -9,11 +9,13 @@
         </div>
     </div>
     <div class="tava-snackbar-btn" *ngIf="!snackbarMsg.autoClose">
-        <i 
-            class="icon-CloseX" 
-            (click)="close()" 
-            (keydown.enter)="close()"
-            [attr.aria-disabled]="true"
-        ></i>
+        <div class="tava-snackbar-btn-wrapper">
+            <i 
+                class="icon-CloseX" 
+                (click)="close()" 
+                (keydown.enter)="close()"
+                [attr.aria-disabled]="true"
+            ></i>
+        </div>
     </div>
 </div>

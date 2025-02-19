@@ -7,12 +7,14 @@ import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
 import { MailTranslateService } from "./shared/services/mail-translate.service";
 import { TranslateService } from "@ngx-translate/core";
+import { CryptoService } from "./shared/services/crypto.service";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const httpObservationService = inject(HttpObservationService);
     const mailTranslateService = inject(MailTranslateService);
     const snackbarService = inject(SnackbarMessageService);
     const translate = inject(TranslateService);
+    const crypto = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return next(req).pipe(
@@ -34,13 +36,14 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
                     httpObservationService.setEmailStatus(true);
+                    const decryptSender = crypto.decryptRSA((httpEvent as HttpResponse<any>).body.body.response.sender);
                     snackbarService.notify({
                         title: translate.currentLang === 'en'
                             ? mailTranslateService.getTranslationEN('common.interceptor.email.success-title')
                             : mailTranslateService.getTranslationDE('common.interceptor.email.success-title'),
                         text: translate.currentLang === 'en'
-                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + (httpEvent as HttpResponse<any>).body.body.response.sender
-                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + (httpEvent as HttpResponse<any>).body.body.response.sender,
+                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + decryptSender
+                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + decryptSender,
                         autoClose: false,
                         type: SnackbarOption.success,
                     })
@@ -59,9 +62,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
 
 export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    
-    
-    
+
     if(response.url.includes('/driving/airport')) {
         await delay(1000);
         httpObservationService.setDrivingAirportStatus(false);
@@ -90,13 +91,20 @@ export async function handleError(response: any, httpObservationService: HttpObs
         Object.assign(response, {
             error: {
                 headers: {
-                    error: 'InternalServerException'
+                    error: 'InternalServerException',
+                    message: 'backend-500-server'
                 }
             }
         })
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
         snackbarService.notify({
-            title: response.statusText,
-            text: 'Server failed. Please contact support.',
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.InternalServerException`)
+                : mailTranslateService.getTranslationEN(`${path}.header.InternalServerException`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-server`)
+                : mailTranslateService.getTranslationEN(`${path}.data.backend-500-server`),
             autoClose: false,
             type: SnackbarOption.error
         })

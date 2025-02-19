@@ -1,8 +1,7 @@
 export declare interface MailingRequest {
     sender: string,
     subject: string,
-    body: string,
-    confirm: string
+    body: string
 }
 
 export declare interface MailingMessage {

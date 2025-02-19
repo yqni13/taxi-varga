@@ -355,7 +355,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })

@@ -6,7 +6,7 @@ const {
     InvalidCredentialsException 
 } = require('../utils/exceptions/auth.exception');
 const { Config } = require('../configs/config')
-const Decryption = require('../utils/decryption.utils');
+const { decryptRSA } = require('../utils/crypto.utils');
 
 class AuthModel {
     msg0 = '';
@@ -49,22 +49,22 @@ class AuthModel {
             throw new AuthSecretNotFoundException('backend-404-pass');
         }
 
-        if(!Config.AUTH_KEY) {
+        if(!Config.PRIVATE_KEY) {
             throw new AuthSecretNotFoundException('backend-404-key');
         }
         let privateKey;
         if(Config.MODE === 'development') {
-            privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
+            privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
         } else {
-            privateKey = Config.AUTH_KEY;
+            privateKey = Config.PRIVATE_KEY;
         }
 
-        const decryptedUser = Decryption.decryptionRSA(params['user'], privateKey);
+        const decryptedUser = decryptRSA(params['user'], privateKey);
         if(decryptedUser !== user) {
             throw new InvalidCredentialsException('backend-invalid-user');
         }
 
-        const decryptedPass = Decryption.decryptionRSA(params['pass'], privateKey);
+        const decryptedPass = decryptRSA(params['pass'], privateKey);
         if(decryptedPass.substring(0, position) !== password) {
             throw new InvalidCredentialsException('backend-invalid-pass');
         }
