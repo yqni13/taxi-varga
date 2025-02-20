@@ -37,7 +37,7 @@ export class AuthService {
             'InternalServerException',
             'AuthSecretNotFoundException'
         ];
-        this.statusCodes = ['401', '404', '500'];
+        this.statusCodes = ['401', '404', '500', '0'];
     }
 
     getExceptionCollection(): string[] {

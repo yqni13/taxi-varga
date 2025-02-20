@@ -6,7 +6,7 @@ class CommonException extends Error {
     constructor(code, message, data, status = 500) {
         super(message);
         if(Config.MODE === 'development') {
-            this.message = 'Common Error: ' + message;
+            this.message = message;
         } else {
             this.message = message;
         }

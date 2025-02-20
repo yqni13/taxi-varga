@@ -38,7 +38,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
             version: 'v1.0.0-beta.2',
             github: 'https://github.com/yqni13/taxi-varga',
             portfolio: 'https://yqni13.com',
-            email: 'lukas.varga@yqni13.com'
+            email: 'yqni13@protonmail.com'
         };
 
         this.ownerData = {

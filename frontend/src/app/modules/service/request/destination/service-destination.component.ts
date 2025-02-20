@@ -25,6 +25,9 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 import { NavigationService } from "../../../../shared/services/navigation.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
+import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -84,6 +87,8 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
+        private readonly snackbar: SnackbarMessageService,
+        private readonly mailTranslate: MailTranslateService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
         private httpObservationService: HttpObservationService,
@@ -149,11 +154,22 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
             }
+            this.snackbar.notify({
+                title: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.destination.info.title')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.destination.info.title'),
+                text: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.destination.info.text')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.destination.info.text'),
+                autoClose: false,
+                type: SnackbarOption.info
+            })
             this.hasToken = true;
         });
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
+
     }
 
     ngAfterViewInit() {

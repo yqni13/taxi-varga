@@ -1,4 +1,5 @@
 const { body } = require('express-validator');
+const CustomValidator = require('../../utils/customValidator.utils');
 
 exports.autocompleteSchema = [
     body('address')
@@ -10,7 +11,7 @@ exports.autocompleteSchema = [
         .notEmpty()
         .withMessage('backend-required')
         .bail()
-        .custom((value) => validateLanguageCompatible(value))
+        .custom((value) => CustomValidator.validateLanguageCompatible(value))
 ];
 
 exports.placeSchema = [
@@ -22,18 +23,5 @@ exports.placeSchema = [
         .notEmpty()
         .withMessage('backend-required')
         .bail()
-        .custom((value) => validateLanguageCompatible(value))
-]
-
-const validateLanguageCompatible = (language) => {
-    const langArray = [
-        "de",
-        "en"
-    ];
-
-    if(!langArray.includes(language)) {
-        throw new Error('basic-invalid-language');
-    }
-
-    return true;
-}
+        .custom((value) => CustomValidator.validateLanguageCompatible(value))
+];

@@ -5,7 +5,7 @@ class ValidationException extends Error {
     constructor(code, message, data) {
         super(message);
         if(Config.MODE === 'development') {
-            this.message = 'Validation Error: ' + message;
+            this.message = message;
         } else {
             this.message = message;
         }

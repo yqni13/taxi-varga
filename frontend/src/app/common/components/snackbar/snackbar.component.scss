@@ -3,12 +3,12 @@
 
 .tava-snackbar-container {
     width: fit-content;
-    max-width: 400px;
+    width: 400px;
     display: flex;
     flex-direction: row;
     background-color: sass.$color-fullscale-bg;
-    margin: sass.$space25;
-    margin-left: 0;
+    margin: sass.$space15;
+    margin-bottom: 0;
     border-radius: 2.5px;
 }
 
@@ -19,10 +19,10 @@
     }
 
     .tava-snackbar-btn-wrapper {
+        border-color: sass.$color-border-error;
         &:hover {
             border-color: var(--theme-snackbar-error);
         }
-        border-color: sass.$color-border-error;
     }
 }
 .snackbar-info {
@@ -32,10 +32,10 @@
     }
 
     .tava-snackbar-btn-wrapper {
+        border-color: sass.$color-border-info;
         &:hover {
             border-color: var(--theme-snackbar-info);
         }
-        border-color: sass.$color-border-info;
     }
 }
 .snackbar-success {
@@ -45,10 +45,10 @@
     }
 
     .tava-snackbar-btn-wrapper {
+        border-color: sass.$color-border-success;
         &:hover {
             border-color: var(--theme-snackbar-success);
         }
-        border-color: sass.$color-border-success;
     }
 }
 .snackbar-warning {
@@ -58,10 +58,10 @@
     }
 
     .tava-snackbar-btn-wrapper {
+        border-color: sass.$color-border-warning;
         &:hover {
             border-color: var(--theme-snackbar-warning);
         }
-        border-color: sass.$color-border-warning;
     }
 }
 

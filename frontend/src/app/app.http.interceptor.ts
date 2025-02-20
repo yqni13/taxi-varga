@@ -78,10 +78,27 @@ export async function handleError(response: any, httpObservationService: HttpObs
     }
 
     // user response log
-    if(response.status === 0 && (response.url.includes('/driving/') || response.url.includes('/mailing/'))) {
+    if(response.status === 0 && 
+        (response.url.includes('/driving/') 
+        || response.url.includes('/mailing/')
+        || response.url.includes('/address/'))) {
+        Object.assign(response, {
+            error: {
+                headers: {
+                    error: 'InternalServerException',
+                    message: 'backend-500-server'
+                }
+            }
+        })
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
         snackbarService.notify({
-            title: 'Server Connection Error',
-            text: 'Connection to the backend missing. Please try again later.',
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.InternalServerException`)
+                : mailTranslateService.getTranslationEN(`${path}.header.InternalServerException`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-routes`)
+                : mailTranslateService.getTranslationEN(`${path}.data.backend-500-routes`),
             autoClose: false,
             type: SnackbarOption.error
         })
@@ -113,29 +130,31 @@ export async function handleError(response: any, httpObservationService: HttpObs
     else if(response.status === 400) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
-        snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
-                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${response.error.headers.data[0].msg}`)
-                : mailTranslateService.getTranslationEN(`${path}.data.${response.error.headers.data[0].msg}`),
-            autoClose: false,
-            type: SnackbarOption.error,
+        // multiple backend messages only for property validations expected
+        Object.values(response.error.headers.data).forEach((data: any) => {
+            snackbarService.notify({
+                title: currentLang === 'de' 
+                    ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
+                    : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
+                text: currentLang === 'de'
+                    ? mailTranslateService.getTranslationDE(`${path}.data.${data.msg}`)
+                    : mailTranslateService.getTranslationEN(`${path}.data.${data.msg}`),
+                autoClose: false,
+                type: SnackbarOption.error,
+            })
         })
     } 
     // AUTHORIZATION | AUTHENTICATION
     else if(response.status === 401 || response.status === 404) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
-        const message = response.error.headers.message.replace('Auth Error: ', '');
         snackbarService.notify({
             title: currentLang === 'de' 
                 ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
                 : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
             text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
-                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
+                ? mailTranslateService.getTranslationDE(`${path}.data.${response.error.headers.message}`)
+                : mailTranslateService.getTranslationEN(`${path}.data.${response.error.headers.message}`),
             autoClose: false,
             type: SnackbarOption.error,
         })

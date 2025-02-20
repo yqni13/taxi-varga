@@ -574,6 +574,14 @@
         }
     }
 
+    .tava-component-snackbar {
+        align-items: center!important;
+    }
+
+    .tava-snackbar-container {
+        margin: sass.$space15 0 0 0!important;
+    }
+
     footer {
         flex-direction: column-reverse;
 
@@ -707,9 +715,5 @@
             width: 100%!important;
             margin-left: 0!important;
         }
-    }
-
-    .tava-snackbar-container {
-        margin-left: 25px!important;
     }
 }
