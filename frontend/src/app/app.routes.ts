@@ -40,5 +40,9 @@ export const routes: Routes = [
         path: 'privacy',
         component: PrivacyComponent,
         data: {title: 'privacy', showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
+    },
+    {
+        path: '**',
+        redirectTo: '/home',
     }
 ];

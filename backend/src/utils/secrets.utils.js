@@ -89,14 +89,14 @@ class Secrets {
         if(!Config.PASS_POSITION) {
             throw new AuthSecretNotFoundException('backend-404-env#PASS_POSITION');
         }
-        return Config.PASS_POSITION;
+        return Number(Config.PASS_POSITION);
     }
 
     #setIVPosition = () => {
         if(!Config.IV_POSITION) {
             throw new AuthSecretNotFoundException('backend-404-env#IV_POSITION');
         }
-        return Config.IV_POSITION;
+        return Number(Config.IV_POSITION);
     }
 
     #setAuthId = () => {

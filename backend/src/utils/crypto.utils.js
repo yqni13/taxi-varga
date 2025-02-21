@@ -36,9 +36,9 @@ exports.decryptAES = async (data, ivPosition) => {
 
     // part 1: split iv, key and encrypted text from data
     const salt1 = data.slice(0, ivPosition);
-    const salt2 = data.slice(Number(ivPosition) + 32, 96);
+    const salt2 = data.slice(ivPosition + 32, 96);
     const salt = salt1 + salt2;
-    const ivHex = data.slice(ivPosition, Number(ivPosition) + 32);
+    const ivHex = data.slice(ivPosition, ivPosition + 32);
     const iv = Buffer.from(ivHex, 'hex');
     const encryptedBuffer = Buffer.from(data.slice(32+64), 'hex');
     
