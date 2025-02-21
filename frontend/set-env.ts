@@ -1,5 +1,6 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
+require('dotenv').config();
 const targetPath = "./src/environments/environment.prod.ts";
 const public_key = process.env['PUBLIC_KEY'];
 const private_key = process.env['PRIVATE_KEY'];
@@ -17,7 +18,7 @@ export const environment: Environment = {
     AUTH_USER: '${process.env['AUTH_USER']}',
     AUTH_PASSWORD: '${process.env['AUTH_PASS']}',
     PUBLIC_KEY: \`${modifiedPublicKey}\`,
-    PRIVATE_KEY \`${modifiedPrivateKey}\`
+    PRIVATE_KEY: \`${modifiedPrivateKey}\`
 };
 `;
 fs.writeFileSync(targetPath, envConfigFile);
