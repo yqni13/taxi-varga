@@ -1,3 +1,7 @@
 [build]
     command = "npm run build:prod"
-    functions = ""
+    
+[[edge_functions]]
+    function = "angular-ssr"
+    path = "/*"
+    enabled = false
