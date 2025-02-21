@@ -37,25 +37,26 @@
                 "data": {
                     "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
-                    "backend-404-emailpass": "Umgebungsvariable EMAIL_PASS fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-emailreceiver": "Umgebungsvariable EMAIL_RECEIVER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-emailsender": "Umgebungsvariable EMAIL_SENDER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-id": "Umgebungsvariable ID fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-key": "Umgebungsvariable KEY fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-pass": "Umgebungsvariable PASS fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-404-user": "Umgebungsvariable USER fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-404-env": "Umgebungsvariable {{ENV}} fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
+                    "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
                     "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
+                    "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-latency": "Die Wartezeit darf 8h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-tenancy": "Die Mietdauer muss zwischen 3h und 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
-                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
-                    "basic-invalid-language": "Die gewählte Sprache ist nicht für Google Übersetzungen bei Such-Ergebnissen verfügbar. Bitte wählen Sie eine andere Sprache."
+                    "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
+                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
+                    "InternalServerException": "Server Verbindungs-Fehler",
                     "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
                     "JWTExpirationException": "Sitzung abgelaufen",
@@ -111,6 +112,10 @@
             "content": {
                 "airport": {
                     "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
+                    "info": {
+                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "arrival": "Ankunft am Flughafen Wien",
                         "datetime": "Datum & Uhrzeit (Abholung)",
@@ -127,6 +132,10 @@
                     "vie-schwechat": "Flughafen Wien Schwechat"
                 },
                 "destination": {
+                    "info": {
+                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 8h nicht überschreiten.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "back2home": "Ich möchte zur Abholadresse zurückkehren.",
                         "datetime": "Datum & Uhrzeit (Abholung)",
@@ -142,6 +151,10 @@
                     "title": "Pauschalfahrt - Routendetails"
                 },
                 "flatrate": {
+                    "info": {
+                        "text": "- Zeitmieten müssen mind 3h betragen und können nicht länger als für 24h gebucht werden.\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
@@ -200,9 +213,8 @@
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
                         "tenancy": "verrechnete Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
-                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
+                        "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
-                        "terms-general": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle.",
                         "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."

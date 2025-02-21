@@ -24,6 +24,9 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 import { NavigationService } from "../../../../shared/services/navigation.service";
+import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
+import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -86,7 +89,9 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
+        private readonly snackbar: SnackbarMessageService,
         private readonly datetimeService: DateTimeService,
+        private readonly mailTranslate: MailTranslateService,
         private readonly drivingAPIService: DrivingAPIService,
         private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
@@ -154,11 +159,22 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
             }
+            this.snackbar.notify({
+                title: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.flatrate.info.title')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.flatrate.info.title'),
+                text: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.flatrate.info.text')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.flatrate.info.text'),
+                autoClose: false,
+                type: SnackbarOption.info
+            })
             this.hasToken = true;
         });
 
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
+
     }
 
     ngAfterViewInit() {
@@ -391,7 +407,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })

@@ -25,6 +25,9 @@ import { AuthService } from "../../../../shared/services/auth.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 import { TokenService } from "../../../../shared/services/token.service";
 import { NavigationService } from "../../../../shared/services/navigation.service";
+import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
+import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 
 @Component({
     selector: 'tava-service-airport',
@@ -83,6 +86,8 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
+        private readonly snackbar: SnackbarMessageService,
+        private readonly mailTranslate: MailTranslateService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
         private httpObservationService: HttpObservationService,
@@ -147,11 +152,22 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
             }
+            this.snackbar.notify({
+                title: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.airport.info.title')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.airport.info.title'),
+                text: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.airport.info.text')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.airport.info.text'),
+                autoClose: false,
+                type: SnackbarOption.info
+            })
             this.hasToken = true;
         });
-
+        
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-airport");
+        
     }
 
     ngAfterViewInit() {
@@ -356,7 +372,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })

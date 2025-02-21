@@ -1,12 +1,7 @@
-require('dotenv').config();
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { 
-    AuthSecretNotFoundException, 
-    InvalidCredentialsException 
-} = require('../utils/exceptions/auth.exception');
-const { Config } = require('../configs/config')
-const Decryption = require('../utils/decryption.utils');
+const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
+const Secrets = require('../utils/secrets.utils');
+const { decryptRSA } = require('../utils/crypto.utils');
 
 class AuthModel {
     msg0 = '';
@@ -29,42 +24,18 @@ class AuthModel {
         }
 
         // ENCRYPT / COMPARE - LOGIN DATA
-        const position = Number(Config.PASS_POSITION);
-        if(!position) {
-            throw new AuthSecretNotFoundException('backend-404-position');
-        }
-        
-        const id = Config.AUTH_ID;
-        if(!id) {
-            throw new AuthSecretNotFoundException('backend-404-id');
-        }
+        const position = Number(Secrets.PASS_POSITION);        
+        const id = Secrets.AUTH_ID;
+        const user = Secrets.AUTH_USER;
+        const password = Secrets.AUTH_PASS;
+        const privateKey = Secrets.PRIVATE_KEY;
 
-        const user = Config.AUTH_USER;
-        if(!user) {
-            throw new AuthSecretNotFoundException('backend-404-user');
-        }
-
-        const password = Config.AUTH_PASS;
-        if(!password) {
-            throw new AuthSecretNotFoundException('backend-404-pass');
-        }
-
-        if(!Config.AUTH_KEY) {
-            throw new AuthSecretNotFoundException('backend-404-key');
-        }
-        let privateKey;
-        if(Config.MODE === 'development') {
-            privateKey = fs.readFileSync(Config.AUTH_KEY, 'utf8');
-        } else {
-            privateKey = Config.AUTH_KEY;
-        }
-
-        const decryptedUser = Decryption.decryptionRSA(params['user'], privateKey);
+        const decryptedUser = decryptRSA(params['user'], privateKey);
         if(decryptedUser !== user) {
             throw new InvalidCredentialsException('backend-invalid-user');
         }
 
-        const decryptedPass = Decryption.decryptionRSA(params['pass'], privateKey);
+        const decryptedPass = decryptRSA(params['pass'], privateKey);
         if(decryptedPass.substring(0, position) !== password) {
             throw new InvalidCredentialsException('backend-invalid-pass');
         }

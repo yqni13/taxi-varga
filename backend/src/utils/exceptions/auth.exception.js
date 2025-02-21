@@ -7,7 +7,7 @@ class AuthException extends Error {
     constructor(code, message, data, status = 401) {
         super(message);
         if(Config.MODE === 'development') {
-            this.message = 'Auth Error: ' + message;
+            this.message = message;
         } else {
             this.message = message;
         }

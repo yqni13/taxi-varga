@@ -1,5 +1,5 @@
-const { Config } = require('../configs/config');
-const { InternalServerException, UnexpectedException } = require('../utils/exceptions/common.exception');
+const Secrets = require('../utils/secrets.utils');
+const { InternalServerException } = require('../utils/exceptions/common.exception');
 const { JWTExpirationException } = require('../utils/exceptions/auth.exception');
 
 function errorMiddleware(err, req, res, next) {
@@ -12,7 +12,7 @@ function errorMiddleware(err, req, res, next) {
 
     let { message, code, error, status, data, stack } = err;
 
-    if(Config.MODE === 'development') {
+    if(Secrets.MODE === 'development') {
         console.log(`[Exception] ${error}, [Code] ${code}`);
         console.log(`[Error] ${message}`);
         console.log(`[Stack] ${stack}`);
