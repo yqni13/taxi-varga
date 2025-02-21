@@ -3,7 +3,7 @@
 
 .tava-snackbar-container {
     width: fit-content;
-    width: 400px;
+    max-width: 400px;
     display: flex;
     flex-direction: row;
     background-color: sass.$color-fullscale-bg;

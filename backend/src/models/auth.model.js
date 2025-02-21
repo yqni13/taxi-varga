@@ -1,11 +1,6 @@
-require('dotenv').config();
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
-const { 
-    AuthSecretNotFoundException, 
-    InvalidCredentialsException 
-} = require('../utils/exceptions/auth.exception');
-const { Config } = require('../configs/config')
+const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
+const Secrets = require('../utils/secrets.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 
 class AuthModel {
@@ -29,35 +24,11 @@ class AuthModel {
         }
 
         // ENCRYPT / COMPARE - LOGIN DATA
-        const position = Number(Config.PASS_POSITION);
-        if(!position) {
-            throw new AuthSecretNotFoundException('backend-404-position');
-        }
-        
-        const id = Config.AUTH_ID;
-        if(!id) {
-            throw new AuthSecretNotFoundException('backend-404-id');
-        }
-
-        const user = Config.AUTH_USER;
-        if(!user) {
-            throw new AuthSecretNotFoundException('backend-404-user');
-        }
-
-        const password = Config.AUTH_PASS;
-        if(!password) {
-            throw new AuthSecretNotFoundException('backend-404-pass');
-        }
-
-        if(!Config.PRIVATE_KEY) {
-            throw new AuthSecretNotFoundException('backend-404-key');
-        }
-        let privateKey;
-        if(Config.MODE === 'development') {
-            privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
-        } else {
-            privateKey = Config.PRIVATE_KEY;
-        }
+        const position = Number(Secrets.PASS_POSITION);        
+        const id = Secrets.AUTH_ID;
+        const user = Secrets.AUTH_USER;
+        const password = Secrets.AUTH_PASS;
+        const privateKey = Secrets.PRIVATE_KEY;
 
         const decryptedUser = decryptRSA(params['user'], privateKey);
         if(decryptedUser !== user) {

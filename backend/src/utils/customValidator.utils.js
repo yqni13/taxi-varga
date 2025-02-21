@@ -1,10 +1,9 @@
 const { ServiceOption } = require('./enums/service-option.enum');
 const { LanguageOption } = require('./enums/lang-option.enum');
 const Utils = require('../utils/common.utils');
-const { Config } = require('../configs/config');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
-const fs = require('fs');
+const Secrets = require('./secrets.utils');
 
 exports.validateServiceOption = (value) => {
     const options = Object.values(ServiceOption);
@@ -24,7 +23,8 @@ exports.validateLanguageCompatible = (language) => {
 }
 
 exports.validateDestinationServiceAddress = (address, addressDetails, compareDetails) => {
-    if(addressDetails.province === 'Wien' && compareDetails.province === 'Wien') {
+    const location = ['Wien', 'Vienna'];
+    if(location.includes(addressDetails.province) && location.includes(compareDetails.province)) {
         throw new Error('backend-destination-vienna');
     }
 
@@ -62,17 +62,7 @@ exports.validatePlaceDetails = (address, details) => {
 }
 
 exports.validateEncryptedSender = (encryptedSender) => {
-    if(!Config.PRIVATE_KEY) {
-        throw new AuthSecretNotFoundException('backend-404-key');
-    }
-    let privateKey;
-    if(Config.MODE === 'development') {
-        privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
-    } else {
-        privateKey = Config.PRIVATE_KEY;
-    }
-
-    const decryptedSender = decryptRSA(encryptedSender, privateKey);
+    const decryptedSender = decryptRSA(encryptedSender, Secrets.PRIVATE_KEY);
     if(!decryptedSender.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         throw new InvalidPropertiesException('backend-invalid-email');
     }

@@ -15,7 +15,7 @@ import { environment } from "../../../environments/environment";
 export class MailAPIService {
     private mailData: MailingRequest;
     private urlSend: string;
-    private divider: string;
+    private mailSubject: string | null;
 
     private translateData: any;
 
@@ -40,11 +40,14 @@ export class MailAPIService {
             destination: ''
         }
 
-        this.divider = `
-        -----------------------------------------------------
-        -----------------------------------------------------
-        `;
-        // TODO(yqni13): clean input before use
+        this.mailSubject = null;
+        
+        try {
+            this.mailSubject = environment.MAIL_SUBJECT;
+        } catch(err) {
+            console.log("MailService: env var MAIL_SUBJECT not found", err);
+            // TODO(yqni13): client side exception handling missing
+        }
 
         // this.urlSend = '/api/v1/mailing/send';
         this.urlSend = environment.API_BASE_URL + '/api/v1/mailing/send';
@@ -61,7 +64,7 @@ export class MailAPIService {
 
         this.mailData = {
             sender: this.crypto.encryptRSA(data.email),
-            subject: this.crypto.encryptRSA(environment.MAIL_SUBJECT),
+            subject: this.crypto.encryptRSA(this.mailSubject),
             body: await this.crypto.encryptAES(JSON.stringify(newData))
         };
     }

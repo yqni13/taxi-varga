@@ -5,10 +5,10 @@ const crypto = require('crypto');
 exports.decryptRSA = (data, privateKey) => {
     // convert formats to handle (key) or decrypt (string -> bytes)
     const rsa = forge.pki.privateKeyFromPem(privateKey);
-    let ctBytes = forge.util.decode64(data);
+    const ctBytes = forge.util.decode64(data);
     
     // decrypt value and make readable
-    let plaintextBytes = rsa.decrypt(ctBytes);
+    const plaintextBytes = rsa.decrypt(ctBytes);
     return plaintextBytes.toString();
 }
 

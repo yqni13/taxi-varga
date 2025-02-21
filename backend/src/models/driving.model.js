@@ -1,7 +1,6 @@
-require('dotenv').config();
-const Utils = require("../utils/common.utils")
 const GoogleRoutes = require('../services/google-routes/google-routes.api');
 const { NotFoundException } = require("../utils/exceptions/common.exception");
+const Secrets = require('../utils/secrets.utils');
 
 class DrivingModel {
 
@@ -162,7 +161,7 @@ class DrivingModel {
         const tenancy = (params['tenancy'] / 30) * priceFlatrate30Min; 
 
         const approachRoute = await GoogleRoutes.requestMapsMatrix({
-            origin: process.env.HOME_ADDRESS,
+            origin: Secrets.HOME_ADDRESS,
             destination: params['origin']
         });
         const approachDistance = ((approachRoute.rows[0].elements[0].distance.value) / 1000);
@@ -173,7 +172,7 @@ class DrivingModel {
         if(params['origin'] !== params['destination']) {
             const returnRoute = await GoogleRoutes.requestMapsMatrix({
                 origin: params['destination'],
-                destination: process.env.HOME_ADDRESS
+                destination: Secrets.HOME_ADDRESS
             });
             const returnDistance = ((returnRoute.rows[0].elements[0].distance.value) / 1000);
             const returnCost = (returnDistance % 1) >= 5

@@ -30,8 +30,7 @@
 
         span {
             width: fit-content;
-            color: var(--theme-snackbar-warning);
-            // color: var(--theme-palette-secondary);
+            color: var(--theme-body-text);
             font-style: italic;
             text-shadow: 1px 1px 5px var(--warning-shadow);
             padding: sass.$space15;

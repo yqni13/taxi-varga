@@ -148,13 +148,19 @@ export async function handleError(response: any, httpObservationService: HttpObs
     else if(response.status === 401 || response.status === 404) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
+        let env: string | undefined = undefined;
+        let message = String(response.error.headers.message);
+        if(message.includes('backend-404-env#')) {
+            env = message.replace('backend-404-env#', '');
+            message = message.replace(`#${env}`, '');
+        }
         snackbarService.notify({
             title: currentLang === 'de' 
                 ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
                 : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
             text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${response.error.headers.message}`)
-                : mailTranslateService.getTranslationEN(`${path}.data.${response.error.headers.message}`),
+                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`, env)
+                : mailTranslateService.getTranslationEN(`${path}.data.${message}`, env),
             autoClose: false,
             type: SnackbarOption.error,
         })

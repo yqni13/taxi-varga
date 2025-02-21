@@ -1,16 +1,11 @@
-require('dotenv').config();
 const nodemailer = require('nodemailer');
-const fs = require('fs');
 const { 
     AuthenticationException, 
     UnexpectedException 
 } = require("../utils/exceptions/common.exception");
-const { 
-    AuthSecretNotFoundException,
-    InvalidCredentialsException
-} = require('../utils/exceptions/auth.exception');
-const { Config } = require('../configs/config');
+const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
 const { encryptRSA, decryptRSA, decryptAES } = require('../utils/crypto.utils');
+const Secrets = require('../utils/secrets.utils');
 
 class MailingModel {
     sendMail = async (params) => {
@@ -18,35 +13,33 @@ class MailingModel {
             return { error: 'no params found' };
         }
 
-        const secrets = this.getValidMailSecrets();
-        const encryptedBody = await decryptAES(params['body'], secrets.ivPosition);
-        const sender = decryptRSA(params['sender'], secrets.privateKey);
-        const subject = decryptRSA(params['subject'], secrets.privateKey);
+        const encryptedBody = await decryptAES(params['body'], Secrets.IV_POSITION);
+        const sender = decryptRSA(params['sender'], Secrets.PRIVATE_KEY);
+        const subject = decryptRSA(params['subject'], Secrets.PRIVATE_KEY);
         
         const content = this.createEmailContent(JSON.parse(encryptedBody));
         const msgRequest = content.msgRequest;
         const msgConfirm = content.msgConfirm;
 
-        this.validateDecryptedSubject(subject);
+        this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
 
         const mailOptionsRequest = {
-            from: secrets.emailSender,
-            to: 'lukas.varga@yqni13.com',
-            // to: secrets.emailReceiver,
+            from: Secrets.EMAIL_SENDER,
+            to: Secrets.EMAIL_RECEIVER,
             subject: subject,
             text: msgRequest
         };
 
         const mailOptionsConfirm = {
-            from: secrets.emailSender,
+            from: Secrets.EMAIL_SENDER,
             to: sender,
             subject: 'taxi-varga, request received',
             text: msgConfirm
         }
         
-        const sendRequest = await this.wrapedSendMail(mailOptionsRequest, secrets.emailSender, secrets.emailPass);
-        const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, secrets.emailSender, secrets.emailPass);
-        const encryptedSender = encryptRSA(sender, secrets.publicKey);
+        const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+        const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+        const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
 
         return { 
             response: {
@@ -92,8 +85,8 @@ class MailingModel {
         })
     }
 
-    validateDecryptedSubject = (subject) => {
-        if(subject !== 'Anfrage/Request: Taxi-Varga Service') {
+    validateDecryptedSubject = (subject, secretSubject) => {
+        if(subject !== secretSubject) {
             throw new InvalidCredentialsException('backend-invalid-subject');
         }
     }
@@ -118,57 +111,6 @@ class MailingModel {
         return {
             msgRequest: msgRequest,
             msgConfirm: msgConfirm
-        }
-    }
-
-    getValidMailSecrets = () => {
-        const emailSender = Config.EMAIL_SENDER;
-        if(!emailSender) {
-            throw new AuthSecretNotFoundException('backend-404-emailsender');
-        }
-
-        const emailReceiver = Config.EMAIL_RECEIVER;
-        if(!emailReceiver) {
-            throw new AuthSecretNotFoundException('backend-404-emailreceiver');
-        }
-
-        const emailPass = Config.EMAIL_PASS;
-        if(!emailPass) {
-            throw new AuthSecretNotFoundException('backend-404-emailpass');
-        }
-
-        const ivPosition = Config.IV_POSITION;
-        if(!ivPosition) {
-            throw new AuthSecretNotFoundException('backend-404-ivpos');
-        }
-
-        if(!Config.PRIVATE_KEY) {
-            throw new AuthSecretNotFoundException('backend-404-key');
-        }
-        let privateKey;
-        if(Config.MODE === 'development') {
-            privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
-        } else {
-            privateKey = Config.PRIVATE_KEY;
-        }
-
-        if(!Config.PUBLIC_KEY) {
-            throw new AuthSecretNotFoundException('backend-404-key');
-        }
-        let publicKey;
-        if(Config.MODE === 'development') {
-            publicKey = fs.readFileSync(Config.PUBLIC_KEY, 'utf8');
-        } else {
-            publicKey = Config.PUBLIC_KEY;
-        }
-
-        return {
-            emailSender: emailSender,
-            emailReceiver: emailReceiver,
-            emailPass: emailPass,
-            publicKey: publicKey,
-            privateKey: privateKey,
-            ivPosition: ivPosition
         }
     }
 
@@ -231,4 +173,4 @@ class MailingModel {
     }
 }
 
-module.exports = new MailingModel;
+module.exports = new MailingModel();

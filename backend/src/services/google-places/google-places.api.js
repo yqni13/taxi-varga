@@ -33,7 +33,7 @@ class GooglePlacesAPI {
         const lang = params['language'];
         const token = params['sessiontoken'];
 
-        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&language=${lang}&sessiontoken=${token}&key=${process.env.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&languageCode=${lang}&sessiontoken=${token}&key=${process.env.GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)

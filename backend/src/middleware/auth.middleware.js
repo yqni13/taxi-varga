@@ -1,11 +1,10 @@
-require('dotenv').config();
-const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const { 
     InvalidCredentialsException,
     TokenMissingException
 } = require('../utils/exceptions/auth.exception');
-const { Config } = require('../configs/config');
+const Secrets = require('../utils/secrets.utils');
+
 
 const auth = () => {
     return async function (req, res, next) {
@@ -16,11 +15,11 @@ const auth = () => {
                 throw new TokenMissingException();
             }
 
-            const privateKey = fs.readFileSync(Config.PRIVATE_KEY, 'utf8');
+            const privateKey = Secrets.PRIVATE_KEY;
             const token = authHeader.replace(bearer, '');
             const decode = jwt.verify(token, privateKey);
 
-            if(decode.id !== Config.AUTH_ID) {
+            if(decode.id !== Secrets.AUTH_ID) {
                 throw new InvalidCredentialsException('backend-invalid-id');
             }
             
