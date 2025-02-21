@@ -10,11 +10,14 @@ client-cert.key
 desktop.ini
 
 # secrets
+encode-script_env_keys.js
 set-env.dev.ts
 /src/environments/.env
 .env
 public_key.pem
+prod_public_key.pem
 private_key.pem
+prod_private_key.pem
 
 # public/images
 /public/assets/service/service-airport_big.jpg
