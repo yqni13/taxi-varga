@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { ExpressLoader } = require('./src/loaders/express.loader');
 const { RoutesLoader } = require('./src/loaders/routes.loader');
 const { MiddlewareLoader } = require('./src/loaders/middleware.loader');

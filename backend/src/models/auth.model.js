@@ -24,7 +24,7 @@ class AuthModel {
         }
 
         // ENCRYPT / COMPARE - LOGIN DATA
-        const position = Number(Secrets.PASS_POSITION);        
+        const position = Secrets.PASS_POSITION;
         const id = Secrets.AUTH_ID;
         const user = Secrets.AUTH_USER;
         const password = Secrets.AUTH_PASS;
