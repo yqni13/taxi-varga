@@ -51,6 +51,7 @@
                     "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
                     "backend-jwt-expiration": "The session expired after 30 minutes.",
                     "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
+                    "backend-max-email": "Email service exceeded request limit and is temporary blocked. Please try again in 24h.",
                     "backend-missing-zipCode": "Your selected address was refused. Please check your address to contain a postal code and that it is selected from the suggested options.",
                     "backend-required": "Not all necessary data were transferred. Please check your input."
                 },
@@ -60,6 +61,7 @@
                     "InvalidCredentialsException": "Invalid credentials",
                     "InvalidPropertiesException": "Invalid data",
                     "JWTExpirationException": "Expired session",
+                    "RequestExceedMaxException": "Capacity exceeded",
                     "TokenMissingException": "Session token missing"
                 }
             }

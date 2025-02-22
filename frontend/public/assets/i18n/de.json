@@ -51,6 +51,7 @@
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
+                    "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
                     "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
                     "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
                 },
@@ -60,6 +61,7 @@
                     "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
                     "JWTExpirationException": "Sitzung abgelaufen",
+                    "RequestExceedMaxException": "Kapazität überschritten",
                     "TokenMissingException": "Sitzungs-Token fehlt"
                 }
             }

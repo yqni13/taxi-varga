@@ -35,9 +35,10 @@ export class AuthService {
             'TokenMissingException',
             'InvalidCredentialsException',
             'InternalServerException',
-            'AuthSecretNotFoundException'
+            'AuthSecretNotFoundException',
+            'RequestExceedMaxException'
         ];
-        this.statusCodes = ['401', '404', '500', '0'];
+        this.statusCodes = ['401', '404', '429', '500', '0'];
     }
 
     getExceptionCollection(): string[] {

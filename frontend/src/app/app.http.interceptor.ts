@@ -147,7 +147,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
         })
     } 
     // AUTHORIZATION | AUTHENTICATION
-    else if(response.status === 401 || response.status === 404) {
+    else if(response.status === 401 || response.status === 404 || response.status === 429) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
         let env: string | undefined = undefined;

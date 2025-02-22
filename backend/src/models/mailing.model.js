@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 const { 
-    AuthenticationException, 
+    AuthenticationException,
+    RequestExceedMaxException,
     UnexpectedException 
 } = require("../utils/exceptions/common.exception");
 const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
@@ -74,6 +75,8 @@ class MailingModel {
                     reject(false);
                     if(error.responseCode === 535) {
                         throw new AuthenticationException('backend-auth-email');
+                    } else if(error.responseCode === 450) {
+                        throw new RequestExceedMaxException();
                     } else {
                         throw new UnexpectedException('Unexpected error email');
                     }
