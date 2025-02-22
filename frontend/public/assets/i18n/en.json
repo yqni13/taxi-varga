@@ -26,7 +26,7 @@
             "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
-            "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
+            "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
             "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
@@ -44,7 +44,7 @@
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
-                    "backend-invalid-latency": "Latency must not be bigger than 8h. Please check your input.",
+                    "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                     "backend-invalid-tenancy": "Tenancy must be between 3h and 24h. Please check your input.",
@@ -69,8 +69,7 @@
         "about": {
             "business": {
                 "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service in Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
-                "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3).",
-                "workload": "I employed 2 people for the duration of my son's studies, otherwise I work individual without employees in form of EPU (en: single person enterprise)."
+                "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3)."
             },
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
@@ -105,9 +104,9 @@
         },
         "service": {
             "commands": {
-                "calc": "calculate price",
+                "calc": "calculate",
                 "check": "check input",
-                "confirm": "confirm order"
+                "confirm": "send"
             },
             "content": {
                 "airport": {
@@ -133,7 +132,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Destination service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 8h.",
+                        "text": "- Destination service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.",
                         "title": "Please note that"
                     },
                     "labels": {

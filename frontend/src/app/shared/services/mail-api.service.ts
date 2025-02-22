@@ -62,11 +62,15 @@ export class MailAPIService {
             Object.assign(newData, {[k]: v});
         })
 
-        this.mailData = {
-            sender: await this.crypto.encryptRSA(data.email),
-            subject: await this.crypto.encryptRSA(this.mailSubject),
-            body: await this.crypto.encryptAES(JSON.stringify(newData))
-        };
+        try {
+            this.mailData = {
+                sender: await this.crypto.encryptRSA(data.email),
+                subject: await this.crypto.encryptRSA(this.mailSubject),
+                body: await this.crypto.encryptAES(JSON.stringify(newData))
+            };
+        } catch(err) {
+            console.log("Mail could not be send due to loading error: ", err);
+        }
     }
 
     setTranslationValues(data: MailingMessage): any {

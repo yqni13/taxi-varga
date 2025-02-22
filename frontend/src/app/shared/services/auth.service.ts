@@ -50,10 +50,14 @@ export class AuthService {
 
     async initSession(service: ServiceOptions) {
         const addition = this.datetime.getCurrentTimeInMilliseconds();
-        this.credentials = {
-            user: await this.crypto.encryptRSA(environment.AUTH_USER),
-            pass: await this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
-            aud: service
+        try {
+            this.credentials = {
+                user: await this.crypto.encryptRSA(environment.AUTH_USER),
+                pass: await this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
+                aud: service
+            }
+        } catch(err) {
+            console.log("Authentication failed because of loading error: ", err);
         }
     }
 

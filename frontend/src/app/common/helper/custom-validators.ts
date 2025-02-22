@@ -48,8 +48,8 @@ export const requiredTenancyValidator = (): ValidatorFn => {
 export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const time = datetimeService.getTimeInTotalMinutes(control?.value);
-        // 8h max (work day)
-        if(time > (60 * 8)) {
+        // 6h max (measured by golf round)
+        if(time > (60 * 6)) {
             return { maxLatency: true };
         }
         return null;
