@@ -133,7 +133,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
@@ -153,7 +153,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             this.configPickupTimeByLanguage(val.lang);
         });
 
-        this.auth.initSession(ServiceOptions.flatrate);
+        await this.auth.initSession(ServiceOptions.flatrate);
         this.auth.sendInitRequest().subscribe(response => {
             // avoid refreshing token after reload of webpage
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {

@@ -126,7 +126,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
@@ -146,7 +146,7 @@ export class ServiceAirportComponent implements OnInit, AfterViewInit, OnDestroy
             this.configPickupTimeByLanguage(val.lang);
         })
 
-        this.auth.initSession(ServiceOptions.airport);
+        await this.auth.initSession(ServiceOptions.airport);
         this.auth.sendInitRequest().subscribe(response => {
             // avoid refreshing token after reload of webpage
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {

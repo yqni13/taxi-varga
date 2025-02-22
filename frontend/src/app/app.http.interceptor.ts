@@ -7,14 +7,14 @@ import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
 import { MailTranslateService } from "./shared/services/mail-translate.service";
 import { TranslateService } from "@ngx-translate/core";
-import { CryptoService } from "./shared/services/crypto.service";
+// import { CryptoService } from "./shared/services/crypto.service";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const httpObservationService = inject(HttpObservationService);
     const mailTranslateService = inject(MailTranslateService);
     const snackbarService = inject(SnackbarMessageService);
     const translate = inject(TranslateService);
-    const crypto = inject(CryptoService);
+    // const crypto = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return next(req).pipe(
@@ -36,14 +36,16 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
                     httpObservationService.setEmailStatus(true);
-                    const decryptSender = crypto.decryptRSA((httpEvent as HttpResponse<any>).body.body.response.sender);
+                    // TODO(yqni13): clean after decision for what to keep
+                    // const param = httpbody.body.body.response.sender;
+                    // const decryptSender = await crypto.decryptRSA(param);
                     snackbarService.notify({
                         title: translate.currentLang === 'en'
                             ? mailTranslateService.getTranslationEN('common.interceptor.email.success-title')
                             : mailTranslateService.getTranslationDE('common.interceptor.email.success-title'),
                         text: translate.currentLang === 'en'
-                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + decryptSender
-                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + decryptSender,
+                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + 'via Email'
+                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + 'via Email',
                         autoClose: false,
                         type: SnackbarOption.success,
                     })

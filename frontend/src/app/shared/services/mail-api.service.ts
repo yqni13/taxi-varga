@@ -15,7 +15,7 @@ import { environment } from "../../../environments/environment";
 export class MailAPIService {
     private mailData: MailingRequest;
     private urlSend: string;
-    private mailSubject: string | null;
+    private mailSubject: string;
 
     private translateData: any;
 
@@ -40,7 +40,7 @@ export class MailAPIService {
             destination: ''
         }
 
-        this.mailSubject = null;
+        this.mailSubject = '';
         
         try {
             this.mailSubject = environment.MAIL_SUBJECT;
@@ -63,8 +63,8 @@ export class MailAPIService {
         })
 
         this.mailData = {
-            sender: this.crypto.encryptRSA(data.email),
-            subject: this.crypto.encryptRSA(this.mailSubject),
+            sender: await this.crypto.encryptRSA(data.email),
+            subject: await this.crypto.encryptRSA(this.mailSubject),
             body: await this.crypto.encryptAES(JSON.stringify(newData))
         };
     }
