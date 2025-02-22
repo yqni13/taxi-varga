@@ -128,7 +128,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
@@ -148,7 +148,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             this.configPickupTimeByLanguage(val.lang);
         });
 
-        this.auth.initSession(ServiceOptions.destination);
+        await this.auth.initSession(ServiceOptions.destination);
         this.auth.sendInitRequest().subscribe(response => {
             // avoid refreshing token after reload of webpage
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {

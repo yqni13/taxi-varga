@@ -48,11 +48,11 @@ export class AuthService {
         return this.statusCodes;
     }
 
-    initSession(service: ServiceOptions) {
+    async initSession(service: ServiceOptions) {
         const addition = this.datetime.getCurrentTimeInMilliseconds();
         this.credentials = {
-            user: this.crypto.encryptRSA(environment.AUTH_USER),
-            pass: this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
+            user: await this.crypto.encryptRSA(environment.AUTH_USER),
+            pass: await this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
             aud: service
         }
     }
