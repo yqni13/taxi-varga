@@ -1,19 +1,19 @@
 const { body } = require('express-validator');
+const CustomValidator = require('../../utils/customValidator.utils');
 
 exports.mailingSchema = [
     body('sender')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
         .bail()
-        .isEmail()
-        .withMessage('basic-invalid-email'),
+        .custom((encryptedSender) => CustomValidator.validateEncryptedSender(encryptedSender)),
     body('subject')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required'),
+        .withMessage('backend-required'),
     body('body')
         .trim()
         .notEmpty()
-        .withMessage('basic-invalid-required')
+        .withMessage('backend-required')
 ]

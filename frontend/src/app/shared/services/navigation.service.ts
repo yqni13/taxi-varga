@@ -7,8 +7,38 @@ import { Route, Router } from "@angular/router";
 })
 export class NavigationService {
 
+    private currentUrl: string;
+    private previousUrl: string;
+
     constructor(private router: Router) {
-        //
+        this.currentUrl = '';
+        this.previousUrl = '';
+    }
+
+    setCurrentUrl(url: string) {
+        if(url.length < 1) {
+            this.currentUrl = 'UNAVAILABLE';
+            return;
+        }
+
+        this.currentUrl = url;
+    }
+
+    getCurrentUrl(): string {
+        return this.currentUrl;
+    }
+
+    setPreviousUrl(url: string) {
+        if(url.length < 1) {
+            this.previousUrl = 'UNAVAILABLE';
+            return;
+        }
+
+        this.previousUrl = url;
+    }
+
+    getPreviousUrl(): string {
+        return this.previousUrl;
     }
 
     getNavigationRoutes(): Route[] {

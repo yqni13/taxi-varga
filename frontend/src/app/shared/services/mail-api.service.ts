@@ -6,6 +6,7 @@ import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "./datetime.service";
 import { MailTranslateService } from "./mail-translate.service";
 import { UtilsService } from "./utils.service";
+import { CryptoService } from "./crypto.service";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -14,13 +15,14 @@ import { environment } from "../../../environments/environment";
 export class MailAPIService {
     private mailData: MailingRequest;
     private urlSend: string;
-    private divider: string;
+    private mailSubject: string;
 
     private translateData: any;
 
     constructor(
         private readonly http: HttpClient,
         private readonly utils: UtilsService,
+        private readonly crypto: CryptoService,
         private readonly translate: TranslateService,
         private readonly datetimeService: DateTimeService,
         private readonly mailTranslateService: MailTranslateService
@@ -38,51 +40,74 @@ export class MailAPIService {
             destination: ''
         }
 
-        this.divider = `
-        -----------------------------------------------------
-        -----------------------------------------------------
-        `;
-        // TODO(yqni13): clean input before use
+        this.mailSubject = '';
+        
+        try {
+            this.mailSubject = environment.MAIL_SUBJECT;
+        } catch(err) {
+            console.log("MailService: env var MAIL_SUBJECT not found", err);
+            // TODO(yqni13): client side exception handling missing
+        }
 
         // this.urlSend = '/api/v1/mailing/send';
         this.urlSend = environment.API_BASE_URL + '/api/v1/mailing/send';
     }
 
-    setMailData(data: MailingMessage) {
+    async setMailData(data: MailingMessage) {
 
         data.phone = this.utils.configPhoneNumber(data.phone);
-
-        // german version
-        const declareGerman = 'Deutsche Version';
-        const declareEnglish = 'English version';
-
-        const hasLatency = data.latency ? this.datetimeService.getTimeInTotalMinutes(data.latency) > 0 : false;
-        
-        const bodyInGerman = this.configEmailBodyDE(data, hasLatency);
-        const bodyInEnglish = this.configEmailBodyEN(data, hasLatency);
+        const translateData = this.setTranslationValues(data);
+        const newData: any = data;
+        Object.entries(translateData).forEach(([k, v]) => {
+            Object.assign(newData, {[k]: v});
+        })
 
         this.mailData = {
-            sender: data.email,
-            subject: `Anfrage/Request: Taxi-Varga Service`,
-            body: `${declareGerman}\n${bodyInGerman}\n\n${this.divider}\n\n${declareEnglish}\n${bodyInEnglish}`
+            sender: await this.crypto.encryptRSA(data.email),
+            subject: await this.crypto.encryptRSA(this.mailSubject),
+            body: await this.crypto.encryptAES(JSON.stringify(newData))
         };
     }
 
+    setTranslationValues(data: MailingMessage): any {
+        return {
+            originTranslateDE: data.service === 'airport' && data.airport === 'arrival'
+                ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
+                : data.originAddress,
+            originTranslateEN: data.service === 'airport' && data.airport === 'arrival'
+                ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
+                : data.originAddress,
+            destinationTranslateDE: data.service === 'airport' && data.airport === 'departure'
+                ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
+                : data.destinationAddress,
+            destinationTranslateEN: data.service === 'airport' && data.airport === 'departure'
+                ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
+                : data.destinationAddress, 
+            serviceTranslateDE: this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`),
+            serviceTranslateEN: this.mailTranslateService.getTranslationEN(`shared.enum.service.${data.service}`),
+            genderTranslateDE: this.mailTranslateService.getTranslationDE(`shared.enum.gender.${data.gender}`),
+            genderTranslateEN: this.mailTranslateService.getTranslationEN(`shared.enum.gender.${data.gender}`),
+            pickupTimeEN: this.datetimeService.getTimeFromLanguage(data.pickupTIME, 'en'),
+            dropOffTimeEN: data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : '',
+            hasLatency: data.latency ? this.datetimeService.getTimeInTotalMinutes(data.latency) > 0 : false
+        }
+    }
+
     configEmailBodyDE(data: MailingMessage, hasLatency: boolean): string {
-        this.translateData.origin = data.service === 'airport' && data.airport === 'arrival'
+        const originTranslateDE = data.service === 'airport' && data.airport === 'arrival'
             ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
             : data.originAddress;
-        this.translateData.destination = data.service === 'airport' && data.airport === 'departure'
+        const destinationTranslateDE = data.service === 'airport' && data.airport === 'departure'
             ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
             : data.destinationAddress;
-        this.translateData.service = this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`);
-        this.translateData.gender = this.mailTranslateService.getTranslationDE(`shared.enum.gender.${data.gender}`);
+        const serviceTranslateDE = this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`);
+        const genderTranslateDE = this.mailTranslateService.getTranslationDE(`shared.enum.gender.${data.gender}`);
 
-        const msgStart = `Anfrage für Service: ${this.translateData.service}`;
+        const msgStart = `Anfrage für Service: ${serviceTranslateDE}`;
 
-        const msgCustomer = `Daten zur Person:\n${this.translateData.gender} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? '"' + data.note + '"' : '--'}`;
+        const msgCustomer = `Daten zur Person:\n${genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${this.translateData.origin}\nZieladresse: ${this.translateData.destination}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${originTranslateDE}\nZieladresse: ${destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
         const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
 

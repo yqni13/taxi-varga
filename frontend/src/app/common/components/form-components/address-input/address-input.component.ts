@@ -166,7 +166,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         const route = array.filter((entry: any) => entry.types[0] === 'route').map((entry: any) => entry.long_name);
         const name = data.body?.body.placeData.result.name;
         const address = data.body?.body.placeData.result.formatted_address;
-        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => JSON.stringify(entry.long_name));
+        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.long_name as string);
         const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.long_name as string);
         const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.long_name as string);
 

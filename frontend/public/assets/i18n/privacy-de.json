@@ -1,0 +1,38 @@
+{
+    "z-content-privacy": {
+        "content": {
+            "access": "Sie haben das Recht, von uns jederzeit auf Antrag eine Auskunft über die von uns verarbeiteten, Sie betreffenden personenbezogenen Daten im Umfang des Art. 15 DSGVO zu erhalten. Hierzu können Sie einen Antrag postalisch oder per E-Mail an die im Impressum genannte Adresse stellen.",
+            "complaint": {
+                "address0": "Barichgasse 40-42",
+                "address1": "1030 Wien",
+                "authority": "\nÖsterreichische Datenschutzbehörde",
+                "mail": "dsb@dsb.gv.at",
+                "phone": "+431521520",
+                "text": "Wenn Sie der Auffassung sind, dass die Verarbeitung Sie betreffender personenbezogener Daten durch uns unzulässig ist, haben Sie das Recht, sich bei der für uns zuständigen Aufsichtsbehörde zu beschweren, die Sie wie folgt kontaktieren können:",
+                "web": "https://dsb.gv.at/"
+            },
+            "cookies": "Um die Verwendung der Webseite sicherer zu gestalten, verwenden wir Cookies, um Daten zur internen Kommunikation zu speichern. Diese Daten werden lediglich für die Sicherheit unseres Systems verwendet. Hierbei werden keine personenbezogenen Daten gespeichert.",
+            "deletion-period": "Personenbezogene Daten werden nur durch den Schriftverkehr per E-Mail für 6 Monate nach dem vertraglich gebuchten Service gespeichert und dann routinemäßig gelöscht. Sollten diese Daten im Rahmen einer Rechtsverfolgung verwendet werden müssen, verlängert sich die Frist erneut um 6 Monate ab Ende der Rechtsverfolgung.",
+            "disclosure": "Wir verkaufen Ihre Daten weder an Dritte noch vermarkten wir diese anderweitig. Darüber hinaus werden Ihre personenbezogenen Daten ohne Ihre ausdrückliche Einwilligung an die Strafverfolgungsbehörden sowie gegebenenfalls an geschädigte Dritte weitergeleitet, wenn es zur Aufklärung einer rechtswidrigen Nutzung unserer Dienste oder für die Rechtsverfolgung erforderlich ist. Dies geschieht jedoch nur dann, wenn konkrete Anhaltspunkte für ein gesetzwidriges beziehungsweise missbräuchliches Verhalten vorliegen. Eine Weitergabe kann auch dann stattfinden, wenn dies der Durchsetzung von Nutzungsbedingungen oder anderer Vereinbarungen dient. Wir sind zudem gesetzlich verpflichtet, auf Anfrage bestimmten öffentlichen Stellen Auskunft zu erteilen. Dies sind Strafverfolgungsbehörden, Behörden, die bußgeldbewehrte Ordnungswidrigkeiten verfolgen und die Finanzbehörden.\n\nDie Weitergabe dieser Daten erfolgt auf Grundlage unseres berechtigten Interesses an der Bekämpfung von Missbrauch, der Verfolgung von Straftaten und der Sicherung, Geltendmachung und Durchsetzung von Ansprüchen sofern Ihre Rechte und Interessen am Schutz Ihrer personenbezogenen Daten nicht überwiegen, Art. 6 Abs. 1 lit. f DSGVO.",
+            "erasure": "Sie haben ein Recht auf unverzügliche Löschung („Recht auf Vergessenwerden“) der Sie betreffenden personenbezogenen Daten bei Vorliegen der rechtlichen Gründe nach Art. 17 DSGVO. Diese liegen etwa vor, wenn die personenbezogenen Daten für die Zwecke, für die sie ursprünglich verarbeitet worden sind, nicht mehr notwendig sind oder Sie Ihre Einwilligung widerrufen haben und wenn es an einer anderweitigen Rechtsgrundlage für die Verarbeitung fehlt; die betroffene Person Widerspruch gegen die Verarbeitung einlegt (und keine vorrangigen Gründe für eine Verarbeitung vorliegen - dies gilt nicht bei Widersprüchen gegen Direktwerbung). Um Ihr vorstehendes Recht geltend zu machen, wenden Sie sich bitte an die im Impressum angegebene Kontaktadresse.",
+            "object": "Sie haben das Recht, aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit gegen die Verarbeitung Sie betreffender personenbezogener Daten, die u.a. aufgrund von Art. 6 Abs. 1 lit. e oder f DSGVO erfolgt, Widerspruch nach Art. 21 DSGVO einzulegen. Wir werden die Verarbeitung Ihrer personenbezogenen Daten einstellen, es sei denn, wir können zwingende schutzwürdige Gründe für die Verarbei-tung nachweisen, die Ihre Interessen, Rechte und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung von Rechtsansprüchen. Um Ihr vorstehendes Recht geltend zu machen, wenden Sie sich bitte an die im Impressum angegebene Kontaktadresse.",
+            "portability": "Sie haben ein Recht auf Datenübertragbarkeit nach Art. 20 DSGVO. Sie haben hierbei das Recht, die Sie betreffenden Daten, die Sie uns bereitgestellt haben, in einem gängigen, strukturierten und maschinenlesbaren Format zu erhalten und diese Daten an einen anderen Verantwortlichen, etwa einen anderen Dienstleister, zu übergeben. Voraussetzung ist hierfür, dass die Verarbeitung auf einer Einwilligung oder auf einem Vertrag beruht und mithilfe automatisierter Verfahren erfolgt. Um Ihr vorstehendes Recht geltend zu machen, wenden Sie sich bitte an die im Impressum angegebene Kontaktadresse.",
+            "rectification": "Sie haben das Recht, von uns die unverzügliche Berichtigung der Sie betreffenden personenbezogenen Daten zu verlangen, sofern diese unrichtig sein sollten (Art. 16 DSGVO). Wenden Sie sich bitte an die im Impressum angegebene Kontaktadresse.",
+            "restriction": "Sie haben ein Recht auf Einschränkung der Verarbeitung beim Vorliegen der Voraussetzungen und nach Maßgabe von Art. 18 DSGVO. Danach kann die Einschränkung der Verarbeitung insbesondere geboten sein, wenn die Verarbeitung unrechtmäßig ist und die betroffene Person die Löschung der personenbezogenen Daten ablehnt und stattdessen die Einschränkung der Nutzung der personenbezogenen Daten verlangt oder die betroffene Person Widerspruch gegen die Verarbeitung gemäß Art. 21 Abs. 1 DSGVO eingelegt hat, solange noch nicht feststeht, ob unsere berechtigten Gründe gegenüber ihren überwiegen. Um Ihr vorstehendes Recht geltend zu machen, wenden Sie sich bitte an die im Impressum angegebene Kontaktadresse.",
+            "security": "Taxi-Varga setzt technische und organisatorische Sicherungsmaßnahmen ein, um Ihre zur Verfügung gestellten Daten vor zufälligen oder vorsätzlichen Manipulationen, Verlust, Zerstörung oder dem Zugriff unberechtigter Personen zu schützen. Die Maßnahmen und Wirksamkeit unserer Sicherheit werden entsprechend der technologischen Entwicklung fortlaufend verbessert. Alle Übertragungen von personenbezogenen Daten zwischen Client und Server werden stark asymmetrisch verschlüsselt übertragen."
+        },
+        "headers": {
+            "access": "Auskunftsrecht",
+            "complaint": "Recht zur Beschwerde bei einer Aufsichtsbehörde",
+            "cookies": "Cookies",
+            "deletion-period": "Regelfrist für die Löschung von Daten",
+            "disclosure": "Weitergabe an Dritte",
+            "erasure": "Recht auf Löschung",
+            "object": "Widerspruchsrecht",
+            "portability": "Recht auf Datenübertragbarkeit",
+            "rectification": "Recht zur Berichtigung unrichtiger Daten",
+            "restriction": "Recht auf Einschränkung der Verarbeitung",
+            "security": "Sicherheit"
+        }
+    }
+}

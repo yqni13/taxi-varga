@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { Subject, Subscription, tap } from "rxjs";
+import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
 
@@ -21,7 +21,6 @@ import { CommonModule } from "@angular/common";
 export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
-    protected selectedLanguage$: Subject<string>;
     protected devData: any;
     protected ownerData: any;
 
@@ -32,7 +31,6 @@ export class ImprintComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
-        this.selectedLanguage$ = new Subject<string>();
         this.subscriptionThemeObservation$ = new Subscription();
         
         this.devData = {
@@ -40,7 +38,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
             version: 'v1.0.0-beta.2',
             github: 'https://github.com/yqni13/taxi-varga',
             portfolio: 'https://yqni13.com',
-            email: 'lukas.varga@yqni13.com'
+            email: 'yqni13@protonmail.com'
         };
 
         this.ownerData = {
@@ -67,10 +65,6 @@ export class ImprintComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
-
-        this.translate.onLangChange.subscribe(val => {
-            this.selectedLanguage$.next(val.lang);
-        })
     }
 
     ngOnDestroy() {

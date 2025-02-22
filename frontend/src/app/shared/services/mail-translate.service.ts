@@ -22,23 +22,23 @@ export class MailTranslateService {
         }
     }
 
-    getTranslationEN(path: string): string {
+    getTranslationEN(path: string, env?: string): string {
         if(path === '' || path.includes('undefined')) {
             return '[TRANSLATION PATH NOT FOUND]';
         }
 
-        return this.getTranslationByStringPath(path, this.dataEN);
+        return this.getTranslationByStringPath(path, this.dataEN, env || null);
     }
 
-    getTranslationDE(path: string): string {
+    getTranslationDE(path: string, env?: string): string {
         if(path === '' || path.includes('undefined')) {
             return '[TRANSLATION PATH NOT FOUND]';
         }
 
-        return this.getTranslationByStringPath(path, this.dataDE);
+        return this.getTranslationByStringPath(path, this.dataDE, env || null);
     }
 
-    getTranslationByStringPath(path: string, dataLang: any): string {
+    getTranslationByStringPath(path: string, dataLang: any, env: string | null = null): string {
         const accessKeys: string[] = [];
         let start = 0;
         
@@ -51,8 +51,11 @@ export class MailTranslateService {
                 accessKeys.push(path.slice(start, char.index+1));
             }
         });
-        const result = accessKeys.reduce((prev, curr) => prev?.[curr], dataLang);
+
+        let result = accessKeys.reduce((prev, curr) => prev?.[curr], dataLang);
+        if(env && result.includes('{{ENV}}')) {
+            result = result.replace('{{ENV}}', env);
+        }
         return result !== undefined ? result : 'TRANSLATION PATH INVALID';
     }
-
 }

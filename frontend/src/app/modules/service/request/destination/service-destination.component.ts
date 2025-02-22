@@ -21,6 +21,13 @@ import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
 import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 import { AddressOptions } from "../../../../shared/enums/address-options.enum";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { TokenService } from "../../../../shared/services/token.service";
+import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { NavigationService } from "../../../../shared/services/navigation.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
+import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 
 @Component({
     selector: 'tava-service-destination',
@@ -46,6 +53,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
+    protected hasToken: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
@@ -63,6 +71,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
     private window: any;
     private scrollAnchor!: HTMLElement;
     private delay: any;
@@ -70,11 +79,16 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly auth: AuthService,
         private readonly elRef: ElementRef,
         private readonly router: Router,
+        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
+        private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
+        private readonly snackbar: SnackbarMessageService,
+        private readonly mailTranslate: MailTranslateService,
         private readonly drivingAPIService: DrivingAPIService,
         private readonly datetimeService: DateTimeService,
         private httpObservationService: HttpObservationService,
@@ -82,6 +96,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
     ) {
         this.selectedBg = '';
         this.hasOffer = false;
+        this.hasToken = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
@@ -99,6 +114,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
+        this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -112,7 +128,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
@@ -132,8 +148,28 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
             this.configPickupTimeByLanguage(val.lang);
         });
 
+        await this.auth.initSession(ServiceOptions.destination);
+        this.auth.sendInitRequest().subscribe(response => {
+            // avoid refreshing token after reload of webpage
+            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+                this.tokenService.setToken(response.body?.body.token);
+            }
+            this.snackbar.notify({
+                title: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.destination.info.title')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.destination.info.title'),
+                text: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.destination.info.text')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.destination.info.text'),
+                autoClose: false,
+                type: SnackbarOption.info
+            })
+            this.hasToken = true;
+        });
+
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-destination");
+
     }
 
     ngAfterViewInit() {
@@ -158,6 +194,16 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
                     this.router.navigate(['/service']);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorStatus$.pipe(
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
+            tap((response: any) => {
+                if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
+                    this.httpObservationService.setErrorStatus(null);
+                    this.router.navigate(['/service']);
                 }
             })
         ).subscribe();
@@ -325,7 +371,7 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })
@@ -348,5 +394,6 @@ export class ServiceDestinationComponent implements OnInit, AfterViewInit, OnDes
         this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
+        this.subscriptionHttpObservationError$.unsubscribe();
     }
 }

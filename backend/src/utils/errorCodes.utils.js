@@ -1,10 +1,10 @@
 module.exports.ErrorCodes = {
     NotFoundException: 0,
     InternalServerException: 1,
-    InvalidEndpointException: 2,
-    InvalidPropertiesException: 3,
-    InvalidTokenException: 4,
-    UnexpectedException: 5,
-    UnimplementedException: 6,
-    HealthCheckFailedException: 7
+    InvalidPropertiesException: 2,
+    UnexpectedException: 3,
+    InvalidCredentialsException: 4,
+    AuthSecretNotFoundException: 5,
+    TokenMissingException: 6,
+    JWTExpirationException: 7,
 };

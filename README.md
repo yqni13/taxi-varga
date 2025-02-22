@@ -43,8 +43,11 @@ Get startet with `npm install` (/frontend and /backend) to create necessary modu
 
 ### Build & Deploy
 The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.
+<br><br>
+Note: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
 <br>
-<br>
+Currently public/private keys are converted from single-line secret to multi-line secret in: <a href="./frontend/set-env.ts">set-env.ts</a>
+<br><br>
 
 ## Overview
 

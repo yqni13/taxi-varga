@@ -6,7 +6,8 @@
                 "language": "Select your language:"
             },
             "title": {
-                "imprint": "Imprint"
+                "imprint": "Imprint",
+                "privacy": "Privacy police"
             }
         },
         "interceptor": {
@@ -28,7 +29,7 @@
             "latency-invalid-upper-limit": "Latency must not be bigger than 8h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
-            "tenancy-invalid-lower-limit": "Tenancy can not be negative.",
+            "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
             "tenancy-invalid-zero": "Tenancy can not be zero.",
@@ -36,12 +37,30 @@
                 "data": {
                     "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
                     "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
-                    "basic-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
-                    "basic-invalid-language": "The selected language is not available for Google Translate in search results. Please choose another language.",
-                    "basic-invalid-required": "Not all necessary data were transferred. Please check your input."
+                    "backend-404-env": "Secret data {{ENV}} is missing. Please try again later or contact support.",
+                    "backend-500-routes": "The api endpoint is not available at the moment. Please try again later or contact support.",
+                    "backend-500-server": "Communication with the server is not available at the moment. Please try again later or contact support.",
+                    "backend-auth-email": "Email service not available. Please try again later or contact support.",
+                    "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
+                    "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                    "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
+                    "backend-invalid-latency": "Latency must not be bigger than 8h. Please check your input.",
+                    "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                    "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
+                    "backend-invalid-tenancy": "Tenancy must be between 3h and 24h. Please check your input.",
+                    "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
+                    "backend-jwt-expiration": "The session expired after 30 minutes.",
+                    "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
+                    "backend-missing-zipCode": "Your selected address was refused. Please check your address to contain a postal code and that it is selected from the suggested options.",
+                    "backend-required": "Not all necessary data were transferred. Please check your input."
                 },
                 "header": {
-                    "InvalidPropertiesException": "Invalid data"
+                    "AuthSecretNotFoundException": "Env variable missing",
+                    "InternalServerException": "Server connection error",
+                    "InvalidCredentialsException": "Invalid credentials",
+                    "InvalidPropertiesException": "Invalid data",
+                    "JWTExpirationException": "Expired session",
+                    "TokenMissingException": "Session token missing"
                 }
             }
         }
@@ -56,7 +75,7 @@
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
                 "location": "Business location: Leobersdorf",
-                "second": "In the first three years after changing careers, I worked as limited partner (ger: \"Kommanditist\") at Maxi-Mietwagen and as chauffeur for Taxi Göring. After successfully passing the entrepreneurial exam that followed, I established my own taxi business in 1999 as a sole proprietorship (EPU - single-person enterprise).",
+                "second": "I then changed careers, worked for 3 years as a limited partner (ger: \"Kommanditist\") at Maxi-Autovermietung and as a chauffeur at Taxi Göring. After successfully passing the entrepreneur's exam, I founded my own taxi company in 1999 as an EPU (single-person enterprise) and run the taxi business continuously in 1-shift operation.",
                 "workrange": "Work range: Vienna"
             },
             "title": "About me and my business"
@@ -78,6 +97,9 @@
         "imprint": {
             "title": "Imprint"
         },
+        "privacy": {
+            "title": "Privacy policy"
+        },
         "samples": {
             "title": "Flatrate samples"
         },
@@ -90,6 +112,10 @@
             "content": {
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
+                    "info": {
+                        "text": "Airport service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
+                        "title": "Please note that"
+                    },
                     "labels": {
                         "arrival": "Arrival at Vienna Airport",
                         "datetime": "Date & time (pickup)",
@@ -106,6 +132,10 @@
                     "vie-schwechat": "Vienna International Airport"
                 },
                 "destination": {
+                    "info": {
+                        "text": "- Destination service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 8h.",
+                        "title": "Please note that"
+                    },
                     "labels": {
                         "back2home": "I want to return to my pickup address.",
                         "datetime": "Date & time (pickup)",
@@ -121,6 +151,10 @@
                     "title": "Destination - route details"
                 },
                 "flatrate": {
+                    "info": {
+                        "text": "- Tenancy can be ordered for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 40,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
+                        "title": "Please note that"
+                    },
                     "labels": {
                         "datetime-end": "Date & time (return)",
                         "datetime-start": "Date & time (pickup)",
@@ -171,7 +205,7 @@
                         "distance": "Driven distance",
                         "duration": "Driving time",
                         "latency": "Waiting time",
-                        "latency-calc": "The first hour waiting time costs 24,00 EUR and every following hour 12,00 EUR. Every half hour or part thereof is charged.",
+                        "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
                         "price-estimated": "estimated price",
                         "price-fixed": "Fixed price",
@@ -179,7 +213,7 @@
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
                         "tenancy": "charged tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
-                        "terms": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
+                        "terms": "I agree that I have already reached the age of 18 and provide my personal data only for the purpose of contracting the service. Furthermore, I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs ({{fieldValue}},00 EUR) in case of cancelation or unexcused absence within these last 24 hours.",
                         "time-dropoff": "estimated drop-off",
                         "time-pickup": "Time of pick-up",
