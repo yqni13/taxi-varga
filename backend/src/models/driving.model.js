@@ -90,13 +90,13 @@ class DrivingModel {
             price: 0,
             distance: 0,
             time: 0,
-            info: ''
         }
         const priceApproachLess8km = 4;
         const priceApproachMore8km = 0.5;
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
-        const priceReturn = 0.5;
+        const priceReturnSingle = 0.5;
+        const priceReturnB2H = 0.4;
         const priceLatency30min = 12;
         let approachCosts = 0;
 
@@ -113,8 +113,8 @@ class DrivingModel {
         let totalServiceTime = 0;
 
         if(params['back2home'] === true) {
-            payingServiceDistance = origin2destination.distanceMeters;
-            totalServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters
+            payingServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters;
+            totalServiceDistance = payingServiceDistance;
             totalServiceTime = origin2destination.duration + destination2origin.duration
         } else if(params['back2home'] === false) {
             totalServiceDistance = origin2destination.distanceMeters;
@@ -136,17 +136,10 @@ class DrivingModel {
             : (params['latency'] / 30) * priceLatency30min;
 
         const returnCosts = params['back2home'] === true
-            ? (origin2home.distanceMeters * priceReturn) + latencyCosts
-            : destination2home.distanceMeters * priceReturn;
+            ? (origin2home.distanceMeters * priceReturnSingle) + latencyCosts
+            : destination2home.distanceMeters * priceReturnB2H;
 
-        const discount = this.#calcFinalDiscount({
-            origin: params['originDetails'],
-            destination: params['destinationDetails'],
-            back2home: params['back2home'],
-            distance: totalServiceDistance
-        })
-        
-        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts - discount.sum;
+        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
 
         result['time'] = Math.ceil(totalServiceTime);
 
@@ -159,9 +152,6 @@ class DrivingModel {
             : totalServiceDistance < 1
                 ? totalServiceDistance
                 : Math.floor(totalServiceDistance);
-
-        // TODO(yqni13): remove after client ended testing phase?
-        result['info'] = `f${discount.factor}v${discount.value}//:s${discount.sum}`
 
         return {routeData: result};
     }
@@ -206,24 +196,6 @@ class DrivingModel {
             routeData: {
                 price: Math.ceil(totalCost)
             }
-        };
-    }
-
-    #calcFinalDiscount = (params) => {
-        let discount = 0;
-        let factor = 0;
-        if(Utils.checkAddressInVienna(params.origin.zipCode) 
-        || Utils.checkAddressInVienna(params.destination.zipCode)
-        || Utils.checkAddressAtViennaAirport(params.origin.zipCode)
-        || Utils.checkAddressAtViennaAirport(params.destination.zipCode)) {
-            factor = Math.floor(params.distance / 100)
-            discount = params.back2home ? factor * 10 : factor * 5;
-        }
-
-        return {
-            factor: factor,
-            value: params.back2home ? 10 : 5,
-            sum: discount
         };
     }
 }

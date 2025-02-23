@@ -178,8 +178,6 @@ export async function handleError(response: any, httpObservationService: HttpObs
     }
 
     // browser response log
-    if(response.status !== 0 && !response.url.includes('/init')) {
-        console.log('response error: ', response);
-        httpObservationService.setErrorStatus(response);
-    }
+    console.log('response error: ', response);
+    httpObservationService.setErrorStatus(response);
 }
