@@ -1,11 +1,11 @@
-const { Config } = require('../../configs/config');
+const Secrets = require('../secrets.utils')
 const { ErrorCodes } = require('../errorCodes.utils');
 
 class ValidationException extends Error {
     constructor(code, message, data) {
         super(message);
-        if(Config.MODE === 'development') {
-            this.message = 'Validation Error: ' + message;
+        if(Secrets.MODE === 'development') {
+            this.message = message;
         } else {
             this.message = message;
         }

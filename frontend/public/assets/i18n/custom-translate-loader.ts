@@ -18,7 +18,9 @@ export class CustomTranslateLoader implements TranslateLoader {
         // list of files each language to load
         const paths = [
             `${this.prefix}${language}.json`,
-            `${this.prefix}content-${language}.json`
+            `${this.prefix}imprint-${language}.json`,
+            `${this.prefix}privacy-${language}.json`,
+            `${this.prefix}samples-${language}.json`
         ];
 
         return forkJoin(paths.map(path => this.http.get(path))).pipe(

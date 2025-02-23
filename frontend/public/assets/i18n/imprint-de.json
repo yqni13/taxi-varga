@@ -1,0 +1,34 @@
+{
+    "z-content-imprint": {
+        "content": {
+            "data-copyright1": "Alle Inhalte dieser Webseite (Bilder, Fotos, Texte, Videos) sind urheberrechtlich geschützt. Die Rechte an den Bildern liegen, soweit nicht anders angegeben, bei Fotografin Daniela Varga. Externe Bilderquellen sind jeweils entsprechend gekennzeichnet.",
+            "data-copyright2": "Bitte fragen Sie uns, bevor Sie Inhalte dieser Website verbreiten, vervielfältigen oder in irgendeiner Weise verwenden. Die unerlaubte Nutzung von Inhalten wird rechtlich verfolgt. Sollten Sie Inhalte finden, die Urheberrechte verletzen, kontaktieren Sie uns bitte umgehend.",
+            "data-dispute1": "Diese Plattform richtet sich an Verbraucher innerhalb der EU. Gemäß Verordnung über Online-Streitbeilegung in Verbraucherangelegenheiten (ODR-Verordnung) möchten wir Sie über die Online-Streitbeilegungsplattform (",
+            "data-dispute2": ") informieren. Verbraucher haben die Möglichkeit, Beschwerden an die Online Streitbeilegungsplattform der Europäischen Kommission unter folgendem Link zu richten. Die dafür notwendigen Kontaktdaten finden Sie oberhalb in unserem Impressum.",
+            "data-dispute3": "Wir möchten Sie jedoch darauf hinweisen, dass wir nicht bereit oder verpflichtet sind, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.",
+            "data-liability-content1": "Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr. Als Diensteanbieter sind wir gemäß § 18 ECG nicht verpflichtet, übermittelte oder gespeicherte Informationen Dritter zu überwachen oder nach Umständen zu forschen, die auf rechtswidrige Tätigkeiten hinweisen. Verpflichtungen zur Entfernung oder Sperrung von Informationen nach den allgemeinen Gesetzen bleiben hiervon unberührt.",
+            "data-liability-content2": "Sollten Ihnen problematische oder rechtswidrige Inhalte auffallen, bitten wir Sie, uns umgehend zu kontaktieren. Unsere Kontaktdaten finden Sie oben im Impressum.",
+            "data-liability-links1": "Unsere Website enthält Links zu anderen Websites für deren Inhalt wir nicht verantwortlich sind. Haftung für verlinkte Websites besteht für uns nicht, da wir keine Kenntnis rechtswidriger Tätigkeiten hatten und haben, uns solche Rechtswidrigkeiten auch bisher nicht aufgefallen sind und wir Links sofort entfernen würden, wenn uns Rechtswidrigkeiten bekannt werden.",
+            "data-liability-links2": "Wenn Ihnen rechtswidrige Links auf unserer Website auffallen, bitte wir Sie uns zu kontaktieren. Sie finden die Kontaktdaten im Impressum.",
+            "data-open-source": {
+                "address": "2500 Baden-Umgebung, Österreich",
+                "project": "Projekt: ",
+                "warning": "Die angegebenen Kontaktdaten dienen ausschließlich für technische Anfragen oder rechtliche Angelegenheiten. Bei Missbrauch der Kontaktdaten behalten wir uns rechtliche Schritte vor."
+            },
+            "data-owner": {
+                "authority": "Gewerbebehörde: Magistrat der Stadt Wien",
+                "business": "Ing. Laszlo Varga, e.U. (Ein-Personen-Unternehmen)",
+                "service": "Taxigewerbe",
+                "uid": "UID: "
+            }
+        },
+        "headers": {
+            "copyright": "Urheberrechtshinweis",
+            "dispute": "EU-Streitschlichtung",
+            "liability-content": "Haftung für Inhalte dieser Website",
+            "liability-links": "Haftung für Links auf dieser Website",
+            "open-source": "Open-Source Website (Support)",
+            "owner": "Informationen über den Website-Eigentümer"
+        }
+    }
+}

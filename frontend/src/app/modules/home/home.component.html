@@ -17,62 +17,31 @@
                 <ul>
                     <li>
                         <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
+                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
                             <span>
-                                {{'modules.home.content.experience' | translate}}
+                                {{'modules.home.highlights.start' | translate}}
                             </span>
                         </div>
                     </li>
                     <li>
                         <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
-                            <span>
-                                {{'modules.home.content.time' | translate}}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
+                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
                             <div>
                                 <span class="tava-anchor">
                                     {{'modules.home.highlights.zero-emission' | translate}}
                                 </span>
                                 <span>
-                                    {{'modules.home.content.ev' | translate}}
+                                    {{'modules.home.highlights.ev' | translate}}
                                 </span>
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li *ngFor="let entry of [].constructor(homeContentLength); let i = index">
                         <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
+                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
+                            
                             <span>
-                                {{'modules.home.content.classification' | translate}}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
-                            <span>
-                                {{'modules.home.content.comfort' | translate}}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
-                            <span>
-                                {{'modules.home.content.capacity' | translate}}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <i class="icon-Taxi"></i>
-                            <span>
-                                {{'modules.home.content.payment' | translate}}
+                                {{'modules.home.content.entry' + i | translate}}
                             </span>
                         </div>
                     </li>

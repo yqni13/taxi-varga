@@ -86,11 +86,11 @@
         width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
-        border: 1px outset var(--theme-snackbar-warning);
+        border: 1px outset var(--theme-snackbar-info);
         border-radius: sass.$space15;
         padding: sass.$space15;
         font-style: italic;
-        color: var(--theme-snackbar-warning);
+        color: var(--theme-snackbar-info);
         span {
             opacity: var(--warning-opacity);
             text-shadow: 1px 1px 5px var(--warning-shadow);
@@ -100,7 +100,7 @@
 
     #tava-service-offer-price .tava-service-destination-offer-sum-right {
         font-weight: bold;
-        color: var(--theme-main-green);
+        color: var(--theme-palette-highlight);
     }
     
     #tava-service-offer-price {

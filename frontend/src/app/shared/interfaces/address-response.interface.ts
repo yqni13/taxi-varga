@@ -8,5 +8,6 @@ export declare interface AddressDetailsResponse {
     address: string,
     zipCode: string,
     province: string,
-    country: string
+    country: string,
+    placeId: string
 }

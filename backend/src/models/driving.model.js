@@ -1,7 +1,7 @@
-require('dotenv').config();
-const Utils = require("../utils/common.utils")
 const GoogleRoutes = require('../services/google-routes/google-routes.api');
 const { NotFoundException } = require("../utils/exceptions/common.exception");
+const Secrets = require('../utils/secrets.utils');
+const Utils = require('../utils/common.utils');
 
 class DrivingModel {
 
@@ -15,19 +15,25 @@ class DrivingModel {
         const districtRange42 = [1, 2, 3, 4, 10, 11];
         const districtRange45 = [5, 6, 7, 8, 9, 12, 15, 20];
         const districtRange48 = [13, 14, 16, 17, 18, 19, 21, 22, 23];
-        let district, price;
+        let district, price, matrixParams;
 
         if(params['origin'] === 'vie-schwechat') {
             district = params['destinationDetails']['zipCode'];
+            matrixParams = {
+                origin: params['origin'],
+                destination: params['destinationDetails']['placeId'],
+                useId: 'destination'
+            };
         } else if(params['destination'] === 'vie-schwechat') {
             district = params['originDetails']['zipCode'];
+            matrixParams = {
+                origin: params['originDetails']['placeId'],
+                destination: params['destination'],
+                useId: 'origin'
+            };
         }
 
-        const route = await GoogleRoutes.requestMapsMatrix({
-            origin: params['origin'], 
-            destination: params['destination']
-        });
-        
+        const route = await GoogleRoutes.requestMapsMatrix(matrixParams, matrixParams['useId']);
         const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000 to get total km
         const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60 to get total minutes
 
@@ -59,7 +65,8 @@ class DrivingModel {
         }
 
         params['back2home'] = params['back2home'] === 'true' ? true : false;
-        params['latency'] = Number(params['latency']);
+        // manual discount: cost limit = 4h (4 * 60min)
+        params['latency'] = Number(params['latency']) >= 240 ? 240 : Number(params['latency']);
         
         // GET ROUTE DATA
         const response = await GoogleRoutes.requestRouteMatrix(params);
@@ -88,7 +95,8 @@ class DrivingModel {
         const priceApproachMore8km = 0.5;
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
-        const priceReturn = 0.5;
+        const priceReturnSingle = 0.5;
+        const priceReturnB2H = 0.4;
         const priceLatency30min = 12;
         let approachCosts = 0;
 
@@ -105,8 +113,8 @@ class DrivingModel {
         let totalServiceTime = 0;
 
         if(params['back2home'] === true) {
-            payingServiceDistance = origin2destination.distanceMeters;
-            totalServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters
+            payingServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters;
+            totalServiceDistance = payingServiceDistance;
             totalServiceTime = origin2destination.duration + destination2origin.duration
         } else if(params['back2home'] === false) {
             totalServiceDistance = origin2destination.distanceMeters;
@@ -128,8 +136,8 @@ class DrivingModel {
             : (params['latency'] / 30) * priceLatency30min;
 
         const returnCosts = params['back2home'] === true
-            ? (origin2home.distanceMeters * priceReturn) + latencyCosts
-            : destination2home.distanceMeters * priceReturn;
+            ? (origin2home.distanceMeters * priceReturnSingle) + latencyCosts
+            : destination2home.distanceMeters * priceReturnB2H;
 
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
 
@@ -141,7 +149,9 @@ class DrivingModel {
 
         result['distance'] = (totalServiceDistance % 1) >= 5 
             ? Math.ceil(totalServiceDistance) 
-            : Math.floor(totalServiceDistance);
+            : totalServiceDistance < 1
+                ? totalServiceDistance
+                : Math.floor(totalServiceDistance);
 
         return {routeData: result};
     }
@@ -160,9 +170,9 @@ class DrivingModel {
         const tenancy = (params['tenancy'] / 30) * priceFlatrate30Min; 
 
         const approachRoute = await GoogleRoutes.requestMapsMatrix({
-            origin: process.env.HOME_ADDRESS,
-            destination: params['origin']
-        });
+            origin: Secrets.HOME_ADDRESS,
+            destination: params['originDetails']['placeId']
+        }, 'destination');
         const approachDistance = ((approachRoute.rows[0].elements[0].distance.value) / 1000);
         const approachCost = (approachDistance % 1) >= 5
             ? Math.ceil(approachDistance) * priceApproachPerKm
@@ -170,9 +180,9 @@ class DrivingModel {
 
         if(params['origin'] !== params['destination']) {
             const returnRoute = await GoogleRoutes.requestMapsMatrix({
-                origin: params['destination'],
-                destination: process.env.HOME_ADDRESS
-            });
+                origin: params['destinationDetails']['placeId'],
+                destination: Secrets.HOME_ADDRESS
+            }, 'origin');
             const returnDistance = ((returnRoute.rows[0].elements[0].distance.value) / 1000);
             const returnCost = (returnDistance % 1) >= 5
                 ? Math.ceil(returnDistance) * priceReturnPerKm

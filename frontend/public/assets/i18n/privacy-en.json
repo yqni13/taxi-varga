@@ -1,0 +1,38 @@
+{
+    "z-content-privacy": {
+        "content": {
+            "access": "You have the right to request information from us at any time about the personal data we process concerning you, in accordance with Art. 15 GDPR. To do so, you may submit a request by mail or email to the address specified in the legal notice.",
+            "complaint": {
+                "address0": "Barichgasse 40-42",
+                "address1": "1030 Vienna",
+                "authority": "\nAustrian data protection authority",
+                "mail": "dsb@dsb.gv.at",
+                "phone": "+431521520",
+                "text": "If you believe that the processing of your personal data by us is unlawful, you have the right to file a complaint with the competent supervisory authority, which you can contact as follows:",
+                "web": "https://dsb.gv.at/"
+            },
+            "cookies": "To enhance the security of our website usage, we use cookies to store data for internal communication. These data are used solely for the security of our system, and no personal data is stored.",
+            "deletion-period": "Personal data is only stored through email correspondence for six months after the contractually booked service and is then routinely deleted. If these data need to be used in the context of legal prosecution, the retention period is extended by another six months from the end of the legal proceedings.",
+            "disclosure": "We do not sell your data to third parties, nor do we otherwise market it. Furthermore, your personal data will only be disclosed to law enforcement authorities and, if applicable, to affected third parties without your explicit consent if it is necessary for investigating unlawful use of our services or for legal prosecution. However, this will only occur if there are concrete indications of unlawful or abusive behavior. Data may also be disclosed if it is necessary to enforce terms of use or other agreements.\n\nWe are also legally obligated to provide certain public authorities with information upon request. These include law enforcement agencies, regulatory authorities that investigate administrative offenses, and tax authorities.\n\nThe disclosure of this data is based on our legitimate interest in combating abuse, prosecuting criminal offenses, and securing, asserting, and enforcing claims, provided that your rights and interests in protecting your personal data do not outweigh these interests, pursuant to Art. 6(1)(f) GDPR.",
+            "erasure": "You have the right to request the immediate deletion (\"right to be forgotten\") of your personal data if the legal grounds outlined in Art. 17 GDPR apply. This applies, for example, if the personal data are no longer necessary for the purposes for which they were originally collected, if you withdraw your consent and there is no other legal basis for processing, or if you object to processing (and there are no overriding legitimate reasons for processing—this does not apply to objections to direct marketing). To exercise this right, please contact the address listed in imprint.",
+            "object": "You have the right, for reasons arising from your particular situation, to object at any time to the processing of personal data concerning you that is carried out, among other things, based on Art. 6(1)(e) or (f) GDPR, pursuant to Art. 21 GDPR. We will cease processing your personal data unless we can demonstrate compelling legitimate grounds for processing that override your interests, rights, and freedoms, or the processing serves the establishment, exercise, or defense of legal claims. To exercise this right, please contact the address listed in imprint.",
+            "portability": "You have the right to data portability in accordance with Art. 20 GDPR. This means you have the right to receive the personal data you have provided to us in a common, structured, and machine-readable format and to transfer this data to another data controller, such as another service provider. This applies provided that processing is based on consent or a contract and is carried out using automated procedures. To exercise this right, please contact the address listed in imprint.",
+            "rectification": "You have the right to demand the immediate correction of your personal data if it is incorrect (Art. 16 GDPR). Please contact the address listed in imprint to exercise this right.",
+            "restriction": "You have the right to request the restriction of processing under the conditions and provisions of Art. 18 GDPR. This may be applicable, for example, if processing is unlawful and you oppose the deletion of personal data but instead request the restriction of its use, or if you have objected to processing under Art. 21(1) GDPR, pending verification of whether our legitimate grounds override yours. To exercise this right, please contact the address listed in imprint.",
+            "security": "Taxi-Varga employs technical and organizational security measures to protect your data from accidental or intentional manipulation, loss, destruction, or unauthorized access. These measures and the effectiveness of our security systems are continuously improved in line with technological advancements. All transmissions of personal data between the client and the server are highly encrypted using asymmetric encryption."
+        },
+        "headers": {
+            "access": "Right to access",
+            "complaint": "Right to lodge a complaint with a supervisory authority",
+            "cookies": "Cookies",
+            "deletion-period": "Standard data deletion period",
+            "disclosure": "Disclosure to third parties",
+            "erasure": "Right to erasure",
+            "object": "Right to object",
+            "portability": "Right to data portability",
+            "rectification": "Right to rectification of incorrect data",
+            "restriction": "Right to restriction of processing",
+            "security": "Security"
+        }
+    }
+}

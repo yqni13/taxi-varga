@@ -144,7 +144,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
         this.addressApiService.setDataDetails(data);
         this.addressApiService.sendDetailsRequest().subscribe(data => {
-            this.placeControl?.setValue(this.getAddressDetailsFromResponse(data));
+            this.placeControl?.setValue(this.getAddressDetailsFromResponse(data, id));
             this.formControl?.setValue(this.placeControl?.value.address);
             this.sessionToken = '';
             this.options.length = 0;
@@ -152,13 +152,14 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         })
     }
 
-    getAddressDetailsFromResponse(data: any): AddressDetailsResponse {
+    getAddressDetailsFromResponse(data: any, id: string): AddressDetailsResponse {
         if(data.body?.body.placeData.status === 'INVALID_REQUEST') {
             return {
                 address: '',
                 zipCode: '',
                 province: '',
-                country: ''
+                country: '',
+                placeId: ''
             }
         }
 
@@ -166,7 +167,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         const route = array.filter((entry: any) => entry.types[0] === 'route').map((entry: any) => entry.long_name);
         const name = data.body?.body.placeData.result.name;
         const address = data.body?.body.placeData.result.formatted_address;
-        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => JSON.stringify(entry.long_name));
+        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.long_name as string);
         const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.long_name as string);
         const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.long_name as string);
 
@@ -174,7 +175,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             address: route.length === 0 ? name : address,
             zipCode: zipCode[0] as string,
             province: province[0] as string,
-            country: country[0] as string
+            country: country[0] as string,
+            placeId: id
         }
     }
 

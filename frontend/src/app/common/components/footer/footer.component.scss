@@ -4,8 +4,8 @@
 footer {
     height: 300px;
     display: flex;
-    background-color: var(--theme-nav-bg);
-    border-top: sass.$nav-border-size solid var(--theme-main-green);
+    background-color: var(--theme-palette-background);
+    border-top: sass.$nav-border-size solid var(--theme-palette-highlight);
 }
 
 
@@ -14,13 +14,14 @@ footer {
     display: flex;
     flex-direction: column;
     place-content: center;
-    color: var(--theme-main-green);
+    color: var(--theme-palette-highlight);
 
     h3 {
         font-weight: normal;
         margin: sass.$space5 0;
         font-size: sass.$footer-h3-size;
         font-weight: bold;
+        color: var(--theme-palette-contrast);
     }
 
     .icon-Copyright {
@@ -53,10 +54,11 @@ footer {
 
         li {
             margin-left: 100px;
+            margin-top: sass.$space5;
 
             span {
                 cursor: pointer;
-                color: var(--theme-main-green);
+                color: var(--theme-palette-highlight);
                 font-size: sass.$footer-text-size;
 
                 &:hover {
@@ -93,7 +95,6 @@ footer {
 }
 
 .tava-footer-language {
-    margin-top: sass.$space5;
     position: relative;
     display: inline-flex;
     cursor: pointer;
@@ -122,7 +123,7 @@ footer {
         position: absolute;
         bottom: -5px;
         left: -5px;
-        border: solid 2px var(--theme-main-green);
+        border: solid 2px var(--theme-palette-highlight);
         border-radius: 5px;
         padding: 15px 0;
         background-color: transparent;

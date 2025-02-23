@@ -50,9 +50,18 @@
     }
 
     .tava-imprint {
-        
         .tava-imprint-content {
-            margin: sass.$space50 calc(sass.$space100 * 2);
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+    }
+
+    .tava-privacy {
+        .tava-privacy-content {
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
         }
     }
 
@@ -60,7 +69,7 @@
         .tava-samples-table-wrapper {
             flex-direction: row;
             border-radius: sass.$space15;
-            border: 2px outset var(--theme-main-green);
+            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -225,9 +234,18 @@
     }
 
     .tava-imprint {
-        
         .tava-imprint-content {
-            margin: sass.$space25 calc(sass.$space75 * 2);
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+    }
+
+    .tava-privacy {
+        .tava-privacy-content {
+            justify-content: center;
+            margin: 0 auto;
+            max-width: 700px;
         }
     }
 
@@ -235,7 +253,7 @@
         .tava-samples-table-wrapper {
             flex-direction: row;
             border-radius: sass.$space15;
-            border: 2px outset var(--theme-main-green);
+            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -370,8 +388,13 @@
     }
 
     .tava-imprint {
-        
         .tava-imprint-content {
+            margin: sass.$space25 calc(sass.$space50 * 2);
+        }
+    }
+
+    .tava-privacy {
+        .tava-privacy-content {
             margin: sass.$space25 calc(sass.$space50 * 2);
         }
     }
@@ -380,7 +403,7 @@
         .tava-samples-table-wrapper {
             flex-direction: column;
             padding: sass.$space15;
-            border: outset 2px var(--theme-main-green);
+            border: outset 2px var(--theme-palette-highlight);
             border-radius: sass.$space15;
             $wrapper-width: 450px;
 
@@ -450,8 +473,13 @@
     }
     
     .tava-imprint {
-        
         .tava-imprint-content {
+            font-size: 14px;
+        }
+    }
+
+    .tava-privacy {
+        .tava-privacy-content {
             font-size: 14px;
         }
     }
@@ -546,6 +574,14 @@
         }
     }
 
+    .tava-component-snackbar {
+        align-items: center!important;
+    }
+
+    .tava-snackbar-container {
+        margin: sass.$space15 0 0 0!important;
+    }
+
     footer {
         flex-direction: column-reverse;
 
@@ -593,8 +629,13 @@
     }
     
     .tava-imprint {
-        
         .tava-imprint-content {
+            margin: 0 calc(sass.$space25 * 2) sass.$space25 calc(sass.$space25 * 2);
+        }
+    }
+
+    .tava-privacy {
+        .tava-privacy-content {
             margin: 0 calc(sass.$space25 * 2) sass.$space25 calc(sass.$space25 * 2);
         }
     }

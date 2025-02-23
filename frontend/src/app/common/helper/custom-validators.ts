@@ -14,8 +14,9 @@ export const invalidTenancyUpperLimitValidator = (maxLimit: string): ValidatorFn
 
 export const invalidTenancyLowerLimitValidator = (minLimit: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
+        const min3Hours = (3 * 60 * 60 * 1000);
         const currentDateTime = (new Date(control?.value).getTime());
-        const limitDateTime = (new Date(minLimit).getTime());
+        const limitDateTime = (new Date(minLimit).getTime()) + min3Hours;
         if(currentDateTime < limitDateTime) {
             return { invalidTenancyLowerLimit: true };
         }
@@ -47,8 +48,8 @@ export const requiredTenancyValidator = (): ValidatorFn => {
 export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const time = datetimeService.getTimeInTotalMinutes(control?.value);
-        // 8h max (work day)
-        if(time > (60 * 8)) {
+        // 6h max (measured by golf round)
+        if(time > (60 * 6)) {
             return { maxLatency: true };
         }
         return null;

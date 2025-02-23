@@ -7,7 +7,7 @@
     <div class="tava-service-destination-content">
         
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer" class="tava-service-destination-content-input-offer tava-service-form">
+        <div *ngIf="!hasOffer && hasToken" class="tava-service-destination-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
                 <div class="tava-service-destination-block" id="form-origin">
                     <span class="tava-service-block-label">
@@ -61,7 +61,7 @@
                 </div>
             </form>
         </div>
-        <div *ngIf="!hasOffer" class="tava-button-wrapper">
+        <div *ngIf="!hasOffer && hasToken" class="tava-button-wrapper">
             <button
                 class="tava-button-submit"
                 [attr.aria-disabled]="true"
@@ -334,7 +334,7 @@
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
     </div>
-    <div class="tava-loading-animation" [ngClass]="(loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
+    <div class="tava-loading-animation" [ngClass]="(!hasToken || loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
         <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
         </svg>

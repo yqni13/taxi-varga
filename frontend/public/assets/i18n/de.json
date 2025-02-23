@@ -6,7 +6,8 @@
                 "language": "Wählen Sie Ihre Sprache:"
             },
             "title": {
-                "imprint": "Impressum"
+                "imprint": "Impressum",
+                "privacy": "Datenschutz"
             }
         },
         "interceptor": {
@@ -25,10 +26,10 @@
             "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
-            "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
+            "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
-            "tenancy-invalid-lower-limit": "Die Mietdauer kann nicht negativ sein.",
+            "tenancy-invalid-lower-limit": "Die Mietdauer muss mind 3h betragen.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
             "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
@@ -36,12 +37,32 @@
                 "data": {
                     "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
-                    "basic-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
-                    "basic-invalid-language": "Die gewählte Sprache ist nicht für Google Übersetzungen bei Such-Ergebnissen verfügbar. Bitte wählen Sie eine andere Sprache.",
-                    "basic-invalid-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
+                    "backend-404-env": "Umgebungsvariable {{ENV}} fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
+                    "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
+                    "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
+                    "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
+                    "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-tenancy": "Die Mietdauer muss zwischen 3h und 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
+                    "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
+                    "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
+                    "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
+                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
                 },
                 "header": {
-                    "InvalidPropertiesException": "Ungültiger Datensatz"
+                    "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
+                    "InternalServerException": "Server Verbindungs-Fehler",
+                    "InvalidCredentialsException": "Ungültige Anmeldedaten",
+                    "InvalidPropertiesException": "Ungültiger Datensatz",
+                    "JWTExpirationException": "Sitzung abgelaufen",
+                    "RequestExceedMaxException": "Kapazität überschritten",
+                    "TokenMissingException": "Sitzungs-Token fehlt"
                 }
             }
         }
@@ -50,47 +71,52 @@
         "about": {
             "business": {
                 "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
-                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) tätig."
+                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3)."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
                 "location": "Unternehmenssitz: Leobersdorf",
-                "second": "In den ersten 3 Jahren nach meinem Berufswechsel, arbeitete ich bei der Firma Maxi-Mietwagen als Kommanditist und Taxi Göring als Chauffeur. Nach der darauffolgenden erfolgreichen Unternehmerprüfung, gründete ich mein eigenes Taxi-Unternehmen im Jahr 1999 in Form einer EPU (Ein-Personen-Unternehmen).",
+                "second": "Anschließend vollzog ich einen Berufswechsel, arbeitete 3 Jahre als Kommanditist bei der Firma Maxi-Mietwagen und als Chauffeur bei Taxi Göring. Nach erfolgreicher Unternehmerprüfung, gründete ich 1999 mein eigenes Taxi-Unternehmen als EPU (Ein-Personen-Unternehmen) und betreibe das Taxi-Gewerbe ununterbrochen im 1-Schicht-Betrieb.",
                 "workrange": "Tarif-Standort: Wien"
             },
             "title": "Über mich und mein Unternehmen"
         },
         "home": {
             "content": {
-                "capacity": "Beförderung max. 4 Personen",
-                "classification": "Klassifizierung durch 40100: 5.0 Sterne (max)",
-                "comfort": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
-                "experience": "Beförderungstätigkeit seit 1999",
-                "payment": "Alle gängigen Zahlungsmittel akzeptiert",
-                "time": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)"
+                "entry0": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
+                "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
+                "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
+                "entry3": "Beförderung max. 4 Personen",
+                "entry4": "Alle gängigen Zahlungsmittel akzeptiert"
             },
             "highlights": {
+                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
+                "start": "Beförderungstätigkeit seit 1999",
                 "zero-emission": "Emissionsfrei"
             }
         },
         "imprint": {
-            "message": "",
             "title": "Impressum"
+        },
+        "privacy": {
+            "title": "Datenschutz"
         },
         "samples": {
             "title": "Pauschalfahrt Beispiele"
         },
         "service": {
             "commands": {
-                "calc": "Angebot berechnen",
-                "check": "Daten überprüfen",
-                "confirm": "Auftrag absenden"
+                "calc": "berechnen",
+                "check": "Daten prüfen",
+                "confirm": "Senden"
             },
             "content": {
                 "airport": {
                     "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
+                    "info": {
+                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "arrival": "Ankunft am Flughafen Wien",
                         "datetime": "Datum & Uhrzeit (Abholung)",
@@ -107,6 +133,10 @@
                     "vie-schwechat": "Flughafen Wien Schwechat"
                 },
                 "destination": {
+                    "info": {
+                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "back2home": "Ich möchte zur Abholadresse zurückkehren.",
                         "datetime": "Datum & Uhrzeit (Abholung)",
@@ -122,6 +152,10 @@
                     "title": "Pauschalfahrt - Routendetails"
                 },
                 "flatrate": {
+                    "info": {
+                        "text": "- Zeitmieten müssen mind 3h betragen und können nicht länger als für 24h gebucht werden.\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
+                        "title": "Bitte beachten Sie"
+                    },
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
@@ -172,7 +206,7 @@
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
                         "latency": "verrechnete Wartezeit",
-                        "latency-calc": "Die 1. Stunde Wartezeit kostet 24,00 EUR und jede weitere Stunde dann 12,00 EUR. Verrechnet wird jede angefangene 1/2 Stunde.",
+                        "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
@@ -180,7 +214,7 @@
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
                         "tenancy": "verrechnete Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
-                        "terms": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
+                        "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
                         "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",

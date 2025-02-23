@@ -17,6 +17,10 @@ export class DateTimeService {
         return `${day}.${month}.${date.getFullYear()}`
     }
 
+    getCurrentTimeInMilliseconds(): number {
+        return new Date().getTime();
+    }
+
     getTimeFromTotalMinutes(time: number): string {
         const hours = (time >= 60)
             ? Math.floor(time / 60) >= 10

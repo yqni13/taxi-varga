@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { Subject, Subscription, tap } from "rxjs";
+import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
 
@@ -20,8 +21,8 @@ import { CommonModule } from "@angular/common";
 export class ImprintComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
-    protected selectedLanguage$: Subject<string>;
-    protected version: string;
+    protected devData: any;
+    protected ownerData: any;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -30,9 +31,23 @@ export class ImprintComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
-        this.selectedLanguage$ = new Subject<string>();
-        this.version = 'v1.0.0-beta.2';
         this.subscriptionThemeObservation$ = new Subscription();
+        
+        this.devData = {
+            project: 'taxi-varga',
+            version: 'v1.0.0',
+            github: 'https://github.com/yqni13/taxi-varga',
+            portfolio: 'https://yqni13.com',
+            email: 'yqni13@protonmail.com'
+        };
+
+        this.ownerData = {
+            name: 'Ing. Laszlo Varga',
+            address: 'Anton Bruckner-Gasse 11\n2544 Leobersdorf, Österreich',
+            uid: 'ATU60067019',
+            email: 'laszlovarga@gmx.at',
+            phone: '+436644465466',
+        };
     }
 
     ngOnInit() {
@@ -50,10 +65,6 @@ export class ImprintComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
-
-        this.translate.onLangChange.subscribe(val => {
-            this.selectedLanguage$.next(val.lang);
-        })
     }
 
     ngOnDestroy() {

@@ -5,7 +5,7 @@ import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
-import * as content from "../../../../public/assets/i18n/content-en.json";
+import * as content from "../../../../public/assets/i18n/samples-en.json";
 
 @Component({
     selector: 'tava-samples',
@@ -33,10 +33,10 @@ export class SamplesComponent implements OnInit, OnDestroy {
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';
-        this.samplesOption1Length = Object.keys(content["samples-content-option1"]).length;
-        this.samplesOption2Length = Object.keys(content["samples-content-option2"]).length;
-        this.samplesOption3Length = Object.keys(content["samples-content-option3"]).length;
-        this.samplesOption4Length = Object.keys(content["samples-content-option4"]).length;
+        this.samplesOption1Length = Object.keys(content["z-content-samples"]["samples-content-option1"]).length;
+        this.samplesOption2Length = Object.keys(content["z-content-samples"]["samples-content-option2"]).length;
+        this.samplesOption3Length = Object.keys(content["z-content-samples"]["samples-content-option3"]).length;
+        this.samplesOption4Length = Object.keys(content["z-content-samples"]["samples-content-option4"]).length;
 
         this.subscriptionThemeObservation$ = new Subscription();
     }

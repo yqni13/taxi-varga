@@ -1,5 +1,17 @@
 module.exports.Config = {
     MODE: process.env.NODE_MODE || 'development',
     PORT: process.env.NODE_PORT || 3000,
-    MAP_KEY: process.env.MAP_KEY || null
+    EMAIL_RECEIVER: process.env.SECRET_EMAIL_RECEIVER || null,
+    EMAIL_SENDER: process.env.SECRET_EMAIL_SENDER || null,
+    EMAIL_PASS: process.env.SECRET_EMAIL_PASS || null,
+    EMAIL_SUBJECT: process.env.SECRET_EMAIL_SUBJECT || null,
+    MAP_KEY: process.env.GOOGLE_API_KEY || null,
+    HOME_ADDRESS: process.env.HOME_ADDRESS || null,
+    PASS_POSITION: process.env.SECRET_PASS_POS || null,
+    IV_POSITION: process.env.SECRET_IV_POS || null,
+    AUTH_USER: process.env.SECRET_AUTH_USER || null,
+    AUTH_PASS: process.env.SECRET_AUTH_PASS || null,
+    AUTH_ID: process.env.SECRET_AUTH_ID || null,
+    PUBLIC_KEY: process.env.SECRET_PUBLIC_KEY || null,
+    PRIVATE_KEY: process.env.SECRET_PRIVATE_KEY || null,
 };

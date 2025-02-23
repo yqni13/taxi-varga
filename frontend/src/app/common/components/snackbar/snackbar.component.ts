@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, HostListener, Input, OnInit } from "@angular/core";
 import { SnackbarMessageService } from "../../../shared/services/snackbar.service";
 import { CommonModule } from "@angular/common";
 import { SnackbarOption } from "../../../shared/enums/snackbar-options.enum";
@@ -14,6 +14,13 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
     ]
 })
 export class SnackbarComponent implements OnInit {
+
+    @HostListener('window:keydown', ['$event'])
+    closeOnEscape(event: KeyboardEvent) {        
+        if(event.key === 'Escape' && this.isActive) {
+            this.close();
+        }
+    }
 
     @Input() snackbarMsg: SnackbarMessage;
     protected snackbarOptions = SnackbarOption;

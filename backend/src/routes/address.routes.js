@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth.middleware');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 const addressController = require('../controllers/address.controller');
 const { 
@@ -7,7 +8,8 @@ const {
     placeSchema
 } = require('../middleware/validators/addressValidator.middleware');
 
-router.post('/autocomplete', autocompleteSchema, awaitHandlerFactory(addressController.getPlaceAutocomplete));
-router.post('/details', placeSchema, awaitHandlerFactory(addressController.getPlaceDetails));
+
+router.post('/autocomplete', auth(), autocompleteSchema, awaitHandlerFactory(addressController.getPlaceAutocomplete));
+router.post('/details', auth(), placeSchema, awaitHandlerFactory(addressController.getPlaceDetails));
 
 module.exports = router;

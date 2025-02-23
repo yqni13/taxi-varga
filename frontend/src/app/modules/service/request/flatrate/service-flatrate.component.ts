@@ -20,6 +20,13 @@ import { Router } from "@angular/router";
 import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import { AddressOptions } from "../../../../shared/enums/address-options.enum";
 import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
+import { AuthService } from "../../../../shared/services/auth.service";
+import { TokenService } from "../../../../shared/services/token.service";
+import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { NavigationService } from "../../../../shared/services/navigation.service";
+import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
+import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -44,6 +51,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
+    protected hasToken: boolean;
     protected hasOrder: boolean;
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
@@ -64,6 +72,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationDriving$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
 
     private window: any;
     private scrollAnchor!: HTMLElement;
@@ -72,18 +81,24 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
 
     constructor(
         private readonly fb: FormBuilder,
+        private readonly auth: AuthService,
         private readonly elRef: ElementRef,
         private readonly router: Router,
+        private readonly tokenService: TokenService,
         private readonly translate: TranslateService,
+        private readonly navigation: NavigationService,
         private readonly mailAPIService: MailAPIService,
         private readonly observation: ObservationService,
+        private readonly snackbar: SnackbarMessageService,
         private readonly datetimeService: DateTimeService,
+        private readonly mailTranslate: MailTranslateService,
         private readonly drivingAPIService: DrivingAPIService,
         private httpObservationService: HttpObservationService,
         @Inject(DOCUMENT) private document: Document
     ) {
         this.selectedBg = '';
         this.hasOffer = false;
+        this.hasToken = false;
         this.hasOrder = false;
         this.hasConfirmed = false;
         this.pickupTimeByLang$ = new Subject<string>();
@@ -104,6 +119,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.subscriptionLangObservation$ = new Subscription();
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
+        this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
         this.customerData = [
             'gender',
@@ -117,7 +133,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
@@ -137,8 +153,28 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
             this.configPickupTimeByLanguage(val.lang);
         });
 
+        await this.auth.initSession(ServiceOptions.flatrate);
+        this.auth.sendInitRequest().subscribe(response => {
+            // avoid refreshing token after reload of webpage
+            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+                this.tokenService.setToken(response.body?.body.token);
+            }
+            this.snackbar.notify({
+                title: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.flatrate.info.title')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.flatrate.info.title'),
+                text: this.translate.currentLang === 'de'
+                    ? this.mailTranslate.getTranslationDE('modules.service.content.flatrate.info.text')
+                    : this.mailTranslate.getTranslationEN('modules.service.content.flatrate.info.text'),
+                autoClose: false,
+                type: SnackbarOption.info
+            })
+            this.hasToken = true;
+        });
+
         this.initEdit();
         this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-service-flatrate");
+
     }
 
     ngAfterViewInit() {
@@ -163,6 +199,16 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
                     this.router.navigate(['/service']);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
+                }
+            })
+        ).subscribe();
+
+        this.subscriptionHttpObservationError$ = this.httpObservationService.errorStatus$.pipe(
+            filter((x) => x && this.auth.getExceptionStatusCodes().includes(x.status.toString())),
+            tap((response: any) => {
+                if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
+                    this.httpObservationService.setErrorStatus(null);
+                    this.router.navigate(['/service']);
                 }
             })
         ).subscribe();
@@ -361,7 +407,7 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         }
 
         this.loadOrderResponse = true;
-        this.mailAPIService.setMailData(this.serviceForm.getRawValue());
+        await this.mailAPIService.setMailData(this.serviceForm.getRawValue());
         this.mailAPIService.sendMail().subscribe(data => {
             console.log("response Email: ", data);
         })
@@ -383,5 +429,6 @@ export class ServiceFlatrateComponent implements OnInit, AfterViewInit, OnDestro
         this.subscriptionLangObservation$.unsubscribe();
         this.subscriptionHttpObservationDriving$.unsubscribe();
         this.subscriptionHttpObservationEmail$.unsubscribe();
+        this.subscriptionHttpObservationError$.unsubscribe();
     }
 }
