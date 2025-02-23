@@ -36,7 +36,7 @@ exports.drivingDestinationSchema = [
         .notEmpty()
         .withMessage('backend-required'),
     body('latency')
-        .isInt({max: 720})
+        .isInt({max: 360})
         .withMessage('backend-invalid-latency')
 ];
 

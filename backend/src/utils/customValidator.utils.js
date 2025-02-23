@@ -44,9 +44,7 @@ exports.validateAirportServiceAddress = (details, address) => {
         throw new Error('backend-missing-zipCode');
     }
 
-    const postalCodesVienna = ['1010', '1020', '1030', '1040', '1050', '1060', '1070', '1080', '1090', '1100', '1110', '1120', '1130', '1140', '1150', '1160', '1170', '1180', '1190', '1200', '1210', '1220', '1230', '2333'];
-
-    if(!postalCodesVienna.includes(details.zipCode)) {
+    if(!Utils.checkAddressInVienna(details.zipCode)) {
         throw new Error('airport-invalid-place');
     }
 

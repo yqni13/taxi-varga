@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/prefer-for-of */
-import { Injectable } from "@angular/core";
+import { inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { environment } from "../../../environments/environment";
+import { isPlatformBrowser } from "@angular/common";
 
 @Injectable({
     providedIn: 'root'
@@ -10,6 +12,7 @@ export class CryptoService {
     private publicKey: string;
     private privateKey: string;
     private ivPosition: number;
+    private readonly platformId = inject(PLATFORM_ID);
 
     constructor() {
         this.publicKey = environment.PUBLIC_KEY;
@@ -23,19 +26,22 @@ export class CryptoService {
         // part 1: create symmetric key, iv & salt
         const salt = this.generateRandomHex(32);
         const key = await this.deriveKey(passphrase, salt);
-        const iv = window.crypto.getRandomValues(new Uint8Array(16));
 
         const encoder = new TextEncoder();
         const encodedData = encoder.encode(data);
 
-        
-        // part 2: encryption & hide key elements as hex
-        const encryptedBuffer = await window.crypto.subtle.encrypt(
-            {name: "AES-CBC", iv},
-            key,
-            encodedData
-        );
+        let iv: any;
+        let encryptedBuffer: any;
+        if(isPlatformBrowser(this.platformId)) {
+            iv = window.crypto.getRandomValues(new Uint8Array(16));
+            encryptedBuffer = await window.crypto.subtle.encrypt(
+                {name: "AES-CBC", iv},
+                key,
+                encodedData
+            );
+        }
 
+        // part 2: encryption & hide key elements as hex
         const ivHex = this.convertUint8ArrayToHex(iv);
         const encryptedHex = this.convertUint8ArrayToHex(new Uint8Array(encryptedBuffer));
 
@@ -47,7 +53,9 @@ export class CryptoService {
 
     private generateRandomHex(size: number): string {
         const bytes = new Uint8Array(size);
-        window.crypto.getRandomValues(bytes);
+        if(isPlatformBrowser(this.platformId)) { 
+            window.crypto.getRandomValues(bytes);
+        }
         return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
@@ -59,30 +67,35 @@ export class CryptoService {
 
     private async deriveKey(passphrase: string, salt: string): Promise<CryptoKey> {
         const encoder = new TextEncoder();
-        const keyMaterial = await window.crypto.subtle.importKey(
-            "raw",
-            encoder.encode(passphrase),
-            { name: "PBKDF2" },
-            false,
-            ["deriveBits", "deriveKey"]
-        );
+        let keyMaterial: any;
+        let key: any;
+        if(isPlatformBrowser(this.platformId)) {
+            keyMaterial = await window.crypto.subtle.importKey(
+                "raw",
+                encoder.encode(passphrase),
+                { name: "PBKDF2" },
+                false,
+                ["deriveBits", "deriveKey"]
+            );
 
-        return await window.crypto.subtle.deriveKey(
-            {
-                name: "PBKDF2",
-                salt: encoder.encode(salt),
-                iterations: 100000,
-                hash: "SHA-256",
-            },
-            keyMaterial,
-            { name: "AES-CBC", length: 256 },
-            false, // true only for debugging
-            ["encrypt", "decrypt"]
-        );
+            key = await window.crypto.subtle.deriveKey(
+                {
+                    name: "PBKDF2",
+                    salt: encoder.encode(salt),
+                    iterations: 100000,
+                    hash: "SHA-256",
+                },
+                keyMaterial,
+                { name: "AES-CBC", length: 256 },
+                false, // true only for debugging
+                ["encrypt", "decrypt"]
+            );
+        }
+        return key;
     }
 
-    // TODO(yqni13): clean after decision for what to keep
 
+    // TODO(yqni13): clean after decision for what to keep
     // encryptRSA(data: any): string {
     //     // convert PEM-encoded key to format suitable to handle
     //     const rsa = Forge.pki.publicKeyFromPem(this.publicKey);
@@ -118,13 +131,16 @@ export class CryptoService {
         const encoder = new TextEncoder();
         const encodedData = encoder.encode(data);
     
-        const encrypted = await window.crypto.subtle.encrypt(
-            {
-                name: "RSA-OAEP"
-            },
-            publicKey,
-            encodedData
-        );
+        let encrypted: any;
+        if(isPlatformBrowser(this.platformId)) {
+            encrypted = await window.crypto.subtle.encrypt(
+                {
+                    name: "RSA-OAEP"
+                },
+                publicKey,
+                encodedData
+            );
+        }
     
         return this.arrayBufferToBase64(encrypted);
     }
@@ -133,13 +149,16 @@ export class CryptoService {
         const privateKey = await this.importPrivateKey(this.privateKey);
         const encryptedData = this.base64ToArrayBuffer(data);
     
-        const decrypted = await window.crypto.subtle.decrypt(
-            {
-                name: "RSA-OAEP"
-            },
-            privateKey,
-            encryptedData
-        );
+        let decrypted: any;
+        if(isPlatformBrowser(this.platformId)) {
+            decrypted = await window.crypto.subtle.decrypt(
+                {
+                    name: "RSA-OAEP"
+                },
+                privateKey,
+                encryptedData
+            );
+        }
     
         const decoder = new TextDecoder();
         const result = decoder.decode(decrypted);
@@ -148,30 +167,38 @@ export class CryptoService {
     
     private async importPublicKey(pem: string): Promise<CryptoKey> {
         const binaryDer = this.pemToArrayBuffer(pem);
-        return await window.crypto.subtle.importKey(
-            "spki",
-            binaryDer,
-            {
-                name: "RSA-OAEP",
-                hash: "SHA-256"
-            },
-            true,
-            ["encrypt"]
-        );
+        let key: any;
+        if(isPlatformBrowser(this.platformId)) {
+            key = await window.crypto.subtle.importKey(
+                "spki",
+                binaryDer,
+                {
+                    name: "RSA-OAEP",
+                    hash: "SHA-256"
+                },
+                true,
+                ["encrypt"]
+            );
+        }
+        return key;
     }
     
     private async importPrivateKey(pem: string): Promise<CryptoKey> {
         const binaryDer = this.pemToArrayBuffer(pem);
-        return await window.crypto.subtle.importKey(
-            "pkcs8",
-            binaryDer,
-            {
-                name: "RSA-OAEP",
-                hash: "SHA-256"
-            },
-            true,
-            ["decrypt"]
-        );
+        let key: any;
+        if(isPlatformBrowser(this.platformId)) {
+            key = await window.crypto.subtle.importKey(
+                "pkcs8",
+                binaryDer,
+                {
+                    name: "RSA-OAEP",
+                    hash: "SHA-256"
+                },
+                true,
+                ["decrypt"]
+            );
+        }
+        return key;
     }
     
     private pemToArrayBuffer(pem: string): ArrayBuffer {
