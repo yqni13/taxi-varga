@@ -16,63 +16,63 @@
         },
         "samples-content-option2": {
             "entry0": {
-                "price": "60,00",
+                "price": "55,00",
                 "route": "Leobersdorf\n- Vienna Central Railway Station"
             },
             "entry1": {
-                "price": "65,00",
+                "price": "61,00",
                 "route": "Leobersdorf - Vienna General Hospital"
             },
             "entry2": {
-                "price": "69,00",
+                "price": "64,00",
                 "route": "Leobersdorf\n- Vienna International Airport"
             }
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "72,00",
+                "price": "67,00",
                 "route": "Enzesfeld/Lindstart withrunn\n- Vienna International Airport"
             },
             "entry1": {
-                "price": "80,00",
+                "price": "75,00",
                 "route": "Berndorf - Vienna International Airport"
             },
             "entry2": {
-                "price": "90,00",
+                "price": "80,00",
                 "route": "Wiener Neustadt\n- Vienna International Airport"
             },
             "entry3": {
-                "price": "95,00",
+                "price": "90,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Vienna International Airport"
             },
             "entry4": {
-                "price": "110,00",
+                "price": "99,00",
                 "route": "Mattersburg\n- Vienna International Airport"
             },
             "entry5": {
-                "price": "110,00",
+                "price": "105,00",
                 "route": "Neunkirchen/Ternitz\n- Vienna International Airport"
             }
         },
         "samples-content-option4": {
             "entry0": {
-                "price": "146,00",
+                "price": "162,00",
                 "route": "Vienna - Golf Club Himberg - Vienna"
             },
             "entry1": {
-                "price": "152,00",
+                "price": "168,00",
                 "route": "Vienna - Golf Club Fontana - Vienna"
             },
             "entry2": {
-                "price": "162,00",
+                "price": "179,00",
                 "route": "Vienna - Golf Club Schönborn - Vienna"
             },
             "entry3": {
-                "price": "197,00",
+                "price": "211,00",
                 "route": "Vienna - Golf Club Föhrenwald - Vienna"
             },
             "entry4": {
-                "price": "227,00",
+                "price": "243,00",
                 "route": "Vienna - Golf Club Adamstal - Vienna"
             }
         },
