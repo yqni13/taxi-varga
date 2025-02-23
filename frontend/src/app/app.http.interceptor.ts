@@ -147,7 +147,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
         })
     } 
     // AUTHORIZATION | AUTHENTICATION
-    else if(response.status === 401 || response.status === 404) {
+    else if(response.status === 401 || response.status === 404 || response.status === 429) {
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
         let env: string | undefined = undefined;
@@ -178,6 +178,8 @@ export async function handleError(response: any, httpObservationService: HttpObs
     }
 
     // browser response log
-    console.log('response error: ', response);
-    httpObservationService.setErrorStatus(response);
+    if(response.status !== 0 && !response.url.includes('/init')) {
+        console.log('response error: ', response);
+        httpObservationService.setErrorStatus(response);
+    }
 }

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
+const Secrets = require('../../utils/secrets.utils');
 
 class GoogleRoutesAPI {
     getRoutesHeader() {
@@ -15,12 +16,16 @@ class GoogleRoutesAPI {
         return 'https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix';
     }
 
-    requestMapsMatrix = async (params) => {
-        let origins = params['origin'];
-        let destinations = params['destination'];
-
-        origins = origins.replaceAll('+', '%20')
-        destinations = destinations.replaceAll('+', '%20')
+    requestMapsMatrix = async (params, useId) => {
+        const prefix = 'place_id:';
+        let origins, destinations;
+        if(useId === 'origin') {
+            origins = `${prefix}${params['origin']}`;
+            destinations = String(params['destination']).replaceAll('+', '%20');
+        } else if(useId === 'destination') {
+            origins = String(params['origin']).replaceAll('+', '%20');
+            destinations = `${prefix}${params['destination']}`;
+        }
 
         const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${process.env.GOOGLE_API_KEY}`;
 
@@ -39,8 +44,8 @@ class GoogleRoutesAPI {
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
     requestRouteMatrix = async (params) => {
-        const origin = params['origin'].replaceAll('+', ' ');
-        const destination = params['destination'].replaceAll('+', ' ');
+        const origin = params['originDetails']['placeId'];
+        const destination = params['destinationDetails']['placeId'];
 
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();
@@ -49,34 +54,34 @@ class GoogleRoutesAPI {
             "origins": [
                 {
                     "waypoint": {
-                        "address": process.env.HOME_ADDRESS
+                        "address": Secrets.HOME_ADDRESS
                     }
                 },
                 {
                     "waypoint": {
-                        "address": origin
+                        "placeId": origin
                     }
                 },
                 {
                     "waypoint": {
-                        "address": destination
+                        "placeId": destination
                     }
                 }
             ],
             "destinations": [
                 {
                     "waypoint": {
-                        "address": destination
+                        "placeId": destination
                     }
                 },
                 {
                     "waypoint": {
-                        "address": origin
+                        "placeId": origin
                     }
                 },
                 {
                     "waypoint": {
-                        "address": process.env.HOME_ADDRESS
+                        "address": Secrets.HOME_ADDRESS
                     }
                 }
             ],

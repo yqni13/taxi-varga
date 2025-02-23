@@ -26,7 +26,7 @@
             "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
-            "latency-invalid-upper-limit": "Die Wartezeit darf 8h nicht überschreiten.",
+            "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
             "tenancy-invalid-lower-limit": "Die Mietdauer muss mind 3h betragen.",
@@ -44,13 +44,14 @@
                     "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
                     "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-latency": "Die Wartezeit darf 8h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-tenancy": "Die Mietdauer muss zwischen 3h und 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
+                    "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
                     "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
                     "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
                 },
@@ -60,6 +61,7 @@
                     "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
                     "JWTExpirationException": "Sitzung abgelaufen",
+                    "RequestExceedMaxException": "Kapazität überschritten",
                     "TokenMissingException": "Sitzungs-Token fehlt"
                 }
             }
@@ -69,8 +71,7 @@
         "about": {
             "business": {
                 "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3).",
-                "workload": "2-Schichtbetrieb während der Ausbildung meines Sohnes, sonst nur als Ein-Personen-Unternehmen (EPU) tätig."
+                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3)."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
@@ -105,9 +106,9 @@
         },
         "service": {
             "commands": {
-                "calc": "Angebot berechnen",
-                "check": "Daten überprüfen",
-                "confirm": "Auftrag absenden"
+                "calc": "berechnen",
+                "check": "Daten prüfen",
+                "confirm": "Senden"
             },
             "content": {
                 "airport": {
@@ -133,7 +134,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 8h nicht überschreiten.",
+                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten.",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
