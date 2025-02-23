@@ -81,7 +81,6 @@ class MailingModel {
                         throw new UnexpectedException('Unexpected error email');
                     }
                 } else {
-                    console.log("mail info: ", info);
                     resolve(true);
                 }
             })

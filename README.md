@@ -1,5 +1,5 @@
-# yqni13 taxi-varga
-$\texttt{\color{teal}{v1.0.0-beta.2}}$
+# yqni13 | taxi-varga
+$\texttt{\color{teal}{v1.0.0}}$
 
 
 <br><br>
@@ -27,10 +27,9 @@ $\texttt{\color{teal}{v1.0.0-beta.2}}$
     <img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;
     <img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;
 </div>
-
 <br>
 
-### <a href="https://taxi-varga.netlify.app/">TRY LIVE DEMO</a>
+### visit the <a href="https://taxi-varga.at">WEBPAGE</a>
 
 <br>
 
@@ -43,8 +42,8 @@ Get startet with `npm install` (/frontend and /backend) to create necessary modu
 
 ### Build & Deploy
 The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.
-<br><br>
-Note: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
+<br>
+<b>Note</b>: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
 <br>
 Currently public/private keys are converted from single-line secret to multi-line secret in: <a href="./frontend/set-env.ts">set-env.ts</a>
 <br><br>
@@ -59,6 +58,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
     <dd>:wrench: Custom validation Angular/Express-Validator</dd>
+    <dd>:lock: asymmetric/hybrid (RSA/AES) encrypted requests</dd>
     <dd>:e-mail: Mail service with node.js & nodemailer for Backend</dd>
     <dd>:signal_strength: Http interception + custom snackbar modal</dd>
     <dd>:new_moon_with_face:/:sun_with_face: Custom color theme (dark/light mode)</dd>
@@ -101,12 +101,35 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 
 <br>
 
+### $\textsf{\color{teal}Security}$
+
+For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 5). The payload consists of the service in use and the credential data.Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 5 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
+
+<div align="center">
+    <img src="frontend/public/assets/docs/session-token_login.jpg" alt="&nbsp;no picture found">
+    Figure 5
+</div>
+
+<br>
+
+Hybrid encryption is used for encrypting sensible data like the user input used for sending the emails (name, phone number, message and so forth...). Figure 6 displays the encrypted data in the request, decrypted in the backend to handle logic and again encrypting data for the response. On client side, the webcrypto api support Angular to handle RSA and AES en/decryption and in NodeJS on the backend node-forge comes to use.
+
+<div align="center">
+    <img src="frontend/public/assets/docs/encrypted_request.jpg" alt="&nbsp;no picture found">
+    Figure 6
+</div>
+
+<br>
+
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.0-beta.1\ >>\ {\color{pink}1.0.0-beta.2}}$
+### $\textsf{last\ update\ 1.0.0-beta.2\ >>\ {\color{pink}1.0.0}}$
 
-- $\textsf{\color{red}Patch:}$ Added sessionToken to address-input.component to upgrade billing efficency (now only a session is charged instead of each request).
+- $\textsf{\color{red}Change:}$ Added authentication to handle a service process witha session-token, checking for validity and expiration on every request.
+- $\textsf{\color{red}Change:}$ Added en/decryption on client and server side to handle authentication and other sensible data on a secure level.
+- $\textsf{\color{red}Patch:}$ Refactored Google API calls to send placeId instead of search text to increase output precision.
+- $\textsf{\color{red}Patch:}$ Refactored business logic on service calculations.
 
 <br>
 
@@ -114,4 +137,8 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 <dl>
     <dd>- update Google Places API to Places API (New)</dd>
     <dd>- update email format</dd>
+    <dd>- update token handling (refresh token)</dd>
+    <dd>- add key navigation</dd>
+    <dd>- update logging & exception handling (client side)</dd>
+    <dd>- add testing</dd>
 </dl>
