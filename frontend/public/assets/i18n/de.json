@@ -83,7 +83,7 @@
         },
         "home": {
             "content": {
-                "entry0": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
+                "entry0": "Reisebeginn täglich: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
                 "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
                 "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
                 "entry3": "Beförderung max. 4 Personen",
@@ -114,7 +114,7 @@
                 "airport": {
                     "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
                     "info": {
-                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen.",
+                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -134,7 +134,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten.",
+                        "text": "- bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max. 3h Wartezeit kostenpflichtig",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -153,7 +153,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Zeitmieten müssen mind 3h betragen und können nicht länger als für 24h gebucht werden.\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
+                        "text": "- Zeitmieten müssen mind 3h betragen und können nicht länger als für 24h gebucht werden\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {

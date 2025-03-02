@@ -83,7 +83,7 @@
         },
         "home": {
             "content": {
-                "entry0": "Business hours: 04:00 - 12:00 (off-time on request)",
+                "entry0": "Daily starting business hours: 04:00 - 12:00 (off-time on request)",
                 "entry1": "40100 quality rating: 5.0 (max)",
                 "entry2": "Elevated seat positions for senior friendly entrance/exit",
                 "entry3": "Transport max. 4 people",
@@ -114,7 +114,7 @@
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
                     "info": {
-                        "text": "Airport service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
+                        "text": "'Airport' service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -134,7 +134,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Destination service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.",
+                        "text": "- 'Destination' service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max. 3h latency with costs.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -153,7 +153,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Tenancy can be ordered for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 40,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
+                        "text": "- tenancy can be ordered for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 40,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
                         "title": "Please note that"
                     },
                     "labels": {
