@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/03/02 - $\textsf{last\ update\ 1.0.0\ >>\ {\color{pink}1.0.1}}$
+
+- $\textsf{\color{red}Patch:}$ Refactored business logic on service calculation 'destination'.
+
 ### 2025/02/23 - $\textsf{last\ update\ 1.0.0-beta.2\ >>\ {\color{pink}1.0.0}}$
 
 - $\textsf{\color{red}Change:}$ Added authentication to handle a service process witha session-token, checking for validity and expiration on every request.
