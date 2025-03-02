@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.0.0}}$
+$\texttt{\color{teal}{v1.0.1}}$
 
 
 <br><br>
@@ -124,12 +124,9 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.0-beta.2\ >>\ {\color{pink}1.0.0}}$
+### $\textsf{last\ update\ 1.0.0\ >>\ {\color{pink}1.0.1}}$
 
-- $\textsf{\color{red}Change:}$ Added authentication to handle a service process witha session-token, checking for validity and expiration on every request.
-- $\textsf{\color{red}Change:}$ Added en/decryption on client and server side to handle authentication and other sensible data on a secure level.
-- $\textsf{\color{red}Patch:}$ Refactored Google API calls to send placeId instead of search text to increase output precision.
-- $\textsf{\color{red}Patch:}$ Refactored business logic on service calculations.
+- $\textsf{\color{red}Patch:}$ Refactored business logic on service calculation 'destination'.
 
 <br>
 

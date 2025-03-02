@@ -65,8 +65,8 @@ class DrivingModel {
         }
 
         params['back2home'] = params['back2home'] === 'true' ? true : false;
-        // manual discount: cost limit = 4h (4 * 60min)
-        params['latency'] = Number(params['latency']) >= 240 ? 240 : Number(params['latency']);
+        // manual discount: cost limit = 3h (3 * 60min)
+        params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
         
         // GET ROUTE DATA
         const response = await GoogleRoutes.requestRouteMatrix(params);
@@ -91,19 +91,18 @@ class DrivingModel {
             distance: 0,
             time: 0,
         }
-        const priceApproachLess8km = 4;
-        const priceApproachMore8km = 0.5;
+        const priceApproachLess30km = 4;
+        const priceApproachMore30km = 0.4;
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
-        const priceReturnSingle = 0.5;
-        const priceReturnB2H = 0.4;
+        const priceReturn = 0.4;
         const priceLatency30min = 12;
         let approachCosts = 0;
 
-        if(home2origin.distanceMeters <= 8) {
-            approachCosts = priceApproachLess8km;
+        if(home2origin.distanceMeters <= 30) {
+            approachCosts = priceApproachLess30km;
         } else {
-            approachCosts = home2origin.distanceMeters * priceApproachMore8km;
+            approachCosts = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
         }
 
         let serviceDriveTimeCost = 0;
@@ -135,9 +134,17 @@ class DrivingModel {
             ? (2 * priceLatency30min) + (((params['latency'] - 60) / 30) * (priceLatency30min / 2))
             : (params['latency'] / 30) * priceLatency30min;
 
-        const returnCosts = params['back2home'] === true
-            ? (origin2home.distanceMeters * priceReturnSingle) + latencyCosts
-            : destination2home.distanceMeters * priceReturnB2H;
+        let returnCosts;
+        if(params['back2home'] === false) {
+            returnCosts = destination2home.distanceMeters * priceReturn;
+        } else {
+            if(params['latency'] < 180) {
+                returnCosts = origin2home.distanceMeters + priceReturn;
+            } else {
+                returnCosts = origin2home.distanceMeters <= 30 ? 0 : (origin2home.distanceMeters - 30) * priceReturn;
+            }
+            returnCosts += latencyCosts;
+        }
 
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
 
