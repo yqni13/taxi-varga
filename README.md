@@ -127,6 +127,7 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ### $\textsf{last\ update\ 1.0.0\ >>\ {\color{pink}1.0.1}}$
 
 - $\textsf{\color{red}Patch:}$ Refactored business logic on service calculation 'destination'.
+- $\textsf{\color{red}Patch:}$ Refactored content on 'samples' component.
 
 <br>
 
