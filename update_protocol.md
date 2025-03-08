@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/03/08 - $\textsf{last\ update\ 1.0.1\ >>\ {\color{pink}1.0.2}}$
+
+- $\textsf{\color{red}Patch:}$ Add 'replyTo' option to mailing configuration for automatic assign of sender email address answering.
+
 ### 2025/03/02 - $\textsf{last\ update\ 1.0.0\ >>\ {\color{pink}1.0.1}}$
 
 - $\textsf{\color{red}Patch:}$ Refactored business logic on service calculation 'destination'.

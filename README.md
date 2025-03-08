@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.0.1}}$
+$\texttt{\color{teal}{v1.0.2}}$
 
 
 <br><br>
@@ -124,10 +124,9 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.0\ >>\ {\color{pink}1.0.1}}$
+### $\textsf{last\ update\ 1.0.1\ >>\ {\color{pink}1.0.2}}$
 
-- $\textsf{\color{red}Patch:}$ Refactored business logic on service calculation 'destination'.
-- $\textsf{\color{red}Patch:}$ Refactored content on 'samples' component.
+- $\textsf{\color{red}Patch:}$ Add 'replyTo' option to mailing configuration for automatic assign of sender email address answering.
 
 <br>
 
