@@ -27,6 +27,7 @@ class MailingModel {
         const mailOptionsRequest = {
             from: Secrets.EMAIL_SENDER,
             to: Secrets.EMAIL_RECEIVER,
+            replyTo: sender,
             subject: subject,
             text: msgRequest
         };
