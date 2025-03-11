@@ -34,6 +34,7 @@ export class AuthService {
             'JWTExpirationException',
             'TokenMissingException',
             'InvalidCredentialsException',
+            'InvalidPropertiesException',
             'InternalServerException',
             'AuthSecretNotFoundException',
             'RequestExceedMaxException'

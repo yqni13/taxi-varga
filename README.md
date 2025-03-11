@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.0.2}}$
+$\texttt{\color{teal}{v1.0.3}}$
 
 
 <br><br>
@@ -124,9 +124,9 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.1\ >>\ {\color{pink}1.0.2}}$
+### $\textsf{last\ update\ 1.0.2\ >>\ {\color{pink}1.0.3}}$
 
-- $\textsf{\color{red}Patch:}$ Add 'replyTo' option to mailing configuration for automatic assign of sender email address answering.
+- $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
 
 <br>
 

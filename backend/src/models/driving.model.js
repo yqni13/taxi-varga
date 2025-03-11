@@ -93,16 +93,25 @@ class DrivingModel {
         }
         const priceApproachLess30km = 4;
         const priceApproachMore30km = 0.4;
+        const priceApproachAfterHours = 0.5;
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
         const priceReturn = 0.4;
         const priceLatency30min = 12;
         let approachCosts = 0;
 
-        if(home2origin.distanceMeters <= 30) {
-            approachCosts = priceApproachLess30km;
+        if(params['pickupTIME'] > 12 || params['pickupTIME'] < 4) {
+            if(home2origin.distanceMeters <= 8) {
+                approachCosts = priceApproachLess30km;
+            } else {
+                approachCosts = home2origin.distanceMeters * priceApproachAfterHours;
+            }
         } else {
-            approachCosts = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
+            if(home2origin.distanceMeters <= 30) {
+                approachCosts = priceApproachLess30km;
+            } else {
+                approachCosts = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
+            }
         }
 
         let serviceDriveTimeCost = 0;
