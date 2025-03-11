@@ -13,7 +13,8 @@ export declare interface DrivingDestinationRequest {
     destination: string,
     destinationDetails: any,
     back2home: boolean,
-    latency: number
+    latency: number,
+    pickupTIME: number
 }
 
 export declare interface DrivingFlatrateRequest {

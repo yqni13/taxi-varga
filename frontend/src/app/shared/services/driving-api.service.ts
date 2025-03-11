@@ -46,7 +46,8 @@ export class DrivingAPIService {
             destination: '',
             destinationDetails: null,
             back2home: false,
-            latency: 0
+            latency: 0,
+            pickupTIME: 0
         };
         this.dataFlatrate = {
             origin: '',
@@ -82,7 +83,8 @@ export class DrivingAPIService {
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
             back2home: data.back2home,
-            latency: this.datetimeService.getTimeInTotalMinutes(data.latency)
+            latency: this.datetimeService.getTimeInTotalMinutes(data.latency),
+            pickupTIME: Number((data.pickupTIME).substring(0, data.pickupTIME.indexOf(':')))
         };
     }
 

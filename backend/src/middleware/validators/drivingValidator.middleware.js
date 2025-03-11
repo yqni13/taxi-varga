@@ -37,7 +37,11 @@ exports.drivingDestinationSchema = [
         .withMessage('backend-required'),
     body('latency')
         .isInt({max: 360})
-        .withMessage('backend-invalid-latency')
+        .withMessage('backend-invalid-latency'),
+    body('pickupTIME')
+        .isInt()
+        .notEmpty()
+        .withMessage('backend-required')
 ];
 
 exports.drivingFlatrateSchema = [
