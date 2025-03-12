@@ -97,21 +97,20 @@ class DrivingModel {
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
         const priceReturn = 0.4;
+        const priceReturnAfterHours = 0.5;
         const priceLatency30min = 12;
         let approachCosts = 0;
 
-        if(params['pickupTIME'] > 12 || params['pickupTIME'] < 4) {
-            if(home2origin.distanceMeters <= 8) {
-                approachCosts = priceApproachLess30km;
-            } else {
-                approachCosts = home2origin.distanceMeters * priceApproachAfterHours;
-            }
+        if(Utils.checkTimeWithinBusinessHours(params['pickupTIME'])) {
+            const priceMoreThan30km = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
+            approachCosts = home2origin.distanceMeters <= 30 
+                ? priceApproachLess30km
+                : priceMoreThan30km;
         } else {
-            if(home2origin.distanceMeters <= 30) {
-                approachCosts = priceApproachLess30km;
-            } else {
-                approachCosts = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
-            }
+            const priceMoreThan8km = home2origin.distanceMeters * priceApproachAfterHours;
+            approachCosts = home2origin.distanceMeters <= 8
+                ? priceApproachLess30km
+                : priceMoreThan8km;
         }
 
         let serviceDriveTimeCost = 0;
@@ -143,18 +142,7 @@ class DrivingModel {
             ? (2 * priceLatency30min) + (((params['latency'] - 60) / 30) * (priceLatency30min / 2))
             : (params['latency'] / 30) * priceLatency30min;
 
-        let returnCosts;
-        if(params['back2home'] === false) {
-            returnCosts = destination2home.distanceMeters * priceReturn;
-        } else {
-            if(params['latency'] < 180) {
-                returnCosts = origin2home.distanceMeters + priceReturn;
-            } else {
-                returnCosts = origin2home.distanceMeters <= 30 ? 0 : (origin2home.distanceMeters - 30) * priceReturn;
-            }
-            returnCosts += latencyCosts;
-        }
-
+        const returnCosts = this.calcDestinationReturnCosts(params, origin2home, destination2home, latencyCosts, priceReturn, priceReturnAfterHours);
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
 
         result['time'] = Math.ceil(totalServiceTime);
@@ -170,6 +158,25 @@ class DrivingModel {
                 : Math.floor(totalServiceDistance);
 
         return {routeData: result};
+    }
+
+    calcDestinationReturnCosts = (params, origin2home, destination2home, latencyCosts, priceReturn, priceReturnAfterHours) => {
+        if(!Utils.checkTimeWithinBusinessHours(params['pickupTIME'])) {
+            const returnDistance = params['back2home'] ? origin2home.distanceMeters : destination2home.distanceMeters;
+            return (returnDistance * priceReturnAfterHours) + latencyCosts;
+        }
+    
+        if(!params['back2home']) {
+            return destination2home.distanceMeters * priceReturn;
+        }
+    
+        let returnCosts = origin2home.distanceMeters * priceReturn;
+        
+        if(params['latency'] >= 180) {
+            returnCosts = origin2home.distanceMeters <= 30 ? 0 : (origin2home.distanceMeters - 30) * priceReturn;
+        }
+    
+        return returnCosts + latencyCosts;
     }
     
     // FLATRATE SERVICE

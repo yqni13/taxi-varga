@@ -111,4 +111,12 @@ export class DateTimeService {
 
         return `${hours}:${minutes}`;
     }
+
+    configHourForPayload(time: string): number {
+        // we expect hh:mm with leading 0
+        const hours = Number(time.substring(0, time.indexOf(':')));
+        const minutes = Number(time.substring((time.indexOf(':')+1)));
+        // business hours = 04:00 - 12:00 ==> 12:01 = after hours
+        return (hours === 12 && minutes > 0) ? hours+1 : hours;
+    }
 }

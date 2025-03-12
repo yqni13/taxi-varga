@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/03/12 - $\textsf{last\ update\ 1.0.3\ >>\ {\color{pink}1.0.4}}$
+
+- $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
+
 ### 2025/03/11 - $\textsf{last\ update\ 1.0.2\ >>\ {\color{pink}1.0.3}}$
 
 - $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
