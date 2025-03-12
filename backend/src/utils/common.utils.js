@@ -31,3 +31,7 @@ exports.checkAddressAtViennaAirport = (zipCode) => {
     const postalCodesViennaAirport = ['1300'];
     return postalCodesViennaAirport.includes(String(zipCode));
 }
+
+exports.checkTimeWithinBusinessHours = (hour) => {
+    return (hour > 3 && hour < 13)
+} 
