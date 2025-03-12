@@ -84,7 +84,7 @@ export class DrivingAPIService {
             destinationDetails: data.destinationDetails,
             back2home: data.back2home,
             latency: this.datetimeService.getTimeInTotalMinutes(data.latency),
-            pickupTIME: Number((data.pickupTIME).substring(0, data.pickupTIME.indexOf(':')))
+            pickupTIME: this.datetimeService.configHourForPayload(data.pickupTIME)
         };
     }
 
