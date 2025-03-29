@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/03/29 - $\textsf{last\ update\ 1.0.4\ >>\ {\color{pink}1.0.5}}$
+
+- $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
+- $\textsf{\color{red}Patch:}$ Adapt information on landing page.
+
 ### 2025/03/12 - $\textsf{last\ update\ 1.0.3\ >>\ {\color{pink}1.0.4}}$
 
 - $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.

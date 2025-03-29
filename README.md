@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.0.4}}$
+$\texttt{\color{teal}{v1.0.5}}$
 
 
 <br><br>
@@ -124,9 +124,10 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.3\ >>\ {\color{pink}1.0.4}}$
+### $\textsf{last\ update\ 1.0.4\ >>\ {\color{pink}1.0.5}}$
 
 - $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
+- $\textsf{\color{red}Patch:}$ Adapt information on landing page.
 
 <br>
 

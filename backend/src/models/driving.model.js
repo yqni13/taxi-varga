@@ -100,8 +100,9 @@ class DrivingModel {
         const priceReturnAfterHours = 0.5;
         const priceLatency30min = 12;
         let approachCosts = 0;
+        let withinBusinessHours = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
 
-        if(Utils.checkTimeWithinBusinessHours(params['pickupTIME'])) {
+        if(withinBusinessHours) {
             const priceMoreThan30km = priceApproachLess30km + ((home2origin.distanceMeters - 30) * priceApproachMore30km);
             approachCosts = home2origin.distanceMeters <= 30 
                 ? priceApproachLess30km
@@ -118,6 +119,7 @@ class DrivingModel {
         let totalServiceDistance = 0;
         let payingServiceDistance = 0;
         let totalServiceTime = 0;
+        let additionalCharge = 0;
 
         if(params['back2home'] === true) {
             payingServiceDistance = origin2destination.distanceMeters + destination2origin.distanceMeters;
@@ -127,6 +129,7 @@ class DrivingModel {
             totalServiceDistance = origin2destination.distanceMeters;
             payingServiceDistance = totalServiceDistance;
             totalServiceTime = origin2destination.duration
+            additionalCharge = withinBusinessHours && (Utils.checkAddressAtViennaAirport(params.originDetails.zipCode) || Utils.checkAddressInVienna(params.originDetails.zipCode)) ? 10 : 0;
         }
 
         if(totalServiceDistance <= 30) {
@@ -143,7 +146,7 @@ class DrivingModel {
             : (params['latency'] / 30) * priceLatency30min;
 
         const returnCosts = this.calcDestinationReturnCosts(params, origin2home, destination2home, latencyCosts, priceReturn, priceReturnAfterHours);
-        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts;
+        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
 
         result['time'] = Math.ceil(totalServiceTime);
 
