@@ -7,7 +7,7 @@ class GoogleRoutesAPI {
     getRoutesHeader() {
         return {
             'Content-Type': 'application/json',
-            'X-Goog-Api-Key': process.env.GOOGLE_API_KEY,
+            'X-Goog-Api-Key': Secrets.GOOGLE_API_KEY,
             'X-Goog-FieldMask': 'originIndex,destinationIndex,distanceMeters,duration,status'
         }
     }
@@ -27,7 +27,7 @@ class GoogleRoutesAPI {
             destinations = `${prefix}${params['destination']}`;
         }
 
-        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${process.env.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${Secrets.GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)

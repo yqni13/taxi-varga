@@ -1,16 +1,11 @@
 
 const { ErrorCodes } = require('../errorCodes.utils');
 const { ErrorStatusCodes } = require('../errorStatusCodes.utils');
-const { Config } = require('../../configs/config');
 
 class AuthException extends Error {
     constructor(code, message, data, status = 401) {
         super(message);
-        if(Config.MODE === 'development') {
-            this.message = message;
-        } else {
-            this.message = message;
-        }
+        this.message = message;
         this.name = 'Auth Error';
         this.code = code;
         this.error = this.constructor.name;

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const axios = require('axios');
 const Utils = require('../../utils/common.utils');
+const Secrets = require('../../utils/secrets.utils');
 
 class GooglePlacesAPI {
     requestPlaceAutocomplete = async (params) => {
@@ -13,7 +14,7 @@ class GooglePlacesAPI {
         const centerLongitude = '16.372540';
         const location = `${centerLatitude}$2C${centerLongitude}`;
 
-        const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchText}&language=${lang}&location=${location}&sessiontoken=${token}&radius=50000&key=${process.env.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${searchText}&language=${lang}&location=${location}&sessiontoken=${token}&radius=50000&key=${Secrets.GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)
@@ -33,7 +34,7 @@ class GooglePlacesAPI {
         const lang = params['language'];
         const token = params['sessiontoken'];
 
-        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&language=${lang}&sessiontoken=${token}&key=${process.env.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&language=${lang}&sessiontoken=${token}&key=${Secrets.GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)
