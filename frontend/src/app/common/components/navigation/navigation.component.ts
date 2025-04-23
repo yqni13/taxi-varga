@@ -42,7 +42,7 @@ export class NavigationComponent implements OnInit {
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;
         this.routes = [];
-        this.deviceMode = DeviceOptions.mobile;
+        this.deviceMode = DeviceOptions.MOBILE;
 
         this.router.events
         .pipe(filter(evt => evt instanceof NavigationEnd))
@@ -77,10 +77,10 @@ export class NavigationComponent implements OnInit {
         // sets data attribute for body and in media.scss style settings are applied
         if(width > this.maxMobileWidth) {
             this.document.body.setAttribute("data-nav", 'desktopMode');
-            this.deviceMode = DeviceOptions.stationary;
+            this.deviceMode = DeviceOptions.STATIONARY;
         } else {
             this.document.body.setAttribute("data-nav", 'mobileMode');
-            this.deviceMode = DeviceOptions.mobile;
+            this.deviceMode = DeviceOptions.MOBILE;
         }
     }
 }

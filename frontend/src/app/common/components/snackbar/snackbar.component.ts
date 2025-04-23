@@ -43,7 +43,7 @@ export class SnackbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.snackbarClass = this.snackbarMsg.type || SnackbarOption.info;
+        this.snackbarClass = this.snackbarMsg.type || SnackbarOption.INFO;
         this.isActive = true;
     }
 

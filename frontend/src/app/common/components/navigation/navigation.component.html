@@ -4,7 +4,7 @@
             <img
                 [attr.aria-disabled]="true"
                 class="tava-nav-logo"
-                [ngClass]="deviceMode === deviceOptions.mobile ? 'mobile-size' : 'stationary-size'"
+                [ngClass]="deviceMode === deviceOptions.MOBILE ? 'mobile-size' : 'stationary-size'"
                 src="assets/logo.png" 
                 alt="logo to navigate home"
                 routerLink="home"
@@ -16,7 +16,7 @@
                 [attr.aria-disabled]="true"
                 routerLink="{{ route.path }}"
                 routerLinkActive="tava-active-route"
-            >{{deviceMode === deviceOptions.stationary ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="deviceMode === deviceOptions.mobile" class="{{route.data?.['icon']}}"></i></span>
+            >{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="deviceMode === deviceOptions.MOBILE" class="{{route.data?.['icon']}}"></i></span>
         </li>
     </ul>
 </nav> 

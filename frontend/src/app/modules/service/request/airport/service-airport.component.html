@@ -55,7 +55,7 @@
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.origin)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
                 </div>
                 <div *ngIf="direction === 'arrival'" class="tava-service-airport-block" id="form-destination">
@@ -67,7 +67,7 @@
                         [formControl]="serviceForm.get('destinationAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.destination' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.destination)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>
                 </div>
                 <div *ngIf="direction.length > 0" class="tava-service-airport-block" id="form-datetime">

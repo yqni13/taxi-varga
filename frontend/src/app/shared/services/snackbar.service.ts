@@ -22,7 +22,7 @@ export class SnackbarMessageService {
     }
 
     notify(snackbar: SnackbarMessage) {
-        snackbar.type = snackbar.type || SnackbarOption.info;
+        snackbar.type = snackbar.type || SnackbarOption.INFO;
 
         if(snackbar.title.length === 0) {
             snackbar.title = 'No title selected.'
