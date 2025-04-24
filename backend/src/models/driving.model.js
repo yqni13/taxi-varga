@@ -1,3 +1,4 @@
+
 const GoogleRoutes = require('../services/google-routes/google-routes.api');
 const { NotFoundException } = require("../utils/exceptions/common.exception");
 const Secrets = require('../utils/secrets.utils');
@@ -148,7 +149,7 @@ class DrivingModel {
         const returnCosts = this.calcDestinationReturnCosts(params, origin2home, destination2home, latencyCosts, priceReturn, priceReturnAfterHours);
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
 
-        result['time'] = Math.ceil(totalServiceTime);
+        result['duration'] = Math.ceil(totalServiceTime);
 
         result['price'] = (totalCosts % 1) >= 5
             ? Math.ceil(totalCosts)

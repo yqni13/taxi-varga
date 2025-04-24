@@ -16,7 +16,7 @@
                     [placeholder]="('modules.service.content.flatrate.labels.placeholder.address' | translate)"
                     [formControl]="serviceForm.get('originAddress') | controlCast"
                     [fieldName]="'modules.service.content.form.offer.origin' | translate"
-                    (byPlaceSelection)="getAddressDetails($event, addressOptions.origin)"
+                    (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                 ></tava-addressinput>
             </div>
             <div class="tava-service-flatrate-block" id="form-destination">
@@ -27,7 +27,7 @@
                     [placeholder]="('modules.service.content.flatrate.labels.placeholder.address' | translate)"
                     [formControl]="serviceForm.get('destinationAddress') | controlCast"
                     [fieldName]="'modules.service.content.form.offer.destination' | translate"
-                    (byPlaceSelection)="getAddressDetails($event, addressOptions.destination)"
+                    (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                 ></tava-addressinput>                    
             </div>
             <div class="tava-service-flatrate-block tava-datetime-double">

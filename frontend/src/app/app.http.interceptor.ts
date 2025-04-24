@@ -47,7 +47,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                             ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + 'via Email'
                             : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + 'via Email',
                         autoClose: false,
-                        type: SnackbarOption.success,
+                        type: SnackbarOption.SUCCESS,
                     })
                 }
             }
@@ -102,7 +102,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-routes`)
                 : mailTranslateService.getTranslationEN(`${path}.data.backend-500-routes`),
             autoClose: false,
-            type: SnackbarOption.error
+            type: SnackbarOption.ERROR
         })
     } 
     // SERVER CONNECTION
@@ -125,7 +125,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-server`)
                 : mailTranslateService.getTranslationEN(`${path}.data.backend-500-server`),
             autoClose: false,
-            type: SnackbarOption.error
+            type: SnackbarOption.ERROR
         })
     } 
     // PROPERTY VALIDATION
@@ -142,7 +142,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                     ? mailTranslateService.getTranslationDE(`${path}.data.${data.msg}`)
                     : mailTranslateService.getTranslationEN(`${path}.data.${data.msg}`),
                 autoClose: false,
-                type: SnackbarOption.error,
+                type: SnackbarOption.ERROR,
             })
         })
     } 
@@ -164,7 +164,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 ? mailTranslateService.getTranslationDE(`${path}.data.${message}`, env)
                 : mailTranslateService.getTranslationEN(`${path}.data.${message}`, env),
             autoClose: false,
-            type: SnackbarOption.error,
+            type: SnackbarOption.ERROR,
         })
     } 
     // OTHER VALIDATION
@@ -173,7 +173,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
             title: response.error.headers.error,
             text: response.error.headers.message,
             autoClose: false,
-            type: SnackbarOption.error,
+            type: SnackbarOption.ERROR,
         })
     }
 

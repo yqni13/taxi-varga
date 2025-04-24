@@ -12,16 +12,16 @@
                 <div
                     class="tava-service-airport-block"
                     id="form-radio" 
-                    *tavaVar="serviceForm.get('airport') as airport"
+                    *tavaVar="serviceForm.get('airportMode') as airportMode"
                 >
                     <div class="tava-service-airport-radio-wrapper">
                         <label class="tava-form-radio-left">
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
-                                value="arrival"
-                                formControlName="airport"
-                                (change)="getDirectionRadioValue($event)"
+                                [value]="directionOptions.ARRIVAL"
+                                formControlName="airportMode"
+                                (change)="getDirectionRadioValue()"
                             >
                             <span>{{'modules.service.content.airport.labels.arrival' | translate}}</span>
                         </label>
@@ -29,15 +29,15 @@
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
-                                value="departure"
-                                formControlName="airport"
-                                (change)="getDirectionRadioValue($event)"
+                                [value]="directionOptions.DEPARTURE"
+                                formControlName="airportMode"
+                                (change)="getDirectionRadioValue()"
                             >
                             <span>{{'modules.service.content.airport.labels.departure' | translate}}</span>
                         </label>
                     </div>
                     <div
-                        *ngIf="airport?.invalid && (airport?.dirty || airport?.touched)"
+                        *ngIf="airportMode?.invalid && (airportMode?.dirty || airportMode?.touched)"
                         class="tava-service-airport-block-validation"
                     >
                         <span>
@@ -46,7 +46,11 @@
                         <i class="icon-warning"></i>
                     </div>
                 </div>
-                <div *ngIf="direction === 'departure'" class="tava-service-airport-block" id="form-origin">
+                <div 
+                    *ngIf="serviceForm.get('airportMode')?.value === directionOptions.DEPARTURE"            
+                    class="tava-service-airport-block"
+                    id="form-origin"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.origin' | translate) + '*'}}
                     </span>
@@ -55,10 +59,14 @@
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.origin)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
                 </div>
-                <div *ngIf="direction === 'arrival'" class="tava-service-airport-block" id="form-destination">
+                <div 
+                    *ngIf="serviceForm.get('airportMode')?.value === directionOptions.ARRIVAL"          
+                    class="tava-service-airport-block"
+                    id="form-destination"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.destination' | translate) + '*'}}
                     </span>
@@ -67,10 +75,14 @@
                         [formControl]="serviceForm.get('destinationAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.destination' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.destination)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>
                 </div>
-                <div *ngIf="direction.length > 0" class="tava-service-airport-block" id="form-datetime">
+                <div
+                    *ngIf="serviceForm.get('airportMode')?.value !== null" 
+                    class="tava-service-airport-block"
+                    id="form-datetime"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.datetime' | translate) + '*'}}
                     </span>

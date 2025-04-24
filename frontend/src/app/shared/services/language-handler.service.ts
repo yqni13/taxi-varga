@@ -24,19 +24,19 @@ export class LanguageHandlerService {
             const language = localStorage.getItem('taxi-varga.at-language');
 
             if(!language) {
-                return LanguageOptions.de;
+                return LanguageOptions.DE;
             }
 
             switch(String(language)) {
                 case('en'):
-                return LanguageOptions.en;
+                return LanguageOptions.EN;
                 case('de'):
                 default:
-                    return LanguageOptions.de;
+                    return LanguageOptions.DE;
             }
         }
         
-        return LanguageOptions.de;
+        return LanguageOptions.DE;
     }
 
     setLanguageData(language: LanguageOptions) {
@@ -51,6 +51,6 @@ export class LanguageHandlerService {
         }
         
         this.document.querySelector('html')?.setAttribute('lang', 'de');
-        this.translate.use(LanguageOptions.de);
+        this.translate.use(LanguageOptions.DE);
     }
 }
