@@ -1,24 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
 import { filter, tap } from "rxjs";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
-import { CommonModule, DOCUMENT } from "@angular/common";
-import { CastAbstract2FormControlPipe } from "../../../../common/pipes/cast-abstract2form-control.pipe";
-import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
-import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
-import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
+import { DOCUMENT } from "@angular/common";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
-import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
-import { VarDirective } from "../../../../common/directives/ng-var.directive";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
-import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
 import { TokenService } from "../../../../shared/services/token.service";
@@ -26,6 +18,8 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
+import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
+import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 
 @Component({
     selector: 'tava-service-airport',
@@ -33,22 +27,13 @@ import { BaseServiceComponent } from "../../../../common/components/base-service
     styleUrl: './service-airport.component.scss',
     standalone: true,
     imports: [
-        AddressInputComponent,
-        CastAbstract2FormControlPipe,
-        CommonModule,
-        CurrencyFormatPipe,
         DistanceFormatPipe,
-        ReactiveFormsModule,
-        SelectInputComponent,
-        TextareaInputComponent,
-        TextInputComponent,
-        TranslateModule,
-        VarDirective
+        ...ServiceImportsHelperModule
     ]
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    protected direction: string;
+    protected directionOptions = AirportOptions;
 
     constructor(
         router: Router,
@@ -68,7 +53,6 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         drivingAPIService: DrivingAPIService,
     ) {
         super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
-        this.direction = '';
     }
 
     override async ngOnInit() {
@@ -95,7 +79,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     private initForm() {
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
-            airport: new FormControl('', Validators.required),
+            airportMode: new FormControl('', Validators.required),
             originAddress: new FormControl(''),
             originDetails: new FormControl(''),
             destinationAddress: new FormControl(''),  
@@ -116,8 +100,8 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: 'airport',
-            airport: '',
+            service: ServiceOptions.AIRPORT,
+            airportMode: null,
             originAddress: '',
             originDetails: null,
             destinationAddress: '',
@@ -130,19 +114,22 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             price: null
         });
     }
-
-    getDirectionRadioValue(event: any) {
-        this.direction = event.target?.value;
-        this.configAddressFields(this.direction);
+    getDirectionRadioValue() {
+        /**
+         * $event = native DOM event !== value from FormControl
+         * even property binding [value]="..." can result "on" (default radio value)
+         * radio select changes FormControl val => (change) triggers process
+         */
+        this.configAddressFields(this.serviceForm.get('airportMode')?.value);
     }
 
-    configAddressFields(direction: string) {
-        if(direction === 'arrival') {
+    configAddressFields(direction: AirportOptions) {
+        if(direction === AirportOptions.ARRIVAL) {
             this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('destinationAddress')?.setValue('');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
-        } else if(direction === 'departure') {
+        } else if(direction === AirportOptions.DEPARTURE) {
             this.serviceForm.get('destinationAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('originAddress')?.setValue('');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);

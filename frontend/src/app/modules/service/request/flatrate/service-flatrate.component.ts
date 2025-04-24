@@ -1,23 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
 import { filter, Subject, tap } from "rxjs";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
-import { CommonModule, DOCUMENT } from "@angular/common";
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from "@angular/forms";
-import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
-import { TextareaInputComponent } from "../../../../common/components/form-components/textarea-input/textarea-input.component";
-import { TextInputComponent } from "../../../../common/components/form-components/text-input/text-input.component";
-import { CastAbstract2FormControlPipe } from "../../../../common/pipes/cast-abstract2form-control.pipe";
+import { DOCUMENT } from "@angular/common";
+import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
-import { CurrencyFormatPipe } from "../../../../common/pipes/currency-format.pipe";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { MailAPIService } from "../../../../shared/services/mail-api.service";
 import { Router } from "@angular/router";
-import { VarDirective } from "../../../../common/directives/ng-var.directive";
-import { AddressInputComponent } from "../../../../common/components/form-components/address-input/address-input.component";
 import { AuthService } from "../../../../shared/services/auth.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
@@ -25,6 +18,7 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
+import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -32,16 +26,7 @@ import { BaseServiceComponent } from "../../../../common/components/base-service
     styleUrl: './service-flatrate.component.scss',
     standalone: true,
     imports: [
-        AddressInputComponent,
-        CastAbstract2FormControlPipe,
-        CommonModule,
-        CurrencyFormatPipe,
-        ReactiveFormsModule,
-        SelectInputComponent,
-        TextareaInputComponent,
-        TextInputComponent,
-        TranslateModule,
-        VarDirective
+        ...ServiceImportsHelperModule
     ]
 })
 export class ServiceFlatrateComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
@@ -72,10 +57,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
 
         this.dropoffTimeByLang$ = new Subject<string>();
         this.dropoffTimeByLangStatic = '';
-
         this.minTenancyStamp$ = new Subject<string>();
         this.maxTenancyStamp$ = new Subject<string>();
-    
     }
 
     override async ngOnInit() {

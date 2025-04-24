@@ -20,6 +20,10 @@ import { MailAPIService } from "../../shared/services/mail-api.service";
 import { AddressOptions } from "../../shared/enums/address-options.enum";
 import { DrivingAPIService } from "../../shared/services/driving-api.service";
 
+/**
+ * This is the base class for all 'service' modules.
+ */
+
 @Component({
     template: '',
     standalone: true
@@ -34,24 +38,23 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected hasConfirmed: boolean;
     protected pickupTimeByLang$: Subject<string>;
     protected pickupTimeByLangStatic: string;
-
-    protected serviceForm: FormGroup;
     protected customer: string;
     protected termCancellation: boolean;
     protected termSurchargeParking: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
-
+    protected serviceForm: FormGroup;
     protected service!: ServiceOptions;
-    protected subscriptionThemeObservation$: Subscription;
-    protected subscriptionLangObservation$: Subscription;
     protected subscriptionHttpObservationDriving$: Subscription;
-    protected subscriptionHttpObservationEmail$: Subscription;
-    protected subscriptionHttpObservationError$: Subscription;
     protected window: any;
-    protected scrollAnchor!: HTMLElement;
-    protected customerData: string[];
     protected delay: any;
+    
+    private scrollAnchor!: HTMLElement;
+    private subscriptionThemeObservation$: Subscription;
+    private subscriptionLangObservation$: Subscription;
+    private subscriptionHttpObservationEmail$: Subscription;
+    private subscriptionHttpObservationError$: Subscription;
+    private customerData: string[];
 
     constructor(
         protected router: Router,
