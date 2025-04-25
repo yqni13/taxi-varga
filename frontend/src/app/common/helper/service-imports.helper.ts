@@ -8,14 +8,16 @@ import { TextareaInputComponent } from "../components/form-components/textarea-i
 import { TextInputComponent } from "../components/form-components/text-input/text-input.component";
 import { TranslateModule } from "@ngx-translate/core";
 import { VarDirective } from "../directives/ng-var.directive";
+import { ServiceMetaComponent } from "../components/form-components/service-meta/service-meta.component";
 
-export const ServiceImportsHelperModule = [
+export const ServiceImportsModule = [
     AddressInputComponent,
     CastAbstract2FormControlPipe,
     CommonModule,
     CurrencyFormatPipe,
     ReactiveFormsModule,
     SelectInputComponent,
+    ServiceMetaComponent,
     TextareaInputComponent,
     TextInputComponent,
     TranslateModule,

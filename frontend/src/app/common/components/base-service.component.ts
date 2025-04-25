@@ -39,11 +39,13 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected pickupTimeByLang$: Subject<string>;
     protected pickupTimeByLangStatic: string;
     protected customer: string;
+    protected metaProperties: string[];
     protected termCancellation: boolean;
     protected termSurchargeParking: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
     protected serviceForm: FormGroup;
+    protected metaForm: FormGroup;
     protected service!: ServiceOptions;
     protected subscriptionHttpObservationDriving$: Subscription;
     protected window: any;
@@ -54,7 +56,6 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     private subscriptionLangObservation$: Subscription;
     private subscriptionHttpObservationEmail$: Subscription;
     private subscriptionHttpObservationError$: Subscription;
-    private customerData: string[];
 
     constructor(
         protected router: Router,
@@ -82,6 +83,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.pickupTimeByLangStatic = '';
 
         this.serviceForm = new FormGroup({});
+        this.metaForm = new FormGroup({});
         this.customer = '';
         this.termCancellation = false;
         this.termSurchargeParking = false;
@@ -94,7 +96,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
-        this.customerData = [
+        this.metaProperties = [
             'gender',
             'title',
             'firstName',
@@ -132,20 +134,25 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
             // avoid refreshing token after reload of webpage
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
+                this.snackbar.notify({
+                    title: this.translate.currentLang === 'de'
+                        ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.title`)
+                        : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.title`),
+                    text: this.translate.currentLang === 'de'
+                        ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.text`)
+                        : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.text`),
+                    autoClose: false,
+                    type: SnackbarOption.INFO
+                })
+                this.hasToken = true;
+            } else {
+                // reroute to service overview on refresh
+                this.router.navigate(['/service']);
+                this.hasToken = false;
             }
-            this.snackbar.notify({
-                title: this.translate.currentLang === 'de'
-                    ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.title`)
-                    : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.title`),
-                text: this.translate.currentLang === 'de'
-                    ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.text`)
-                    : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.text`),
-                autoClose: false,
-                type: SnackbarOption.INFO
-            })
-            this.hasToken = true;
         });
 
+        this.addMetaProperties2Form(this.metaForm);
         this.scrollAnchor = this.elRef.nativeElement.querySelector(`.tava-service-${this.service}`);
     }
 
@@ -212,14 +219,14 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         }
 
-    addCustomerData2Form() {
-        Object.values(this.customerData).forEach((element) => {
+    addMetaProperties2Form(form: FormGroup) {
+        Object.values(this.metaProperties).forEach((element) => {
             if(element === 'email') {
-                this.serviceForm.addControl(element, new FormControl('', [Validators.required, Validators.email]));
+                form.addControl(element, new FormControl('', [Validators.required, Validators.email]));
             } else if(element !== 'title' && element !== 'note') {
-                this.serviceForm.addControl(element, new FormControl('', Validators.required));
+                form.addControl(element, new FormControl('', Validators.required));
             } else {
-                this.serviceForm.addControl(element, new FormControl(''))
+                form.addControl(element, new FormControl(''))
             }
         })
     }
@@ -231,17 +238,24 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     async onSubmitOrder() {
-        this.serviceForm.markAllAsTouched();
+        // process step #2: get meta (customer) data
+        this.metaForm.markAllAsTouched();
 
-        if(this.serviceForm.invalid) {
+        if(this.metaForm.invalid) {
             return;
         }
 
         this.hasOrder = true;
+        this.addMetaData2ServiceForm();
         this.editFinalOrder();
-
         await this.delay(100);
         this.scrollToTop();
+    }
+
+    addMetaData2ServiceForm() {
+        Object.values(this.metaProperties).forEach((element) => {
+            this.serviceForm.get(element)?.setValue(this.metaForm.get(element)?.value);
+        })
     }
 
     editFinalOrder() {
@@ -252,6 +266,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     async submitOrder() {
+        // process step #3: send final order
         if(!this.termCancellation) {
             return;
         }

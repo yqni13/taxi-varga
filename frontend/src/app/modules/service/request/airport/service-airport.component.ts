@@ -18,7 +18,7 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
-import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
+import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 
 @Component({
@@ -28,7 +28,7 @@ import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
     standalone: true,
     imports: [
         DistanceFormatPipe,
-        ...ServiceImportsHelperModule
+        ...ServiceImportsModule
     ]
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
@@ -68,7 +68,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addCustomerData2Form();
+                    this.addMetaProperties2Form(this.serviceForm);
                     this.httpObserve.setDrivingAirportStatus(false);
                 }
                 this.loadOfferResponse = false;
