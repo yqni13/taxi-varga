@@ -23,7 +23,10 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 @Component({
     selector: 'tava-service-flatrate',
     templateUrl: './service-flatrate.component.html',
-    styleUrl: './service-flatrate.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-flatrate.component.scss'
+    ],
     standalone: true,
     imports: [
         ...ServiceImportsModule
@@ -106,7 +109,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: 'flatrate',
+            service: this.service,
             originAddress: '',
             originDetails: null,
             destinationAddress: '',

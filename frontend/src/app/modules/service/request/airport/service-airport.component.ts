@@ -24,7 +24,10 @@ import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 @Component({
     selector: 'tava-service-airport',
     templateUrl: './service-airport.component.html',
-    styleUrl: './service-airport.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-airport.component.scss'
+    ],
     standalone: true,
     imports: [
         DistanceFormatPipe,
@@ -100,7 +103,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: ServiceOptions.AIRPORT,
+            service: this.service,
             airportMode: null,
             originAddress: '',
             originDetails: null,
@@ -141,6 +144,11 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
+            if(this.serviceForm.get('airportMode')?.value === null) {
+                this.serviceForm.get('originAddress')?.markAsUntouched();
+                this.serviceForm.get('destinationAddress')?.markAsUntouched();
+                this.serviceForm.get('datetime')?.markAsUntouched();
+            }
             return;
         }
 

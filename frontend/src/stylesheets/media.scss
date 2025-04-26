@@ -124,17 +124,17 @@
         }
     }
 
-    .tava-service-airport,
-    .tava-service-destination,
-    .tava-service-flatrate {
-        .tava-service-form {
-            width: 50vw;
-            max-width: 600px;
-        }
-
+    .tava-service-meta {
         .tava-service-form-customer-double {
             flex-direction: column;
             width: 47.5%;
+        }
+    }
+
+    .tava-service-specific-content {
+        .tava-service-form {
+            width: 50vw;
+            max-width: 600px;
         }
     }
 
@@ -308,17 +308,17 @@
         }
     }
 
-    .tava-service-airport,
-    .tava-service-destination,
-    .tava-service-flatrate {
-        .tava-service-form {
-            width: 50vw;
-            max-width: 600px;
-        }
-
+    .tava-service-meta {
         .tava-service-form-customer-double {
             flex-direction: column;
             width: 47.5%;
+        }
+    }
+
+    .tava-service-specific-content {
+        .tava-service-form {
+            width: 50vw;
+            max-width: 600px;
         }
     }
 
@@ -415,9 +415,7 @@
         }
     }
 
-    .tava-service-airport,
-    .tava-service-destination,
-    .tava-service-flatrate {
+    .tava-service-specific-content {
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;
@@ -429,9 +427,7 @@
             padding: $padding-portrait-size $padding-landscape-size;
             font-size: clamp(12px, 2.5vw, 15px);
         }
-
         .tava-service-terms {
-
             input {
                 margin: 0 sass.$space50 0 sass.$space25!important;
             }
@@ -551,9 +547,7 @@
         }
     }
 
-    .tava-service-airport,
-    .tava-service-destination,
-    .tava-service-flatrate {
+    .tava-service-specific-content {
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;
@@ -565,9 +559,7 @@
             padding: $padding-portrait-size $padding-landscape-size;
             font-size: clamp(12px, 2.5vw, 15px);
         }
-
         .tava-service-terms {
-
             input {
                 margin: 0 sass.$space50 0 0!important;
             }
@@ -685,26 +677,7 @@
         }
     }
 
-    .tava-service-airport,
-    .tava-service-destination,
-    .tava-service-flatrate {
-        .tava-service-form {
-            $padding-portrait-size: calc(sass.$space25 / 2);
-            $padding-landscape-size: sass.$space25;
-            $margin-landscape-size: sass.$space25;
-
-            width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
-            max-width: none;
-            margin: 0 $margin-landscape-size;
-            padding: $padding-portrait-size $padding-landscape-size;
-        }
-
-        .tava-service-airport-customer-block,
-        .tava-service-destination-customer-block,
-        .tava-service-flatrate-customer-block {
-            flex-direction: column!important;
-        }
-        
+    .tava-service-meta {
         #tava-service-customer-double-left {
             width: 100%!important;
             margin-right: 0!important;
@@ -714,6 +687,23 @@
         #tava-service-customer-double-right {
             width: 100%!important;
             margin-left: 0!important;
+        }
+
+        .tava-service-meta-customer-block {
+            flex-direction: column!important;
+        }
+    }
+    
+    .tava-service-specific-content {
+        .tava-service-form {
+            $padding-portrait-size: calc(sass.$space25 / 2);
+            $padding-landscape-size: sass.$space25;
+            $margin-landscape-size: sass.$space25;
+
+            width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
+            max-width: none;
+            margin: 0 $margin-landscape-size;
+            padding: $padding-portrait-size $padding-landscape-size;
         }
     }
 }

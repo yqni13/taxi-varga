@@ -24,7 +24,10 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 @Component({
     selector: 'tava-service-destination',
     templateUrl: './service-destination.component.html',
-    styleUrl: './service-destination.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-destination.component.scss'
+    ],
     standalone: true,
     imports: [
         DistanceFormatPipe,
@@ -102,7 +105,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: 'destination',
+            service: this.service,
             originAddress: '',
             originDetails: null,
             destinationAddress: '',
