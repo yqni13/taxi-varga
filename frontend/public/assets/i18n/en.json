@@ -107,9 +107,8 @@
         },
         "service": {
             "commands": {
-                "calc": "calculate",
-                "check": "check input",
-                "confirm": "send"
+                "confirm": "send",
+                "forward": "next"
             },
             "content": {
                 "airport": {

@@ -6,6 +6,7 @@ import { CastAbstract2FormControlPipe } from "../../../pipes/cast-abstract2form-
 import { TextareaInputComponent } from "../textarea-input/textarea-input.component";
 import { TextInputComponent } from "../text-input/text-input.component";
 import { SelectInputComponent } from "../select-input/select-input.component";
+import { MetaFormRequest } from "../../../../shared/interfaces/meta-request.interface";
 
 @Component({
     selector: 'tava-servicemeta',
@@ -24,7 +25,7 @@ import { SelectInputComponent } from "../select-input/select-input.component";
 })
 export class ServiceMetaComponent {
     
-    @Input() metaFormGroup!: FormGroup;
+    @Input() metaFormGroup!: FormGroup<MetaFormRequest>;
 
     constructor() {
         //

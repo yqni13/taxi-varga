@@ -9,6 +9,7 @@
         width: calc(100% - 12px);
         padding: 9.5px sass.$form-padding-small;
         border-radius: calc(sass.$space5 + 1px);
+        text-overflow: ellipsis;
     }
 }
 
