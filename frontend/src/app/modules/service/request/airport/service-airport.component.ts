@@ -18,17 +18,20 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
-import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
+import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 
 @Component({
     selector: 'tava-service-airport',
     templateUrl: './service-airport.component.html',
-    styleUrl: './service-airport.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-airport.component.scss'
+    ],
     standalone: true,
     imports: [
         DistanceFormatPipe,
-        ...ServiceImportsHelperModule
+        ...ServiceImportsModule
     ]
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
@@ -68,7 +71,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addCustomerData2Form();
+                    this.addMetaProperties2Form(this.serviceForm);
                     this.httpObserve.setDrivingAirportStatus(false);
                 }
                 this.loadOfferResponse = false;
@@ -100,7 +103,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: ServiceOptions.AIRPORT,
+            service: this.service,
             airportMode: null,
             originAddress: '',
             originDetails: null,
@@ -141,6 +144,11 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {
+            if(this.serviceForm.get('airportMode')?.value === null) {
+                this.serviceForm.get('originAddress')?.markAsUntouched();
+                this.serviceForm.get('destinationAddress')?.markAsUntouched();
+                this.serviceForm.get('datetime')?.markAsUntouched();
+            }
             return;
         }
 

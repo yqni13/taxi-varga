@@ -1,0 +1,92 @@
+<div class="tava-service-meta">
+    <form [formGroup]="metaFormGroup">
+        <div class="tava-service-meta-customer-block">
+            <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.form.customer.gender' | translate) + '*'}}
+                </span>
+                <tava-selectinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.gender' | translate"
+                    [formControl]="metaFormGroup.get('gender') | controlCast"
+                    [options]="{male: 'male', female: 'female'}"
+                    [optionsTranslateRoot]="'shared.enum.gender.'"
+                    [fieldName]="'modules.service.content.form.customer.gender' | translate"
+                ></tava-selectinput>
+            </div>
+            <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
+                <span class="tava-service-block-label">
+                    {{'modules.service.content.form.customer.title' | translate}}
+                </span>
+                <tava-textinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.title' | translate"
+                    [inputType]="'text'"
+                    [formControl]="metaFormGroup.get('title') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.title' | translate"
+                ></tava-textinput>
+            </div>
+        </div>
+        <div class="tava-service-meta-customer-block">
+            <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.form.customer.first-name' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.first-name' | translate"
+                    [inputType]="'text'"
+                    [formControl]="metaFormGroup.get('firstName') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.first-name' | translate"
+                ></tava-textinput>
+            </div>
+            <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.form.customer.last-name' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.last-name' | translate"
+                    [inputType]="'text'"
+                    [formControl]="metaFormGroup.get('lastName') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.last-name' | translate"
+                ></tava-textinput>
+            </div>
+        </div>
+        <div class="tava-service-meta-customer-block">
+            <div class="tava-service-form-customer-single">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.form.customer.phone' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.phone' | translate"
+                    [inputType]="'text'"
+                    [formControl]="metaFormGroup.get('phone') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.phone' | translate"
+                ></tava-textinput>
+            </div>
+        </div>
+        <div class="tava-service-meta-customer-block">
+            <div class="tava-service-form-customer-single">
+                <span class="tava-service-block-label">
+                    {{('modules.service.content.form.customer.email' | translate) + '*'}}
+                </span>
+                <tava-textinput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.email' | translate"
+                    [inputType]="'email'"
+                    [formControl]="metaFormGroup.get('email') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.email' | translate"
+                ></tava-textinput>
+            </div>
+        </div>
+        <div class="tava-service-meta-customer-block">
+            <div class="tava-service-form-customer-single">
+                <span class="tava-service-block-label">
+                    {{'modules.service.content.form.customer.note' | translate}}
+                </span>
+                <tava-textareainput
+                    [placeholder]="'modules.service.content.form.customer.placeholder.note' | translate"
+                    [rows]="4"
+                    [formControl]="metaFormGroup.get('note') | controlCast"
+                    [fieldName]="'modules.service.content.form.customer.note' | translate"
+                ></tava-textareainput>
+            </div>
+        </div>
+    </form>
+</div>

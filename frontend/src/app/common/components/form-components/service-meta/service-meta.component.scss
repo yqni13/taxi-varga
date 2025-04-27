@@ -1,0 +1,26 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+.tava-service-meta {
+    #tava-service-customer-double-right {
+        margin-left: 5%;
+    }
+    
+    .tava-service-meta-customer-block {
+        display: flex;
+        flex-direction: row;
+        margin: sass.$space15 0;
+    }
+}
+
+.tava-service-form-customer-single {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.tava-service-form-customer-double {
+    display: flex;
+    flex-direction: column;
+    width: 47.5%;
+}

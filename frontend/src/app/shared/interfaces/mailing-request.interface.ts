@@ -1,3 +1,5 @@
+import { ServiceOptions } from "../enums/service-options.enum"
+
 export declare interface MailingRequest {
     sender: string,
     subject: string,
@@ -5,7 +7,7 @@ export declare interface MailingRequest {
 }
 
 export declare interface MailingMessage {
-    service: 'airport' | 'destination' | 'flatrate',
+    service: ServiceOptions,
     gender: 'male' | 'female',
     title?: string,
     firstName: string,

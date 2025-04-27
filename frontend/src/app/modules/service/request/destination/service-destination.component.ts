@@ -19,16 +19,19 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
-import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
+import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 
 @Component({
     selector: 'tava-service-destination',
     templateUrl: './service-destination.component.html',
-    styleUrl: './service-destination.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-destination.component.scss'
+    ],
     standalone: true,
     imports: [
         DistanceFormatPipe,
-        ...ServiceImportsHelperModule
+        ...ServiceImportsModule
     ]
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
@@ -70,7 +73,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addCustomerData2Form();
+                    this.addMetaProperties2Form(this.serviceForm);
                     this.httpObserve.setDrivingDestinationStatus(false);
                 }
                 this.loadOfferResponse = false;
@@ -102,7 +105,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: 'destination',
+            service: this.service,
             originAddress: '',
             originDetails: null,
             destinationAddress: '',

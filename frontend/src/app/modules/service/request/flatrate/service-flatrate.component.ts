@@ -18,15 +18,18 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
-import { ServiceImportsHelperModule } from "../../../../common/helper/service-imports.helper";
+import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 
 @Component({
     selector: 'tava-service-flatrate',
     templateUrl: './service-flatrate.component.html',
-    styleUrl: './service-flatrate.component.scss',
+    styleUrls: [
+        '../../service.component.scss',
+        './service-flatrate.component.scss'
+    ],
     standalone: true,
     imports: [
-        ...ServiceImportsHelperModule
+        ...ServiceImportsModule
     ]
 })
 export class ServiceFlatrateComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
@@ -74,7 +77,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addCustomerData2Form();
+                    this.addMetaProperties2Form(this.serviceForm);
                     this.httpObserve.setDrivingFlatrateStatus(false);
                 }
                 this.loadOfferResponse = false;
@@ -106,7 +109,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     private initEdit() {
         this.initForm();
         this.serviceForm.patchValue({
-            service: 'flatrate',
+            service: this.service,
             originAddress: '',
             originDetails: null,
             destinationAddress: '',
