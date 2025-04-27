@@ -220,6 +220,16 @@
                         "time-pickup": "Zeit der Abholung",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
+                },
+                "golf": {
+                    "info": {
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (6 Stunden im Preis inkludiert)\n",
+                        "title": "Bitte beachten Sie"
+                    },
+                    "option": {
+                        "title": "Golf-Tagesreise"
+                    },
+                    "title": "Golfreise - Routendetails"
                 }
             }
         }

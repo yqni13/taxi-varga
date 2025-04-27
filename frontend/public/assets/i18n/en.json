@@ -220,6 +220,16 @@
                         "time-pickup": "Time of pick-up",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
+                },
+                "golf": {
+                    "info": {
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (6 hours included in the price)",
+                        "title": "Please note that"
+                    },
+                    "option": {
+                        "title": "Golf day trip"
+                    },
+                    "title": "Golf trip - route details"
                 }
             }
         }
