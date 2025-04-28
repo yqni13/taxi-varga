@@ -57,7 +57,7 @@ h2 {
 }
 
 .tava-active-route {
-    color: var(--theme-palette-highlight)!important;
+    color: var(--theme-palette-contrast)!important;
     font-weight: bold;
 
     &:hover::after,
