@@ -156,6 +156,7 @@ section {
             opacity: var(--warning-opacity);
             text-shadow: 1px 1px 5px var(--warning-shadow);
             margin: calc(sass.$space5 / 2);
+            line-height: sass.$text-line-height;
         }
     }
 
@@ -210,6 +211,7 @@ section {
         font-style: italic;
         text-align: justify;
         opacity: 0.8;
+        line-height: sass.$text-line-height;
     }
 
     .tava-message-invalid {

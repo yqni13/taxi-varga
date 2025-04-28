@@ -47,6 +47,10 @@ th {
     color: var(--theme-palette-contrast);
 }
 
+.tava-samples-special-header {
+    line-height: sass.$text-line-height;
+}
+
 td {
     text-align: end;
     padding: sass.$space5 0;

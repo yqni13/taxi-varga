@@ -70,6 +70,7 @@ $lang-icon-buffer: 2px;
 $link-hover-opacity: 0.4;
 
 $nav-text-size: clamp(18px, 1.8vw, 25px);
+
 $content-text-size: clamp(14px, 1.8vw, 18px);
 $input-text-size: clamp(12px, 1.7vw, 16px);
 $validation-text-size: clamp(10px, 1.5vw, 14px);
@@ -78,6 +79,7 @@ $footer-h3-size: clamp(22px, 1.4vw, 28px);
 $footer-copyright-size: clamp(12px, 1vw, 18px);
 
 $font-text-family: "Optima", sans-serif;
+$text-line-height: 1.6;
 
 /* IMPORTANT! <select> uses padding-left: 4px intern (don't know yet to change that) */
 $select-balance-padding: 4px;
