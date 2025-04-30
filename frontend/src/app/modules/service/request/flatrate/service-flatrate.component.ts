@@ -125,16 +125,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
         })
     }
 
-    restrictDatePickerStart(today: boolean): string {
-        if(today) {
-            return this.datetimeService.getTodayStartingTimestamp(true);
-        } else {
-            return this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value);
-        }
-    }
-
     configDateTimeEnd($event: any) {
-        const restrictDateTime = this.datetimeService.get24HoursRestrictionTimestamp($event);
+        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 24);
         this.minTenancyStamp$.next(this.datetimeService.getTodayStartingTimestamp(false, $event));
         this.maxTenancyStamp$.next(restrictDateTime);
         this.serviceForm.get('datetimeEnd')?.clearValidators();
@@ -142,17 +134,10 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             CustomValidators.requiredTenancyValidator(),
             CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
             CustomValidators.invalidTenancyLowerLimitValidator($event),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime)
+            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.FLATRATE)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
-    }
-
-    checkDateEqualDate(): boolean {
-        return this.datetimeService.hasSameDate(
-            this.serviceForm.get('datetimeStart')?.value,
-            this.serviceForm.get('datetimeEnd')?.value
-        )
     }
 
     async onSubmitOffer() {

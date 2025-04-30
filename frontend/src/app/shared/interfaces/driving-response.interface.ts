@@ -25,3 +25,15 @@ export declare interface DrivingFlatrateResponse {
         }
     }
 }
+
+export declare interface DrivingGolfResponse {
+    body: {
+        routeData: {
+            distance: number,
+            time: number,
+            priceDriving: number,
+            priceSupport: number,
+            price: number,
+        }
+    }
+}

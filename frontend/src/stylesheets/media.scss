@@ -121,12 +121,6 @@
         }
     }
 
-    .tava-service-flatrate {
-        .tava-datetime-double {
-            flex-direction: row!important;
-        }
-    }
-
     .tava-service-meta {
         .tava-service-form-customer-double {
             flex-direction: column;
@@ -135,6 +129,9 @@
     }
 
     .tava-service-specific-content {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
         .tava-service-form {
             width: 50vw;
             max-width: 600px;
@@ -334,12 +331,6 @@
         }
     }
 
-    .tava-service-flatrate {
-        .tava-datetime-double {
-            flex-direction: row!important;
-        }
-    }
-
     .tava-service-meta {
         .tava-service-form-customer-double {
             flex-direction: column;
@@ -348,6 +339,9 @@
     }
 
     .tava-service-specific-content {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
         .tava-service-form {
             width: 50vw;
             max-width: 600px;
@@ -565,24 +559,23 @@
         }
     }
 
-    .tava-service-flatrate {
+    .tava-service-specific-content {
         .tava-datetime-double {
             flex-direction: column!important;
 
-            #tava-service-flatrate-tenancy-left {
+            #tava-service-flatrate-tenancy-left,
+            #tava-service-golf-stay-left {
                 margin-right: 0!important;
                 margin-bottom: sass.$space25;
                 width: 100%!important;
             }
 
-            #tava-service-flatrate-tenancy-right {
+            #tava-service-flatrate-tenancy-right,
+            #tava-service-golf-stay-right {
                 margin-left: 0!important;
                 width: 100%!important;
             }
         }
-    }
-
-    .tava-service-specific-content {
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;

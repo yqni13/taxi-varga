@@ -24,3 +24,13 @@ export declare interface DrivingFlatrateRequest {
     destinationDetails: any,
     tenancy: number,
 }
+
+export declare interface DrivingGolfRequest {
+    origin: string,
+    originDetails: any,
+    golfcourse: string,
+    golfcourseDetails: any,
+    destination: string,
+    destinationDetails: any,
+    stay: number
+}
