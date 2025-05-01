@@ -107,7 +107,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 Validators.required,
                 CustomValidators.negativeDateTimeValidator(this.datetimeService)
             ]),
-            datetimeEnd: new FormControl(''), // TODO(yqni13): custom validator tenancy (golf)
+            datetimeEnd: new FormControl(''),
             passengers: new FormControl('', Validators.required),
             stay: new FormControl(''),
             supportMode: new FormControl('', Validators.required),
@@ -214,8 +214,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         });
         this.loadOfferResponse = true;
         await this.delay(100);
-        this.loadOfferResponse = false;
-        this.hasOffer = true;
         this.scrollToTop();
     }
 

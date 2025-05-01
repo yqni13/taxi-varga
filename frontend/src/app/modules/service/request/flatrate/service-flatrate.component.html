@@ -39,7 +39,7 @@
                         [inputType]="'datetime-local'"
                         [minValString]="restrictDatePickerStart(true)"
                         [formControl]="serviceForm.get('datetimeStart') | controlCast"
-                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                        [fieldName]="'modules.service.content.form.offer.datetime-start' | translate"
                         (byChange)="configDateTimeEnd($event)"
                     ></tava-textinput>
                 </div>
@@ -53,7 +53,7 @@
                         [minStringObservable]="minTenancyStamp$"
                         [maxStringObservable]="maxTenancyStamp$"
                         [formControl]="serviceForm.get('datetimeEnd') | controlCast"
-                        [fieldName]="'modules.service.content.form.offer.datetime' | translate"
+                        [fieldName]="'modules.service.content.form.offer.datetime-end' | translate"
                     ></tava-textinput>
                 </div>
             </div>

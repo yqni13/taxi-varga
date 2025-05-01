@@ -2,16 +2,12 @@
 
 
 /* SERVICE OVERVIEW STYLING --- SERVICE OVERVIEW STYLING */
-
-section {
-    background-color: var(--theme-palette-background);
-}
-
 .tava-service-content {
     width: 100%;
     min-height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
     display: flex;
     justify-content: center;
+    background-color: var(--theme-palette-background);
 }
 
 .tava-service-route {
@@ -94,6 +90,7 @@ section {
     display: flex;
     justify-content: center;
     flex-direction: column;
+
     align-items: center;
 }
 

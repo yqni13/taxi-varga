@@ -97,7 +97,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
                 Validators.required,
                 CustomValidators.negativeDateTimeValidator(this.datetimeService)
             ]),
-            datetimeEnd: new FormControl('', CustomValidators.requiredTenancyValidator()),
+            datetimeEnd: new FormControl(''),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             dropOffDATE: new FormControl(''),
@@ -153,7 +153,6 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             this.addResponseRouteData2Form(data);
         })
         this.loadOfferResponse = true;
-        
         await this.delay(100);
         this.scrollToTop();
     }

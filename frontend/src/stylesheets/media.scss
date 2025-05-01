@@ -1,3 +1,4 @@
+
 @use '../stylesheets/utilities' as sass;
 
 
@@ -99,25 +100,53 @@
 
     .tava-service {
         .tava-service-content {
-            flex-direction: row;
-            .tava-service-route {
+            $temp: calc(height * 2);
+            @media only screen and (orientation: landscape) {
                 flex-direction: row;
-                #tava-service-selection2 {
-                    border-left: 2px solid var(--theme-palette-highlight);
-                    border-right: 1px solid var(--theme-palette-highlight);
-                }
-                #tava-service-selection3 {
-                    border-left: 1px solid var(--theme-palette-highlight);
-                    border-right: 2px solid var(--theme-palette-highlight);
-                }
-                img {
-                    width: 100%;
-                    height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
-                }
-                .tava-author {
-                    width: 25%;
+                .tava-service-route {
+                    flex-direction: row;
+                    #tava-service-selection2 {
+                        border-left: 2px solid var(--theme-palette-highlight);
+                        border-right: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection3 {
+                        border-left: 1px solid var(--theme-palette-highlight);
+                        border-right: 2px solid var(--theme-palette-highlight);
+                    }
+                    img {
+                        width: 100%;
+                        height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
+                    }
+                    .tava-author {
+                        width: 25%;
+                    }
                 }
             }
+            @media only screen and (orientation: portrait) {
+                flex-direction: column;
+                .tava-service-route {
+                    flex-direction: column;
+                    #tava-service-selection2 {
+                        border-top: 2px solid var(--theme-palette-highlight);
+                        border-bottom: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection3 {
+                        border-top: 1px solid var(--theme-palette-highlight);
+                        border-bottom: 2px solid var(--theme-palette-highlight);
+                    }
+                    img {
+                        width: 100vw;
+                    }
+                    .tava-author {
+                        width: 100%;
+                        a {
+                            font-size: 22px!important;
+                        }
+                    }
+                }
+            }
+
+            
         }
     }
 
@@ -153,51 +182,6 @@
 
         .tava-footer-links {
             width: 60%;
-        }
-    }
-
-    @media screen and (height > 1000px) {
-        .tava-service {
-            .tava-service-content {
-                flex-direction: column;
-
-                .triple-outer,
-                .triple-inner {
-                    width: 100%;
-                    border: none;
-
-                    .tava-service-route-description {
-                        padding: calc(sass.$space25 + sass.$space5)!important;
-                        .tava-anchor {
-                            font-size: 34px;
-                        }
-                        .tava-anchor-sub {
-                            font-size:27px;
-                        }
-                    }
-                }
-                
-                .tava-service-route {
-                    flex-direction: column;
-                    #tava-service-selection2 {
-                        border-top: 2px solid var(--theme-palette-highlight);
-                        border-bottom: 1px solid var(--theme-palette-highlight);
-                    }
-                    #tava-service-selection3 {
-                        border-top: 1px solid var(--theme-palette-highlight);
-                        border-bottom: 2px solid var(--theme-palette-highlight);
-                    }
-                    img {
-                        width: 100vw;
-                    }
-                    .tava-author {
-                        width: 100%;
-                        a {
-                            font-size: 22px!important;
-                        }
-                    }
-                }
-            }
         }
     }
 
