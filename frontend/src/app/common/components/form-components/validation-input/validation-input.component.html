@@ -18,6 +18,9 @@
         <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidStayUpperLimit')">
+            {{ 'common.validation.stay-invalid-upper-limit' | translate }}
+        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('maxLatency')">
             {{ 'common.validation.latency-invalid-upper-limit' | translate }}
         </div>

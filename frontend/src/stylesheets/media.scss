@@ -1,3 +1,4 @@
+
 @use '../stylesheets/utilities' as sass;
 
 
@@ -99,28 +100,53 @@
 
     .tava-service {
         .tava-service-content {
-            flex-direction: row;
-
-            .triple-outer {
-                width: 33%;
-            }
-
-            .triple-inner {
-                width: 34%;
-            }
-
-            .tava-service-route {
-
-                .tava-author {
-                    width: 33%;
+            $temp: calc(height * 2);
+            @media only screen and (orientation: landscape) {
+                flex-direction: row;
+                .tava-service-route {
+                    flex-direction: row;
+                    #tava-service-selection2 {
+                        border-left: 2px solid var(--theme-palette-highlight);
+                        border-right: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection3 {
+                        border-left: 1px solid var(--theme-palette-highlight);
+                        border-right: 2px solid var(--theme-palette-highlight);
+                    }
+                    img {
+                        width: 100%;
+                        height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
+                    }
+                    .tava-author {
+                        width: 25%;
+                    }
                 }
             }
-        }
-    }
+            @media only screen and (orientation: portrait) {
+                flex-direction: column;
+                .tava-service-route {
+                    flex-direction: column;
+                    #tava-service-selection2 {
+                        border-top: 2px solid var(--theme-palette-highlight);
+                        border-bottom: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection3 {
+                        border-top: 1px solid var(--theme-palette-highlight);
+                        border-bottom: 2px solid var(--theme-palette-highlight);
+                    }
+                    img {
+                        width: 100vw;
+                    }
+                    .tava-author {
+                        width: 100%;
+                        a {
+                            font-size: 22px!important;
+                        }
+                    }
+                }
+            }
 
-    .tava-service-flatrate {
-        .tava-datetime-double {
-            flex-direction: row!important;
+            
         }
     }
 
@@ -132,6 +158,9 @@
     }
 
     .tava-service-specific-content {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
         .tava-service-form {
             width: 50vw;
             max-width: 600px;
@@ -156,34 +185,12 @@
         }
     }
 
-    @media screen and (height > 1000px) {
+    @media screen and (height <= 700px) {
         .tava-service {
             .tava-service-content {
-                flex-direction: column;
-
-                .triple-outer,
-                .triple-inner {
-                    width: 100%;
-                    border: none;
-
-                    .tava-service-route-description {
-                        padding: calc(sass.$space25 + sass.$space5)!important;
-                        .tava-anchor {
-                            font-size: 34px;
-                        }
-                        .tava-anchor-sub {
-                            font-size:27px;
-                        }
-                    }
-                }
-                
                 .tava-service-route {
-                    
-                    .tava-author {
-                        width: 100%;
-                        a {
-                            font-size: 22px!important;
-                        }
+                    img {
+                        height: auto;
                     }
                 }
             }
@@ -283,28 +290,28 @@
     
     .tava-service {
         .tava-service-content {
-            flex-direction: row;
-
-            .triple-outer {
-                width: 33%;
-            }
-
-            .triple-inner {
-                width: 34%;
-            }
-
+            flex-direction: column;
             .tava-service-route {
-
+                flex-direction: row;
+                #tava-service-selection2 {
+                    border-left: 2px solid var(--theme-palette-highlight);
+                    border-right: none;
+                }
+                #tava-service-selection3 {
+                    border-left: none;
+                    border-right: 2px solid var(--theme-palette-highlight);
+                }
+                img {
+                    width: calc(100vw / 2);
+                    height: auto;
+                }
                 .tava-author {
-                    width: 33%;
+                    width: 50%;
                 }
             }
-        }
-    }
-
-    .tava-service-flatrate {
-        .tava-datetime-double {
-            flex-direction: row!important;
+            #tava-service-double2 {
+                border-top: 2px solid var(--theme-palette-highlight);
+            }
         }
     }
 
@@ -316,6 +323,9 @@
     }
 
     .tava-service-specific-content {
+        .tava-datetime-double {
+            flex-direction: row!important;
+        }
         .tava-service-form {
             width: 50vw;
             max-width: 600px;
@@ -340,29 +350,23 @@
         }
     }
 
-    @media screen and (height > 800px) {
+    @media screen and (height > 1000px) {
         .tava-service {
             .tava-service-content {
-                flex-direction: column;
-
-                .triple-outer,
-                .triple-inner {
-                    width: 100%;
-                    border: none;
-
-                    .tava-service-route-description {
-                        padding: calc(sass.$space25 + sass.$space5)!important;
-                        .tava-anchor {
-                            font-size: 28px;
-                        }
-                        .tava-anchor-sub {
-                            font-size:22px;
-                        }
-                    }
-                }
-                
+                flex-direction: column;                
                 .tava-service-route {
-                    
+                    flex-direction: column;
+                    #tava-service-selection2 {
+                        border-top: 2px solid var(--theme-palette-highlight);
+                        border-bottom: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection3 {
+                        border-top: 1px solid var(--theme-palette-highlight);
+                        border-bottom: 2px solid var(--theme-palette-highlight);
+                    }
+                    img {
+                        width: 100vw;
+                    }
                     .tava-author {
                         width: 100%;
                         a {
@@ -514,40 +518,48 @@
     .tava-service {
         .tava-service-content {
             flex-direction: column;
-
-            .triple-outer,
-            .triple-inner {
-                width: 100%;
-                border: none!important;
-            }
-
             .tava-service-route {
-
+                flex-direction: column;
+                #tava-service-selection2 {
+                    border: none;
+                    border-top: 2px solid var(--theme-palette-highlight);
+                    border-bottom: 1px solid var(--theme-palette-highlight);
+                }
+                #tava-service-selection3 {
+                    border: none;
+                    border-top: 1px solid var(--theme-palette-highlight);
+                    border-bottom: 2px solid var(--theme-palette-highlight);
+                }
+                img {
+                    width: 100vw;
+                }
                 .tava-author {
                     width: 100%;
                 }
             }
-        }
-    }
-
-    .tava-service-flatrate {
-        .tava-datetime-double {
-            flex-direction: column!important;
-
-            #tava-service-flatrate-tenancy-left {
-                margin-right: 0!important;
-                margin-bottom: sass.$space25;
-                width: 100%!important;
-            }
-
-            #tava-service-flatrate-tenancy-right {
-                margin-left: 0!important;
-                width: 100%!important;
+            #tava-service-double2 {
+                border-top: none;
             }
         }
     }
 
     .tava-service-specific-content {
+        .tava-datetime-double {
+            flex-direction: column!important;
+
+            #tava-service-flatrate-tenancy-left,
+            #tava-service-golf-stay-left {
+                margin-right: 0!important;
+                margin-bottom: sass.$space25;
+                width: 100%!important;
+            }
+
+            #tava-service-flatrate-tenancy-right,
+            #tava-service-golf-stay-right {
+                margin-left: 0!important;
+                width: 100%!important;
+            }
+        }
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;

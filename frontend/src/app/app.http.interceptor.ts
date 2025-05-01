@@ -33,6 +33,9 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 } else if(httpbody.url?.includes('/driving/flatrate')) {
                     await delay(1000);
                     httpObservationService.setDrivingFlatrateStatus(true);
+                } else if(httpbody.url?.includes('/driving/golf')) {
+                    await delay(1000);
+                    httpObservationService.setDrivingGolfStatus(true);
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
                     httpObservationService.setEmailStatus(true);
@@ -74,6 +77,9 @@ export async function handleError(response: any, httpObservationService: HttpObs
     } else if(response.url.includes('/driving/flatrate')) {
         await delay(1000);
         httpObservationService.setDrivingFlatrateStatus(false);
+    } else if(response.url.includes('/driving/golf')) {
+        await delay(1000);
+        httpObservationService.setDrivingGolfStatus(false);
     } else if(response.url.includes('/mailing/send')) {
         await delay(1000);
         httpObservationService.setEmailStatus(false);

@@ -46,9 +46,9 @@ export class DateTimeService {
         return `${date}T00:00`;
     }
 
-    get24HoursRestrictionTimestamp(start: string): string {
+    getRestrictionTimestampHoursBased(start: string, restrictionHours: number): string {
         const basis = Math.floor((new Date(start)).getTime() / 1000);
-        const limit = new Date((basis + (24 * 60 * 60)) * 1000);
+        const limit = new Date((basis + (restrictionHours * 60 * 60)) * 1000);
         return `${this.getDateFromTimestamp(new Date(limit).toString(), true)}T${this.getTimeFromTimestamp(new Date(limit).toString())}`;
     }
 

@@ -191,7 +191,7 @@ class DrivingModel {
 
         const priceApproachPerKm = 0.5;
         const priceReturnPerKm = 0.5;
-        const priceFlatrate30Min = 20;
+        const priceFlatrate30Min = 17.5;
         let totalCost = 0;
 
         const tenancy = (params['tenancy'] / 30) * priceFlatrate30Min; 

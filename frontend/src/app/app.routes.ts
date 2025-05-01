@@ -4,42 +4,43 @@ import { AboutComponent } from './modules/about/about.component';
 import { ImprintComponent } from './modules/imprint/imprint.component';
 import { SamplesComponent } from './modules/samples/samples.component';
 import { PrivacyComponent } from './modules/privacy/privacy.component';
+import { BaseRoute } from './api/routes/base.route.enum';
 
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: `/${BaseRoute.HOME}`,
         pathMatch: 'full'
     },
     {
-        path: 'home',
+        path: BaseRoute.HOME,
         component: HomeComponent,
-        data: {title: 'home', showInNavbar: true, showInFooter: false, icon: 'icon-home'}
+        data: {title: BaseRoute.HOME, showInNavbar: true, showInFooter: false, icon: 'icon-home'}
     },
     {
-        path: 'about',
+        path: BaseRoute.ABOUT,
         component: AboutComponent,
-        data: {title: 'about', showInNavbar: true, showInFooter: false, icon: 'icon-about'}
+        data: {title: BaseRoute.ABOUT, showInNavbar: true, showInFooter: false, icon: 'icon-about'}
     },
     {
-        path: 'service',
-        data: {title: 'service', showInNavbar: true, showInFooter: false, icon: 'icon-service'},
+        path: BaseRoute.SERVICE,
+        data: {title: BaseRoute.SERVICE, showInNavbar: true, showInFooter: false, icon: 'icon-service'},
         loadChildren: () => import('./modules/service/service.routes').then(feature => feature.serviceRoutes)
     },
     {
-        path: 'imprint',
+        path: BaseRoute.IMPRINT,
         component: ImprintComponent,
-        data: {title: 'imprint', showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
+        data: {title: BaseRoute.IMPRINT, showInNavbar: false, showInFooter: true, icon: 'icon-imprint'}
     },
     {
-        path: 'samples',
+        path: BaseRoute.SAMPLES,
         component: SamplesComponent,
-        data: {title: 'samples', showInNavbar: true, showInFooter: false, icon: 'icon-samples'}
+        data: {title: BaseRoute.SAMPLES, showInNavbar: true, showInFooter: false, icon: 'icon-samples'}
     },
     {
-        path: 'privacy',
+        path: BaseRoute.PRIVACY,
         component: PrivacyComponent,
-        data: {title: 'privacy', showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
+        data: {title: BaseRoute.PRIVACY, showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
     },
     {
         path: '**',

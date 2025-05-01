@@ -42,6 +42,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected metaProperties: string[];
     protected termCancellation: boolean;
     protected termSurchargeParking: boolean;
+    protected termSurchargeFuel: boolean;
     protected loadOfferResponse: boolean;
     protected loadOrderResponse: boolean;
     protected serviceForm: FormGroup;
@@ -87,6 +88,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.customer = '';
         this.termCancellation = false;
         this.termSurchargeParking = false;
+        this.termSurchargeFuel = false;
         this.loadOfferResponse = false;
         this.loadOrderResponse = false;
 
@@ -107,7 +109,6 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         ];
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
-
 
     async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observe.themeOption$.pipe(
@@ -194,12 +195,25 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         return this.datetimeService.getTodayStartingTimestamp(true);
     }
 
+    restrictDatePickerStart(today: boolean): string {
+        // used for limited time range like service golf/flatrate
+        if(today) {
+            return this.datetimeService.getTodayStartingTimestamp(true);
+        } else {
+            return this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value);
+        }
+    }
+
     getTermsCheckboxValue(event: any) {
         this.termCancellation = event.target?.checked;
     }
 
     getSurchargeParkingCheckboxValue(event: any) {
         this.termSurchargeParking = event.target?.checked;
+    }
+
+    getSurchargeFuelCheckboxValue(event: any) {
+        this.termSurchargeFuel = event.target?.checked;
     }
 
     configPickupTimeByLanguage(lang: string) {
@@ -214,7 +228,9 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     getAddressDetails(event: any, option: AddressOptions) {
             if(option === AddressOptions.ORIGIN) {
                 this.serviceForm.get('originDetails')?.setValue(event);
-            } else {
+            } else if(option === AddressOptions.GOLFCOURSE) {
+                this.serviceForm.get('golfcourseDetails')?.setValue(event);
+            }else {
                 this.serviceForm.get('destinationDetails')?.setValue(event);
             }
         }
@@ -235,6 +251,13 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.serviceForm.get('distance')?.setValue(response.body?.body.routeData.distance);
         this.serviceForm.get('duration')?.setValue(this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.duration));
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
+    }
+
+    checkDateEqualDate(): boolean {
+        return this.datetimeService.hasSameDate(
+            this.serviceForm.get('datetimeStart')?.value,
+            this.serviceForm.get('datetimeEnd')?.value
+        )
     }
 
     async onSubmitOrder() {

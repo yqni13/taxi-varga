@@ -36,7 +36,7 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    protected termSurchargeFuel: boolean;
+    
 
     constructor(
         router: Router,
@@ -57,7 +57,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     ) {
         super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService)
         
-        this.termSurchargeFuel = false;
+        
     }
 
     override async ngOnInit() {
@@ -126,10 +126,6 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
         if(!event.target?.checked) {
             this.serviceForm.get('latency')?.setValue('00:00');
         }
-    }
-
-    getSurchargeFuelCheckboxValue(event: any) {
-        this.termSurchargeFuel = event.target?.checked;
     }
 
     async onSubmitOffer() {

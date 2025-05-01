@@ -20,8 +20,7 @@
 
 .tava-text-input-checkbox {
     $checkbox-scaled-width: 13px;
-    $input-time-width: 100px;
-    margin: 0 calc(sass.$space15 + sass.$space5) 0 calc($input-time-width - $checkbox-scaled-width);
+    margin: 0 calc(sass.$space15 + sass.$space5) 0 calc(sass.$space50 - $checkbox-scaled-width);
 }
 
 #form-origin {

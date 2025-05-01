@@ -28,6 +28,7 @@
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
+            "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
             "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
             "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
@@ -71,7 +72,7 @@
         "about": {
             "business": {
                 "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service in Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
-                "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3)."
+                "secondary": "In addition, I take on package trips from/to Lower Austria against advance order, especially inexpensive between Leobersdorf and Vienna, but also between BN/WB/WN and W/WU/SW. Alternatively, round trips can also be taken on the basis of timed rentals. Furthermore, I also offer golf day trips to all golf clubs in Vienna and Lower Austria (GC in other provinces or abroad on request). On request, including accompaniment on the round of golf at a fair flat rate."
             },
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
@@ -194,32 +195,76 @@
                     "offer": {
                         "back2home": "Return",
                         "datetime": "Date & time",
+                        "datetime-end": "Date & time (return)",
+                        "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
+                        "golfcourse": "Golf course",
                         "latency": "Waiting time",
                         "origin": "Pickup address",
+                        "passengers": "Number of passengers",
+                        "return": "Return address",
+                        "stay": "Stay",
                         "tenancy": "Tenancy"
                     },
                     "order": {
                         "contact": "Contact",
                         "date-dropoff": "Date of drop-off",
                         "date-pickup": "Date of pick-up",
+                        "date-return": "Date of return",
                         "distance": "Driven distance",
                         "duration": "Driving time",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
-                        "price-estimated": "estimated price",
+                        "price-driving": "Price driving",
+                        "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
+                        "stay": "Charged stay",
+                        "stay-calc": "Stay: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
+                        "surcharge-caddy": "Surcharge caddy",
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "tenancy": "charged tenancy",
+                        "surcharge-player": "Surcharge player",
+                        "tenancy": "Charged tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
                         "terms": "I agree that I have already reached the age of 18 and provide my personal data only for the purpose of contracting the service. Furthermore, I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs ({{fieldValue}},00 EUR) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time-dropoff": "estimated drop-off",
+                        "time-dropoff": "Estimated drop-off",
                         "time-pickup": "Time of pick-up",
+                        "time-return": "Time of return",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
+                },
+                "golf": {
+                    "block-validation": "Please select your option of additional service.",
+                    "info": {
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (6 hours included in the price)",
+                        "title": "Please note that"
+                    },
+                    "labels": {
+                        "datetime-end": "Date & time (return)",
+                        "datetime-start": "Date & time (pickup)",
+                        "destination": "Return address",
+                        "golfcourse": "Golf course",
+                        "origin": "Pickup address",
+                        "passengers": "Number of passengers/players",
+                        "placeholder": {
+                            "golfcourse": "Type golf course",
+                            "number": "Select number",
+                            "street": "Type address"
+                        },
+                        "return": "I want to return to my pickup address.",
+                        "stay": "My required time of stay.",
+                        "support-mode": {
+                            "caddy": "I want to book you as my caddy.",
+                            "none": "I do not require an additional service.",
+                            "player": "I want to book you as additional player."
+                        }
+                    },
+                    "option": {
+                        "title": "Golf day trip"
+                    },
+                    "title": "Golf trip - route details"
                 }
             }
         }
@@ -236,6 +281,11 @@
             "language": {
                 "de": "German",
                 "en": "English"
+            },
+            "passengers": {
+                "PPL1": "1",
+                "PPL2": "2",
+                "PPL3": "3"
             },
             "service": {
                 "airport": "Airport",

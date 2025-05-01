@@ -28,6 +28,7 @@
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
+            "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
             "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
             "tenancy-invalid-lower-limit": "Die Mietdauer muss mind 3h betragen.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
@@ -71,7 +72,7 @@
         "about": {
             "business": {
                 "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3)."
+                "secondary": "Zusätzlich übernehme ich gegen Vorbestellung Pauschalfahrten von/nach Niederösterreich, besonders preisgünstig zwischen Leobersdorf und Wien, aber auch zwischen BN/WB/WN und W/WU/SW. Alternativ können Rundfahrten auch auf Basis von Zeitmieten in Anspruch genommen werden. Des Weiteren biete ich auch Golf-Tagesreisen zu allen Golfclubs in Wien und Niederösterreich (GC in anderen Bundesländern oder im Ausland auf Anfrage) an. Auf Wunsch inklusive Begleitung auf der Golfrunde zum fairen Pauschalpreis."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
@@ -194,32 +195,76 @@
                     "offer": {
                         "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "golfcourse": "Golfplatz",
                         "latency": "Wartezeit",
                         "origin": "Abholadresse",
+                        "passengers": "Anzahl Mitreisender",
+                        "return": "Rückfahradresse",
+                        "stay": "Aufenthalt",
                         "tenancy": "Mietdauer"
                     },
                     "order": {
                         "contact": "Kontakt",
                         "date-dropoff": "Datum der Ankunft",
                         "date-pickup": "Datum der Abholung",
+                        "date-return": "Datum der Rückfahrt",
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
                         "latency": "verrechnete Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
+                        "price-driving": "Fahrtkosten",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
+                        "stay": "verrechneter Aufenthalt",
+                        "stay-calc": "Aufenthalt: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
+                        "surcharge-caddy": "Aufpreis Caddy",
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
+                        "surcharge-player": "Aufpreis Mitspieler",
                         "tenancy": "verrechnete Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
                         "time-dropoff": "geschätzte Ankunft",
                         "time-pickup": "Zeit der Abholung",
+                        "time-return": "Zeit der Rückfahrt",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
+                },
+                "golf": {
+                    "block-validation": "Bitte wählen Sie eine Option für zusätzlichen Service aus.",
+                    "info": {
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (6 Stunden im Preis inkludiert)\n",
+                        "title": "Bitte beachten Sie"
+                    },
+                    "labels": {
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
+                        "destination": "Rückkehradresse",
+                        "golfcourse": "Golfplatz",
+                        "origin": "Abholadresse",
+                        "passengers": "Anzahl mitreisender Personen/Spieler",
+                        "placeholder": {
+                            "golfcourse": "Golfplatz auswählen",
+                            "number": "Anzahl wählen",
+                            "street": "Adresse auswählen"
+                        },
+                        "return": "Ich möchte zur Abholadresse zurückkehren.",
+                        "stay": "Meine gewünschte Zeit des Aufenthalts.",
+                        "support-mode": {
+                            "caddy": "Ich möchte Sie zur Begleitung als Caddy buchen.",
+                            "none": "Ich benötige keinen zusätzlichen Service.",
+                            "player": "Ich möchte Sie zur Begleitung als Mitspieler buchen."
+                        }
+                    },
+                    "option": {
+                        "title": "Golf-Tagesreise"
+                    },
+                    "title": "Golfreise - Routendetails"
                 }
             }
         }
@@ -236,6 +281,11 @@
             "language": {
                 "de": "Deutsch",
                 "en": "Englisch"
+            },
+            "passengers": {
+                "PPL1": "1",
+                "PPL2": "2",
+                "PPL3": "3"
             },
             "service": {
                 "airport": "Flughafenfahrt",
