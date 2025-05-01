@@ -1,4 +1,3 @@
-
 import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceOptions } from "../../shared/enums/service-options.enum";
@@ -53,7 +52,6 @@ export const requiredTenancyValidator = (): ValidatorFn => {
 export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const time = datetimeService.getTimeInTotalMinutes(control?.value);
-        // 6h max (measured by golf round)
         if(time > (60 * 6)) {
             return { maxLatency: true };
         }
@@ -61,12 +59,11 @@ export const maxLatencyValidator = (datetimeService: DateTimeService) : Validato
     }
 }
 
-export const invalidAirportTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const invalidBusinessHoursValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
-        // business time in Vienna 4am - 12pm
-        if(time <= (60 * 4) || time >= (60 * 12)) {
-            return { invalidAirportTime: true };
+        if(time < (60 * 4) || time > (60 * 12)) {
+            return { invalidBusinessHours: true };
         }
         return null;
     }
@@ -77,6 +74,28 @@ export const negativeDateTimeValidator = (datetimeService: DateTimeService) : Va
         const difference = datetimeService.getTimeDifferenceNoLimit(new Date().toString(), control?.value);
         if(difference < -1) {
             return { negativeDateTime: true };
+        }
+        return null;
+    }
+}
+
+export const negativeDateTimeEndValidator = (datetimeService: DateTimeService, datetimeStart: string): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const difference = datetimeService.getTimeDifferenceNoLimit(datetimeStart, control?.value);
+        if(difference < -1) {
+            return { negativeDatetimeEnd: true };
+        }
+        return null;
+    }
+}
+
+export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        for (const validator of validators) {
+            const result = validator(control);
+            if(result) {
+                return result;
+            }
         }
         return null;
     }

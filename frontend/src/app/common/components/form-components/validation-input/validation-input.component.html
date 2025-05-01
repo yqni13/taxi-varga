@@ -24,11 +24,14 @@
         <div class="tava-validation-message" *ngIf="control.hasError('maxLatency')">
             {{ 'common.validation.latency-invalid-upper-limit' | translate }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('invalidAirportTime')">
-            {{ 'common.validation.airport-invalid-time' | translate }}
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours')">
+            {{ 'common.validation.business-invalid-time' | translate }}
         </div>
         <div class="tava-validation-message" *ngIf="control.hasError('negativeDateTime')">
             {{ 'common.validation.datetime-invalid-negative' | translate }}
+        </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeDatetimeEnd')">
+            {{ 'common.validation.datetime-end-invalid-negative' | translate }}
         </div>
     </div>
 </ng-container>

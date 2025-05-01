@@ -132,8 +132,17 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
-            CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
-            CustomValidators.invalidTenancyLowerLimitValidator($event),
+            CustomValidators.priorityValidator([
+                CustomValidators.negativeDateTimeEndValidator(
+                    this.datetimeService,
+                    this.serviceForm.get('datetimeStart')?.value
+                ),
+                CustomValidators.invalidZeroTenancyValidator(
+                    this.datetimeService,
+                    this.serviceForm.get('datetimeStart')?.value
+                ),
+                CustomValidators.invalidTenancyLowerLimitValidator($event),
+            ]),
             CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.FLATRATE)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');

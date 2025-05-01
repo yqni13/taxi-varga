@@ -105,7 +105,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             return: new FormControl(null),
             datetimeStart: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+                CustomValidators.priorityValidator([
+                    CustomValidators.negativeDateTimeValidator(this.datetimeService),
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                ])
             ]),
             datetimeEnd: new FormControl(''),
             passengers: new FormControl('', Validators.required),
@@ -193,11 +196,21 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
+            CustomValidators.negativeDateTimeEndValidator(
+                this.datetimeService,
+                this.serviceForm.get('datetimeStart')?.value
+            ),
             CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
             CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.GOLF)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
+    }
+
+    override addResponseRouteData2Form(response: any) {
+        super.addResponseRouteData2Form(response);
+        this.serviceForm.get('priceDriving')?.setValue(response.body?.body.routeData.priceDriving);
+        this.serviceForm.get('priceSupport')?.setValue(response.body?.body.routeData.priceSupport);
     }
 
     async onSubmitOffer() {

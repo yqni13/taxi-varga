@@ -23,8 +23,9 @@
             "service": "Service"
         },
         "validation": {
-            "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
+            "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
+            "datetime-end-invalid-negative": "Time of return can not be before pickup.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
@@ -45,9 +46,12 @@
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
+                    "backend-invalid-language": "The selected language could not processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                    "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
+                    "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
                     "backend-invalid-tenancy": "Tenancy must be between 3h and 24h. Please check your input.",
                     "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
                     "backend-jwt-expiration": "The session expired after 30 minutes.",

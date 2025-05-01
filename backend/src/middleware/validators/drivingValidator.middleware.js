@@ -1,3 +1,4 @@
+
 const CustomValidator = require('../../utils/customValidator.utils');
 const { body } = require('express-validator');
 
@@ -61,9 +62,39 @@ exports.drivingFlatrateSchema = [
         .exists()
         .withMessage('backend-required')
         .bail()
-        .isInt({ min: 30, max: 1440 })
+        .isInt({ min: 30, max: 1440 }) // 3h < x < 24h
         .withMessage('backend-invalid-tenancy')
 ];
 
-
+exports.drivingGolfSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('originDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value)),
+    body('golfcourse')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),    
+    body('golfcourseDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.golfcourse, value)),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),    
+    body('destinationDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
+    body('stay')
+        .exists()
+        .withMessage('backend-required')
+        .bail()
+        .isInt({ max: 4320 }) // x < 72h
+        .withMessage('backend-invalid-stay'),
+    body('supportMode')
+        .exists()
+        .withMessage('backend-required')
+        .bail()
+        .custom((value) => CustomValidator.validateGolfSupportMode(value))
+];
 

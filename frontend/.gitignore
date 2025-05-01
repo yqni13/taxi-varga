@@ -35,6 +35,7 @@ prod_private_key.pem
 /public/assets/google
 /public/assets/docs/basics
 /public/assets/temp
+/public/assets/advertising
 
 # Node
 /node_modules

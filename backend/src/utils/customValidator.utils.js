@@ -4,6 +4,7 @@ const Utils = require('../utils/common.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
 const Secrets = require('./secrets.utils');
+const { SupportModeOption } = require('./enums/supportmode-option.enum');
 
 exports.validateServiceOption = (value) => {
     const options = Object.values(ServiceOption);
@@ -16,7 +17,7 @@ exports.validateServiceOption = (value) => {
 exports.validateLanguageCompatible = (language) => {
     const options = Object.values(LanguageOption);
     if(!options.includes(language)) {
-        throw new Error('basic-invalid-language');
+        throw new Error('backend-invalid-language');
     }
 
     return true;
@@ -63,6 +64,15 @@ exports.validateEncryptedSender = (encryptedSender) => {
     const decryptedSender = decryptRSA(encryptedSender, Secrets.PRIVATE_KEY);
     if(!decryptedSender.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         throw new InvalidPropertiesException('backend-invalid-email');
+    }
+
+    return true;
+}
+
+exports.validateGolfSupportMode = (supportMode) => {
+    const options = Object.values(SupportModeOption);
+    if(!options.includes(supportMode)) {
+        throw new Error('backend-invalid-supportmode');
     }
 
     return true;
