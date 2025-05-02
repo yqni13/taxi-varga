@@ -2,6 +2,7 @@ require('dotenv').config();
 const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
 
 class GoogleRoutesAPI {
     getRoutesHeader() {
@@ -43,9 +44,10 @@ class GoogleRoutesAPI {
     }
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
-    requestRouteMatrix = async (params) => {
+    requestRouteMatrix = async (params, service) => {
         const origin = params['originDetails']['placeId'];
         const destination = params['destinationDetails']['placeId'];
+        const golfcourse = service === ServiceOption.GOLF ? params['golfcourseDetails']['placeId'] : '';
 
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();
@@ -64,19 +66,24 @@ class GoogleRoutesAPI {
                 },
                 {
                     "waypoint": {
-                        "placeId": destination
+                        "placeId": service === ServiceOption.GOLF ? golfcourse : destination
+                    }
+                },
+                {
+                    "waypoint": {
+                        "placeId": destination // only for ServiceOption.GOLF
                     }
                 }
             ],
             "destinations": [
                 {
                     "waypoint": {
-                        "placeId": destination
+                        "placeId": service === ServiceOption.GOLF ? golfcourse : destination
                     }
                 },
                 {
                     "waypoint": {
-                        "placeId": origin
+                        "placeId": service === ServiceOption.GOLF ? destination : origin
                     }
                 },
                 {

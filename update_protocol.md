@@ -1,8 +1,15 @@
+
 # yqni13 taxi-varga
 
 ### $\texttt{\color{olive}{LIST\ OF\ UPDATES}}$
 
 <br>
+
+### 2025/05/02 - $\textsf{last\ update\ 1.0.5\ >>\ {\color{pink}1.1.0}}$
+
+- $\textsf{\color{teal}Addition:}$ Added new service 'golf'.
+- $\textsf{\color{red}Patch:}$ Updated validations in all service components.
+- $\textsf{\color{green}Change:}$ Changed responsive design and color behaviour for multiple components.
 
 ### 2025/03/29 - $\textsf{last\ update\ 1.0.4\ >>\ {\color{pink}1.0.5}}$
 
@@ -28,8 +35,8 @@
 
 ### 2025/02/23 - $\textsf{last\ update\ 1.0.0-beta.2\ >>\ {\color{pink}1.0.0}}$
 
-- $\textsf{\color{red}Change:}$ Added authentication to handle a service process witha session-token, checking for validity and expiration on every request.
-- $\textsf{\color{red}Change:}$ Added en/decryption on client and server side to handle authentication and other sensible data on a secure level.
+- $\textsf{\color{green}Change:}$ Added authentication to handle a service process witha session-token, checking for validity and expiration on every request.
+- $\textsf{\color{green}Change:}$ Added en/decryption on client and server side to handle authentication and other sensible data on a secure level.
 - $\textsf{\color{red}Patch:}$ Refactored Google API calls to send placeId instead of search text to increase output precision.
 - $\textsf{\color{red}Patch:}$ Refactored business logic on service calculations.
 

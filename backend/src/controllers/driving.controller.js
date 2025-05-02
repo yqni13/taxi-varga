@@ -19,6 +19,12 @@ class DrivingController {
         const response = await DrivingService.calcFlatrateRoute(req.body);
         res.send(response);
     }
+
+    calcDrivingGolf = async (req, res, next) => {
+        checkValidation(req);
+        const response = await DrivingService.calcGolfRoute(req.body);
+        res.send(response);
+    }
 }
 
 module.exports = new DrivingController;

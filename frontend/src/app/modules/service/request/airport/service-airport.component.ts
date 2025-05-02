@@ -89,8 +89,10 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             destinationDetails: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
-                CustomValidators.invalidAirportTimeValidator(this.datetimeService),
-                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+                CustomValidators.priorityValidator([
+                    CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                ])
             ]),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),

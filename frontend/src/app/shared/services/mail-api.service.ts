@@ -40,6 +40,7 @@ export class MailAPIService {
             service: '',
             gender: '',
             origin: '',
+            golfcourse: '',
             destination: ''
         }
 
@@ -84,6 +85,8 @@ export class MailAPIService {
             originTranslateEN: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.ARRIVAL
                 ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
                 : data.originAddress,
+            golfcourseTranslateDE: data.service === ServiceOptions.GOLF ? data.golfcourseAddress : '',
+            golfcourseTranslateEN: data.service === ServiceOptions.GOLF ? data.golfcourseAddress : '',
             destinationTranslateDE: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.DEPARTURE
                 ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
                 : data.destinationAddress,

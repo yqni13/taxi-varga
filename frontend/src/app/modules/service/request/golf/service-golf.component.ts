@@ -105,7 +105,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             return: new FormControl(null),
             datetimeStart: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+                CustomValidators.priorityValidator([
+                    CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                ])
             ]),
             datetimeEnd: new FormControl(''),
             passengers: new FormControl('', Validators.required),
@@ -117,8 +120,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             dropOffTIME: new FormControl(''),
             distance: new FormControl(''),
             duration: new FormControl(''),
-            priceSupport: new FormControl(''),
-            priceDriving: new FormControl(''),
             price: new FormControl('')
         });
     }
@@ -145,8 +146,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             dropOffTIME: '',
             distance: null,
             duration: null,
-            priceSupport: '',
-            priceDriving: '',
             price: null
         });
     }
@@ -193,6 +192,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
+            CustomValidators.negativeFixedDateTimeValidator(
+                this.datetimeService,
+                this.serviceForm.get('datetimeStart')?.value
+            ),
             CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
             CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.GOLF)
         ]);
@@ -200,7 +203,15 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
     }
 
+    override addResponseRouteData2Form(response: any) {
+        super.addResponseRouteData2Form(response);
+        this.serviceForm.get('stay')?.setValue(
+            this.datetimeService.getTimeFromTotalHours(response.body?.body.routeData.stay)
+        );
+    }
+
     async onSubmitOffer() {
+
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {

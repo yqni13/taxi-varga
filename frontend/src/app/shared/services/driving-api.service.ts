@@ -68,7 +68,7 @@ export class DrivingAPIService {
             destination: '',
             destinationDetails: null,
             stay: 0,
-            supportMode: 0
+            supportMode: null
         }
     }
 
