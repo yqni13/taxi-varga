@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.0.5}}$
+$\texttt{\color{teal}{v1.1.0}}$
 
 
 <br><br>
@@ -103,7 +103,7 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 
 ### $\textsf{\color{teal}Security}$
 
-For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 5). The payload consists of the service in use and the credential data.Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 5 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
+For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 5). The payload consists of the service in use and the credential data. Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 5 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
 
 <div align="center">
     <img src="frontend/public/assets/docs/session-token_login.jpg" alt="&nbsp;no picture found">
@@ -124,10 +124,11 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.4\ >>\ {\color{pink}1.0.5}}$
+### $\textsf{last\ update\ 1.0.5\ >>\ {\color{pink}1.1.0}}$
 
-- $\textsf{\color{red}Patch:}$ Adapt price calculation based on business hours.
-- $\textsf{\color{red}Patch:}$ Adapt information on landing page.
+- $\textsf{\color{teal}Addition:}$ Added new service 'golf'.
+- $\textsf{\color{red}Patch:}$ Updated validations in all service components.
+- $\textsf{\color{green}Change:}$ Changed responsive design and color behaviour for multiple components.
 
 <br>
 

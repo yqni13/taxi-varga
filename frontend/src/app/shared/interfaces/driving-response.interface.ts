@@ -12,7 +12,7 @@ export declare interface DrivingDestinationResponse {
     body: {
         routeData: {
             distance: number,
-            time: number,
+            duration: number,
             price: number,
         }
     }
@@ -21,6 +21,17 @@ export declare interface DrivingDestinationResponse {
 export declare interface DrivingFlatrateResponse {
     body: {
         routeData: {
+            price: number,
+        }
+    }
+}
+
+export declare interface DrivingGolfResponse {
+    body: {
+        routeData: {
+            distance: number,
+            duration: number,
+            stay: number,
             price: number,
         }
     }

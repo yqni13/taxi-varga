@@ -17,22 +17,26 @@ export class DrivingAPIService {
     private urlAirport: string;
     private urlDestination: string;
     private urlFlatrate: string;
+    private urlGolf: string;
 
     private dataAirport: DrivingRequest.DrivingAirportRequest;
     private dataDestination: DrivingRequest.DrivingDestinationRequest;
     private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
+    private dataGolf: any;
 
     constructor(
         private readonly http: HttpClient,
         private readonly utils: UtilsService,
         private readonly datetimeService: DateTimeService
     ) {
-        // this.urlAirport = '/api/v1/driving/airport'
-        // this.urlDestination = '/api/v1/driving/destination'
-        // this.urlFlatrate = '/api/v1/driving/flatrate'
+        // this.urlAirport = '/api/v1/driving/airport';
+        // this.urlDestination = '/api/v1/driving/destination';
+        // this.urlFlatrate = '/api/v1/driving/flatrate';
+        // this.urlGolf = '/api/v1/driving/golf';
         this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
         this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
         this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
+        this.urlGolf = environment.API_BASE_URL + '/api/v1/driving/golf';
 
         this.dataAirport = {
             origin: '',
@@ -55,6 +59,16 @@ export class DrivingAPIService {
             destination: '',
             destinationDetails: null,
             tenancy: 0
+        };
+        this.dataGolf = {
+            origin: '',
+            originDetails: null,
+            golfcourse: '',
+            golfcourseDetails: null,
+            destination: '',
+            destinationDetails: null,
+            stay: 0,
+            supportMode: null
         }
     }
 
@@ -98,6 +112,19 @@ export class DrivingAPIService {
         };
     }
 
+    setDataGolf(data: any) {
+        this.dataGolf = {
+            origin: this.utils.configAPIAddressString(data.originAddress),
+            originDetails: data.originDetails,
+            golfcourse: this.utils.configAPIAddressString(data.golfcourseAddress),
+            golfcourseDetails: data.golfcourseDetails,
+            destination: this.utils.configAPIAddressString(data.destinationAddress),
+            destinationDetails: data.destinationDetails,
+            stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
+            supportMode: data.supportMode
+        };
+    }
+
     sendAirportRequest(): Observable<HttpResponse<DrivingResponse.DrivingAirportResponse>> {
         return this.http.post<DrivingResponse.DrivingAirportResponse>(this.urlAirport, this.dataAirport, { observe: 'response' });
     }
@@ -108,5 +135,9 @@ export class DrivingAPIService {
 
     sendFlatrateRequest(): Observable<HttpResponse<DrivingResponse.DrivingFlatrateResponse>> {
         return this.http.post<DrivingResponse.DrivingFlatrateResponse>(this.urlFlatrate, this.dataFlatrate, { observe: 'response' });
+    }
+
+    sendGolfRequest(): Observable<HttpResponse<DrivingResponse.DrivingGolfResponse>> {
+        return this.http.post<DrivingResponse.DrivingGolfResponse>(this.urlGolf, this.dataGolf, { observe: 'response' });
     }
 }

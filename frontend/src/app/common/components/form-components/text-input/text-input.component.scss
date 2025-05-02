@@ -9,6 +9,7 @@
         width: calc(100% - 12px);
         padding: 9.5px sass.$form-padding-small;
         border-radius: calc(sass.$space5 + 1px);
+        text-overflow: ellipsis;
     }
 }
 
@@ -22,7 +23,7 @@ input[type="datetime-local"] {
 }
 
 .tava-input-time {
-    width: 100px;
+    width: 150px;
     margin-right: calc(sass.$space15 + sass.$space5);
     
     input {

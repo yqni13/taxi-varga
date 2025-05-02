@@ -2,12 +2,13 @@ require('dotenv').config();
 const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
 
 class GoogleRoutesAPI {
     getRoutesHeader() {
         return {
             'Content-Type': 'application/json',
-            'X-Goog-Api-Key': process.env.GOOGLE_API_KEY,
+            'X-Goog-Api-Key': Secrets.GOOGLE_API_KEY,
             'X-Goog-FieldMask': 'originIndex,destinationIndex,distanceMeters,duration,status'
         }
     }
@@ -27,7 +28,7 @@ class GoogleRoutesAPI {
             destinations = `${prefix}${params['destination']}`;
         }
 
-        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${process.env.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${Secrets.GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)
@@ -43,9 +44,10 @@ class GoogleRoutesAPI {
     }
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
-    requestRouteMatrix = async (params) => {
+    requestRouteMatrix = async (params, service) => {
         const origin = params['originDetails']['placeId'];
         const destination = params['destinationDetails']['placeId'];
+        const golfcourse = service === ServiceOption.GOLF ? params['golfcourseDetails']['placeId'] : '';
 
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();
@@ -64,19 +66,24 @@ class GoogleRoutesAPI {
                 },
                 {
                     "waypoint": {
-                        "placeId": destination
+                        "placeId": service === ServiceOption.GOLF ? golfcourse : destination
+                    }
+                },
+                {
+                    "waypoint": {
+                        "placeId": destination // only for ServiceOption.GOLF
                     }
                 }
             ],
             "destinations": [
                 {
                     "waypoint": {
-                        "placeId": destination
+                        "placeId": service === ServiceOption.GOLF ? golfcourse : destination
                     }
                 },
                 {
                     "waypoint": {
-                        "placeId": origin
+                        "placeId": service === ServiceOption.GOLF ? destination : origin
                     }
                 },
                 {

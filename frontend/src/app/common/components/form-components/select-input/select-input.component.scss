@@ -12,12 +12,27 @@ $select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-paddi
         width: 100%;
         padding: 9.5px 0 9.5px $select-left-padding;
         border-radius: calc(sass.$space5 + 1px);
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
 
         option {
             font-size: sass.$input-text-size;
+            text-overflow: ellipsis;
         }
     }
 }
+
+.tava-form-intended {
+    width: 150px;
+    margin-right: calc(sass.$space15 + sass.$space5);
+
+    input {
+        padding: 7px sass.$form-padding-small;
+        font-family: sass.$font-text-family;
+    }
+}
+
 
 i {
     position: absolute;

@@ -14,6 +14,7 @@
                     <span
                         [attr.aria-disabled]="true"
                         routerLink="{{route.path}}"
+                        routerLinkActive="tava-active-route"
                     >{{'common.footer.title.' + route.data?.['title'] | translate}}</span>
                 </li>
                 <li class="tava-li-divider">
@@ -48,9 +49,9 @@
                             *ngFor="let option of languages | keyvalue"
                             class="tava-language-options"
                             [attr.aria-disabled]="true"
-                            (click)="setLanguage(languages[option.value])"
-                            (keydown.enter)="setLanguage(languages[option.value])"
-                        >{{'shared.enum.language.' + option.key | translate}}</span>
+                            (click)="setLanguage(option.value)"
+                            (keydown.enter)="setLanguage(option.value)"
+                        >{{'shared.enum.language.' + option.value | translate}}</span>
                     </div>
                 </li>
             </ul>
