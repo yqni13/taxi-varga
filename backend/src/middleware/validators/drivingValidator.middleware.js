@@ -62,9 +62,10 @@ exports.drivingFlatrateSchema = [
         .exists()
         .withMessage('backend-required')
         .bail()
-        .isInt({ min: 30, max: 1440 }) // 3h < x < 24h
+        .isInt({ min: 180, max: 1440 }) // 3h < x < 24h
         .withMessage('backend-invalid-tenancy')
 ];
+
 
 exports.drivingGolfSchema = [
     body('origin')
@@ -97,4 +98,3 @@ exports.drivingGolfSchema = [
         .bail()
         .custom((value) => CustomValidator.validateGolfSupportMode(value))
 ];
-

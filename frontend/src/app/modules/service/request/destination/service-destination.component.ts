@@ -91,7 +91,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             back2home: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService)
             ]),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),

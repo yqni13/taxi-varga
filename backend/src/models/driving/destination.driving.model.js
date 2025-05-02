@@ -128,5 +128,4 @@ class DrivingDestinationModel {
     }
 }
 
-
 module.exports = new DrivingDestinationModel;

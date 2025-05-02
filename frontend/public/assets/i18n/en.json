@@ -30,7 +30,6 @@
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
-            "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
             "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
@@ -46,7 +45,7 @@
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
-                    "backend-invalid-language": "The selected language could not processed. Please check your input.",
+                    "backend-invalid-language": "The selected language can not be processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
                     "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
@@ -139,7 +138,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max. 3h latency with costs.",
+                        "text": "- 'Destination' service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -220,15 +219,12 @@
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
-                        "price-driving": "Price driving",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
-                        "stay-calc": "Stay: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
-                        "surcharge-caddy": "Surcharge caddy",
+                        "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "surcharge-player": "Surcharge player",
                         "tenancy": "Charged tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
                         "terms": "I agree that I have already reached the age of 18 and provide my personal data only for the purpose of contracting the service. Furthermore, I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
@@ -294,7 +290,8 @@
             "service": {
                 "airport": "Airport",
                 "destination": "Destination",
-                "flatrate": "Flatrate"
+                "flatrate": "Flatrate",
+                "golf": "Golf"
             },
             "theme": {
                 "darkMode": "Dark",

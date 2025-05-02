@@ -90,7 +90,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.priorityValidator([
-                    CustomValidators.negativeDateTimeValidator(this.datetimeService),
+                    CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
                     CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
                 ])
             ]),

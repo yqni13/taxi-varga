@@ -106,7 +106,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             datetimeStart: new FormControl('', [
                 Validators.required,
                 CustomValidators.priorityValidator([
-                    CustomValidators.negativeDateTimeValidator(this.datetimeService),
+                    CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
                     CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
                 ])
             ]),
@@ -120,8 +120,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             dropOffTIME: new FormControl(''),
             distance: new FormControl(''),
             duration: new FormControl(''),
-            priceSupport: new FormControl(''),
-            priceDriving: new FormControl(''),
             price: new FormControl('')
         });
     }
@@ -148,8 +146,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             dropOffTIME: '',
             distance: null,
             duration: null,
-            priceSupport: '',
-            priceDriving: '',
             price: null
         });
     }
@@ -196,7 +192,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
-            CustomValidators.negativeDateTimeEndValidator(
+            CustomValidators.negativeFixedDateTimeValidator(
                 this.datetimeService,
                 this.serviceForm.get('datetimeStart')?.value
             ),
@@ -209,11 +205,13 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
     override addResponseRouteData2Form(response: any) {
         super.addResponseRouteData2Form(response);
-        this.serviceForm.get('priceDriving')?.setValue(response.body?.body.routeData.priceDriving);
-        this.serviceForm.get('priceSupport')?.setValue(response.body?.body.routeData.priceSupport);
+        this.serviceForm.get('stay')?.setValue(
+            this.datetimeService.getTimeFromTotalHours(response.body?.body.routeData.stay)
+        );
     }
 
     async onSubmitOffer() {
+
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {

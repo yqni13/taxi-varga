@@ -69,21 +69,30 @@ export const invalidBusinessHoursValidator = (datetimeService: DateTimeService) 
     }
 }
 
-export const negativeDateTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const negativeCurrentDateTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const difference = datetimeService.getTimeDifferenceNoLimit(new Date().toString(), control?.value);
+        /**
+         * @description datetime value must not be in the past compared to current datetime
+         * @param {string} currentDateTime
+         */
+        const currentDateTime = new Date().toString();
+        const difference = datetimeService.getTimeDifferenceNoLimit(currentDateTime, control?.value);
         if(difference < -1) {
-            return { negativeDateTime: true };
+            return { negativeCurrentDateTime: true };
         }
         return null;
     }
 }
 
-export const negativeDateTimeEndValidator = (datetimeService: DateTimeService, datetimeStart: string): ValidatorFn => {
+export const negativeFixedDateTimeValidator = (datetimeService: DateTimeService, fixedDateTime: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const difference = datetimeService.getTimeDifferenceNoLimit(datetimeStart, control?.value);
+        /**
+         * @description datetime value must not be in the past compared to certain datetime
+         * @param {string} fixedDateTime
+         */
+        const difference = datetimeService.getTimeDifferenceNoLimit(fixedDateTime, control?.value);
         if(difference < -1) {
-            return { negativeDatetimeEnd: true };
+            return { negativeFixedDateTime: true };
         }
         return null;
     }
@@ -91,6 +100,18 @@ export const negativeDateTimeEndValidator = (datetimeService: DateTimeService, d
 
 export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
+        /**
+         * @description Add multiple validators ordered by priority. First validator to trigger ends loop without
+         * triggering remaining validators.
+         * 
+         * @example
+         * CustomValidators.priorityValidator(
+         *      validateNotNegativeVal(),     
+         *      validateNotSmallerThan3(),
+         * )
+         * val = -1
+         * @fires only validateNotNegativeVal()
+         */
         for (const validator of validators) {
             const result = validator(control);
             if(result) {

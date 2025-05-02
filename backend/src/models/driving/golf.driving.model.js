@@ -11,9 +11,8 @@ class DrivingGolfModel {
         let result = {
             distance: 0,
             duration: 0,
-            priceDriving: 0,
-            priceSupport: 0,
-            price: 0,
+            stay: 0,
+            price: 0
         }
         const priceLess30km = 0.65;
         const priceMore30km = 0.5;
@@ -33,7 +32,7 @@ class DrivingGolfModel {
             return obj.originIndex === 3 && obj.destinationIndex === 2;
         });
 
-        // already converted: distanceMeters to kilometers / duration to minutes
+        // already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes
         const serveWay = origin2golfcourse.distanceMeters + golfcourse2destination.distanceMeters;
         const serveTime = origin2golfcourse.duration + golfcourse2destination.duration;
 
@@ -41,14 +40,14 @@ class DrivingGolfModel {
         const serveTimeCosts = serveWay <= 30 ? serveTime * priceLess30km : serveTime * priceMore30km;
         const approachCosts = this.calculateHomeBasedRouteCosts(home2origin.distanceMeters);
         const returnCosts = this.calculateHomeBasedRouteCosts(destination2home.distanceMeters);
-        const stayCosts = this.calculateStayCosts(Number(params['stay']));
-        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayCosts;
+        const stayObj = this.calculateStayCosts(Number(params['stay']));
+        const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
+        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts;
 
         result['distance'] = Math.ceil(serveWay);
         result['duration'] = Math.ceil(serveTime);
-        result['priceDriving'] = (totalCosts % 1) >= 5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
-        result['priceSupport'] = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
-        result['price'] = result['priceDriving'] + result['priceSupport'];
+        result['stay'] = stayObj.hours;
+        result['price'] = (totalCosts % 1) >= 5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
         return {routeData: result};
     }
@@ -68,7 +67,10 @@ class DrivingGolfModel {
                 ? Math.ceil(time / 60) 
                 : time / 60;
 
-        return time > 6 ? (48 + (priceStay1h * (time - 6))) : 48;
+        return {
+            hours: time,
+            costs: time > 6 ? (48 + (priceStay1h * (time - 6))) : 48
+        };
     }
 }
 

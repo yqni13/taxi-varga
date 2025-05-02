@@ -296,42 +296,6 @@
                     {{'modules.service.content.form.order.stay-calc' | translate}}
                 </span>
             </div>
-            <div 
-                *ngIf="serviceForm.get('supportMode')?.value !== GolfSupportOptionsEnum.NONE"
-                class="tava-service-specific-offer-sum"
-                id="tava-service-offer-price-driving"
-            >
-                <span class="tava-service-specific-offer-sum-left">
-                    {{('modules.service.content.form.order.price-driving' | translate) + ':'}}
-                </span>
-                <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('priceDriving')?.value | currencyFormat}}
-                </span>
-            </div>
-            <div
-                *ngIf="serviceForm.get('supportMode')?.value === GolfSupportOptionsEnum.CADDY"
-                class="tava-service-specific-offer-sum tava-service-offer-addition"
-                id="tava-service-offer-surcharge-caddy"
-            >
-                <span class="tava-service-specific-offer-sum-left">
-                    {{'+' + ('modules.service.content.form.order.surcharge-caddy' | translate) + ':'}}
-                </span>
-                <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('priceSupport')?.value | currencyFormat}}
-                </span>
-            </div>
-            <div
-                *ngIf="serviceForm.get('supportMode')?.value === GolfSupportOptionsEnum.PLAYER"
-                class="tava-service-specific-offer-sum tava-service-offer-addition"
-                id="tava-service-offer-surcharge-caddy"
-            >
-                <span class="tava-service-specific-offer-sum-left">
-                    {{'+' + ('modules.service.content.form.order.surcharge-player' | translate) + ':'}}
-                </span>
-                <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('priceSupport')?.value | currencyFormat}}
-                </span>
-            </div>
             <div class="tava-service-specific-offer-sum" id="tava-service-offer-price">
                 <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
@@ -384,7 +348,7 @@
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
             class="tava-button-wrapper" 
-            [ngClass]="termCancellation && termSurchargeFuel && termSurchargeParking ? '' : 'tava-order-submit-invalid'" 
+            [ngClass]="termCancellation && termSurchargeParking ? '' : 'tava-order-submit-invalid'" 
         >
             <button
                 class="tava-button-submit"

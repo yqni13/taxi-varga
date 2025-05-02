@@ -95,7 +95,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             tenancy: new FormControl(''),
             datetimeStart: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeDateTimeValidator(this.datetimeService)
+                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService)
             ]),
             datetimeEnd: new FormControl(''),
             pickupDATE: new FormControl(''),
@@ -133,7 +133,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
         this.serviceForm.get('datetimeEnd')?.setValidators([
             CustomValidators.requiredTenancyValidator(),
             CustomValidators.priorityValidator([
-                CustomValidators.negativeDateTimeEndValidator(
+                CustomValidators.negativeFixedDateTimeValidator(
                     this.datetimeService,
                     this.serviceForm.get('datetimeStart')?.value
                 ),

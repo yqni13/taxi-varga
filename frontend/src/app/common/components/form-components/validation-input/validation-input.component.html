@@ -27,10 +27,10 @@
         <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours')">
             {{ 'common.validation.business-invalid-time' | translate }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('negativeDateTime')">
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeCurrentDateTime')">
             {{ 'common.validation.datetime-invalid-negative' | translate }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('negativeDatetimeEnd')">
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeFixedDateTime')">
             {{ 'common.validation.datetime-end-invalid-negative' | translate }}
         </div>
     </div>

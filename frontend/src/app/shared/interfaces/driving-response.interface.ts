@@ -31,8 +31,7 @@ export declare interface DrivingGolfResponse {
         routeData: {
             distance: number,
             duration: number,
-            priceDriving: number,
-            priceSupport: number,
+            stay: number,
             price: number,
         }
     }

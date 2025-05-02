@@ -55,5 +55,4 @@ class DrivingAirportModel {
     }
 }
 
-
 module.exports = new DrivingAirportModel;
