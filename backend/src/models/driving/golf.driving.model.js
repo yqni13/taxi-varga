@@ -2,7 +2,6 @@ const GoogleRoutes = require('../../services/google-routes/google-routes.api');
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SupportModeOption } = require("../../utils/enums/supportmode-option.enum");
 const CustomValidator = require('../../utils/customValidator.utils');
-const { InvalidPropertiesException } = require('../../utils/exceptions/validation.exception');
 
 class DrivingGolfModel {
     calcGolfRoute = async (params) => {
@@ -46,9 +45,9 @@ class DrivingGolfModel {
 
         const serveWayCosts = serveWay <= 30 ? serveWay * priceLess30km : serveWay * priceMore30km;
         const serveTimeCosts = serveWay <= 30 ? serveTime * priceLess30km : serveTime * priceMore30km;
-        const approachCosts = this.calculateHomeBasedRouteCosts(home2origin.distanceMeters);
-        const returnCosts = this.calculateHomeBasedRouteCosts(destination2home.distanceMeters);
-        const stayObj = this.calculateStayCosts(Number(params['stay']));
+        const approachCosts = this.#calculateHomeBasedRouteCosts(home2origin.distanceMeters);
+        const returnCosts = this.#calculateHomeBasedRouteCosts(destination2home.distanceMeters);
+        const stayObj = this.#calculateStayCosts(Number(params['stay']));
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts;
 
@@ -60,15 +59,15 @@ class DrivingGolfModel {
         return {routeData: result};
     }
 
-    calculateHomeBasedRouteCosts = (distance) => {
+    #calculateHomeBasedRouteCosts = (distance) => {
         const pricePerKm = 0.4;
         return distance <= 30 ? 0 : (distance - 30) * pricePerKm;
     }
 
-    calculateStayCosts = (time) => {
+    #calculateStayCosts = (time) => {
         const priceStay1h = 12;
 
-        // convert min to hour values
+        // convert min to hour values (min 6h)
         time = time <= 360
             ? 6
             : time % 60 !== 0 

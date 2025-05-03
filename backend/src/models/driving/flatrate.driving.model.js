@@ -47,11 +47,10 @@ class DrivingFlatrateModel {
     #calculateTenancyValues = (time) => {
         const priceEach30Min = 17.5;
 
+        // min 3h are charged
         time = time < 180 ? 180 : time;
         const newTimeInMinutes = time % 30 !== 0 ? (Math.ceil(time / 30)) * 30 : time;
-        const costs = time % 30 === 0 
-            ? (time / 30) * priceEach30Min
-            : (Math.ceil(time / 30)) * priceEach30Min;
+        const costs = (newTimeInMinutes / 30) * priceEach30Min;
 
         return {
             time: newTimeInMinutes,

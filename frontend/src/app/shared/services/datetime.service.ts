@@ -102,9 +102,9 @@ export class DateTimeService {
         const fromMillisecondsToMinutes = (1 / 1000 / 60);
         let result;
         if(rawResult) {
-            result = this.getTimeFromTotalMinutes(Number(difference * fromMillisecondsToMinutes));
+            result = this.getTimeFromTotalMinutes((difference * fromMillisecondsToMinutes) as number);
         } else {
-            result = this.getRoundUpTime30MinSteps((difference * fromMillisecondsToMinutes), true);
+            result = this.getRoundUpTime30MinSteps(((difference * fromMillisecondsToMinutes) as number), true);
         }
         return result;
     }
