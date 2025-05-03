@@ -285,6 +285,17 @@
                     {{serviceForm.get('stay')?.value + ' h'}}
                 </span>
             </div>
+            <div
+                *ngIf="serviceForm.get('supportMode')?.value !== GolfSupportOptionsEnum.NONE"
+                class="tava-service-specific-offer-sum"
+            >
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.support-mode.label' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{'modules.service.content.form.order.support-mode.' + serviceForm.get('supportMode')?.value | translate}}
+                </span>
+            </div>
             <div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">
                 <span>
                     {{('modules.service.content.form.order.warnings' | translate)}}
@@ -300,8 +311,11 @@
                 <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
                 </span>
-                <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('price')?.value | currencyFormat}}
+                <span class="tava-service-specific-offer-sum-right" id="tava-service-offer-sum-price">
+                    {{(serviceForm.get('price')?.value | currencyFormat)}}
+                </span>
+                <span id="tava-service-offer-hint-greenfee">
+                    {{' (' + ('modules.service.content.form.order.hint-greenfee' | translate) + ')'}}
                 </span>
             </div>
             <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">

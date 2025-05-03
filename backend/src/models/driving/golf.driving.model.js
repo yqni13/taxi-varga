@@ -1,6 +1,8 @@
 const GoogleRoutes = require('../../services/google-routes/google-routes.api');
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SupportModeOption } = require("../../utils/enums/supportmode-option.enum");
+const CustomValidator = require('../../utils/customValidator.utils');
+const { InvalidPropertiesException } = require('../../utils/exceptions/validation.exception');
 
 class DrivingGolfModel {
     calcGolfRoute = async (params) => {
@@ -31,6 +33,12 @@ class DrivingGolfModel {
         const destination2home = response.find(obj => {
             return obj.originIndex === 3 && obj.destinationIndex === 2;
         });
+
+        // validate relevance & update stay time by removing origin route duration (in total minutes)
+        params['stay'] = CustomValidator.validateStayTimeRelevance(
+            Number(params['stay']),
+            origin2golfcourse.duration
+        );
 
         // already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes
         const serveWay = origin2golfcourse.distanceMeters + golfcourse2destination.distanceMeters;

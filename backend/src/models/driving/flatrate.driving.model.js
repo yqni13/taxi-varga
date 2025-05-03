@@ -9,10 +9,9 @@ class DrivingFlatrateModel {
 
         const priceApproachPerKm = 0.5;
         const priceReturnPerKm = 0.5;
-        const priceFlatrate30Min = 17.5;
         let totalCost = 0;
 
-        const tenancy = (params['tenancy'] / 30) * priceFlatrate30Min; 
+        const tenancyObj = this.#calculateTenancyValues(Number(params['tenancy']));
 
         const approachRoute = await GoogleRoutes.requestMapsMatrix({
             origin: Secrets.HOME_ADDRESS,
@@ -32,18 +31,33 @@ class DrivingFlatrateModel {
             const returnCost = (returnDistance % 1) >= 5
                 ? Math.ceil(returnDistance) * priceReturnPerKm
                 : Math.floor(returnDistance) * priceReturnPerKm;
-            totalCost = tenancy + approachCost + returnCost;
+            totalCost = tenancyObj.costs + approachCost + returnCost;
         } else {
-            totalCost = tenancy + (approachCost * 2);
+            totalCost = tenancyObj.costs + (approachCost * 2);
         }
 
         return { 
             routeData: {
+                tenancy: tenancyObj.time,
                 price: Math.ceil(totalCost)
             }
         };
     }
 
+    #calculateTenancyValues = (time) => {
+        const priceEach30Min = 17.5;
+
+        time = time < 180 ? 180 : time;
+        const newTimeInMinutes = time % 30 !== 0 ? (Math.ceil(time / 30)) * 30 : time;
+        const costs = time % 30 === 0 
+            ? (time / 30) * priceEach30Min
+            : (Math.ceil(time / 30)) * priceEach30Min;
+
+        return {
+            time: newTimeInMinutes,
+            costs: costs
+        }
+    }
 }
 
 module.exports = new DrivingFlatrateModel;

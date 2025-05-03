@@ -87,7 +87,7 @@
         "samples-utility": {
             "addendum": "from",
             "currency": "EUR",
-            "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee)",
+            "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "route": "Route"
         },
@@ -95,7 +95,7 @@
             "option1": "Vienna\n-\nAirport",
             "option2": "Leobersdorf\n-\npublic facilities",
             "option3": "Lower Austria / Burgenland\n-\nAirport",
-            "option4": "Vienna\n-\nGolf Club\n(Lower Austria)"
+            "option4": "Vienna\ncentral point\n-\nGolf Club\n(Lower Austria)"
         }
     }
 }

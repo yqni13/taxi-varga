@@ -204,7 +204,7 @@ class MailingModel {
                 const support = data.supportMode === SupportModeOption.CADDY ? 'Caddy' : 'Co-Player';
                 const newServiceBasic = `Service data:\nSelected number of passengers: ${data.passengers}\nPickup address: ${data.originTranslateEN}\nGolfcourse: ${data.golfcourseTranslateEN}\nReturn address: ${data.destinationTranslateEN}\nDate of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
 
-                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of departure for return: ' + data.dropOffDATE + '\n' : ''}Time of departure for return: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nIntended time of stay: ${data.stay} h\n${data.supportMode !== SupportModeOption.NONE ? 'Selected additional service: ' + support + '\n' : ''}Estimated price: ${data.price},00 EUR`;
+                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of departure for return: ' + data.dropOffDATE + '\n' : ''}Time of departure for return: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nIntended time of stay: ${data.stay} h\n${data.supportMode !== SupportModeOption.NONE ? 'Selected auxiliary service: ' + support + '\n' : ''}Estimated price: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgServiceGolf}`;
                 break;
