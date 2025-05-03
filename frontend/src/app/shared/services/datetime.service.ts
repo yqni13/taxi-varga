@@ -97,10 +97,16 @@ export class DateTimeService {
         return this.getTimeInTotalMinutes(asString);
     }
 
-    getTimeDifferenceAsString(start: string, end: string): string {
+    getTimeDifferenceAsString(start: string, end: string, rawResult?: boolean): string {
         const difference = new Date(end).getTime() - new Date(start).getTime();
         const fromMillisecondsToMinutes = (1 / 1000 / 60);
-        return this.getRoundUpTime30MinSteps((difference * fromMillisecondsToMinutes), true);
+        let result;
+        if(rawResult) {
+            result = this.getTimeFromTotalMinutes((difference * fromMillisecondsToMinutes) as number);
+        } else {
+            result = this.getRoundUpTime30MinSteps(((difference * fromMillisecondsToMinutes) as number), true);
+        }
+        return result;
     }
 
     getRoundUpTime30MinSteps(time: string | number, isNumber: boolean): string {

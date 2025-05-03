@@ -24,13 +24,12 @@
         },
         "validation": {
             "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
-            "datetime-invalid-negative": "Selected time must not be in the past.",
             "datetime-end-invalid-negative": "Time of return can not be before pickup.",
+            "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
-            "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
             "tenancy-invalid-zero": "Tenancy can not be zero.",
@@ -49,9 +48,10 @@
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
                     "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
+                    "backend-invalid-stayduration": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                     "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
-                    "backend-invalid-tenancy": "Tenancy must be between 3h and 24h. Please check your input.",
+                    "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
                     "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
                     "backend-jwt-expiration": "The session expired after 30 minutes.",
                     "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
@@ -157,7 +157,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- tenancy can be ordered for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 40,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
+                        "text": "- Tenancy will be charged for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -216,6 +216,7 @@
                         "date-return": "Date of return",
                         "distance": "Driven distance",
                         "duration": "Driving time",
+                        "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
@@ -223,6 +224,11 @@
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
                         "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
+                        "support-mode": {
+                            "caddy": "Accompanied as caddy",
+                            "label": "Auxiliary service",
+                            "player": "Accompanied as player"
+                        },
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
                         "tenancy": "Charged tenancy",

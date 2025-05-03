@@ -62,7 +62,7 @@ exports.drivingFlatrateSchema = [
         .exists()
         .withMessage('backend-required')
         .bail()
-        .isInt({ min: 180, max: 1440 }) // 3h < x < 24h
+        .isInt({ max: 1440 }) //  x <= 24h
         .withMessage('backend-invalid-tenancy')
 ];
 

@@ -141,7 +141,7 @@
                 *ngIf="!checkDateEqualDate()"
             >
                 <span class="tava-service-specific-offer-sum-left">
-                    {{('modules.service.content.form.order.date-dropoff' | translate) + ':'}}
+                    {{('modules.service.content.form.order.date-return' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('dropOffDATE')?.value}}
@@ -149,7 +149,7 @@
             </div>
             <div class="tava-service-specific-offer-sum" *tavaVar="(dropoffTimeByLang$ | async) as dropoff">
                 <span class="tava-service-specific-offer-sum-left">
-                    {{('modules.service.content.form.order.time-dropoff' | translate) + ':'}}
+                    {{('modules.service.content.form.order.time-return' | translate) + ':'}}
                 </span>
                 <span *ngIf="dropoff !== null" class="tava-service-specific-offer-sum-right">
                     {{dropoff}}

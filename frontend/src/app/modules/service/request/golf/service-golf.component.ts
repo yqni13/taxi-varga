@@ -231,7 +231,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     configDateTimeData() {
         this.serviceForm.get('stay')?.setValue(this.datetimeService.getTimeDifferenceAsString(
             this.serviceForm.get('datetimeStart')?.value,
-            this.serviceForm.get('datetimeEnd')?.value
+            this.serviceForm.get('datetimeEnd')?.value,
+            true
         ));
         
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(

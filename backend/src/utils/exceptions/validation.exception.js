@@ -2,7 +2,7 @@ const Secrets = require('../secrets.utils')
 const { ErrorCodes } = require('../errorCodes.utils');
 
 class ValidationException extends Error {
-    constructor(code, message, data) {
+    constructor(code, message, data, options = {}) {
         super(message);
         if(Secrets.MODE === 'development') {
             this.message = message;
@@ -14,6 +14,8 @@ class ValidationException extends Error {
         this.error = this.constructor.name;
         this.status = 400;
         this.data = data;
+
+        Object.assign(this, options);
     }
 }
 
