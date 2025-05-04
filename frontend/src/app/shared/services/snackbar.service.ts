@@ -11,10 +11,12 @@ export class SnackbarMessageService {
 
     snackbarCollection: SnackbarMessage[];
     subject: Subject<boolean>;
+    isActive: boolean;
 
     constructor(@Inject(DOCUMENT) private document: Document) {
         this.snackbarCollection = [];
         this.subject = new Subject<boolean>();
+        this.isActive = false;
     }
 
     onNotify() {
@@ -41,6 +43,7 @@ export class SnackbarMessageService {
             snackbar.displayHandler = setTimeout(() => this.close(snackbar), snackbar.displayTime);
         }
 
+        this.isActive = true;
         this.snackbarCollection.push(snackbar);
     }
 
@@ -49,5 +52,6 @@ export class SnackbarMessageService {
         if(displayedSnackbarIndex !== -1) {
             this.snackbarCollection.splice(displayedSnackbarIndex, 1);
         }
+        this.isActive = this.snackbarCollection.length === 0 ? false : true;
     } 
 }

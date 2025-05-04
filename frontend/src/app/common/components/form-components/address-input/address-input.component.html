@@ -1,5 +1,6 @@
 <div class="tava-address-wrapper {{className}}" ngClass="{{ngClass}}">
-    <input 
+    <input
+        #inputRef
         type="text"
         class="tava-address-input-text"
         placeholder="{{placeholder}}"
@@ -15,12 +16,14 @@
         <img src="/assets/UI/google_on_white.png" alt="404 not found">
     </div>
     <div *ngIf="showOptions" class="tava-address-input-options-wrapper">
-        <div 
-        *ngFor="let option of options" 
-        class="tava-address-input-options"
-        (click)="selectPlace(option.placeId)"
-        (keydown.enter)="selectPlace(option.placeId)"
-        [attr.aria-disabled]="true"
+        <div
+            #optionRef
+            *ngFor="let option of options; let i = index" 
+            class="tava-address-input-options"
+            (click)="selectPlace(option.placeId)"
+            (keydown.enter)="selectPlace(option.placeId)"
+            tabindex="-1"
+            [attr.aria-disabled]="true"
         >
             <span>
                 {{option.descriptionFull}}

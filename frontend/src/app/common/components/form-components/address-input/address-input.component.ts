@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -29,7 +29,7 @@ import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../..
         }
     ]
 })
-export class AddressInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostListener('window:click', ['$event'])
     clickOutside($event: any) {
@@ -40,6 +40,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
     }
 
+    @ViewChild('inputRef') inputRef!: ElementRef;
+
     @Input() fieldName: string;
     @Input() placeholder: string;
     @Input() formControl: FormControl;
@@ -49,6 +51,11 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() ngClass: string;
     @Input() exceptions: string[];
     @Input() maxVal: number;
+    @Input() set hasAutoFocus(value: boolean) {
+        if(value) {
+            this.inputRef.nativeElement.focus();
+        }
+    }
 
     @Output() byChange: EventEmitter<any>;
     @Output() byPlaceSelection: EventEmitter<AddressDetailsResponse>;
@@ -99,6 +106,12 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             }
             this.byChange.emit(changes);
         });
+    }
+
+    ngAfterViewInit() {
+        if(this.hasAutoFocus) {
+            this.inputRef.nativeElement.focus();
+        }
     }
     
     getOptions() {
