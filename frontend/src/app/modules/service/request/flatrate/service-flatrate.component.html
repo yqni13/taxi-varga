@@ -53,7 +53,7 @@
                         [minStringObservable]="minTenancyStamp$"
                         [maxStringObservable]="maxTenancyStamp$"
                         [formControl]="serviceForm.get('datetimeEnd') | controlCast"
-                        [fieldName]="'modules.service.content.form.offer.datetime-end' | translate"
+                        [fieldName]="'modules.service.content.form.offer.datetime-end-flatrate' | translate"
                     ></tava-textinput>
                 </div>
             </div>
@@ -141,7 +141,7 @@
                 *ngIf="!checkDateEqualDate()"
             >
                 <span class="tava-service-specific-offer-sum-left">
-                    {{('modules.service.content.form.order.date-return' | translate) + ':'}}
+                    {{('modules.service.content.form.order.date-dropoff' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('dropOffDATE')?.value}}
@@ -149,7 +149,7 @@
             </div>
             <div class="tava-service-specific-offer-sum" *tavaVar="(dropoffTimeByLang$ | async) as dropoff">
                 <span class="tava-service-specific-offer-sum-left">
-                    {{('modules.service.content.form.order.time-return' | translate) + ':'}}
+                    {{('modules.service.content.form.order.time-dropoff' | translate) + ':'}}
                 </span>
                 <span *ngIf="dropoff !== null" class="tava-service-specific-offer-sum-right">
                     {{dropoff}}
@@ -221,9 +221,9 @@
         >
             <button
                 class="tava-button-submit"
-                [attr.aria-disabled]="true"
+                [attr.disabled]="!termCancellation || !termSurchargeParking ? true : null"
+                [attr.tabindex]="termCancellation && termSurchargeParking ? 0 : -1"
                 (click)="submitOrder()"
-                (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
     </div>

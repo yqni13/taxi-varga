@@ -253,9 +253,9 @@
         >
             <button
                 class="tava-button-submit"
-                [attr.aria-disabled]="true"
+                [attr.disabled]="!termCancellation ? true : null"
+                [attr.tabindex]="termCancellation ? 0 : -1"
                 (click)="submitOrder()"
-                (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
     </div>

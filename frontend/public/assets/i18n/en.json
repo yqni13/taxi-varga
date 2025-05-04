@@ -1,3 +1,4 @@
+
 {
     "common": {
         "footer": {
@@ -161,7 +162,7 @@
                         "title": "Please note that"
                     },
                     "labels": {
-                        "datetime-end": "Date & time (return)",
+                        "datetime-end": "Date & time (service end)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
                         "origin": "Pickup address",
@@ -198,6 +199,7 @@
                     "offer": {
                         "back2home": "Return",
                         "datetime": "Date & time",
+                        "datetime-end-flatrate": "Date & time (service end)",
                         "datetime-end": "Date & time (return)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
@@ -211,7 +213,7 @@
                     },
                     "order": {
                         "contact": "Contact",
-                        "date-dropoff": "Date of drop-off",
+                        "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
                         "date-return": "Date of return",
                         "distance": "Driven distance",
@@ -231,11 +233,11 @@
                         },
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "tenancy": "Charged tenancy",
+                        "tenancy": "Overall tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
                         "terms": "I agree that I have already reached the age of 18 and provide my personal data only for the purpose of contracting the service. Furthermore, I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs ({{fieldValue}},00 EUR) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time-dropoff": "Estimated drop-off",
+                        "time-dropoff": "Time of service ending",
                         "time-pickup": "Time of pick-up",
                         "time-return": "Time of return",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
