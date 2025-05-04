@@ -43,13 +43,14 @@ class MailingModel {
         
         const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
         const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
+        const accessableSender = sender;
+        // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
 
         return { 
             response: {
                 sendRequestTo: sendRequest,
                 confirmedRequestFrom: confirmRequest,
-                sender: encryptedSender
+                sender: accessableSender
             }
         };
     }
@@ -152,16 +153,16 @@ class MailingModel {
     configEmailBodyDE = (data) => {
         const msgStart = `Anfrage für Service: ${data.serviceTranslateDE}`;
 
-        const msgCustomer = `Daten zur Person:\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? '"' + data.note + '"' : '--'}`;
+        const msgCustomer = `Daten zur Person\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz: ${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${data.originTranslateDE}\nZieladresse: ${data.destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+        const msgServiceBasic = `Daten zum Service\nAbholadresse: ${data.originTranslateDE}\nZieladresse: ${data.destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
-        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${data.hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
+        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${data.hasLatency ? 'Pauschalierte Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
 
         let msgOutput;
         switch(data.service) {
             case(ServiceOption.FLATRATE): {
-                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
+                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nPauschalierte Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFlatrate}`;
                 break;
@@ -186,16 +187,16 @@ class MailingModel {
     configEmailBodyEN = (data) => {
         const msgStart = `Request for service: ${data.serviceTranslateEN}`;
 
-        const msgCustomer = `Customer data:\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note:\n${data.note ? '"' + data.note + '"' : '--'}`;
+        const msgCustomer = `Customer data\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note: ${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Service data:\nPickup address: ${data.originTranslateEN}\nDestination address: ${data.destinationTranslateEN}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
+        const msgServiceBasic = `Service data\nPickup address: ${data.originTranslateEN}\nDestination address: ${data.destinationTranslateEN}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
 
-        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${data.hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
+        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${data.hasLatency ? 'Overall waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
 
         let msgOutput;
         switch(data.service) {
             case(ServiceOption.FLATRATE): {
-                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
+                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nOverall tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFlatrate}`;
                 break;

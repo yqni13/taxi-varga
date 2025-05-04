@@ -90,8 +90,11 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
-
     align-items: center;
+
+    span {
+        font-size: clamp(12px, 1.6vw, 18px);
+    }
 }
 
 .tava-service-block-label {
@@ -124,11 +127,10 @@
 
         .tava-service-specific-offer-sum-left {
             text-align: end;
-            width: 33%;
+            overflow-wrap: anywhere;
         }
         .tava-service-specific-offer-sum-right {
             text-align: start;
-            width: 67%;
             margin-left: sass.$space5;
         }
     }

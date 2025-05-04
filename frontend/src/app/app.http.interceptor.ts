@@ -14,7 +14,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     const mailTranslateService = inject(MailTranslateService);
     const snackbarService = inject(SnackbarMessageService);
     const translate = inject(TranslateService);
-    // const crypto = inject(CryptoService);
+    // const encodingService = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return next(req).pipe(
@@ -38,17 +38,16 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                     httpObservationService.setDrivingGolfStatus(true);
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
+                    const param = httpbody.body.body.response.sender;
+                    // const decryptSender = await encodingService.decryptRSA(param);
                     httpObservationService.setEmailStatus(true);
-                    // TODO(yqni13): clean after decision for what to keep
-                    // const param = httpbody.body.body.response.sender;
-                    // const decryptSender = await crypto.decryptRSA(param);
                     snackbarService.notify({
                         title: translate.currentLang === 'en'
                             ? mailTranslateService.getTranslationEN('common.interceptor.email.success-title')
                             : mailTranslateService.getTranslationDE('common.interceptor.email.success-title'),
                         text: translate.currentLang === 'en'
-                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + 'via Email'
-                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + 'via Email',
+                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + param
+                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + param,
                         autoClose: false,
                         type: SnackbarOption.SUCCESS,
                     })

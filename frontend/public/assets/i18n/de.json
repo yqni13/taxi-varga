@@ -1,3 +1,4 @@
+
 {
     "common": {
         "footer": {
@@ -161,7 +162,7 @@
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
-                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-end": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "origin": "Abholadresse",
@@ -169,7 +170,7 @@
                             "address": "Adresse auswählen",
                             "tenancy": "Mietdauer (h) auswählen"
                         },
-                        "tenancy": "verrechnete Mietdauer"
+                        "tenancy": "Pauschalierte Mietdauer"
                     },
                     "option": {
                         "title": "Zeitmiete"
@@ -198,6 +199,7 @@
                     "offer": {
                         "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
+                        "datetime-end-flatrate": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
@@ -211,18 +213,18 @@
                     },
                     "order": {
                         "contact": "Kontakt",
-                        "date-dropoff": "Datum der Ankunft",
+                        "date-dropoff": "Datum des Auftragendes",
                         "date-pickup": "Datum der Abholung",
                         "date-return": "Datum der Rückfahrt",
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
                         "hint-greenfee": "ohne Greenfee",
-                        "latency": "verrechnete Wartezeit",
+                        "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
-                        "stay": "verrechneter Aufenthalt",
+                        "stay": "Pauschalierter Aufenthalt",
                         "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 6 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
                         "support-mode": {
                             "caddy": "Begleitung als Caddy",
@@ -231,13 +233,13 @@
                         },
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
-                        "tenancy": "verrechnete Mietdauer",
+                        "tenancy": "pauschalierte Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
-                        "time-dropoff": "geschätzte Ankunft",
-                        "time-pickup": "Zeit der Abholung",
-                        "time-return": "Zeit der Rückfahrt",
+                        "time-dropoff": "Zeitpunkt des Auftragendes",
+                        "time-pickup": "Zeitpunkt der Abholung",
+                        "time-return": "Zeitpunkt der Rückfahrt",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 },

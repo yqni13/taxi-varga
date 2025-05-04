@@ -1,12 +1,6 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-.tava-service-specific-content {
-    span {
-        font-size: sass.$content-text-size;
-    }
-}
-
 #form-checkbox,
 .service-form-indented {
     display: flex;
