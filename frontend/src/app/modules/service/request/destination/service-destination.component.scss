@@ -1,12 +1,6 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-.tava-service-specific-content {
-    span {
-        font-size: sass.$content-text-size;
-    }
-}
-
 #form-checkbox,
 #form-latency {
     display: flex;

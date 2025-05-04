@@ -1,12 +1,6 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-.tava-service-specific-content {
-    span {
-        font-size: sass.$content-text-size;
-    }
-}
-
 #form-checkbox,
 .service-form-indented {
     display: flex;
@@ -75,4 +69,18 @@
 .tava-service-offer-addition {
     padding-bottom: sass.$space5;
     border-bottom: 2px double var(--theme-body-text);
+}
+
+.tava-service-specific-content-sum-offer {
+    .tava-service-specific-offer-sum {
+        #tava-service-offer-sum-price {
+            width: auto;
+        }
+        #tava-service-offer-hint-greenfee {
+            padding-left: sass.$space5;
+            font-style: italic;
+            font-size: clamp(12px, 1.6vw, 16px);
+            color: var(--theme-hint-grey);
+        }
+    }
 }

@@ -140,8 +140,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
                 CustomValidators.invalidZeroTenancyValidator(
                     this.datetimeService,
                     this.serviceForm.get('datetimeStart')?.value
-                ),
-                CustomValidators.invalidTenancyLowerLimitValidator($event),
+                )
             ]),
             CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.FLATRATE)
         ]);
@@ -206,6 +205,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     override addResponseRouteData2Form(response: any) {
+        const newTenancy = this.datetimeService.getTimeFromTotalMinutes(response.body?.body.routeData.tenancy);
+        this.serviceForm.get('tenancy')?.setValue(newTenancy);
         this.serviceForm.get('price')?.setValue(response.body?.body.routeData.price);
     }
 

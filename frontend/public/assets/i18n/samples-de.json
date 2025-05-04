@@ -87,7 +87,7 @@
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
-            "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee)",
+            "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "route": "Route"
         },
@@ -95,7 +95,7 @@
             "option1": "Wien\n-\nFlughafen",
             "option2": "Leobersdorf\n-\nöffentliche Einrichtungen",
             "option3": "Niederösterreich / Burgenland\n-\nFlughafen",
-            "option4": "Wien\n-\nGolfclub\n(Niederösterreich)"
+            "option4": "Wien\nZentrum\n-\nGolfclub\n(Niederösterreich)"
         }
     }
 }

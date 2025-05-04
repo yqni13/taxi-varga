@@ -53,7 +53,7 @@
                         [minStringObservable]="minTenancyStamp$"
                         [maxStringObservable]="maxTenancyStamp$"
                         [formControl]="serviceForm.get('datetimeEnd') | controlCast"
-                        [fieldName]="'modules.service.content.form.offer.datetime-end' | translate"
+                        [fieldName]="'modules.service.content.form.offer.datetime-end-flatrate' | translate"
                     ></tava-textinput>
                 </div>
             </div>
@@ -221,9 +221,9 @@
         >
             <button
                 class="tava-button-submit"
-                [attr.aria-disabled]="true"
+                [attr.disabled]="!termCancellation || !termSurchargeParking ? true : null"
+                [attr.tabindex]="termCancellation && termSurchargeParking ? 0 : -1"
                 (click)="submitOrder()"
-                (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
     </div>

@@ -163,7 +163,17 @@
         }
         .tava-service-form {
             width: 50vw;
-            max-width: 600px;
+            max-width: 750px;
+        }
+        .tava-service-specific-content-sum-offer {
+            .tava-service-specific-offer-sum {
+                .tava-service-specific-offer-sum-left {
+                    width: 30%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    width: 70%;
+                }
+            }
         }
     }
 
@@ -197,7 +207,6 @@
         }
     }
 }
-
 
 // 1024px > width <= 1440px
 @media screen and (width <= sass.$device-desktop-xk) {
@@ -327,8 +336,18 @@
             flex-direction: row!important;
         }
         .tava-service-form {
-            width: 50vw;
-            max-width: 600px;
+            width: 75vw;
+            max-width: 700px;
+        }
+        .tava-service-specific-content-sum-offer {
+            .tava-service-specific-offer-sum {
+                .tava-service-specific-offer-sum-left {
+                    width: 30%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    width: 70%;
+                }
+            }
         }
     }
 
@@ -426,7 +445,7 @@
             $margin-landscape-size: sass.$space50;
 
             width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 $margin-landscape-size;
             padding: $padding-portrait-size $padding-landscape-size;
             font-size: clamp(12px, 2.5vw, 15px);
@@ -543,6 +562,23 @@
         }
     }
 
+    .tava-service-meta {
+        #tava-service-customer-double-left {
+            width: 100%!important;
+            margin-right: 0!important;
+            margin-bottom: sass.$space15;
+        }
+
+        #tava-service-customer-double-right {
+            width: 100%!important;
+            margin-left: 0!important;
+        }
+
+        .tava-service-meta-customer-block {
+            flex-direction: column!important;
+        }
+    }
+
     .tava-service-specific-content {
         .tava-datetime-double {
             flex-direction: column!important;
@@ -574,6 +610,16 @@
         .tava-service-terms {
             input {
                 margin: 0 sass.$space50 0 0!important;
+            }
+        }
+        .tava-service-specific-content-sum-offer {
+            .tava-service-specific-offer-sum {
+                .tava-service-specific-offer-sum-left {
+                    width: 35%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    width: 65%;
+                }
             }
         }
     }
@@ -631,7 +677,7 @@
             }
         }
     }
-    
+
     .tava-imprint {
         .tava-imprint-content {
             margin: 0 calc(sass.$space25 * 2) sass.$space25 calc(sass.$space25 * 2);
@@ -643,7 +689,7 @@
             margin: 0 calc(sass.$space25 * 2) sass.$space25 calc(sass.$space25 * 2);
         }
     }
-    
+
     .tava-samples {
         .tava-samples-content {
             padding-bottom: 0!important;
@@ -689,23 +735,6 @@
         }
     }
 
-    .tava-service-meta {
-        #tava-service-customer-double-left {
-            width: 100%!important;
-            margin-right: 0!important;
-            margin-bottom: sass.$space15;
-        }
-
-        #tava-service-customer-double-right {
-            width: 100%!important;
-            margin-left: 0!important;
-        }
-
-        .tava-service-meta-customer-block {
-            flex-direction: column!important;
-        }
-    }
-    
     .tava-service-specific-content {
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);

@@ -5,6 +5,7 @@ const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
 const Secrets = require('./secrets.utils');
 const { SupportModeOption } = require('./enums/supportmode-option.enum');
+const { ErrorCodes } = require('./errorCodes.utils');
 
 exports.validateServiceOption = (value) => {
     const options = Object.values(ServiceOption);
@@ -76,4 +77,17 @@ exports.validateGolfSupportMode = (supportMode) => {
     }
 
     return true;
+}
+
+exports.validateStayTimeRelevance = (stayTime, drivingTime) => {
+    try {
+        if(stayTime < drivingTime) {
+            throw new Error();
+        }
+        return stayTime - drivingTime;
+    } catch(err) {
+        const msg = 'backend-invalid-stayduration';
+        const flag = ErrorCodes.InvalidPropertiesException;
+        throw new InvalidPropertiesException(msg, { flag: flag, data: [{msg: msg}] });
+    }
 }

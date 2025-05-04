@@ -1,3 +1,4 @@
+
 {
     "common": {
         "footer": {
@@ -24,13 +25,12 @@
         },
         "validation": {
             "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
-            "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
+            "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
-            "tenancy-invalid-lower-limit": "Die Mietdauer muss min 3h betragen.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
             "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
@@ -49,9 +49,10 @@
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-stayduration": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-supportmode": "Der gewählte Zusatz-Service konnte nicht gefunden werden. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-tenancy": "Die Mietdauer muss zwischen 3h und 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
@@ -157,11 +158,11 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Zeitmieten müssen min 3h betragen und können nicht länger als für 24h gebucht werden\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
+                        "text": "- Für Zeitmieten werden min 3h verrechnet und können nicht länger als für 24h gebucht werden\n- Pro Stunde Mietzeit werden pauschal 35,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
-                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-end": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "origin": "Abholadresse",
@@ -169,7 +170,7 @@
                             "address": "Adresse auswählen",
                             "tenancy": "Mietdauer (h) auswählen"
                         },
-                        "tenancy": "verrechnete Mietdauer"
+                        "tenancy": "Pauschalierte Mietdauer"
                     },
                     "option": {
                         "title": "Zeitmiete"
@@ -198,6 +199,7 @@
                     "offer": {
                         "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
+                        "datetime-end-flatrate": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
@@ -211,27 +213,33 @@
                     },
                     "order": {
                         "contact": "Kontakt",
-                        "date-dropoff": "Datum der Ankunft",
+                        "date-dropoff": "Datum des Auftragsendes",
                         "date-pickup": "Datum der Abholung",
                         "date-return": "Datum der Rückfahrt",
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
-                        "latency": "verrechnete Wartezeit",
+                        "hint-greenfee": "ohne Greenfee",
+                        "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
-                        "stay": "verrechneter Aufenthalt",
+                        "stay": "Pauschalierter Aufenthalt",
                         "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 6 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
+                        "support-mode": {
+                            "caddy": "Begleitung als Caddy",
+                            "label": "Zusatzservice",
+                            "player": "Begleitung als Mitspieler"
+                        },
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
-                        "tenancy": "verrechnete Mietdauer",
+                        "tenancy": "Pauschalierte Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
-                        "time-dropoff": "geschätzte Ankunft",
-                        "time-pickup": "Zeit der Abholung",
-                        "time-return": "Zeit der Rückfahrt",
+                        "time-dropoff": "Zeitpunkt des Auftragsendes",
+                        "time-pickup": "Zeitpunkt der Abholung",
+                        "time-return": "Zeitpunkt der Rückfahrt",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
                 },

@@ -21,7 +21,8 @@ export declare interface DrivingDestinationResponse {
 export declare interface DrivingFlatrateResponse {
     body: {
         routeData: {
-            price: number,
+            tenancy: number,
+            price: number
         }
     }
 }
