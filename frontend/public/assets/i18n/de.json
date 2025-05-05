@@ -49,7 +49,8 @@
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-stayduration": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
+                    "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
+                    "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-supportmode": "Der gewählte Zusatz-Service konnte nicht gefunden werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
@@ -266,7 +267,7 @@
                         "support-mode": {
                             "caddy": "Ich möchte Sie zur Begleitung als Caddy buchen.",
                             "none": "Ich benötige keinen zusätzlichen Service.",
-                            "player": "Ich möchte Sie zur Begleitung als Mitspieler buchen."
+                            "player": "Ich möchte Sie zur Begleitung als Mitspieler buchen (Greenfeekosten des Begleiters gehen zu Lasten von taxi-varga)."
                         }
                     },
                     "option": {

@@ -34,9 +34,10 @@ class DrivingGolfModel {
         });
 
         // validate relevance & update stay time by removing origin route duration (in total minutes)
-        params['stay'] = CustomValidator.validateStayTimeRelevance(
+        params['stay'] = CustomValidator.validateTravelTimeRelevance(
             Number(params['stay']),
-            origin2golfcourse.duration
+            origin2golfcourse.duration,
+            ServiceOption.GOLF
         );
 
         // already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes

@@ -12,6 +12,7 @@
 
         label {
             margin: sass.$space5 0;
+            justify-content: center;
     
             input {
                 margin-right: calc(sass.$space15 - sass.$space5);
@@ -20,13 +21,11 @@
 
         .tava-form-radio-left {
             width: 100%;
-            text-align: center;
             margin: calc(sass.$space15 - sass.$space5) 0;
         }
         
         .tava-form-radio-right {
             width: 100%;
-            text-align: center;
             margin: calc(sass.$space15 - sass.$space5) 0;
         }
     }
