@@ -5,6 +5,7 @@
         class="tava-address-input-text"
         placeholder="{{placeholder}}"
         [formControl]="formControl"
+        (keydown)="onInputKeyNav($event)"
         max="{{maxVal}}"
     >
     <i
@@ -21,9 +22,8 @@
             *ngFor="let option of options; let i = index" 
             class="tava-address-input-options"
             (click)="selectPlace(option.placeId)"
-            (keydown.enter)="selectPlace(option.placeId)"
+            (keydown)="onOptionKeyNav($event, i)"
             tabindex="-1"
-            [attr.aria-disabled]="true"
         >
             <span>
                 {{option.descriptionFull}}

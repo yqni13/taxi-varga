@@ -34,7 +34,8 @@ export class AboutComponent implements OnInit, OnDestroy {
             'assets/foto8.jpg',
             'assets/foto5.jpg',
             'assets/foto1.jpg',
-            'assets/foto7.jpg'
+            'assets/foto7.jpg',
+            'assets/foto12.jpg'
         ];
         this.selectedBg = '';
         this.subscriptionObservation$ = new Subscription();
