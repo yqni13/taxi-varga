@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -29,7 +29,7 @@ import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../..
         }
     ]
 })
-export class AddressInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostListener('window:click', ['$event'])
     clickOutside($event: any) {
@@ -40,6 +40,9 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
     }
 
+    @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+    @ViewChildren('optionRef') optionRefList!: QueryList<ElementRef<HTMLElement>>;
+
     @Input() fieldName: string;
     @Input() placeholder: string;
     @Input() formControl: FormControl;
@@ -49,11 +52,17 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() ngClass: string;
     @Input() exceptions: string[];
     @Input() maxVal: number;
+    @Input() set hasAutoFocus(value: boolean) {
+        if(value) {
+            this.focusOnInput();
+        }
+    }
 
     @Output() byChange: EventEmitter<any>;
     @Output() byPlaceSelection: EventEmitter<AddressDetailsResponse>;
 
     protected showOptions: boolean;
+    protected focusIndex: number;
 
     private delay: any;
     private sessionToken: string;
@@ -77,6 +86,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.byChange = new EventEmitter<any>();
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
         this.showOptions = false;
+        this.focusIndex = -1;
         this.sessionToken = '';
         this.subscriptionFormControl$ = new Subscription();
 
@@ -99,6 +109,12 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             }
             this.byChange.emit(changes);
         });
+    }
+
+    ngAfterViewInit() {
+        if(this.hasAutoFocus) {
+            this.inputRef.nativeElement.focus();
+        }
     }
     
     getOptions() {
@@ -178,6 +194,51 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             country: country[0] as string,
             placeId: id
         }
+    }
+
+    onInputKeyNav(event: KeyboardEvent) {
+        if(event.key === 'ArrowDown' && this.options.length > 0) {
+            event.preventDefault();
+            this.focusIndex = 0;
+            this.focusOnOption(this.focusIndex);
+        }
+    }
+
+    onOptionKeyNav(event: KeyboardEvent, index: number) {
+        if(event.key === 'ArrowDown') {
+            event.preventDefault();
+            if((index + 1) < this.options.length) {
+                this.focusIndex = index + 1;
+                this.focusOnOption(this.focusIndex);
+            }
+        } else if(event.key === 'ArrowUp') {
+            event.preventDefault();
+            if((index - 1) >= 0) {
+                this.focusIndex = index - 1;
+                this.focusOnOption(this.focusIndex);
+            } else {
+                this.focusIndex = -1;
+                this.focusOnInput();
+            }
+        } else if(event.key === 'Enter') {
+            this.selectPlace(this.options[index].placeId);
+        } else if(event.key === 'Escape' && this.focusIndex !== -1) {
+            this.focusIndex = -1;
+            this.focusOnInput();
+        }
+    }
+
+    focusOnOption(index: number) {
+        const optionList = this.optionRefList.toArray()[index];
+        optionList?.nativeElement.focus();
+    }
+
+    focusOnInput() {
+        this.inputRef?.nativeElement.focus();
+
+        // define input value length and set focus to last position of input
+        const inputLength = this.inputRef.nativeElement.value.length;
+        this.inputRef.nativeElement.setSelectionRange(inputLength, inputLength);
     }
 
     ngOnDestroy() {

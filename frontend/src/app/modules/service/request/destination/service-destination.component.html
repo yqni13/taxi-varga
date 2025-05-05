@@ -16,6 +16,7 @@
                     <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
+                        [hasAutoFocus]="!snackbar.isActive"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
