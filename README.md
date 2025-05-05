@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.1.0}}$
+$\texttt{\color{teal}{v1.2.0}}$
 
 
 <br><br>
@@ -124,11 +124,11 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.0.5\ >>\ {\color{pink}1.1.0}}$
+### $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.0}}$
 
-- $\textsf{\color{teal}Addition:}$ Added new service 'golf'.
-- $\textsf{\color{red}Patch:}$ Updated validations in all service components.
-- $\textsf{\color{green}Change:}$ Changed responsive design and color behaviour for multiple components.
+- $\textsf{\color{teal}Addition:}$ Added key navigation for service components and image carousel.
+- $\textsf{\color{red}Patch:}$ Updated business logic for service components 'flatrate' and 'golf'.
+- $\textsf{\color{green}Change:}$ Changed input design of checkbox and radio buttons to fit color scheme + responsive behavior.
 
 <br>
 
@@ -137,7 +137,6 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
     <dd>- update Google Places API to Places API (New)</dd>
     <dd>- update email format</dd>
     <dd>- update token handling (refresh token)</dd>
-    <dd>- add key navigation</dd>
     <dd>- update logging & exception handling (client side)</dd>
     <dd>- add testing</dd>
 </dl>

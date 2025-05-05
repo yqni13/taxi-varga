@@ -168,11 +168,16 @@
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
                 .tava-service-specific-offer-sum-left {
-                    width: 30%;
+                    width: 33%;
                 }
                 .tava-service-specific-offer-sum-right {
-                    width: 70%;
+                    width: 67%;
                 }
+            }
+        }
+        .tava-service-golf-radio-wrapper {
+            span {
+                width: calc(100% - sass.$space50);
             }
         }
     }
@@ -347,6 +352,11 @@
                 .tava-service-specific-offer-sum-right {
                     width: 70%;
                 }
+            }
+        }
+        .tava-service-golf-radio-wrapper {
+            span {
+                width: calc(100% - sass.$space50);
             }
         }
     }
@@ -745,6 +755,11 @@
             max-width: none;
             margin: 0 $margin-landscape-size;
             padding: $padding-portrait-size $padding-landscape-size;
+        }
+        .tava-service-golf-radio-wrapper {
+            span {
+                width: calc(100% - 35px);
+            }
         }
     }
 }

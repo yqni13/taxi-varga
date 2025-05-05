@@ -4,6 +4,12 @@
 
 <br>
 
+### 2025/05/05 - $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.0}}$
+
+- $\textsf{\color{teal}Addition:}$ Added key navigation for service components and image carousel.
+- $\textsf{\color{red}Patch:}$ Updated business logic for service components 'flatrate' and 'golf'.
+- $\textsf{\color{green}Change:}$ Changed input design of checkbox and radio buttons to fit color scheme + responsive behavior.
+
 ### 2025/05/02 - $\textsf{last\ update\ 1.0.5\ >>\ {\color{pink}1.1.0}}$
 
 - $\textsf{\color{teal}Addition:}$ Added new service 'golf'.

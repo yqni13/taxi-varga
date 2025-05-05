@@ -201,6 +201,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             event.preventDefault();
             this.focusIndex = 0;
             this.focusOnOption(this.focusIndex);
+        } else if(event.key === 'Tab') {
+            this.showOptions = false;
         }
     }
 
@@ -225,6 +227,9 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         } else if(event.key === 'Escape' && this.focusIndex !== -1) {
             this.focusIndex = -1;
             this.focusOnInput();
+        } else if(event.key === 'Tab') {
+            this.focusIndex = -1;
+            this.showOptions = false;
         }
     }
 

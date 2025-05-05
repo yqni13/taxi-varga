@@ -21,16 +21,14 @@
     margin-top: sass.$space25;
 }
 
-.tava-service-golf-radio-wrapper {
-    display: flex;
-    flex-direction: column;
-
-    label {
-        margin: sass.$space5 0;
-    }
-
-    input {
-        margin: 0 calc(sass.$space15 + sass.$space5) 0 calc(sass.$space50 - 13px);
+.tava-service-specific-content {
+    .tava-service-golf-radio-wrapper {
+        display: flex;
+        flex-direction: column;
+    
+        label {
+            margin: sass.$space5 0;
+        }
     }
 }
 

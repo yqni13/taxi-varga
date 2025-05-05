@@ -49,7 +49,8 @@
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
                     "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
-                    "backend-invalid-stayduration": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
+                    "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
+                    "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                     "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
                     "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
@@ -264,9 +265,9 @@
                         "return": "I want to return to my pickup address.",
                         "stay": "My required time of stay.",
                         "support-mode": {
-                            "caddy": "I want to book you as my caddy.",
+                            "caddy": "I would like to book you as a caddy.",
                             "none": "I do not require an additional service.",
-                            "player": "I want to book you as additional player."
+                            "player": "I would like to book you as a playing partner (the greenfee for the accompanying playing partner will be covered by taxi-varga)."
                         }
                     },
                     "option": {

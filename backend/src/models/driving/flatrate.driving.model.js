@@ -1,5 +1,6 @@
 const GoogleRoutes = require('../../services/google-routes/google-routes.api');
-const Secrets = require('../../utils/secrets.utils');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const CustomValidator = require('../../utils/customValidator.utils');
 
 class DrivingFlatrateModel {
     calcFlatrateRoute = async (params) => {
@@ -11,29 +12,38 @@ class DrivingFlatrateModel {
         const priceReturnPerKm = 0.5;
         let totalCost = 0;
 
+        // GET ROUTE DATA
+        const response = await GoogleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
+        const home2origin = response.find(obj => { 
+            return obj.originIndex === 0 && obj.destinationIndex === 1;
+        });
+        const origin2destination = response.find(obj => { 
+            return obj.originIndex === 1 && obj.destinationIndex === 0;
+        });
+        const destination2home = response.find(obj => {
+            return obj.originIndex === 2 && obj.destinationIndex === 2;
+        });
+
+        // validate relevance comparing tenancy to min time effort of origin2destination route
+        CustomValidator.validateTravelTimeRelevance(
+            Number(params['tenancy']),
+            origin2destination.duration,
+            ServiceOption.FLATRATE
+        );
         const tenancyObj = this.#calculateTenancyValues(Number(params['tenancy']));
 
-        const approachRoute = await GoogleRoutes.requestMapsMatrix({
-            origin: Secrets.HOME_ADDRESS,
-            destination: params['originDetails']['placeId']
-        }, 'destination');
-        const approachDistance = ((approachRoute.rows[0].elements[0].distance.value) / 1000);
-        const approachCost = (approachDistance % 1) >= 5
-            ? Math.ceil(approachDistance) * priceApproachPerKm
-            : Math.floor(approachDistance) * priceApproachPerKm;
+        const approachCost = (home2origin.distanceMeters % 1) >= 5
+            ? Math.ceil(home2origin.distanceMeters) * priceApproachPerKm
+            : Math.floor(home2origin.distanceMeters) * priceApproachPerKm;
 
         if(params['origin'] !== params['destination']) {
-            const returnRoute = await GoogleRoutes.requestMapsMatrix({
-                origin: params['destinationDetails']['placeId'],
-                destination: Secrets.HOME_ADDRESS
-            }, 'origin');
-            const returnDistance = ((returnRoute.rows[0].elements[0].distance.value) / 1000);
-            const returnCost = (returnDistance % 1) >= 5
-                ? Math.ceil(returnDistance) * priceReturnPerKm
-                : Math.floor(returnDistance) * priceReturnPerKm;
-            totalCost = tenancyObj.costs + approachCost + returnCost;
+            const minDistanceCost = this.#calculateMinDistanceValues(origin2destination);
+            const returnCost = (destination2home.distanceMeters % 1) >= 5
+                ? Math.ceil(destination2home.distanceMeters) * priceReturnPerKm
+                : Math.floor(destination2home.distanceMeters) * priceReturnPerKm;
+            totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
         } else {
-            totalCost = tenancyObj.costs + (approachCost * 2);
+            totalCost = (approachCost * 2) + tenancyObj.costs;
         }
 
         return { 
@@ -56,6 +66,17 @@ class DrivingFlatrateModel {
             time: newTimeInMinutes,
             costs: costs
         }
+    }
+
+    #calculateMinDistanceValues = (params) => {
+        const priceNextKm = 0.5;
+
+        // substract 25km distance included in every full hour tenancy
+        const chargedTime = (params.duration % 60) !== 0 
+            ? (Math.floor(params.duration / 60) * 60) 
+            : params.duration;
+        const chargedDistance = params.distanceMeters - (25 * (chargedTime / 60));
+        return chargedDistance * priceNextKm;
     }
 }
 

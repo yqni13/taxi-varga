@@ -79,14 +79,19 @@ exports.validateGolfSupportMode = (supportMode) => {
     return true;
 }
 
-exports.validateStayTimeRelevance = (stayTime, drivingTime) => {
+exports.validateTravelTimeRelevance = (compareTime, travelTime, serviceOption) => {
     try {
-        if(stayTime < drivingTime) {
+        if(compareTime < travelTime) {
             throw new Error();
         }
-        return stayTime - drivingTime;
+
+        if(serviceOption === ServiceOption.GOLF) {
+            return compareTime - travelTime
+        }
     } catch(err) {
-        const msg = 'backend-invalid-stayduration';
+        const msg = serviceOption === ServiceOption.GOLF
+            ? 'backend-invalid-relevance-stay'
+            : 'backend-invalid-relevance-travel';
         const flag = ErrorCodes.InvalidPropertiesException;
         throw new InvalidPropertiesException(msg, { flag: flag, data: [{msg: msg}] });
     }

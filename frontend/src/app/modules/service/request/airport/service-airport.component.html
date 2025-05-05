@@ -15,7 +15,7 @@
                     *tavaVar="serviceForm.get('airportMode') as airportMode"
                 >
                     <div class="tava-service-airport-radio-wrapper">
-                        <label class="tava-form-radio-left">
+                        <label class="tava-form-radio-left tava-custom-input-radio">
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
@@ -25,7 +25,7 @@
                             >
                             <span>{{'modules.service.content.airport.labels.arrival' | translate}}</span>
                         </label>
-                        <label class="tava-form-radio-right">
+                        <label class="tava-form-radio-right tava-custom-input-radio">
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
@@ -223,7 +223,7 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms first-term tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
