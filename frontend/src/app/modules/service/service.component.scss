@@ -211,6 +211,7 @@
         text-align: justify;
         opacity: 0.8;
         line-height: sass.$text-line-height;
+        margin-left: sass.$space15;
     }
 
     .tava-message-invalid {
@@ -218,7 +219,7 @@
     }
 }
 
-.tava-first-term {
+.first-term {
     margin-top: calc(35px - 12.5px);
 }
 

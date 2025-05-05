@@ -15,6 +15,7 @@
                 <tava-addressinput
                     [placeholder]="('modules.service.content.flatrate.labels.placeholder.address' | translate)"
                     [formControl]="serviceForm.get('originAddress') | controlCast"
+                    [hasAutoFocus]="!snackbar.isActive"
                     [fieldName]="'modules.service.content.form.offer.origin' | translate"
                     (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                 ></tava-addressinput>
@@ -182,8 +183,12 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
-                <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms first-term tava-custom-input-checkbox">
+                <input
+                    class="tava-text-input-checkbox"
+                    type="checkbox"
+                    (change)="getTermsCheckboxValue($event)"
+                >
                 <span
                     class="tava-service-block-input"
                     [ngClass]="!termCancellation ? 'tava-message-invalid' : ''"
@@ -191,8 +196,12 @@
                     {{'modules.service.content.form.order.terms-flatrate' | translate: {fieldValue: serviceForm.get('price')?.value} }}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
-                <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-custom-input-checkbox">
+                <input
+                    class="tava-text-input-checkbox"
+                    type="checkbox"
+                    (change)="getSurchargeParkingCheckboxValue($event)"
+                >
                 <span
                     class="tava-service-block-input"
                     [ngClass]="!termSurchargeParking ? 'tava-message-invalid' : ''"

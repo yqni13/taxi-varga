@@ -16,6 +16,7 @@
                     <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
+                        [hasAutoFocus]="!snackbar.isActive"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
@@ -31,7 +32,7 @@
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>                    
                 </div>
-                <div class="tava-service-specific-block" id="form-checkbox">
+                <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
                     <input class="tava-text-input-checkbox" type="checkbox" (change)="getBack2HomeCheckboxValue($event)">
                     <span class="tava-service-block-input">
                         {{'modules.service.content.destination.labels.back2home' | translate}}
@@ -190,7 +191,7 @@
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms first-term tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -199,7 +200,7 @@
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeFuelCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -208,7 +209,7 @@
                     {{'modules.service.content.form.order.surcharge-fuel' | translate}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"

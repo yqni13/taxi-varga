@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, Input, TemplateRef } from "@angular/core";
+import { Component, HostListener, Input, TemplateRef } from "@angular/core";
 
 @Component({
     selector: 'tava-carousel',
@@ -12,6 +12,15 @@ import { Component, Input, TemplateRef } from "@angular/core";
     ]
 })
 export class CarouselComponent {
+
+    @HostListener('window:keydown', ['$event'])
+    navByKeyInput(event: KeyboardEvent) {
+        if(event.key === 'ArrowLeft') {
+            this.prev();
+        } else if(event.key === 'ArrowRight') {
+            this.next();
+        }
+    }
     
     @Input() slides: string[];
     @Input() slideTemplate?: TemplateRef<any>;

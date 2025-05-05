@@ -16,6 +16,7 @@
                     <tava-addressinput
                         [placeholder]="('modules.service.content.golf.labels.placeholder.street' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
+                        [hasAutoFocus]="!snackbar.isActive"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN); getOrigin4ReturnAddress()"
                     ></tava-addressinput>
@@ -31,7 +32,7 @@
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.GOLFCOURSE)"
                     ></tava-addressinput>                    
                 </div>
-                <div class="tava-service-specific-block" id="form-checkbox">
+                <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
                     <input class="tava-text-input-checkbox" type="checkbox" checked="true" (change)="getReturnCheckboxValue($event)">
                     <span class="tava-service-block-input">
                         {{'modules.service.content.golf.labels.return' | translate}}
@@ -66,24 +67,13 @@
                         {{'modules.service.content.golf.labels.passengers' | translate}}*
                     </span>
                 </div>
-                <!-- <div class="tava-service-specific-block service-form-indented">
-                    <tava-textinput
-                        [ngClass]="'tava-input-time'"
-                        [inputType]="'time'"
-                        [formControl]="serviceForm.get('stay') | controlCast"
-                        [fieldName]="'modules.service.content.form.offer.stay' | translate"
-                    ></tava-textinput>
-                    <span class="tava-service-block-input">
-                        {{'modules.service.content.golf.labels.stay' | translate}}*
-                    </span>
-                </div> -->
                 <div
                     class="tava-service-specific-block"
                     *tavaVar="serviceForm.get('supportMode') as supportMode"
                     id="form-radio"
                 >
                     <div class="tava-service-golf-radio-wrapper">
-                        <label class="tava-form-radio-first">
+                        <label class="tava-form-radio-first tava-custom-input-radio">
                             <input
                                 type="radio"
                                 class="tava-text-input-radio"
@@ -92,7 +82,7 @@
                             >
                             <span>{{'modules.service.content.golf.labels.support-mode.none' | translate}}</span>
                         </label>
-                        <label id="tava-form-radio-second">
+                        <label class="tava-form-radio-second tava-custom-input-radio">
                             <input
                                 type="radio"
                                 class="tava-text-input-radio"
@@ -102,7 +92,7 @@
                             <span>{{'modules.service.content.golf.labels.support-mode.caddy' | translate}}</span>
                         </label>
                         <label
-                            id="tava-form-radio-third"
+                            class="tava-form-radio-third tava-custom-input-radio"
                             *ngIf="serviceForm.get('passengers')?.value !== PassengerOptionsEnum.PPL3"
                         >
                             <input
@@ -318,7 +308,7 @@
                     {{' (' + ('modules.service.content.form.order.hint-greenfee' | translate) + ')'}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms first-term tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -327,16 +317,7 @@
                     {{'modules.service.content.form.order.terms' | translate}}
                 </span>
             </div>
-            <!-- <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
-                <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeFuelCheckboxValue($event)">
-                <span
-                    class="tava-service-block-input"
-                    [ngClass]="!termSurchargeFuel ? 'tava-message-invalid' : ''"
-                >
-                    {{'modules.service.content.form.order.surcharge-fuel' | translate}}
-                </span>
-            </div> -->
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getSurchargeParkingCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
