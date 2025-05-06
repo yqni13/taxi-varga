@@ -3,6 +3,7 @@
         #inputRef
         type="text"
         class="tava-address-input-text"
+        id="{{'tava-' + fieldName}}"
         placeholder="{{placeholder}}"
         [formControl]="formControl"
         (keydown)="onInputKeyNav($event)"

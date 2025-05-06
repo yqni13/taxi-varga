@@ -33,10 +33,10 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     @HostListener('window:click', ['$event'])
     clickOutside($event: any) {
-        if($event.target.className.includes('tava-address-input-text')) {
-            this.showOptions = true;
-        } else if(!$event.target.className.includes('tava-address-wrapper')) {
+        if($event.target?.id !== `tava-${this.fieldName}`) {
             this.showOptions = false;
+        } else {
+            this.showOptions = true;
         }
     }
 
@@ -55,6 +55,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() set hasAutoFocus(value: boolean) {
         if(value) {
             this.focusOnInput();
+            this.showOptions = true;
         }
     }
 
