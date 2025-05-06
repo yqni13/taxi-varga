@@ -100,7 +100,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             originDetails: new FormControl(''),
             golfcourseAddress: new FormControl('', Validators.required),
             golfcourseDetails: new FormControl(''),
-            destinationAddress: new FormControl('', Validators.required),            
+            destinationAddress: new FormControl(''),            
             destinationDetails: new FormControl(''),
             return: new FormControl(null),
             datetimeStart: new FormControl('', [
@@ -211,7 +211,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     async onSubmitOffer() {
-
         this.serviceForm.markAllAsTouched();
 
         if(this.serviceForm.invalid) {

@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { AddressAPIService } from "../../../../shared/services/address-api.service";
 import { v4 as uuidv4 } from 'uuid';
 import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../shared/interfaces/address-response.interface";
+import * as CustomValidators from "../../../helper/custom-validators";
 
 @Component({
     selector: 'tava-addressinput',
@@ -32,11 +33,22 @@ import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../..
 export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostListener('window:click', ['$event'])
-    clickOutside($event: any) {
+    override clickOutside($event: any) {
         if($event.target?.id !== `tava-${this.fieldName}`) {
             this.showOptions = false;
+            this.isFocused = false;
         } else {
             this.showOptions = true;
+            this.isFocused = true;
+        }
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    override tabOutside($event: any) {
+        if($event.key === 'Tab' && ($event.target?.id === `tava-${this.fieldName}`)) {
+            this.isFocused = false;
+        } else if($event.key === 'Escape') {
+            this.showOptions = false;
         }
     }
 
@@ -56,6 +68,8 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         if(value) {
             this.focusOnInput();
             this.showOptions = true;
+        } else {
+            this.isFocused = false;
         }
     }
 
@@ -95,12 +109,14 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
 
     ngOnInit() {
+        this.formControl.addValidators(CustomValidators.emptyAddressSelectValidator(this.placeControl));
         this.sessionToken = uuidv4();
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
             if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
                 this.sessionToken = uuidv4();
-                this.placeControl = new FormControl();
+                this.placeControl.reset();
                 this.byPlaceSelection.emit(this.placeControl?.value);
+                this.formControl.updateValueAndValidity();
             }
             if(this.placeControl?.value !== null) {
                 this.byPlaceSelection.emit(this.placeControl?.value);
@@ -108,6 +124,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             if(this.placeControl?.value === null) {
                 this.getOptions();
             }
+            this.isFocused = true;
             this.byChange.emit(changes);
         });
     }
@@ -119,7 +136,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
     
     getOptions() {
-        this.placeControl = new FormControl();
+        this.placeControl.reset();
         if(this.formControl?.value !== '' && !this.exceptions.includes(this.formControl?.value)) {
             const data = {
                 address: this.formControl?.value,
@@ -163,9 +180,11 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.addressApiService.sendDetailsRequest().subscribe(data => {
             this.placeControl?.setValue(this.getAddressDetailsFromResponse(data, id));
             this.formControl?.setValue(this.placeControl?.value.address);
+            this.formControl.updateValueAndValidity();
             this.sessionToken = '';
             this.options.length = 0;
             this.showOptions = false;
+            this.isFocused = false;
         })
     }
 
@@ -241,7 +260,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     focusOnInput() {
         this.inputRef?.nativeElement.focus();
-
+        this.isFocused = true;
         // define input value length and set focus to last position of input
         const inputLength = this.inputRef.nativeElement.value.length;
         this.inputRef.nativeElement.setSelectionRange(inputLength, inputLength);
