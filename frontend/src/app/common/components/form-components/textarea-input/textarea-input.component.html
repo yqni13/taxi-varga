@@ -1,11 +1,17 @@
 <div class="tava-textarea-wrapper {{className}}" ngClass="{{ngClass}}">
     <textarea
         placeholder="{{placeholder}}"
+        id="{{'tava-' + fieldName}}"
         [formControl]="formControl"
         rows="{{rows}}"
     ></textarea>
+    <i
+        class="icon-warning"
+        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
+    ></i>
     <tava-validation
-    [ngControl]="formControl"
-    [fieldName]="fieldName"
+        *ngIf="!isFocused"
+        [ngControl]="formControl"
+        [fieldName]="fieldName"
     ></tava-validation>
 </div>

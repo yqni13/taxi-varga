@@ -1,4 +1,3 @@
-
 {
     "common": {
         "footer": {
@@ -28,6 +27,7 @@
             "datetime-end-invalid-negative": "Time of return can not be before pickup.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+            "empty-address-select": "Field must contain an address selected from list of options.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
             "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
@@ -48,9 +48,9 @@
                     "backend-invalid-language": "The selected language can not be processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
-                    "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                     "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
                     "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
+                    "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                     "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
                     "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
@@ -200,8 +200,8 @@
                     "offer": {
                         "back2home": "Return",
                         "datetime": "Date & time",
-                        "datetime-end-flatrate": "Date & time (service end)",
                         "datetime-end": "Date & time (return)",
+                        "datetime-end-flatrate": "Date & time (service end)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
                         "golfcourse": "Golf course",
@@ -247,7 +247,7 @@
                 "golf": {
                     "block-validation": "Please select your option of additional service.",
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (6 hours included in the price)",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 3h are included in the price, following 3h are for free)",
                         "title": "Please note that"
                     },
                     "labels": {
