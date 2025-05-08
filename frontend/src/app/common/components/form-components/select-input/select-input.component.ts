@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, HostListener, Input, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
 
@@ -27,6 +27,16 @@ import { AbstractInputComponent } from "../abstract-input.component";
 })
 export class SelectInputComponent extends AbstractInputComponent {
 
+    @HostListener('window:click', ['$event']) 
+    clickListening($event: any) {
+        this.clickOutside($event, this.fieldName);
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    keyListening($event: any) {
+        this.tabOutside($event, this.fieldName);
+    }
+
     @Input() fieldName: string;
     @Input() formControl: FormControl;
     @Input() placeholder: string;
@@ -37,7 +47,7 @@ export class SelectInputComponent extends AbstractInputComponent {
 
     @Output() byChange: EventEmitter<any>;
 
-    constructor(private translate: TranslateService) {
+    constructor() {
         super();
 
         this.fieldName = '';
@@ -52,5 +62,6 @@ export class SelectInputComponent extends AbstractInputComponent {
 
     selectOption(option: Event) {
         this.byChange.emit(option);
+        this.isFocused = false;
     }
 }

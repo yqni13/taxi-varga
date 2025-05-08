@@ -30,5 +30,8 @@
         <div class="tava-validation-message" *ngIf="control.hasError('negativeFixedDateTime')">
             {{ 'common.validation.datetime-end-invalid-negative' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('emptyAddressSelect')">
+            {{ 'common.validation.empty-address-select' | translate }}
+        </div>
     </div>
 </ng-container>

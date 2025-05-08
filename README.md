@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.2.0}}$
+$\texttt{\color{teal}{v1.2.1}}$
 
 
 <br><br>
@@ -29,7 +29,7 @@ $\texttt{\color{teal}{v1.2.0}}$
 </div>
 <br>
 
-### visit the <a href="https://taxi-varga.at">WEBPAGE</a>
+### visit the <a href="https://taxi-varga.at">WEBSITE</a>
 
 <br>
 
@@ -37,8 +37,19 @@ $\texttt{\color{teal}{v1.2.0}}$
 
 ### Start
 
-Get startet with `npm install` (/frontend and /backend) to create necessary modules and run `ng serve` (/frontend) and `node server.js` (/backend) to start your local servers. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. To enable the Google API calls, it is necessary to serve the application on https, even in local environment. Therefore, you need to use a self-assigned certificate and set your local environment ready to trust. After some additional changes (backend: server.js must include key/cert and create https-server => see commented lines, frontend: I need to add proxy configuration and adapt my routes in api-services), the frontend part can be served with a command including the key/cert `ng serve --ssl true --ssl-cert <path>/filename.crt --ssl-key <path>/filename.key --open` which will open automatically on `https://localhost:4200/`.
-<br>
+Create necessary modules (/frontend and /backend):
+```sh
+$ npm install
+```
+This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Fill environment variables with necessary data/paths and serve on localhost:
+```sh
+npm run start-local-ssl
+```
+which will open automatically on `https://localhost:4200/`.<br>
+To run backend (via Powershell, Terminal, etc) use:
+```sh
+node server.js
+```
 
 ### Build & Deploy
 The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.
@@ -57,6 +68,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
     <dd>:repeat: Google Routes/Places API usage in backend</dd>
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
+    <dd>:computer: key navigation on forms and carousel</dd>
     <dd>:wrench: Custom validation Angular/Express-Validator</dd>
     <dd>:lock: asymmetric/hybrid (RSA/AES) encrypted requests</dd>
     <dd>:e-mail: Mail service with node.js & nodemailer for Backend</dd>
@@ -73,7 +85,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
 All services take input for calculating the offer by addresses, timestamps and checkboxes/radio buttons as well as customer data like name, email, phone and notes. For full control, custom form components in combination with custom validation are used. The example of figure 2 shows built-in required-validator as well as custom time-related validation to be highlighted via red warning symbol and regarding validation message. Data validated by backend inform user via (custom) snackbar-message of invalid input.
 
 <div align="center">
-    <img src="frontend/public/assets/docs/custom_forms_validation_smaller.png" alt="404 no picture found">
+    <img src="frontend/public/assets/docs/custom_forms_validation.jpg" alt="404 no picture found">
     Figure 2
 </div>
 
@@ -124,11 +136,10 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.0}}$
+### $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.1}}$
 
-- $\textsf{\color{teal}Addition:}$ Added key navigation for service components and image carousel.
-- $\textsf{\color{red}Patch:}$ Updated business logic for service components 'flatrate' and 'golf'.
-- $\textsf{\color{green}Change:}$ Changed input design of checkbox and radio buttons to fit color scheme + responsive behavior.
+- $\textsf{\color{red}Patch:}$ Updated custom 'address-input' component behavior and added new validation to detect input without selected address.
+- $\textsf{\color{red}Bugfix:}$ Opening an address input with input but no selected address reopens option list of active input field. [Before: Reopening address input with input and no selected address opened option lists of all (focused as well as inactive) address input fields in active component.]
 
 <br>
 

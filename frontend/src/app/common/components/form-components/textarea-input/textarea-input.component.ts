@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, forwardRef, Input } from "@angular/core";
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'tava-textareainput',
@@ -22,7 +24,17 @@ import { AbstractInputComponent } from "../abstract-input.component";
         }
     ]
 })
-export class TextareaInputComponent extends AbstractInputComponent {
+export class TextareaInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+
+    @HostListener('window:click', ['$event']) 
+    clickListening($event: any) {
+        this.clickOutside($event, this.fieldName);
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    keyListening($event: any) {
+        this.tabOutside($event, this.fieldName);
+    }
 
     @Input() fieldName: string;
     @Input() formControl: FormControl;
@@ -30,6 +42,10 @@ export class TextareaInputComponent extends AbstractInputComponent {
     @Input() ngClass: string;
     @Input() className: string;
     @Input() rows: number;
+
+    @Output() byChange: EventEmitter<any>;
+
+    private subscriptionFormControl$: Subscription;
 
     constructor() {
         super();
@@ -40,5 +56,20 @@ export class TextareaInputComponent extends AbstractInputComponent {
         this.ngClass = '';
         this.className = '';
         this.rows = 0;
+
+        this.byChange = new EventEmitter<any>();
+
+        this.subscriptionFormControl$ = new Subscription();
+    }
+
+    ngOnInit() {
+        this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
+            this.byChange.emit(change);
+            this.isFocused = true;
+        })
+    }
+
+    ngOnDestroy() {
+        this.subscriptionFormControl$.unsubscribe();
     }
 }

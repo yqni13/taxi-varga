@@ -1,4 +1,4 @@
-import { AbstractControl, ValidationErrors, ValidatorFn } from "@angular/forms";
+import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceOptions } from "../../shared/enums/service-options.enum";
 
@@ -105,6 +105,15 @@ export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
             if(result) {
                 return result;
             }
+        }
+        return null;
+    }
+}
+
+export const emptyAddressSelectValidator = (placeControl: FormControl) : ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        if(control?.value.length !== 0 && !placeControl.value) {
+            return { emptyAddressSelect: true };
         }
         return null;
     }

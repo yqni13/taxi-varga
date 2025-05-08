@@ -1,4 +1,3 @@
-
 {
     "common": {
         "footer": {
@@ -28,6 +27,7 @@
             "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
+            "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
@@ -48,9 +48,9 @@
                     "backend-invalid-language": "Die gewählte Sprache kann nicht verarbeitet werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
                     "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
+                    "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-supportmode": "Der gewählte Zusatz-Service konnte nicht gefunden werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
@@ -200,8 +200,8 @@
                     "offer": {
                         "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
-                        "datetime-end-flatrate": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-end-flatrate": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "golfcourse": "Golfplatz",
@@ -247,7 +247,7 @@
                 "golf": {
                     "block-validation": "Bitte wählen Sie eine Option für zusätzlichen Service aus.",
                     "info": {
-                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (6 Stunden im Preis inkludiert)\n",
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
