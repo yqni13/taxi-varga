@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { AddressAPIService } from "../../../../shared/services/address-api.service";
 import { v4 as uuidv4 } from 'uuid';
 import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../shared/interfaces/address-response.interface";
+import * as CustomValidators from "../../../helper/custom-validators";
 
 @Component({
     selector: 'tava-addressinput',
@@ -29,16 +30,30 @@ import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../..
         }
     ]
 })
-export class AddressInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostListener('window:click', ['$event'])
-    clickOutside($event: any) {
-        if($event.target.className.includes('tava-address-input-text')) {
+    override clickOutside($event: any) {
+        if($event.target?.id !== `tava-${this.fieldName}`) {
+            this.showOptions = false;
+            this.isFocused = false;
+        } else {
             this.showOptions = true;
-        } else if(!$event.target.className.includes('tava-address-wrapper')) {
+            this.isFocused = true;
+        }
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    override tabOutside($event: any) {
+        if($event.key === 'Tab' && ($event.target?.id === `tava-${this.fieldName}`)) {
+            this.isFocused = false;
+        } else if($event.key === 'Escape') {
             this.showOptions = false;
         }
     }
+
+    @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+    @ViewChildren('optionRef') optionRefList!: QueryList<ElementRef<HTMLElement>>;
 
     @Input() fieldName: string;
     @Input() placeholder: string;
@@ -49,11 +64,20 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() ngClass: string;
     @Input() exceptions: string[];
     @Input() maxVal: number;
+    @Input() set hasAutoFocus(value: boolean) {
+        if(value) {
+            this.focusOnInput();
+            this.showOptions = true;
+        } else {
+            this.isFocused = false;
+        }
+    }
 
     @Output() byChange: EventEmitter<any>;
     @Output() byPlaceSelection: EventEmitter<AddressDetailsResponse>;
 
     protected showOptions: boolean;
+    protected focusIndex: number;
 
     private delay: any;
     private sessionToken: string;
@@ -77,6 +101,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.byChange = new EventEmitter<any>();
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
         this.showOptions = false;
+        this.focusIndex = -1;
         this.sessionToken = '';
         this.subscriptionFormControl$ = new Subscription();
 
@@ -84,12 +109,14 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
 
     ngOnInit() {
+        this.formControl.addValidators(CustomValidators.emptyAddressSelectValidator(this.placeControl));
         this.sessionToken = uuidv4();
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
             if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
                 this.sessionToken = uuidv4();
-                this.placeControl = new FormControl();
+                this.placeControl.reset();
                 this.byPlaceSelection.emit(this.placeControl?.value);
+                this.formControl.updateValueAndValidity();
             }
             if(this.placeControl?.value !== null) {
                 this.byPlaceSelection.emit(this.placeControl?.value);
@@ -97,12 +124,19 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             if(this.placeControl?.value === null) {
                 this.getOptions();
             }
+            this.isFocused = true;
             this.byChange.emit(changes);
         });
     }
+
+    ngAfterViewInit() {
+        if(this.hasAutoFocus) {
+            this.inputRef.nativeElement.focus();
+        }
+    }
     
     getOptions() {
-        this.placeControl = new FormControl();
+        this.placeControl.reset();
         if(this.formControl?.value !== '' && !this.exceptions.includes(this.formControl?.value)) {
             const data = {
                 address: this.formControl?.value,
@@ -146,9 +180,11 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.addressApiService.sendDetailsRequest().subscribe(data => {
             this.placeControl?.setValue(this.getAddressDetailsFromResponse(data, id));
             this.formControl?.setValue(this.placeControl?.value.address);
+            this.formControl.updateValueAndValidity();
             this.sessionToken = '';
             this.options.length = 0;
             this.showOptions = false;
+            this.isFocused = false;
         })
     }
 
@@ -178,6 +214,56 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             country: country[0] as string,
             placeId: id
         }
+    }
+
+    onInputKeyNav(event: KeyboardEvent) {
+        if(event.key === 'ArrowDown' && this.options.length > 0) {
+            event.preventDefault();
+            this.focusIndex = 0;
+            this.focusOnOption(this.focusIndex);
+        } else if(event.key === 'Tab') {
+            this.showOptions = false;
+        }
+    }
+
+    onOptionKeyNav(event: KeyboardEvent, index: number) {
+        if(event.key === 'ArrowDown') {
+            event.preventDefault();
+            if((index + 1) < this.options.length) {
+                this.focusIndex = index + 1;
+                this.focusOnOption(this.focusIndex);
+            }
+        } else if(event.key === 'ArrowUp') {
+            event.preventDefault();
+            if((index - 1) >= 0) {
+                this.focusIndex = index - 1;
+                this.focusOnOption(this.focusIndex);
+            } else {
+                this.focusIndex = -1;
+                this.focusOnInput();
+            }
+        } else if(event.key === 'Enter') {
+            this.selectPlace(this.options[index].placeId);
+        } else if(event.key === 'Escape' && this.focusIndex !== -1) {
+            this.focusIndex = -1;
+            this.focusOnInput();
+        } else if(event.key === 'Tab') {
+            this.focusIndex = -1;
+            this.showOptions = false;
+        }
+    }
+
+    focusOnOption(index: number) {
+        const optionList = this.optionRefList.toArray()[index];
+        optionList?.nativeElement.focus();
+    }
+
+    focusOnInput() {
+        this.inputRef?.nativeElement.focus();
+        this.isFocused = true;
+        // define input value length and set focus to last position of input
+        const inputLength = this.inputRef.nativeElement.value.length;
+        this.inputRef.nativeElement.setSelectionRange(inputLength, inputLength);
     }
 
     ngOnDestroy() {

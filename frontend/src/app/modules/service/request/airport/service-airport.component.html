@@ -4,40 +4,40 @@
             {{'modules.service.content.airport.title' | translate}}
         </h2>
     </header>
-    <div class="tava-service-airport-content">
+    <div class="tava-service-specific-content">
 
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
-        <div *ngIf="!hasOffer && hasToken" class="tava-service-airport-content-input-offer tava-service-form">
+        <div *ngIf="!hasOffer && hasToken" class="tava-service-specific-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
                 <div
-                    class="tava-service-airport-block"
+                    class="tava-service-specific-block"
                     id="form-radio" 
-                    *tavaVar="serviceForm.get('airport') as airport"
+                    *tavaVar="serviceForm.get('airportMode') as airportMode"
                 >
                     <div class="tava-service-airport-radio-wrapper">
-                        <label class="tava-form-radio-left">
+                        <label class="tava-form-radio-left tava-custom-input-radio">
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
-                                value="arrival"
-                                formControlName="airport"
-                                (change)="getDirectionRadioValue($event)"
+                                [value]="directionOptions.ARRIVAL"
+                                formControlName="airportMode"
+                                (change)="getDirectionRadioValue()"
                             >
                             <span>{{'modules.service.content.airport.labels.arrival' | translate}}</span>
                         </label>
-                        <label class="tava-form-radio-right">
+                        <label class="tava-form-radio-right tava-custom-input-radio">
                             <input
                                 class="tava-text-input-radio"
                                 type="radio"
-                                value="departure"
-                                formControlName="airport"
-                                (change)="getDirectionRadioValue($event)"
+                                [value]="directionOptions.DEPARTURE"
+                                formControlName="airportMode"
+                                (change)="getDirectionRadioValue()"
                             >
                             <span>{{'modules.service.content.airport.labels.departure' | translate}}</span>
                         </label>
                     </div>
                     <div
-                        *ngIf="airport?.invalid && (airport?.dirty || airport?.touched)"
+                        *ngIf="airportMode?.invalid && (airportMode?.dirty || airportMode?.touched)"
                         class="tava-service-airport-block-validation"
                     >
                         <span>
@@ -46,7 +46,11 @@
                         <i class="icon-warning"></i>
                     </div>
                 </div>
-                <div *ngIf="direction === 'departure'" class="tava-service-airport-block" id="form-origin">
+                <div 
+                    *ngIf="serviceForm.get('airportMode')?.value === directionOptions.DEPARTURE"
+                    class="tava-service-specific-block"
+                    id="form-origin"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.origin' | translate) + '*'}}
                     </span>
@@ -55,10 +59,14 @@
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.origin)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
                 </div>
-                <div *ngIf="direction === 'arrival'" class="tava-service-airport-block" id="form-destination">
+                <div 
+                    *ngIf="serviceForm.get('airportMode')?.value === directionOptions.ARRIVAL"          
+                    class="tava-service-specific-block"
+                    id="form-destination"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.destination' | translate) + '*'}}
                     </span>
@@ -67,10 +75,14 @@
                         [formControl]="serviceForm.get('destinationAddress') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.destination' | translate"
                         [exceptions]="['vie-schwechat']"
-                        (byPlaceSelection)="getAddressDetails($event, addressOptions.destination)"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>
                 </div>
-                <div *ngIf="direction.length > 0" class="tava-service-airport-block" id="form-datetime">
+                <div
+                    *ngIf="serviceForm.get('airportMode')?.value !== null" 
+                    class="tava-service-specific-block"
+                    id="form-datetime"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.airport.labels.datetime' | translate) + '*'}}
                     </span>
@@ -89,113 +101,113 @@
                 [attr.aria-disabled]="true"
                 (click)="onSubmitOffer()"
                 (keydown.enter)="onSubmitOffer()"
-            >{{'modules.service.commands.calc' | translate}}</button>
+            >{{'modules.service.commands.forward' | translate}}</button>
         </div>
 
         <!-- SUM OF PROCESSED DATA (FROM ROUTE DATA) -->
-        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-airport-content-sum-offer tava-service-form">
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-specific-content-sum-offer tava-service-form">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.contact' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{('shared.enum.gender.' + serviceForm.get('gender')?.value | translate) + customer}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.customer.phone' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('phone')?.value}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.customer.email' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('email')?.value}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-airport-offer-sum" id="tava-service-offer-customer-last">
-                <span class="tava-service-airport-offer-sum-left">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-specific-offer-sum" id="tava-service-offer-customer-last">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.customer.note' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('note')?.value !== '' ? serviceForm.get('note')?.value : '-/-'}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.offer.origin' | translate) + ':'}}
                 </span>
                 <span
                     *ngIf="serviceForm.get('originAddress')?.value === 'vie-schwechat'"
-                    class="tava-service-airport-offer-sum-right"
+                    class="tava-service-specific-offer-sum-right"
                 >
                     {{'modules.service.content.airport.vie-schwechat' | translate}}
                 </span>
                 <span
                     *ngIf="serviceForm.get('originAddress')?.value !== 'vie-schwechat'"
-                    class="tava-service-airport-offer-sum-right"
+                    class="tava-service-specific-offer-sum-right"
                 >
                     {{serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.offer.destination' | translate) + ':'}}
                 </span>
                 <span
                     *ngIf="serviceForm.get('destinationAddress')?.value === 'vie-schwechat'"
-                    class="tava-service-airport-offer-sum-right"
+                    class="tava-service-specific-offer-sum-right"
                 >
                     {{'modules.service.content.airport.vie-schwechat' | translate}}
                 </span>
                 <span
                     *ngIf="serviceForm.get('destinationAddress')?.value !== 'vie-schwechat'"
-                    class="tava-service-airport-offer-sum-right"
+                    class="tava-service-specific-offer-sum-right"
                 >
                     {{serviceForm.get('destinationAddress')?.value}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('pickupDATE')?.value}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
                 </span>
-                <span *ngIf="pickup !== null" class="tava-service-airport-offer-sum-right">
+                <span *ngIf="pickup !== null" class="tava-service-specific-offer-sum-right">
                     {{pickup}}
                 </span>
-                <span *ngIf="pickup === null" class="tava-service-airport-offer-sum-right">
+                <span *ngIf="pickup === null" class="tava-service-specific-offer-sum-right">
                     {{pickupTimeByLangStatic}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.distance' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('distance')?.value | distanceFormat}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.duration' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('duration')?.value + ' h'}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum" id="tava-service-offer-warnings">
+            <div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">
                 <span>
                     {{('modules.service.content.form.order.warnings' | translate)}}
                 </span>
@@ -203,15 +215,15 @@
                     {{('modules.service.content.form.order.licence' | translate)}}
                 </span>
             </div>
-            <div class="tava-service-airport-offer-sum" id="tava-service-offer-price">
-                <span class="tava-service-airport-offer-sum-left">
+            <div class="tava-service-specific-offer-sum" id="tava-service-offer-price">
+                <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
                 </span>
-                <span class="tava-service-airport-offer-sum-right">
+                <span class="tava-service-specific-offer-sum-right">
                     {{serviceForm.get('price')?.value | currencyFormat}}
                 </span>
             </div>
-            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms tava-first-term">
+            <div *ngIf="hasOrder && !hasConfirmed" class="tava-service-terms first-term tava-custom-input-checkbox">
                 <input class="tava-text-input-checkbox" type="checkbox" (change)="getTermsCheckboxValue($event)">
                 <span
                     class="tava-service-block-input"
@@ -223,98 +235,8 @@
         </div>
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
-        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-airport-content-input-order tava-service-form">
-            <form [formGroup]="serviceForm">
-                <div class="tava-service-airport-customer-block">
-                    <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
-                        <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.gender' | translate) + '*'}}
-                        </span>
-                        <tava-selectinput
-                            [className]="'tava-form'"
-                            [formControl]="serviceForm.get('gender') | controlCast"
-                            [options]="{male: 'male', female: 'female'}"
-                            [optionsTranslateRoot]="'shared.enum.gender.'"
-                            [fieldName]="'modules.service.content.form.customer.gender' | translate"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.gender' | translate"
-                        ></tava-selectinput>
-                    </div>
-                    <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
-                        <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.title' | translate}}
-                        </span>
-                        <tava-textinput
-                            [inputType]="'text'"
-                            [formControl]="serviceForm.get('title') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.title' | translate"
-                            [fieldName]="'modules.service.content.form.customer.title' | translate"
-                        ></tava-textinput>
-                    </div>
-                </div>
-                <div class="tava-service-airport-customer-block">
-                    <div class="tava-service-form-customer-double" id="tava-service-customer-double-left">
-                        <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.first-name' | translate) + '*'}}
-                        </span>
-                        <tava-textinput
-                            [inputType]="'text'"
-                            [formControl]="serviceForm.get('firstName') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.first-name' | translate"
-                            [fieldName]="'modules.service.content.form.customer.first-name' | translate"
-                        ></tava-textinput>
-                    </div>
-                    <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
-                        <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.last-name' | translate) + '*'}}
-                        </span>
-                        <tava-textinput
-                            [inputType]="'text'"
-                            [formControl]="serviceForm.get('lastName') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.last-name' | translate"
-                            [fieldName]="'modules.service.content.form.customer.last-name' | translate"
-                        ></tava-textinput>
-                    </div>
-                </div>
-                <div class="tava-service-airport-customer-block">
-                    <div class="tava-service-form-customer-single">
-                        <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.phone' | translate) + '*'}}
-                        </span>
-                        <tava-textinput
-                            [inputType]="'text'"
-                            [formControl]="serviceForm.get('phone') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.phone' | translate"
-                            [fieldName]="'modules.service.content.form.customer.phone' | translate"
-                        ></tava-textinput>
-                    </div>
-                </div>
-                <div class="tava-service-airport-customer-block">
-                    <div class="tava-service-form-customer-single">
-                        <span class="tava-service-block-label">
-                            {{('modules.service.content.form.customer.email' | translate) + '*'}}
-                        </span>
-                        <tava-textinput
-                            [inputType]="'email'"
-                            [formControl]="serviceForm.get('email') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.email' | translate"
-                            [fieldName]="'modules.service.content.form.customer.email' | translate"
-                        ></tava-textinput>
-                    </div>
-                </div>
-                <div class="tava-service-airport-customer-block">
-                    <div class="tava-service-form-customer-single">
-                        <span class="tava-service-block-label">
-                            {{'modules.service.content.form.customer.note' | translate}}
-                        </span>
-                        <tava-textareainput
-                            [rows]="4"
-                            [formControl]="serviceForm.get('note') | controlCast"
-                            [placeholder]="'modules.service.content.form.customer.placeholder.note' | translate"
-                            [fieldName]="'modules.service.content.form.customer.note' | translate"
-                        ></tava-textareainput>
-                    </div>
-                </div>
-            </form>
+        <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-specific-content-input-order tava-service-form">
+            <tava-servicemeta [metaFormGroup]="metaForm"></tava-servicemeta>
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button
@@ -322,7 +244,7 @@
                 [attr.aria-disabled]="true"
                 (click)="onSubmitOrder()"
                 (keydown.enter)="onSubmitOrder()"
-            >{{'modules.service.commands.check' | translate}}</button>
+            >{{'modules.service.commands.forward' | translate}}</button>
         </div>
         <div 
             *ngIf="!loadOrderResponse && hasOffer && hasOrder && !hasConfirmed" 
@@ -331,9 +253,9 @@
         >
             <button
                 class="tava-button-submit"
-                [attr.aria-disabled]="true"
+                [attr.disabled]="!termCancellation ? true : null"
+                [attr.tabindex]="termCancellation ? 0 : -1"
                 (click)="submitOrder()"
-                (keydown.enter)="submitOrder()"
             >{{'modules.service.commands.confirm' | translate}}</button>
         </div>
     </div>

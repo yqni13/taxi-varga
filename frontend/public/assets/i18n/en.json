@@ -23,13 +23,14 @@
             "service": "Service"
         },
         "validation": {
-            "airport-invalid-time": "Pickup of an airport service is only available 04:00 a.m. - 12:00 p.m. time range.",
+            "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+            "datetime-end-invalid-negative": "Time of return can not be before pickup.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+            "empty-address-select": "Field must contain an address selected from list of options.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "required": "Field \"{{fieldName}}\" is required.",
-            "tenancy-invalid-limit": "Tenancy must be min 1h or max 24h.",
-            "tenancy-invalid-lower-limit": "Tenancy must be min 3h.",
+            "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
             "tenancy-invalid-value": "Tenancy must be selected in full hours.",
             "tenancy-invalid-zero": "Tenancy can not be zero.",
@@ -44,10 +45,15 @@
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
+                    "backend-invalid-language": "The selected language can not be processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                    "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
+                    "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
+                    "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
-                    "backend-invalid-tenancy": "Tenancy must be between 3h and 24h. Please check your input.",
+                    "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
+                    "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
                     "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
                     "backend-jwt-expiration": "The session expired after 30 minutes.",
                     "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
@@ -71,7 +77,7 @@
         "about": {
             "business": {
                 "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service in Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
-                "secondary": "In addition, I also handle special trips such as courier services and errand trips, flat-rate trips to Vienna or the airport, and long-distance trips to any address domestically and abroad. Long-distance trips are carried out by prior arrangement and under favorable conditions. Furthermore, I offer hourly rentals for city tours and golf trips, optionally including joint play (my handicap: -12.3)."
+                "secondary": "In addition, I take on package trips from/to Lower Austria against advance order, especially inexpensive between Leobersdorf and Vienna, but also between BN/WB/WN and W/WU/SW. Alternatively, round trips can also be taken on the basis of timed rentals. Furthermore, I also offer golf day trips to all golf clubs in Vienna and Lower Austria (GC in other provinces or abroad on request). On request, including accompaniment on the round of golf at a fair flat rate."
             },
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
@@ -83,11 +89,12 @@
         },
         "home": {
             "content": {
-                "entry0": "Business hours: 04:00 - 12:00 (off-time on request)",
+                "entry0": "Daily starting business hours: 04:00 - 12:00 (off-time on request)",
                 "entry1": "40100 quality rating: 5.0 (max)",
                 "entry2": "Elevated seat positions for senior friendly entrance/exit",
-                "entry3": "Transport max. 4 people",
-                "entry4": "All major payment methods accepted"
+                "entry3": "Transport up to 4 people with luggage or up to 3 people with luggage and golf equipment",
+                "entry4": "Flat rates may vary depending on the time of query because the calculation is linked to the current traffic situation at the time of query.",
+                "entry5": "All major payment methods accepted"
             },
             "highlights": {
                 "ev": " mobility by Skoda Enyaq iV 80 since 2020",
@@ -106,15 +113,14 @@
         },
         "service": {
             "commands": {
-                "calc": "calculate",
-                "check": "check input",
-                "confirm": "send"
+                "confirm": "send",
+                "forward": "next"
             },
             "content": {
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
                     "info": {
-                        "text": "Airport service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
+                        "text": "'Airport' service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -134,7 +140,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Destination service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.",
+                        "text": "- 'Destination' service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -153,11 +159,11 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Tenancy can be ordered for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 40,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
+                        "text": "- Tenancy will be charged for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
                         "title": "Please note that"
                     },
                     "labels": {
-                        "datetime-end": "Date & time (return)",
+                        "datetime-end": "Date & time (service end)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
                         "origin": "Pickup address",
@@ -194,32 +200,80 @@
                     "offer": {
                         "back2home": "Return",
                         "datetime": "Date & time",
+                        "datetime-end": "Date & time (return)",
+                        "datetime-end-flatrate": "Date & time (service end)",
+                        "datetime-start": "Date & time (pickup)",
                         "destination": "Destination address",
+                        "golfcourse": "Golf course",
                         "latency": "Waiting time",
                         "origin": "Pickup address",
+                        "passengers": "Number of passengers",
+                        "return": "Return address",
+                        "stay": "Stay",
                         "tenancy": "Tenancy"
                     },
                     "order": {
                         "contact": "Contact",
-                        "date-dropoff": "Date of drop-off",
+                        "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
+                        "date-return": "Date of return",
                         "distance": "Driven distance",
                         "duration": "Driving time",
+                        "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "Price calculation based on licensed Vienna taxi rate!",
-                        "price-estimated": "estimated price",
+                        "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
+                        "stay": "Charged stay",
+                        "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
+                        "support-mode": {
+                            "caddy": "Accompanied as caddy",
+                            "label": "Auxiliary service",
+                            "player": "Accompanied as player"
+                        },
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
-                        "tenancy": "charged tenancy",
+                        "tenancy": "Overall tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
                         "terms": "I agree that I have already reached the age of 18 and provide my personal data only for the purpose of contracting the service. Furthermore, I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of total cost in case of cancelation or unexcused absence within these last 24 hours. If payment is refused, a report will be filed.",
                         "terms-flatrate": "I accept that canceling my order is free only up to 24 hours before the desired time of departure (with taxi). I have to pay 50% of the currently calculated costs ({{fieldValue}},00 EUR) in case of cancelation or unexcused absence within these last 24 hours.",
-                        "time-dropoff": "estimated drop-off",
+                        "time-dropoff": "Time of service ending",
                         "time-pickup": "Time of pick-up",
+                        "time-return": "Time of return",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
                     }
+                },
+                "golf": {
+                    "block-validation": "Please select your option of additional service.",
+                    "info": {
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 3h are included in the price, following 3h are for free)",
+                        "title": "Please note that"
+                    },
+                    "labels": {
+                        "datetime-end": "Date & time (return)",
+                        "datetime-start": "Date & time (pickup)",
+                        "destination": "Return address",
+                        "golfcourse": "Golf course",
+                        "origin": "Pickup address",
+                        "passengers": "Number of passengers/players",
+                        "placeholder": {
+                            "golfcourse": "Type golf course",
+                            "number": "Select number",
+                            "street": "Type address"
+                        },
+                        "return": "I want to return to my pickup address.",
+                        "stay": "My required time of stay.",
+                        "support-mode": {
+                            "caddy": "I would like to book you as a caddy.",
+                            "none": "I do not require an additional service.",
+                            "player": "I would like to book you as a playing partner (the greenfee for the accompanying playing partner will be covered by taxi-varga)."
+                        }
+                    },
+                    "option": {
+                        "title": "Golf day trip"
+                    },
+                    "title": "Golf trip - route details"
                 }
             }
         }
@@ -237,10 +291,16 @@
                 "de": "German",
                 "en": "English"
             },
+            "passengers": {
+                "PPL1": "1",
+                "PPL2": "2",
+                "PPL3": "3"
+            },
             "service": {
                 "airport": "Airport",
                 "destination": "Destination",
-                "flatrate": "Flatrate"
+                "flatrate": "Flatrate",
+                "golf": "Golf"
             },
             "theme": {
                 "darkMode": "Dark",

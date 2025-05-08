@@ -1,26 +1,30 @@
 <div class="tava-address-wrapper {{className}}" ngClass="{{ngClass}}">
-    <input 
+    <input
+        #inputRef
         type="text"
         class="tava-address-input-text"
+        id="{{'tava-' + fieldName}}"
         placeholder="{{placeholder}}"
         [formControl]="formControl"
+        (keydown)="onInputKeyNav($event)"
         max="{{maxVal}}"
     >
     <i
         class="icon-warning"
-        *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
         [ngClass]="'tava-warning-address-text'"
     ></i>
     <div *ngIf="showOptions && options.length > 0" id="google-logo">
         <img src="/assets/UI/google_on_white.png" alt="404 not found">
     </div>
     <div *ngIf="showOptions" class="tava-address-input-options-wrapper">
-        <div 
-        *ngFor="let option of options" 
-        class="tava-address-input-options"
-        (click)="selectPlace(option.placeId)"
-        (keydown.enter)="selectPlace(option.placeId)"
-        [attr.aria-disabled]="true"
+        <div
+            #optionRef
+            *ngFor="let option of options; let i = index" 
+            class="tava-address-input-options"
+            (click)="selectPlace(option.placeId)"
+            (keydown)="onOptionKeyNav($event, i)"
+            tabindex="-1"
         >
             <span>
                 {{option.descriptionFull}}
@@ -28,6 +32,7 @@
         </div>
     </div>
     <tava-validation
+        *ngIf="!isFocused"
         [ngControl]="formControl"
         [fieldName]="fieldName"
     ></tava-validation>

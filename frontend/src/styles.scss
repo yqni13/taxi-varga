@@ -57,7 +57,7 @@ h2 {
 }
 
 .tava-active-route {
-    color: var(--theme-palette-highlight)!important;
+    color: var(--theme-palette-contrast)!important;
     font-weight: bold;
 
     &:hover::after,
@@ -194,5 +194,68 @@ h2 {
             stroke-dashoffset: $offset;
             transform:rotate(450deg);
         }
+    }
+}
+
+.tava-custom-input-radio {
+    display: flex;
+    align-items: center;
+    input {
+        aspect-ratio: 1 / 1;
+        &:focus-visible {
+            border-radius: 50%;
+        }
+    }
+    input[type="radio"] {
+        $border-width: 2px;
+        appearance: none;
+        display: grid;
+        place-content: center;
+        width: sass.$radio-btn-size;
+        border: $border-width solid var(--theme-body-text);
+        border-radius: 50%;
+        margin: 0 calc((sass.$radio-btn-size / 2) - ($border-width / 2)) 0 31px;
+    }
+    input[type="radio"]::before {
+        $scaled-size: calc(sass.$radio-btn-size * 0.6);
+        content: "";
+        border-radius: 50%;
+        width: $scaled-size;
+        height: $scaled-size;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset $scaled-size $scaled-size var(--theme-palette-highlight);
+    }
+    input[type="radio"]:checked::before {
+        transform: scale(1);
+    }
+}
+
+.tava-custom-input-checkbox {
+    display: flex;
+    align-items: center;
+    input {
+        aspect-ratio: 1 / 1;
+    }
+    input[type="checkbox"] {
+        $border-width: 2px;
+        appearance: none;
+        display: grid;
+        place-content: center;
+        width: sass.$checkbox-btn-size;
+        border: $border-width solid var(--theme-body-text);
+        margin: 0 17px 0 35px;
+    }
+    input[type="checkbox"]::before {
+        $scaled-size: calc(sass.$checkbox-btn-size * 0.6);
+        content: "";
+        width: $scaled-size;
+        height: $scaled-size;
+        transform: scale(0);
+        transition: 120ms transform ease-in-out;
+        box-shadow: inset $scaled-size $scaled-size var(--theme-palette-highlight)
+    }
+    input[type="checkbox"]:checked::before {
+        transform: scale(1);
     }
 }

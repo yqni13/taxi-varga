@@ -42,44 +42,52 @@
                 "route": "Wiener Neustadt - Flughafen Wien"
             },
             "entry3": {
-                "price": "90,00",
+                "price": "80,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Wien"
             },
             "entry4": {
-                "price": "99,00",
+                "price": "85,00",
                 "route": "Mattersburg - Flughafen Wien"
             },
             "entry5": {
-                "price": "105,00",
+                "price": "95,00",
                 "route": "Neunkirchen/Ternitz - Flughafen Wien"
             }
         },
         "samples-content-option4": {
             "entry0": {
-                "price": "162,00",
+                "price": "121,00",
                 "route": "Wien - Golfclub Himberg - Wien"
             },
             "entry1": {
-                "price": "168,00",
-                "route": "Wien - Golfclub Fontana - Wien"
+                "price": "124,00",
+                "route": "Wien - Golfclub Frühling - Wien"
             },
             "entry2": {
-                "price": "179,00",
-                "route": "Wien - Golfclub Schönborn - Wien"
+                "price": "127,00",
+                "route": "Wien - Golfclub Fontana - Wien"
             },
             "entry3": {
-                "price": "211,00",
-                "route": "Wien - Golfclub Föhrenwald - Wien"
+                "price": "131,00",
+                "route": "Wien - Golfclub Ebreichsdorf - Wien"
             },
             "entry4": {
-                "price": "243,00",
+                "price": "153,00",
+                "route": "Wien - Golfclub Enzesfeld - Wien"
+            },
+            "entry5": {
+                "price": "170,00",
+                "route": "Wien - Golfclub Föhrenwald - Wien"
+            },
+            "entry6": {
+                "price": "202,00",
                 "route": "Wien - Golfclub Adamstal - Wien"
             }
         },
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
-            "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee)",
+            "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "route": "Route"
         },
@@ -87,7 +95,7 @@
             "option1": "Wien\n-\nFlughafen",
             "option2": "Leobersdorf\n-\nöffentliche Einrichtungen",
             "option3": "Niederösterreich / Burgenland\n-\nFlughafen",
-            "option4": "Wien\n-\nGolfclub\n(Niederösterreich)"
+            "option4": "Wien\nZentrum\n-\nGolfclub\n(Niederösterreich)"
         }
     }
 }

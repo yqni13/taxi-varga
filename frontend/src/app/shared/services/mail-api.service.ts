@@ -8,6 +8,9 @@ import { MailTranslateService } from "./mail-translate.service";
 import { UtilsService } from "./utils.service";
 import { CryptoService } from "./crypto.service";
 import { environment } from "../../../environments/environment";
+import { ServiceOptions } from "../enums/service-options.enum";
+import { AirportOptions } from "../enums/airport-options.enum";
+import { LanguageOptions } from "../enums/language-options.enum";
 
 @Injectable({
     providedIn: 'root'
@@ -37,6 +40,7 @@ export class MailAPIService {
             service: '',
             gender: '',
             origin: '',
+            golfcourse: '',
             destination: ''
         }
 
@@ -75,33 +79,37 @@ export class MailAPIService {
 
     setTranslationValues(data: MailingMessage): any {
         return {
-            originTranslateDE: data.service === 'airport' && data.airport === 'arrival'
+            originTranslateDE: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.ARRIVAL
                 ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
                 : data.originAddress,
-            originTranslateEN: data.service === 'airport' && data.airport === 'arrival'
+            originTranslateEN: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.ARRIVAL
                 ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
                 : data.originAddress,
-            destinationTranslateDE: data.service === 'airport' && data.airport === 'departure'
+            golfcourseTranslateDE: data.service === ServiceOptions.GOLF ? data.golfcourseAddress : '',
+            golfcourseTranslateEN: data.service === ServiceOptions.GOLF ? data.golfcourseAddress : '',
+            destinationTranslateDE: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.DEPARTURE
                 ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
                 : data.destinationAddress,
-            destinationTranslateEN: data.service === 'airport' && data.airport === 'departure'
+            destinationTranslateEN: data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.DEPARTURE
                 ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
                 : data.destinationAddress, 
             serviceTranslateDE: this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`),
             serviceTranslateEN: this.mailTranslateService.getTranslationEN(`shared.enum.service.${data.service}`),
             genderTranslateDE: this.mailTranslateService.getTranslationDE(`shared.enum.gender.${data.gender}`),
             genderTranslateEN: this.mailTranslateService.getTranslationEN(`shared.enum.gender.${data.gender}`),
-            pickupTimeEN: this.datetimeService.getTimeFromLanguage(data.pickupTIME, 'en'),
-            dropOffTimeEN: data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : '',
+            pickupTimeEN: this.datetimeService.getTimeFromLanguage(data.pickupTIME, LanguageOptions.EN),
+            dropOffTimeEN: data.dropOffTIME 
+                ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, LanguageOptions.EN) 
+                : '',
             hasLatency: data.latency ? this.datetimeService.getTimeInTotalMinutes(data.latency) > 0 : false
         }
     }
 
     configEmailBodyDE(data: MailingMessage, hasLatency: boolean): string {
-        const originTranslateDE = data.service === 'airport' && data.airport === 'arrival'
+        const originTranslateDE = data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.ARRIVAL
             ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
             : data.originAddress;
-        const destinationTranslateDE = data.service === 'airport' && data.airport === 'departure'
+        const destinationTranslateDE = data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.DEPARTURE
             ? this.mailTranslateService.getTranslationDE('modules.service.content.airport.vie-schwechat')
             : data.destinationAddress;
         const serviceTranslateDE = this.mailTranslateService.getTranslationDE(`shared.enum.service.${data.service}`);
@@ -111,20 +119,20 @@ export class MailAPIService {
 
         const msgCustomer = `Daten zur Person:\n${genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${originTranslateDE}\nZieladresse: ${destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${originTranslateDE}\nZieladresse: ${destinationTranslateDE}\n${data.service === ServiceOptions.DESTINATION && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
         const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
 
         const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
 
-        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === ServiceOptions.FLATRATE ? msgServiceFlatrate : msgServiceFixed}`
     }
     
     configEmailBodyEN(data: MailingMessage, hasLatency: boolean): string {        
-        this.translateData.origin = data.service === 'airport' && data.airport === 'arrival'
+        this.translateData.origin = data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.ARRIVAL
             ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
             : data.originAddress;
-        this.translateData.destination = data.service === 'airport' && data.airport === 'departure'
+        this.translateData.destination = data.service === ServiceOptions.AIRPORT && data.airport === AirportOptions.DEPARTURE
             ? this.mailTranslateService.getTranslationEN('modules.service.content.airport.vie-schwechat')
             : data.destinationAddress;   
         this.translateData.service = this.mailTranslateService.getTranslationEN(`shared.enum.service.${data.service}`);
@@ -134,13 +142,13 @@ export class MailAPIService {
 
         const msgCustomer = `Customer data:\n${this.translateData.gender} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note:\n${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Service data:\nPickup address: ${this.translateData.origin}\nDestination address: ${this.translateData.destination}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${this.datetimeService.getTimeFromLanguage(data.pickupTIME, 'en')}`;
+        const msgServiceBasic = `Service data:\nPickup address: ${this.translateData.origin}\nDestination address: ${this.translateData.destination}\n${data.service === ServiceOptions.DESTINATION && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${this.datetimeService.getTimeFromLanguage(data.pickupTIME, LanguageOptions.EN)}`;
 
         const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
 
-        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, 'en') : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
+        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? this.datetimeService.getTimeFromLanguage(data.dropOffTIME, LanguageOptions.EN) : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
-        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`
+        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === ServiceOptions.FLATRATE ? msgServiceFlatrate : msgServiceFixed}`
     }
 
     sendMail() {

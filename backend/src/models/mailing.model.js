@@ -7,6 +7,8 @@ const {
 const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
 const { encryptRSA, decryptRSA, decryptAES } = require('../utils/crypto.utils');
 const Secrets = require('../utils/secrets.utils');
+const { ServiceOption } = require('../utils/enums/service-option.enum');
+const { SupportModeOption } = require('../utils/enums/supportmode-option.enum');
 
 class MailingModel {
     sendMail = async (params) => {
@@ -27,6 +29,7 @@ class MailingModel {
         const mailOptionsRequest = {
             from: Secrets.EMAIL_SENDER,
             to: Secrets.EMAIL_RECEIVER,
+            replyTo: sender,
             subject: subject,
             text: msgRequest
         };
@@ -40,13 +43,14 @@ class MailingModel {
         
         const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
         const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
+        const accessableSender = sender;
+        // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
 
         return { 
             response: {
                 sendRequestTo: sendRequest,
                 confirmedRequestFrom: confirmRequest,
-                sender: encryptedSender
+                sender: accessableSender
             }
         };
     }
@@ -149,29 +153,69 @@ class MailingModel {
     configEmailBodyDE = (data) => {
         const msgStart = `Anfrage für Service: ${data.serviceTranslateDE}`;
 
-        const msgCustomer = `Daten zur Person:\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz:\n${data.note ? '"' + data.note + '"' : '--'}`;
+        const msgCustomer = `Daten zur Person\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz: ${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Daten zum Service:\nAbholadresse: ${data.originTranslateDE}\nZieladresse: ${data.destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+        const msgServiceBasic = `Daten zum Service\nAbholadresse: ${data.originTranslateDE}\nZieladresse: ${data.destinationTranslateDE}\n${data.service === 'destination' && data.back2home ? 'Rückkehradresse: ' + data.originAddress + '\n' : ''}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
-        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${data.hasLatency ? 'Verrechnete Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
+        const msgServiceFixed = `Fahrtstrecke: ${data.distance} km\nFahrtdauer: ${data.duration} h\n${data.hasLatency ? 'Pauschalierte Wartezeit: ' + data.latency + ' h\n' : ''}Preis: ${data.price},00 EUR`;
 
-        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nVerrechnete Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
+        let msgOutput;
+        switch(data.service) {
+            case(ServiceOption.FLATRATE): {
+                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Datum der Ankunft: ' + data.dropOffDATE + '\n' : ''}Geschätzte Zeit der Ankunft: ${data.dropOffTIME} Uhr\nPauschalierte Mietdauer: ${data.tenancy} h\nGeschätzter Preis: ${data.price},00 EUR`;
 
-        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`;
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFlatrate}`;
+                break;
+            }
+            case(ServiceOption.GOLF): {
+                const support = data.supportMode === SupportModeOption.CADDY ? 'Caddy' : 'Mitspieler';
+                const newServiceBasic = `Daten zum Service:\nGewählte Anzahl Reisender: ${data.passengers}\nAbholadresse: ${data.originTranslateDE}\nGolfplatz: ${data.golfcourseTranslateDE}\nRückkehradresse: ${data.destinationTranslateDE}\nDatum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
+
+                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Abfahrtsdatum der Rückfahrt: ' + data.dropOffDATE + '\n' : ''}Abfahrtszeit der Rückfahrt: ${data.dropOffTIME} Uhr\nGeplanter Aufenthalt: ${data.stay} h\n${data.supportMode !== SupportModeOption.NONE ? 'Zusätzlich gewählter Service: ' + support + '\n' : ''}Geschätzter Preis: ${data.price},00 EUR`;
+
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgServiceGolf}`;
+                break;
+            }
+            default: {
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFixed}`;
+            }
+        }
+
+        return msgOutput;
     }
 
     configEmailBodyEN = (data) => {
         const msgStart = `Request for service: ${data.serviceTranslateEN}`;
 
-        const msgCustomer = `Customer data:\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note:\n${data.note ? '"' + data.note + '"' : '--'}`;
+        const msgCustomer = `Customer data\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note: ${data.note ? '"' + data.note + '"' : '--'}`;
 
-        const msgServiceBasic = `Service data:\nPickup address: ${data.originTranslateEN}\nDestination address: ${data.destinationTranslateEN}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
+        const msgServiceBasic = `Service data\nPickup address: ${data.originTranslateEN}\nDestination address: ${data.destinationTranslateEN}\n${data.service === 'destination' && data.back2home ? 'Return address: ' + data.originAddress + '\n' : ''}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
 
-        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${data.hasLatency ? 'Charged waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
+        const msgServiceFixed = `Distance: ${data.distance} km\nDuration: ${data.duration} h\n${data.hasLatency ? 'Overall waiting time: ' + data.latency + ' h\n' : ''}Price: ${data.price},00 EUR`;
 
-        const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nCharged tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
+        let msgOutput;
+        switch(data.service) {
+            case(ServiceOption.FLATRATE): {
+                const msgServiceFlatrate = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of dropoff: ' + data.dropOffDATE + '\n' : ''}Estimated time of dropoff: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nOverall tenancy: ${data.tenancy} h\nEstimated price: ${data.price},00 EUR`;
 
-        return `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${data.service === 'flatrate' ? msgServiceFlatrate : msgServiceFixed}`;
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFlatrate}`;
+                break;
+            }
+            case(ServiceOption.GOLF): {
+                const support = data.supportMode === SupportModeOption.CADDY ? 'Caddy' : 'Co-Player';
+                const newServiceBasic = `Service data:\nSelected number of passengers: ${data.passengers}\nPickup address: ${data.originTranslateEN}\nGolfcourse: ${data.golfcourseTranslateEN}\nReturn address: ${data.destinationTranslateEN}\nDate of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
+
+                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of departure for return: ' + data.dropOffDATE + '\n' : ''}Time of departure for return: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nIntended time of stay: ${data.stay} h\n${data.supportMode !== SupportModeOption.NONE ? 'Selected auxiliary service: ' + support + '\n' : ''}Estimated price: ${data.price},00 EUR`;
+
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgServiceGolf}`;
+                break;
+            }
+            default: {
+                msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${msgServiceBasic}\n${msgServiceFixed}`;
+            }
+        }
+
+        return msgOutput;
     }
 }
 

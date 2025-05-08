@@ -1,3 +1,7 @@
+import { GolfSupportOptions } from "../enums/golf-support-options.enum"
+import { PassengerOptions } from "../enums/passenger-options.enum"
+import { ServiceOptions } from "../enums/service-options.enum"
+
 export declare interface MailingRequest {
     sender: string,
     subject: string,
@@ -5,7 +9,7 @@ export declare interface MailingRequest {
 }
 
 export declare interface MailingMessage {
-    service: 'airport' | 'destination' | 'flatrate',
+    service: ServiceOptions,
     gender: 'male' | 'female',
     title?: string,
     firstName: string,
@@ -15,12 +19,16 @@ export declare interface MailingMessage {
     note?: string,
     airport?: string,
     originAddress: string,
+    golfcourseAddress?: string,
     destinationAddress: string,
     back2home?: boolean,
     pickupDATE: string,
     pickupTIME: string,
     dropOffDATE?: string,
     dropOffTIME?: string,
+    supportMode: GolfSupportOptions,
+    passengers?: PassengerOptions,
+    stay?: string,
     tenancy?: string,
     latency?: string,
     duration?: string,

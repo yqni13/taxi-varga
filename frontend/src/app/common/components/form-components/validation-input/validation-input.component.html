@@ -12,20 +12,26 @@
         <div class="tava-validation-message" *ngIf="control.hasError('requiredTenancy')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyLowerLimit')">
-            {{ 'common.validation.tenancy-invalid-lower-limit' | translate }}
-        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
+        </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidStayUpperLimit')">
+            {{ 'common.validation.stay-invalid-upper-limit' | translate }}
         </div>
         <div class="tava-validation-message" *ngIf="control.hasError('maxLatency')">
             {{ 'common.validation.latency-invalid-upper-limit' | translate }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('invalidAirportTime')">
-            {{ 'common.validation.airport-invalid-time' | translate }}
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours')">
+            {{ 'common.validation.business-invalid-time' | translate }}
         </div>
-        <div class="tava-validation-message" *ngIf="control.hasError('negativeDateTime')">
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeCurrentDateTime')">
             {{ 'common.validation.datetime-invalid-negative' | translate }}
+        </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('negativeFixedDateTime')">
+            {{ 'common.validation.datetime-end-invalid-negative' | translate }}
+        </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('emptyAddressSelect')">
+            {{ 'common.validation.empty-address-select' | translate }}
         </div>
     </div>
 </ng-container>

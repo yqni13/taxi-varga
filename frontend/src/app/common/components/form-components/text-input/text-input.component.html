@@ -2,6 +2,7 @@
     <input 
         type="{{inputType}}"
         placeholder="{{placeholder}}"
+        id="{{'tava-' + fieldName}}"
         [readonly]="readonly"
         [formControl]="formControl"
         min="{{minVal}}"
@@ -9,10 +10,11 @@
     >
     <i
         class="icon-warning"
-        *ngIf="formControl.invalid && (formControl.dirty || formControl.touched)"
+        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
         [ngClass]="classNameWarningIcon"
     ></i>
     <tava-validation
+        *ngIf="!isFocused"
         [ngControl]="formControl"
         [fieldName]="fieldName"
     ></tava-validation>

@@ -44,7 +44,8 @@
 
         span {
             text-align: justify;
-            line-height: 26px;
+            line-height: sass.$text-line-height;
+
         }
 
         .tava-imprint-content-break {
@@ -54,6 +55,6 @@
 
     p {
         text-align: justify;
-        line-height: 26px;
+        line-height: sass.$text-line-height;
     }
 }

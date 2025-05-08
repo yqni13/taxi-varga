@@ -4,6 +4,8 @@ const Utils = require('../utils/common.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
 const Secrets = require('./secrets.utils');
+const { SupportModeOption } = require('./enums/supportmode-option.enum');
+const { ErrorCodes } = require('./errorCodes.utils');
 
 exports.validateServiceOption = (value) => {
     const options = Object.values(ServiceOption);
@@ -16,7 +18,7 @@ exports.validateServiceOption = (value) => {
 exports.validateLanguageCompatible = (language) => {
     const options = Object.values(LanguageOption);
     if(!options.includes(language)) {
-        throw new Error('basic-invalid-language');
+        throw new Error('backend-invalid-language');
     }
 
     return true;
@@ -66,4 +68,31 @@ exports.validateEncryptedSender = (encryptedSender) => {
     }
 
     return true;
+}
+
+exports.validateGolfSupportMode = (supportMode) => {
+    const options = Object.values(SupportModeOption);
+    if(!options.includes(supportMode)) {
+        throw new Error('backend-invalid-supportmode');
+    }
+
+    return true;
+}
+
+exports.validateTravelTimeRelevance = (compareTime, travelTime, serviceOption) => {
+    try {
+        if(compareTime < travelTime) {
+            throw new Error();
+        }
+
+        if(serviceOption === ServiceOption.GOLF) {
+            return compareTime - travelTime
+        }
+    } catch(err) {
+        const msg = serviceOption === ServiceOption.GOLF
+            ? 'backend-invalid-relevance-stay'
+            : 'backend-invalid-relevance-travel';
+        const flag = ErrorCodes.InvalidPropertiesException;
+        throw new InvalidPropertiesException(msg, { flag: flag, data: [{msg: msg}] });
+    }
 }

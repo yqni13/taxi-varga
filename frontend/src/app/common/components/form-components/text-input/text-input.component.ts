@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -26,6 +26,16 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
 })
 export class TextInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
 
+    @HostListener('window:click', ['$event']) 
+    clickListening($event: any) {
+        this.clickOutside($event, this.fieldName);
+    }
+
+    @HostListener('window:keydown', ['$event'])
+    keyListening($event: any) {
+        this.tabOutside($event, this.fieldName);
+    }
+    
     @Input() fieldName: string;
     @Input() formControl: FormControl;
     @Input() readonly: boolean;
@@ -74,6 +84,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     ngOnInit() {
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
             this.byChange.emit(change);
+            this.isFocused = true;
         })
         this.subscriptionMinValString$ = this.minStringObservable.subscribe(val => {
             this.minVal = val ?? this.minValNumber;

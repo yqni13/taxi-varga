@@ -23,13 +23,14 @@
             "service": "Beförderungsangebot"
         },
         "validation": {
-            "airport-invalid-time": "Abholung einer Flughafenfahrt ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
+            "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
-            "tenancy-invalid-limit": "Die Mietdauer muss min 1h und darf max 24h betragen.",
-            "tenancy-invalid-lower-limit": "Die Mietdauer muss mind 3h betragen.",
+            "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
             "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
             "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
@@ -44,10 +45,15 @@
                     "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
                     "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-language": "Die gewählte Sprache kann nicht verarbeitet werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
+                    "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
+                    "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-tenancy": "Die Mietdauer muss zwischen 3h und 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-supportmode": "Der gewählte Zusatz-Service konnte nicht gefunden werden. Bitte kontrollieren Sie Ihre Angaben.",
+                    "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
@@ -71,7 +77,7 @@
         "about": {
             "business": {
                 "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich übernehme ich Sonderfahrten wie Botendienste und Besorgungsfahrten, Pauschalfahrten nach Wien oder zum Flughafen und Fernfahrten zu beliebigen Adressen im In- und Ausland. Fernfahrten werden auf Vorbestellung und zu günstigen Bedingungen durchgeführt. Weiters biete ich auch Zeitmieten für Stadt-Rundfahrten und Golfreisen mit optional gemeinsamen Spiel an (mein Handicap: -12,3)."
+                "secondary": "Zusätzlich übernehme ich gegen Vorbestellung Pauschalfahrten von/nach Niederösterreich, besonders preisgünstig zwischen Leobersdorf und Wien, aber auch zwischen BN/WB/WN und W/WU/SW. Alternativ können Rundfahrten auch auf Basis von Zeitmieten in Anspruch genommen werden. Des Weiteren biete ich auch Golf-Tagesreisen zu allen Golfclubs in Wien und Niederösterreich (GC in anderen Bundesländern oder im Ausland auf Anfrage) an. Auf Wunsch inklusive Begleitung auf der Golfrunde zum fairen Pauschalpreis."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
@@ -83,11 +89,12 @@
         },
         "home": {
             "content": {
-                "entry0": "Betriebszeit: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
+                "entry0": "Reisebeginn täglich: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
                 "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
                 "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "entry3": "Beförderung max. 4 Personen",
-                "entry4": "Alle gängigen Zahlungsmittel akzeptiert"
+                "entry3": "Beförderung max 4 Personen mit Gepäck oder max 3 Personen mit Gepäck und Golf-Equipment",
+                "entry4": "Pauschalpreise können abhängig von der Abfragezeit variieren, weil die Berechnung mit der zur Abfragezeit aktuellen Verkehrslage verknüpft ist.",
+                "entry5": "Alle gängigen Zahlungsmittel akzeptiert"
             },
             "highlights": {
                 "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
@@ -106,15 +113,14 @@
         },
         "service": {
             "commands": {
-                "calc": "berechnen",
-                "check": "Daten prüfen",
-                "confirm": "Senden"
+                "confirm": "Senden",
+                "forward": "weiter"
             },
             "content": {
                 "airport": {
                     "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
                     "info": {
-                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen.",
+                        "text": "- Buchungen für Flughafenfahrten werden nur zwischen 04:00 und 12:00 Vormittags angenommen",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -134,7 +140,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- Bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen.\n- Wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten.",
+                        "text": "- bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -153,11 +159,11 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Zeitmieten müssen mind 3h betragen und können nicht länger als für 24h gebucht werden.\n- Pro Stunde Mietzeit werden pauschal 40,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
+                        "text": "- Für Zeitmieten werden min 3h verrechnet und können nicht länger als für 24h gebucht werden\n- Pro Stunde Mietzeit werden pauschal 35,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu.",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
-                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-end": "Datum & Uhrzeit (Auftragsende)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
                         "origin": "Abholadresse",
@@ -165,7 +171,7 @@
                             "address": "Adresse auswählen",
                             "tenancy": "Mietdauer (h) auswählen"
                         },
-                        "tenancy": "verrechnete Mietdauer"
+                        "tenancy": "Pauschalierte Mietdauer"
                     },
                     "option": {
                         "title": "Zeitmiete"
@@ -194,32 +200,80 @@
                     "offer": {
                         "back2home": "Rückkehr",
                         "datetime": "Datum & Uhrzeit",
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-end-flatrate": "Datum & Uhrzeit (Auftragsende)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "golfcourse": "Golfplatz",
                         "latency": "Wartezeit",
                         "origin": "Abholadresse",
+                        "passengers": "Anzahl Mitreisender",
+                        "return": "Rückfahradresse",
+                        "stay": "Aufenthalt",
                         "tenancy": "Mietdauer"
                     },
                     "order": {
                         "contact": "Kontakt",
-                        "date-dropoff": "Datum der Ankunft",
+                        "date-dropoff": "Datum des Auftragsendes",
                         "date-pickup": "Datum der Abholung",
+                        "date-return": "Datum der Rückfahrt",
                         "distance": "Fahrtstrecke",
                         "duration": "Fahrtzeit",
-                        "latency": "verrechnete Wartezeit",
+                        "hint-greenfee": "ohne Greenfee",
+                        "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
+                        "stay": "Pauschalierter Aufenthalt",
+                        "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 6 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
+                        "support-mode": {
+                            "caddy": "Begleitung als Caddy",
+                            "label": "Zusatzservice",
+                            "player": "Begleitung als Mitspieler"
+                        },
                         "surcharge-fuel": "Ich akzeptiere, dass zusätzliche Kosten pro Kilometer für Schnelladen (DC) bei einer Distanz von mehr als 250 km fällig werden (EUR 0,07/km ab 250ter km).",
                         "surcharge-parking": "Ich akzeptiere, dass zusätzliche Kosten für Maut- und/oder Parkgebühren je nach Aufwand fällig werden.",
-                        "tenancy": "verrechnete Mietdauer",
+                        "tenancy": "Pauschalierte Mietdauer",
                         "tenancy-calc": "Pro Stunde Mietzeit sind 25 km inkludiert. Jeder weitere Kilometer kostet zusätzlich 0,50 EUR.",
                         "terms": "Ich stimme zu, dass ich das 18te Lebensjahr bereits vollendet habe und meine persönlichen Daten nur zum Zweck der vertraglichen Einigung der Dienstleistung zur Verfügung stelle. Weiters akzeptiere ich, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der Gesamtkosten zur Zahlung fällig. Bei Zahlungsverweigerung erfolgt eine Anzeige.",
                         "terms-flatrate": "Ich akzeptiere, dass die Stornierung meiner Bestellung gratis bis 24 Stunden vor dem Zeitpunkt der Abholung ist. Im Falle eines Stornos oder Versäumnis werden danach 50% der aktuell berechneten Kosten ({{fieldValue}},00 EUR) zur Zahlung fällig.",
-                        "time-dropoff": "geschätzte Ankunft",
-                        "time-pickup": "Zeit der Abholung",
+                        "time-dropoff": "Zeitpunkt des Auftragsendes",
+                        "time-pickup": "Zeitpunkt der Abholung",
+                        "time-return": "Zeitpunkt der Rückfahrt",
                         "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
                     }
+                },
+                "golf": {
+                    "block-validation": "Bitte wählen Sie eine Option für zusätzlichen Service aus.",
+                    "info": {
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n",
+                        "title": "Bitte beachten Sie"
+                    },
+                    "labels": {
+                        "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
+                        "datetime-start": "Datum & Uhrzeit (Abholung)",
+                        "destination": "Rückkehradresse",
+                        "golfcourse": "Golfplatz",
+                        "origin": "Abholadresse",
+                        "passengers": "Anzahl mitreisender Personen/Spieler",
+                        "placeholder": {
+                            "golfcourse": "Golfplatz auswählen",
+                            "number": "Anzahl wählen",
+                            "street": "Adresse auswählen"
+                        },
+                        "return": "Ich möchte zur Abholadresse zurückkehren.",
+                        "stay": "Meine gewünschte Zeit des Aufenthalts.",
+                        "support-mode": {
+                            "caddy": "Ich möchte Sie zur Begleitung als Caddy buchen.",
+                            "none": "Ich benötige keinen zusätzlichen Service.",
+                            "player": "Ich möchte Sie zur Begleitung als Mitspieler buchen (Greenfeekosten des Begleiters gehen zu Lasten von taxi-varga)."
+                        }
+                    },
+                    "option": {
+                        "title": "Golf-Tagesreise"
+                    },
+                    "title": "Golfreise - Routendetails"
                 }
             }
         }
@@ -237,10 +291,16 @@
                 "de": "Deutsch",
                 "en": "Englisch"
             },
+            "passengers": {
+                "PPL1": "1",
+                "PPL2": "2",
+                "PPL3": "3"
+            },
             "service": {
                 "airport": "Flughafenfahrt",
                 "destination": "Pauschalfahrt",
-                "flatrate": "Zeitmiete"
+                "flatrate": "Zeitmiete",
+                "golf": "Golf"
             },
             "theme": {
                 "darkMode": "Dunkel",

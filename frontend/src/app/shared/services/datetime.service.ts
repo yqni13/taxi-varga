@@ -21,6 +21,11 @@ export class DateTimeService {
         return new Date().getTime();
     }
 
+    getTimeFromTotalHours(time: number): string {
+        const hours = (time < 10) ? `0${time}` : `${time}`;
+        return `${hours}:00`;
+    }
+
     getTimeFromTotalMinutes(time: number): string {
         const hours = (time >= 60)
             ? Math.floor(time / 60) >= 10
@@ -46,9 +51,9 @@ export class DateTimeService {
         return `${date}T00:00`;
     }
 
-    get24HoursRestrictionTimestamp(start: string): string {
+    getRestrictionTimestampHoursBased(start: string, restrictionHours: number): string {
         const basis = Math.floor((new Date(start)).getTime() / 1000);
-        const limit = new Date((basis + (24 * 60 * 60)) * 1000);
+        const limit = new Date((basis + (restrictionHours * 60 * 60)) * 1000);
         return `${this.getDateFromTimestamp(new Date(limit).toString(), true)}T${this.getTimeFromTimestamp(new Date(limit).toString())}`;
     }
 
@@ -73,11 +78,11 @@ export class DateTimeService {
     }
 
     getTimeInTotalMinutes(time: string): number {
-        if(time[0] === '2' && time[1] === '4') {
-            return 24 * 60;
-        }
-        const hours = new Date(`2025-01-01T${time}:00`).getHours();
-        const minutes = new Date(`2025-01-01T${time}:00`).getMinutes();
+        /**
+         * @param {string} time: '00:00'
+         */
+        const hours = time[0] === '0' ? Number(time[1]) : Number(`${time[0]}${time[1]}`);
+        const minutes = time[3] === '0' ? Number(time[3]) : Number(`${time[3]}${time[4]}`);
         return (hours * 60) + minutes;
     }
 
@@ -92,10 +97,16 @@ export class DateTimeService {
         return this.getTimeInTotalMinutes(asString);
     }
 
-    getTimeDifferenceAsString(start: string, end: string): string {
+    getTimeDifferenceAsString(start: string, end: string, rawResult?: boolean): string {
         const difference = new Date(end).getTime() - new Date(start).getTime();
         const fromMillisecondsToMinutes = (1 / 1000 / 60);
-        return this.getRoundUpTime30MinSteps((difference * fromMillisecondsToMinutes), true);
+        let result;
+        if(rawResult) {
+            result = this.getTimeFromTotalMinutes((difference * fromMillisecondsToMinutes) as number);
+        } else {
+            result = this.getRoundUpTime30MinSteps(((difference * fromMillisecondsToMinutes) as number), true);
+        }
+        return result;
     }
 
     getRoundUpTime30MinSteps(time: string | number, isNumber: boolean): string {
@@ -110,5 +121,13 @@ export class DateTimeService {
             : `${Math.floor(roundUpTime / 60)}`;
 
         return `${hours}:${minutes}`;
+    }
+
+    configHourForPayload(time: string): number {
+        // we expect hh:mm with leading 0
+        const hours = Number(time.substring(0, time.indexOf(':')));
+        const minutes = Number(time.substring((time.indexOf(':')+1)));
+        // business hours = 04:00 - 12:00 ==> 12:01 = after hours
+        return (hours === 12 && minutes > 0) ? hours+1 : hours;
     }
 }
