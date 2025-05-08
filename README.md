@@ -41,15 +41,7 @@ Create necessary modules (/frontend and /backend):
 ```sh
 $ npm install
 ```
-
-Fill env variables for Frontend/Backend with the necessary data/paths and run:
-```sh
-$ npm run start
-```
-to autofill environment file with env data and to start on local dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.<br><br>
-This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection.<br>
-See the following [start-via-ssl configurations](README_SSL.md) for help.<br>
-Serve Angular on localhost:
+This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Fill environment variables with necessary data/paths and serve on localhost:
 ```sh
 npm run start-local-ssl
 ```
