@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/05/07 - $\textsf{last\ update\ 1.2.0\ >>\ {\color{pink}1.2.1}}$
+
+- $\textsf{\color{red}Patch:}$ Updated custom 'address-input' component behavior and added new validation to detect input without selected address.
+- $\textsf{\color{red}Bugfix:}$ Opening an address input with input but no selected address reopens option list of active input field. [Before: Reopening address input with input and no selected address opened option lists of all (focused as well as inactive) address input fields in active component.]
+
 ### 2025/05/05 - $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.0}}$
 
 - $\textsf{\color{teal}Addition:}$ Added key navigation for service components and image carousel.
