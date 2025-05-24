@@ -5,12 +5,22 @@ import { ServiceDestinationComponent } from "./request/destination/service-desti
 import { ServiceFlatrateComponent } from "./request/flatrate/service-flatrate.component";
 import { ServiceOptions } from "../../shared/enums/service-options.enum";
 import { ServiceGolfComponent } from "./request/golf/service-golf.component";
+import { AssetsPreloadGuard } from "../../common/guards/assets-preload.guard";
 
 export const serviceRoutes: Routes = [
     {
         path: '',
         component: ServiceComponent,
-        
+        canActivate: [AssetsPreloadGuard],
+        data: {
+            preloadImages: [
+                'assets/service/service-airport.webp',
+                'assets/service/service-destination.webp',
+                'assets/service/service-golf.webp',
+                'assets/service/service-flatrate.webp',
+                'assets/UI/google_on_white.png'
+            ]
+        }
     },
     {
         path: ServiceOptions.AIRPORT,

@@ -92,7 +92,7 @@
                 "entry0": "Daily starting business hours: 04:00 - 12:00 (off-time on request)",
                 "entry1": "40100 quality rating: 5.0 (max)",
                 "entry2": "Elevated seat positions for senior friendly entrance/exit",
-                "entry3": "Transport up to 4 people with luggage or up to 3 people with luggage and golf equipment",
+                "entry3": "Transportation: max 4 people with luggage, max 3 people with golf equipment, max 2 people with luggage and golf equipment",
                 "entry4": "Flat rates may vary depending on the time of query because the calculation is linked to the current traffic situation at the time of query.",
                 "entry5": "All major payment methods accepted"
             },
@@ -222,7 +222,7 @@
                         "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
-                        "licence": "Price calculation based on licensed Vienna taxi rate!",
+                        "licence": "The transport price meets the requirements of the valid, licensed Viennese taxi fare.",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",

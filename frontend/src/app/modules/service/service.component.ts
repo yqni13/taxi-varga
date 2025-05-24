@@ -1,7 +1,7 @@
 import { ServiceOptions } from './../../shared/enums/service-options.enum';
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -29,7 +29,6 @@ export class ServiceComponent implements OnInit, OnDestroy {
     private subscriptionThemeObservation$: Subscription;
 
     constructor(
-        private readonly translate: TranslateService,
         private readonly observation: ObservationService
     ) {
         this.selectedBg = '';

@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.2.1}}$
+$\texttt{\color{teal}{v1.2.2}}$
 
 
 <br><br>
@@ -66,6 +66,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
 <dl>
     <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
     <dd>:repeat: Google Routes/Places API usage in backend</dd>
+    <dd>:turtle: custom image/video preload</dd>
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
     <dd>:computer: key navigation on forms and carousel</dd>
@@ -133,13 +134,33 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 
 <br>
 
+### $\textsf{\color{teal}Preloading}$
+
+To prevent any delay between building the page and displaying the active assets (images/videos), the `AssetsPreloadService` and `AssetsPreloadGuard` are in use to load everything accordingly. 
+
+Whereas the guard is used within the `*.routes.ts` files to load assets predetermined (see Figure 7, code block), the service can also be used to preload assets/data dynamically or modular:
+```sh
+this.assetsPreloadService.preloadAssets({
+    images?: imagePathArray,
+    videos?: videoPathArray
+}).finally(() => {
+    this.isLoadingFlag = false;
+})
+```
+
+<div align="center">
+    <img src="frontend/public/assets/docs/preload.gif" alt="&nbsp;no picture found">
+    Figure 7
+</div>
+
+<br>
+
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.1.0\ >>\ {\color{pink}1.2.1}}$
+### $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
 
-- $\textsf{\color{red}Patch:}$ Updated custom 'address-input' component behavior and added new validation to detect input without selected address.
-- $\textsf{\color{red}Bugfix:}$ Opening an address input with input but no selected address reopens option list of active input field. [Before: Reopening address input with input and no selected address opened option lists of all (focused as well as inactive) address input fields in active component.]
+- $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
 
 <br>
 

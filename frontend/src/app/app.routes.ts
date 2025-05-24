@@ -5,6 +5,7 @@ import { ImprintComponent } from './modules/imprint/imprint.component';
 import { SamplesComponent } from './modules/samples/samples.component';
 import { PrivacyComponent } from './modules/privacy/privacy.component';
 import { BaseRoute } from './api/routes/base.route.enum';
+import { AssetsPreloadGuard } from './common/guards/assets-preload.guard';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,19 @@ export const routes: Routes = [
     {
         path: BaseRoute.HOME,
         component: HomeComponent,
-        data: {title: BaseRoute.HOME, showInNavbar: true, showInFooter: false, icon: 'icon-home'}
+        canActivate: [AssetsPreloadGuard],
+        data: {
+            title: BaseRoute.HOME,
+            showInNavbar: true,
+            showInFooter: false,
+            icon: 'icon-home',
+            preloadImages: [
+                'assets/UI/home_profile.webp'
+            ],
+            preloadVideos: [
+                'assets/home-bg-light-trimmed.mp4'
+            ]
+        }
     },
     {
         path: BaseRoute.ABOUT,

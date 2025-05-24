@@ -92,7 +92,7 @@
                 "entry0": "Reisebeginn täglich: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
                 "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
                 "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "entry3": "Beförderung max 4 Personen mit Gepäck oder max 3 Personen mit Gepäck und Golf-Equipment",
+                "entry3": "Beförderung: max 4 Personen mit Gepäck, max 3 Personen mit Golf-Equipment, max 2 Personen mit Gepäck und Golf-Equipment",
                 "entry4": "Pauschalpreise können abhängig von der Abfragezeit variieren, weil die Berechnung mit der zur Abfragezeit aktuellen Verkehrslage verknüpft ist.",
                 "entry5": "Alle gängigen Zahlungsmittel akzeptiert"
             },
@@ -222,7 +222,7 @@
                         "hint-greenfee": "ohne Greenfee",
                         "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
-                        "licence": "Die Preisberechnung orientiert sich am gültigen, lizensierten Wiener Taxi-Tarif!",
+                        "licence": "Der Beförderungspreis erfüllt die Vorgaben des gültigen, lizenzierten Wiener Taxitarif.",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "stay": "Pauschalierter Aufenthalt",
