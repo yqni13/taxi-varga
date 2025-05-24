@@ -49,7 +49,7 @@ export class AboutComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.assetPreload.preloadAssets({images: this.images}).finally(() => {
             this.isPreloading = false;
-        })
+        });
         
         this.subscriptionObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {

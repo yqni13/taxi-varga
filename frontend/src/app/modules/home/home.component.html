@@ -1,6 +1,6 @@
 <section class="tava-home">
     <div class="tava-home-video-wrapper">
-        <video autoplay loop [muted]="'muted'">
+        <video autoplay loop [muted]="'muted'" oncanplay="this.play()" onloadedmetadata="this.muted = true">
             <source src="{{selectedVideo}}" type="video/mp4"/>
             Your browser does not support video files of type ".mp4". 
         </video>

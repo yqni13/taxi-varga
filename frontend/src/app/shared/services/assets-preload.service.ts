@@ -1,9 +1,5 @@
 import { Injectable } from "@angular/core";
-
-export declare interface AssetsPreload {
-    images?: string[],
-    videos?: string[]
-}
+import { AssetsPreloadParams } from "../interfaces/assets-preload.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -64,7 +60,7 @@ export class AssetsPreloadService {
         return Promise.all(preloadPromises);
     }
 
-    preloadAssets(content: AssetsPreload): Promise<[void[], void[]]> {
+    preloadAssets(content: AssetsPreloadParams): Promise<[void[], void[]]> {
         return Promise.all([
             this.preloadImages(content?.images),
             this.preloadVideos(content?.videos)

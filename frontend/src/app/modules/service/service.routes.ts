@@ -17,7 +17,8 @@ export const serviceRoutes: Routes = [
                 'assets/service/service-airport.webp',
                 'assets/service/service-destination.webp',
                 'assets/service/service-golf.webp',
-                'assets/service/service-flatrate.webp'
+                'assets/service/service-flatrate.webp',
+                'assets/UI/google_on_white.png'
             ]
         }
     },
