@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/05/24 - $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
+
+- $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
+
 ### 2025/05/07 - $\textsf{last\ update\ 1.2.0\ >>\ {\color{pink}1.2.1}}$
 
 - $\textsf{\color{red}Patch:}$ Updated custom 'address-input' component behavior and added new validation to detect input without selected address.
