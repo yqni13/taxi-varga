@@ -18,7 +18,7 @@
                 {{'modules.about.private.location' | translate}}
             </p>
         </div>
-        <tava-carousel [slides]="images"></tava-carousel>
+        <tava-carousel [isLoading]="isPreloading" [slides]="images"></tava-carousel>
         <div class="tava-about-text">
             <p>{{'modules.about.business.primary' | translate}}</p>
         </div>

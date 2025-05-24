@@ -24,11 +24,13 @@ export class CarouselComponent {
     
     @Input() slides: string[];
     @Input() slideTemplate?: TemplateRef<any>;
+    @Input() isLoading: boolean;
     
     protected currentIndex: number;
 
     constructor() {
         this.slides = [];
+        this.isLoading = false;
         this.currentIndex = 0;
     }
 

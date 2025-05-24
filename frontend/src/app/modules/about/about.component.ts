@@ -5,6 +5,7 @@ import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
 import { CarouselComponent } from "../../common/components/carousel/carousel.component";
+import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
 
 @Component({
     selector: 'tava-about',
@@ -21,12 +22,15 @@ export class AboutComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
     protected images: string[];
+    protected isPreloading: boolean;
+
     private subscriptionObservation$: Subscription;
 
     constructor(
-        private readonly translate: TranslateService,
-        private readonly observation: ObservationService
+        private readonly observation: ObservationService,
+        private readonly assetPreload: AssetsPreloadService
     ) {
+        this.selectedBg = '';
         this.images = [
             'assets/foto4.jpg',
             'assets/foto3.jpg',
@@ -37,11 +41,16 @@ export class AboutComponent implements OnInit, OnDestroy {
             'assets/foto7.jpg',
             'assets/foto12.jpg'
         ];
-        this.selectedBg = '';
+        this.isPreloading = true;
+
         this.subscriptionObservation$ = new Subscription();
     }
 
     ngOnInit() {
+        this.assetPreload.preloadAssets({images: this.images}).finally(() => {
+            this.isPreloading = false;
+        })
+        
         this.subscriptionObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
