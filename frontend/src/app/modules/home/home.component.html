@@ -1,6 +1,6 @@
 <section class="tava-home">
     <div class="tava-home-video-wrapper">
-        <video autoplay loop [muted]="'muted'">
+        <video autoplay loop [muted]="'muted'" oncanplay="this.play()" onloadedmetadata="this.muted = true">
             <source src="{{selectedVideo}}" type="video/mp4"/>
             Your browser does not support video files of type ".mp4". 
         </video>
@@ -11,7 +11,7 @@
         </header>
         <div class="tava-home-content">
             <div class="tava-home-img-wrapper">
-                <img src="assets/UI/home_profile.png" alt="404 not found">
+                <img src="assets/UI/home_profile.webp" alt="404 not found">
             </div>
             <div class="tava-home-content-wrapper">
                 <ul>

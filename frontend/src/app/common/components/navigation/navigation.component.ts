@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject, OnInit } from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
 import _ from 'underscore';
 import { CommonModule, DOCUMENT } from "@angular/common";
 import { DeviceOptions } from "../../../shared/enums/device-option.enum";
 import { filter } from "rxjs";
+import { AssetsPreloadService } from "../../../shared/services/assets-preload.service";
 
 @Component({
     selector: 'tava-navigation',
@@ -34,7 +35,7 @@ export class NavigationComponent implements OnInit {
         private readonly router: Router,
         private readonly navigation: NavigationService,
         @Inject(DOCUMENT) private document: Document,
-        private readonly translate: TranslateService,
+        private readonly assetPreload: AssetsPreloadService
         
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
@@ -53,6 +54,8 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.assetPreload.preloadAssets({images: ['assets/logo.webp']});
+
         this.routes = this.navigation.getNavigationRoutes();
 
         if(this.window.screen !== undefined) {

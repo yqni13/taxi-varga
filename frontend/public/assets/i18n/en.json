@@ -222,7 +222,7 @@
                         "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
-                        "licence": "Price calculation based on licensed Vienna taxi rate!",
+                        "licence": "The transport price meets the requirements of the valid, licensed Viennese taxi fare.",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
