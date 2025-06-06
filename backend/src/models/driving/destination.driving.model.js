@@ -44,6 +44,8 @@ class DrivingDestinationModel {
         const priceReturn = 0.4;
         const priceReturnAfterHours = 0.5;
         const priceLatency30min = 12;
+        const extraChargeWithinBusinessHours = 14;
+        const extraChargeOffBusinessHours = 6;
         let approachCosts = 0;
         let withinBusinessHours = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
 
@@ -74,7 +76,9 @@ class DrivingDestinationModel {
             totalServiceDistance = origin2destination.distanceMeters;
             payingServiceDistance = totalServiceDistance;
             totalServiceTime = origin2destination.duration
-            additionalCharge = withinBusinessHours && (Utils.checkAddressAtViennaAirport(params.originDetails.zipCode) || Utils.checkAddressInVienna(params.originDetails.zipCode)) ? 10 : 0;
+            additionalCharge = withinBusinessHours && (Utils.checkAddressAtViennaAirport(params.originDetails.zipCode) || Utils.checkAddressInVienna(params.originDetails.zipCode))
+                ? extraChargeWithinBusinessHours
+                : extraChargeOffBusinessHours;
         }
 
         if(totalServiceDistance <= 30) {
