@@ -66,12 +66,12 @@ Currently public/private keys are converted from single-line secret to multi-lin
 <dl>
     <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
     <dd>:repeat: Google Routes/Places API usage in backend</dd>
-    <dd>:turtle: custom image/video preload</dd>
+    <dd>:turtle: Custom image/video preload</dd>
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
-    <dd>:computer: key navigation on forms and carousel</dd>
+    <dd>:computer: Key navigation on forms and carousel</dd>
     <dd>:wrench: Custom validation Angular/Express-Validator</dd>
-    <dd>:lock: asymmetric/hybrid (RSA/AES) encrypted requests</dd>
+    <dd>:lock: Asymmetric/hybrid (RSA/AES) encrypted requests</dd>
     <dd>:e-mail: Mail service with node.js & nodemailer for Backend</dd>
     <dd>:signal_strength: Http interception + custom snackbar modal</dd>
     <dd>:new_moon_with_face:/:sun_with_face: Custom color theme (dark/light mode)</dd>
@@ -94,7 +94,7 @@ All services take input for calculating the offer by addresses, timestamps and c
 
 ### $\textsf{\color{teal}Google API}$
 
-Data from Google, based on the RoutesAPI and PlacesAPI, is used for the calculations and address suggestions/autocompletion. The user can type in the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows, that after every change of the search input, a request is sent providing the listed options in the response. Clicking on an option sends a final request to get all details to the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google demands to display their logo if a map or place-data (in this case the address options) are used.
+Data from Google, based on the `RoutesAPI` and `PlacesAPI`, is used for the calculations and address suggestions/autocompletion. The user can type in the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows, that after every change of the search input, a request is sent providing the listed options in the response. Clicking on an option sends a final request to get all details to the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google demands to display their logo if a map or place-data (in this case the address options) are used.
 
 <div align="center">
     <img src="frontend/public/assets/docs/google_autocomplete.png" alt="&nbsp;no picture found">
@@ -105,7 +105,7 @@ Data from Google, based on the RoutesAPI and PlacesAPI, is used for the calculat
 
 ### $\textsf{\color{teal}Theme + Internationalization}$
 
-The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 4). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language (see custom-translate-loader.ts). 
+The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 4). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
 
 <div align="center">
     <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
@@ -161,6 +161,7 @@ this.assetsPreloadService.preloadAssets({
 ### $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
 
 - $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
+- $\textsf{\color{red}Patch:}$ Adapt price calculation based on/off business hours.
 
 <br>
 
