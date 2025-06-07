@@ -8,6 +8,7 @@ import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
 import { MailTranslateService } from "./shared/services/mail-translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
+import * as Helper from "./common/helper/common.helper";
 // import { CryptoService } from "./shared/services/crypto.service";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
@@ -16,6 +17,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     const snackbarService = inject(SnackbarMessageService);
     const translate = inject(TranslateService);
     const router = inject(Router);
+    const helper = Helper;
     // const encodingService = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -57,7 +59,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
             }
         }),
         catchError((response) => {
-            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate, router).catch((err) => {
+            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate, router, helper).catch((err) => {
                 console.error('Error handling failed', err);
             })
             
@@ -66,7 +68,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     )
 }
 
-export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService, router: Router) {
+export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService, router: Router, helper: any) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     if(response.url.includes('/driving/airport')) {
@@ -157,7 +159,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 type: SnackbarOption.ERROR,
             })
         })
-        navigateOnTrigger(route, router);
+        helper.navigateOnTrigger(route, router);
     } 
     // AUTHORIZATION | AUTHENTICATION
     else if(response.status === 401 || response.status === 404 || response.status === 429) {
@@ -193,12 +195,4 @@ export async function handleError(response: any, httpObservationService: HttpObs
     // browser response log
     console.log('response error: ', response);
     httpObservationService.setErrorStatus(response);
-}
-
-export function navigateOnTrigger(route: string | null, router: Router) {
-    if(route === null) {
-        return;
-    }
-
-    router.navigate([`/${route}`]);
 }
