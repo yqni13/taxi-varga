@@ -42,6 +42,7 @@
                     "backend-500-routes": "The api endpoint is not available at the moment. Please try again later or contact support.",
                     "backend-500-server": "Communication with the server is not available at the moment. Please try again later or contact support.",
                     "backend-auth-email": "Email service not available. Please try again later or contact support.",
+                    "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used.",
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
