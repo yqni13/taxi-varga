@@ -76,9 +76,11 @@ class DrivingDestinationModel {
             totalServiceDistance = origin2destination.distanceMeters;
             payingServiceDistance = totalServiceDistance;
             totalServiceTime = origin2destination.duration
-            additionalCharge = withinBusinessHours && (Utils.checkAddressAtViennaAirport(params.originDetails.zipCode) || Utils.checkAddressInVienna(params.originDetails.zipCode))
-                ? extraChargeWithinBusinessHours
-                : extraChargeOffBusinessHours;
+            additionalCharge = withinBusinessHours && (Utils.checkAddressAtViennaAirport(params.originDetails.zipCode) || Utils.checkAddressInVienna(params.originDetails.zipCode)) 
+                ? extraChargeWithinBusinessHours 
+                : (!Utils.checkAddressInVienna(params.originDetails.zipCode) && !Utils.checkAddressAtViennaAirport(params.originDetails.zipCode)) 
+                    ? 0 
+                    : extraChargeOffBusinessHours;
         }
 
         if(totalServiceDistance <= 30) {

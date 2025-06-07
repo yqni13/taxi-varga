@@ -25,7 +25,9 @@ exports.drivingDestinationSchema = [
     body('originDetails')
         .custom((details, { req }) => 
             CustomValidator.validateDestinationServiceAddress(req.body.origin, details, req.body.destinationDetails)
-        ),
+        )
+        .bail()
+        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req)),
     body('destination')
         .trim()
         .notEmpty()
@@ -73,7 +75,9 @@ exports.drivingGolfSchema = [
         .notEmpty()
         .withMessage('backend-required'),
     body('originDetails')
-        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value)),
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value))
+        .bail()
+        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req)),
     body('golfcourse')
         .trim()
         .notEmpty()

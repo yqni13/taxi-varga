@@ -35,6 +35,17 @@ exports.validateDestinationServiceAddress = (address, addressDetails, compareDet
     return true;
 }
 
+exports.validateServiceRouteVIE = (req) => {
+    const originZip = req.body.originDetails.zipCode;
+    const destinZip = req.body.destinationDetails.zipCode;
+    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInVienna(destinZip))
+    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInVienna(originZip))) {
+        throw new Error('navigate-destination-airport/service');
+    }
+
+    return true;
+}
+
 exports.validateAirportServiceAddress = (details, address) => {
     if(address === 'vie-schwechat') {
         return true;
