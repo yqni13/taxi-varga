@@ -42,6 +42,7 @@
                     "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
                     "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
                     "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
                     "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
                     "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",

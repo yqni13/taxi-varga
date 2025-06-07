@@ -7,6 +7,8 @@ import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
 import { MailTranslateService } from "./shared/services/mail-translate.service";
 import { TranslateService } from "@ngx-translate/core";
+import { Router } from "@angular/router";
+import * as Helper from "./common/helper/common.helper";
 // import { CryptoService } from "./shared/services/crypto.service";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
@@ -14,6 +16,8 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     const mailTranslateService = inject(MailTranslateService);
     const snackbarService = inject(SnackbarMessageService);
     const translate = inject(TranslateService);
+    const router = inject(Router);
+    const helper = Helper;
     // const encodingService = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -55,7 +59,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
             }
         }),
         catchError((response) => {
-            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate).catch((err) => {
+            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate, router, helper).catch((err) => {
                 console.error('Error handling failed', err);
             })
             
@@ -64,7 +68,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     )
 }
 
-export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService) {
+export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService, router: Router, helper: any) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     if(response.url.includes('/driving/airport')) {
@@ -138,7 +142,12 @@ export async function handleError(response: any, httpObservationService: HttpObs
         const currentLang = translateService.currentLang;
         const path = 'common.validation.validate-backend';
         // multiple backend messages only for property validations expected
+        let route: string | null = null;
         Object.values(response.error.headers.data).forEach((data: any) => {
+            if(route === null && data.msg.includes('navigate')) {
+                const sub = String(data.msg).substring(0, String(data.msg).indexOf('/'));
+                route = String(data.msg).replace(sub, '');
+            }
             snackbarService.notify({
                 title: currentLang === 'de' 
                     ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
@@ -150,6 +159,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 type: SnackbarOption.ERROR,
             })
         })
+        helper.navigateOnTrigger(route, router);
     } 
     // AUTHORIZATION | AUTHENTICATION
     else if(response.status === 401 || response.status === 404 || response.status === 429) {
