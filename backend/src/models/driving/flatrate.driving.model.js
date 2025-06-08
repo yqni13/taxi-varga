@@ -8,8 +8,8 @@ class DrivingFlatrateModel {
             return {error: 'no params found'};
         }
 
-        const priceApproachPerKm = 0.5;
-        const priceReturnPerKm = 0.5;
+        const priceApproachPerKm = 0.4;
+        const priceReturnPerKm = 0.4;
         let totalCost = 0;
 
         // GET ROUTE DATA
@@ -32,15 +32,18 @@ class DrivingFlatrateModel {
         );
         const tenancyObj = this.#calculateTenancyValues(Number(params['tenancy']));
 
-        const approachCost = (home2origin.distanceMeters % 1) >= 5
-            ? Math.ceil(home2origin.distanceMeters) * priceApproachPerKm
-            : Math.floor(home2origin.distanceMeters) * priceApproachPerKm;
+        const approachDistance = home2origin.distanceMeters > 20 ? home2origin.distanceMeters - 20 : 0;
+        const returnDistance = destination2home.distanceMeters > 20 ? destination2home.distanceMeters - 20 : 0;
+
+        const approachCost = (approachDistance % 1) >= 5
+            ? Math.ceil(approachDistance) * priceApproachPerKm
+            : Math.floor(approachDistance) * priceApproachPerKm;
 
         if(params['origin'] !== params['destination']) {
             const minDistanceCost = this.#calculateMinDistanceValues(origin2destination);
-            const returnCost = (destination2home.distanceMeters % 1) >= 5
-                ? Math.ceil(destination2home.distanceMeters) * priceReturnPerKm
-                : Math.floor(destination2home.distanceMeters) * priceReturnPerKm;
+            const returnCost = (returnDistance % 1) >= 5
+                ? Math.ceil(returnDistance) * priceReturnPerKm
+                : Math.floor(returnDistance) * priceReturnPerKm;
             totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
         } else {
             totalCost = (approachCost * 2) + tenancyObj.costs;

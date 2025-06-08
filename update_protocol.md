@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/06/08 - $\textsf{last\ update\ 1.2.2\ >>\ {\color{pink}1.2.3}}$
+
+- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' behavior to refuse Vienna/VIE requests and navigate back to service overview.
+- $\textsf{\color{red}Patch:}$ Update service 'flatrate' calculation.
+
 ### 2025/05/24 - $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
 
 - $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
