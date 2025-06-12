@@ -159,7 +159,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 type: SnackbarOption.ERROR,
             })
         })
-        helper.navigateOnTrigger(route, router);
+        helper.navigateWithRoute(route, router);
     } 
     // AUTHORIZATION | AUTHENTICATION
     else if(response.status === 401 || response.status === 404 || response.status === 429) {

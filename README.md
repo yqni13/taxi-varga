@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.2.2}}$
+$\texttt{\color{teal}{v1.2.4}}$
 
 
 <br><br>
@@ -158,10 +158,9 @@ this.assetsPreloadService.preloadAssets({
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
+### $\textsf{last\ update\ 1.2.3\ >>\ {\color{pink}1.2.4}}$
 
-- $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
-- $\textsf{\color{red}Patch:}$ Adapt price calculation based on/off business hours.
+- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' calculation + refactoring.
 
 <br>
 

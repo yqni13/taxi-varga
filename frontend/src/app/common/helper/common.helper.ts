@@ -1,6 +1,6 @@
 import { Router } from "@angular/router";
 
-export const navigateOnTrigger = (route: string | null, router: Router) => {
+export const navigateWithRoute = (route: string | null, router: Router) => {
     if(route === null) {
         return;
     }
