@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/06/11 - $\textsf{last\ update\ 1.2.3\ >>\ {\color{pink}1.2.4}}$
+
+- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' calculation + refactoring.
+
 ### 2025/06/08 - $\textsf{last\ update\ 1.2.2\ >>\ {\color{pink}1.2.3}}$
 
 - $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' behavior to refuse Vienna/VIE requests and navigate back to service overview.
