@@ -52,7 +52,7 @@ class DrivingGolfModel {
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        additionalCharges += this.#addChargeServiceDistanceBelow30Km(routes, 0.5);
+        additionalCharges += this.#addChargeServiceDistanceBelow30Km(routes, 0.4);
         
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
