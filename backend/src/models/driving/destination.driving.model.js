@@ -91,7 +91,7 @@ class DrivingDestinationModel {
 
         // Add up all additional charges
         additionalCharge += this.#addChargeParkFlatByBH(params, withinBusinessHours)
-        additionalCharge += this.#addChargeServiceDistanceBelow30Km(routes, 0.5);
+        additionalCharge += this.#addChargeServiceDistanceBelow30Km(routes, 0.4);
 
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
 

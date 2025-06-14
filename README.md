@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.2.4}}$
+$\texttt{\color{teal}{v1.2.5}}$
 
 
 <br><br>
@@ -158,9 +158,9 @@ this.assetsPreloadService.preloadAssets({
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.2.3\ >>\ {\color{pink}1.2.4}}$
+### $\textsf{last\ update\ 1.2.4\ >>\ {\color{pink}1.2.5}}$
 
-- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' calculation + refactoring.
+- $\textsf{\color{red}Patch:}$ Services 'destination' and 'golf' had incorrect prices to calculate with (static variables).
 
 <br>
 
