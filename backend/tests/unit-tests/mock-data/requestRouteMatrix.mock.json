@@ -1,0 +1,323 @@
+{
+    "route-1010To2361": {
+        "apiResult": [
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 21.9,
+                "duration": 26.1,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 26.8,
+                "duration": 21.8,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 41.8,
+                "duration": 35.5,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 26.2,
+                "duration": 21,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 26.2,
+                "duration": 21,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 22.9,
+                "duration": 26.8,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 22.9,
+                "duration": 26.8,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 42,
+                "duration": 36.1,
+                "originIndex": 0,
+                "status": {}
+            }
+        ],
+        "back2home": "false",
+        "destination": "Schloßpl.+1,+2361+Laxenburg,+Austria",
+        "destinationDetails": {
+            "address": "Schloßpl. 1, 2361 Laxenburg, Austria",
+            "country": "Austria",
+            "placeId": "ChIJCQF_6s-tbUcRbN0U1OKrA3c",
+            "province": "Niederösterreich",
+            "zipCode": "2361"
+        },
+        "latency": 0,
+        "origin": "Walfischgasse+3,+1010+Wien,+Austria",
+        "originDetails": {
+            "address": "Walfischgasse 3, 1010 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ4QSWQ5wHbUcRfneDfVRlWRg",
+            "province": "Wien",
+            "zipCode": "1010"
+        },
+        "pickupTIME": 8
+    },
+    "route-1090To4020": {
+        "apiResult": [
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 46,
+                "duration": 38.9,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 182.8,
+                "duration": 122,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 182.8,
+                "duration": 122,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 193.3,
+                "duration": 132.9,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 183.5,
+                "duration": 127.2,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 46.5,
+                "duration": 40.8,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 193.2,
+                "duration": 126.4,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 193.2,
+                "duration": 126.4,
+                "originIndex": 2,
+                "status": {}
+            }
+        ],
+        "back2home": "false",
+        "destination": "Europapl.+2,+4020+Linz,+Austria",
+        "destinationDetails": {
+            "address": "Europapl. 2, 4020 Linz, Austria",
+            "country": "Austria",
+            "placeId": "ChIJMSl2V-2Xc0cRKTPCAbnR-OM",
+            "province": "Oberösterreich",
+            "zipCode": "4020"
+        },
+        "latency": 0,
+        "origin": "Porzellangasse+51,+1090+Wien,+Austria",
+        "originDetails": {
+            "address": "Porzellangasse 51, 1090 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJlZ1wyrcHbUcRwyxcfR_nKPs",
+            "province": "Wien",
+            "zipCode": "1090"
+        },
+        "pickupTIME": 8
+    },
+    "route-2824To2700": {
+        "apiResult": [
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 9.2,
+                "duration": 15,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 6.1,
+                "duration": 10.3,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 13.5,
+                "duration": 19.1,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 13.8,
+                "duration": 19.8,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 9.2,
+                "duration": 15,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 6.6,
+                "duration": 10.1,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 9.5,
+                "duration": 15.7,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 13.5,
+                "duration": 19.1,
+                "originIndex": 2,
+                "status": {}
+            }
+        ],
+        "back2home": "false",
+        "destination": "Corvinusring+3-5,+2700+Wiener+Neustadt,+Austria",
+        "destinationDetails": {
+            "address": "Corvinusring 3-5, 2700 Wiener Neustadt, Austria",
+            "country": "Austria",
+            "placeId": "ChIJQaKhDprLbUcRDHJ50IRS6xY",
+            "province": "Niederösterreich",
+            "zipCode": "2700"
+        },
+        "latency": 0,
+        "origin": "Hauptstraße+1,+2824+Seebenstein,+Austria",
+        "originDetails": {
+            "address": "Hauptstraße 1, 2824 Seebenstein, Austria",
+            "country": "Austria",
+            "placeId": "ChIJg_estf-1bUcRzEjjTM3_Yfg",
+            "province": "Niederösterreich",
+            "zipCode": "2824"
+        },
+        "pickupTIME": 8
+    }
+}
