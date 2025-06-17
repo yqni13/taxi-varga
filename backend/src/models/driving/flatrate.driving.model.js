@@ -1,8 +1,19 @@
-const GoogleRoutes = require('../../services/google-routes/google-routes.api');
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const CustomValidator = require('../../utils/customValidator.utils');
 
 class DrivingFlatrateModel {
+    #googleRoutes;
+    #prices;
+
+    constructor(googleRoutesApi) {
+        this.#googleRoutes = googleRoutesApi;
+        this.#prices = {
+            approachByKm: 0.4,
+            returnByKm: 0.4,
+            fullPricePerKm: 0.5,
+            tenancyBy30Min: 17.5
+        }
+    }
     calcFlatrateRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
@@ -11,7 +22,7 @@ class DrivingFlatrateModel {
         let totalCost = 0;
 
         // GET ROUTE DATA
-        const response = await GoogleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
+        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
         // h2o: home to origin
         // o2d: origin to destination
         // d2h: destination to home
@@ -20,10 +31,6 @@ class DrivingFlatrateModel {
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
             d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
         }
-        const prices = {
-            approachByKm: 0.4,
-            returnByKm: 0.4
-        }
 
         // validate relevance comparing tenancy to min time effort of origin2destination route
         CustomValidator.validateTravelTimeRelevance(
@@ -31,20 +38,21 @@ class DrivingFlatrateModel {
             routes.o2d.duration,
             ServiceOption.FLATRATE
         );
-        const tenancyObj = this.#calcTenancyValues(Number(params['tenancy']));
+
+        const tenancyObj = this._calcTenancyValues(Number(params['tenancy']));
 
         const approachDistance = routes.h2o.distanceMeters > 20 ? routes.h2o.distanceMeters - 20 : 0;
         const returnDistance = routes.d2h.distanceMeters > 20 ? routes.d2h.distanceMeters - 20 : 0;
 
         const approachCost = (approachDistance % 1) >= 5
-            ? Math.ceil(approachDistance) * prices.approachByKm
-            : Math.floor(approachDistance) * prices.approachByKm;
+            ? Math.ceil(approachDistance) * this.#prices.approachByKm
+            : Math.floor(approachDistance) * this.#prices.approachByKm;
 
         if(params['origin'] !== params['destination']) {
-            const minDistanceCost = this.#calcMinDistanceValues(routes.o2d);
+            const minDistanceCost = this._calcChargeByTenancyDiscount(routes.o2d);
             const returnCost = (returnDistance % 1) >= 5
-                ? Math.ceil(returnDistance) * prices.returnByKm
-                : Math.floor(returnDistance) * prices.returnByKm;
+                ? Math.ceil(returnDistance) * this.#prices.returnByKm
+                : Math.floor(returnDistance) * this.#prices.returnByKm;
             totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
         } else {
             totalCost = (approachCost * 2) + tenancyObj.costs;
@@ -58,13 +66,11 @@ class DrivingFlatrateModel {
         };
     }
 
-    #calcTenancyValues = (time) => {
-        const priceEach30Min = 17.5;
-
+    _calcTenancyValues = (time) => {
         // min 3h are charged
-        time = time < 180 ? 180 : time;
+        time = time <= 180 ? 180 : time;
         const newTimeInMinutes = time % 30 !== 0 ? (Math.ceil(time / 30)) * 30 : time;
-        const costs = (newTimeInMinutes / 30) * priceEach30Min;
+        const costs = (newTimeInMinutes / 30) * this.#prices.tenancyBy30Min;
 
         return {
             time: newTimeInMinutes,
@@ -72,16 +78,17 @@ class DrivingFlatrateModel {
         }
     }
 
-    #calcMinDistanceValues = (params) => {
-        const priceNextKm = 0.5;
+    _calcChargeByTenancyDiscount = (params) => {
+        // Get tenancy in full hours to calc free distance.
+        const chargedFullHours = (params.duration % 60) !== 0 
+            ? Math.floor(params.duration / 60) 
+            : params.duration / 60;
 
-        // substract 25km distance included in every full hour tenancy
-        const chargedTime = (params.duration % 60) !== 0 
-            ? (Math.floor(params.duration / 60) * 60) 
-            : params.duration;
-        const chargedDistance = params.distanceMeters - (25 * (chargedTime / 60));
-        return chargedDistance * priceNextKm;
+        // Substract 25 km each hour of tenancy from total service distance.
+        const chargedDistance = params.distanceMeters - (25 * chargedFullHours);
+
+        return Number((chargedDistance * this.#prices.fullPricePerKm).toFixed(1));
     }
 }
 
-module.exports = new DrivingFlatrateModel;
+module.exports = DrivingFlatrateModel;

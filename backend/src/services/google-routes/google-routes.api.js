@@ -111,7 +111,7 @@ class GoogleRoutesAPI {
                 console.log('google request error: ', error.message);
                 return error;
             })
-        
+
         result.forEach((entry) => {
             entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
             entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);

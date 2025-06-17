@@ -8,21 +8,22 @@ const DrivingGolfModel = require('../models/driving/golf.driving.model');
 class DrivingService {
     calcAirportRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const airportModel = new DrivingAirportModel(GoogleRoutes);
-        let calculation = await airportModel.calcAirportRoute(hasParams ? params : {});
+        const model = new DrivingAirportModel(GoogleRoutes);
+        let calculation = await model.calcAirportRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
     
     calcDestinationRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const destinationModel = new DrivingDestinationModel(GoogleRoutes);
-        let calculation = await destinationModel.calcDestinationRoute(hasParams ? params : {});        
+        const model = new DrivingDestinationModel(GoogleRoutes);
+        let calculation = await model.calcDestinationRoute(hasParams ? params : {});        
         return basicResponse(calculation, 1, "Success");
     }
     
     calcFlatrateRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = await DrivingFlatrateModel.calcFlatrateRoute(hasParams ? params : {});
+        const model = new DrivingFlatrateModel(GoogleRoutes);
+        let calculation = await model.calcFlatrateRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 

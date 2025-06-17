@@ -4,7 +4,7 @@ const { NotFoundException } = require('../../../../src/utils/exceptions/common.e
 const MockData_requestMapsMatrix = require('../../mock-data/requestMapsMatrix.mock.json');
 
 describe('Airport tests, priority: ARRIVAL', () => {
-    
+
     describe.only('Testing valid calculations', () => {
 
         test('Price: EUR 42,00', async () => {

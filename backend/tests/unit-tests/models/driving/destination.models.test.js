@@ -1,6 +1,6 @@
 const DrivingDestinationModel = require('../../../../src/models/driving/destination.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.mock.json');
+const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.mock.json')['service-destination'];
 
 describe('Destination tests, priority: calcDestinationRoute', () => {
 
@@ -194,6 +194,19 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
         })
     })
+
+    describe.only('Testing invalid calculations', () => {
+
+        test('Invalid params', async () => {
+            const mockParams = {};
+
+            const airportModel = new DrivingDestinationModel(googleRoutesApi);
+            const testFn = await airportModel.calcDestinationRoute(mockParams);
+            const expectResult = {error: 'no params found'};
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+    })
 })
 
 describe('Destination tests, priority: _addChargeServiceDistanceBelow30Km (via spyOn)', () => {
@@ -369,15 +382,17 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 
 describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
 
+    let model;
+    beforeEach(() => {
+        model = new DrivingDestinationModel(googleRoutesApi);
+    })
+
     describe.only('Testing valid calculations', () => {
 
         test('2824 to 2700, back2home = true', () => {
             const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
             mockParam_params['back2home'] = true;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params
-            );
+            const testFn = model._addChargeParkFlatByBH(mockParam_params);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -387,8 +402,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._addChargeParkFlatByBH(
+            const testFn = model._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );
@@ -401,8 +415,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._addChargeParkFlatByBH(
+            const testFn = model._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );
@@ -415,8 +428,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = true;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._addChargeParkFlatByBH(
+            const testFn = model._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );
