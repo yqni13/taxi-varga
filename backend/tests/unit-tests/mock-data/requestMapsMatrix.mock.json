@@ -1,6 +1,6 @@
 {
     "params": {
-        "route-1010To1300#1": {
+        "route1010-1300#1": {
             "destination": "Walfischgasse+3,+1010+Wien,+Austria",
             "destinationDetails": {
                 "address": "Walfischgasse 3, 1010 Wien, Austria",
@@ -11,7 +11,7 @@
             },
             "origin": "vie-schwechat"
         },
-        "route-1090To1300#1": {
+        "route1090-1300#1": {
             "destination": "Porzellangasse+51,+1090+Wien,+Austria",
             "destinationDetails": {
                 "address": "Porzellangasse 51, 1090 Wien, Austria",
@@ -22,7 +22,7 @@
             },
             "origin": "vie-schwechat"
         },
-        "route-1190To1300#1": {
+        "route1190-1300#1": {
             "destination": "Am+Cobenzl+94,+1190+Wien,+Austria",
             "destinationDetails": {
                 "address": "Am Cobenzl 94, 1190 Wien, Austria",
@@ -33,7 +33,7 @@
             },
             "origin": "vie-schwechat"
         },
-        "route-1300To1010#1": {
+        "route1300-1010#1": {
             "origin": "Parkring+12A,+1010+Wien,+Austria",
             "originDetails": {
                 "address": "Parkring 12A, 1010 Wien, Austria",
@@ -44,7 +44,7 @@
             },
             "destination": "vie-schwechat"
         },
-        "route-2000To1300#1": {
+        "route2000-1300#1": {
             "destination": "Hauptstr.+49,+2000+Stockerau,+Austria",
             "destinationDetails": {
                 "address": "Hauptstr. 49, 2000 Stockerau, Austria",
@@ -57,7 +57,7 @@
         }
     },
     "results": {
-        "route-1010To1300#1": {
+        "route1010-1300#1": {
             "destination_addresses": [
                 "Walfischgasse 3, 1010 Wien, Austria"
             ],
@@ -82,7 +82,7 @@
             ],
             "status": "OK"
         },
-        "route-1090To1300#1": {
+        "route1090-1300#1": {
             "destination_addresses": [
                 "Porzellangasse 51, 1090 Wien, Austria"
             ],
@@ -107,7 +107,7 @@
             ],
             "status": "OK"
         },
-        "route-1190To1300#1": {
+        "route1190-1300#1": {
             "destination_addresses": [
                 "Am Cobenzl 94, 1190 Wien, Austria"
             ],
@@ -132,7 +132,7 @@
             ],
             "status": "OK"
         },
-        "route-1300To1010#1": {
+        "route1300-1010#1": {
             "destination_addresses": [
                 "Vienna International Airport (VIE), 1300 Schwechat, Austria"
             ],
@@ -158,7 +158,7 @@
             ],
             "status": "OK"
         },
-        "route-2000To1300#1": {
+        "route2000-1300#1": {
             "destination_addresses": [
                 "Hauptstr. 49, 2000 Stockerau, Austria"
             ],

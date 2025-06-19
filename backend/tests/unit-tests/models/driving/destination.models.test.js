@@ -9,22 +9,22 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
         describe.only('Testing without latency', () => {
 
             test('1010 to 2361, back2home = false, withinBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 91 } };
+                const expectSubObj = { routeData: { price: 92 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
             test('1010 to 2361, back2home = true, withinBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
@@ -36,29 +36,29 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
 
             test('1010 to 2361, back2home = false, offBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['pickupTIME'] = 15;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 98 } };
+                const expectSubObj = { routeData: { price: 99 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
             test('1010 to 2361, back2home = true, offBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 15;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 90 } };
+                const expectSubObj = { routeData: { price: 91 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -68,11 +68,11 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
         describe.only('Test with different latency values', () => {
 
             test('1010 to 2361, back2home = true, withinBH, latency = 60', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 8;
                 mockParam_params['latency'] = 60;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
@@ -84,27 +84,27 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
 
             test('1010 to 2361, back2home = true, offBH, latency = 60', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 15;
                 mockParam_params['latency'] = 60;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 114 } };
+                const expectSubObj = { routeData: { price: 115 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
             test('1010 to 2361, back2home = true, withinBH, latency = 90', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 8;
                 mockParam_params['latency'] = 90;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
@@ -116,27 +116,27 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
 
             test('1010 to 2361, back2home = true, offBH, latency = 90', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 15;
                 mockParam_params['latency'] = 90;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 120 } };
+                const expectSubObj = { routeData: { price: 121 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
             test('1010 to 2361, back2home = true, withinBH, latency = 180', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 8;
                 mockParam_params['latency'] = 180;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
@@ -148,16 +148,16 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
 
             test('1010 to 2361, back2home = true, offBH, latency = 180', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
                 mockParam_params['back2home'] = 'true';
                 mockParam_params['pickupTIME'] = 15;
                 mockParam_params['latency'] = 180;
-                const mockResult = MockData_requestRouteMatrix['route-1010To2361']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 138 } };
+                const expectSubObj = { routeData: { price: 139 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -167,27 +167,27 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
         describe.only('Test with service distance < 30, priority: back2home & approach', () => {
 
             test('2824 to 2700, approach < 8, back2home = false, withinBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
-                const mockResult = MockData_requestRouteMatrix['route-2824To2700']['apiResult'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 33 } };
+                const expectSubObj = { routeData: { price: 34 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
             test('2824 to 2700, approach < 8, back2home = true, withinBH, latency = 0', async () => {
-                const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
                 mockParam_params['back2home'] = 'true';
-                const mockResult = MockData_requestRouteMatrix['route-2824To2700']['apiResult'];
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 43 } };
+                const expectSubObj = { routeData: { price: 44 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -197,7 +197,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
     describe.only('Testing invalid calculations', () => {
 
-        test('Invalid params', async () => {
+        test('Empty params', async () => {
             const mockParams = {};
 
             const airportModel = new DrivingDestinationModel(googleRoutesApi);
@@ -215,7 +215,7 @@ describe('Destination tests, priority: _addChargeServiceDistanceBelow30Km (via s
 
         let mockParam_response, mockParam_routes;
         beforeEach(() => {
-            mockParam_response = MockData_requestRouteMatrix['route-2824To2700']['apiResult'];
+            mockParam_response = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
             mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -244,7 +244,7 @@ describe('Destination tests, priority: _addChargeServiceDistanceBelow30Km (via s
         })
 
         test('1090 to 4020, service distance > 30', () => {
-            const mockParam_response = MockData_requestRouteMatrix['route-1090To4020']['apiResult'];
+            const mockParam_response = structuredClone(MockData_requestRouteMatrix['route1090-4020']['apiResult']);
             const mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -268,8 +268,8 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 
         let mockParam_params, mockParam_routes, mockParam_latencyCosts, mockParam_response;
         beforeEach(() => {
-            mockParam_params = MockData_requestRouteMatrix['route-1090To4020'];
-            mockParam_response = MockData_requestRouteMatrix['route-1090To4020']['apiResult'];
+            mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+            mockParam_response = structuredClone(MockData_requestRouteMatrix['route1090-4020']['apiResult']);
             mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -356,8 +356,8 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
         })
 
         test('2824 to 2700, back2home = true, withinBH, latency >= 180, o2h.distance <= 30', () => {
-            mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
-            mockParam_response = MockData_requestRouteMatrix['route-2824To2700']['apiResult'];
+            mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
+            mockParam_response = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
             mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -390,7 +390,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
     describe.only('Testing valid calculations', () => {
 
         test('2824 to 2700, back2home = true', () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = true;
             const testFn = model._addChargeParkFlatByBH(mockParam_params);
             const expectResult = 0;
@@ -399,7 +399,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         })
 
         test('2824 to 2700, back2home = false, offBH, origin != Vienna | VIE', () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2824To2700'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
             const testFn = model._addChargeParkFlatByBH(
@@ -412,7 +412,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         })
 
         test('1010 to 2361, back2home = false, offBH, origin == Vienna | VIE', () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
             const testFn = model._addChargeParkFlatByBH(
@@ -425,7 +425,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         })
 
         test('1010 to 2361, back2home = false, withinBH, origin == Vienna | VIE', () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-1010To2361'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = true;
             const testFn = model._addChargeParkFlatByBH(

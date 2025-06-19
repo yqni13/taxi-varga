@@ -104,10 +104,10 @@ class DrivingDestinationModel {
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
 
         result['duration'] = Math.ceil(totalServiceTime);
-        result['price'] = (totalCosts % 1) >= 5
+        result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
             : Math.floor(totalCosts);
-        result['distance'] = (totalServiceDistance % 1) >= 5
+        result['distance'] = (totalServiceDistance % 1) >= 0.5
             ? Math.ceil(totalServiceDistance) 
             : totalServiceDistance < 1
                 ? totalServiceDistance

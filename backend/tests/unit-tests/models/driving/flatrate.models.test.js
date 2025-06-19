@@ -7,60 +7,60 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
     describe.only('Testing valid calculations, tenancy: 180', () => {
 
         test('2525 to 2551, approach < 20 km, return < 20 km', async () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2525To2551'];
-            const mockResult = MockData_requestRouteMatrix['route-2525To2551']['apiResult'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551']);
+            const mockResult = structuredClone(MockData_requestRouteMatrix['route2525-2551']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const model = new DrivingFlatrateModel(mockAPI);
             const testFn = await model.calcFlatrateRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 109 } };
+            const expectSubObj = { routeData: { price: 105 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
         test('2700 to 2651, approach < 20 km, return > 20 km', async () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2700To2651'];
-            const mockResult = MockData_requestRouteMatrix['route-2700To2651']['apiResult'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2700-2651']);
+            const mockResult = structuredClone(MockData_requestRouteMatrix['route2700-2651']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const model = new DrivingFlatrateModel(mockAPI);
             const testFn = await model.calcFlatrateRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 145 } };
+            const expectSubObj = { routeData: { price: 122 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
         test('1220 to 2514, approach > 20 km, return < 20 km', async () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-1220To2514'];
-            const mockResult = MockData_requestRouteMatrix['route-1220To2514']['apiResult'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+            const mockResult = structuredClone(MockData_requestRouteMatrix['route1220-2514']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const model = new DrivingFlatrateModel(mockAPI);
             const testFn = await model.calcFlatrateRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 136 } };
+            const expectSubObj = { routeData: { price: 117 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
         test('2320 to 1020, approach > 20 km, return > 20 km', async () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2320To1020'];
-            const mockResult = MockData_requestRouteMatrix['route-2320To1020']['apiResult'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2320-1020']);
+            const mockResult = structuredClone(MockData_requestRouteMatrix['route2320-1020']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const model = new DrivingFlatrateModel(mockAPI);
             const testFn = await model.calcFlatrateRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 133 } };
+            const expectSubObj = { routeData: { price: 123 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
         test('2491 to 2491, origin == destination', async () => {
-            const mockParam_params = MockData_requestRouteMatrix['route-2491To2491'];
-            const mockResult = MockData_requestRouteMatrix['route-2491To2491']['apiResult'];
+            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2491-2491']);
+            const mockResult = structuredClone(MockData_requestRouteMatrix['route2491-2491']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const model = new DrivingFlatrateModel(mockAPI);
@@ -74,7 +74,7 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
     describe.only('Testing invalid calculations', () => {
 
-        test('Invalid params', async () => {
+        test('Empty params', async () => {
             const mockParams = {};
 
             const airportModel = new DrivingFlatrateModel(googleRoutesApi);
@@ -95,34 +95,74 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
 
     describe.only('Testing valid calculations', () => {
 
-        test('No discount, service distance < 25, duration < 60', () => {
-            const mockParam_params = { duration: 17.3, distanceMeters: 16.8};
-            const testFn = model._calcChargeByTenancyDiscount(mockParam_params);
-            const expectResult = 8.4;
-
-            expect(testFn).toBeCloseTo(expectResult, 1);
-        })
-
-        test('No discount, service distance > 25, duration < 60', () => {
-            const mockParam_params = { duration: 40.2, distanceMeters: 28.4};
-            const testFn = model._calcChargeByTenancyDiscount(mockParam_params);
-            const expectResult = 14.2;
-
-            expect(testFn).toBeCloseTo(expectResult, 1);
-        })
-
-        test('Discount, service distance > 25, duration > 60', () => {
-            const mockParam_params = { duration: 72.8, distanceMeters: 45.1};
-            const testFn = model._calcChargeByTenancyDiscount(mockParam_params);
-            const expectResult = 10.1;
+        test('Discount, Service distance == 75km, tenancy time < 180', () => {
+            const mockParam_distance = 75;
+            const mockParam_tenancyTime = 60;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Discount, Service distance > 25, duration == 60', () => {
-            const mockParam_params = { duration: 60, distanceMeters: 67.9};
-            const testFn = model._calcChargeByTenancyDiscount(mockParam_params);
-            const expectResult = 21.5;
+        test('Discount, Service distance == 75km, tenancy time == 180', () => {
+            const mockParam_distance = 75;
+            const mockParam_tenancyTime = 180;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Discount, Service distance == 75km, tenancy time > 180', () => {
+            const mockParam_distance = 75;
+            const mockParam_tenancyTime = 300;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Discount, Service distance > 75km, tenancy time < 180', () => {
+            const mockParam_distance = 150;
+            const mockParam_tenancyTime = 60;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 37.5;
+
+            expect(testFn).toBeCloseTo(expectResult, 1);
+        })
+
+        test('Discount, Service distance > 75km, tenancy time == 180', () => {
+            const mockParam_distance = 97.3;
+            const mockParam_tenancyTime = 180;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 11.1;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Discount, Service distance > 75km, tenancy time > 180', () => {
+            const mockParam_distance = 149.6;
+            const mockParam_tenancyTime = 240;
+            const testFn = model._calcChargeByTenancyDiscount(
+                mockParam_distance,
+                mockParam_tenancyTime
+            );
+            const expectResult = 24.8;
 
             expect(testFn).toBe(expectResult);
         })

@@ -29,7 +29,8 @@ class DrivingService {
 
     calcGolfRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        let calculation = await DrivingGolfModel.calcGolfRoute(hasParams ? params : {});
+        const model = new DrivingGolfModel(GoogleRoutes);
+        let calculation = await model.calcGolfRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 }
