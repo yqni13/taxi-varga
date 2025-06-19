@@ -49,8 +49,8 @@ class DrivingFlatrateModel {
             : Math.floor(approachDistance) * this.#prices.approachByKm;
 
         if(params['origin'] !== params['destination']) {
-            const minDistanceCost = this._calcChargeByTenancyDiscount(routes.o2d);
-            const returnCost = (returnDistance % 1) >= 5
+            const minDistanceCost = this._calcChargeByTenancyDiscount(routes.o2d.distanceMeters, tenancyObj.time);
+            const returnCost = (returnDistance % 1) >= 0.5
                 ? Math.ceil(returnDistance) * this.#prices.returnByKm
                 : Math.floor(returnDistance) * this.#prices.returnByKm;
             totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
@@ -78,16 +78,19 @@ class DrivingFlatrateModel {
         }
     }
 
-    _calcChargeByTenancyDiscount = (params) => {
+    _calcChargeByTenancyDiscount = (distance, tenancyTime) => {
         // Get tenancy in full hours to calc free distance.
-        const chargedFullHours = (params.duration % 60) !== 0 
-            ? Math.floor(params.duration / 60) 
-            : params.duration / 60;
+        let chargedFullHours = (tenancyTime % 60) !== 0 
+            ? Math.floor(tenancyTime / 60) 
+            : tenancyTime / 60;
+
+        // Check again on tenancy time equals min 3h
+        chargedFullHours = chargedFullHours < 3 ? 3 : chargedFullHours;
 
         // Substract 25 km each hour of tenancy from total service distance.
-        const chargedDistance = params.distanceMeters - (25 * chargedFullHours);
+        const chargedDistance = distance - (25 * chargedFullHours);
 
-        return Number((chargedDistance * this.#prices.fullPricePerKm).toFixed(1));
+        return chargedDistance <= 0 ? 0 : Number((chargedDistance * this.#prices.fullPricePerKm).toFixed(1));
     }
 }
 

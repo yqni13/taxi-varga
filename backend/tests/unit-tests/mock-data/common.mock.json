@@ -1,0 +1,39 @@
+{
+    "auth": {
+        "secrets": {
+            "user": {
+                "admin": "admin",
+                "test-user": "testuser",
+                "null-user": null
+            },
+            "password": {
+                "admin": "admin",
+                "test-pass": "testpass",
+                "null-pass": null
+            },
+            "position": {
+                "admin": 0,
+                "test-pos": 1,
+                "null-pos": null
+            },
+            "id": {
+                "admin": 0,
+                "test-id": 1,
+                "null-id": null
+            }
+        },
+        "payload": {
+            "admin": {
+                "user": "admin",
+                "pass": "admin",
+                "aud": "flatrate"
+            },
+            "test-user": {
+                "user": "testuser",
+                "pass": "testpass",
+                "aud": "destination"
+            }
+        },
+        "privateKey": "-----BEGIN PRIVATE KEY-----\nTESTKEYL7Z\n-----END PRIVATE KEY-----"
+    }
+}
