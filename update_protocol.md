@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/06/19 - $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
+
+- $\textsf{\color{teal}Addition:}$ Added backend tests for services, utils, validations and Google API.
+- $\textsf{\color{teal}Addition:}$ Added GLOSSARY.md as guidelines for name schemas, prefixes and abbreviations.
+
 ### 2025/06/14 - $\textsf{last\ update\ 1.2.4\ >>\ {\color{pink}1.2.5}}$
 
 - $\textsf{\color{red}Patch:}$ Services 'destination' and 'golf' had incorrect prices to calculate with (static variables).
