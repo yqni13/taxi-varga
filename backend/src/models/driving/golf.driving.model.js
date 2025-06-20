@@ -1,16 +1,28 @@
-const GoogleRoutes = require('../../services/google-routes/google-routes.api');
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SupportModeOption } = require("../../utils/enums/supportmode-option.enum");
 const CustomValidator = require('../../utils/customValidator.utils');
 
 class DrivingGolfModel {
+    #googleRoutes;
+    #prices;
+
+    constructor(googleRoutesApi) {
+        this.#googleRoutes = googleRoutesApi;
+        this.#prices = {
+            below30Km: 0.65,
+            above30Km: 0.5,
+            homeBasedRoutePerKm: 0.4,
+            stayPerHour: 12,
+            serviceDistanceBelow30Km: 0.4
+        }
+    }
     calcGolfRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
 
         // GET ROUTE DATA
-        const response = await GoogleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
+        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
         // h2o: home to golfcourse
         // o2g: origin to golfcourse
         // g2d: golfcourse to destination
@@ -28,10 +40,6 @@ class DrivingGolfModel {
             price: 0
         }
         let additionalCharges = 0;
-        const prices = {
-            below30Km: 0.65,
-            above30Km: 0.5
-        }
 
         // validate relevance & update stay time by removing origin route duration (in total minutes)
         params['stay'] = CustomValidator.validateTravelTimeRelevance(
@@ -44,34 +52,37 @@ class DrivingGolfModel {
         const serveWay = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
         const serveTime = routes.o2g.duration + routes.g2d.duration;
 
-        const serveWayCosts = serveWay <= 30 ? serveWay * prices.below30Km : serveWay * prices.above30Km;
-        const serveTimeCosts = serveWay <= 30 ? serveTime * prices.below30Km : serveTime * prices.above30Km;
-        const approachCosts = this.#calcHomeBasedRouteCosts(routes.h2o.distanceMeters);
-        const returnCosts = this.#calcHomeBasedRouteCosts(routes.d2h.distanceMeters);
-        const stayObj = this.#calcStayCosts(Number(params['stay']));
+        const serveWayCosts = serveWay <= 30 ? serveWay * this.#prices.below30Km : serveWay * this.#prices.above30Km;
+        const serveTimeCosts = serveWay <= 30 ? serveTime * this.#prices.below30Km : serveTime * this.#prices.above30Km;
+        const approachCosts = this._calcHomeBasedRouteCosts(routes.h2o.distanceMeters);
+        const returnCosts = this._calcHomeBasedRouteCosts(routes.d2h.distanceMeters);
+        const stayObj = this._calcStayCosts(Number(params['stay']));
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        additionalCharges += this.#addChargeServiceDistanceBelow30Km(routes, 0.5);
-        
+        additionalCharges += this._addChargeServiceDistanceBelow30Km(routes);
+
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
         result['distance'] = Math.ceil(serveWay);
         result['duration'] = Math.ceil(serveTime);
         result['stay'] = stayObj.hours;
-        result['price'] = (totalCosts % 1) >= 5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
+        result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
         return {routeData: result};
     }
 
-    #calcHomeBasedRouteCosts = (distance) => {
-        const pricePerKm = 0.4;
-        return distance <= 30 ? 0 : (distance - 30) * pricePerKm;
+    _calcHomeBasedRouteCosts = (distance) => {
+        if(typeof(distance) !== 'number') {
+            return 0;
+        }
+        return distance <= 30 ? 0 : (distance - 30) * this.#prices.homeBasedRoutePerKm;
     }
 
-    #calcStayCosts = (time) => {
-        const priceStay1h = 12;
-
+    _calcStayCosts = (time) => {
+        if(typeof(time) !== 'number') {
+            return { hours: 6, costs: 48 };
+        }
         // convert min to hour values (min 6h)
         time = time <= 360
             ? 6
@@ -81,11 +92,11 @@ class DrivingGolfModel {
 
         return {
             hours: time,
-            costs: time > 6 ? (48 + (priceStay1h * (time - 6))) : 48
+            costs: time > 6 ? (48 + (this.#prices.stayPerHour * (time - 6))) : 48
         };
     }
 
-    #addChargeServiceDistanceBelow30Km = (routes, price) => {
+    _addChargeServiceDistanceBelow30Km = (routes) => {
         let charge = 0;
         const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
         if(serviceDistance > 30) {
@@ -93,12 +104,12 @@ class DrivingGolfModel {
         }
 
         // Additional charge on approach
-        charge += routes.h2o.distanceMeters * price;
+        charge += routes.h2o.distanceMeters * this.#prices.serviceDistanceBelow30Km;
         // Additional charge on return home
-        charge += routes.d2h.distanceMeters * price;
+        charge += routes.d2h.distanceMeters * this.#prices.serviceDistanceBelow30Km;
 
-        return charge;
+        return Number((charge).toFixed(1));
     }
 }
 
-module.exports = new DrivingGolfModel;
+module.exports = DrivingGolfModel;

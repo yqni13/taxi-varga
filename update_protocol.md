@@ -4,14 +4,23 @@
 
 <br>
 
+### 2025/06/19 - $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
+
+- $\textsf{\color{teal}Addition:}$ Added backend tests for services, utils, validations and Google API.
+- $\textsf{\color{teal}Addition:}$ Added GLOSSARY.md as guidelines for name schemas, prefixes and abbreviations.
+
+### 2025/06/14 - $\textsf{last\ update\ 1.2.4\ >>\ {\color{pink}1.2.5}}$
+
+- $\textsf{\color{red}Patch:}$ Services 'destination' and 'golf' had incorrect prices to calculate with (static variables).
+
 ### 2025/06/11 - $\textsf{last\ update\ 1.2.3\ >>\ {\color{pink}1.2.4}}$
 
-- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' calculation + refactoring.
+- $\textsf{\color{red}Patch:}$ Updated service 'destination' and 'golf' calculation + refactoring.
 
 ### 2025/06/08 - $\textsf{last\ update\ 1.2.2\ >>\ {\color{pink}1.2.3}}$
 
-- $\textsf{\color{red}Patch:}$ Update service 'destination' and 'golf' behavior to refuse Vienna/VIE requests and navigate back to service overview.
-- $\textsf{\color{red}Patch:}$ Update service 'flatrate' calculation.
+- $\textsf{\color{red}Patch:}$ Updated service 'destination' and 'golf' behavior to refuse Vienna/VIE requests and navigate back to service overview.
+- $\textsf{\color{red}Patch:}$ Updated service 'flatrate' calculation.
 
 ### 2025/05/24 - $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
 

@@ -1,0 +1,105 @@
+{
+    "place-1010#1": {
+        "details": {
+            "address": "Teinfaltstraße 10, 1010 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJiUK6LZYHbUcRNmNJORkALa8",
+            "province": "Wien",
+            "zipCode": "1010"
+        },
+        "simple": "Teinfaltstraße+10,+1010+Wien,+Austria"
+    },
+    "place-1050#1": {
+        "details": {
+            "address": "Rechte Wienzeile 67, 1050 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJQ0pzjogHbUcRlrbYwJprTO4",
+            "province": "Wien",
+            "zipCode": "1050"
+        },
+        "simple": "Rechte+Wienzeile+67,+1050+Wien,+Austria"
+    },
+    "place-1090#1": {
+        "details": {
+            "address": "Porzellangasse 51, 1090 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJlZ1wyrcHbUcRwyxcfR_nKPs",
+            "province": "Wien",
+            "zipCode": "1090"
+        },
+        "simple": "Porzellangasse+51,+1090+Wien,+Austria"
+    },
+    "place-1190#1": {
+        "details": {
+            "address": "Am Cobenzl 94, 1190 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ8wuX08AIbUcRChur56r_ISg",
+            "province": "Wien",
+            "zipCode": "1190"
+        },
+        "simple": "Am+Cobenzl+94,+1190+Wien,+Austria"
+    },
+    "place-1220#1": {
+        "details": {
+            "address": "Florian-Berndl-Gasse 28, 1220 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJLd4aacQGbUcRXq9uFKonApw",
+            "province": "Wien",
+            "zipCode": "1220"
+        },
+        "simple": "Florian-Berndl-Gasse+28,+1220+Wien,+Austria"
+    },
+    "place-1300#1": {
+        "simple": "vie-schwechat"
+    },
+    "place-1300#2": {
+        "details": {
+            "address": "Flughafen Wien Schwechat",
+            "country": "Austria",
+            "placeId": "ChIJm74aR6tVbEcRS5vSjRBSeiQ",
+            "province": "Niederösterreich",
+            "zipCode": "1300"
+        },
+        "simple": "Flughafen+Wien+Schwechat"
+    },
+    "place-2344#1": {
+        "details": {
+            "address": "EVN-Platz 1, 2344 Maria Enzersdorf, Austria",
+            "country": "Austria",
+            "placeId": "ChIJNei02R-vbUcRT2Q4MVjBUTE",
+            "province": "Niederösterreich",
+            "zipCode": "2344"
+        },
+        "simple": "EVN-Platz+1,+2344+Maria+Enzersdorf,+Austria"
+    },
+    "place-2361#1": {
+        "details": {
+            "address": "Niklas Steuber-Gasse 4, 2361 Laxenburg, Austria",
+            "country": "Austria",
+            "placeId": "ChIJgbGKdYGubUcRPOkbOwiBiVA",
+            "province": "Niederösterreich",
+            "zipCode": "2361"
+        },
+        "simple": "Niklas+Steuber-Gasse+4,+2361+Laxenburg,+Austria"
+    },
+    "place-2361#2": {
+        "details": {
+            "address": "Schloßpl. 1, 2361 Laxenburg, Austria",
+            "country": "Austria",
+            "placeId": "ChIJCQF_6s-tbUcRbN0U1OKrA3c",
+            "province": "Niederösterreich",
+            "zipCode": "2361"
+        },
+        "simple": "Schloßpl.+1,+2361+Laxenburg,+Austria"
+    },
+    "place-2522#1": {
+        "details": {
+            "address": "Schloßsee II 166, 2522 Oberwaltersdorf, Austria",
+            "country": "Austria",
+            "placeId": "ChIJSxRwptGzbUcRoml3QBp9ti0",
+            "province": "Niederösterreich",
+            "zipCode": "2522"
+        },
+        "simple": "Schloßsee+II+166,+2522+Oberwaltersdorf,+Austria"
+    }
+}

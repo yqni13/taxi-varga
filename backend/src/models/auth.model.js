@@ -65,4 +65,4 @@ class AuthModel {
     }
 }
 
-module.exports = new AuthModel();
+module.exports = AuthModel;

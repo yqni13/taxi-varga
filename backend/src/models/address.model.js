@@ -1,13 +1,18 @@
 require('dotenv').config();
-const GooglePlaces = require('../services/google-places/google-places.api');
 
 class AddressModel {
+    #googlePlaces;
+
+    constructor(googlePlacesApi) {
+        this.#googlePlaces = googlePlacesApi;
+    }
+
     getPlaceAutocomplete = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
 
-        const result = await GooglePlaces.requestPlaceAutocomplete(params);
+        const result = await this.#googlePlaces.requestPlaceAutocomplete(params);
 
         return { placeData: result };
     }
@@ -17,10 +22,10 @@ class AddressModel {
             return {error: 'no params found'};
         }
         
-        const result = await GooglePlaces.requestPlaceDetails(params);
+        const result = await this.#googlePlaces.requestPlaceDetails(params);
 
         return { placeData: result };
     }
 }
 
-module.exports = new AddressModel;
+module.exports = AddressModel;
