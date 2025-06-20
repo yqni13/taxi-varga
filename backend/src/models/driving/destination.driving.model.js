@@ -11,8 +11,8 @@ class DrivingDestinationModel {
             approachBelow30Km: 4,
             approachAbove30Km: 0.4,
             approachOffBH: 0.5,
-            below30Km: 0.65,
-            above30Km: 0.5,
+            servDistBelow30Km: 0.65,
+            servDistAbove30Km: 0.5,
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
@@ -83,11 +83,11 @@ class DrivingDestinationModel {
         }
 
         if(totalServiceDistance <= 30) {
-            serviceDriveTimeCost = totalServiceTime * this.#prices.below30Km;
-            serviceDriveDistanceCost = payingServiceDistance * this.#prices.below30Km;
+            serviceDriveTimeCost = totalServiceTime * this.#prices.servDistBelow30Km;
+            serviceDriveDistanceCost = payingServiceDistance * this.#prices.servDistBelow30Km;
         } else {
-            serviceDriveTimeCost = totalServiceTime * this.#prices.above30Km;
-            serviceDriveDistanceCost = payingServiceDistance * this.#prices.above30Km;
+            serviceDriveTimeCost = totalServiceTime * this.#prices.servDistAbove30Km;
+            serviceDriveDistanceCost = payingServiceDistance * this.#prices.servDistAbove30Km;
         }
 
         // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 

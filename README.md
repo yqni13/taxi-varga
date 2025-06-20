@@ -160,12 +160,30 @@ this.assetsPreloadService.preloadAssets({
 
 ### $\textsf{\color{teal}Jest}$
 
+Added `jest` testing framework to project providing unit tests for the `backend`.<br>
+Install the packages `@jest/globals`, `@types/jest` additional to `jest`:
+```sh
+npm install jest @jest/globals @types/jest --save-dev
+```
+100+ tests exist currently for models, utils and validators - see [tests](./backend/tests).<br>
+Run tests on local device by including setup for dotenv/config to provide environment variables:
+```sh
+jest --setupFiles dotenv/config
+```
+or simply save as script command in `package.json` to run `npm test`:
+```sh
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --setupFiles dotenv/config"
+  }
+```
+
 <br>
 
 ### $\textsf{\color{teal}Angular ESLint}$
 
 Added angular-eslint to project for next step of testing.<br>
-Install ESLint global via node package manager: 
+Install ESLint global via node package manager:
 ```sh 
 $ npm install -g eslint
 ```

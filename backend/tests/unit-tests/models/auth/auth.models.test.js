@@ -51,31 +51,18 @@ describe('Auth tests, priority: generateToken', () => {
 
     describe.only('Testing invalid fn calls', () => {
 
-        let model, mockParam_position, mockParam_id, mockParam_user, mockParam_password, mockParam_privateKey;
+        let authModel, mockParam_position, mockParam_id, mockParam_user, mockParam_password, mockParam_privateKey;
         beforeEach(() => {
-            model = new AuthModel();
+            authModel = new AuthModel();
             mockParam_privateKey = 'testkey';
         })
 
         test('Empty params', async () => {
             const mockParam_params = {};
-            const testFn = await model.generateToken(mockParam_params);
+            const testFn = await authModel.generateToken(mockParam_params);
             const expectResult = { body: { error: 'no params found' }, code: 0, msg: 'Error' };
 
             expect(testFn).toMatchObject(expectResult);
         })
-
-        // test('Invalid params, user: null, pass: \'test\', aud: \'golf\'', async () => {
-        //     const mockParam_params = { user: null, pass: 'test', aud: 'golf' };
-        //     const mockParam_privateKey = 'key';
-        //     const mockResult_decryptedUser = 'testuser';
-        //     const mockAPI = { decryptRSA: jest.fn().mockResolvedValue(mockResult_decryptedUser)};
-
-        //     const testFn = await model.generateToken(mockParam_params);
-        //     const expectResult = InvalidCredentialsException('backend-invalid-user');
-
-        //     expect(testFn).toBe(expectResult);
-        //     expect(mockAPI.decryptRSA).toHaveBeenCalled();
-        // })
     })
 })

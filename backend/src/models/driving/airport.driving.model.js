@@ -7,9 +7,9 @@ class DrivingAirportModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
-            range_A: 42,
-            range_B: 45,
-            range_C: 48
+            innerRange: 42,
+            middleRange: 45,
+            outerRange: 48
         }
     }
 
@@ -19,9 +19,9 @@ class DrivingAirportModel {
         }
 
         // CONFIGURE PARAMETERS
-        const districtRange_A = [1, 2, 3, 4, 10, 11];
-        const districtRange_B = [5, 6, 7, 8, 9, 12, 15, 20];
-        const districtRange_C = [13, 14, 16, 17, 18, 19, 21, 22, 23];
+        const districtInnerRange = [1, 2, 3, 4, 10, 11];
+        const districtMiddleRange = [5, 6, 7, 8, 9, 12, 15, 20];
+        const districtOuterRange = [13, 14, 16, 17, 18, 19, 21, 22, 23];
         let district, price, matrixParams;
 
         if(params['origin'] === 'vie-schwechat') {
@@ -46,12 +46,12 @@ class DrivingAirportModel {
 
         // PRICE CALC BASED ON ZIPCODE
         district = Number(district.slice(1,3));
-        if(districtRange_A.includes(district)) {
-            price = this.#prices.range_A;
-        } else if(districtRange_B.includes(district)) {
-            price = this.#prices.range_B;
-        } else if(districtRange_C.includes(district)) {
-            price = this.#prices.range_C;
+        if(districtInnerRange.includes(district)) {
+            price = this.#prices.innerRange;
+        } else if(districtMiddleRange.includes(district)) {
+            price = this.#prices.middleRange;
+        } else if(districtOuterRange.includes(district)) {
+            price = this.#prices.outerRange;
         } else {
             throw new NotFoundException('Vienna zip code not found');
         }

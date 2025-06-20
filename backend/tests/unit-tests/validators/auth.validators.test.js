@@ -3,7 +3,7 @@ const { ServiceOption } = require('../../../src/utils/enums/service-option.enum'
 
 describe('CustomValidator tests, priority: AUTH', () => {
 
-    describe.only('Testing valid results', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('fn: validateServiceOption', () => {
             const mockParam_value = ServiceOption;
@@ -14,7 +14,7 @@ describe('CustomValidator tests, priority: AUTH', () => {
         })
     })
 
-    describe.only('Testing invalid results', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('fn: validateServiceOption, param: false value', () => {
             const mockParam_value = { GOLF: 'Tennis' };

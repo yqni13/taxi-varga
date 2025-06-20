@@ -4,7 +4,7 @@ const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.
 
 describe('Destination tests, priority: calcDestinationRoute', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         describe.only('Testing without latency', () => {
 
@@ -195,13 +195,13 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
-            const mockParams = {};
+            const mockParam_params = {};
 
-            const airportModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = await airportModel.calcDestinationRoute(mockParams);
+            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+            const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
             const expectResult = {error: 'no params found'};
 
             expect(testFn).toMatchObject(expectResult);
@@ -211,7 +211,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
 describe('Destination tests, priority: _addChargeServiceDistanceBelow30Km (via spyOn)', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         let mockParam_response, mockParam_routes;
         beforeEach(() => {
@@ -264,7 +264,7 @@ describe('Destination tests, priority: _addChargeServiceDistanceBelow30Km (via s
 
 describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         let mockParam_params, mockParam_routes, mockParam_latencyCosts, mockParam_response;
         beforeEach(() => {
@@ -382,17 +382,17 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 
 describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
 
-    let model;
+    let destinationModel;
     beforeEach(() => {
-        model = new DrivingDestinationModel(googleRoutesApi);
+        destinationModel = new DrivingDestinationModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('2824 to 2700, back2home = true', () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = true;
-            const testFn = model._addChargeParkFlatByBH(mockParam_params);
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -402,7 +402,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
-            const testFn = model._addChargeParkFlatByBH(
+            const testFn = destinationModel._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );
@@ -415,7 +415,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = false;
-            const testFn = model._addChargeParkFlatByBH(
+            const testFn = destinationModel._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );
@@ -428,7 +428,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1010-2361']);
             mockParam_params['back2home'] = false;
             const mockParam_isWithinBH = true;
-            const testFn = model._addChargeParkFlatByBH(
+            const testFn = destinationModel._addChargeParkFlatByBH(
                 mockParam_params,
                 mockParam_isWithinBH
             );

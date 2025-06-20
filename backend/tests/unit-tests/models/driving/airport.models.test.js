@@ -5,15 +5,15 @@ const MockData_requestMapsMatrix = require('../../mock-data/requestMapsMatrix.mo
 
 describe('Airport tests, priority: ARRIVAL', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('Price: EUR 42,00', async () => {
-            const mockParams = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1010-1300#1']);
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const airportModel = new DrivingAirportModel(mockAPI);
-            const testFn = await airportModel.calcAirportRoute(mockParams);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 42 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -21,12 +21,12 @@ describe('Airport tests, priority: ARRIVAL', () => {
         })
 
         test('Price: EUR 45,00', async () => {
-            const mockParams = structuredClone(MockData_requestMapsMatrix['params']['route1090-1300#1']);
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1090-1300#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1090-1300#1']);
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const airportModel = new DrivingAirportModel(mockAPI);
-            const testFn = await airportModel.calcAirportRoute(mockParams);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 45 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -34,12 +34,12 @@ describe('Airport tests, priority: ARRIVAL', () => {
         })
 
         test('Price EUR 48,00', async () => {
-            const mockParams = structuredClone(MockData_requestMapsMatrix['params']['route1190-1300#1']);
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1190-1300#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1190-1300#1']);
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const airportModel = new DrivingAirportModel(mockAPI);
-            const testFn = await airportModel.calcAirportRoute(mockParams);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 48 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -47,27 +47,27 @@ describe('Airport tests, priority: ARRIVAL', () => {
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
-            const mockParams = {};
+            const mockParam_params = {};
 
             const airportModel = new DrivingAirportModel(googleRoutesApi);
-            const testFn = await airportModel.calcAirportRoute(mockParams);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
             const expectResult = {error: 'no params found'};
 
             expect(testFn).toMatchObject(expectResult);
         })
 
         test('Invalid zipCode', async () => {
-            const mockParams = structuredClone(MockData_requestMapsMatrix['params']['route2000-1300#1']);
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route2000-1300#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route2000-1300#1']);
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const airportModel = new DrivingAirportModel(mockAPI);
             const expectResult = NotFoundException;
 
-            await expect(airportModel.calcAirportRoute(mockParams))
+            await expect(airportModel.calcAirportRoute(mockParam_params))
                 .rejects
                 .toThrow(expectResult);
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
@@ -77,15 +77,15 @@ describe('Airport tests, priority: ARRIVAL', () => {
 
 describe('Airport tests, priority: DEPARTURE', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('Price: EUR 42,00', async () => {
-            const mockParams = structuredClone(MockData_requestMapsMatrix['params']['route1300-1010#1']);
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1300-1010#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1300-1010#1']);
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const airportModel = new DrivingAirportModel(mockAPI);
-            const testFn = await airportModel.calcAirportRoute(mockParams);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 42 } };
 
             expect(testFn).toMatchObject(expectSubObj);

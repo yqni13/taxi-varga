@@ -5,7 +5,7 @@ const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('2525 to 2551 to 2525, service distance < 30km, support mode: none', async () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']);
@@ -13,8 +13,8 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingGolfModel(mockAPI);
-            const testFn = await model.calcGolfRoute(mockParam_params);
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 90 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -27,8 +27,8 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingGolfModel(mockAPI);
-            const testFn = await model.calcGolfRoute(mockParam_params);
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 126 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -41,8 +41,8 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingGolfModel(mockAPI);
-            const testFn = await model.calcGolfRoute(mockParam_params);
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 192 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -55,8 +55,8 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingGolfModel(mockAPI);
-            const testFn = await model.calcGolfRoute(mockParam_params);
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 228 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -64,13 +64,13 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
-            const mockParams = {};
+            const mockParam_params = {};
 
-            const model = new DrivingGolfModel(googleRoutesApi);
-            const testFn = await model.calcGolfRoute(mockParams);
+            const golfModel = new DrivingGolfModel(googleRoutesApi);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectResult = { error: 'no params found' };
 
             expect(testFn).toMatchObject(expectResult);
@@ -80,12 +80,12 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
 describe('Flatrate tests, priority: _addChargeServiceDistanceBelow30Km', () => {
 
-    let model;
+    let golfModel;
     beforeEach(() => {
-        model = new DrivingGolfModel(googleRoutesApi);
+        golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations, priority: service distance', () => {
+    describe.only('Testing valid fn calls, priority: service distance', () => {
 
         test('2525 to 2551 to 2525, distance < 30km', () => {
             const mockParam_response = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']['apiResult']);
@@ -96,7 +96,7 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow30Km', () => {
                 d2h: mockParam_response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
             };
 
-            const testFn = model._addChargeServiceDistanceBelow30Km(mockParam_routes);
+            const testFn = golfModel._addChargeServiceDistanceBelow30Km(mockParam_routes);
             const expectResult = 4.2;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
@@ -111,7 +111,7 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow30Km', () => {
                 d2h: mockParam_response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
             };
 
-            const testFn = model._addChargeServiceDistanceBelow30Km(mockParam_routes);
+            const testFn = golfModel._addChargeServiceDistanceBelow30Km(mockParam_routes);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -121,16 +121,16 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow30Km', () => {
 
 describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
-    let model;
+    let golfModel;
     beforeEach(() => {
-        model = new DrivingGolfModel(googleRoutesApi);
+        golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations, priority: h2o/d2h distance', () => {
+    describe.only('Testing valid fn calls, priority: h2o/d2h distance', () => {
 
         test('Distance < 30', () => {
             const mockParam_distance = 11.7;
-            const testFn = model._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -138,7 +138,7 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
         test('Distance == 30', () => {
             const mockParam_distance = 30;
-            const testFn = model._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -146,19 +146,18 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
         test('Distance > 30', () => {
             const mockParam_distance = 47.5;
-            const testFn = model._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
             const expectResult = 7;
 
             expect(testFn).toBe(expectResult);
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Distance == \'test\'', () => {
             const mockParam_distance = 'test';
-            const model = new DrivingGolfModel(googleRoutesApi);
-            const testFn = model._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -168,16 +167,16 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
 describe('Flatrate tests, priority: _calcStayCosts', () => {
 
-    let model;
+    let golfModel;
     beforeEach(() => {
-        model = new DrivingGolfModel(googleRoutesApi);
+        golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations, priority: time of stay', () => {
+    describe.only('Testing valid fn calls, priority: time of stay', () => {
 
         test('Time < 360 min', () => {
             const mockParam_time = 359;
-            const testFn = model._calcStayCosts(mockParam_time);
+            const testFn = golfModel._calcStayCosts(mockParam_time);
             const expectSubObj = { hours: 6, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -185,7 +184,7 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
 
         test('Time == 360 min', () => {
             const mockParam_time = 360;
-            const testFn = model._calcStayCosts(mockParam_time);
+            const testFn = golfModel._calcStayCosts(mockParam_time);
             const expectSubObj = { hours: 6, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -193,19 +192,18 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
 
         test('Time > 360 min', () => {
             const mockParam_time = 420;
-            const testFn = model._calcStayCosts(mockParam_time);
+            const testFn = golfModel._calcStayCosts(mockParam_time);
             const expectSubObj = { hours: 7, costs: 60 };
 
             expect(testFn).toMatchObject(expectSubObj);
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Time = \'test\'', () => {
             const mockParam_time = 'test';
-            const model = new DrivingGolfModel(googleRoutesApi);
-            const testFn = model._calcStayCosts(mockParam_time);
+            const testFn = golfModel._calcStayCosts(mockParam_time);
             const expectSubObj = { hours: 6, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);

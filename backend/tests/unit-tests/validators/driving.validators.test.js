@@ -5,7 +5,7 @@ const { SupportModeOption } = require('../../../src/utils/enums/supportmode-opti
 
 describe('CustomValidator tests, priority: DRIVING', () => {
 
-    describe.only('Testing valid results', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('fn: validateDestinationServiceAddress', () => {
             const mockParam_address = MockData_places['place-1010#1']['simple'];
@@ -81,7 +81,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
         })
     })
 
-    describe.only('Testing invalid results', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('fn: validateDestinationServiceAddress, param: all within Vienna', () => {
             const mockParam_address = MockData_places['place-1090#1']['simple'];

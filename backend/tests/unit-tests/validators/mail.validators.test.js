@@ -6,7 +6,7 @@ jest.mock('../../../src/utils/crypto.utils');
 
 describe('CustomValidator tests, priority: MAIL', () => {
 
-    describe.only('Testing valid results', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('fn: validateEncryptedSender', () => {
             CryptoService.decryptRSA.mockReturnValue('test@test.com');
@@ -19,7 +19,7 @@ describe('CustomValidator tests, priority: MAIL', () => {
         })
     })
 
-    describe.only('Testing invalid results', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('fn: validateEncryptedSender, param: invalid email #1', () => {
             CryptoService.decryptRSA.mockReturnValue('test@test');

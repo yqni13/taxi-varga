@@ -4,15 +4,15 @@ const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.
 
 describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
-    describe.only('Testing valid calculations, tenancy: 180', () => {
+    describe.only('Testing valid fn calls, tenancy: 180', () => {
 
         test('2525 to 2551, approach < 20 km, return < 20 km', async () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551']);
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2525-2551']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingFlatrateModel(mockAPI);
-            const testFn = await model.calcFlatrateRoute(mockParam_params);
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 105 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -24,8 +24,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2700-2651']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingFlatrateModel(mockAPI);
-            const testFn = await model.calcFlatrateRoute(mockParam_params);
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 122 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -37,8 +37,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route1220-2514']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingFlatrateModel(mockAPI);
-            const testFn = await model.calcFlatrateRoute(mockParam_params);
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 117 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -50,8 +50,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2320-1020']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingFlatrateModel(mockAPI);
-            const testFn = await model.calcFlatrateRoute(mockParam_params);
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 123 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -63,8 +63,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
             const mockResult = structuredClone(MockData_requestRouteMatrix['route2491-2491']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new DrivingFlatrateModel(mockAPI);
-            const testFn = await model.calcFlatrateRoute(mockParam_params);
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 105 } };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -72,13 +72,13 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
     })
 
-    describe.only('Testing invalid calculations', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
-            const mockParams = {};
+            const mockParam_params = {};
 
-            const airportModel = new DrivingFlatrateModel(googleRoutesApi);
-            const testFn = await airportModel.calcFlatrateRoute(mockParams);
+            const flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
+            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
             const expectResult = { error: 'no params found' };
 
             expect(testFn).toMatchObject(expectResult);
@@ -88,17 +88,17 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
 describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
 
-    let model;
+    let flatrateModel;
     beforeEach(() => {
-        model = new DrivingFlatrateModel(googleRoutesApi);
+        flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('Discount, Service distance == 75km, tenancy time < 180', () => {
             const mockParam_distance = 75;
             const mockParam_tenancyTime = 60;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -110,7 +110,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         test('Discount, Service distance == 75km, tenancy time == 180', () => {
             const mockParam_distance = 75;
             const mockParam_tenancyTime = 180;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -122,7 +122,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         test('Discount, Service distance == 75km, tenancy time > 180', () => {
             const mockParam_distance = 75;
             const mockParam_tenancyTime = 300;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -134,7 +134,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         test('Discount, Service distance > 75km, tenancy time < 180', () => {
             const mockParam_distance = 150;
             const mockParam_tenancyTime = 60;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -146,7 +146,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         test('Discount, Service distance > 75km, tenancy time == 180', () => {
             const mockParam_distance = 97.3;
             const mockParam_tenancyTime = 180;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -158,7 +158,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         test('Discount, Service distance > 75km, tenancy time > 180', () => {
             const mockParam_distance = 149.6;
             const mockParam_tenancyTime = 240;
-            const testFn = model._calcChargeByTenancyDiscount(
+            const testFn = flatrateModel._calcChargeByTenancyDiscount(
                 mockParam_distance,
                 mockParam_tenancyTime
             );
@@ -171,16 +171,16 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
 
 describe('Flatrate tests, priority: _calcTenancyValues', () => {
 
-    let model;
+    let flatrateModel;
     beforeEach(() => {
-        model = new DrivingFlatrateModel(googleRoutesApi);
+        flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid calculations', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('Tenancy: time < 180 min', () => {
             const mockParam_time = 90;
-            const testFn = model._calcTenancyValues(mockParam_time);
+            const testFn = flatrateModel._calcTenancyValues(mockParam_time);
             const expectSubObj = { time: 180, costs: 105 };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -188,7 +188,7 @@ describe('Flatrate tests, priority: _calcTenancyValues', () => {
 
         test('Tenancy: time == 180 min, time % 30 == 0', () => {
             const mockParam_time = 180;
-            const testFn = model._calcTenancyValues(mockParam_time);
+            const testFn = flatrateModel._calcTenancyValues(mockParam_time);
             const expectSubObj = { time: 180, costs: 105 };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -196,7 +196,7 @@ describe('Flatrate tests, priority: _calcTenancyValues', () => {
 
         test('Tenancy: time > 180 min, time % 30 == 0', () => {
             const mockParam_time = 210;
-            const testFn = model._calcTenancyValues(mockParam_time);
+            const testFn = flatrateModel._calcTenancyValues(mockParam_time);
             const expectSubObj = { time: 210, costs: 122.5 };
 
             expect(testFn).toMatchObject(expectSubObj);
@@ -204,7 +204,7 @@ describe('Flatrate tests, priority: _calcTenancyValues', () => {
 
         test('Tenancy: time < 180 min, time % 30 != 0', () => {
             const mockParam_time = 211;
-            const testFn = model._calcTenancyValues(mockParam_time);
+            const testFn = flatrateModel._calcTenancyValues(mockParam_time);
             const expectSubObj = { time: 240, costs: 140 };
 
             expect(testFn).toMatchObject(expectSubObj);

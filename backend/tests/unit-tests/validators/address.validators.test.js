@@ -4,7 +4,7 @@ const MockData_places = require('../mock-data/places.mock.json');
 
 describe('CustomValidator tests, priority: ADDRESS', () => {
 
-    describe.only('Testing valid results', () => {
+    describe.only('Testing valid fn calls', () => {
 
         test('fn: validateLanguageCompatible', () => {
             const mockParam_language = LanguageOption;
@@ -27,7 +27,7 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
         })
     })
 
-    describe.only('Testing invalid results', () => {
+    describe.only('Testing invalid fn calls', () => {
 
         test('fn: validateLanguageCompatible, param: false value', () => {
             const mockParam_language = { DE: 'fr' };

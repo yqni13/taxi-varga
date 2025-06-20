@@ -12,8 +12,8 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
             const mockResult = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['response']);
             const mockAPI = { requestPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new AddressModel(mockAPI);
-            const testFn = await model.getPlaceAutocomplete(mockParam_params);
+            const addressModel = new AddressModel(mockAPI);
+            const testFn = await addressModel.getPlaceAutocomplete(mockParam_params);
             const expectSubObj = { description: "Golf Club Wien, Freudenau, Wien, Österreich" };
 
             const nestedResult = testFn.placeData.predictions.find(
@@ -30,8 +30,8 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
         test('Empty params', async () => {
             const mockParam_params = {};
 
-            const model = new AddressModel(googlePlacesApi);
-            const testFn = await model.getPlaceAutocomplete(mockParam_params);
+            const addressModel = new AddressModel(googlePlacesApi);
+            const testFn = await addressModel.getPlaceAutocomplete(mockParam_params);
             const expectResult = { error: 'no params found' };
 
             expect(testFn).toMatchObject(expectResult);
@@ -42,13 +42,12 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
             const mockResult = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['response']);
             const mockAPI = { requestPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new AddressModel(mockAPI);
-            const testFn = await model.getPlaceAutocomplete(mockParam_params);
+            const addressModel = new AddressModel(mockAPI);
+            const testFn = await addressModel.getPlaceAutocomplete(mockParam_params);
             const expectSubObj = undefined;
 
-            // TODO(yqni13): no result on response.description === expectSubObj.description
             const nestedResult = testFn.placeData.predictions.find(
-                response => response.description.includes("Golf Club Wien, Freudenau, Wien, Austria")
+                response => response.description === "Golf Club Wien, Freudenau, Wien, Austria"
             );
 
             expect(nestedResult).toBe(expectSubObj);
@@ -66,8 +65,8 @@ describe('Flatrate tests, priority: getPlaceDetails', () => {
             const mockResult = structuredClone(MockData_requestPlaceDetails['hilton+schottenring']['response']);
             const mockAPI = { requestPlaceDetails: jest.fn().mockResolvedValue(mockResult) };
 
-            const model = new AddressModel(mockAPI);
-            const testFn = await model.getPlaceDetails(mockParam_params);
+            const addressModel = new AddressModel(mockAPI);
+            const testFn = await addressModel.getPlaceDetails(mockParam_params);
             const expectSubObj = { formatted_address: 'Schottenring 11, 1010 Wien, Austria' };
 
             const nestedResult = [testFn.placeData.result].find(
@@ -84,8 +83,8 @@ describe('Flatrate tests, priority: getPlaceDetails', () => {
         test('Empty params', async () => {
             const mockParam_params = {};
 
-            const model = new AddressModel(googlePlacesApi);
-            const testFn = await model.getPlaceDetails(mockParam_params);
+            const addressModel = new AddressModel(googlePlacesApi);
+            const testFn = await addressModel.getPlaceDetails(mockParam_params);
             const expectResult = { error: 'no params found' };
 
             expect(testFn).toMatchObject(expectResult);
