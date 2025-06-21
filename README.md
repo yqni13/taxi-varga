@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.2.2}}$
+$\texttt{\color{teal}{v1.3.1}}$
 
 
 <br><br>
@@ -26,6 +26,7 @@ $\texttt{\color{teal}{v1.2.2}}$
 <div style="display:flex; align-items:center">
     <img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;
     <img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;
+    <img src="frontend/public/assets/docs/icons/jest.png" alt="Jest">&nbsp;&nbsp;
 </div>
 <br>
 
@@ -155,13 +156,56 @@ this.assetsPreloadService.preloadAssets({
 
 <br>
 
+## Testing
+
+### $\textsf{\color{teal}Jest}$
+
+Added `jest` testing framework to project providing unit tests for the `backend`.<br>
+Install the packages `@jest/globals`, `@types/jest` additional to `jest`:
+```sh
+npm install jest @jest/globals @types/jest --save-dev
+```
+100+ tests exist currently for models, utils and validators - see [tests](./backend/tests).<br>
+Run tests on local device by including setup for dotenv/config to provide environment variables:
+```sh
+jest --setupFiles dotenv/config
+```
+or simply save as script command in `package.json` to run `npm test`:
+```sh
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --setupFiles dotenv/config"
+  }
+```
+
+<br>
+
+### $\textsf{\color{teal}Angular ESLint}$
+
+Added angular-eslint to project for next step of testing.<br>
+Install ESLint global via node package manager:
+```sh 
+$ npm install -g eslint
+```
+Install ESLint local for angular project: 
+
+```sh
+$ ng add @angular-eslint/schematics
+```
+
+Run ESLint to list all current lint errors: 
+```sh
+$ npm run lint
+```
+<br>
+
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.2.1\ >>\ {\color{pink}1.2.2}}$
+### $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
 
-- $\textsf{\color{red}Patch:}$ Added assets preload service/guard to provide loaded images/videos before showing page.
-- $\textsf{\color{red}Patch:}$ Adapt price calculation based on/off business hours.
+- $\textsf{\color{teal}Addition:}$ Added `backend` tests for services, utils, validations and Google API.
+- $\textsf{\color{teal}Addition:}$ Added GLOSSARY.md as guidelines for name schemas, prefixes and abbreviations.
 
 <br>
 
@@ -171,5 +215,5 @@ this.assetsPreloadService.preloadAssets({
     <dd>- update email format</dd>
     <dd>- update token handling (refresh token)</dd>
     <dd>- update logging & exception handling (client side)</dd>
-    <dd>- add testing</dd>
+    <dd>- add testing (frontend)</dd>
 </dl>

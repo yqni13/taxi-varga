@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --setupFiles dotenv/config"
   },
   "author": "yqni13",
   "license": "ISC",
@@ -24,6 +24,9 @@
     "nodemailer": "^6.9.16"
   },
   "devDependencies": {
-    "cross-env": "^7.0.3"
+    "@jest/globals": "^30.0.0",
+    "@types/jest": "^29.5.14",
+    "cross-env": "^7.0.3",
+    "jest": "^30.0.0"
   }
 }

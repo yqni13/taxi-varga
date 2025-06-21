@@ -1,0 +1,229 @@
+{
+    "gc+wien": {
+        "payload": {
+            "address": "gc+wien",
+            "language": "de",
+            "sessiontoken": "0ce0e243-8fef-4ab7-8516-09562776e84c"
+        },
+        "response": {
+            "predictions": [
+                {
+                    "description": "Golf Club Wien, Freudenau, Wien, Österreich",
+                    "matched_substrings": [
+                        {
+                            "length": 14,
+                            "offset": 0
+                        }
+                    ],
+                    "place_id": "ChIJ9-hsp7oAbUcRZ8iqftiKwU0",
+                    "reference": "ChIJ9-hsp7oAbUcRZ8iqftiKwU0",
+                    "structured_formatting": {
+                        "main_text": "Golf Club Wien",
+                        "main_text_matched_substrings": [
+                            {
+                                "length": 14,
+                                "offset": 0
+                            }
+                        ],
+                        "secondary_text": "Freudenau, Wien, Österreich"
+                    },
+                    "terms": [
+                        {
+                            "offset": 0,
+                            "value": "Golf Club Wien"
+                        },
+                        {
+                            "offset": 16,
+                            "value": "Freudenau"
+                        },
+                        {
+                            "offset": 27,
+                            "value": "Wien"
+                        },
+                        {
+                            "offset": 33,
+                            "value": "Österreich"
+                        }
+                    ],
+                    "types": [
+                        "point_of_interest",
+                        "establishment"
+                    ]
+                },
+                {
+                    "description": "Golfclub Wienerwald, Forsthof, Brand, Österreich",
+                    "matched_substrings": [
+                        {
+                            "length": 19,
+                            "offset": 0
+                        }
+                    ],
+                    "place_id": "ChIJo7S0AfSZbUcRR0Ypu1x3mO0",
+                    "reference": "ChIJo7S0AfSZbUcRR0Ypu1x3mO0",
+                    "structured_formatting": {
+                        "main_text": "Golfclub Wienerwald",
+                        "main_text_matched_substrings": [
+                            {
+                                "length": 19,
+                                "offset": 0
+                            }
+                        ],
+                        "secondary_text": "Forsthof, Brand, Österreich"
+                    },
+                    "terms": [
+                        {
+                            "offset": 0,
+                            "value": "Golfclub Wienerwald"
+                        },
+                        {
+                            "offset": 21,
+                            "value": "Forsthof"
+                        },
+                        {
+                            "offset": 31,
+                            "value": "Brand"
+                        },
+                        {
+                            "offset": 38,
+                            "value": "Österreich"
+                        }
+                    ],
+                    "types": [
+                        "establishment",
+                        "point_of_interest"
+                    ]
+                },
+                {
+                    "description": "Golf Club Wien-Süßenbrunn, Weingartenallee, Wien, Österreich",
+                    "matched_substrings": [
+                        {
+                            "length": 25,
+                            "offset": 0
+                        }
+                    ],
+                    "place_id": "ChIJx2xu65kDbUcRZqHrYYZTm1g",
+                    "reference": "ChIJx2xu65kDbUcRZqHrYYZTm1g",
+                    "structured_formatting": {
+                        "main_text": "Golf Club Wien-Süßenbrunn",
+                        "main_text_matched_substrings": [
+                            {
+                                "length": 25,
+                                "offset": 0
+                            }
+                        ],
+                        "secondary_text": "Weingartenallee, Wien, Österreich"
+                    },
+                    "terms": [
+                        {
+                            "offset": 0,
+                            "value": "Golf Club Wien-Süßenbrunn"
+                        },
+                        {
+                            "offset": 27,
+                            "value": "Weingartenallee"
+                        },
+                        {
+                            "offset": 44,
+                            "value": "Wien"
+                        },
+                        {
+                            "offset": 50,
+                            "value": "Österreich"
+                        }
+                    ],
+                    "types": [
+                        "establishment",
+                        "point_of_interest"
+                    ]
+                },
+                {
+                    "description": "Golfclub Wien-Achau, Biedermannsdorfer Straße, Achau, Österreich",
+                    "matched_substrings": [
+                        {
+                            "length": 19,
+                            "offset": 0
+                        }
+                    ],
+                    "place_id": "ChIJv_afRySsbUcRipPZuzMn5Io",
+                    "reference": "ChIJv_afRySsbUcRipPZuzMn5Io",
+                    "structured_formatting": {
+                        "main_text": "Golfclub Wien-Achau",
+                        "main_text_matched_substrings": [
+                            {
+                                "length": 19,
+                                "offset": 0
+                            }
+                        ],
+                        "secondary_text": "Biedermannsdorfer Straße, Achau, Österreich"
+                    },
+                    "terms": [
+                        {
+                            "offset": 0,
+                            "value": "Golfclub Wien-Achau"
+                        },
+                        {
+                            "offset": 21,
+                            "value": "Biedermannsdorfer Straße"
+                        },
+                        {
+                            "offset": 47,
+                            "value": "Achau"
+                        },
+                        {
+                            "offset": 54,
+                            "value": "Österreich"
+                        }
+                    ],
+                    "types": [
+                        "point_of_interest",
+                        "establishment"
+                    ]
+                },
+                {
+                    "description": "City & Country Club Wienerberg, Gutheil-Schoder-Gasse, Wien, Österreich",
+                    "matched_substrings": [
+                        {
+                            "length": 30,
+                            "offset": 0
+                        }
+                    ],
+                    "place_id": "ChIJazpv3lGobUcRiI0XlI9R35c",
+                    "reference": "ChIJazpv3lGobUcRiI0XlI9R35c",
+                    "structured_formatting": {
+                        "main_text": "City & Country Club Wienerberg",
+                        "main_text_matched_substrings": [
+                            {
+                                "length": 30,
+                                "offset": 0
+                            }
+                        ],
+                        "secondary_text": "Gutheil-Schoder-Gasse, Wien, Österreich"
+                    },
+                    "terms": [
+                        {
+                            "offset": 0,
+                            "value": "City & Country Club Wienerberg"
+                        },
+                        {
+                            "offset": 32,
+                            "value": "Gutheil-Schoder-Gasse"
+                        },
+                        {
+                            "offset": 55,
+                            "value": "Wien"
+                        },
+                        {
+                            "offset": 61,
+                            "value": "Österreich"
+                        }
+                    ],
+                    "types": [
+                        "establishment",
+                        "point_of_interest"
+                    ]
+                }
+            ],
+            "status": "OK"
+        }
+    }
+}

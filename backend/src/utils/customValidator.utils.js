@@ -25,12 +25,21 @@ exports.validateLanguageCompatible = (language) => {
 }
 
 exports.validateDestinationServiceAddress = (address, addressDetails, compareDetails) => {
+    this.validatePlaceDetails(address, addressDetails)
     const location = ['Wien', 'Vienna'];
     if(location.includes(addressDetails.province) && location.includes(compareDetails.province)) {
         throw new Error('backend-destination-vienna');
     }
+    return true;
+}
 
-    this.validatePlaceDetails(address, addressDetails)
+exports.validateServiceRouteVIE = (req) => {
+    const originZip = req.body.originDetails.zipCode;
+    const destinZip = req.body.destinationDetails.zipCode;
+    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInVienna(destinZip))
+    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInVienna(originZip))) {
+        throw new Error('navigate-destination-airport/service');
+    }
 
     return true;
 }
@@ -88,6 +97,8 @@ exports.validateTravelTimeRelevance = (compareTime, travelTime, serviceOption) =
         if(serviceOption === ServiceOption.GOLF) {
             return compareTime - travelTime
         }
+
+        return true;
     } catch(err) {
         const msg = serviceOption === ServiceOption.GOLF
             ? 'backend-invalid-relevance-stay'

@@ -1,73 +1,88 @@
-const GoogleRoutes = require('../../services/google-routes/google-routes.api');
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SupportModeOption } = require("../../utils/enums/supportmode-option.enum");
 const CustomValidator = require('../../utils/customValidator.utils');
 
 class DrivingGolfModel {
+    #googleRoutes;
+    #prices;
+
+    constructor(googleRoutesApi) {
+        this.#googleRoutes = googleRoutesApi;
+        this.#prices = {
+            below30Km: 0.65,
+            above30Km: 0.5,
+            homeBasedRoutePerKm: 0.4,
+            stayPerHour: 12,
+            serviceDistanceBelow30Km: 0.4
+        }
+    }
     calcGolfRoute = async (params) => {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
 
+        // GET ROUTE DATA
+        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
+        // h2o: home to golfcourse
+        // o2g: origin to golfcourse
+        // g2d: golfcourse to destination
+        // d2h: destination to home
+        const routes = {
+            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+            o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+            g2d: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+            d2h: response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
+        }
         let result = {
             distance: 0,
             duration: 0,
             stay: 0,
             price: 0
         }
-        const priceLess30km = 0.65;
-        const priceMore30km = 0.5;
-
-        // GET ROUTE DATA
-        const response = await GoogleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
-        const home2origin = response.find(obj => { 
-            return obj.originIndex === 0 && obj.destinationIndex === 1;
-        });
-        const origin2golfcourse = response.find(obj => { 
-            return obj.originIndex === 1 && obj.destinationIndex === 0;
-        });
-        const golfcourse2destination = response.find(obj => {
-            return obj.originIndex === 2 && obj.destinationIndex === 1;
-        });
-        const destination2home = response.find(obj => {
-            return obj.originIndex === 3 && obj.destinationIndex === 2;
-        });
+        let additionalCharges = 0;
 
         // validate relevance & update stay time by removing origin route duration (in total minutes)
         params['stay'] = CustomValidator.validateTravelTimeRelevance(
             Number(params['stay']),
-            origin2golfcourse.duration,
+            routes.o2g.duration,
             ServiceOption.GOLF
         );
 
         // already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes
-        const serveWay = origin2golfcourse.distanceMeters + golfcourse2destination.distanceMeters;
-        const serveTime = origin2golfcourse.duration + golfcourse2destination.duration;
+        const serveWay = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
+        const serveTime = routes.o2g.duration + routes.g2d.duration;
 
-        const serveWayCosts = serveWay <= 30 ? serveWay * priceLess30km : serveWay * priceMore30km;
-        const serveTimeCosts = serveWay <= 30 ? serveTime * priceLess30km : serveTime * priceMore30km;
-        const approachCosts = this.#calculateHomeBasedRouteCosts(home2origin.distanceMeters);
-        const returnCosts = this.#calculateHomeBasedRouteCosts(destination2home.distanceMeters);
-        const stayObj = this.#calculateStayCosts(Number(params['stay']));
+        const serveWayCosts = serveWay <= 30 ? serveWay * this.#prices.below30Km : serveWay * this.#prices.above30Km;
+        const serveTimeCosts = serveWay <= 30 ? serveTime * this.#prices.below30Km : serveTime * this.#prices.above30Km;
+        const approachCosts = this._calcHomeBasedRouteCosts(routes.h2o.distanceMeters);
+        const returnCosts = this._calcHomeBasedRouteCosts(routes.d2h.distanceMeters);
+        const stayObj = this._calcStayCosts(Number(params['stay']));
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
-        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts;
+
+        // Add up all additional charges
+        additionalCharges += this._addChargeServiceDistanceBelow30Km(routes);
+
+        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
         result['distance'] = Math.ceil(serveWay);
         result['duration'] = Math.ceil(serveTime);
         result['stay'] = stayObj.hours;
-        result['price'] = (totalCosts % 1) >= 5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
+        result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
         return {routeData: result};
     }
 
-    #calculateHomeBasedRouteCosts = (distance) => {
-        const pricePerKm = 0.4;
-        return distance <= 30 ? 0 : (distance - 30) * pricePerKm;
+    _calcHomeBasedRouteCosts = (distance) => {
+        if(typeof(distance) !== 'number') {
+            return 0;
+        }
+        return distance <= 30 ? 0 : (distance - 30) * this.#prices.homeBasedRoutePerKm;
     }
 
-    #calculateStayCosts = (time) => {
-        const priceStay1h = 12;
-
+    _calcStayCosts = (time) => {
+        if(typeof(time) !== 'number') {
+            return { hours: 6, costs: 48 };
+        }
         // convert min to hour values (min 6h)
         time = time <= 360
             ? 6
@@ -77,9 +92,24 @@ class DrivingGolfModel {
 
         return {
             hours: time,
-            costs: time > 6 ? (48 + (priceStay1h * (time - 6))) : 48
+            costs: time > 6 ? (48 + (this.#prices.stayPerHour * (time - 6))) : 48
         };
+    }
+
+    _addChargeServiceDistanceBelow30Km = (routes) => {
+        let charge = 0;
+        const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
+        if(serviceDistance > 30) {
+            return charge;
+        }
+
+        // Additional charge on approach
+        charge += routes.h2o.distanceMeters * this.#prices.serviceDistanceBelow30Km;
+        // Additional charge on return home
+        charge += routes.d2h.distanceMeters * this.#prices.serviceDistanceBelow30Km;
+
+        return Number((charge).toFixed(1));
     }
 }
 
-module.exports = new DrivingGolfModel;
+module.exports = DrivingGolfModel;
