@@ -15,19 +15,20 @@ jobs:
     name: Run Jest tests
     runs-on: ubuntu-latest
     env:
-          SECRET_GOOGLE_API_KEY: ${{ secrets.SECRET_GOOGLE_API_KEY }}
-          SECRET_HOME_ADDRESS: ${{ secrets.SECRET_HOME_ADDRESS }}
-          SECRET_EMAIL_RECEIVER: ${{ secrets.SECRET_EMAIL_RECEIVER }}
-          SECRET_EMAIL_SENDER: ${{ secrets.SECRET_EMAIL_SENDER }}
-          SECRET_EMAIL_PASS: ${{ secrets.SECRET_EMAIL_PASS }}
-          SECRET_EMAIL_SUBJECT: ${{ secrets.SECRET_EMAIL_SUBJECT }}
-          SECRET_PASS_POS: ${{ secrets.SECRET_PASS_POS }}
-          SECRET_IV_POS: ${{ secrets.SECRET_IV_POS }}
-          SECRET_AUTH_USER: ${{ secrets.SECRET_AUTH_USER }}
-          SECRET_AUTH_ID: ${{ secrets.SECRET_AUTH_ID }}
-          SECRET_AUTH_PASS: ${{ secrets.SECRET_AUTH_PASS }}
-          SECRET_PUBLIC_KEY: none
-          SECRET_PRIVATE_KEY: none
+      NODE_MODE: staging
+      SECRET_GOOGLE_API_KEY: ${{ secrets.SECRET_GOOGLE_API_KEY }}
+      SECRET_HOME_ADDRESS: ${{ secrets.SECRET_HOME_ADDRESS }}
+      SECRET_EMAIL_RECEIVER: ${{ secrets.SECRET_EMAIL_RECEIVER }}
+      SECRET_EMAIL_SENDER: ${{ secrets.SECRET_EMAIL_SENDER }}
+      SECRET_EMAIL_PASS: ${{ secrets.SECRET_EMAIL_PASS }}
+      SECRET_EMAIL_SUBJECT: ${{ secrets.SECRET_EMAIL_SUBJECT }}
+      SECRET_PASS_POS: ${{ secrets.SECRET_PASS_POS }}
+      SECRET_IV_POS: ${{ secrets.SECRET_IV_POS }}
+      SECRET_AUTH_USER: ${{ secrets.SECRET_AUTH_USER }}
+      SECRET_AUTH_ID: ${{ secrets.SECRET_AUTH_ID }}
+      SECRET_AUTH_PASS: ${{ secrets.SECRET_AUTH_PASS }}
+      SECRET_PUBLIC_KEY: none
+      SECRET_PRIVATE_KEY: none
 
     steps:
       - name: Checkout repository
