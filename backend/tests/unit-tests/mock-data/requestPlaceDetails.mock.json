@@ -1,0 +1,127 @@
+{
+    "hilton+schottenring": {
+        "payload": {
+            "language": "de",
+            "placeId": "ChIJMxoeYrwHbUcR4KIUNw6p5t8",
+            "sessiontoken": "f04f7277-f655-4e16-b05a-37cf192d3367"
+        },
+        "response": {
+            "html_attributions": [],
+            "result": {
+                "address_components": [
+                    {
+                        "long_name": "11",
+                        "short_name": "11",
+                        "types": [
+                            "street_number"
+                        ]
+                    },
+                    {
+                        "long_name": "Schottenring",
+                        "short_name": "Schottenring",
+                        "types": [
+                            "route"
+                        ]
+                    },
+                    {
+                        "long_name": "Innere Stadt",
+                        "short_name": "Innere Stadt",
+                        "types": [
+                            "sublocality_level_1",
+                            "sublocality",
+                            "political"
+                        ]
+                    },
+                    {
+                        "long_name": "Wien",
+                        "short_name": "Wien",
+                        "types": [
+                            "locality",
+                            "political"
+                        ]
+                    },
+                    {
+                        "long_name": "Wien",
+                        "short_name": "Wien",
+                        "types": [
+                            "administrative_area_level_2",
+                            "political"
+                        ]
+                    },
+                    {
+                        "long_name": "Wien",
+                        "short_name": "Wien",
+                        "types": [
+                            "administrative_area_level_1",
+                            "political"
+                        ]
+                    },
+                    {
+                        "long_name": "Österreich",
+                        "short_name": "AT",
+                        "types": [
+                            "country",
+                            "political"
+                        ]
+                    },
+                    {
+                        "long_name": "1010",
+                        "short_name": "1010",
+                        "types": [
+                            "postal_code"
+                        ]
+                    }
+                ],
+                "adr_address": "<span class=\"street-address\">Schottenring 11</span>, <span class=\"region\">Innere Stadt</span> <span class=\"postal-code\">1010</span> <span class=\"locality\">Wien</span>, <span class=\"country-name\">Österreich</span>",
+                "formatted_address": "Schottenring 11, 1010 Wien, Austria",
+                "geometry": {
+                    "location": {
+                        "lat": 48.2155378,
+                        "lng": 16.3647446
+                    },
+                    "viewport": {
+                        "northeast": {
+                            "lat": 48.2167585302915,
+                            "lng": 16.3661815302915
+                        },
+                        "southwest": {
+                            "lat": 48.2140605697085,
+                            "lng": 16.3634835697085
+                        }
+                    }
+                },
+                "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/geocode-71.png",
+                "icon_background_color": "#7B9EB0",
+                "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+                "name": "Schottenring 11",
+                "photos": [
+                    {
+                        "height": 2737,
+                        "html_attributions": [
+                            "<a href=\"https://maps.google.com/maps/contrib/106176517327378002042\">Robert Babiak</a>"
+                        ],
+                        "photo_reference": "AXQCQNSR6XGsOIwrOEnX1ZMU5kPWXyViDvPWhEECpuiYU7sdJU3maY0z-CO_FpI5Un7XTARxeY4ngdDV-rSxEbS33e6dQsZOyxlTBsolMqqdTJLc8SOJLzVu71MGF_p9ShNT6xEdLjSiJWIjMFJ5uwZGA3CrqypQZCTd3mRGT8B1p-B3HRKzVgP4b4LerjmYnBmGzhouMqpjxwVje44fasn5u7aKdA7BnGTNwJwD_0hCipQUZtqArs2qCci5JroVv5LRQVlUYi1S9jy2WvqZPTi-kNg5EUai3wvnl8NVHYsUWxwx2mZRNwNHial67IkQHVRngq-51klJVW0n-9YfOM2jUcIo3vUOyA10vLkGJxklTDQ71KsPYMdKI_1U3yAjWiT5ZHAPseXiEo9bg7-6y0o4I-TcJsFfLjNsZ9DRPmIRB2j1E1Vva40WcXd82h3W_ZrGndJ6efUsky27Y8FUuKWcs90ieBZAHClq4PJKN5D20O5NC9BVerlmPj8-G0ZybHIaqkDf5Z98iCvSIH7lr1YkOoDZfITm-u0UBzSfQeGicpUiLQnquTpDiGFtzY7wAuzUN72MwLgyi3q3i6_tl8bcBV_qmT42NChX1EbLy8tqEyxk-kRJETjQ_As6SlAbG2Tp9ghqgo02",
+                        "width": 3811
+                    },
+                    {
+                        "height": 2252,
+                        "html_attributions": [
+                            "<a href=\"https://maps.google.com/maps/contrib/114161995780920123313\">Krystyna Z</a>"
+                        ],
+                        "photo_reference": "AXQCQNTcygi1BqDPeKFszoOaReyVAdviM-w2eH5cqownEFtsr78b3fV1HsYldxhehpOm3BcAIv_i0bM94NJ0FFKfzyKWkyuJEzvQiiKM3wFBAD7aIMv6fb-pRC9M2luEZsW8faGZT444kyAk5bl8xD9Efw2myD_IRjVPeAvqOqB3PprF23tabSCZtb2zeWSQxFAciZBf9ZuiwO3aUugUVjXwS_UfvRjhRRuxYzSVkGrttn52Gvofku4X0NCSfl8aAupqKIwDBRfBTwskM7PBRB9EVvtmVG870VhEXP2SbQgW8AVtD6na5_czJb0wFpmJLjE2JzCoEN8bPep2OtRboRoFn_0pYCFFZVmEn4Cva2UrGsooieDP3eo9XQAx85cTYJ96ybfToWsrdduepD0fiuSnOm-fZs21mUaYikEP2ESYsgbvtn6CP45hfJ2LlR59cmPlzfnh-6cdxrOTMEQgKW-FAcpMtVZ1BZTkcWbttpAefNdnHq8MzhQKUA77tNuPXqMqd_CAyWqLI0vjORqJ1HArK8x4gdI66lkSHvpPyKEKqCD1q2_-zIo2nCTHuDcwIxXBJX9axva8-wvjTd6voZVQokO2bEmS-l7PX9XuqOiHy_LPV7YDv92KNjukEjjC02OKL4Wj8A",
+                        "width": 4000
+                    }
+                ],
+                "place_id": "ChIJMxoeYrwHbUcR4KIUNw6p5t8",
+                "reference": "ChIJMxoeYrwHbUcR4KIUNw6p5t8",
+                "types": [
+                    "premise"
+                ],
+                "url": "https://maps.google.com/?q=Schottenring+11,+1010+Wien,+%C3%96sterreich&ftid=0x476d07bc621e1a33:0xdfe6a90e3714a2e0",
+                "utc_offset": 120,
+                "vicinity": "Innere Stadt"
+            },
+            "status": "OK"
+        }
+    }
+}

@@ -25,13 +25,11 @@ exports.validateLanguageCompatible = (language) => {
 }
 
 exports.validateDestinationServiceAddress = (address, addressDetails, compareDetails) => {
+    this.validatePlaceDetails(address, addressDetails)
     const location = ['Wien', 'Vienna'];
     if(location.includes(addressDetails.province) && location.includes(compareDetails.province)) {
         throw new Error('backend-destination-vienna');
     }
-
-    this.validatePlaceDetails(address, addressDetails)
-
     return true;
 }
 
@@ -99,6 +97,8 @@ exports.validateTravelTimeRelevance = (compareTime, travelTime, serviceOption) =
         if(serviceOption === ServiceOption.GOLF) {
             return compareTime - travelTime
         }
+
+        return true;
     } catch(err) {
         const msg = serviceOption === ServiceOption.GOLF
             ? 'backend-invalid-relevance-stay'

@@ -5,6 +5,12 @@ const Secrets = require('../../utils/secrets.utils');
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
 
 class GoogleRoutesAPI {
+    #env_GOOGLE_API_KEY;
+
+    constructor() {
+        this.#env_GOOGLE_API_KEY = Secrets.GOOGLE_API_KEY;
+    }
+
     getRoutesHeader() {
         return {
             'Content-Type': 'application/json',
@@ -28,7 +34,7 @@ class GoogleRoutesAPI {
             destinations = `${prefix}${params['destination']}`;
         }
 
-        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${Secrets.GOOGLE_API_KEY}`;
+        const url = `https://maps.googleapis.com/maps/api/distancematrix/json?origins=${origins}&destinations=${destinations}&key=${this.#env_GOOGLE_API_KEY}`;
 
         let result;
         await axios.get(url)
@@ -105,7 +111,7 @@ class GoogleRoutesAPI {
                 console.log('google request error: ', error.message);
                 return error;
             })
-        
+
         result.forEach((entry) => {
             entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
             entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
