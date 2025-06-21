@@ -1,0 +1,29 @@
+# GitHub Action name
+name: Jest automatic testing
+
+# event trigger
+on: pull_request
+
+jobs:
+  # ID of job
+  run-jest-tests:
+    # job name
+    name: Jest tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check on merge to dev
+        uses: actions/checkout@development
+      - name: Check on merge to prod
+        uses: actions/checkout@production
+
+      - name: Set up NodeJS
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+
+      - name: Install all dependencies
+        run: npm Install
+
+      - name: Run Jest tests
+        run: npm run test
