@@ -63,6 +63,10 @@ class AuthModel {
             msg: this.msg1
         }
     }
+
+    demoFn = () => {
+        console.log("I run for test reasons.");
+    }
 }
 
 module.exports = AuthModel;
