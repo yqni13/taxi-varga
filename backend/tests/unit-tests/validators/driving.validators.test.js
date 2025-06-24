@@ -1,11 +1,11 @@
 const CustomValidators = require('../../../src/utils/customValidator.utils');
 const { ServiceOption } = require('../../../src/utils/enums/service-option.enum');
-const MockData_places = require('../mock-data/places.mock.json');
+const MockData_places = require('../../mock-data/places.mock.json');
 const { SupportModeOption } = require('../../../src/utils/enums/supportmode-option.enum');
 
 describe('CustomValidator tests, priority: DRIVING', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('fn: validateDestinationServiceAddress', () => {
             const mockParam_address = MockData_places['place-1010#1']['simple'];
@@ -81,7 +81,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('fn: validateDestinationServiceAddress, param: all within Vienna', () => {
             const mockParam_address = MockData_places['place-1090#1']['simple'];

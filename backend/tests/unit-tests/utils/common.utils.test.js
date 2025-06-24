@@ -2,7 +2,7 @@ const Utils = require('../../../src/utils/common.utils');
 
 describe('Utils tests, priority: common', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('fn: basicResponse', () => {
             const mockParam_body = { result: 'success', process: 'test' };
@@ -77,7 +77,7 @@ describe('Utils tests, priority: common', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('fn: checkAddressInVienna, result: false', () => {
             const mockParam_zipCode = '2000';

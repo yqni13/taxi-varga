@@ -1,10 +1,10 @@
 const CustomValidators = require('../../../src/utils/customValidator.utils');
 const { LanguageOption } = require('../../../src/utils/enums/lang-option.enum');
-const MockData_places = require('../mock-data/places.mock.json');
+const MockData_places = require('../../mock-data/places.mock.json');
 
 describe('CustomValidator tests, priority: ADDRESS', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('fn: validateLanguageCompatible', () => {
             const mockParam_language = LanguageOption;
@@ -27,7 +27,7 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('fn: validateLanguageCompatible, param: false value', () => {
             const mockParam_language = { DE: 'fr' };

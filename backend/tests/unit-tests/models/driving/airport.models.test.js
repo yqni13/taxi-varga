@@ -1,11 +1,11 @@
 const DrivingAirportModel = require('../../../../src/models/driving/airport.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const { NotFoundException } = require('../../../../src/utils/exceptions/common.exception');
-const MockData_requestMapsMatrix = require('../../mock-data/requestMapsMatrix.mock.json');
+const MockData_requestMapsMatrix = require('../../../mock-data/requestMapsMatrix.mock.json');
 
 describe('Airport tests, priority: ARRIVAL', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Price: EUR 42,00', async () => {
             const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
@@ -47,7 +47,7 @@ describe('Airport tests, priority: ARRIVAL', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
             const mockParam_params = {};
@@ -77,7 +77,7 @@ describe('Airport tests, priority: ARRIVAL', () => {
 
 describe('Airport tests, priority: DEPARTURE', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Price: EUR 42,00', async () => {
             const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1300-1010#1']);

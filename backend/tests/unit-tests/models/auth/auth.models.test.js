@@ -1,11 +1,11 @@
 const AuthModel = require("../../../../src/models/auth.model");
 const { InvalidCredentialsException } = require("../../../../src/utils/exceptions/auth.exception");
-const MockData_common = require('../../mock-data/common.mock.json');
+const MockData_common = require('../../../mock-data/common.mock.json');
 const jwt = require('jsonwebtoken');
 
 describe('Auth tests, priority: generateToken', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         // TODO(yqni13): update of auth model and crypto utils necessary to use tests
         // test('Authentication by \'admin\' user', async () => {
@@ -49,7 +49,7 @@ describe('Auth tests, priority: generateToken', () => {
         // })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         let authModel, mockParam_position, mockParam_id, mockParam_user, mockParam_password, mockParam_privateKey;
         beforeEach(() => {

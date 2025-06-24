@@ -1,11 +1,11 @@
 const DrivingGolfModel = require('../../../../src/models/driving/golf.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const { SupportModeOption } = require('../../../../src/utils/enums/supportmode-option.enum');
-const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.mock.json')['service-golf'];
+const MockData_requestRouteMatrix = require('../../../mock-data/requestRouteMatrix.mock.json')['service-golf'];
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('2525 to 2551 to 2525, service distance < 30km, support mode: none', async () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']);
@@ -64,7 +64,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
             const mockParam_params = {};
@@ -85,7 +85,7 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow30Km', () => {
         golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid fn calls, priority: service distance', () => {
+    describe('Testing valid fn calls, priority: service distance', () => {
 
         test('2525 to 2551 to 2525, distance < 30km', () => {
             const mockParam_response = structuredClone(MockData_requestRouteMatrix['route2525-2551-2525']['apiResult']);
@@ -126,7 +126,7 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
         golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid fn calls, priority: h2o/d2h distance', () => {
+    describe('Testing valid fn calls, priority: h2o/d2h distance', () => {
 
         test('Distance < 30', () => {
             const mockParam_distance = 11.7;
@@ -153,7 +153,7 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Distance == \'test\'', () => {
             const mockParam_distance = 'test';
@@ -172,7 +172,7 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
         golfModel = new DrivingGolfModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid fn calls, priority: time of stay', () => {
+    describe('Testing valid fn calls, priority: time of stay', () => {
 
         test('Time < 360 min', () => {
             const mockParam_time = 359;
@@ -199,7 +199,7 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Time = \'test\'', () => {
             const mockParam_time = 'test';

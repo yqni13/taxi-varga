@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/06/24 - $\textsf{last\ update\ 1.3.1\ >>\ {\color{pink}1.3.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added integration tests for workflows and express-validations within backend.
+
 ### 2025/06/19 - $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
 
 - $\textsf{\color{teal}Addition:}$ Added backend tests for services, utils, validations and Google API.

@@ -1,10 +1,10 @@
 const DrivingFlatrateModel = require('../../../../src/models/driving/flatrate.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const MockData_requestRouteMatrix = require('../../mock-data/requestRouteMatrix.mock.json')['service-flatrate'];
+const MockData_requestRouteMatrix = require('../../../mock-data/requestRouteMatrix.mock.json')['service-flatrate'];
 
 describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
-    describe.only('Testing valid fn calls, tenancy: 180', () => {
+    describe('Testing valid fn calls, tenancy: 180', () => {
 
         test('2525 to 2551, approach < 20 km, return < 20 km', async () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551']);
@@ -72,7 +72,7 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
             const mockParam_params = {};
@@ -93,7 +93,7 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
         flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Discount, Service distance == 75km, tenancy time < 180', () => {
             const mockParam_distance = 75;
@@ -176,7 +176,7 @@ describe('Flatrate tests, priority: _calcTenancyValues', () => {
         flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
     })
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Tenancy: time < 180 min', () => {
             const mockParam_time = 90;
