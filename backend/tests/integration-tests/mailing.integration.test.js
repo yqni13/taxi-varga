@@ -75,7 +75,7 @@ describe('Integration test, priority: Mailing', () => {
                 }
             })
 
-            test('Param: <subject>, validator: notEmpty by " "', async () => {
+            test('Params: <subject>, validator: notEmpty by " "', async () => {
                 const invalidParam = 'subject';
                 const mockParam_params = structuredClone(MockData_common['params']['testuser']);
                 mockParam_params[`${invalidParam}`] = '';
@@ -89,7 +89,7 @@ describe('Integration test, priority: Mailing', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <subject>, validator: notEmpty', async () => {
+            test('Params: <subject>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'subject';
                 const mockParam_params = structuredClone(MockData_common['params']['testuser']);
                 delete mockParam_params[`${invalidParam}`];
@@ -103,7 +103,7 @@ describe('Integration test, priority: Mailing', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <sender>, validator: notEmpty', async () => {
+            test('Params: <sender>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'sender';
                 const mockParam_params = structuredClone(MockData_common['params']['testuser']);
                 delete mockParam_params[`${invalidParam}`];
@@ -117,7 +117,7 @@ describe('Integration test, priority: Mailing', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <body>, validator: notEmpty', async () => {
+            test('Params: <body>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'body';
                 const mockParam_params = structuredClone(MockData_common['params']['testuser']);
                 delete mockParam_params[`${invalidParam}`];

@@ -9,9 +9,10 @@ describe('CustomValidator tests, priority: MAIL', () => {
     describe('Testing valid fn calls', () => {
 
         test('fn: validateEncryptedSender', () => {
-            CryptoService.decryptRSA.mockReturnValue('test@test.com');
-
             const mockParam_encryptedSender = 'encrypted-test';
+            const mockResult = 'test@test.com';
+            CryptoService.decryptRSA.mockReturnValue(mockResult);
+
             const testFn = CustomValidators.validateEncryptedSender(mockParam_encryptedSender);
             const expectResult = true;
 
@@ -21,22 +22,24 @@ describe('CustomValidator tests, priority: MAIL', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('fn: validateEncryptedSender, param: invalid email #1', () => {
-            CryptoService.decryptRSA.mockReturnValue('test@test');
-
+        test('fn: validateEncryptedSender, result: invalid email by top-level-domain', () => {
             const mockParam_encryptedSender = 'encrypted-test';
+            const mockResult = 'test@test';
             const expectResult = 'backend-invalid-email';
+
+            CryptoService.decryptRSA.mockReturnValue(mockResult);
 
             expect(() => {
                 CustomValidators.validateEncryptedSender(mockParam_encryptedSender);
             }).toThrow(expectResult);
         })
 
-        test('fn: validateEncryptedSender, param: invalid email #2', () => {
-            CryptoService.decryptRSA.mockReturnValue('test.test.com');
-
+        test('fn: validateEncryptedSender, result: invalid email by @-character', () => {
             const mockParam_encryptedSender = 'encrypted-test';
+            const mockResult = 'test.test.com';
             const expectResult = 'backend-invalid-email';
+
+            CryptoService.decryptRSA.mockReturnValue(mockResult);
 
             expect(() => {
                 CustomValidators.validateEncryptedSender(mockParam_encryptedSender);

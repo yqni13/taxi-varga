@@ -37,7 +37,7 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Invalid result by language (Austria !== Österreich), address: gc+wien, lang: de', async () => {
+        test('Invalid result by <language> (Austria !== Österreich), address: gc+wien, lang: de', async () => {
             const mockParam_params = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['payload']);
             const mockResult = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['response']);
             const mockAPI = { requestPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult) };

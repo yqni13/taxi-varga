@@ -38,6 +38,8 @@ $\texttt{\color{teal}{v1.3.2}}$
 
 ### Start
 
+`ALL LISTED COMMANDS ARE DEFINED TO WORK AT LEAST ON POWERSHELL/COMMAND PROMPT.`
+
 Create necessary modules (/frontend and /backend):
 ```sh
 $ npm install
@@ -46,8 +48,7 @@ This web project uses Google API calls, which require to run the application on 
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`.<br>
-To run backend (via Powershell, Terminal, etc) use:
+which will open automatically on `https://localhost:4200/`. To run backend use:
 ```sh
 node server.js
 ```
@@ -197,6 +198,19 @@ Run ESLint to list all current lint errors:
 ```sh
 $ npm run lint
 ```
+<br>
+
+### Cross-browser testing
+
+<img src="frontend/public/assets/docs/icons/firefox_logo50.ico"> | <img src="frontend/public/assets/docs/icons/chrome_logo50.ico"> | <img src="frontend/public/assets/docs/icons/opera_logo50.ico"> | <img src="frontend/public/assets/docs/icons/edge_logo50.ico"> | <img src="frontend/public/assets/docs/icons/duckduckgo_logo50.ico"> | <img src="frontend/public/assets/docs/icons/brave_logo50.ico">
+|:------:|:------:|:------:|:------:|:------:|:------:|
+|Firefox | Chrome | Opera  | Edge   | DuckGo | Brave  |
+|Yes*    | Yes    | Yes    | Yes    | Yes    | Yes    |
+
+<br>
+
+*This browser has problems with some loading/processing.
+
 <br>
 
 ## Updates

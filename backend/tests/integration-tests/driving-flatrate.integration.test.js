@@ -58,7 +58,7 @@ describe('Integration test, service flow: Flatrate', () => {
                 }
             })
 
-            test('Param: <origin>, validator: notEmpty', async () => {
+            test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
@@ -72,7 +72,7 @@ describe('Integration test, service flow: Flatrate', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <destination>, validator: notEmpty', async () => {
+            test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
@@ -86,7 +86,7 @@ describe('Integration test, service flow: Flatrate', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <tenancy>, validator: exists({values: "null"})', async () => {
+            test('Params: <tenancy>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'tenancy';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
@@ -102,7 +102,7 @@ describe('Integration test, service flow: Flatrate', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <tenancy>, validator: isInt({max: 1440})', async () => {
+            test('Params: <tenancy>, validator: isInt({max: 1440})', async () => {
                 const invalidParam = 'tenancy';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
                 mockParam_params[`${invalidParam}`] = 1441;

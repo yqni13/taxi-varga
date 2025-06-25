@@ -46,6 +46,7 @@ describe('Integration test, service flow: Airport', () => {
     describe('Test invalid fn calls', () => {
 
         describe('Priority: express-validators', () => {
+
             let mockError;
             beforeEach(() => {
                 mockError = {
@@ -57,7 +58,7 @@ describe('Integration test, service flow: Airport', () => {
                 }
             })
 
-            test('Param: <origin>, validator: notEmpty', async () => {
+            test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
                 const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
                 delete mockParam_params[`${invalidParam}`];
@@ -71,7 +72,7 @@ describe('Integration test, service flow: Airport', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <destination>, validator: notEmpty', async () => {
+            test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
                 const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
                 delete mockParam_params[`${invalidParam}`];

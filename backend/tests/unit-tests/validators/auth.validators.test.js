@@ -16,7 +16,7 @@ describe('CustomValidator tests, priority: AUTH', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('fn: validateServiceOption, param: false value', () => {
+        test('fn: validateServiceOption, params: invalid <value> by value', () => {
             const mockParam_value = { GOLF: 'Tennis' };
             const expectResult = 'backend-service-option';
 
@@ -25,7 +25,7 @@ describe('CustomValidator tests, priority: AUTH', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateServiceOption, param: false key', () => {
+        test('fn: validateServiceOption, params: invalid <value> by key', () => {
             const mockParam_value = { TENNIS: 'Tennis' };
             const expectResult = 'backend-service-option';
             

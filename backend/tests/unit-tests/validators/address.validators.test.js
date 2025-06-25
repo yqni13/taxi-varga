@@ -29,7 +29,7 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('fn: validateLanguageCompatible, param: false value', () => {
+        test('fn: validateLanguageCompatible, params: invalid <language> by value', () => {
             const mockParam_language = { DE: 'fr' };
             const expectResult = 'backend-invalid-language';
 
@@ -38,7 +38,7 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateLanguageCompatible, param: false key', () => {
+        test('fn: validateLanguageCompatible, params: invalid <language> by key', () => {
             const mockParam_language = { FR: 'fr' };
             const expectResult = 'backend-invalid-language';
             
@@ -47,7 +47,7 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validatePlaceDetails; param details == null', () => {
+        test('fn: validatePlaceDetails, params: <details> = null', () => {
             const mockParam_address = 'test';
             const mockParam_details = null;
             const expectResult = 'address-invalid-place';

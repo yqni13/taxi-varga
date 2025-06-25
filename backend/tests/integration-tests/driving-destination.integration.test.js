@@ -32,7 +32,7 @@ describe('Integration test, service flow: Destination', () => {
 
     describe('Test valid fn calls', () => {
 
-        test('Process service by route 1090 to 4020 and mail', async () => {
+        test('Process service by route (1090to4020)', async () => {
             const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
             const mockResponse = await request(app)
                 .post('/api/v1/driving/destination')
@@ -58,7 +58,7 @@ describe('Integration test, service flow: Destination', () => {
                 }
             })
 
-            test('Param: <origin>, validator: notEmpty', async () => {
+            test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
@@ -72,7 +72,7 @@ describe('Integration test, service flow: Destination', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <destination>, validator: notEmpty', async () => {
+            test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
@@ -86,7 +86,7 @@ describe('Integration test, service flow: Destination', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <back2home>, validator: notEmpty', async () => {
+            test('Params: <back2home>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'back2home';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
@@ -100,7 +100,7 @@ describe('Integration test, service flow: Destination', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <latency>, validator: isInt({max: 360})', async () => {
+            test('Params: <latency>, validator: isInt({max: 360})', async () => {
                 const invalidParam = 'latency';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 mockParam_params[`${invalidParam}`] = 420;
@@ -116,7 +116,7 @@ describe('Integration test, service flow: Destination', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <pickupTIME>, validator: exists({values: "null"})', async () => {
+            test('Params: <pickupTIME>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'pickupTIME';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
@@ -132,7 +132,7 @@ describe('Integration test, service flow: Destination', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Param: <pickupTIME>, validator: isInt({min: 0})', async () => {
+            test('Params: <pickupTIME>, validator: isInt({min: 0})', async () => {
                 const invalidParam = 'pickupTIME';
                 const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
                 mockParam_params[`${invalidParam}`] = -1;
