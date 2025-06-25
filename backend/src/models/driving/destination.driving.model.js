@@ -99,7 +99,7 @@ class DrivingDestinationModel {
 
         // Add up all additional charges
         additionalCharge += this._addChargeParkFlatByBH(params, withinBusinessHours)
-        additionalCharge += this._addChargeServiceDistanceBelow30Km(routes, params['back2home'], 0.4);
+        additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
 
         const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
 
@@ -137,13 +137,12 @@ class DrivingDestinationModel {
         return Number((returnCosts + latencyCosts).toFixed(1));
     }
 
-    _addChargeServiceDistanceBelow30Km = (routes, back2home, price) => {
+    _addChargeServiceDistanceBelow20Km = (routes, back2home, price) => {
         let charge = 0;
         const serviceDistance = back2home 
             ? routes.o2d.distanceMeters + routes.d2o.distanceMeters 
             : routes.o2d.distanceMeters;
-
-        if(serviceDistance > 30) {
+        if(serviceDistance > 20) {
             return charge;
         }
 

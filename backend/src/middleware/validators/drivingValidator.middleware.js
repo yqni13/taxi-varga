@@ -1,4 +1,3 @@
-
 const CustomValidator = require('../../utils/customValidator.utils');
 const { body } = require('express-validator');
 
@@ -42,9 +41,11 @@ exports.drivingDestinationSchema = [
         .isInt({max: 360})
         .withMessage('backend-invalid-latency'),
     body('pickupTIME')
-        .isInt()
-        .notEmpty()
+        .exists({values: 'null'})
         .withMessage('backend-required')
+        .bail()
+        .isInt({min: 0})
+        .withMessage('backend-invalid-pickupTIME')
 ];
 
 exports.drivingFlatrateSchema = [
@@ -61,13 +62,12 @@ exports.drivingFlatrateSchema = [
     body('destinationDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
     body('tenancy')
-        .exists()
+        .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
         .isInt({ max: 1440 }) //  x <= 24h
         .withMessage('backend-invalid-tenancy')
 ];
-
 
 exports.drivingGolfSchema = [
     body('origin')
@@ -91,13 +91,13 @@ exports.drivingGolfSchema = [
     body('destinationDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
     body('stay')
-        .exists()
+        .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
         .isInt({ max: 4320 }) // x < 72h
         .withMessage('backend-invalid-stay'),
     body('supportMode')
-        .exists()
+        .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
         .custom((value) => CustomValidator.validateGolfSupportMode(value))

@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.3.1}}$
+$\texttt{\color{teal}{v1.3.2}}$
 
 
 <br><br>
@@ -38,6 +38,8 @@ $\texttt{\color{teal}{v1.3.1}}$
 
 ### Start
 
+`ALL LISTED COMMANDS ARE DEFINED TO WORK AT LEAST ON POWERSHELL/COMMAND PROMPT.`
+
 Create necessary modules (/frontend and /backend):
 ```sh
 $ npm install
@@ -46,8 +48,7 @@ This web project uses Google API calls, which require to run the application on 
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`.<br>
-To run backend (via Powershell, Terminal, etc) use:
+which will open automatically on `https://localhost:4200/`. To run backend use:
 ```sh
 node server.js
 ```
@@ -160,21 +161,21 @@ this.assetsPreloadService.preloadAssets({
 
 ### $\textsf{\color{teal}Jest}$
 
-Added `jest` testing framework to project providing unit tests for the `backend`.<br>
-Install the packages `@jest/globals`, `@types/jest` additional to `jest`:
+Added `jest` testing framework to project providing unit tests and integration tests for the `backend`.<br>
+Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `jest`:
 ```sh
-npm install jest @jest/globals @types/jest --save-dev
+npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-100+ tests exist currently for models, utils and validators - see [tests](./backend/tests).<br>
+130+ tests exist currently for models, utils, validators and workflows - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
-jest --setupFiles dotenv/config
+set NODE_MODE=staging && jest --setupFiles dotenv/config
 ```
 or simply save as script command in `package.json` to run `npm test`:
 ```sh
   "scripts": {
     "start": "node server.js",
-    "test": "jest --setupFiles dotenv/config"
+    "test": "set NODE_MODE=staging && jest --setupFiles dotenv/config"
   }
 ```
 
@@ -199,13 +200,25 @@ $ npm run lint
 ```
 <br>
 
+### Cross-browser testing
+
+<img src="frontend/public/assets/docs/icons/firefox_logo50.ico"> | <img src="frontend/public/assets/docs/icons/chrome_logo50.ico"> | <img src="frontend/public/assets/docs/icons/opera_logo50.ico"> | <img src="frontend/public/assets/docs/icons/edge_logo50.ico"> | <img src="frontend/public/assets/docs/icons/duckduckgo_logo50.ico"> | <img src="frontend/public/assets/docs/icons/brave_logo50.ico">
+|:------:|:------:|:------:|:------:|:------:|:------:|
+|Firefox | Chrome | Opera  | Edge   | DuckGo | Brave  |
+|Yes*    | Yes    | Yes    | Yes    | Yes    | Yes    |
+
+<br>
+
+*This browser has problems with some loading/processing.
+
+<br>
+
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
+### $\textsf{last\ update\ 1.3.1\ >>\ {\color{pink}1.3.2}}$
 
-- $\textsf{\color{teal}Addition:}$ Added `backend` tests for services, utils, validations and Google API.
-- $\textsf{\color{teal}Addition:}$ Added GLOSSARY.md as guidelines for name schemas, prefixes and abbreviations.
+- $\textsf{\color{teal}Addition:}$ Added integration tests for workflows and express-validations within backend.
 
 <br>
 
