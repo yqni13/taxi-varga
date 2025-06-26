@@ -21,7 +21,7 @@ export const routes: Routes = [
             title: BaseRoute.HOME,
             showInNavbar: true,
             showInFooter: false,
-            icon: 'icon-home',
+            icon: 'icon-home icon-base',
             preloadImages: [
                 'assets/UI/home_profile.webp'
             ],
@@ -33,11 +33,11 @@ export const routes: Routes = [
     {
         path: BaseRoute.ABOUT,
         component: AboutComponent,
-        data: {title: BaseRoute.ABOUT, showInNavbar: true, showInFooter: false, icon: 'icon-about'}
+        data: {title: BaseRoute.ABOUT, showInNavbar: true, showInFooter: false, icon: 'icon-about icon-base'}
     },
     {
         path: BaseRoute.SERVICE,
-        data: {title: BaseRoute.SERVICE, showInNavbar: true, showInFooter: false, icon: 'icon-service'},
+        data: {title: BaseRoute.SERVICE, showInNavbar: true, showInFooter: false, icon: 'icon-service icon-base'},
         loadChildren: () => import('./modules/service/service.routes').then(feature => feature.serviceRoutes)
     },
     {
@@ -48,7 +48,7 @@ export const routes: Routes = [
     {
         path: BaseRoute.SAMPLES,
         component: SamplesComponent,
-        data: {title: BaseRoute.SAMPLES, showInNavbar: true, showInFooter: false, icon: 'icon-samples'}
+        data: {title: BaseRoute.SAMPLES, showInNavbar: true, showInFooter: false, icon: 'icon-samples icon-base'}
     },
     {
         path: BaseRoute.PRIVACY,

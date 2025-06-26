@@ -1,0 +1,63 @@
+{
+    "auth": {
+        "payload": {
+            "admin": {
+                "aud": "flatrate",
+                "pass": "admin",
+                "user": "admin"
+            },
+            "test-user": {
+                "aud": "destination",
+                "pass": "testpass",
+                "user": "testuser"
+            }
+        },
+        "privateKey": "-----BEGIN PRIVATE KEY-----\nTESTKEYL7Z\n-----END PRIVATE KEY-----",
+        "secrets": {
+            "id": {
+                "admin": 0,
+                "null-id": null,
+                "test-id": 1
+            },
+            "password": {
+                "admin": "admin",
+                "null-pass": null,
+                "test-pass": "testpass"
+            },
+            "position": {
+                "admin": 0,
+                "null-pos": null,
+                "test-pos": 1
+            },
+            "user": {
+                "admin": "admin",
+                "null-user": null,
+                "test-user": "testuser"
+            }
+        }
+    },
+    "mailing": {
+        "params": {
+            "testuser": {
+                "body": "UIJSE2ENCRYPTEDBODY2CXRWQ",
+                "sender": "SLDZVXENCRYPTEDSENDERWE9S1K",
+                "subject": "HJ3FV8ENCYPTEDSUBJECT8ZBT5A"
+            }
+        },
+        "response": {
+            "testuser": {
+                "body": {
+                    "response": {
+                        "confirmedRequestFrom": "test@from.com",
+                        "sender": "test@sender.com",
+                        "sendRequestTo": "test@to.com"
+                    }
+                },
+                "headers": {
+                    "message": "Success",
+                    "success": 1
+                }
+            }
+        }
+    }
+}

@@ -34,6 +34,7 @@
             "origin": "vie-schwechat"
         },
         "route1300-1010#1": {
+            "destination": "vie-schwechat",
             "origin": "Parkring+12A,+1010+Wien,+Austria",
             "originDetails": {
                 "address": "Parkring 12A, 1010 Wien, Austria",
@@ -41,8 +42,7 @@
                 "placeId": "ChIJGT-48HUHbUcRJ0Efcq8sCuc",
                 "province": "Wien",
                 "zipCode": "1010"
-            },
-            "destination": "vie-schwechat"
+            }
         },
         "route2000-1300#1": {
             "destination": "Hauptstr.+49,+2000+Stockerau,+Austria",
@@ -54,6 +54,60 @@
                 "zipCode": "2000"
             },
             "origin": "vie-schwechat"
+        }
+    },
+    "response": {
+        "route1010-1300#1": {
+            "body": {
+                "routeData": {
+                    "distance": 21,
+                    "duration": 27,
+                    "price": 42
+                }
+            },
+            "headers": {
+                "message": "Success",
+                "success": 1
+            }
+        },
+        "route1090-1300#1": {
+            "body": {
+                "routeData": {
+                    "distance": 22,
+                    "duration": 28,
+                    "price": 45
+                }
+            },
+            "headers": {
+                "message": "Success",
+                "success": 1
+            }
+        },
+        "route1190-1300#1": {
+            "body": {
+                "routeData": {
+                    "distance": 34,
+                    "duration": 38,
+                    "price": 48
+                }
+            },
+            "headers": {
+                "message": "Success",
+                "success": 1
+            }
+        },
+        "route1300-1010#1": {
+            "body": {
+                "routeData": {
+                    "distance": 20,
+                    "duration": 24,
+                    "price": 42
+                }
+            },
+            "headers": {
+                "message": "Success",
+                "success": 1
+            }
         }
     },
     "results": {

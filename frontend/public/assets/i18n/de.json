@@ -42,13 +42,13 @@
                     "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
                     "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
                     "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
                     "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
                     "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-language": "Die gewählte Sprache kann nicht verarbeitet werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                    "backend-invalid-pickupTIME": "Die gewählte Abholzeit ist ungültig. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
                     "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
                     "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
@@ -60,7 +60,8 @@
                     "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
                     "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
                     "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
-                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben."
+                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Umgebungsvariable fehlt",

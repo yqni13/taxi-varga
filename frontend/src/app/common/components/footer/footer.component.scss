@@ -24,7 +24,7 @@ footer {
         color: var(--theme-palette-contrast);
     }
 
-    .icon-Copyright {
+    .icon-copyright {
         position: relative;
         width: 20px;
         height: 20px;
@@ -90,7 +90,7 @@ footer {
     width: sass.$footer-text-size;
     height: sass.$footer-text-size;
 }
-.icon-Language {
+.icon-language {
     margin-left: calc(sass.$space5 * 2);
     width: calc(sass.$footer-text-size - 2px);
     height: calc(sass.$footer-text-size - 2px);

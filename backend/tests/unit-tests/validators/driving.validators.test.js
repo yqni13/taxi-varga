@@ -1,11 +1,11 @@
 const CustomValidators = require('../../../src/utils/customValidator.utils');
 const { ServiceOption } = require('../../../src/utils/enums/service-option.enum');
-const MockData_places = require('../mock-data/places.mock.json');
+const MockData_places = require('../../mock-data/places.mock.json');
 const { SupportModeOption } = require('../../../src/utils/enums/supportmode-option.enum');
 
 describe('CustomValidator tests, priority: DRIVING', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('fn: validateDestinationServiceAddress', () => {
             const mockParam_address = MockData_places['place-1010#1']['simple'];
@@ -34,7 +34,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: validateAirportServiceAddress, address: VIE', () => {
+        test('fn: validateAirportServiceAddress, params: <address> = VIE', () => {
             const mockParam_details = null;
             const mockParam_address = MockData_places['place-1300#1']['simple'];
             const testFn = CustomValidators.validateAirportServiceAddress(
@@ -46,7 +46,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: validateAirportServiceAddress, address: Vienna', () => {
+        test('fn: validateAirportServiceAddress, params: <address> = Vienna', () => {
             const mockParam_details = MockData_places['place-1220#1']['details'];
             const mockParam_address = MockData_places['place-1220#1']['simple'];
             const testFn = CustomValidators.validateAirportServiceAddress(
@@ -81,9 +81,9 @@ describe('CustomValidator tests, priority: DRIVING', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
-        test('fn: validateDestinationServiceAddress, param: all within Vienna', () => {
+        test('fn: validateDestinationServiceAddress, params: all within Vienna', () => {
             const mockParam_address = MockData_places['place-1090#1']['simple'];
             const mockParam_addressDetails = MockData_places['place-1090#1']['details'];
             const mockParam_compareDetails = MockData_places['place-1010#1']['details'];
@@ -98,7 +98,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateServiceRouteVIE, param: origin VIE', () => {
+        test('fn: validateServiceRouteVIE, params: invalid <origin> by VIE', () => {
             const mockParam_req = {
                 body: {
                     originDetails: { zipCode: MockData_places['place-1300#2']['details']['zipCode'] },
@@ -112,7 +112,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
         
-        test('fn: validateServiceRouteVIE, param: destination VIE', () => {
+        test('fn: validateServiceRouteVIE, params: invalid <destination> by VIE', () => {
             const mockParam_req = {
                 body: {
                     originDetails: { zipCode: MockData_places['place-1010#1']['details']['zipCode'] },
@@ -126,7 +126,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateAirportServiceAddress, param: missing zipCode', () => {
+        test('fn: validateAirportServiceAddress, params: invalid <zipCode> by null', () => {
             const mockParam_details = { address: 'test', zipCode: null };
             const mockParam_address = 'test';
             const expectResult = 'backend-missing-zipCode';
@@ -139,7 +139,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateAirportServiceAddress, param: invalid zipCode', () => {
+        test('fn: validateAirportServiceAddress, params: invalid <zipCode>', () => {
             const mockParam_details = { address: 'test', zipCode: '2361' };
             const mockParam_address = 'test';
             const expectResult = 'airport-invalid-place';
@@ -152,7 +152,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateGolfSupportMode, param: false value', () => {
+        test('fn: validateGolfSupportMode, params: invalid <supportMode> by value', () => {
             const mockParam_supportMode = { NONE: 'all' };
             const expectResult = 'backend-invalid-supportmode';
 
@@ -161,7 +161,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateGolfSupportMode, param: false key', () => {
+        test('fn: validateGolfSupportMode, params: invalid <supportMode> by key', () => {
             const mockParam_supportMode = { ALL: 'none' };
             const expectResult = 'backend-invalid-supportmode';
 
@@ -170,7 +170,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateTravelTimeRelevance, param: service == Golf', () => {
+        test('fn: validateTravelTimeRelevance, params: <serviceOption> = Golf', () => {
             const mockParam_compareTime = 180;
             const mockParam_travelTime = 200;
             const mockParam_serviceOption = ServiceOption.GOLF;
@@ -185,7 +185,7 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             }).toThrow(expectResult);
         })
 
-        test('fn: validateTravelTimeRelevance, param: service != Golf', () => {
+        test('fn: validateTravelTimeRelevance, params: <serviceOption> != Golf', () => {
             const mockParam_compareTime = 180;
             const mockParam_travelTime = 200;
             const mockParam_serviceOption = ServiceOption.DESTINATION;

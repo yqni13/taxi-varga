@@ -42,13 +42,13 @@
                     "backend-500-routes": "The api endpoint is not available at the moment. Please try again later or contact support.",
                     "backend-500-server": "Communication with the server is not available at the moment. Please try again later or contact support.",
                     "backend-auth-email": "Email service not available. Please try again later or contact support.",
-                    "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used.",
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
                     "backend-invalid-language": "The selected language can not be processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                    "backend-invalid-pickupTIME": "The selected pickup time is invalid. Please check your input.",
                     "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
                     "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
                     "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
@@ -60,7 +60,8 @@
                     "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
                     "backend-max-email": "Email service exceeded request limit and is temporary blocked. Please try again in 24h.",
                     "backend-missing-zipCode": "Your selected address was refused. Please check your address to contain a postal code and that it is selected from the suggested options.",
-                    "backend-required": "Not all necessary data were transferred. Please check your input."
+                    "backend-required": "Not all necessary data were transferred. Please check your input.",
+                    "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Env variable missing",
