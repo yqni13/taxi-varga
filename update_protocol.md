@@ -4,9 +4,18 @@
 
 <br>
 
+### 2025/06/26 - $\textsf{last\ update\ 1.3.2\ >>\ {\color{pink}1.3.4}}$
+
+- $\textsf{\color{red}Patch:}$ Refactored icons from dynamic to static load.
+- $\textsf{\color{red}Patch:}$ Updated security respective dependencies.
+
+### 2025/06/24 - $\textsf{last\ update\ 1.3.1\ >>\ {\color{pink}1.3.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added integration tests for workflows and express-validations within backend.
+
 ### 2025/06/19 - $\textsf{last\ update\ 1.2.5\ >>\ {\color{pink}1.3.1}}$
 
-- $\textsf{\color{teal}Addition:}$ Added backend tests for services, utils, validations and Google API.
+- $\textsf{\color{teal}Addition:}$ Added unit tests for services, utils, validations and Google API within backend.
 - $\textsf{\color{teal}Addition:}$ Added GLOSSARY.md as guidelines for name schemas, prefixes and abbreviations.
 
 ### 2025/06/14 - $\textsf{last\ update\ 1.2.4\ >>\ {\color{pink}1.2.5}}$

@@ -27,15 +27,17 @@
     "@angular/ssr": "^18.2.7",
     "@ngx-env/builder": "^19.0.4",
     "@ngx-translate/core": "^16.0.3",
+    "brace-expansion": "^4.0.1",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
-    "esbuild": "^0.25.4",
+    "esbuild": "^0.25.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^3.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "underscore": "^1.13.7",
     "uuid": "^11.0.5",
+    "vite": "^5.4.19",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
@@ -57,6 +59,13 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.5.2",
-    "typescript-eslint": "8.10.0"
+    "typescript-eslint": "8.10.0",
+    "webpack-dev-server": "^5.2.2"
+  },
+  "overrides": {
+    "brace-expansion": "$brace-expansion",
+    "esbuild": "$esbuild",
+    "http-proxy-middleware": "$http-proxy-middleware",
+    "webpack-dev-server": "$webpack-dev-server"
   }
 }

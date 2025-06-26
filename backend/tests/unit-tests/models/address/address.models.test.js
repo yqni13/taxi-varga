@@ -1,11 +1,11 @@
 const googlePlacesApi = require("../../../../src/services/google-places/google-places.api");
 const AddressModel = require('../../../../src/models/address.model');
-const MockData_requestPlaceAutocomplete = require('../../mock-data/requestPlaceAutocomplete.mock.json');
-const MockData_requestPlaceDetails = require('../../mock-data/requestPlaceDetails.mock.json');
+const MockData_requestPlaceAutocomplete = require('../../../mock-data/requestPlaceAutocomplete.mock.json');
+const MockData_requestPlaceDetails = require('../../../mock-data/requestPlaceDetails.mock.json');
 
 describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Address: gc+wien, lang: de', async () => {
             const mockParam_params = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['payload']);
@@ -25,7 +25,7 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
             const mockParam_params = {};
@@ -37,7 +37,7 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Invalid result by language (Austria !== Österreich), address: gc+wien, lang: de', async () => {
+        test('Invalid result by <language> (Austria !== Österreich), address: gc+wien, lang: de', async () => {
             const mockParam_params = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['payload']);
             const mockResult = structuredClone(MockData_requestPlaceAutocomplete['gc+wien']['response']);
             const mockAPI = { requestPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult) };
@@ -58,7 +58,7 @@ describe('Flatrate tests, priority: getPlaceAutocomplete', () => {
 
 describe('Flatrate tests, priority: getPlaceDetails', () => {
 
-    describe.only('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Address: hilton+schottenring, lang: de', async () => {
             const mockParam_params = structuredClone(MockData_requestPlaceDetails['hilton+schottenring']['payload']);
@@ -78,7 +78,7 @@ describe('Flatrate tests, priority: getPlaceDetails', () => {
         })
     })
 
-    describe.only('Testing invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         test('Empty params', async () => {
             const mockParam_params = {};

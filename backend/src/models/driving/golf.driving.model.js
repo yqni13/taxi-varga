@@ -13,7 +13,7 @@ class DrivingGolfModel {
             above30Km: 0.5,
             homeBasedRoutePerKm: 0.4,
             stayPerHour: 12,
-            serviceDistanceBelow30Km: 0.4
+            servDistBelow20Km: 0.4
         }
     }
     calcGolfRoute = async (params) => {
@@ -60,7 +60,7 @@ class DrivingGolfModel {
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        additionalCharges += this._addChargeServiceDistanceBelow30Km(routes);
+        additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
 
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
@@ -96,17 +96,17 @@ class DrivingGolfModel {
         };
     }
 
-    _addChargeServiceDistanceBelow30Km = (routes) => {
+    _addChargeServiceDistanceBelow20Km = (routes) => {
         let charge = 0;
         const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
-        if(serviceDistance > 30) {
+        if(serviceDistance > 20) {
             return charge;
         }
 
         // Additional charge on approach
-        charge += routes.h2o.distanceMeters * this.#prices.serviceDistanceBelow30Km;
+        charge += routes.h2o.distanceMeters * this.#prices.servDistBelow20Km;
         // Additional charge on return home
-        charge += routes.d2h.distanceMeters * this.#prices.serviceDistanceBelow30Km;
+        charge += routes.d2h.distanceMeters * this.#prices.servDistBelow20Km;
 
         return Number((charge).toFixed(1));
     }
