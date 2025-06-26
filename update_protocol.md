@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/06/26 - $\textsf{last\ update\ 1.3.2\ >>\ {\color{pink}1.3.4}}$
+
+- $\textsf{\color{red}Patch:}$ Refactored icons from dynamic to static load.
+- $\textsf{\color{red}Patch:}$ Updated security respective dependencies.
+
 ### 2025/06/24 - $\textsf{last\ update\ 1.3.1\ >>\ {\color{pink}1.3.2}}$
 
 - $\textsf{\color{teal}Addition:}$ Added integration tests for workflows and express-validations within backend.
