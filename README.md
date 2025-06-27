@@ -178,9 +178,13 @@ or simply save as script command in `package.json` to run `npm test`:
     "test": "set NODE_MODE=staging && jest --setupFiles dotenv/config"
   }
 ```
-// TODO(yqni13): add screenshot of GitHub Actino Jest test run
 To automatically check tests before merging feature/development branch further up, a `GitHub Action` is set up, see [main.yml](.github/workflows/main.yml).<br>
-Preventing early merge, the project is setup to disable merging until all tests have passed.
+Preventing an unwanted merge with unfinished/failed test run, the project is set up to disable merging until all tests have passed (see Figure 8).
+
+<div align="center">
+    <img src="frontend/public/assets/docs/github-action-jest.jpg" alt="&nbsp;no picture found">
+    Figure 8
+</div>
 
 <br>
 
