@@ -131,11 +131,15 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     configAddressFields(direction: AirportOptions) {
         if(direction === AirportOptions.ARRIVAL) {
             this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
+            this.serviceForm.get('originAddress')?.setValidators(Validators.required);
+            this.serviceForm.get('originAddress')?.updateValueAndValidity();
             this.serviceForm.get('destinationAddress')?.setValue('');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
         } else if(direction === AirportOptions.DEPARTURE) {
             this.serviceForm.get('destinationAddress')?.setValue('vie-schwechat');
+            this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
+            this.serviceForm.get('destinationAddress')?.updateValueAndValidity();
             this.serviceForm.get('originAddress')?.setValue('');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
             this.serviceForm.get('originAddress')?.markAsUntouched();
