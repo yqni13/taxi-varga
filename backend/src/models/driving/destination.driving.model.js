@@ -8,8 +8,8 @@ class DrivingDestinationModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
-            approachBelow30Km: 4,
-            approachAbove30Km: 0.4,
+            approachFlatrate: 4,
+            approachWithinBH: 0.4,
             approachOffBH: 0.5,
             servDistBelow30Km: 0.65,
             servDistAbove30Km: 0.5,
@@ -54,15 +54,17 @@ class DrivingDestinationModel {
 
         // Approach costs
         if(withinBusinessHours) {
-            const priceMoreThan30km = this.#prices.approachBelow30Km + ((routes.h2o.distanceMeters - 30) * this.#prices.approachAbove30Km);
-            approachCosts = routes.h2o.distanceMeters <= 30 
-                ? this.#prices.approachBelow30Km
-                : priceMoreThan30km;
+            const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
+            const servDist = params['back2home'] 
+                ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
+                : routes.o2d.distanceMeters;
+            approachCosts = servDist <= 20 
+                ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
+                : routes.h2o.distanceMeters <= 30
+                    ? this.#prices.approachFlatrate
+                    : priceMoreThan30km;
         } else {
-            const priceMoreThan8km = routes.h2o.distanceMeters * this.#prices.approachOffBH;
-            approachCosts = routes.h2o.distanceMeters <= 8
-                ? this.#prices.approachBelow30Km
-                : priceMoreThan8km;
+            approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
         }
 
         let serviceDriveTimeCost = 0;

@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.3.4}}$
+$\texttt{\color{teal}{v1.3.6}}$
 
 
 <br><br>
@@ -178,6 +178,9 @@ or simply save as script command in `package.json` to run `npm test`:
     "test": "set NODE_MODE=staging && jest --setupFiles dotenv/config"
   }
 ```
+// TODO(yqni13): add screenshot of GitHub Actino Jest test run
+To automatically check tests before merging feature/development branch further up, a `GitHub Action` is set up, see [main.yml](.github/workflows/main.yml).<br>
+Preventing early merge, the project is setup to disable merging until all tests have passed.
 
 <br>
 
@@ -216,10 +219,10 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.3.2\ >>\ {\color{pink}1.3.4}}$
+### $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
 
-- $\textsf{\color{red}Patch:}$ Refactored icons from dynamic to static load.
-- $\textsf{\color{red}Patch:}$ Updated security respective dependencies.
+- $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.
+- $\textsf{\color{red}Bugfix:}$ Switching multiple times between mode 'arrival' and 'departure' on service 'airport' validates input correctly. [Before: Clicking into address-input-field and/or writing input and then switching modes caused wrong validations and blocked sending the request without displaying errors.]
 
 <br>
 

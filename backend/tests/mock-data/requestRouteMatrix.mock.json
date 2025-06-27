@@ -1,6 +1,13 @@
 {
     "service-destination": {
         "route1010-2361": {
+            "a_information": {
+                "approach_distance": 42,
+                "back2home": false,
+                "BH": "withinBH",
+                "return_distance": 26.2,
+                "servDist": 21.9
+            },
             "apiResult": [
                 {
                     "destinationIndex": 1,
@@ -108,6 +115,13 @@
             "pickupTIME": 8
         },
         "route1090-4020": {
+            "a_information": {
+                "approach_distance": 46.5,
+                "back2home": false,
+                "BH": "withinBH",
+                "return_distance": 193.2,
+                "servDist": 183.5
+            },
             "apiResult": [
                 {
                     "destinationIndex": 2,
@@ -215,6 +229,13 @@
             "pickupTIME": 8
         },
         "route1230-2345": {
+            "a_information": {
+                "approach_distance": 36.4,
+                "back2home": false,
+                "BH": "withinBH",
+                "return_distance": 30.8,
+                "servDist": 7.6
+            },
             "apiResult": [
                 {
                     "destinationIndex": 0,
@@ -321,7 +342,470 @@
             },
             "pickupTIME": 8
         },
+        "route2542-2542": {
+            "a_information": {
+                "approach_distance": 3.2,
+                "back2home": true,
+                "BH": "withinBH",
+                "return_distance": 3.2,
+                "servDist": 6.1
+            },
+            "apiResult": [
+                {
+                    "destinationIndex": 2,
+                    "distanceMeters": 0,
+                    "duration": 0,
+                    "originIndex": 0,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 1,
+                    "distanceMeters": 0,
+                    "duration": 0,
+                    "originIndex": 1,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 0,
+                    "distanceMeters": 0,
+                    "duration": 0,
+                    "originIndex": 3,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 0,
+                    "distanceMeters": 0,
+                    "duration": 0,
+                    "originIndex": 2,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 1,
+                    "distanceMeters": 3.1,
+                    "duration": 5.7,
+                    "originIndex": 3,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 1,
+                    "distanceMeters": 3.1,
+                    "duration": 5.7,
+                    "originIndex": 2,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 2,
+                    "distanceMeters": 3.2,
+                    "duration": 5.7,
+                    "originIndex": 1,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 2,
+                    "distanceMeters": 5.5,
+                    "duration": 10,
+                    "originIndex": 2,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 1,
+                    "distanceMeters": 3.2,
+                    "duration": 5.8,
+                    "originIndex": 0,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 2,
+                    "distanceMeters": 5.5,
+                    "duration": 10,
+                    "originIndex": 3,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 0,
+                    "distanceMeters": 5.5,
+                    "duration": 10.2,
+                    "originIndex": 0,
+                    "status": {}
+                },
+                {
+                    "destinationIndex": 0,
+                    "distanceMeters": 3,
+                    "duration": 5.4,
+                    "originIndex": 1,
+                    "status": {}
+                }
+            ],
+            "back2home": "true",
+            "destination": "Badner+Str.+7-9,+2540+Bad+Vöslau,+Austria",
+            "destinationAddress": {
+                "address": "Badner Str. 7-9, 2540 Bad Vöslau, Austria",
+                "country": "Austria",
+                "placeId": "ChIJA0nwlMqwbUcRhzVLLBxsXcU",
+                "province": "Niederösterreich",
+                "zipCode": "2540"
+            },
+            "latency": 0,
+            "origin": "Wiener+Neustädter+Str.+6,+2542+Kottingbrunn,+Austria",
+            "originDetails": {
+                "address": "Wiener Neustädter Str. 6, 2542 Kottingbrunn, Austria",
+                "country": "Austria",
+                "placeId": "ChIJB_qAvSC3bUcRAZ5oDL2UzCM",
+                "province": "Niederösterreich",
+                "zipCode": "2542"
+            },
+            "pickupTIME": 8
+        },
+        "route2340-2340": {
+            "a_information": {
+                "approach_distance": 27.4,
+                "back2home": true,
+                "BH": "withinBH",
+                "return_distance": 27.1,
+                "servDist": 12.7
+            },
+            "apiResult": [
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 27.9,
+                    "duration": 21.7
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 27.8,
+                    "duration": 21.6
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 6.2,
+                    "duration": 11.5
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 6.2,
+                    "duration": 11.5
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 27.4,
+                    "duration": 23.2
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 27.6,
+                    "duration": 21.2
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 6.5,
+                    "duration": 11.6
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 27.1,
+                    "duration": 23.5
+                }
+            ],
+            "back2home": "true",
+            "destination": "Wienerstraße+154,+2345+Brunn+am+Gebirge,+Austria",
+            "destinationAddress": {
+                "address": "Wienerstraße 154, 2345 Brunn am Gebirge, Austria",
+                "country": "Austria",
+                "placeId": "ChIJp7OV7DGvbUcRViYzpU0HRPM",
+                "province": "Niederösterreich",
+                "zipCode": "2345"
+            },
+            "latency": 0,
+            "origin": "Spechtgasse+68,+2340+Mödling,+Austria",
+            "originDetails": {
+                "address": "Spechtgasse 68, 2340 Mödling, Austria",
+                "country": "Austria",
+                "placeId": "ChIJnQRLdqmvbUcRVfvcgY7pvPY",
+                "province": "Niederösterreich",
+                "zipCode": "2340"
+            },
+            "pickupTIME": 8
+        },
+        "route2560-1020": {
+            "a_information": {
+                "approach_distance": 5.1,
+                "back2home": false,
+                "BH": "withinBH",
+                "return_distance": 44.6,
+                "servDist": 45.6
+            },
+            "apiResult": [
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 5.4,
+                    "duration": 8.6
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 5.4,
+                    "duration": 8.8
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 45.6,
+                    "duration": 37.5
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 44.6,
+                    "duration": 38.6
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 45.6,
+                    "duration": 37.5
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 45.6,
+                    "duration": 36.7
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 44.6,
+                    "duration": 38.6
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 44.2,
+                    "duration": 36.4
+                }
+            ],
+            "back2home": "false",
+            "destination": "Praterstraße+1,+1020+Wien,+Austria",
+            "destinationAddress": {
+                "address": "Praterstraße 1, 1020 Wien, Austria",
+                "country": "Austria",
+                "placeId": "ChIJt8BqvqAHbUcRCOcO48abiFE",
+                "province": "Wien",
+                "zipCode": "1020"
+            },
+            "latency": 0,
+            "origin": "Hirtenberger+Str.+37,+2560+Berndorf,+Austria",
+            "originDetails": {
+                "address": "Hirtenberger Str. 37, 2560 Berndorf, Austria",
+                "country": "Austria",
+                "placeId": "ChIJnbQ76H-3bUcRrYL4kopIhqQ",
+                "province": "Niederösterreich",
+                "zipCode": "2560"
+            },
+            "pickupTIME": 8
+        },
+        "route2384-2384": {
+            "a_information": {
+                "approach_distance": 45,
+                "back2home": true,
+                "BH": "withinBH",
+                "return_distance": 45.3,
+                "servDist": 74.3
+            },
+            "apiResult": [
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "duration": 0,
+                    "distanceMeters": 0
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 48,
+                    "duration": 38
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 47.3,
+                    "duration": 36
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 48,
+                    "duration": 38
+                },
+                {
+                    "originIndex": 3,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 36.7,
+                    "duration": 41.7
+                },
+                {
+                    "originIndex": 2,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 36.7,
+                    "duration": 41.7
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 2,
+                    "status": {},
+                    "distanceMeters": 45.3,
+                    "duration": 43.4
+                },
+                {
+                    "originIndex": 1,
+                    "destinationIndex": 0,
+                    "status": {},
+                    "distanceMeters": 37.6,
+                    "duration": 41.8
+                },
+                {
+                    "originIndex": 0,
+                    "destinationIndex": 1,
+                    "status": {},
+                    "distanceMeters": 45,
+                    "duration": 42.8
+                }
+            ],
+            "back2home": "true",
+            "destination": "Leonard-Bernstein-Straße+10,+1220+Wien,+Austria",
+            "destinationAddress": {
+                "address": "Leonard-Bernstein-Straße 10, 1220 Wien, Austria",
+                "country": "Austria",
+                "placeId": "ChIJnYUaCu8GbUcRBHHYgO4sPr8",
+                "province": "Wien",
+                "zipCode": "1220"
+            },
+            "latency": 0,
+            "origin": "Auf+der+Hammerlwiese+32,+2384+Breitenfurt+bei+Wien,+Austria",
+            "originDetails": {
+                "address": "Auf der Hammerlwiese 32, 2384 Breitenfurt bei Wien, Austria",
+                "country": "Austria",
+                "placeId": "ChIJDVsMIl-hbUcRgVnAhmYMVok",
+                "province": "Niederösterreich",
+                "zipCode": "2384"
+            },
+            "pickupTIME": 8
+        },
         "route2824-2700": {
+            "a_information": {
+                "approach_distance": 6.6,
+                "back2home": false,
+                "BH": "withinBH",
+                "return_distance": 13.5,
+                "servDist": 9.5
+            },
             "apiResult": [
                 {
                     "destinationIndex": 1,
