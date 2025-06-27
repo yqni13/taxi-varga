@@ -15,7 +15,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 74 } };
+                const expectSubObj = { routeData: { price: 86 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 78 } };
+                const expectSubObj = { routeData: { price: 90 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 81 } };
+                const expectSubObj = { routeData: { price: 85 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -58,7 +58,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 94 } };
+                const expectSubObj = { routeData: { price: 98 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -93,7 +93,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 115 } };
+                const expectSubObj = { routeData: { price: 119 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -125,7 +125,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 121 } };
+                const expectSubObj = { routeData: { price: 125 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -157,7 +157,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 139 } };
+                const expectSubObj = { routeData: { price: 143 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -166,28 +166,93 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
         describe('Test with service distance < 20, priority: back2home & approach', () => {
 
-            test('Route (2824to2700), params: approach < 8, <back2home> = false, withinBH, <latency> = 0', async () => {
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
-                const mockResult = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
+            test('Route (1230to2345), params: offBH, servDist < 20, bach2home = false', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1230-2345']);
+                mockParam_params['pickupTIME'] = 17;
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 34 } };
+                const expectSubObj = { routeData: { price: 85 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (2824to2700), params: approach < 8, <back2home> = true, withinBH, <latency> = 0', async () => {
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2824-2700']);
-                mockParam_params['back2home'] = 'true';
-                const mockResult = structuredClone(MockData_requestRouteMatrix['route2824-2700']['apiResult']);
+            test('Route (1230to2345), params: withinBH, servDist < 20, bach2home = false', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1230-2345']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 44 } };
+                const expectSubObj = { routeData: { price: 86 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
+
+            test('Route (2542to2542), params: withinBH, servDist < 20, bach2home = true', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2542-2542']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2542-2542']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 20 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
+
+            test('Route (2340to2340), params: withinBH, servDist > 20, bach2home = true, approach < 30', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2340']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2340-2340']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 71 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
+
+            test('Route (2384to2384), params: withinBH, servDist > 20, bach2home = true, approach > 30', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2384-2384']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2384-2384']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 107 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
+
+            test('Route (2560to1020), params: withinBH, servDist > 20, bach2home = false, approach < 30', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2560-1020']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route2560-1020']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 63 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
+
+            test('Route (1090to4020), params: withinBH, servDist > 20, bach2home = false, approach > 30', async () => {
+                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockResult = structuredClone(MockData_requestRouteMatrix['route1090-4020']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 257 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();

@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/06/27 - $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
+
+- $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.
+- $\textsf{\color{red}Bugfix:}$ Switching multiple times between mode 'arrival' and 'departure' on service 'airport' validates input correctly. [Before: Clicking into address-input-field and/or writing input and then switching modes caused wrong validations and blocked sending the request without displaying errors.]
+
 ### 2025/06/26 - $\textsf{last\ update\ 1.3.2\ >>\ {\color{pink}1.3.4}}$
 
 - $\textsf{\color{red}Patch:}$ Refactored icons from dynamic to static load.
