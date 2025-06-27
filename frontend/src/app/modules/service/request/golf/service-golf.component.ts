@@ -213,6 +213,11 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
+        // Run config again to ensure correct address if origin was updated afterwards.
+        if(this.serviceForm.get('return')?.value === true) {
+            this.configReturnAddress(true);
+        }
+
         if(this.serviceForm.invalid) {
             return;
         }
