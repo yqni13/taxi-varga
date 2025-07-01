@@ -102,3 +102,22 @@ exports.drivingGolfSchema = [
         .bail()
         .custom((value) => CustomValidator.validateGolfSupportMode(value))
 ];
+
+exports.drivingQuickSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('originDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value)),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),    
+    body('destinationDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
+    body('back2home')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+];
