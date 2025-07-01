@@ -10,6 +10,7 @@ import { AddressAPIService } from "../../../../shared/services/address-api.servi
 import { v4 as uuidv4 } from 'uuid';
 import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../shared/interfaces/address-response.interface";
 import * as CustomValidators from "../../../helper/custom-validators";
+import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 
 @Component({
     selector: 'tava-addressinput',
@@ -64,6 +65,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() ngClass: string;
     @Input() exceptions: string[];
     @Input() maxVal: number;
+    @Input() filterOption: AddressFilterOptions;
     @Input() set hasAutoFocus(value: boolean) {
         if(value) {
             this.focusOnInput();
@@ -98,6 +100,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.ngClass = '';
         this.exceptions = [];
         this.maxVal = 0;
+        this.filterOption = AddressFilterOptions.NOSPEC;
         this.byChange = new EventEmitter<any>();
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
         this.showOptions = false;
@@ -141,6 +144,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             const data = {
                 address: this.formControl?.value,
                 language: this.translate.currentLang,
+                filter: this.filterOption,
                 sessionToken: this.sessionToken
             }
             this.addressApiService.setDataAutocomplete(data);
@@ -158,13 +162,13 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
 
     confOptions(data: any) {
-        this.delay(100);
+        this.delay(50);
         this.options.length = 0;
-        data.body?.body.placeData.predictions.forEach((entry: any) => {
+        data.body?.body.placeData.suggestions.forEach((entry: any) => {
             this.options.push({
-                descriptionFull: entry['description'],
-                descriptionMain: entry['structured_formatting']['main_text'],
-                placeId: entry['place_id']
+                descriptionFull: entry['placePrediction']['text']['text'],
+                descriptionMain: entry['placePrediction']['structuredFormat']['mainText']['text'],
+                placeId: entry['placePrediction']['placeId']
             })
         })
         this.showOptions = true;
@@ -199,16 +203,16 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             }
         }
 
-        const array = data.body?.body.placeData.result.address_components;
-        const route = array.filter((entry: any) => entry.types[0] === 'route').map((entry: any) => entry.long_name);
-        const name = data.body?.body.placeData.result.name;
-        const address = data.body?.body.placeData.result.formatted_address;
-        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.long_name as string);
-        const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.long_name as string);
-        const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.long_name as string);
+        const array = data.body?.body.placeData.addressComponents;
+        const types = data.body?.body.placeData.types;
+        const route = data.body?.body.placeData.formattedAddress;
+        const name = data.body?.body.placeData.displayName.text;
+        const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.longText as string);
+        const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.longText as string);
+        const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.longText as string);
 
         return {
-            address: route.length === 0 ? name : address,
+            address: types.includes('street_address') ? route : `${name}, ${zipCode} ${province}`,
             zipCode: zipCode[0] as string,
             province: province[0] as string,
             country: country[0] as string,

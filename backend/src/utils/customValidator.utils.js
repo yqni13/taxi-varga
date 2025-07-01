@@ -7,6 +7,14 @@ const Secrets = require('./secrets.utils');
 const { SupportModeOption } = require('./enums/supportmode-option.enum');
 const { ErrorCodes } = require('./errorCodes.utils');
 
+exports.validateEnum = (value, enumObj, enumName) => {
+    const enumValues = Object.values(enumObj);
+    if(!enumValues.includes(value)) {
+        throw new Error(`data-invalid-entry#${enumName}`);
+    }
+    return true;
+}
+
 exports.validateServiceOption = (value) => {
     const options = Object.values(ServiceOption);
     if(!options.includes(value)) {

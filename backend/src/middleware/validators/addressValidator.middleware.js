@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const CustomValidator = require('../../utils/customValidator.utils');
+const { AddressFilterOption } = require('../../utils/enums/addressfilter-option.enum');
 
 exports.autocompleteSchema = [
     body('address')
@@ -11,7 +12,13 @@ exports.autocompleteSchema = [
         .notEmpty()
         .withMessage('backend-required')
         .bail()
-        .custom((value) => CustomValidator.validateLanguageCompatible(value))
+        .custom((value) => CustomValidator.validateLanguageCompatible(value)),
+    body('filter')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required')
+        .bail()
+        .custom((filter) => CustomValidator.validateEnum(filter, AddressFilterOption, 'addressFilter'))
 ];
 
 exports.placeSchema = [

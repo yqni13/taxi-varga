@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/07/01 - $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
+
+- $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.
+
 ### 2025/06/27 - $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
 
 - $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.
