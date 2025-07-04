@@ -1,5 +1,6 @@
 const CustomValidator = require('../../utils/customValidator.utils');
 const { body } = require('express-validator');
+const { SupportModeOption } = require('../../utils/enums/supportmode-option.enum');
 
 exports.drivingAirportSchema = [
     body('origin')
@@ -100,5 +101,5 @@ exports.drivingGolfSchema = [
         .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
-        .custom((value) => CustomValidator.validateGolfSupportMode(value))
+        .custom((value) => CustomValidator.validateEnum(value, SupportModeOption, 'supportMode'))
 ];

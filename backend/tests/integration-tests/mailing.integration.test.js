@@ -18,6 +18,7 @@ describe('Integration test, priority: Mailing', () => {
             jest.resetModules();
         })
 
+        let app;
         beforeEach(() => {
             // These mocks are not global because we want to check process for invalid fn calls.
             jest.mock('../../src/middleware/validators/mailingValidator.middleware.js', () => ({
