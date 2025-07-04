@@ -1,7 +1,6 @@
 const CustomValidators = require('../../../src/utils/customValidator.utils');
 const { ServiceOption } = require('../../../src/utils/enums/service-option.enum');
 const MockData_places = require('../../mock-data/places.mock.json');
-const { SupportModeOption } = require('../../../src/utils/enums/supportmode-option.enum');
 
 describe('CustomValidator tests, priority: DRIVING', () => {
 
@@ -56,14 +55,6 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             const expectResult = true;
 
             expect(testFn).toBe(expectResult);
-        })
-
-        test('fn: validateGolfSupportMode', () => {
-            const mockParam_supportMode = SupportModeOption;
-            const expectResult = true;
-            Object.values(mockParam_supportMode).forEach((option) => {
-                expect(CustomValidators.validateGolfSupportMode(option)).toBe(expectResult);
-            })
         })
 
         test('fn: validateTravelTimeRelevance', () => {
@@ -149,24 +140,6 @@ describe('CustomValidator tests, priority: DRIVING', () => {
                     mockParam_details,
                     mockParam_address
                 )
-            }).toThrow(expectResult);
-        })
-
-        test('fn: validateGolfSupportMode, params: invalid <supportMode> by value', () => {
-            const mockParam_supportMode = { NONE: 'all' };
-            const expectResult = 'backend-invalid-supportmode';
-
-            expect(() => {
-                CustomValidators.validateGolfSupportMode(mockParam_supportMode);
-            }).toThrow(expectResult);
-        })
-
-        test('fn: validateGolfSupportMode, params: invalid <supportMode> by key', () => {
-            const mockParam_supportMode = { ALL: 'none' };
-            const expectResult = 'backend-invalid-supportmode';
-
-            expect(() => {
-                CustomValidators.validateGolfSupportMode(mockParam_supportMode);
             }).toThrow(expectResult);
         })
 

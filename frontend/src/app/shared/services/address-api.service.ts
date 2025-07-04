@@ -4,6 +4,7 @@ import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest } from "../interfaces/address-request.interface";
 import { UtilsService } from "./utils.service";
 import { Observable } from "rxjs";
+import { AddressFilterOptions } from "../enums/addressfilter-options.enum";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -29,13 +30,14 @@ export class AddressAPIService {
         this.dataAutocomplete = {
             address: '',
             language: '',
-            sessiontoken: ''
+            filter: AddressFilterOptions.NOSPEC,
+            sessionToken: ''
         };
 
         this.dataDetails = {
             placeId: '',
             language: '',
-            sessiontoken: ''
+            sessionToken: ''
         };
     }
 
@@ -43,7 +45,8 @@ export class AddressAPIService {
         this.dataAutocomplete = {
             address: this.utils.configAPIAddressString(data.address),
             language: data.language,
-            sessiontoken: data.sessionToken
+            filter: data.filter,
+            sessionToken: data.sessionToken
         }
     }
 
@@ -51,7 +54,7 @@ export class AddressAPIService {
         this.dataDetails = {
             placeId: data.placeId,
             language: data.language,
-            sessiontoken: data.sessionToken
+            sessionToken: data.sessionToken
         }
     }
 

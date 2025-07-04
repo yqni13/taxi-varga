@@ -21,7 +21,7 @@ class AddressModel {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
-        
+
         const result = await this.#googlePlaces.requestPlaceDetails(params);
 
         return { placeData: result };

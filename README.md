@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.3.6}}$
+$\texttt{\color{teal}{v1.4.0}}$
 
 
 <br><br>
@@ -223,16 +223,14 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
+### $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
 
-- $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.
-- $\textsf{\color{red}Bugfix:}$ Switching multiple times between mode 'arrival' and 'departure' on service 'airport' validates input correctly. [Before: Clicking into address-input-field and/or writing input and then switching modes caused wrong validations and blocked sending the request without displaying errors.]
+- $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.
 
 <br>
 
 ### Aimed objectives for next $\textsf{\color{green}minor}$ update:
 <dl>
-    <dd>- update Google Places API to Places API (New)</dd>
     <dd>- update email format</dd>
     <dd>- update token handling (refresh token)</dd>
     <dd>- update logging & exception handling (client side)</dd>

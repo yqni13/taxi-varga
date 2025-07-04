@@ -1,5 +1,6 @@
 const { body } = require('express-validator');
 const CustomValidator = require('../../utils/customValidator.utils');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
 
 exports.authInitSessionSchema = [
     body('user')
@@ -15,5 +16,5 @@ exports.authInitSessionSchema = [
         .notEmpty()
         .withMessage('backend-require')
         .bail()
-        .custom((service) => CustomValidator.validateServiceOption(service))
+        .custom((value) => CustomValidator.validateEnum(value, ServiceOption, 'service'))
 ];
