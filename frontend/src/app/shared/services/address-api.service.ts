@@ -31,13 +31,13 @@ export class AddressAPIService {
             address: '',
             language: '',
             filter: AddressFilterOptions.NOSPEC,
-            sessiontoken: ''
+            sessionToken: ''
         };
 
         this.dataDetails = {
             placeId: '',
             language: '',
-            sessiontoken: ''
+            sessionToken: ''
         };
     }
 
@@ -46,7 +46,7 @@ export class AddressAPIService {
             address: this.utils.configAPIAddressString(data.address),
             language: data.language,
             filter: data.filter,
-            sessiontoken: data.sessionToken
+            sessionToken: data.sessionToken
         }
     }
 
@@ -54,7 +54,7 @@ export class AddressAPIService {
         this.dataDetails = {
             placeId: data.placeId,
             language: data.language,
-            sessiontoken: data.sessionToken
+            sessionToken: data.sessionToken
         }
     }
 

@@ -38,7 +38,7 @@ class GooglePlacesAPI {
     requestPlaceDetails = async (params) => {
         const id = params['placeId'];
         const lang = params['language'];
-        const token = params['sessiontoken'];
+        const token = params['sessionToken'];
 
         const headers = this._getDetailsRequestHeader();
         const url = this._getDetailsRequestURL() + `${id}?languageCode=${lang}&sessionToken=${token}`;
@@ -62,13 +62,13 @@ class GooglePlacesAPI {
 
         const searchText = Utils.formatRequestStringNoPlus(params['address']);
         const lang = params['language'];
-        const token = params['sessiontoken'];
+        const token = params['sessionToken'];
 
         // Vienna as central search factor.
         const centerLatitude = 48.208775;
         const centerLongitude = 16.372540;
 
-        const requestData = {
+        let payload = {
             "sessionToken": token,
             "languageCode": lang,
             "locationBias": {
@@ -83,12 +83,10 @@ class GooglePlacesAPI {
             "input": searchText
         };
 
-        if(params['filter'] === AddressFilterOption.GOLF) {
-            Object.assign(requestData, { "includedPrimaryTypes": ["golf_course", "sports_club"]});
-        }
+        payload = this._transformAutocompletePayload(payload, params);
 
         let result;
-        await axios.post(url, requestData, { headers })
+        await axios.post(url, payload, { headers })
             .then(response => {
                 result = response.data;
             })
@@ -100,6 +98,14 @@ class GooglePlacesAPI {
         return result;
     }
 
+    _transformAutocompletePayload(result, params) {
+        if(params['filter'] === AddressFilterOption.GOLF) {
+            Object.assign(result, { "includedPrimaryTypes": ["golf_course", "sports_club"]});
+        }
+
+        return result;
+    }
+
     // TODO(yqni13): remove 10/2025
     /**
      * @deprecated since version 1.4.0
@@ -107,7 +113,7 @@ class GooglePlacesAPI {
     requestPlaceAutocomplete_Legacy = async (params) => {
         const searchText = Utils.formatRequestStringNoPlus(params['address']);
         const lang = params['language'];
-        const token = params['sessiontoken'];
+        const token = params['sessionToken'];
 
         // Vienna center
         const centerLatitude = '48.208775';
@@ -136,7 +142,7 @@ class GooglePlacesAPI {
     requestPlaceDetails_Legacy = async (params) => {
         const id = params['placeId'];
         const lang = params['language'];
-        const token = params['sessiontoken'];
+        const token = params['sessionToken'];
 
         const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${id}&language=${lang}&sessiontoken=${token}&key=${Secrets.GOOGLE_API_KEY}`;
 

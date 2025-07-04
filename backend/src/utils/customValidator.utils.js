@@ -1,34 +1,15 @@
-const { ServiceOption } = require('./enums/service-option.enum');
-const { LanguageOption } = require('./enums/lang-option.enum');
 const Utils = require('../utils/common.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
 const Secrets = require('./secrets.utils');
-const { SupportModeOption } = require('./enums/supportmode-option.enum');
 const { ErrorCodes } = require('./errorCodes.utils');
+const { ServiceOption } = require('./enums/service-option.enum');
 
 exports.validateEnum = (value, enumObj, enumName) => {
     const enumValues = Object.values(enumObj);
     if(!enumValues.includes(value)) {
-        throw new Error(`data-invalid-entry#${enumName}`);
+        throw new Error(`backend-invalid-entry#${enumName}`);
     }
-    return true;
-}
-
-exports.validateServiceOption = (value) => {
-    const options = Object.values(ServiceOption);
-    if(!options.includes(value)) {
-        throw new Error('backend-service-option');
-    }
-    return true;
-}
-
-exports.validateLanguageCompatible = (language) => {
-    const options = Object.values(LanguageOption);
-    if(!options.includes(language)) {
-        throw new Error('backend-invalid-language');
-    }
-
     return true;
 }
 
@@ -82,15 +63,6 @@ exports.validateEncryptedSender = (encryptedSender) => {
     const decryptedSender = decryptRSA(encryptedSender, Secrets.PRIVATE_KEY);
     if(!decryptedSender.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         throw new InvalidPropertiesException('backend-invalid-email');
-    }
-
-    return true;
-}
-
-exports.validateGolfSupportMode = (supportMode) => {
-    const options = Object.values(SupportModeOption);
-    if(!options.includes(supportMode)) {
-        throw new Error('backend-invalid-supportmode');
     }
 
     return true;

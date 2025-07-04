@@ -1,6 +1,7 @@
 const { body } = require('express-validator');
 const CustomValidator = require('../../utils/customValidator.utils');
 const { AddressFilterOption } = require('../../utils/enums/addressfilter-option.enum');
+const { LanguageOption } = require('../../utils/enums/lang-option.enum');
 
 exports.autocompleteSchema = [
     body('address')
@@ -12,7 +13,11 @@ exports.autocompleteSchema = [
         .notEmpty()
         .withMessage('backend-required')
         .bail()
-        .custom((value) => CustomValidator.validateLanguageCompatible(value)),
+        .custom((value) => CustomValidator.validateEnum(value, LanguageOption, 'language')),
+    body('sessionToken')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
     body('filter')
         .trim()
         .notEmpty()
@@ -23,12 +28,17 @@ exports.autocompleteSchema = [
 
 exports.placeSchema = [
     body('placeId')
-        .exists()
+        .trim()
+        .notEmpty()
         .withMessage('backend-required'),
     body('language')
         .trim()
         .notEmpty()
         .withMessage('backend-required')
         .bail()
-        .custom((value) => CustomValidator.validateLanguageCompatible(value))
+        .custom((value) => CustomValidator.validateEnum(value, LanguageOption, 'language')),
+    body('sessionToken')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required')
 ];

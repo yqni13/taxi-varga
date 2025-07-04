@@ -4,11 +4,11 @@ export declare interface AddressAutocompleteRequest {
     address: string,
     language: string,
     filter: AddressFilterOptions
-    sessiontoken: string
+    sessionToken: string
 }
 
 export declare interface AddressDetailsRequest {
     placeId: string,
     language: string,
-    sessiontoken: string
+    sessionToken: string
 }

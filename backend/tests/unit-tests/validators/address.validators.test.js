@@ -1,18 +1,9 @@
 const CustomValidators = require('../../../src/utils/customValidator.utils');
-const { LanguageOption } = require('../../../src/utils/enums/lang-option.enum');
 const MockData_places = require('../../mock-data/places.mock.json');
 
 describe('CustomValidator tests, priority: ADDRESS', () => {
 
     describe('Testing valid fn calls', () => {
-
-        test('fn: validateLanguageCompatible', () => {
-            const mockParam_language = LanguageOption;
-            const expectResult = true;
-            Object.values(mockParam_language).forEach((option) => {
-                expect(CustomValidators.validateLanguageCompatible(option)).toBe(expectResult);
-            })
-        })
 
         test('fn: validatePlaceDetails', () => {
             const mockParam_address = MockData_places['place-1010#1']['simple'];
@@ -28,24 +19,6 @@ describe('CustomValidator tests, priority: ADDRESS', () => {
     })
 
     describe('Testing invalid fn calls', () => {
-
-        test('fn: validateLanguageCompatible, params: invalid <language> by value', () => {
-            const mockParam_language = { DE: 'fr' };
-            const expectResult = 'backend-invalid-language';
-
-            expect(() => {
-                CustomValidators.validateLanguageCompatible(mockParam_language);
-            }).toThrow(expectResult);
-        })
-
-        test('fn: validateLanguageCompatible, params: invalid <language> by key', () => {
-            const mockParam_language = { FR: 'fr' };
-            const expectResult = 'backend-invalid-language';
-            
-            expect(() => {
-                CustomValidators.validateLanguageCompatible(mockParam_language);
-            }).toThrow(expectResult);
-        })
 
         test('fn: validatePlaceDetails, params: <details> = null', () => {
             const mockParam_address = 'test';
