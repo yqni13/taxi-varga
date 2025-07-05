@@ -5,7 +5,7 @@ const {
     UnexpectedException 
 } = require("../utils/exceptions/common.exception");
 const { InvalidCredentialsException } = require('../utils/exceptions/auth.exception');
-const { encryptRSA, decryptRSA, decryptAES } = require('../utils/crypto.utils');
+const { decryptRSA, decryptAES } = require('../utils/crypto.utils');
 const Secrets = require('../utils/secrets.utils');
 const { ServiceOption } = require('../utils/enums/service-option.enum');
 const { SupportModeOption } = require('../utils/enums/supportmode-option.enum');

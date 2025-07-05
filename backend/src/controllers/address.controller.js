@@ -4,13 +4,13 @@ const { checkValidation } = require('../middleware/validation.middleware');
 class AddressController {
     getPlaceAutocomplete = async (req, res, next) => {
         checkValidation(req);
-        const response = await AddressService.getList(req.body);
+        const response = await AddressService.getPlaceAutocomplete(req.body);
         res.send(response);
     }
 
     getPlaceDetails = async (req, res, next) => {
         checkValidation(req);
-        const response = await AddressService.getDetails(req.body);
+        const response = await AddressService.getPlaceDetails(req.body);
         res.send(response);
     }
 }

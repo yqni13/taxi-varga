@@ -1,4 +1,276 @@
 {
+    "address": {
+        "autocomplete": {
+            "non-specific_entry0": {
+                "params": {
+                    "address": "ren",
+                    "language": "de",
+                    "sessionToken": "1e32745a-d043-4123-8667-e48459aae6e7",
+                    "filter": "non-specific"
+                },
+                "result": {
+                    "placeData": {
+                        "suggestions": [
+                            {
+                                "placePrediction": {
+                                    "place": "places/EhpSZW5ud2VnLCBXaWVuLCDDlnN0ZXJyZWljaCIuKiwKFAoSCVP5m7plB21HEbMc9_82Tl4ZEhQKEgmfyjZRngdtRxFGW6JRiuXC_Q",
+                                    "placeId": "EhpSZW5ud2VnLCBXaWVuLCDDlnN0ZXJyZWljaCIuKiwKFAoSCVP5m7plB21HEbMc9_82Tl4ZEhQKEgmfyjZRngdtRxFGW6JRiuXC_Q",
+                                    "text": {
+                                        "text": "Rennweg, Wien, Österreich",
+                                        "matches": [
+                                            {
+                                                "endOffset": 3
+                                            }
+                                        ]
+                                    },
+                                    "structuredFormat": {
+                                        "mainText": {
+                                            "text": "Rennweg",
+                                            "matches": [
+                                                {
+                                                    "endOffset": 3
+                                                }
+                                            ]
+                                        },
+                                        "secondaryText": {
+                                            "text": "Wien, Österreich"
+                                        }
+                                    },
+                                    "types": [
+                                        "geocode",
+                                        "route"
+                                    ]
+                                }
+                            },
+                            {
+                                "placePrediction": {
+                                    "place": "places/EhxSZW5uZ2Fzc2UsIFdpZW4sIMOWc3RlcnJlaWNoIi4qLAoUChIJPz34zqIHbUcR_bGGaOHe_dYSFAoSCZ_KNlGeB21HEUZbolGK5cL9",
+                                    "placeId": "EhxSZW5uZ2Fzc2UsIFdpZW4sIMOWc3RlcnJlaWNoIi4qLAoUChIJPz34zqIHbUcR_bGGaOHe_dYSFAoSCZ_KNlGeB21HEUZbolGK5cL9",
+                                    "text": {
+                                        "text": "Renngasse, Wien, Österreich",
+                                        "matches": [
+                                            {
+                                                "endOffset": 3
+                                            }
+                                        ]
+                                    },
+                                    "structuredFormat": {
+                                        "mainText": {
+                                            "text": "Renngasse",
+                                            "matches": [
+                                                {
+                                                    "endOffset": 3
+                                                }
+                                            ]
+                                        },
+                                        "secondaryText": {
+                                            "text": "Wien, Österreich"
+                                        }
+                                    },
+                                    "types": [
+                                        "geocode",
+                                        "route"
+                                    ]
+                                }
+                            },
+                            {
+                                "placePrediction": {
+                                    "place": "places/Eh5SZW5uYmFobndlZywgV2llbiwgw5ZzdGVycmVpY2giLiosChQKEgnZlowcqQZtRxHQa3bhtKVI1hIUChIJn8o2UZ4HbUcRRluiUYrlwv0",
+                                    "placeId": "Eh5SZW5uYmFobndlZywgV2llbiwgw5ZzdGVycmVpY2giLiosChQKEgnZlowcqQZtRxHQa3bhtKVI1hIUChIJn8o2UZ4HbUcRRluiUYrlwv0",
+                                    "text": {
+                                        "text": "Rennbahnweg, Wien, Österreich",
+                                        "matches": [
+                                            {
+                                                "endOffset": 3
+                                            }
+                                        ]
+                                    },
+                                    "structuredFormat": {
+                                        "mainText": {
+                                            "text": "Rennbahnweg",
+                                            "matches": [
+                                                {
+                                                    "endOffset": 3
+                                                }
+                                            ]
+                                        },
+                                        "secondaryText": {
+                                            "text": "Wien, Österreich"
+                                        }
+                                    },
+                                    "types": [
+                                        "geocode",
+                                        "route"
+                                    ]
+                                }
+                            },
+                            {
+                                "placePrediction": {
+                                    "place": "places/ChIJA71APxeobUcR4JZKgZeV10o",
+                                    "placeId": "ChIJA71APxeobUcR4JZKgZeV10o",
+                                    "text": {
+                                        "text": "Renaissance Vienna Schönbrunn Hotel, Wien, Österreich",
+                                        "matches": [
+                                            {
+                                                "endOffset": 3
+                                            }
+                                        ]
+                                    },
+                                    "structuredFormat": {
+                                        "mainText": {
+                                            "text": "Renaissance Vienna Schönbrunn Hotel",
+                                            "matches": [
+                                                {
+                                                    "endOffset": 3
+                                                }
+                                            ]
+                                        },
+                                        "secondaryText": {
+                                            "text": "Wien, Österreich"
+                                        }
+                                    },
+                                    "types": [
+                                        "wedding_venue",
+                                        "event_venue",
+                                        "lodging",
+                                        "hotel",
+                                        "point_of_interest",
+                                        "establishment"
+                                    ]
+                                }
+                            },
+                            {
+                                "placePrediction": {
+                                    "place": "places/ChIJNxnruo4HbUcR1OSe3PD0w6A",
+                                    "placeId": "ChIJNxnruo4HbUcR1OSe3PD0w6A",
+                                    "text": {
+                                        "text": "renzo's, Lugeck, Wien, Österreich",
+                                        "matches": [
+                                            {
+                                                "endOffset": 3
+                                            }
+                                        ]
+                                    },
+                                    "structuredFormat": {
+                                        "mainText": {
+                                            "text": "renzo's",
+                                            "matches": [
+                                                {
+                                                    "endOffset": 3
+                                                }
+                                            ]
+                                        },
+                                        "secondaryText": {
+                                            "text": "Lugeck, Wien, Österreich"
+                                        }
+                                    },
+                                    "types": [
+                                        "cafe",
+                                        "restaurant",
+                                        "food",
+                                        "dessert_shop",
+                                        "establishment",
+                                        "ice_cream_shop",
+                                        "point_of_interest",
+                                        "store",
+                                        "food_store",
+                                        "bar",
+                                        "confectionery"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "details": {
+            "non-specific_entry0": {
+                "params": {
+                    "placeId": "EhxSZW5uZ2Fzc2UsIFdpZW4sIMOWc3RlcnJlaWNoIi4qLAoUChIJPz34zqIHbUcR_bGGaOHe_dYSFAoSCZ_KNlGeB21HEUZbolGK5cL9",
+                    "language": "de",
+                    "sessionToken": "1"
+                },
+                "result": {
+                    "placeData": {
+                        "id": "Eh1SZW5uZ2Fzc2UsIDEwMTAgV2llbiwgQXVzdHJpYSIuKiwKFAoSCT89-M6iB21HEf2xhmjh3v3WEhQKEgmfyjZRngdtRxFGW6JRiuXC_Q",
+                        "types": [
+                            "route"
+                        ],
+                        "formattedAddress": "Renngasse, 1010 Wien, Österreich",
+                        "addressComponents": [
+                            {
+                                "longText": "Renngasse",
+                                "shortText": "Renngasse",
+                                "types": [
+                                    "route"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "Innere Stadt",
+                                "shortText": "Innere Stadt",
+                                "types": [
+                                    "sublocality_level_1",
+                                    "sublocality",
+                                    "political"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "Wien",
+                                "shortText": "Wien",
+                                "types": [
+                                    "locality",
+                                    "political"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "Wien",
+                                "shortText": "Wien",
+                                "types": [
+                                    "administrative_area_level_2",
+                                    "political"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "Wien",
+                                "shortText": "Wien",
+                                "types": [
+                                    "administrative_area_level_1",
+                                    "political"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "Österreich",
+                                "shortText": "AT",
+                                "types": [
+                                    "country",
+                                    "political"
+                                ],
+                                "languageCode": "de"
+                            },
+                            {
+                                "longText": "1010",
+                                "shortText": "1010",
+                                "types": [
+                                    "postal_code"
+                                ],
+                                "languageCode": "de"
+                            }
+                        ],
+                        "displayName": {
+                            "text": "Renngasse",
+                            "languageCode": "de"
+                        }
+                    }
+                }
+            }
+        }
+    },
     "auth": {
         "payload": {
             "admin": {
