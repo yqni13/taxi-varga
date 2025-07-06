@@ -1,0 +1,232 @@
+{
+    "route2340-2013-2340": {
+        "apiResult": [
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 28.7,
+                "duration": 24.8,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 61.8,
+                "duration": 54.5,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 83.6,
+                "duration": 65.2,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 28.7,
+                "duration": 24.8,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 63.1,
+                "duration": 59.7,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 29,
+                "duration": 24.9,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 84.3,
+                "duration": 70.6,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 63.1,
+                "duration": 59.7,
+                "originIndex": 1,
+                "status": {}
+            }
+        ],
+        "destination": "Elsa-Brändström-Gasse+17,+2340+Mödling,+Austria",
+        "destinationDetails": {
+            "address": "Elsa-Brändström-Gasse 17, 2340 Mödling, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ1TWZqhqvbUcRDRo_wBhahFw",
+            "province": "Niederösterreich",
+            "zipCode": "2340"
+        },
+        "golfcourse": "Schönborn+4,+2013+Göllersdorf,+Austria",
+        "golfcourseDetails": {
+            "address": "Schönborn 4, 2013 Göllersdorf, Austria",
+            "country": "Austria",
+            "note": "GC Schönborn",
+            "placeId": "ChIJZzPV2PlrbUcRB4mS4gYKwys",
+            "province": "Niederösterreich",
+            "zipCode": "2013"
+        },
+        "origin": "Elsa-Brändström-Gasse+17,+2340+Mödling,+Austria",
+        "originDetails": {
+            "address": "Elsa-Brändström-Gasse 17, 2340 Mödling, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ1TWZqhqvbUcRDRo_wBhahFw",
+            "province": "Niederösterreich",
+            "zipCode": "2340"
+        },
+        "stay": 480,
+        "supportMode": "none"
+    },
+    "route2542-2551-2542": {
+        "apiResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 7.5,
+                "duration": 13,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 7.5,
+                "duration": 12.6,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 7.8,
+                "duration": 13.3,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 7.8,
+                "duration": 13.7,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 7.8,
+                "duration": 13.3,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 2.1,
+                "duration": 5.7,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 2,
+                "duration": 5.3,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 2,
+                "duration": 5.3,
+                "originIndex": 3,
+                "status": {}
+            }
+        ],
+        "destination": "Schwarzer+W.+29,+2542+Kottingbrunn,+Austria",
+        "destinationDetails": {
+            "address": "Schwarzer W. 29, 2542 Kottingbrunn, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ6ZvTGx23bUcRGC-tkjcrpRM",
+            "province": "Niederösterreich",
+            "zipCode": "2542"
+        },
+        "golfcourse": "Schloßstraße+38a,+2551+Enzesfeld-Lindabrunn,+Austria",
+        "golfcourseDetails": {
+            "address": "Schloßstraße 38a, 2551 Enzesfeld-Lindabrunn, Austria",
+            "country": "Austria",
+            "note": "GC Enzesfeld",
+            "placeId": "ChIJ33hk9iO4bUcRTMWuABTRlaA",
+            "province": "Niederösterreich",
+            "zipCode": "2551"
+        },
+        "origin": "Schwarzer+W.+29,+2542+Kottingbrunn,+Austria",
+        "originDetails": {
+            "address": "Schwarzer W. 29, 2542 Kottingbrunn, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ6ZvTGx23bUcRGC-tkjcrpRM",
+            "province": "Niederösterreich",
+            "zipCode": "2542"
+        },
+        "stay": 360,
+        "supportMode": "none"
+    }
+}

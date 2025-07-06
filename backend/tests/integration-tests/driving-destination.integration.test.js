@@ -18,7 +18,7 @@ jest.mock('../../src/models/driving/destination.driving.model.js', () => {
 const app = require('../../src/app.js');
 const request = require('supertest');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
-const MockData_requestRouteMatrix = require('../mock-data/requestRouteMatrix.mock.json')['service-destination'];
+const MockData_RouteMatrix = require('../mock-data/routeMatrix_destination.mock.json');
 
 describe('Integration test, service flow: Destination', () => {
 
@@ -33,7 +33,7 @@ describe('Integration test, service flow: Destination', () => {
     describe('Test valid fn calls', () => {
 
         test('Process service by route (1090to4020)', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
             const mockResponse = await request(app)
                 .post('/api/v1/driving/destination')
                 .send(mockParam_params);
@@ -60,7 +60,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -74,7 +74,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -88,7 +88,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <back2home>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'back2home';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -102,7 +102,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <latency>, validator: isInt({max: 360})', async () => {
                 const invalidParam = 'latency';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 mockParam_params[`${invalidParam}`] = 420;
 
                 mockError['msg'] = 'backend-invalid-latency';
@@ -118,7 +118,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <pickupTIME>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'pickupTIME';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 delete mockParam_params[`${invalidParam}`];
 
                 // no 'value' in error object by exists() instead trim() + notEmpty()
@@ -134,7 +134,7 @@ describe('Integration test, service flow: Destination', () => {
 
             test('Params: <pickupTIME>, validator: isInt({min: 0})', async () => {
                 const invalidParam = 'pickupTIME';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1090-4020']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 mockParam_params[`${invalidParam}`] = -1;
 
                 mockError['msg'] = 'backend-invalid-pickupTIME';

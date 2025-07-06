@@ -18,7 +18,7 @@ jest.mock('../../src/models/driving/flatrate.driving.model.js', () => {
 const app = require('../../src/app.js');
 const request = require('supertest');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
-const MockData_requestRouteMatrix = require('../mock-data/requestRouteMatrix.mock.json')['service-flatrate'];
+const MockData_RouteMatrix = require('../mock-data/routeMatrix_flatrate.mock.json');
 
 describe('Integration test, service flow: Flatrate', () => {
 
@@ -33,7 +33,7 @@ describe('Integration test, service flow: Flatrate', () => {
     describe('Test valid fn calls', () => {
 
         test('Workflow: calc by route (1220to2514)', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
             const mockResponse = await request(app)
                 .post('/api/v1/driving/flatrate')
                 .send(mockParam_params);
@@ -60,7 +60,7 @@ describe('Integration test, service flow: Flatrate', () => {
 
             test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -74,7 +74,7 @@ describe('Integration test, service flow: Flatrate', () => {
 
             test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -88,7 +88,7 @@ describe('Integration test, service flow: Flatrate', () => {
 
             test('Params: <tenancy>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'tenancy';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
                 delete mockParam_params[`${invalidParam}`];
 
                 // no 'value' in error object by exists() instead trim() + notEmpty()
@@ -104,7 +104,7 @@ describe('Integration test, service flow: Flatrate', () => {
 
             test('Params: <tenancy>, validator: isInt({max: 1440})', async () => {
                 const invalidParam = 'tenancy';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
                 mockParam_params[`${invalidParam}`] = 1441;
 
                 mockError['msg'] = 'backend-invalid-tenancy';
