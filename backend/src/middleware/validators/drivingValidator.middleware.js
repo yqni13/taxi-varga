@@ -117,8 +117,11 @@ exports.drivingQuickSchema = [
         .withMessage('backend-required'),    
     body('destinationDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
-    body('back2home')
+    body('back2origin')
         .trim()
         .notEmpty()
         .withMessage('backend-required'),
+    body('latency')
+        .isInt({max: 360})
+        .withMessage('backend-invalid-latency'),
 ];
