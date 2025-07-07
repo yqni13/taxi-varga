@@ -103,3 +103,28 @@ exports.drivingGolfSchema = [
         .bail()
         .custom((value) => CustomValidator.validateEnum(value, SupportModeOption, 'supportMode'))
 ];
+
+exports.drivingQuickSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('originDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value)),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),    
+    body('destinationDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
+    body('back2origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('latency')
+        .exists({values: 'null'})
+        .withMessage('backend-required')
+        .bail()
+        .isInt({max: 360})
+        .withMessage('backend-invalid-latency'),
+];

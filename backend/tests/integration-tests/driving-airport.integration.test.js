@@ -30,7 +30,7 @@ describe('Integration test, service flow: Airport', () => {
         jest.clearAllMocks();
     })
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Workflow: calc by route (1010to1300)', async () => {
             const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
@@ -43,7 +43,7 @@ describe('Integration test, service flow: Airport', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         describe('Priority: express-validators', () => {
 

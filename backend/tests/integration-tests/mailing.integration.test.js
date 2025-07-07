@@ -12,7 +12,7 @@ const MockData_common = require('../mock-data/common.mock.json')['mailing'];
 
 describe('Integration test, priority: Mailing', () => {
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         beforeAll(() => {
             jest.resetModules();
@@ -51,7 +51,7 @@ describe('Integration test, priority: Mailing', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         beforeAll(() => {
             jest.resetModules();

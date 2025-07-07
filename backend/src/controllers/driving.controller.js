@@ -25,6 +25,12 @@ class DrivingController {
         const response = await DrivingService.calcGolfRoute(req.body);
         res.send(response);
     }
+
+    calcDrivingQuick = async (req, res, next) => {
+        checkValidation(req);
+        const response = await DrivingService.calcQuickRoute(req.body);
+        res.send(response);
+    }
 }
 
 module.exports = new DrivingController;
