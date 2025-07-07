@@ -30,7 +30,7 @@ describe('Integration test, service flow: Destination', () => {
         jest.clearAllMocks();
     })
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Process service by route (1090to4020)', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
@@ -43,7 +43,7 @@ describe('Integration test, service flow: Destination', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         describe('Priority: express-validators', () => {
 

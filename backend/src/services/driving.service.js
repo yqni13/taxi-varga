@@ -9,36 +9,36 @@ const DrivingQuickModel = require('../models/driving/quick.driving.model');
 class DrivingService {
     calcAirportRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const model = new DrivingAirportModel(GoogleRoutes);
-        let calculation = await model.calcAirportRoute(hasParams ? params : {});
+        const airportModel = new DrivingAirportModel(GoogleRoutes);
+        let calculation = await airportModel.calcAirportRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
     
     calcDestinationRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const model = new DrivingDestinationModel(GoogleRoutes);
-        let calculation = await model.calcDestinationRoute(hasParams ? params : {});        
+        const destinationModel = new DrivingDestinationModel(GoogleRoutes);
+        let calculation = await destinationModel.calcDestinationRoute(hasParams ? params : {});        
         return basicResponse(calculation, 1, "Success");
     }
     
     calcFlatrateRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const model = new DrivingFlatrateModel(GoogleRoutes);
-        let calculation = await model.calcFlatrateRoute(hasParams ? params : {});
+        const flatrateModel = new DrivingFlatrateModel(GoogleRoutes);
+        let calculation = await flatrateModel.calcFlatrateRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 
     calcGolfRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const model = new DrivingGolfModel(GoogleRoutes);
-        let calculation = await model.calcGolfRoute(hasParams ? params : {});
+        const golfModel = new DrivingGolfModel(GoogleRoutes);
+        let calculation = await golfModel.calcGolfRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 
     calcQuickRoute = async (params) => {
         const hasParams = Object.keys(params).length !== 0;
-        const model = new DrivingQuickModel(GoogleRoutes);
-        let calculation = await model.calcQuickRoute(hasParams ? params : {});
+        const quickModel = new DrivingQuickModel(GoogleRoutes);
+        let calculation = await quickModel.calcQuickRoute(hasParams ? params : {});
         return basicResponse(calculation, 1, "Success");
     }
 }

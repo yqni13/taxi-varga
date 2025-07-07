@@ -4,45 +4,88 @@ const MockData_RouteMatrix = require("../../../mock-data/routeMatrix_quick.mock.
 
 describe('Quick tests, priority: calcQuickRoute', () => {
 
-    // describe('Testing valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
-    //     beforeEach(() => {
-    //         jest.resetModules();
-    //     })
+        beforeEach(() => {
+            jest.resetModules();
+        })
 
-    //     test('Route (1230to2345), params: <back2origin> = true, <latency> = 22', async () => {
-    //         const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
-    //         mockParam_params['back2origin'] = true;
-    //         mockParam_params['latency'] = 22;
-    //         console.log("params: ", mockParam_params);
-    //         const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
-    //         const mockResult_latency = { time: 25, costs: 12.5 };
-    //         const mockResult_servCosts = 34.2;
+        test('Route (1230to2345), params: <back2origin> = true, <latency> = 22', async () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
+            mockParam_params['back2origin'] = 'true';
+            mockParam_params['latency'] = 22;
 
-    //         jest.mock('../../../../src/services/google-routes/google-routes.api.js', () => ({
-    //             requestRouteMatrix: jest.fn().mockResolvedValue(mockResult_service),
-    //         }));
-    //         jest.mock('./quick.models.test.js', () => ({
-    //             _mapLatencyData: jest.fn().mockReturnValue(mockResult_latency),
-    //             _calcServDistCosts: jest.fn().mockReturnValue(mockResult_servCosts)
-    //         }))
-    //         const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
-    //         const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-    //         const quickModel = new DrivingQuickModel(googleRoutesApi);
-    //         const testFn = await quickModel.calcQuickRoute(mockParam_params);
-    //         const expectSubObj = { routeData: {
-    //             price: 47,
-    //             servTime: 18,
-    //             latency: {
-    //                 time: 25,
-    //                 costs: 12.5
-    //             },
-    //             returnTarget: 'h'
-    //         }};
+            const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
+            const mockResult_latency = { time: 25, costs: 12.5 };
+            const mockResult_servCosts = 34.2;
 
-    //         expect(testFn).toMatchObject(expectSubObj);
-    //     })
-    // })
+            const mockAPI = {
+                requestRouteMatrix: jest.fn().mockResolvedValue(mockResult_service),
+                requestBorderRouteMatrix: jest.fn()
+            };
+
+            const quickModel = new DrivingQuickModel(mockAPI);
+            jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue({});
+            jest.spyOn(quickModel, '_calcServDistCosts').mockReturnValue(mockResult_servCosts);
+
+            const testFn = await quickModel.calcQuickRoute(mockParam_params);
+            const expectSubObj = { routeData: {
+                price: 47,
+                servTime: 18,
+                latency: {
+                    time: 25,
+                    costs: 12.5
+                },
+                returnTarget: 'or'
+            }};
+
+            expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._calcServDistCosts).toHaveBeenCalled();
+            expect(testFn).toMatchObject(expectSubObj);
+        })
+
+        test('Route (1230to2345), params: <back2origin> = false, <latency> = 9', async () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
+            mockParam_params['back2origin'] = 'false';
+            mockParam_params['latency'] = 9;
+
+            const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
+            const mockResult_return = structuredClone(MockData_RouteMatrix['route1230-2345']['returnResult']);
+            const mockResult_shortestReturn = { distance: 2.5, duration: 4, routeHome: false };
+            const mockResult_latency = { time: 0, costs: 0 };
+            const mockResult_servCosts = 34.2;
+
+            const mockAPI = {
+                requestRouteMatrix: jest.fn().mockResolvedValue(mockResult_service),
+                requestBorderRouteMatrix: jest.fn().mockResolvedValue(mockResult_return)
+            };
+
+            const quickModel = new DrivingQuickModel(mockAPI);
+            jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue(mockResult_shortestReturn);
+            jest.spyOn(quickModel, '_calcServDistCosts').mockReturnValue(mockResult_servCosts);
+
+            const testFn = await quickModel.calcQuickRoute(mockParam_params);
+            const expectSubObj = { routeData: {
+                price: 34,
+                servTime: 8,
+                latency: {
+                    time: 0,
+                    costs: 0
+                },
+                returnTarget: 'vb'
+            }};
+
+            expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            expect(mockAPI.requestBorderRouteMatrix).toHaveBeenCalled();
+            expect(quickModel._mapShortestReturnLocation).toHaveBeenCalled();
+            expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._calcServDistCosts).toHaveBeenCalled();
+            expect(testFn).toMatchObject(expectSubObj);
+        })
+    })
 
     describe('Testing invalid fn calls', () => {
 
@@ -301,7 +344,7 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
             const mockResult = mockParam_data;
 
             jest.mock('../../../../src/utils/common.utils.js', () => ({
-                sortByQuickSort: jest.fn().mockReturnValue(mockResult)
+                quicksort: jest.fn().mockReturnValue(mockResult)
             }));
             const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
             const api = {};
@@ -321,7 +364,7 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
             const mockResult = mockParam_data;
 
             jest.mock('../../../../src/utils/common.utils.js', () => ({
-                sortByQuickSort: jest.fn().mockReturnValue(mockResult)
+                quicksort: jest.fn().mockReturnValue(mockResult)
             }));
             const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
             const api = {};

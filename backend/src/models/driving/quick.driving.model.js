@@ -29,35 +29,30 @@ class DrivingQuickModel {
         if(!Object.keys(params).length) {
             return {error: 'no params found'};
         }
-
         params['back2origin'] = params['back2origin'] === 'true' ? true : false;
         params['latency'] = Number(params['latency']);
 
         const result = {
             price: 0,
             servTime: 0,
-            latency: 0,
+            latency: {},
             returnTarget: ''
         }
 
-        let returnObj = { distanceMeters: 0, duration: 0, routeHome: false };
+        let returnObj = null;
         if(!params.back2origin) {
-            returnObj = await this.#googleRoutes.requestRouteMatrix_ClosestViennaBorder(params);
+            returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
             returnObj = this._mapShortestReturnLocation(returnObj);
         }
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
 
+        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
         const routes = {
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
             d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
             d2v: !params.back2origin && !returnObj.routeHome ? returnObj : null,
             d2h: !params.back2origin && returnObj.routeHome ? returnObj : null
         }
-
-        const servTime = params['back2origin']
-            ? routes.o2d.duration + routes.d2o.duration
-            : routes.o2d.duration;
-
+        const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
 
         // Sum all additional costs.
@@ -73,8 +68,7 @@ class DrivingQuickModel {
             ? Math.ceil(servTime)
             : Math.floor(servTime)
         result['latency'] = latencyObj;
-        // or == origin, h == home, vb == vienna border
-        result['returnTarget'] = params.back2origin
+        result['returnTarget'] = params.back2origin // abbreviations see glossary
             ? 'or'
             : returnObj.routeHome
                 ? 'h'
@@ -84,6 +78,7 @@ class DrivingQuickModel {
     }
 
     _mapLatencyData = (latencyInMin) => {
+        // First 5 minutes of latency are for free.
         if(!latencyInMin || latencyInMin <= 5) {
             return { time: 0, costs: 0 };
         }
@@ -130,7 +125,7 @@ class DrivingQuickModel {
     }
 
     _mapShortestReturnLocation = (data) => {
-        data = Utils.sortByQuickSort(data, SortingOption.ASC, 'distanceMeters');
+        data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
 
         return {
             distance: data[0].distanceMeters,

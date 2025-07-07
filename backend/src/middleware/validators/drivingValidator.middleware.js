@@ -122,6 +122,9 @@ exports.drivingQuickSchema = [
         .notEmpty()
         .withMessage('backend-required'),
     body('latency')
+        .exists({values: 'null'})
+        .withMessage('backend-required')
+        .bail()
         .isInt({max: 360})
         .withMessage('backend-invalid-latency'),
 ];

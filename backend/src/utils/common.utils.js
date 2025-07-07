@@ -41,7 +41,7 @@ exports.checkTimeWithinBusinessHours = (hour) => {
  * @param {string | null} target (nested) property of obj to target sorting or null
  * @returns 
  */
-exports.sortByQuickSort = (data, direction, target = undefined) => {
+exports.quicksort = (data, direction, target = undefined) => {
     if(data.length <= 1) {
         return data;
     }
@@ -73,8 +73,8 @@ exports.sortByQuickSort = (data, direction, target = undefined) => {
     }
 
     return [
-        ...this.sortByQuickSort(leftArr, direction, target),
+        ...this.quicksort(leftArr, direction, target),
         pivot,
-        ...this.sortByQuickSort(rightArr, direction, target)
+        ...this.quicksort(rightArr, direction, target)
     ];
 }

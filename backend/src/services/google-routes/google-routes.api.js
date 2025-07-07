@@ -122,12 +122,11 @@ class GoogleRoutesAPI {
         return result;
     }
 
-    requestRouteMatrix_ClosestViennaBorder = async (params) => {
-        const borders = structuredClone(GeoLocation_ViennaBorder_data['borders']);
+    requestBorderRouteMatrix = async (params) => {
+        const destination = params['destinationDetails']['placeId'];
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();
 
-        const destination = params['destinationDetails']['placeId'];
         const payload = {
             "origins": [
                 {
@@ -147,6 +146,7 @@ class GoogleRoutesAPI {
             "routingPreference": "TRAFFIC_AWARE_OPTIMAL"
         }
 
+        const borders = structuredClone(GeoLocation_ViennaBorder_data['borders']);
         Object.values(borders).forEach((border) => {
             payload.destinations.push({ "waypoint": border });
         })
@@ -155,7 +155,6 @@ class GoogleRoutesAPI {
         await axios.post(url, payload, { headers })
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
-                
             })
             .catch(error => {
                 console.log('google request error: ', error.message);

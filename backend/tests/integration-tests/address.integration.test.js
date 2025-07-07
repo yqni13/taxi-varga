@@ -14,7 +14,7 @@ const apiUrl_details = '/api/v1/address/details';
 
 describe('Integration test, priority: Address workflow', () => {
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         let app, mockResult_autocomplete, mockResult_places;
         beforeEach(() => {
@@ -63,7 +63,7 @@ describe('Integration test, priority: Address workflow', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         describe('Priority: Autocomplete, express-validators', () => {
 
