@@ -19,10 +19,17 @@ exports.formatRequestStringNoPlus = (value) => {
     return value === null || value === undefined ? '' : value.replaceAll('+', ' ');
 }
 
-exports.checkAddressInVienna = (zipCode) => {
+exports.checkAddressInViennaByZipCode = (zipCode) => {
     const postalCodesVienna = ['1010', '1020', '1030', '1040', '1050', '1060', '1070', '1080', '1090', '1100', '1110', '1120', '1130', '1140', '1150', '1160', '1170', '1180', '1190', '1200', '1210', '1220', '1230'];
 
     return postalCodesVienna.includes(String(zipCode));
+}
+
+exports.checkAddressInViennaByProvince = (province) => {
+    const vienna = ['wien', 'vienna'];
+    province = province.toString().toLowerCase();
+
+    return vienna.includes(province);
 }
 
 exports.checkAddressAtViennaAirport = (zipCode) => {

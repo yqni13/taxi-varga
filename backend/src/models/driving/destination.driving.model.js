@@ -162,10 +162,17 @@ class DrivingDestinationModel {
         if(params.back2home) {
             return charge;
         }
-        const zipCode = params.originDetails.zipCode;
-        charge = isWithinBH && (Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInVienna(zipCode)) 
+
+        let zipCode = '';
+        if(!params.originDetails.zipCode && params.originDetails.province) {
+            zipCode = Utils.checkAddressInViennaByProvince(params.originDetails.province) ? '1010' : '0000';
+        } else {
+            zipCode = params.originDetails.zipCode;
+        }
+
+        charge = isWithinBH && (Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInViennaByZipCode(zipCode)) 
             ? this.#prices.parkFlatWithinBH
-            : (!Utils.checkAddressInVienna(zipCode) && !Utils.checkAddressAtViennaAirport(zipCode)) 
+            : (!Utils.checkAddressInViennaByZipCode(zipCode) && !Utils.checkAddressAtViennaAirport(zipCode)) 
                 ? 0 
                 : this.#prices.parkFlatOffBH;
         

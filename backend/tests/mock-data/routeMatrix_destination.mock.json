@@ -910,5 +910,31 @@
             "zipCode": "2824"
         },
         "pickupTIME": 8
+    },
+    "routeAKH-2544": {
+        "a_information": {
+            "approach_distance": 0,
+            "back2home": false,
+            "BH": "withinBH",
+            "return_distance": 0,
+            "servDist": 0
+        },
+        "back2home": "false",
+        "destination": "Leobersdorf,++Niederösterreich",
+        "destinationDetails": {
+            "address": "Leobersdorf,  Niederösterreich",
+            "country": "Österreich",
+            "placeId": "ChIJYVa73wG3bUcRn_ieU3hlzj0",
+            "province": "Niederösterreich"
+        },
+        "origin": "Allgemeines+Krankenhaus+(AKH)+der+Stadt+Wien,+1090+Wien",
+        "originDetails": {
+            "address": "Allgemeines Krankenhaus (AKH) der Stadt Wien, 1090 Wien",
+            "country": "Österreich",
+            "placeId": "ChIJyUJ4V8QHbUcRMHRPDmFRRY0",
+            "province": "Wien"
+        },
+        "pickupTIME": 6,
+        "latency": 0
     }
 }

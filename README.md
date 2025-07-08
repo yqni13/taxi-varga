@@ -166,7 +166,7 @@ Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-160+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
+170+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config

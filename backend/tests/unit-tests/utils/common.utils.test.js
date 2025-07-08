@@ -50,10 +50,10 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: checkAddressInVienna, result: true', () => {
+        test('fn: checkAddressInViennaByZipCode, result: true', () => {
             const mockParam_zipCode = '1010';
 
-            const testFn = Utils.checkAddressInVienna(mockParam_zipCode);
+            const testFn = Utils.checkAddressInViennaByZipCode(mockParam_zipCode);
             const expectResult = true;
 
             expect(testFn).toBe(expectResult);
@@ -109,10 +109,10 @@ describe('Utils tests, priority: common', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('fn: checkAddressInVienna, result: false', () => {
+        test('fn: checkAddressInViennaByZipCode, result: false', () => {
             const mockParam_zipCode = '2000';
 
-            const testFn = Utils.checkAddressInVienna(mockParam_zipCode);
+            const testFn = Utils.checkAddressInViennaByZipCode(mockParam_zipCode);
             const expectResult = false;
 
             expect(testFn).toBe(expectResult);

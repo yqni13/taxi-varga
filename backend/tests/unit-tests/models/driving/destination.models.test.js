@@ -501,5 +501,18 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
 
             expect(testFn).toBe(expectResult);
         })
+
+        test('Route (AKHto2544), params: <back2home> = false, withinBH, <origin> = AKH Vienna, no zipCode', () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['routeAKH-2544']);
+            mockParam_params['back2home'] = false;
+            const mockParam_isWithinBH = true;
+            const testFn = destinationModel._addChargeParkFlatByBH(
+                mockParam_params,
+                mockParam_isWithinBH
+            )
+            const expectResult = 14;
+
+            expect(testFn).toBe(expectResult);
+        })
     })
 })
