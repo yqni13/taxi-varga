@@ -6,7 +6,9 @@ jest.mock('../../src/middleware/auth.middleware.js', () => {
     });
 });
 
-const mockResult = { routeData: { price: 66, servTime: 41, latency: { time: 10, costs: 5}, returnTarget: 'or'}};
+const mockResult = { 
+    routeData: { price: 66, servTime: 41, servDist: 26, latency: { time: 10, costs: 5}, returnTarget: 'or'}
+};
 jest.mock('../../src/models/driving/quick.driving.model.js', () => {
     return jest.fn().mockImplementation(() => {
         return {

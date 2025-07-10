@@ -110,7 +110,9 @@ exports.drivingQuickSchema = [
         .notEmpty()
         .withMessage('backend-required'),
     body('originDetails')
-        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value)),
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value))
+        .bail()
+        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req)),
     body('destination')
         .trim()
         .notEmpty()

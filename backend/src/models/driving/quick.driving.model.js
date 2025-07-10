@@ -1,6 +1,7 @@
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const Utils = require('../../utils/common.utils');
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
+const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
 
 class DrivingQuickModel {
     #googleRoutes;
@@ -35,6 +36,7 @@ class DrivingQuickModel {
         const result = {
             price: 0,
             servTime: 0,
+            servDist: 0,
             latency: {},
             returnTarget: ''
         }
@@ -51,9 +53,13 @@ class DrivingQuickModel {
             d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1})
         }
         const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
+        const servDist = params['back2origin'] 
+            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters 
+            : routes.o2d.distanceMeters;
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isRouteV2V = this._isRouteWithinVienna(params);
         const servCostParams = {
+            servDist: servDist,
             servTime: servTime,
             returnObj: returnObj,
             back2origin: params.back2origin,
@@ -72,6 +78,7 @@ class DrivingQuickModel {
         result['servTime'] = (servTime % 1) >= 0.5
             ? Math.ceil(servTime)
             : Math.floor(servTime)
+        result['servDist'] = servDist;
         result['latency'] = latencyObj;
         result['returnTarget'] = this._mapReturnTarget(params.back2origin, returnObj.routeHome ?? false, isRouteV2V);
 
@@ -91,11 +98,8 @@ class DrivingQuickModel {
 
     _calcServDistCosts = (routes, servCostParams) => {
         let totalCosts = 0;
-        const servDist = servCostParams.back2origin
-            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters
-            : routes.o2d.distanceMeters;
 
-        if(servDist <= 0) {
+        if(servCostParams.servDist <= 0) {
             return totalCosts;
         }
         
@@ -104,12 +108,12 @@ class DrivingQuickModel {
         // Initiate price variables
         let [basicRate, servPrice, basicReturnPrice, occupiedReturnPrice] = [0, 0, 0, 0];
 
-        if(servDist <= 10) {
+        if(servCostParams.servDist <= 10) {
             basicRate = this.#prices.basicRateBelow10km;
             servPrice = this.#prices.servDistBelow10km;
             basicReturnPrice = this.#prices.returnBelow10km;
             occupiedReturnPrice = this.#prices.occupiedReturnBelow10km;
-        } else if(servDist > 25) {
+        } else if(servCostParams.servDist > 25) {
             basicRate = this.#prices.basicRateAbove25km;
             servPrice = this.#prices.servDistAbove25km;
             basicReturnPrice = this.#prices.returnAbove25km;
@@ -121,7 +125,7 @@ class DrivingQuickModel {
             occupiedReturnPrice = this.#prices.occupiedReturnAbove10km;
         }
 
-        servCosts = (servDist * servPrice) + (servCostParams.servTime * servPrice);
+        servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);
         if(!servCostParams.isRouteV2V) {
             basicReturnCosts = servCostParams.back2origin
                 ? routes.d2o.distanceMeters * basicReturnPrice
@@ -137,9 +141,9 @@ class DrivingQuickModel {
 
     _mapReturnTarget = (back2origin, routeHome, isRouteV2V) => {
         if(isRouteV2V) {
-            return back2origin ? 'origin' : 'destination';
+            return back2origin ? QuickRouteOption.OR : QuickRouteOption.DES;
         } else {
-            return back2origin ? 'origin' : routeHome ? 'home' : 'vienna_border';
+            return back2origin ? QuickRouteOption.OR : routeHome ? QuickRouteOption.HOME : QuickRouteOption.VB;
         }
     }
 

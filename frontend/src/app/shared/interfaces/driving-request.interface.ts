@@ -37,3 +37,12 @@ export declare interface DrivingGolfRequest {
     stay: number,
     supportMode: GolfSupportOptions
 }
+
+export declare interface DrivingQuickRequest {
+    origin: string,
+    originDetails: any,
+    destination: string,
+    destinationDetails: any,
+    latency: number,
+    back2origin: boolean
+}

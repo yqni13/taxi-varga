@@ -101,8 +101,7 @@ class GoogleRoutesAPI {
                     }
                 }
             ],
-            "travelMode": "DRIVE",
-            "routingPreference": "TRAFFIC_AWARE_OPTIMAL",
+            "travelMode": "DRIVE"
         }
 
         let result;
@@ -142,8 +141,7 @@ class GoogleRoutesAPI {
                     }
                 }
             ],
-            "travelMode": "DRIVE",
-            "routingPreference": "TRAFFIC_AWARE_OPTIMAL"
+            "travelMode": "DRIVE"
         }
 
         const borders = structuredClone(GeoLocation_ViennaBorder_data['borders']);
@@ -151,7 +149,7 @@ class GoogleRoutesAPI {
             payload.destinations.push({ "waypoint": border });
         })
 
-        let result;
+        let result = {};
         await axios.post(url, payload, { headers })
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
@@ -161,10 +159,12 @@ class GoogleRoutesAPI {
                 return error;
             })
 
-        result.forEach((entry) => {
-            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
-            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
-        });
+        if(result.length > 0) {
+            result.forEach((entry) => {
+                entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
+                entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
+            });
+        }
         return result;
     }
 }

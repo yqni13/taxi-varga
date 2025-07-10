@@ -1,3 +1,5 @@
+import { QuickRouteOption } from "../enums/quickroute-option.enum"
+
 export declare interface DrivingAirportResponse {
     body: {
         routeData: {
@@ -34,6 +36,18 @@ export declare interface DrivingGolfResponse {
             duration: number,
             stay: number,
             price: number,
+        }
+    }
+}
+
+export declare interface DrivingQuickResponse {
+    body: {
+        routeData: {
+            price: number,
+            servTime: number,
+            servDist: number,
+            latency: { time: number, costs: number },
+            returnTarget: QuickRouteOption
         }
     }
 }

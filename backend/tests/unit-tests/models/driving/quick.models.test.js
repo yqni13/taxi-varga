@@ -1,5 +1,6 @@
 const DrivingQuickModel = require("../../../../src/models/driving/quick.driving.model");
 const googleRoutesApi = require("../../../../src/services/google-routes/google-routes.api");
+const { QuickRouteOption } = require("../../../../src/utils/enums/quickroute-option.enum");
 const MockData_RouteMatrix = require("../../../mock-data/routeMatrix_quick.mock.json");
 
 describe('Quick tests, priority: calcQuickRoute', () => {
@@ -18,7 +19,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
             const mockResult_latency = { time: 25, costs: 12.5 };
             const mockResult_servCosts = 34.2;
-            const mockResult_returnTarget = 'origin';
+            const mockResult_returnTarget = QuickRouteOption.OR;
             const mockResult_isRouteV2V = false;
 
             const mockAPI = {
@@ -37,11 +38,12 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const expectSubObj = { routeData: {
                 price: 47,
                 servTime: 18,
+                servDist: 9.3,
                 latency: {
                     time: 25,
                     costs: 12.5
                 },
-                returnTarget: 'origin'
+                returnTarget: QuickRouteOption.OR
             }};
 
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -62,7 +64,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const mockResult_shortestReturn = { distance: 2.5, duration: 4, routeHome: false };
             const mockResult_latency = { time: 0, costs: 0 };
             const mockResult_servCosts = 34.2;
-            const mockResult_returnTarget = 'vienna_border';
+            const mockResult_returnTarget = QuickRouteOption.VB;
             const mockResult_isRouteV2V = false;
 
             const mockAPI = {
@@ -81,11 +83,12 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const expectSubObj = { routeData: {
                 price: 34,
                 servTime: 8,
+                servDist: 4.4,
                 latency: {
                     time: 0,
                     costs: 0
                 },
-                returnTarget: 'vienna_border'
+                returnTarget: QuickRouteOption.VB
             }};
 
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -135,6 +138,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             };
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters,
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -160,6 +164,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             }
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters,
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -185,6 +190,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             };
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters,
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -206,6 +212,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             };
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters + mockParam_routes.d2o.distanceMeters,
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -227,6 +234,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             }
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters + mockParam_routes.d2o.distanceMeters,
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -248,6 +256,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: mockParam_response['serviceResult'][1]
             }
             const mockParam_servCostParams = {
+                servDist: mockParam_routes.o2d.distanceMeters + mockParam_routes.d2o.distanceMeters,
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
@@ -269,6 +278,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 d2o: { distanceMeters: 0, duration: 0 }
             };
             const mockParam_servCostParams = {
+                servDist: null,
                 servTime: null,
                 returnObj: null,
                 back2origin: false,
@@ -344,7 +354,7 @@ describe('Quick tests, priority: _mapReturnTarget', () => {
             const mockParam_isRouteV2V = true;
     
             const testFn = quickModel._mapReturnTarget(mockParam_back2origin, mockParam_routeHome, mockParam_isRouteV2V);
-            const expectResult = 'origin';
+            const expectResult = QuickRouteOption.OR;
     
             expect(testFn).toBe(expectResult);
         })
@@ -355,7 +365,7 @@ describe('Quick tests, priority: _mapReturnTarget', () => {
             const mockParam_isRouteV2V = true;
     
             const testFn = quickModel._mapReturnTarget(mockParam_back2origin, mockParam_routeHome, mockParam_isRouteV2V);
-            const expectResult = 'destination';
+            const expectResult = QuickRouteOption.DES;
     
             expect(testFn).toBe(expectResult);
         })
@@ -366,7 +376,7 @@ describe('Quick tests, priority: _mapReturnTarget', () => {
             const mockParam_isRouteV2V = false;
     
             const testFn = quickModel._mapReturnTarget(mockParam_back2origin, mockParam_routeHome, mockParam_isRouteV2V);
-            const expectResult = 'vienna_border';
+            const expectResult = QuickRouteOption.VB;
     
             expect(testFn).toBe(expectResult);
         })
@@ -377,7 +387,7 @@ describe('Quick tests, priority: _mapReturnTarget', () => {
             const mockParam_isRouteV2V = false;
     
             const testFn = quickModel._mapReturnTarget(mockParam_back2origin, mockParam_routeHome, mockParam_isRouteV2V);
-            const expectResult = 'home';
+            const expectResult = QuickRouteOption.HOME;
     
             expect(testFn).toBe(expectResult);
         })
