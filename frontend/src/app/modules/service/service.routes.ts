@@ -6,6 +6,7 @@ import { ServiceFlatrateComponent } from "./request/flatrate/service-flatrate.co
 import { ServiceOptions } from "../../shared/enums/service-options.enum";
 import { ServiceGolfComponent } from "./request/golf/service-golf.component";
 import { AssetsPreloadGuard } from "../../common/guards/assets-preload.guard";
+import { ServiceQuickComponent } from "./request/quick/service-quick.component";
 
 export const serviceRoutes: Routes = [
     {
@@ -37,5 +38,9 @@ export const serviceRoutes: Routes = [
     {
         path: ServiceOptions.FLATRATE,
         component: ServiceFlatrateComponent
+    },
+    {
+        path: ServiceOptions.QUICK,
+        component: ServiceQuickComponent
     }
 ]

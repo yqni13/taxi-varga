@@ -93,6 +93,28 @@
                     <a href="{{authorFlatrateImg}}" target="_blank">{{'shared.assets.author' | translate}}</a>
                 </span>
             </div>
+            <div class="tava-service-route-wrapper" id="tava-service-selection5">
+                <img 
+                    class="tava-service-image"
+                    src="assets/service/service-quick.webp"
+                    alt="404 image not found"
+                    [routerLink]="ServiceRouteEnum.QUICK"
+                    [attr.aria-disabled]="true"
+                >
+                <div
+                    class="tava-service-route-description"
+                    id="tava-service-route-description-quick"
+                    [routerLink]="ServiceRouteEnum.QUICK"
+                    [attr.aria-disabled]="true"
+                >
+                    <span class="tava-anchor">
+                        {{'modules.service.content.quick.option.title' | translate}}
+                    </span>
+                </div>
+                <span class="tava-author author-light-bg">
+                    <a href="{{authorQuickImg}}" target="_blank">{{'shared.assets.author' | translate}}</a>
+                </span>
+            </div>
         </div>
     </div>
 </section>

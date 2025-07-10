@@ -1,0 +1,44 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+#form-latency,
+#form-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#form-latency span {
+    align-self: start;
+    margin-top: 9px;
+}
+
+#form-origin {
+    margin-top: sass.$space25;
+}
+
+.tava-service-specific-content-sum-offer {
+    margin-bottom: sass.$space50;
+}
+
+#tava-service-offer-call a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--theme-palette-secondary);
+    font-weight: bold;
+    margin-left: sass.$space5;
+    padding: calc(sass.$space5 * 2);
+    border: 1px outset var(--theme-palette-secondary);
+    border-radius: calc(sass.$space5 * 2);
+    &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+}
+
+#tava-service-offer-price {
+    margin: calc(sass.$space5 * 2) 0 0 0!important;
+    span {
+        margin-left: sass.$space5 * 2;
+    }
+}

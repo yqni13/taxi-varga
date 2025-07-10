@@ -36,8 +36,6 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    
-
     constructor(
         router: Router,
         fb: FormBuilder,

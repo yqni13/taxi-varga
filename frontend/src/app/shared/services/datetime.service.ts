@@ -82,7 +82,7 @@ export class DateTimeService {
          * @param {string} time: '00:00'
          */
         const hours = time[0] === '0' ? Number(time[1]) : Number(`${time[0]}${time[1]}`);
-        const minutes = time[3] === '0' ? Number(time[3]) : Number(`${time[3]}${time[4]}`);
+        const minutes = time[3] === '0' ? Number(time[4]) : Number(`${time[3]}${time[4]}`);
         return (hours * 60) + minutes;
     }
 

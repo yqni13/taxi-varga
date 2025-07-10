@@ -20,7 +20,8 @@
             "about": "About",
             "home": "Home",
             "samples": "Samples",
-            "service": "Service"
+            "service": "Service",
+            "quick": "Quick"
         },
         "validation": {
             "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
@@ -211,9 +212,11 @@
                         "passengers": "Number of passengers",
                         "return": "Return address",
                         "stay": "Stay",
-                        "tenancy": "Tenancy"
+                        "tenancy": "Tenancy",
+                        "returnTarget": "Code"
                     },
                     "order": {
+                        "call": "Available",
                         "contact": "Contact",
                         "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
@@ -223,6 +226,7 @@
                         "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
+                        "latency-quick": "Waiting times: First 5 minutes are included. From the 6th minute 0,50 EUR / minute are charged.",
                         "licence": "The transport price meets the requirements of the valid, licensed Viennese taxi fare.",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
@@ -275,6 +279,17 @@
                         "title": "Golf day trip"
                     },
                     "title": "Golf trip - route details"
+                },
+                "quick": {
+                    "info": {
+                        "call": "Call",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
+                        "title": "Please note that"
+                    },
+                    "option": {
+                        "title": "Quick drive"
+                    },
+                    "title": "Spontaneous drive - route details"
                 }
             }
         }
