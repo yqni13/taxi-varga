@@ -20,6 +20,7 @@ import { filter, tap } from "rxjs";
 import { DrivingQuickResponse } from "../../../../shared/interfaces/driving-response.interface";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
+import * as CustomValidators from "../../../../common/helper/custom-validators";
 
 @Component({
     selector: 'tava-service-quick',
@@ -37,6 +38,11 @@ import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enu
 export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
     protected callDirectNr: string;
+    protected originByGPS: boolean;
+
+    // TODO(yqni13): implemenation via TAVA-116
+    // protected geoLocationCoord: any;
+    // protected browserGeolocationSupport: boolean;
 
     constructor(
         router: Router,
@@ -58,6 +64,11 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
 
         this.callDirectNr = '+436644465466';
+        this.originByGPS = false;
+
+        // TODO(yqni13): implemenation via TAVA-116
+        // this.geoLocationCoord = { lat: null, long: null };
+        // this.browserGeolocationSupport = true;
     }
 
     override async ngOnInit() {
@@ -84,13 +95,18 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     private initForm() {
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
+            // geoLocation: new FormControl(''), // TODO(yqni13): implemenation via TAVA-116
             originAddress: new FormControl('', Validators.required),
             originDetails: new FormControl(''),
             destinationAddress: new FormControl('', Validators.required),
             destinationDetails: new FormControl(''),
             back2origin: new FormControl(''),
+            pickupTIME: new FormControl('', [
+                Validators.required,
+                CustomValidators.invalidBusinessHoursValidator(this.datetimeService, 'hh:mm')
+            ]),
             price: new FormControl(''),
-            latency: new FormControl(''),
+            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             latencyTime: new FormControl(''),
             latencyCosts: new FormControl(''),
             servDist: new FormControl(''),
@@ -103,11 +119,13 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.initForm();
         this.serviceForm.patchValue({
             service: this.service,
+            // geoLocation: null, // TODO(yqni13): implemenation via TAVA-116
             originAddress: '',
             originDetails: null,
             destinationAddress: '',
             destinationDetails: null,
             back2origin: false,
+            pickupTIME: '00:00',
             price: null,
             latency: '00:00',
             latencyTime: '00:00',
@@ -118,12 +136,43 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         });
     }
 
+    // TODO(yqni13): implemenation via TAVA-116
+    // getGeolocationCheckboxValue(event: any) {
+    //     this.getLocationByGPS(event.target?.checked);
+    // }
+
     getBack2OriginCheckboxValue(event: any) {
         this.serviceForm.get('back2origin')?.setValue(event.target?.checked);
         if(!event.target?.checked) {
             this.serviceForm.get('latencyTime')?.setValue('00:00');
         }
     }
+
+    // TODO(yqni13): implemenation via TAVA-116
+    // getLocationByGPS(canPingGPS: boolean) {
+    //     if(canPingGPS) {
+    //         const success = (position: any) => {
+    //             this.geoLocationCoord.lat = position.coords.latitude;
+    //             this.geoLocationCoord.long = position.coords.longitude;
+    //             this.originByGPS = true;
+    //         }
+    //         const error = () => {
+    //             console.log("Unable to retrieve your location");
+    //             this.browserGeolocationSupport = false;
+    //         }
+
+    //         if(!navigator.geolocation) {
+    //             console.log("Geolocation not supported on your browser");
+    //             this.browserGeolocationSupport = false;
+    //         } else {
+    //             navigator.geolocation.getCurrentPosition(success, error);
+    //         }
+    //     } else {
+    //         this.geoLocationCoord.lat = null;
+    //         this.geoLocationCoord.long = null;
+    //         this.originByGPS = false;
+    //     }
+    // }
 
     async onQuickSubmit() {
         this.serviceForm.markAllAsTouched();

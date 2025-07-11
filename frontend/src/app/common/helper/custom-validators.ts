@@ -47,11 +47,16 @@ export const maxLatencyValidator = (datetimeService: DateTimeService) : Validato
     }
 }
 
-export const invalidBusinessHoursValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const invalidBusinessHoursValidator = (datetimeService: DateTimeService, format: string) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        let time = 0;
+        if(format === 'hh:mm') {
+            time = datetimeService.getTimeInTotalMinutes(control?.value);
+        } else if(format === 'yyyy-mm-ddThh:mm:ss') {
+            time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        }
         if(time < (60 * 4) || time > (60 * 12)) {
-            return { invalidBusinessHours: true };
+            return format === 'hh:mm' ? { invalidBHTimeOnly: true } : { invalidBusinessHours: true };
         }
         return null;
     }

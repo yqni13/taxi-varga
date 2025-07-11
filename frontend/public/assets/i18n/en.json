@@ -19,12 +19,13 @@
         "navigation": {
             "about": "About",
             "home": "Home",
+            "quick": "Quick",
             "samples": "Samples",
-            "service": "Service",
-            "quick": "Quick"
+            "service": "Service"
         },
         "validation": {
             "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+            "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
             "datetime-end-invalid-negative": "Time of return can not be before pickup.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
@@ -211,9 +212,9 @@
                         "origin": "Pickup address",
                         "passengers": "Number of passengers",
                         "return": "Return address",
+                        "returnTarget": "Code",
                         "stay": "Stay",
-                        "tenancy": "Tenancy",
-                        "returnTarget": "Code"
+                        "tenancy": "Tenancy"
                     },
                     "order": {
                         "call": "Available",
@@ -286,10 +287,19 @@
                         "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
                         "title": "Please note that"
                     },
+                    "labels": {
+                        "back2origin": "I want to return to my pickup address.",
+                        "destination": "Return address",
+                        "gps": "Use my location for the pickup address.",
+                        "latency": "My required time between arrival and return.",
+                        "origin": "Pickup address",
+                        "pickupTIME": "Time of pickup"
+                    },
                     "option": {
+                        "gpsSupport": "The browser in use does NOT support location detection via Geolocation.",
                         "title": "Quick drive"
                     },
-                    "title": "Spontaneous drive - route details"
+                    "title": "Spontaneous drive to hitchhike - route details"
                 }
             }
         }

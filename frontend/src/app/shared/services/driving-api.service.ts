@@ -85,7 +85,8 @@ export class DrivingAPIService {
             destination: '',
             destinationDetails: null,
             latency: 0,
-            back2origin: false
+            back2origin: false,
+            pickupTIME: 0,
         }
     }
 
@@ -149,7 +150,8 @@ export class DrivingAPIService {
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
             latency: this.datetimeService.getTimeInTotalMinutes(data.latency),
-            back2origin: data.back2origin
+            back2origin: data.back2origin,
+            pickupTIME: this.datetimeService.configHourForPayload(data.pickupTIME)
         }
     }
 

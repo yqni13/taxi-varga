@@ -53,6 +53,7 @@ exports.validateAirportServiceAddress = (details, address) => {
 }
 
 exports.validatePlaceDetails = (address, details) => {
+    // TODO(yqni13): '+' in original address fails validation like "WIPARK P+R Siebenhirten Parkhaus" - fixing necessary
     if(details === null || details === undefined || details.address !== Utils.formatRequestStringNoPlus(address)) {
         throw new Error('address-invalid-place');
     }

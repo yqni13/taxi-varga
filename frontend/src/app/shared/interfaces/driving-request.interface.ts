@@ -44,5 +44,6 @@ export declare interface DrivingQuickRequest {
     destination: string,
     destinationDetails: any,
     latency: number,
-    back2origin: boolean
+    back2origin: boolean,
+    pickupTIME: number
 }

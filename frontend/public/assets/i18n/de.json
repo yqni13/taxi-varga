@@ -19,12 +19,13 @@
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
+            "quick": "Quick",
             "samples": "Beispiele",
-            "service": "Beförderungsangebot",
-            "quick": "Quick"
+            "service": "Beförderungsangebot"
         },
         "validation": {
             "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
             "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
@@ -211,9 +212,9 @@
                         "origin": "Abholadresse",
                         "passengers": "Anzahl Mitreisender",
                         "return": "Rückfahradresse",
+                        "returnTarget": "Code",
                         "stay": "Aufenthalt",
-                        "tenancy": "Mietdauer",
-                        "returnTarget": "Code"
+                        "tenancy": "Mietdauer"
                     },
                     "order": {
                         "call": "Erreichbar",
@@ -286,10 +287,19 @@
                         "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
                         "title": "Bitte beachten Sie"
                     },
-                    "title": "Spontanfahrt - Routendetails",
+                    "labels": {
+                        "back2origin": "Ich möchte zur Abholadresse zurückkehren.",
+                        "destination": "Rückkehradresse",
+                        "gps": "Verwende meinen Standort für die Abholadresse.",
+                        "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
+                        "origin": "Abholadresse",
+                        "pickupTIME": "Uhrzeit der Abfahrt"
+                    },
                     "option": {
+                        "gpsSupport": "Der verwendete Browser unterstützt die Standortermittlung via Geolocation NICHT.",
                         "title": "Spontanfahrt"
-                    }
+                    },
+                    "title": "Spontanfahrt für Einsteiger - Routendetails"
                 }
             }
         }

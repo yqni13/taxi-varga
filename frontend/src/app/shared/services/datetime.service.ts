@@ -77,10 +77,11 @@ export class DateTimeService {
         return `${hours}:${minutes} a.m.`;
     }
 
+    /**
+     * @param {string} time: '00:00'
+     * @returns string in total minutes
+     */
     getTimeInTotalMinutes(time: string): number {
-        /**
-         * @param {string} time: '00:00'
-         */
         const hours = time[0] === '0' ? Number(time[1]) : Number(`${time[0]}${time[1]}`);
         const minutes = time[3] === '0' ? Number(time[4]) : Number(`${time[3]}${time[4]}`);
         return (hours * 60) + minutes;

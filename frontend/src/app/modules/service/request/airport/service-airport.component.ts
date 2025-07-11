@@ -91,7 +91,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, 'yyyy-mm-ddThh:mm:ss')
                 ])
             ]),
             pickupDATE: new FormControl(''),

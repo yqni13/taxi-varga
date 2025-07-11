@@ -109,7 +109,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, 'yyyy-mm-ddThh:mm:ss')
                 ])
             ]),
             datetimeEnd: new FormControl(''),

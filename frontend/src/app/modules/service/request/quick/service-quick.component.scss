@@ -1,14 +1,24 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-#form-latency,
+#form-geolocation {
+    margin-top: sass.$space25;
+}
+
+#gps-invalid {
+    color: var(--theme-snackbar-info);
+    font-weight: bold;
+}
+
+.form-time-input,
+#form-geolocation,
 #form-checkbox {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-#form-latency span {
+.form-time-input span {
     align-self: start;
     margin-top: 9px;
 }

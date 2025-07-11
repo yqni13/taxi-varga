@@ -10,18 +10,18 @@ class DrivingQuickModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
-            basicRateAbove10km: 4,
-            basicRateAbove25km: 4,
-            basicRateBelow10km: 6,
-            servDistAbove10km: 0.6,
-            servDistAbove25km: 0.5,
-            servDistBelow10km: 0.7,
-            returnAbove10km: 0.5,
-            returnAbove25km: 0.4,
-            returnBelow10km: 0.6,
-            occupiedReturnAbove10km: 0.5,
-            occupiedReturnAbove25km: 0.4,
-            occupiedReturnBelow10km: 0.6,
+            basicRateAbove8km: 4,
+            basicRateAbove20km: 4,
+            basicRateBelow8km: 6,
+            servDistAbove8km: 0.6,
+            servDistAbove20km: 0.5,
+            servDistBelow8km: 0.7,
+            returnAbove8km: 0.5,
+            returnAbove20km: 0.4,
+            returnBelow8km: 0.6,
+            occupiedReturnAbove8km: 0.5,
+            occupiedReturnAbove20km: 0.4,
+            occupiedReturnBelow8km: 0.6,
             latencyBy5Min: 0.5
         }
     }
@@ -70,7 +70,10 @@ class DrivingQuickModel {
         let additionalCosts = 0;
         additionalCosts += latencyObj.costs;
 
-        const totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
+        let totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
+
+        // Surcharge for busy hours.
+        totalCosts = params['pickupTIME'] <= 6 ? (totalCosts * 1.15) : totalCosts;
 
         result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
@@ -108,21 +111,21 @@ class DrivingQuickModel {
         // Initiate price variables
         let [basicRate, servPrice, basicReturnPrice, occupiedReturnPrice] = [0, 0, 0, 0];
 
-        if(servCostParams.servDist <= 10) {
-            basicRate = this.#prices.basicRateBelow10km;
-            servPrice = this.#prices.servDistBelow10km;
-            basicReturnPrice = this.#prices.returnBelow10km;
-            occupiedReturnPrice = this.#prices.occupiedReturnBelow10km;
-        } else if(servCostParams.servDist > 25) {
-            basicRate = this.#prices.basicRateAbove25km;
-            servPrice = this.#prices.servDistAbove25km;
-            basicReturnPrice = this.#prices.returnAbove25km;
-            occupiedReturnPrice = this.#prices.occupiedReturnAbove25km;
+        if(servCostParams.servDist <= 8) {
+            basicRate = this.#prices.basicRateBelow8km;
+            servPrice = this.#prices.servDistBelow8km;
+            basicReturnPrice = this.#prices.returnBelow8km;
+            occupiedReturnPrice = this.#prices.occupiedReturnBelow8km;
+        } else if(servCostParams.servDist > 20) {
+            basicRate = this.#prices.basicRateAbove20km;
+            servPrice = this.#prices.servDistAbove20km;
+            basicReturnPrice = this.#prices.returnAbove20km;
+            occupiedReturnPrice = this.#prices.occupiedReturnAbove20km;
         } else {
-            basicRate = this.#prices.basicRateAbove10km;
-            servPrice = this.#prices.servDistAbove10km;
-            basicReturnPrice = this.#prices.returnAbove10km;
-            occupiedReturnPrice = this.#prices.occupiedReturnAbove10km;
+            basicRate = this.#prices.basicRateAbove8km;
+            servPrice = this.#prices.servDistAbove8km;
+            basicReturnPrice = this.#prices.returnAbove8km;
+            occupiedReturnPrice = this.#prices.occupiedReturnAbove8km;
         }
 
         servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);

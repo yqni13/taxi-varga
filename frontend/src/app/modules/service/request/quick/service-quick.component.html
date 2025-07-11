@@ -8,21 +8,44 @@
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
         <div *ngIf="!hasOffer && hasToken" class="tava-service-specific-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
+                <!-- <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-geolocation">
+                    <input
+                        class="tava-text-input-checkbox"
+                        type="checkbox"
+                        (change)="getGeolocationCheckboxValue($event)"
+                    >
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.gps' | translate}}
+                    </span>
+                </div> -->
+                <!-- GOOGLE MAPS VISUALIZATION -->
+                <!-- <div
+                    class="tava-service-specific-block"
+                    id="form-maps"
+                    *ngIf="geoLocationCoord.lat && browserGeolocationSupport"
+                >
+                    <span>{{geoLocationCoord.lat}}</span><br>
+                    <span>{{geoLocationCoord.long}}</span>
+                </div>
+                <div class="tava-service-specific-block" id="gps-invalid" *ngIf="!browserGeolocationSupport">
+                    <span>{{'modules.service.content.quick.option.gpsSupport' | translate}}</span>
+                </div> -->
                 <div class="tava-service-specific-block" id="form-origin">
                     <span class="tava-service-block-label">
-                        {{('modules.service.content.destination.labels.origin' | translate) + '*'}}
+                        {{('modules.service.content.quick.labels.origin' | translate) + '*'}}
                     </span>
                     <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
                         [hasAutoFocus]="!snackbar.isActive"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
+                        [isReadonly]="originByGPS"
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
                     ></tava-addressinput>
                 </div>
                 <div class="tava-service-specific-block" id="form-destination">
                     <span class="tava-service-block-label">
-                        {{('modules.service.content.destination.labels.destination' | translate) + '*'}}
+                        {{('modules.service.content.quick.labels.destination' | translate) + '*'}}
                     </span>
                     <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
@@ -34,10 +57,10 @@
                 <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
                     <input class="tava-text-input-checkbox" type="checkbox" (change)="getBack2OriginCheckboxValue($event)">
                     <span class="tava-service-block-input">
-                        {{'modules.service.content.destination.labels.back2home' | translate}}
+                        {{'modules.service.content.quick.labels.back2origin' | translate}}
                     </span>
                 </div>
-                <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-block" id="form-latency">
+                <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-block form-time-input" id="form-latency">
                     <tava-textinput
                         [ngClass]="'tava-input-time'"
                         [inputType]="'time'"
@@ -45,8 +68,19 @@
                         [fieldName]="'modules.service.content.form.offer.latency' | translate"
                     ></tava-textinput>
                     <span class="tava-service-block-input">
-                        {{'modules.service.content.destination.labels.latency' | translate}}
+                        {{'modules.service.content.quick.labels.latency' | translate}}
                     </span>
+                </div>
+                <div class="tava-service-specific-block form-time-input">
+                    <tava-textinput
+                        [ngClass]="'tava-input-time'"
+                        [inputType]="'time'"
+                        [formControl]="serviceForm.get('pickupTIME') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.pickupTIME' | translate"
+                    ></tava-textinput>
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.pickupTIME' | translate}}
+                    </span>                    
                 </div>
             </form>
         </div>

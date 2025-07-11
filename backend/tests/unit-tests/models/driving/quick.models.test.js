@@ -11,10 +11,11 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             jest.resetModules();
         })
 
-        test('Route (1230to2345), params: <back2origin> = true, <latency> = 22', async () => {
+        test('Route (1230to2345), params: <back2origin> = true, <latency> = 22, <pickupTIME> = 5', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
             mockParam_params['back2origin'] = 'true';
             mockParam_params['latency'] = 22;
+            mockParam_params['pickupTIME'] = 5;
 
             const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
             const mockResult_latency = { time: 25, costs: 12.5 };
@@ -36,9 +37,9 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const testFn = await quickModel.calcQuickRoute(mockParam_params);
             const expectSubObj = { routeData: {
-                price: 47,
+                price: 54,
                 servTime: 18,
-                servDist: 9.3,
+                servDist: 7.3,
                 latency: {
                     time: 25,
                     costs: 12.5
@@ -83,7 +84,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const expectSubObj = { routeData: {
                 price: 34,
                 servTime: 8,
-                servDist: 4.4,
+                servDist: 3.4,
                 latency: {
                     time: 0,
                     costs: 0
@@ -125,7 +126,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Route (1230to2345), params: <back2origin> = false, service distance < 10', () => {
+        test('Route (1230to2345), params: <back2origin> = false, service distance < 8', () => {
             const mockParam_response = structuredClone(MockData_RouteMatrix['route1230-2345']);
             const mockParam_returnObj = {
                 distance: mockParam_response['returnResult'][0]['distanceMeters'],
@@ -146,12 +147,12 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 16;
+            const expectResult = 15.3;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1180to1100), params: <back2origin> = false, service distance > 10 <= 25', () => {
+        test('Route (1180to1100), params: <back2origin> = false, service distance > 8 <= 20', () => {
             const mockParam_response = structuredClone(MockData_RouteMatrix['route1180-1100']);
             const mockParam_returnObj = {
                 distance: mockParam_response['returnResult'][0]['distanceMeters'],
@@ -177,7 +178,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1190to4020), params: <back2origin> = false, service distance > 25', () => {
+        test('Route (1190to4020), params: <back2origin> = false, service distance > 20', () => {
             const mockParam_response = structuredClone(MockData_RouteMatrix['route1190-4020']);
             const mockParam_returnObj = {
                 distance: mockParam_response['returnResult'][0]['distanceMeters'],
@@ -203,7 +204,7 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1230to2345), params: <back2origin> = true, service distance < 10', () => {
+        test('Route (1230to2345), params: <back2origin> = true, service distance < 8', () => {
             const mockParam_response = structuredClone(MockData_RouteMatrix['route1230-2345']);
             const mockParam_returnObj = { distance: 0, duration: 0, routeHome: false };
             const mockParam_back2origin = true;
@@ -220,13 +221,13 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 34.2;
+            const expectResult = 32.2;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1180to1100), params: <back2origin> = true, service distance > 10 <= 25', () => {
-            const mockParam_response = structuredClone(MockData_RouteMatrix['route1180-1100']);
+        test('Route (1100to1040), params: <back2origin> = true, service distance > 8 <= 20', () => {
+            const mockParam_response = structuredClone(MockData_RouteMatrix['route1100-1040']);
             const mockParam_returnObj = { distance: 0, duration: 0, routeHome: false };
             const mockParam_back2origin = true;
             const mockParam_routes = {
@@ -242,12 +243,12 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 43.8;
+            const expectResult = 33.3;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1190to4020), params: <back2origin> = true, service distance > 25', () => {
+        test('Route (1190to4020), params: <back2origin> = true, service distance > 20', () => {
             const mockParam_response = structuredClone(MockData_RouteMatrix['route1190-4020']);
             const mockParam_returnObj = { distanceMeters: 0, duration: 0, routeHome: false };
             const mockParam_back2origin = true;

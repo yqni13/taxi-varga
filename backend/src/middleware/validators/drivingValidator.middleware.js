@@ -127,6 +127,12 @@ exports.drivingQuickSchema = [
         .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
-        .isInt({max: 360})
+        .isInt({max: 360}) // 6 * 60 minutes
         .withMessage('backend-invalid-latency'),
+    body('pickupTIME')
+        .exists({values: 'null'})
+        .withMessage('backend-required')
+        .bail()
+        .isInt({min: 4, max: 12})
+        .withMessage('backend-invalid-pickupTIME')
 ];
