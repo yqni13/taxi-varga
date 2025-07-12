@@ -100,7 +100,6 @@
 
     .tava-service {
         .tava-service-content {
-            $temp: calc(height * 2);
             @media only screen and (orientation: landscape) {
                 flex-direction: row;
                 .tava-service-route {
@@ -111,14 +110,18 @@
                     }
                     #tava-service-selection3 {
                         border-left: 1px solid var(--theme-palette-highlight);
+                        border-right: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection4 {
+                        border-left: 1px solid var(--theme-palette-highlight);
                         border-right: 2px solid var(--theme-palette-highlight);
                     }
                     img {
-                        width: 100%;
+                        width: calc(100vw / 5 - 2px); // 2px border each img
                         height: calc(100vh - var(--size-nav-height) - var(--size-footer-height));
                     }
                     .tava-author {
-                        width: 25%;
+                        width: 20%;
                     }
                 }
             }
@@ -131,6 +134,10 @@
                         border-bottom: 1px solid var(--theme-palette-highlight);
                     }
                     #tava-service-selection3 {
+                        border-top: 1px solid var(--theme-palette-highlight);
+                        border-bottom: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection4 {
                         border-top: 1px solid var(--theme-palette-highlight);
                         border-bottom: 2px solid var(--theme-palette-highlight);
                     }
@@ -323,7 +330,8 @@
                     width: 50%;
                 }
             }
-            #tava-service-double2 {
+            #tava-service-double2,
+            #tava-service-double3 {
                 border-top: 2px solid var(--theme-palette-highlight);
             }
         }
@@ -382,7 +390,12 @@
     @media screen and (height > 1000px) {
         .tava-service {
             .tava-service-content {
-                flex-direction: column;                
+                flex-direction: column;
+                .tava-service-route-wrapper,
+                .tava-service-route {
+                    border-left: none!important;
+                    border-right: none!important;
+                }
                 .tava-service-route {
                     flex-direction: column;
                     #tava-service-selection2 {
@@ -390,6 +403,10 @@
                         border-bottom: 1px solid var(--theme-palette-highlight);
                     }
                     #tava-service-selection3 {
+                        border-top: 1px solid var(--theme-palette-highlight);
+                        border-bottom: 1px solid var(--theme-palette-highlight);
+                    }
+                    #tava-service-selection4 {
                         border-top: 1px solid var(--theme-palette-highlight);
                         border-bottom: 2px solid var(--theme-palette-highlight);
                     }

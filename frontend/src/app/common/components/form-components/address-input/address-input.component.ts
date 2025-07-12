@@ -65,6 +65,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     @Input() ngClass: string;
     @Input() exceptions: string[];
     @Input() maxVal: number;
+    @Input() isReadonly: boolean;
     @Input() filterOption: AddressFilterOptions;
     @Input() set hasAutoFocus(value: boolean) {
         if(value) {
@@ -100,6 +101,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.ngClass = '';
         this.exceptions = [];
         this.maxVal = 0;
+        this.isReadonly = false;
         this.filterOption = AddressFilterOptions.NOSPEC;
         this.byChange = new EventEmitter<any>();
         this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();

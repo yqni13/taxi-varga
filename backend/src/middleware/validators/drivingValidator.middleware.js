@@ -103,3 +103,36 @@ exports.drivingGolfSchema = [
         .bail()
         .custom((value) => CustomValidator.validateEnum(value, SupportModeOption, 'supportMode'))
 ];
+
+exports.drivingQuickSchema = [
+    body('origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('originDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value))
+        .bail()
+        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req)),
+    body('destination')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),    
+    body('destinationDetails')
+        .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
+    body('back2origin')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('latency')
+        .exists({values: 'null'})
+        .withMessage('backend-required')
+        .bail()
+        .isInt({max: 360}) // 6 * 60 minutes
+        .withMessage('backend-invalid-latency'),
+    body('pickupTIME')
+        .exists({values: 'null'})
+        .withMessage('backend-required')
+        .bail()
+        .isInt({min: 4, max: 12})
+        .withMessage('backend-invalid-pickupTIME')
+];

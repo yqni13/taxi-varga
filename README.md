@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.4.0}}$
+$\texttt{\color{teal}{v1.5.0}}$
 
 
 <br><br>
@@ -166,7 +166,7 @@ Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-130+ tests exist currently for models, utils, validators and workflows - see [tests](./backend/tests).<br>
+170+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config
@@ -223,9 +223,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
+### $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
 
-- $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.
+- $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).
 
 <br>
 

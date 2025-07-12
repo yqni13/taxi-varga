@@ -1,14 +1,14 @@
 const DrivingFlatrateModel = require('../../../../src/models/driving/flatrate.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const MockData_requestRouteMatrix = require('../../../mock-data/requestRouteMatrix.mock.json')['service-flatrate'];
+const MockData_RouteMatrix = require('../../../mock-data/routeMatrix_flatrate.mock.json');
 
 describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
     describe('Testing valid fn calls, tenancy: 180', () => {
 
         test('Route (2525to2551), params: approach < 20, return < 20', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2525-2551']);
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2525-2551']['apiResult']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2525-2551']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2525-2551']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const flatrateModel = new DrivingFlatrateModel(mockAPI);
@@ -20,8 +20,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
 
         test('Route (2700to2651), params: approach < 20, return > 20', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2700-2651']);
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2700-2651']['apiResult']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2700-2651']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2700-2651']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const flatrateModel = new DrivingFlatrateModel(mockAPI);
@@ -33,8 +33,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
 
         test('Route (1220to2514), params: approach > 20, return < 20', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route1220-2514']);
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route1220-2514']['apiResult']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route1220-2514']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const flatrateModel = new DrivingFlatrateModel(mockAPI);
@@ -46,8 +46,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
 
         test('Route (2320to1020), params: approach > 20, return > 20', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2320-1020']);
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2320-1020']['apiResult']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2320-1020']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2320-1020']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const flatrateModel = new DrivingFlatrateModel(mockAPI);
@@ -59,8 +59,8 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
         })
 
         test('Route (2491to2491), params: <origin> == <destination>', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2491-2491']);
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2491-2491']['apiResult']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2491-2491']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2491-2491']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const flatrateModel = new DrivingFlatrateModel(mockAPI);

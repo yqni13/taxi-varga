@@ -1,6 +1,7 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
 
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceOptions): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -47,11 +48,16 @@ export const maxLatencyValidator = (datetimeService: DateTimeService) : Validato
     }
 }
 
-export const invalidBusinessHoursValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const invalidBusinessHoursValidator = (datetimeService: DateTimeService, format: string) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        let time = 0;
+        if(format === DatetimeOption.HHMM) {
+            time = datetimeService.getTimeInTotalMinutes(control?.value);
+        } else if(format === DatetimeOption.FULL) {
+            time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        }
         if(time < (60 * 4) || time > (60 * 12)) {
-            return { invalidBusinessHours: true };
+            return format === DatetimeOption.HHMM ? { invalidBHTimeOnly: true } : { invalidBusinessHours: true };
         }
         return null;
     }

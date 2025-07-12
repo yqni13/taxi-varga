@@ -24,6 +24,7 @@ import { PassengerOptions } from "../../../../shared/enums/passenger-options.enu
 import { GolfSupportOptions } from "../../../../shared/enums/golf-support-options.enum";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-golf',
@@ -109,7 +110,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
                 ])
             ]),
             datetimeEnd: new FormControl(''),

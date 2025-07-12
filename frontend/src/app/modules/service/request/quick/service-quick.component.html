@@ -1,0 +1,188 @@
+<section class="tava-service-quick" ngClass="{{selectedBg}}">
+    <header>
+        <h2>
+            {{'modules.service.content.quick.title' | translate}}
+        </h2>
+    </header>
+    <div class="tava-service-specific-content">
+        <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
+        <div *ngIf="!hasOffer && hasToken" class="tava-service-specific-content-input-offer tava-service-form">
+            <form [formGroup]="serviceForm">
+                <!-- <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-geolocation">
+                    <input
+                        class="tava-text-input-checkbox"
+                        type="checkbox"
+                        (change)="getGeolocationCheckboxValue($event)"
+                    >
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.gps' | translate}}
+                    </span>
+                </div> -->
+                <!-- GOOGLE MAPS VISUALIZATION -->
+                <!-- <div
+                    class="tava-service-specific-block"
+                    id="form-maps"
+                    *ngIf="geoLocationCoord.lat && browserGeolocationSupport"
+                >
+                    <span>{{geoLocationCoord.lat}}</span><br>
+                    <span>{{geoLocationCoord.long}}</span>
+                </div>
+                <div class="tava-service-specific-block" id="gps-invalid" *ngIf="!browserGeolocationSupport">
+                    <span>{{'modules.service.content.quick.option.gpsSupport' | translate}}</span>
+                </div> -->
+                <div class="tava-service-specific-block" id="form-origin">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.quick.labels.origin' | translate) + '*'}}
+                    </span>
+                    <tava-addressinput
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
+                        [formControl]="serviceForm.get('originAddress') | controlCast"
+                        [hasAutoFocus]="!snackbar.isActive"
+                        [fieldName]="'modules.service.content.form.offer.origin' | translate"
+                        [isReadonly]="originByGPS"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
+                    ></tava-addressinput>
+                </div>
+                <div class="tava-service-specific-block" id="form-destination">
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.quick.labels.destination' | translate) + '*'}}
+                    </span>
+                    <tava-addressinput
+                        [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
+                        [formControl]="serviceForm.get('destinationAddress') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.destination' | translate"
+                        (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
+                    ></tava-addressinput>                    
+                </div>
+                <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
+                    <input class="tava-text-input-checkbox" type="checkbox" (change)="getBack2OriginCheckboxValue($event)">
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.back2origin' | translate}}
+                    </span>
+                </div>
+                <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-block form-time-input" id="form-latency">
+                    <tava-textinput
+                        [ngClass]="'tava-input-time'"
+                        [inputType]="'time'"
+                        [formControl]="serviceForm.get('latency') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.latency' | translate"
+                    ></tava-textinput>
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.latency' | translate}}
+                    </span>
+                </div>
+                <div class="tava-service-specific-block form-time-input">
+                    <tava-textinput
+                        [ngClass]="'tava-input-time'"
+                        [inputType]="'time'"
+                        [formControl]="serviceForm.get('pickupTIME') | controlCast"
+                        [fieldName]="'modules.service.content.form.offer.pickupTIME' | translate"
+                    ></tava-textinput>
+                    <span class="tava-service-block-input">
+                        {{'modules.service.content.quick.labels.pickupTIME' | translate}}
+                    </span>                    
+                </div>
+            </form>
+        </div>
+        <div *ngIf="!hasOffer && hasToken" class="tava-button-wrapper">
+            <button
+                class="tava-button-submit"
+                [attr.aria-disabled]="true"
+                (click)="onQuickSubmit()"
+                (keydown.enter)="onQuickSubmit()"
+            >{{'modules.service.commands.forward' | translate}}</button>
+        </div>
+
+        <!-- SUM OF PROCESSED DATA (FORM ROUTE DATA) -->
+        <div *ngIf="!loadOfferResponse && !loadOrderResponse && hasOffer && !hasConfirmed" class="tava-service-specific-content-sum-offer tava-service-form">
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.offer.origin' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('originAddress')?.value}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.offer.destination' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('destinationAddress')?.value}}
+                </span>
+            </div>
+            <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.offer.back2home' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('originAddress')?.value}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.distance' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('servDist')?.value | distanceFormat}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.duration' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('servTime')?.value + ' h'}}
+                </span>
+            </div>
+            <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.latency' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('latencyTime')?.value + ' h'}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.offer.returnTarget' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('returnTarget')?.value}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">
+                <span>
+                    {{('modules.service.content.form.order.warnings' | translate)}}
+                </span>
+                <span>
+                    {{('modules.service.content.form.order.licence' | translate)}}
+                </span>
+                <span>
+                    {{'modules.service.content.form.order.latency-quick' | translate}}
+                </span>
+            </div>
+            <div class="tava-service-specific-offer-sum" id="tava-service-offer-call">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.call' | translate) + ':'}}
+                </span>
+                <a href="tel:{{callDirectNr}}">
+                    {{'modules.service.content.quick.info.call' | translate}}
+                </a>
+            </div>
+            <div class="tava-service-specific-offer-sum" id="tava-service-offer-price">
+                <span class="tava-service-specific-offer-sum-left">
+                    {{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
+                </span>
+                <span class="tava-service-specific-offer-sum-right">
+                    {{serviceForm.get('price')?.value | currencyFormat}}
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="tava-loading-animation" [ngClass]="(!hasToken || loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+</section>

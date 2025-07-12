@@ -20,6 +20,7 @@ import { MailTranslateService } from "../../../../shared/services/mail-translate
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-airport',
@@ -91,7 +92,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
                 ])
             ]),
             pickupDATE: new FormControl(''),

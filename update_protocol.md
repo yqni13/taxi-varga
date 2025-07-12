@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/07/12 - $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
+
+- $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).
+
 ### 2025/07/01 - $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
 
 - $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.

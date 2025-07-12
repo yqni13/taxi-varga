@@ -9,6 +9,7 @@ import { MailTranslateService } from "./shared/services/mail-translate.service";
 import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 import * as Helper from "./common/helper/common.helper";
+import { ServiceOptions } from "./shared/enums/service-options.enum";
 // import { CryptoService } from "./shared/services/crypto.service";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
@@ -28,18 +29,21 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 if(httpbody.body.title && httpbody.body.text) {
                     console.log('successful communication!');
                 }
-                if(httpbody.url?.includes('/driving/airport')) {
+                if(httpbody.url?.includes(`/driving/${ServiceOptions.AIRPORT}`)) {
                     await delay(1000);
                     httpObservationService.setDrivingAirportStatus(true);
-                } else if(httpbody.url?.includes('/driving/destination')) {
+                } else if(httpbody.url?.includes(`/driving/${ServiceOptions.DESTINATION}`)) {
                     await delay(1000);
                     httpObservationService.setDrivingDestinationStatus(true);
-                } else if(httpbody.url?.includes('/driving/flatrate')) {
+                } else if(httpbody.url?.includes(`/driving/${ServiceOptions.FLATRATE}`)) {
                     await delay(1000);
                     httpObservationService.setDrivingFlatrateStatus(true);
-                } else if(httpbody.url?.includes('/driving/golf')) {
+                } else if(httpbody.url?.includes(`/driving/${ServiceOptions.GOLF}`)) {
                     await delay(1000);
                     httpObservationService.setDrivingGolfStatus(true);
+                } else if(httpbody.url?.includes(`/driving/${ServiceOptions.QUICK}`)){
+                    await delay(1000);
+                    httpObservationService.setDrivingQuickStatus(true);
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
                     const param = httpbody.body.body.response.sender;
@@ -71,18 +75,21 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
 export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService, router: Router, helper: any) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    if(response.url.includes('/driving/airport')) {
+    if(response.url.includes(`/driving/${ServiceOptions.AIRPORT}`)) {
         await delay(1000);
         httpObservationService.setDrivingAirportStatus(false);
-    } else if(response.url.includes('/driving/destination')) {
+    } else if(response.url.includes(`/driving/${ServiceOptions.DESTINATION}`)) {
         await delay(1000);
         httpObservationService.setDrivingDestinationStatus(false);
-    } else if(response.url.includes('/driving/flatrate')) {
+    } else if(response.url.includes(`/driving/${ServiceOptions.FLATRATE}`)) {
         await delay(1000);
         httpObservationService.setDrivingFlatrateStatus(false);
-    } else if(response.url.includes('/driving/golf')) {
+    } else if(response.url.includes(`/driving/${ServiceOptions.GOLF}`)) {
         await delay(1000);
         httpObservationService.setDrivingGolfStatus(false);
+    } else if(response.url.includes(`/driving/${ServiceOptions.QUICK}`)) {
+        await delay(1000);
+        httpObservationService.setDrivingQuickStatus(false);
     } else if(response.url.includes('/mailing/send')) {
         await delay(1000);
         httpObservationService.setEmailStatus(false);

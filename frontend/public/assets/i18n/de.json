@@ -19,11 +19,13 @@
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
+            "quick": "Quick",
             "samples": "Beispiele",
             "service": "Beförderungsangebot"
         },
         "validation": {
             "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
             "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
@@ -210,10 +212,12 @@
                         "origin": "Abholadresse",
                         "passengers": "Anzahl Mitreisender",
                         "return": "Rückfahradresse",
+                        "returnTarget": "Code",
                         "stay": "Aufenthalt",
                         "tenancy": "Mietdauer"
                     },
                     "order": {
+                        "call": "Erreichbarkeit prüfen",
                         "contact": "Kontakt",
                         "date-dropoff": "Datum des Auftragsendes",
                         "date-pickup": "Datum der Abholung",
@@ -223,6 +227,7 @@
                         "hint-greenfee": "ohne Greenfee",
                         "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
+                        "latency-quick": "Wartezeiten: Die ersten 5 Minuten sind im Preis inkludiert. Ab der 6ten Minute werden 0,50 EUR / Minute verrechnet.",
                         "licence": "Der Beförderungspreis erfüllt die Vorgaben des gültigen, lizenzierten Wiener Taxitarif.",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
@@ -275,6 +280,26 @@
                         "title": "Golf-Tagesreise"
                     },
                     "title": "Golfreise - Routendetails"
+                },
+                "quick": {
+                    "info": {
+                        "call": "Anrufen",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
+                        "title": "Bitte beachten Sie"
+                    },
+                    "labels": {
+                        "back2origin": "Ich möchte zur Abholadresse zurückkehren.",
+                        "destination": "Rückkehradresse",
+                        "gps": "Ich möchte meinen Standort für die Abholadresse verwenden.",
+                        "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
+                        "origin": "Abholadresse",
+                        "pickupTIME": "Uhrzeit der Abfahrt"
+                    },
+                    "option": {
+                        "gpsSupport": "Der verwendete Browser unterstützt die Standortermittlung via Geolocation NICHT.",
+                        "title": "Spontanfahrt"
+                    },
+                    "title": "Spontanfahrt für Einsteiger - Routendetails"
                 }
             }
         }
