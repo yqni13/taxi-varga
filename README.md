@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.4.0}}$
+$\texttt{\color{teal}{v1.5.0}}$
 
 
 <br><br>
@@ -223,9 +223,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
+### $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
 
-- $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.
+- $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).
 
 <br>
 

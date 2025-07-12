@@ -217,7 +217,7 @@
                         "tenancy": "Mietdauer"
                     },
                     "order": {
-                        "call": "Erreichbar",
+                        "call": "Erreichbarkeit prüfen",
                         "contact": "Kontakt",
                         "date-dropoff": "Datum des Auftragsendes",
                         "date-pickup": "Datum der Abholung",
@@ -290,7 +290,7 @@
                     "labels": {
                         "back2origin": "Ich möchte zur Abholadresse zurückkehren.",
                         "destination": "Rückkehradresse",
-                        "gps": "Verwende meinen Standort für die Abholadresse.",
+                        "gps": "Ich möchte meinen Standort für die Abholadresse verwenden.",
                         "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
                         "origin": "Abholadresse",
                         "pickupTIME": "Uhrzeit der Abfahrt"

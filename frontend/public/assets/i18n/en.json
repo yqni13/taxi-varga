@@ -217,7 +217,7 @@
                         "tenancy": "Tenancy"
                     },
                     "order": {
-                        "call": "Available",
+                        "Check availability": "Available",
                         "contact": "Contact",
                         "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
@@ -290,7 +290,7 @@
                     "labels": {
                         "back2origin": "I want to return to my pickup address.",
                         "destination": "Return address",
-                        "gps": "Use my location for the pickup address.",
+                        "gps": "I want to use my location for the pickup address.",
                         "latency": "My required time between arrival and return.",
                         "origin": "Pickup address",
                         "pickupTIME": "Time of pickup"

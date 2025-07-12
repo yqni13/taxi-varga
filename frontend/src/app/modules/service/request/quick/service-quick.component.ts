@@ -21,6 +21,7 @@ import { DrivingQuickResponse } from "../../../../shared/interfaces/driving-resp
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-quick',
@@ -103,7 +104,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             back2origin: new FormControl(''),
             pickupTIME: new FormControl('', [
                 Validators.required,
-                CustomValidators.invalidBusinessHoursValidator(this.datetimeService, 'hh:mm')
+                CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.HHMM)
             ]),
             price: new FormControl(''),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),

@@ -115,8 +115,8 @@ class GoogleRoutesAPI {
             })
 
         result.forEach((entry) => {
-            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
-            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
+            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration ?? 0);
+            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters ?? 0);
         });
         return result;
     }
@@ -159,12 +159,11 @@ class GoogleRoutesAPI {
                 return error;
             })
 
-        if(result.length > 0) {
-            result.forEach((entry) => {
-                entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
-                entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
-            });
-        }
+        result.forEach((entry) => {
+            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration ?? 0);
+            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters ?? 0);
+        });
+
         return result;
     }
 }
