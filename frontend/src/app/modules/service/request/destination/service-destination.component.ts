@@ -36,8 +36,6 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    
-
     constructor(
         router: Router,
         fb: FormBuilder,
@@ -55,9 +53,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService)
-        
-        
+        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
     }
 
     override async ngOnInit() {

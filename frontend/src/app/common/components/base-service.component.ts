@@ -226,14 +226,14 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     getAddressDetails(event: any, option: AddressOptions) {
-            if(option === AddressOptions.ORIGIN) {
-                this.serviceForm.get('originDetails')?.setValue(event);
-            } else if(option === AddressOptions.GOLFCOURSE) {
-                this.serviceForm.get('golfcourseDetails')?.setValue(event);
-            }else {
-                this.serviceForm.get('destinationDetails')?.setValue(event);
-            }
+        if(option === AddressOptions.ORIGIN) {
+            this.serviceForm.get('originDetails')?.setValue(event);
+        } else if(option === AddressOptions.GOLFCOURSE) {
+            this.serviceForm.get('golfcourseDetails')?.setValue(event);
+        }else {
+            this.serviceForm.get('destinationDetails')?.setValue(event);
         }
+    }
 
     addMetaProperties2Form(form: FormGroup) {
         Object.values(this.metaProperties).forEach((element) => {

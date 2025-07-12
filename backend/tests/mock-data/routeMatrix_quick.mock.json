@@ -3,7 +3,7 @@
         "a_information": {
             "d2o": 29.7,
             "o2d": 31,
-            "routeHome": "vb"
+            "routeHome": "vienna_border"
         },
         "back2origin": "false",
         "destination": "Hauptstr.+49,+2000+Stockerau,+Austria",
@@ -23,6 +23,7 @@
             "province": "Wien",
             "zipCode": "1010"
         },
+        "pickupTIME": 10,
         "returnResult": [
             {
                 "destinationIndex": 16,
@@ -68,7 +69,7 @@
         "a_information": {
             "d2o": 35,
             "o2d": 33.7,
-            "routeHome": "h"
+            "routeHome": "home"
         },
         "back2origin": "true",
         "destination": "Waltersdorfer+Str.+75,+2500+Baden,+Austria",
@@ -88,30 +89,31 @@
             "province": "Wien",
             "zipCode": "1010"
         },
+        "pickupTIME": 10,
         "returnResult": [
             {
-                "originIndex": 0,
                 "destinationIndex": 0,
                 "distanceMeters": 13.5,
-                "duration": 13.9
+                "duration": 13.9,
+                "originIndex": 0
             },
             {
-                "originIndex": 0,
                 "destinationIndex": 2,
                 "distanceMeters": 21.5,
-                "duration": 17.7
+                "duration": 17.7,
+                "originIndex": 0
             },
             {
-                "originIndex": 0,
                 "destinationIndex": 3,
                 "distanceMeters": 22.1,
-                "duration": 19.8
+                "duration": 19.8,
+                "originIndex": 0
             },
             {
-                "originIndex": 0,
                 "destinationIndex": 1,
                 "distanceMeters": 22.4,
-                "duration": 17.6
+                "duration": 17.6,
+                "originIndex": 0
             }
         ],
         "serviceResult": [
@@ -129,11 +131,83 @@
             }
         ]
     },
+    "route1180-1100": {
+        "a_information": {
+            "d2o": 11.9,
+            "o2d": 11.4,
+            "routeHome": "destination"
+        },
+        "back2origin": "false",
+        "destination": "Gertrude-Fröhlich-Sandner-Straße+6,+1100+Wien,+Austria",
+        "destinationDetails": {
+            "address": "Gertrude-Fröhlich-Sandner-Straße 6, 1100 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJzVE7bdepbUcR5weB_kSidqs",
+            "province": "Wien",
+            "zipCode": "1100"
+        },
+        "latency": 0,
+        "origin": "Starkfriedgasse+25,+1180+Wien,+Austria",
+        "originDetails": {
+            "address": "Starkfriedgasse 25, 1180 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJwWnaMYsIbUcRomhYF-6FH9c",
+            "province": "Wien",
+            "zipCode": "1180"
+        },
+        "pickupTIME": 10,
+        "returnResult": [
+            {
+                "destinationIndex": 31,
+                "distanceMeters": 6.7,
+                "duration": 14,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 33,
+                "distanceMeters": 8.1,
+                "duration": 16,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 8.8,
+                "duration": 15.7,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 40.2,
+                "duration": 31.3,
+                "originIndex": 0,
+                "status": {}
+            }
+        ],
+        "serviceResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 11.4,
+                "duration": 21.1,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 11.9,
+                "duration": 22,
+                "originIndex": 2,
+                "status": {}
+            }
+        ]
+    },
     "route1190-4020": {
         "a_information": {
             "d2o": 183.5,
             "o2d": 183.4,
-            "routeHome": "vb"
+            "routeHome": "vienna_border"
         },
         "back2origin": "false",
         "destination": "Europapl.+2,+4020+Linz,+Austria",
@@ -153,6 +227,7 @@
             "province": "Wien",
             "zipCode": "1190"
         },
+        "pickupTIME": 10,
         "returnResult": [
             {
                 "destinationIndex": 10,
@@ -198,7 +273,7 @@
         "a_information": {
             "d2o": 12,
             "o2d": 14,
-            "routeHome": "vb"
+            "routeHome": "vienna_border"
         },
         "back2origin": "false",
         "destination": "G3+Shopping+Resort+Gerasdorf,+2201+Niederösterreich,+Austria",
@@ -218,6 +293,7 @@
             "province": "Wien",
             "zipCode": "1210"
         },
+        "pickupTIME": 10,
         "returnResult": [
             {
                 "destinationIndex": 19,
@@ -259,11 +335,77 @@
             }
         ]
     },
+    "route1230-1010": {
+        "a_information": {
+            "d2o": 17.9,
+            "o2d": 18.3,
+            "routeHome": "destination"
+        },
+        "back2origin": "false",
+        "destination": "Europäisches+Parlament+Wien,+1010+Wien,+Austria",
+        "destinationDetails": {
+            "address": "Europäisches Parlament Wien, 1010 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ8ZJj6bwHbUcRFmITUHQAGTE",
+            "province": "Wien",
+            "zipCode": "1010"
+        },
+        "latency": 0,
+        "origin": "Ketzergasse+38,+1230+Wien,+Austria",
+        "originDetails": {
+            "address": "Ketzergasse 38, 1230 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJKdch9c-obUcRC1h8np82UcY",
+            "province": "Wien",
+            "zipCode": "1230"
+        },
+        "pickupTIME": 10,
+        "returnResult": [
+            {
+                "destinationIndex": 15,
+                "distanceMeters": 9.8,
+                "duration": 12.3,
+                "originIndex": 0
+            },
+            {
+                "destinationIndex": 13,
+                "distanceMeters": 10.3,
+                "duration": 19.9,
+                "originIndex": 0
+            },
+            {
+                "destinationIndex": 17,
+                "distanceMeters": 11.1,
+                "duration": 16,
+                "originIndex": 0
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 45.2,
+                "duration": 38.4,
+                "originIndex": 0
+            }
+        ],
+        "serviceResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 18.3,
+                "duration": 23,
+                "originIndex": 1
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 17.9,
+                "duration": 23.3,
+                "originIndex": 2
+            }
+        ]
+    },
     "route1230-2345": {
         "a_information": {
-            "d2o": 4.9,
-            "o2d": 4.4,
-            "routeHome": "vb"
+            "d2o": 3.9,
+            "o2d": 3.4,
+            "routeHome": "vienna_border"
         },
         "back2origin": "false",
         "destination": "Wienerstraße+154,+2345+Brunn+am+Gebirge,+Austria",
@@ -283,6 +425,7 @@
             "province": "Wien",
             "zipCode": "1230"
         },
+        "pickupTIME": 10,
         "returnResult": [
             {
                 "destinationIndex": 3,
@@ -312,15 +455,87 @@
         "serviceResult": [
             {
                 "destinationIndex": 0,
-                "distanceMeters": 4.4,
+                "distanceMeters": 3.4,
                 "duration": 7.8,
                 "originIndex": 1
             },
             {
                 "destinationIndex": 1,
-                "distanceMeters": 4.9,
+                "distanceMeters": 3.9,
                 "duration": 10.2,
                 "originIndex": 2
+            }
+        ]
+    },
+    "route1100-1040": {
+        "a_information": {
+            "d2o": 7.7,
+            "o2d": 8.5,
+            "routeHome": "destination"
+        },
+        "back2origin": "false",
+        "destination": "Prinz-Eugen-Straße+27,+1040+Wien,+Austria",
+        "destinationDetails": {
+            "address": "Prinz-Eugen-Straße 27, 1040 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJjw8_1HwHbUcRTU5NErNOqmY",
+            "province": "Wien",
+            "zipCode": "1040"
+        },
+        "latency": 0,
+        "origin": "Scheunenstraße+110,+1100+Wien,+Austria",
+        "originDetails": {
+            "address": "Scheunenstraße 110, 1100 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJHTmsrdCrbUcRGxTzBGAAfF8",
+            "province": "Wien",
+            "zipCode": "1100"
+        },
+        "pickupTIME": 10,
+        "returnResult": [
+            {
+                "originIndex": 0,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 9.1,
+                "duration": 19.3
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 31,
+                "status": {},
+                "distanceMeters": 9.2,
+                "duration": 19.4
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 29,
+                "status": {},
+                "distanceMeters": 12.1,
+                "duration": 18.5
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 40.2,
+                "duration": 33.5
+            }
+        ],
+        "serviceResult": [
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 7.7,
+                "duration": 17.6
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 8.5,
+                "duration": 15
             }
         ]
     }

@@ -15,18 +15,19 @@ exports.validateEnum = (value, enumObj, enumName) => {
 
 exports.validateDestinationServiceAddress = (address, addressDetails, compareDetails) => {
     this.validatePlaceDetails(address, addressDetails)
-    const location = ['Wien', 'Vienna'];
-    if(location.includes(addressDetails.province) && location.includes(compareDetails.province)) {
+    if(Utils.checkAddressInViennaByProvince(addressDetails.province)
+    && Utils.checkAddressInViennaByProvince(compareDetails.province)) {
         throw new Error('backend-destination-vienna');
     }
+
     return true;
 }
 
 exports.validateServiceRouteVIE = (req) => {
     const originZip = req.body.originDetails.zipCode;
     const destinZip = req.body.destinationDetails.zipCode;
-    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInVienna(destinZip))
-    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInVienna(originZip))) {
+    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInViennaByZipCode(destinZip))
+    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInViennaByZipCode(originZip))) {
         throw new Error('navigate-destination-airport/service');
     }
 
@@ -44,7 +45,7 @@ exports.validateAirportServiceAddress = (details, address) => {
         throw new Error('backend-missing-zipCode');
     }
 
-    if(!Utils.checkAddressInVienna(details.zipCode)) {
+    if(!Utils.checkAddressInViennaByZipCode(details.zipCode)) {
         throw new Error('airport-invalid-place');
     }
 
@@ -52,6 +53,7 @@ exports.validateAirportServiceAddress = (details, address) => {
 }
 
 exports.validatePlaceDetails = (address, details) => {
+    // TODO(yqni13): '+' in original address fails validation like "WIPARK P+R Siebenhirten Parkhaus" - fixing necessary
     if(details === null || details === undefined || details.address !== Utils.formatRequestStringNoPlus(address)) {
         throw new Error('address-invalid-place');
     }

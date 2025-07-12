@@ -89,4 +89,4 @@ Basic description: `<base>.<subsuffix?>.<suffix>.<ending>` [specific always sing
 | Abbreviation           | Definition                  | Value/Importance             |
 |------------------------|-----------------------------|------------------------------|
 | BH                     | Business Hours              | 04:00-12:00 = withinBH       |
-| h, vb, or              | home, vienna border, origin | return info, quick service   |
+

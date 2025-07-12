@@ -1,6 +1,7 @@
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const Utils = require('../../utils/common.utils');
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
+const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
 
 class DrivingQuickModel {
     #googleRoutes;
@@ -9,18 +10,18 @@ class DrivingQuickModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
+            basicRateAbove8km: 4,
             basicRateAbove20km: 4,
-            basicRateAbove50km: 4,
-            basicRateBelow20km: 6,
-            servDistAbove20km: 0.6,
-            servDistAbove50km: 0.5,
-            servDistBelow20km: 0.7,
-            returnAbove20km: 0.5,
-            returnAbove50km: 0.4,
-            returnBelow20km: 0.6,
-            occupiedReturnAbove20km: 0.5,
-            occupiedReturnAbove50km: 0.4,
-            occupiedReturnBelow20km: 0.6,
+            basicRateBelow8km: 6,
+            servDistAbove8km: 0.6,
+            servDistAbove20km: 0.5,
+            servDistBelow8km: 0.7,
+            returnAbove8km: 0.5,
+            returnAbove20km: 0.4,
+            returnBelow8km: 0.6,
+            occupiedReturnAbove8km: 0.5,
+            occupiedReturnAbove20km: 0.4,
+            occupiedReturnBelow8km: 0.6,
             latencyBy5Min: 0.5
         }
     }
@@ -35,11 +36,12 @@ class DrivingQuickModel {
         const result = {
             price: 0,
             servTime: 0,
+            servDist: 0,
             latency: {},
             returnTarget: ''
         }
 
-        let returnObj = null;
+        let returnObj = {};
         if(!params.back2origin) {
             returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
             returnObj = this._mapShortestReturnLocation(returnObj);
@@ -48,18 +50,30 @@ class DrivingQuickModel {
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
         const routes = {
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-            d2v: !params.back2origin && !returnObj.routeHome ? returnObj : null,
-            d2h: !params.back2origin && returnObj.routeHome ? returnObj : null
+            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1})
         }
         const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
+        const servDist = params['back2origin'] 
+            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters 
+            : routes.o2d.distanceMeters;
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
+        const isRouteV2V = this._isRouteWithinVienna(params);
+        const servCostParams = {
+            servDist: servDist,
+            servTime: servTime,
+            returnObj: returnObj,
+            back2origin: params.back2origin,
+            isRouteV2V: isRouteV2V
+        };
 
         // Sum all additional costs.
         let additionalCosts = 0;
         additionalCosts += latencyObj.costs;
 
-        const totalCosts = this._calcServDistCosts(routes, servTime, returnObj, params.back2origin) + additionalCosts;
+        let totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
+
+        // Surcharge for busy hours.
+        totalCosts = params['pickupTIME'] <= 6 ? (totalCosts * 1.15) : totalCosts;
 
         result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
@@ -67,12 +81,9 @@ class DrivingQuickModel {
         result['servTime'] = (servTime % 1) >= 0.5
             ? Math.ceil(servTime)
             : Math.floor(servTime)
+        result['servDist'] = servDist;
         result['latency'] = latencyObj;
-        result['returnTarget'] = params.back2origin // abbreviations see glossary
-            ? 'or'
-            : returnObj.routeHome
-                ? 'h'
-                : 'vb'
+        result['returnTarget'] = this._mapReturnTarget(params.back2origin, returnObj.routeHome ?? false, isRouteV2V);
 
         return { routeData: result };
     }
@@ -88,40 +99,55 @@ class DrivingQuickModel {
         return { time: latencyRoundedUp, costs: latencyCosts };
     }
 
-    _calcServDistCosts = (routes, servTime, returnObj, back2origin) => {
+    _calcServDistCosts = (routes, servCostParams) => {
         let totalCosts = 0;
-        const servDist = back2origin
-            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters
-            : routes.o2d.distanceMeters;
 
-        if(servDist <= 0) {
+        if(servCostParams.servDist <= 0) {
             return totalCosts;
         }
+        
+        // Initiate cost variables.
+        let [servCosts, basicReturnCosts, occupiedReturnCosts] = [0, 0, 0];
+        // Initiate price variables
+        let [basicRate, servPrice, basicReturnPrice, occupiedReturnPrice] = [0, 0, 0, 0];
 
-        if(servDist <= 20) {
-            const servCosts = (servDist * this.#prices.servDistBelow20km) + (servTime * this.#prices.servDistBelow20km);
-            const basicReturnCosts = back2origin 
-                ? routes.d2o.distanceMeters * this.#prices.returnBelow20km
-                : returnObj.distance * this.#prices.returnBelow20km;
-            const occupiedReturnCosts = back2origin ? routes.d2o.duration * this.#prices.occupiedReturnBelow20km : 0;
-            totalCosts = this.#prices.basicRateBelow20km + servCosts + basicReturnCosts + occupiedReturnCosts;
-        } else if(servDist > 50) {
-            const servCosts = (servDist * this.#prices.servDistAbove50km) + (servTime * this.#prices.servDistAbove50km);
-            const basicReturnCosts = back2origin
-                ? routes.d2o.distanceMeters * this.#prices.returnAbove50km
-                : returnObj.distance * this.#prices.returnAbove50km;
-            const occupiedReturnCosts = back2origin ? routes.d2o.duration * this.#prices.occupiedReturnAbove50km : 0;
-            totalCosts = this.#prices.basicRateAbove50km + servCosts + basicReturnCosts + occupiedReturnCosts;
+        if(servCostParams.servDist <= 8) {
+            basicRate = this.#prices.basicRateBelow8km;
+            servPrice = this.#prices.servDistBelow8km;
+            basicReturnPrice = this.#prices.returnBelow8km;
+            occupiedReturnPrice = this.#prices.occupiedReturnBelow8km;
+        } else if(servCostParams.servDist > 20) {
+            basicRate = this.#prices.basicRateAbove20km;
+            servPrice = this.#prices.servDistAbove20km;
+            basicReturnPrice = this.#prices.returnAbove20km;
+            occupiedReturnPrice = this.#prices.occupiedReturnAbove20km;
         } else {
-            const servCosts = (servDist * this.#prices.servDistAbove20km) + (servTime * this.#prices.servDistAbove20km);
-            const basicReturnCosts = back2origin
-                ? routes.d2o.distanceMeters * this.#prices.returnAbove20km
-                : returnObj.distance * this.#prices.returnAbove20km;
-            const occupiedReturnCosts = back2origin ? routes.d2o.duration * this.#prices.occupiedReturnAbove20km : 0;
-            totalCosts = this.#prices.basicRateAbove20km + servCosts + basicReturnCosts + occupiedReturnCosts;
+            basicRate = this.#prices.basicRateAbove8km;
+            servPrice = this.#prices.servDistAbove8km;
+            basicReturnPrice = this.#prices.returnAbove8km;
+            occupiedReturnPrice = this.#prices.occupiedReturnAbove8km;
         }
 
+        servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);
+        if(!servCostParams.isRouteV2V) {
+            basicReturnCosts = servCostParams.back2origin
+                ? routes.d2o.distanceMeters * basicReturnPrice
+                : servCostParams.returnObj.distance * basicReturnPrice;
+            occupiedReturnCosts = servCostParams.back2origin
+                ? routes.d2o.duration * occupiedReturnPrice
+                : 0;
+        }
+        totalCosts = basicRate + servCosts + basicReturnCosts + occupiedReturnCosts;
+
         return Number(totalCosts.toFixed(1));
+    }
+
+    _mapReturnTarget = (back2origin, routeHome, isRouteV2V) => {
+        if(isRouteV2V) {
+            return back2origin ? QuickRouteOption.OR : QuickRouteOption.DES;
+        } else {
+            return back2origin ? QuickRouteOption.OR : routeHome ? QuickRouteOption.HOME : QuickRouteOption.VB;
+        }
     }
 
     _mapShortestReturnLocation = (data) => {
@@ -132,6 +158,18 @@ class DrivingQuickModel {
             duration: data[0].duration,
             routeHome: data[0].originIndex === 0 && data[0].destinationIndex === 0 ? true : false
         };
+    }
+
+    _isRouteWithinVienna = (params) => {
+        const isOriginWithinVienna = params.originDetails.zipCode
+            ? Utils.checkAddressInViennaByZipCode(params.originDetails.zipCode)
+            : Utils.checkAddressInViennaByProvince(params.originDetails.province);
+
+        const isDestinationWithinVienna = params.destinationDetails.zipCode
+            ? Utils.checkAddressInViennaByZipCode(params.destinationDetails.zipCode)
+            : Utils.checkAddressInViennaByProvince(params.destinationDetails.province);
+
+        return isOriginWithinVienna && isDestinationWithinVienna;
     }
 }
 

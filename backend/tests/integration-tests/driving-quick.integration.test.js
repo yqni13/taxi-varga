@@ -6,7 +6,9 @@ jest.mock('../../src/middleware/auth.middleware.js', () => {
     });
 });
 
-const mockResult = { routeData: { price: 66, servTime: 41, latency: { time: 10, costs: 5}, returnTarget: 'or'}};
+const mockResult = { 
+    routeData: { price: 66, servTime: 41, servDist: 26, latency: { time: 10, costs: 5}, returnTarget: 'or'}
+};
 jest.mock('../../src/models/driving/quick.driving.model.js', () => {
     return jest.fn().mockImplementation(() => {
         return {
@@ -35,6 +37,7 @@ describe('Integration test, service flow: Quick', () => {
 
         test('Workflow: calc by route (1210to2201)', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1210-2201']);
+            mockParam_params['pickupTIME'] = 4;
             const mockResponse = await request(app)
                 .post(apiUrl)
                 .send(mockParam_params);
@@ -117,6 +120,54 @@ describe('Integration test, service flow: Quick', () => {
                 mockParam_params[`${invalidParam}`] = 361;
 
                 mockError['msg'] = 'backend-invalid-latency';
+                mockError['path'] = invalidParam;
+                mockError['value'] = mockParam_params[`${invalidParam}`];
+                const mockResponse = await request(app)
+                    .post(apiUrl)
+                    .send(mockParam_params);
+
+                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
+                expect(mockResponse.body.headers.data).toContainEqual(mockError);
+            })
+
+            test('Params: <pickupTIME>, validator: exists({values: "null"})', async () => {
+                const invalidParam = 'pickupTIME';
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2000']);
+                delete mockParam_params[`${invalidParam}`];
+
+                // no 'value' in error object by exists() instead trim() + notEmpty()
+                delete mockError['value'];
+                mockError['path'] = invalidParam;
+                const mockResponse = await request(app)
+                    .post(apiUrl)
+                    .send(mockParam_params);
+
+                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
+                expect(mockResponse.body.headers.data).toContainEqual(mockError);
+            })
+
+            test('Params: <pickupTIME>, validator: isInt({min: 4})', async () => {
+                const invalidParam = 'pickupTIME';
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2000']);
+                mockParam_params[`${invalidParam}`] = 3;
+
+                mockError['msg'] = 'backend-invalid-pickupTIME';
+                mockError['path'] = invalidParam;
+                mockError['value'] = mockParam_params[`${invalidParam}`];
+                const mockResponse = await request(app)
+                    .post(apiUrl)
+                    .send(mockParam_params);
+
+                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
+                expect(mockResponse.body.headers.data).toContainEqual(mockError);
+            })
+
+            test('Params: <pickupTIME>, validator: isInt({max: 12})', async () => {
+                const invalidParam = 'pickupTIME';
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2000']);
+                mockParam_params[`${invalidParam}`] = 15;
+
+                mockError['msg'] = 'backend-invalid-pickupTIME';
                 mockError['path'] = invalidParam;
                 mockError['value'] = mockParam_params[`${invalidParam}`];
                 const mockResponse = await request(app)
