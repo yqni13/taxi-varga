@@ -22,7 +22,8 @@ class DrivingQuickModel {
             occupiedReturnAbove8km: 0.5,
             occupiedReturnAbove20km: 0.4,
             occupiedReturnBelow8km: 0.6,
-            latencyBy5Min: 0.5
+            latencyBy5Min: 0.5,
+            morningSurcharge: 1.15
         }
     }
 
@@ -54,7 +55,7 @@ class DrivingQuickModel {
         }
         const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
         const servDist = params['back2origin'] 
-            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters 
+            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters
             : routes.o2d.distanceMeters;
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isRouteV2V = this._isRouteWithinVienna(params);
@@ -73,7 +74,7 @@ class DrivingQuickModel {
         let totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
 
         // Surcharge for busy hours.
-        totalCosts = params['pickupTIME'] <= 6 ? (totalCosts * 1.15) : totalCosts;
+        totalCosts = this._updateCostsByTimeBasedSurcharge(totalCosts, servTime, params['pickupTIME']);
 
         result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
@@ -97,6 +98,14 @@ class DrivingQuickModel {
         const latencyCosts = latencyRoundedUp * this.#prices.latencyBy5Min;
 
         return { time: latencyRoundedUp, costs: latencyCosts };
+    }
+
+    _updateCostsByTimeBasedSurcharge = (totalCosts, servTime, pickUp) => {
+        // Costs for route with service time ending before 06:00 are surcharged.
+        const servTimeAsString = Utils.getTimeAsStringFromTotalMinutes(servTime);
+        const isEndingBeforeLimit =  Utils.checkTimeEndingBeforeLimit(pickUp, servTimeAsString, '06:00')
+
+        return isEndingBeforeLimit ? Number((totalCosts * this.#prices.morningSurcharge).toFixed(1)) : totalCosts;
     }
 
     _calcServDistCosts = (routes, servCostParams) => {

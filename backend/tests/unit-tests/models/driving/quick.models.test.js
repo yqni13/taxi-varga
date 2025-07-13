@@ -11,7 +11,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             jest.resetModules();
         })
 
-        test('Route (1230to2345), params: <back2origin> = true, <latency> = 22, <pickupTIME> = 5', async () => {
+        test('Route (1230to2345), params: <back2origin> = true, <latency> = 22, <pickupTIME> = 5 (servTime ends before time limit of 06:00)', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
             mockParam_params['back2origin'] = 'true';
             mockParam_params['latency'] = 22;
@@ -19,6 +19,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
             const mockResult_latency = { time: 25, costs: 12.5 };
+            const mockResult_surcharge = 47;
             const mockResult_servCosts = 34.2;
             const mockResult_returnTarget = QuickRouteOption.OR;
             const mockResult_isRouteV2V = false;
@@ -30,6 +31,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const quickModel = new DrivingQuickModel(mockAPI);
             jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge').mockReturnValue(mockResult_surcharge);
             jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue({});
             jest.spyOn(quickModel, '_isRouteWithinVienna').mockReturnValue(mockResult_isRouteV2V);
             jest.spyOn(quickModel, '_calcServDistCosts').mockReturnValue(mockResult_servCosts);
@@ -37,7 +39,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const testFn = await quickModel.calcQuickRoute(mockParam_params);
             const expectSubObj = { routeData: {
-                price: 54,
+                price: 47,
                 servTime: 18,
                 servDist: 7.3,
                 latency: {
@@ -49,6 +51,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._updateCostsByTimeBasedSurcharge).toHaveBeenCalled();
             expect(quickModel._isRouteWithinVienna).toHaveBeenCalled();
             expect(quickModel._calcServDistCosts).toHaveBeenCalled();
             expect(quickModel._mapReturnTarget).toHaveBeenCalled();
@@ -64,6 +67,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const mockResult_return = structuredClone(MockData_RouteMatrix['route1230-2345']['returnResult']);
             const mockResult_shortestReturn = { distance: 2.5, duration: 4, routeHome: false };
             const mockResult_latency = { time: 0, costs: 0 };
+            const mockResult_surcharge = 34;
             const mockResult_servCosts = 34.2;
             const mockResult_returnTarget = QuickRouteOption.VB;
             const mockResult_isRouteV2V = false;
@@ -75,6 +79,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const quickModel = new DrivingQuickModel(mockAPI);
             jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge').mockReturnValue(mockResult_surcharge);
             jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue(mockResult_shortestReturn);
             jest.spyOn(quickModel, '_isRouteWithinVienna').mockReturnValue(mockResult_isRouteV2V);
             jest.spyOn(quickModel, '_calcServDistCosts').mockReturnValue(mockResult_servCosts);
@@ -96,6 +101,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             expect(mockAPI.requestBorderRouteMatrix).toHaveBeenCalled();
             expect(quickModel._mapShortestReturnLocation).toHaveBeenCalled();
             expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._updateCostsByTimeBasedSurcharge).toHaveBeenCalled();
             expect(quickModel._isRouteWithinVienna).toHaveBeenCalled();
             expect(quickModel._calcServDistCosts).toHaveBeenCalled();
             expect(quickModel._mapReturnTarget).toHaveBeenCalled();
@@ -288,6 +294,39 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
             const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+    })
+})
+
+describe('Quick tests, priority: _updateCostsByTimeBasedSurcharge', () => {
+
+    let quickModel;
+    beforeEach(() => {
+        quickModel = new DrivingQuickModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls', () => {
+
+        test('Params: <totalCosts> = 17, <servTime> = 22, <pickUp> = "05:03"', () => {
+            const mockParam_totalCosts = 17;
+            const mockParam_servTime = 22;
+            const mockParam_pickUp = "05:03";
+
+            const testFn = quickModel._updateCostsByTimeBasedSurcharge(mockParam_totalCosts, mockParam_servTime, mockParam_pickUp);
+            const expectResult = 19.5;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Params: <totalCosts> = 17, <servTime> = 22, <pickUp> = "07:45"', () => {
+            const mockParam_totalCosts = 17;
+            const mockParam_servTime = 22;
+            const mockParam_pickUp = "07:45";
+
+            const testFn = quickModel._updateCostsByTimeBasedSurcharge(mockParam_totalCosts, mockParam_servTime, mockParam_pickUp);
+            const expectResult = 17;
 
             expect(testFn).toBe(expectResult);
         })

@@ -50,6 +50,35 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
+        test('fn: getTimeInTotalMinutesFromString', () => {
+            const mockParam_time = "04:01";
+
+            const testFn = Utils.getTimeInTotalMinutesFromString(mockParam_time);
+            const expectResult = 241;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: getTimeAsStringFromTotalMinutes', () => {
+            const mockParam_time = 241;
+
+            const testFn = Utils.getTimeAsStringFromTotalMinutes(mockParam_time);
+            const expectResult = "04:01";
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkTimeEndingBeforeLimit', () => {
+            const mockParam_start = "04:39";
+            const mockParam_adding = "00:37";
+            const mockParam_limit = "06:00";
+
+            const testFn = Utils.checkTimeEndingBeforeLimit(mockParam_start, mockParam_adding, mockParam_limit);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
+
         test('fn: checkAddressInViennaByZipCode, result: true', () => {
             const mockParam_zipCode = '1010';
 
@@ -108,6 +137,17 @@ describe('Utils tests, priority: common', () => {
     })
 
     describe('Testing invalid fn calls', () => {
+
+        test('fn: checkTimeEndingBeforeLimit', () => {
+            const mockParam_start = "05:39";
+            const mockParam_adding = "00:37";
+            const mockParam_limit = "06:00";
+
+            const testFn = Utils.checkTimeEndingBeforeLimit(mockParam_start, mockParam_adding, mockParam_limit);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
 
         test('fn: checkAddressInViennaByZipCode, result: false', () => {
             const mockParam_zipCode = '2000';

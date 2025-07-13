@@ -124,6 +124,11 @@ export class DateTimeService {
         return `${hours}:${minutes}`;
     }
 
+    /**
+     * 
+     * @param {string} time "hh:mm"
+     * @returns hours in total number "07:36" => 7
+     */
     configHourForPayload(time: string): number {
         // we expect hh:mm with leading 0
         const hours = Number(time.substring(0, time.indexOf(':')));

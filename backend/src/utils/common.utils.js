@@ -19,6 +19,48 @@ exports.formatRequestStringNoPlus = (value) => {
     return value === null || value === undefined ? '' : value.replaceAll('+', ' ');
 }
 
+/**
+ * @param {string} time: '00:00'
+ * @returns string in total minutes => "01:35" = 95
+ */
+exports.getTimeInTotalMinutesFromString = (time) => {
+    const hours = time[0] === '0' ? Number(time[1]) : Number(`${time[0]}${time[1]}`);
+    const minutes = time[3] === '0' ? Number(time[4]) : Number(`${time[3]}${time[4]}`);
+    return (hours * 60) + minutes;
+}
+
+/**
+ * 
+ * @param {number} time 
+ * @return {string} 281 => "04:41"
+ */
+exports.getTimeAsStringFromTotalMinutes = (time) => {
+    const hours = Math.floor(time / 60);
+    let minutes = (time % 60);
+    minutes = (minutes % 1) >= 0.5 ? Math.ceil(minutes) : Math.floor(minutes);
+
+    return `${hours > 9 ? hours : '0'+hours}:${minutes > 9 ? minutes : '0'+minutes}`;
+}
+
+/**
+ * 
+ * @param {string} start "hh:mm"
+ * @param {string} adding "hh:mm"
+ * @param {string} limit "hh:mm" 
+ * @param {string | null | undefined} end "hh:mm"
+ * @return {string} start + additional => "hh:mm"
+ */
+exports.checkTimeEndingBeforeLimit = (start, adding, limit, end) => {
+    limit = this.getTimeInTotalMinutesFromString(limit);
+    if(!end) {
+        const startInMinutes = this.getTimeInTotalMinutesFromString(start);
+        const additionalInMinutes = this.getTimeInTotalMinutesFromString(adding);
+        end = startInMinutes + additionalInMinutes
+    }
+
+    return end <= limit;
+}
+
 exports.checkAddressInViennaByZipCode = (zipCode) => {
     const postalCodesVienna = ['1010', '1020', '1030', '1040', '1050', '1060', '1070', '1080', '1090', '1100', '1110', '1120', '1130', '1140', '1150', '1160', '1170', '1180', '1190', '1200', '1210', '1220', '1230'];
 
