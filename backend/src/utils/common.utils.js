@@ -7,6 +7,15 @@ exports.basicResponse = (body, success, message) => {
     };
 };
 
+exports.isObjEmpty = (obj) => {
+    for(var prop in obj) {
+        if(Object.hasOwn(obj, prop)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {
     return value === null || value === undefined ? 0 : Number((value.replaceAll('s', '') / 60).toFixed(1));
 }

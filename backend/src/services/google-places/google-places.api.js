@@ -38,10 +38,11 @@ class GooglePlacesAPI {
     requestPlaceDetails = async (params) => {
         const id = params['placeId'];
         const lang = params['language'];
-        const token = params['sessionToken'];
+        const token = params['sessionToken'] ? params['sessionToken'] : null;
 
         const headers = this._getDetailsRequestHeader();
-        const url = this._getDetailsRequestURL() + `${id}?languageCode=${lang}&sessionToken=${token}`;
+        let url = this._getDetailsRequestURL() + `${id}?languageCode=${lang}`;
+        url += token ? `&sessionToken=${token}` : '';
 
         let result;
         await axios.get(url, { headers })
@@ -49,7 +50,7 @@ class GooglePlacesAPI {
                 result = response.data;
             })
             .catch(error => {
-                console.log('google place details error: ', error.message);
+                console.log("google place details error: ", error.message);
                 result = error;
             })
 
@@ -91,7 +92,7 @@ class GooglePlacesAPI {
                 result = response.data;
             })
             .catch(error => {
-                console.log('google place autocomplete error: ', error.message);
+                console.log("google place autocomplete error: ", error.message);
                 result = error;
             })
 
