@@ -8,14 +8,14 @@ class AddressService {
     getPlaceAutocomplete = async (params) => {
         const hasParams = Utils.isObjEmpty(params)
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
-        const result = await addressModel.getPlaceAutocomplete(hasParams ? {} : hasParams);
+        const result = await addressModel.getPlaceAutocomplete(hasParams ? {} : params);
         return basicResponse(result, 1, "Success");
     }
 
     getPlaceDetails = async (params) => {
         const hasParams = Utils.isObjEmpty(params)
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
-        const result = await addressModel.getPlaceDetails(hasParams ? {} : hasParams);
+        const result = await addressModel.getPlaceDetails(hasParams ? {} : params);
         return basicResponse(result, 1, "Success");
     }
 

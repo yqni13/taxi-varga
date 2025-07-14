@@ -120,7 +120,7 @@
                     {{('modules.service.content.form.offer.back2home' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('originAddress')?.value}}
+                    {{originByGPS ? serviceForm.get('originAddressByGeocode')?.value : serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
             <div class="tava-service-specific-offer-sum">
