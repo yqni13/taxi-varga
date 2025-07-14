@@ -12,3 +12,9 @@ export declare interface AddressDetailsRequest {
     language: string,
     sessionToken: string
 }
+
+export declare interface AddressGelocationRequest {
+    latitude: string,
+    longitude: string,
+    language: string
+}

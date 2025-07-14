@@ -143,10 +143,10 @@ export class DrivingAPIService {
         };
     }
 
-    setDataQuick(data: any) {
+    setDataQuick(data: any, originByGeocode: boolean) {
         this.dataQuick = {
-            origin: this.utils.configAPIAddressString(data.originAddress),
-            originDetails: data.originDetails,
+            origin: this.utils.configAPIAddressString(originByGeocode ? data.originAddressByGeocode : data.originAddress),
+            originDetails: originByGeocode ? data.originDetailsByGeocode : data.originDetails,
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
             latency: this.datetimeService.getTimeInTotalMinutes(data.latency),

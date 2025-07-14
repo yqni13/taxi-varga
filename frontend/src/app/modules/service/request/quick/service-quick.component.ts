@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, SecurityContext } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { Router } from "@angular/router";
@@ -22,6 +22,9 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
+import { AddressAPIService } from "../../../../shared/services/address-api.service";
+import { environment } from "../../../../../environments/environment";
+import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 
 @Component({
     selector: 'tava-service-quick',
@@ -41,9 +44,10 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected callDirectNr: string;
     protected originByGPS: boolean;
 
-    // TODO(yqni13): implemenation via TAVA-116
-    // protected geoLocationCoord: any;
-    // protected browserGeolocationSupport: boolean;
+    protected browserGeolocationSupport: boolean;
+    protected mapUrl: string | SafeResourceUrl | null;
+    protected isLoading: boolean;
+    protected isSelectingGPSOption: boolean;
 
     constructor(
         router: Router,
@@ -61,15 +65,18 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         httpObserve: HttpObservationService,
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
+        private readonly addressAPI: AddressAPIService,
+        private readonly domSanitizer: DomSanitizer
     ) {
         super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
 
         this.callDirectNr = '+436644465466';
         this.originByGPS = false;
 
-        // TODO(yqni13): implemenation via TAVA-116
-        // this.geoLocationCoord = { lat: null, long: null };
-        // this.browserGeolocationSupport = true;
+        this.browserGeolocationSupport = true;
+        this.mapUrl = '';
+        this.isLoading = false;
+        this.isSelectingGPSOption = false;
     }
 
     override async ngOnInit() {
@@ -96,9 +103,10 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     private initForm() {
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
-            // geoLocation: new FormControl(''), // TODO(yqni13): implemenation via TAVA-116
             originAddress: new FormControl('', Validators.required),
             originDetails: new FormControl(''),
+            originAddressByGeocode: new FormControl(''),
+            originDetailsByGeocode: new FormControl(''),
             destinationAddress: new FormControl('', Validators.required),
             destinationDetails: new FormControl(''),
             back2origin: new FormControl(''),
@@ -120,7 +128,6 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.initForm();
         this.serviceForm.patchValue({
             service: this.service,
-            // geoLocation: null, // TODO(yqni13): implemenation via TAVA-116
             originAddress: '',
             originDetails: null,
             destinationAddress: '',
@@ -137,10 +144,12 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         });
     }
 
-    // TODO(yqni13): implemenation via TAVA-116
-    // getGeolocationCheckboxValue(event: any) {
-    //     this.getLocationByGPS(event.target?.checked);
-    // }
+
+
+    getGeolocationCheckboxValue(event: any) {
+        this.isSelectingGPSOption = event.target?.checked;
+        this.getLocationByGPS(event.target?.checked);
+    }
 
     getBack2OriginCheckboxValue(event: any) {
         this.serviceForm.get('back2origin')?.setValue(event.target?.checked);
@@ -149,31 +158,68 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         }
     }
 
-    // TODO(yqni13): implemenation via TAVA-116
-    // getLocationByGPS(canPingGPS: boolean) {
-    //     if(canPingGPS) {
-    //         const success = (position: any) => {
-    //             this.geoLocationCoord.lat = position.coords.latitude;
-    //             this.geoLocationCoord.long = position.coords.longitude;
-    //             this.originByGPS = true;
-    //         }
-    //         const error = () => {
-    //             console.log("Unable to retrieve your location");
-    //             this.browserGeolocationSupport = false;
-    //         }
+    async getLocationByGPS(isUsingGPS: boolean) {
+        if(isUsingGPS) {
+            this.isLoading = true;
+            const success = (position: any) => {
+                this.serviceForm.get('originAddress')?.clearValidators();
+                this.serviceForm.get('originAddress')?.setValue('');
+                this.serviceForm.get('originDetails')?.setValue(null);
+                this.originByGPS = true;
+                this.addressAPI.setDataGeolocation({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    language: this.translate.currentLang
+                });
+                this.addressAPI.sendGeolocationRequest().subscribe(async (result) => {
+                    this.mapUrl = this.transformMapUrl(result.body.body.placeData.place_id);
+                    this.transformOriginByGeocode(result.body.body.placeData);
+                    await this.delay(500);
+                    this.isLoading = false;
+                })
+            }
+            const error = async () => {
+                console.log("Unable to retrieve your location");
+                await this.delay(500);
+                this.browserGeolocationSupport = false;
+                this.isLoading = false;
+            }
 
-    //         if(!navigator.geolocation) {
-    //             console.log("Geolocation not supported on your browser");
-    //             this.browserGeolocationSupport = false;
-    //         } else {
-    //             navigator.geolocation.getCurrentPosition(success, error);
-    //         }
-    //     } else {
-    //         this.geoLocationCoord.lat = null;
-    //         this.geoLocationCoord.long = null;
-    //         this.originByGPS = false;
-    //     }
-    // }
+            if(!navigator.geolocation) {
+                console.log("Geolocation not supported on your browser");
+                await this.delay(500);
+                this.browserGeolocationSupport = false;
+                this.isLoading = false;
+            } else {
+                navigator.geolocation.getCurrentPosition(success, error);
+            }
+        } else {
+            this.originByGPS = false;
+            this.mapUrl = '';
+            this.serviceForm.get('originAddress')?.setValidators(Validators.required);
+            this.transformOriginByGeocode(null);
+        }
+    }
+
+    transformMapUrl(placeId: string): SafeResourceUrl {
+        const url = `https://www.google.com/maps/embed/v1/place?key=${environment.GOOGLE_API_KEY}&q=place_id:${placeId}&maptype=satellite&zoom=17`;
+        return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+
+    transformOriginByGeocode(data: any | null) {
+        if(data) {
+            this.serviceForm.get('originAddressByGeocode')?.setValue(data.formatted_address);
+            this.serviceForm.get('originDetailsByGeocode')?.setValue({
+                placeId: data.place_id,
+                address: data.formatted_address,
+                province: data.address_components.find((entry: any) => {return entry.types.includes('administrative_area_level_1')})['long_name'],
+                country: data.address_components.find((entry: any) => {return entry.types.includes('country')})['long_name']
+            });
+        } else {
+            this.serviceForm.get('originAddressByGeocode')?.setValue('');
+            this.serviceForm.get('originDetailsByGeocode')?.setValue(null);
+        }
+    }
 
     async onQuickSubmit() {
         this.serviceForm.markAllAsTouched();
@@ -183,7 +229,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         }
 
         this.loadOfferResponse = true;
-        this.drivingAPIService.setDataQuick(this.serviceForm.getRawValue());
+        this.drivingAPIService.setDataQuick(this.serviceForm.getRawValue(), this.originByGPS);
         this.drivingAPIService.sendQuickRequest().subscribe(data => {
             this.mapResponseQuickData(data.body);
         });
