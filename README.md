@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.1}}$
+$\texttt{\color{teal}{v1.5.2}}$
 
 
 <br><br>
