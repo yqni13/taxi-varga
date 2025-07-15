@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.0}}$
+$\texttt{\color{teal}{v1.5.2}}$
 
 
 <br><br>
@@ -68,6 +68,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
 <dl>
     <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
     <dd>:repeat: Google Routes/Places API usage in backend</dd>
+    <dd>:triangular_flag_on_post: Google Maps usage in frontend + calculating route by geolocation</dd>
     <dd>:turtle: Custom image/video preload</dd>
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
@@ -166,7 +167,7 @@ Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-170+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
+180+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config
@@ -223,9 +224,10 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
+### $\textsf{last\ update\ 1.5.0\ >>\ {\color{pink}1.5.2}}$
 
-- $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).
+- $\textsf{\color{teal}Addition:}$ Added feature to get location via Geolocation for service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated address validation with '+' characters in original description.
 
 <br>
 

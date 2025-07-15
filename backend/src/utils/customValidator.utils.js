@@ -53,8 +53,10 @@ exports.validateAirportServiceAddress = (details, address) => {
 }
 
 exports.validatePlaceDetails = (address, details) => {
-    // TODO(yqni13): '+' in original address fails validation like "WIPARK P+R Siebenhirten Parkhaus" - fixing necessary
-    if(details === null || details === undefined || details.address !== Utils.formatRequestStringNoPlus(address)) {
+    // Address with '+' char comes with '#&&#' instead to hide before '+'-swap for empty spaces.
+    let modifiedAddress = Utils.formatRequestStringNoPlus(address);
+    modifiedAddress = modifiedAddress.replaceAll('#&&#', '+');
+    if(details === null || details === undefined || details.address !== modifiedAddress) {
         throw new Error('address-invalid-place');
     }
 

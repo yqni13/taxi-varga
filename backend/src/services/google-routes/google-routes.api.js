@@ -45,7 +45,7 @@ class GoogleRoutesAPI {
                 result = response.data;
             })
             .catch(error => {
-                console.log('google error: ', error.message);
+                console.log("google error: ", error.message);
                 result = error.message;
             })
 
@@ -110,7 +110,7 @@ class GoogleRoutesAPI {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
             .catch(error => {
-                console.log('google request error: ', error.message);
+                console.log("google request error: ", error.message);
                 return error;
             })
 
@@ -155,7 +155,7 @@ class GoogleRoutesAPI {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
             .catch(error => {
-                console.log('google request error: ', error.message);
+                console.log("google request error: ", error.message);
                 return error;
             })
 

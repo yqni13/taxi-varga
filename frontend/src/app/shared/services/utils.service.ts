@@ -6,6 +6,7 @@ import { Injectable } from "@angular/core";
 export class UtilsService {
 
     configAPIAddressString(text: string): string {
+        text = text.replaceAll('+', '#&&#');
         return text.replaceAll(' ', '+');
     }
 

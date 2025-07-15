@@ -43,6 +43,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     @Input() inputType: string;
     @Input() className: string;
     @Input() ngClass: string;
+    @Input() isReadonly: boolean;
     @Input() minValString: string;
     @Input() minStringObservable: Observable<string>;
     @Input() maxStringObservable: Observable<string>;
@@ -69,6 +70,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.inputType = '';
         this.className = '';
         this.ngClass = '';
+        this.isReadonly = false;
         this.minValString = '';
         this.minStringObservable = new Observable<string>();
         this.maxStringObservable = new Observable<string>();

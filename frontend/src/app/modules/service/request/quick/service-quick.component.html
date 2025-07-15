@@ -8,7 +8,7 @@
         <!-- 1ST FORM (CUSTOMER ROUTE DATA) -->
         <div *ngIf="!hasOffer && hasToken" class="tava-service-specific-content-input-offer tava-service-form">
             <form [formGroup]="serviceForm">
-                <!-- <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-geolocation">
+                <div class="tava-service-specific-block tava-custom-input-checkbox" id="form-geolocation">
                     <input
                         class="tava-text-input-checkbox"
                         type="checkbox"
@@ -17,27 +17,39 @@
                     <span class="tava-service-block-input">
                         {{'modules.service.content.quick.labels.gps' | translate}}
                     </span>
-                </div> -->
+                    <button
+                        class="tava-button-info" 
+                        (click)="displayGeolocationInfo()"
+                        (keydown.enter)="displayGeolocationInfo()"
+                        [tabIndex]="0"
+                    >
+                        <i class="icon-info icon-base"></i>
+                    </button>
+                </div>
                 <!-- GOOGLE MAPS VISUALIZATION -->
-                <!-- <div
+                <div
                     class="tava-service-specific-block"
                     id="form-maps"
-                    *ngIf="geoLocationCoord.lat && browserGeolocationSupport"
+                    *ngIf="browserGeolocationSupport && mapUrl !== '' && !isLoading"
                 >
-                    <span>{{geoLocationCoord.lat}}</span><br>
-                    <span>{{geoLocationCoord.long}}</span>
+                    <span class="tava-service-block-label">
+                        {{('modules.service.content.quick.labels.origin' | translate) + ':'}}
+                    </span>
+                    <span id="form-origin-by-geolocation">
+                        {{serviceForm.get('originAddressByGeocode')?.value}}
+                    </span>
+                    <iframe [src]="mapUrl" frameborder="0" allowfullscreen referrerpolicy="no-referrer-when-downgrade" style="border:0"></iframe>
                 </div>
-                <div class="tava-service-specific-block" id="gps-invalid" *ngIf="!browserGeolocationSupport">
+                <div class="tava-service-specific-block" id="gps-invalid" *ngIf="!browserGeolocationSupport && isSelectingGPSOption">
                     <span>{{'modules.service.content.quick.option.gpsSupport' | translate}}</span>
-                </div> -->
-                <div class="tava-service-specific-block" id="form-origin">
+                </div>
+                <div class="tava-service-specific-block origin-address-input" id="form-origin" *ngIf="!originByGPS">
                     <span class="tava-service-block-label">
                         {{('modules.service.content.quick.labels.origin' | translate) + '*'}}
                     </span>
                     <tava-addressinput
                         [placeholder]="('modules.service.content.destination.labels.placeholder' | translate)"
                         [formControl]="serviceForm.get('originAddress') | controlCast"
-                        [hasAutoFocus]="!snackbar.isActive"
                         [fieldName]="'modules.service.content.form.offer.origin' | translate"
                         [isReadonly]="originByGPS"
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
@@ -100,7 +112,7 @@
                     {{('modules.service.content.form.offer.origin' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('originAddress')?.value}}
+                    {{originByGPS ? serviceForm.get('originAddressByGeocode')?.value : serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
             <div class="tava-service-specific-offer-sum">
@@ -116,7 +128,7 @@
                     {{('modules.service.content.form.offer.back2home' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
-                    {{serviceForm.get('originAddress')?.value}}
+                    {{originByGPS ? serviceForm.get('originAddressByGeocode')?.value : serviceForm.get('originAddress')?.value}}
                 </span>
             </div>
             <div class="tava-service-specific-offer-sum">
@@ -180,7 +192,7 @@
             </div>
         </div>
     </div>
-    <div class="tava-loading-animation" [ngClass]="(!hasToken || loadOfferResponse || loadOrderResponse) ? 'tava-visible' : 'tava-hidden'">
+    <div class="tava-loading-animation" [ngClass]="(!hasToken || loadOfferResponse || loadOrderResponse || isLoading) ? 'tava-visible' : 'tava-hidden'">
         <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
         </svg>

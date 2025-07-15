@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { AddressAutocompleteRequest, AddressDetailsRequest } from "../interfaces/address-request.interface";
+import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";
 import { UtilsService } from "./utils.service";
 import { Observable } from "rxjs";
 import { AddressFilterOptions } from "../enums/addressfilter-options.enum";
@@ -14,18 +14,25 @@ export class AddressAPIService {
 
     private urlAutocomplete: string;
     private urlDetails: string;
+    private urlGeolocation: string;
+    private domainPathV1: string;
 
     private dataAutocomplete: AddressAutocompleteRequest;
     private dataDetails: AddressDetailsRequest;
+    private dataGeolocation: AddressGelocationRequest;
 
     constructor(
         private readonly http: HttpClient,
         private readonly utils: UtilsService
     ) {
-        // this.urlAutocomplete = '/api/v1/address/autocomplete';
-        // this.urlDetails = '/api/v1/address/details';
-        this.urlAutocomplete = `${environment.API_BASE_URL}/api/v1/address/autocomplete`;
-        this.urlDetails = `${environment.API_BASE_URL}/api/v1/address/details`;
+        this.domainPathV1 = '/api/v1/address';
+
+        // this.urlAutocomplete = `${this.domainPathV1}/autocomplete`;
+        // this.urlDetails = `${this.domainPathV1}/details`;
+        // this.urlGeolocation = `${this.domainPathV1}/geocode`;
+        this.urlAutocomplete = `${environment.API_BASE_URL}${this.domainPathV1}/autocomplete`;
+        this.urlDetails = `${environment.API_BASE_URL}${this.domainPathV1}/details`;
+        this.urlGeolocation = `${environment.API_BASE_URL}${this.domainPathV1}/geocode`;
 
         this.dataAutocomplete = {
             address: '',
@@ -38,6 +45,12 @@ export class AddressAPIService {
             placeId: '',
             language: '',
             sessionToken: ''
+        };
+
+        this.dataGeolocation = {
+            latitude: '',
+            longitude: '',
+            language: ''
         };
     }
 
@@ -58,11 +71,23 @@ export class AddressAPIService {
         }
     }
 
+    setDataGeolocation(data: any) {
+        this.dataGeolocation = {
+            latitude: data.latitude,
+            longitude: data.longitude,
+            language: data.language
+        }
+    }
+
     sendAutocompleteRequest(): Observable<HttpResponse<any>> {
         return this.http.post<any>(this.urlAutocomplete, this.dataAutocomplete, { observe: 'response' });
     }
 
     sendDetailsRequest(): Observable<HttpResponse<any>> {
         return this.http.post<any>(this.urlDetails, this.dataDetails, { observe: 'response' });
+    }
+
+    sendGeolocationRequest(): Observable<HttpResponse<any>> {
+        return this.http.post<any>(this.urlGeolocation, this.dataGeolocation, { observe: 'response' });
     }
 }

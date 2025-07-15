@@ -42,3 +42,20 @@ exports.placeSchema = [
         .notEmpty()
         .withMessage('backend-required')
 ];
+
+exports.geocodeSchema = [
+    body('latitude')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('longitude')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required'),
+    body('language')
+        .trim()
+        .notEmpty()
+        .withMessage('backend-required')
+        .bail()
+        .custom((value) => CustomValidator.validateEnum(value, LanguageOption, 'language')),
+];

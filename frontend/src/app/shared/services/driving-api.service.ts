@@ -86,7 +86,7 @@ export class DrivingAPIService {
             destinationDetails: null,
             latency: 0,
             back2origin: false,
-            pickupTIME: 0,
+            pickupTIME: '00:00',
         }
     }
 
@@ -143,15 +143,15 @@ export class DrivingAPIService {
         };
     }
 
-    setDataQuick(data: any) {
+    setDataQuick(data: any, originByGeocode: boolean) {
         this.dataQuick = {
-            origin: this.utils.configAPIAddressString(data.originAddress),
-            originDetails: data.originDetails,
+            origin: this.utils.configAPIAddressString(originByGeocode ? data.originAddressByGeocode : data.originAddress),
+            originDetails: originByGeocode ? data.originDetailsByGeocode : data.originDetails,
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
             latency: this.datetimeService.getTimeInTotalMinutes(data.latency),
             back2origin: data.back2origin,
-            pickupTIME: this.datetimeService.configHourForPayload(data.pickupTIME)
+            pickupTIME: data.pickupTIME
         }
     }
 
