@@ -13,6 +13,12 @@ class AddressController {
         const response = await AddressService.getPlaceDetails(req.body);
         res.send(response);
     }
+
+    getPlaceByGeolocation = async (req, res, next) => {
+        checkValidation(req);
+        const response = await AddressService.getPlaceByGeolocation(req.body);
+        res.send(response);
+    }
 }
 
 module.exports = new AddressController;
