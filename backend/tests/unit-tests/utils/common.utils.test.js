@@ -23,6 +23,22 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
+        test('fn: isObjEmpty', () => {
+            const mockParam_obj = {};
+            const testFn = Utils.isObjEmpty(mockParam_obj);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: isObjEmpty', () => {
+            const mockParam_obj = { val: 'test' };
+            const testFn = Utils.isObjEmpty(mockParam_obj);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
         test('fn: getTimeInMinutesFromRoutesMatrix', () => {
             const mockParam_value = '1578s';
 

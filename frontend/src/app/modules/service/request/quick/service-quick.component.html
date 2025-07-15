@@ -17,6 +17,14 @@
                     <span class="tava-service-block-input">
                         {{'modules.service.content.quick.labels.gps' | translate}}
                     </span>
+                    <button
+                        class="tava-button-info" 
+                        (click)="displayGeolocationInfo()"
+                        (keydown.enter)="displayGeolocationInfo()"
+                        [tabIndex]="0"
+                    >
+                        <i class="icon-info icon-base"></i>
+                    </button>
                 </div>
                 <!-- GOOGLE MAPS VISUALIZATION -->
                 <div

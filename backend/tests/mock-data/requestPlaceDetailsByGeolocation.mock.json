@@ -1,0 +1,101 @@
+{
+    "orther+inseln": {
+        "payload": {
+            "language": "de",
+            "latitude": "48.124382",
+            "longitude": "16.712996"
+        },
+        "response": {
+            "address_components": [
+                {
+                    "long_name": "17",
+                    "short_name": "17",
+                    "types": [
+                        "street_number"
+                    ]
+                },
+                {
+                    "long_name": "Uferstraße",
+                    "short_name": "Uferstraße",
+                    "types": [
+                        "route"
+                    ]
+                },
+                {
+                    "long_name": "Orth an der Donau",
+                    "short_name": "Orth an der Donau",
+                    "types": [
+                        "locality",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Gänserndorf",
+                    "short_name": "Gänserndorf",
+                    "types": [
+                        "administrative_area_level_2",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Niederösterreich",
+                    "short_name": "Niederösterreich",
+                    "types": [
+                        "administrative_area_level_1",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "Austria",
+                    "short_name": "AT",
+                    "types": [
+                        "country",
+                        "political"
+                    ]
+                },
+                {
+                    "long_name": "2304",
+                    "short_name": "2304",
+                    "types": [
+                        "postal_code"
+                    ]
+                }
+            ],
+            "formatted_address": "Uferstraße 17, 2304 Orth an der Donau, Austria",
+            "geometry": {
+                "location": {
+                    "lat": 48.12439089999999,
+                    "lng": 16.7134572
+                },
+                "location_type": "ROOFTOP",
+                "viewport": {
+                    "northeast": {
+                        "lat": 48.12573988029149,
+                        "lng": 16.7148061802915
+                    },
+                    "southwest": {
+                        "lat": 48.1230419197085,
+                        "lng": 16.7121082197085
+                    }
+                }
+            },
+            "navigation_points": [
+                {
+                    "location": {
+                        "latitude": 48.1243262,
+                        "longitude": 16.713488
+                    }
+                }
+            ],
+            "place_id": "ChIJjZ1DH_FXbEcRBvBwCI1NkgI",
+            "plus_code": {
+                "compound_code": "4PF7+Q9 Orth an der Donau, Austria",
+                "global_code": "8FWR4PF7+Q9"
+            },
+            "types": [
+                "establishment",
+                "point_of_interest"
+            ]
+        }
+    }
+}

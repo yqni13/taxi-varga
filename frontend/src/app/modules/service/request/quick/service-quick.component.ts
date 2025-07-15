@@ -25,6 +25,7 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { AddressAPIService } from "../../../../shared/services/address-api.service";
 import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
+import * as Utils from "../../../../common/helper/common.helper";
 
 @Component({
     selector: 'tava-service-quick',
@@ -269,4 +270,9 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         }
     }
 
+    displayGeolocationInfo() {
+        const title = 'modules.service.content.quick.snackbar-info.geolocation.title';
+        const text = 'modules.service.content.quick.snackbar-info.geolocation.text';
+        Utils.displayInfo(this.snackbar, this.mailTranslate, this.translate, title, text);
+    }
 }

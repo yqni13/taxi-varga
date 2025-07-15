@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/07/14 - $\textsf{last\ update\ 1.5.0\ >>\ {\color{pink}1.5.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added feature to get location via Geolocation for service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated address validation with '+' characters in original description.
+
 ### 2025/07/12 - $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
 
 - $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).

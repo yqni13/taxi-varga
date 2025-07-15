@@ -299,6 +299,12 @@
                         "gpsSupport": "The browser in use does NOT support location detection via Geolocation.",
                         "title": "Quick drive"
                     },
+                    "snackbar-info": {
+                        "geolocation": {
+                            "text": "The location is determined by means of a GPS module or Internet access. Disable any software that changes the location (e.g.: Tor browser, VPN, etc.). If your internet browser does NOT support location detection, we recommend using 'Mozilla Firefox' or 'Google Chrome'.",
+                            "title": "Location detection"
+                        }
+                    },
                     "title": "Spontaneous drive to hitchhike - route details"
                 }
             }

@@ -25,6 +25,9 @@ describe('Integration test, priority: Address workflow', () => {
                 },
                 placeSchema: (req, res, next) => {
                     next();
+                },
+                geocodeSchema: (req, res, next) => {
+                    next();
                 }
             }));
 
@@ -34,7 +37,8 @@ describe('Integration test, priority: Address workflow', () => {
                 return jest.fn().mockImplementation(() => {
                     return {
                         getPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult_autocomplete),
-                        getPlaceDetails: jest.fn().mockResolvedValue(mockResult_places)
+                        getPlaceDetails: jest.fn().mockResolvedValue(mockResult_places),
+                        getPlaceByGeolocation: jest.fn().mockResolvedValue({})
                     }
                 })
             });

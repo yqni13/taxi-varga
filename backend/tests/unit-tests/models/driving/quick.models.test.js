@@ -320,6 +320,17 @@ describe('Quick tests, priority: _updateCostsByTimeBasedSurcharge', () => {
             expect(testFn).toBe(expectResult);
         })
 
+        test('Params: <totalCosts> = 17, <servTime> = 22, <pickUp> = "05:39"', () => {
+            const mockParam_totalCosts = 17;
+            const mockParam_servTime = 22;
+            const mockParam_pickUp = "05:39";
+
+            const testFn = quickModel._updateCostsByTimeBasedSurcharge(mockParam_totalCosts, mockParam_servTime, mockParam_pickUp);
+            const expectResult = 17;
+
+            expect(testFn).toBe(expectResult);
+        })
+
         test('Params: <totalCosts> = 17, <servTime> = 22, <pickUp> = "07:45"', () => {
             const mockParam_totalCosts = 17;
             const mockParam_servTime = 22;

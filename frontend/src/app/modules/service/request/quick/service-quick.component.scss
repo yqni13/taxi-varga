@@ -13,7 +13,7 @@
 }
 
 #gps-invalid {
-    color: var(--theme-snackbar-info);
+    color: var(--theme-snackbar-warning);
     font-weight: bold;
 }
 
@@ -62,5 +62,16 @@
     margin: calc(sass.$space5 * 2) 0 0 0!important;
     span {
         margin-left: sass.$space5 * 2;
+    }
+}
+
+.tava-button-info {
+    margin-left: sass.$space5;
+    .icon-info {
+        color: var(--theme-snackbar-info);
+        &:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
     }
 }
