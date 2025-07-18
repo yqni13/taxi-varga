@@ -173,6 +173,13 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                     language: this.translate.currentLang
                 });
                 this.addressAPI.sendGeolocationRequest().subscribe(async (result) => {
+                    if(Utils.isObjEmpty(result.body.body.placeData)) {
+                        this.toHandleIsNotUsingGPS();
+                        await this.delay(500);
+                        this.browserGeolocationSupport = false;
+                        this.isLoading = false;
+                        return;
+                    }
                     this.mapUrl = this.transformMapUrl(result.body.body.placeData.place_id);
                     this.transformOriginByGeocode(result.body.body.placeData);
                     await this.delay(500);
@@ -195,11 +202,15 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                 navigator.geolocation.getCurrentPosition(success, error);
             }
         } else {
-            this.originByGPS = false;
-            this.mapUrl = '';
-            this.serviceForm.get('originAddress')?.setValidators(Validators.required);
-            this.transformOriginByGeocode(null);
+            this.toHandleIsNotUsingGPS();
         }
+    }
+
+    toHandleIsNotUsingGPS() {
+        this.originByGPS = false;
+        this.mapUrl = '';
+        this.serviceForm.get('originAddress')?.setValidators(Validators.required);
+        this.transformOriginByGeocode(null);
     }
 
     transformMapUrl(placeId: string): SafeResourceUrl {

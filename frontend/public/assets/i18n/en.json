@@ -31,6 +31,7 @@
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "empty-address-select": "Field must contain an address selected from list of options.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
+            "missing-zipcode": "Zipcode is required on address.",
             "required": "Field \"{{fieldName}}\" is required.",
             "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
@@ -217,7 +218,7 @@
                         "tenancy": "Tenancy"
                     },
                     "order": {
-                        "Check availability": "Available",
+                        "call": "Check availability",
                         "contact": "Contact",
                         "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
@@ -296,12 +297,12 @@
                         "pickupTIME": "Time of pickup"
                     },
                     "option": {
-                        "gpsSupport": "The browser in use does NOT support location detection via Geolocation.",
-                        "title": "Quick drive"
+                        "gpsSupport": "Location detection via Geolocation is NOT available at the moment or NOT supported by your browser.",
+                        "title": "Spontaneous drive"
                     },
                     "snackbar-info": {
                         "geolocation": {
-                            "text": "The location is determined by means of a GPS module or Internet access. Disable any software that changes the location (e.g.: Tor browser, VPN, etc.). If your internet browser does NOT support location detection, we recommend using 'Mozilla Firefox' or 'Google Chrome'.",
+                            "text": "The location is determined by means of a GPS module or Internet access. Disable any software that changes the location (e.g.: Tor browser, VPN, etc.). If your internet browser does NOT support location detection, we recommend using 'Google Chrome'.",
                             "title": "Location detection"
                         }
                     },

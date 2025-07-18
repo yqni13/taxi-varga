@@ -31,6 +31,7 @@
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
+            "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
@@ -296,12 +297,12 @@
                         "pickupTIME": "Uhrzeit der Abfahrt"
                     },
                     "option": {
-                        "gpsSupport": "Der verwendete Browser unterstützt die Standortermittlung via Geolocation NICHT.",
+                        "gpsSupport": "Die Standortermittlung via Geolocation ist aktuell NICHT verfügbar oder NICHT vom Browser unterstützt.",
                         "title": "Spontanfahrt"
                     },
                     "snackbar-info": {
                         "geolocation": {
-                            "text": "Der Standort wird mittels GPS-Modul oder Internet-Zugang ermittelt. Deaktivieren Sie jegliche Software zur Veränderung des Standortes (z.B.: Tor-Browser, VPN, etc.). Sollte Ihr Internet-Browser die Standortermittlung NICHT unterstützen, empfehlen wir die Verwendung von 'Mozilla Firefox' oder 'Google Chrome'.",
+                            "text": "Der Standort wird mittels GPS-Modul oder Internet-Zugang ermittelt. Deaktivieren Sie jegliche Software zur Veränderung des Standortes (z.B.: Tor-Browser, VPN, etc.). Sollte Ihr Internet-Browser die Standortermittlung NICHT unterstützen, empfehlen wir die Verwendung von 'Google Chrome'.",
                             "title": "Standortermittlung"
                         }
                     },

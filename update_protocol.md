@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/07/18 - $\textsf{last\ update\ 1.5.2\ >>\ {\color{pink}1.5.3}}$
+
+- $\textsf{\color{red}Patch:}$ Updated validation on service 'airport' to refuse addresses without zipcode.
+
 ### 2025/07/14 - $\textsf{last\ update\ 1.5.0\ >>\ {\color{pink}1.5.2}}$
 
 - $\textsf{\color{teal}Addition:}$ Added feature to get location via Geolocation for service 'quick'.

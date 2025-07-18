@@ -101,7 +101,8 @@ class GoogleRoutesAPI {
                     }
                 }
             ],
-            "travelMode": "DRIVE"
+            "travelMode": "DRIVE",
+            "routingPreference":"TRAFFIC_AWARE_OPTIMAL"
         }
 
         let result;
@@ -141,7 +142,8 @@ class GoogleRoutesAPI {
                     }
                 }
             ],
-            "travelMode": "DRIVE"
+            "travelMode": "DRIVE",
+            "routingPreference":"TRAFFIC_AWARE_OPTIMAL"
         }
 
         const borders = structuredClone(GeoLocation_ViennaBorder_data['borders']);
