@@ -5,6 +5,15 @@ import { MailTranslateService } from '../../shared/services/mail-translate.servi
 import { SnackbarOption } from '../../shared/enums/snackbar-options.enum';
 import { TranslateService } from '@ngx-translate/core';
 
+export const isObjEmpty = (obj: Object) => {
+    for(var prop in obj) {
+        if(Object.hasOwn(obj, prop)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 export const navigateWithRoute = (route: string | null, router: Router) => {
     if(route === null) {
         return;
