@@ -92,20 +92,20 @@ export const negativeFixedDateTimeValidator = (datetimeService: DateTimeService,
     }
 }
 
+/**
+ * @description Add multiple validators ordered by priority. First validator to trigger ends loop without
+ * triggering remaining validators.
+ * 
+ * @example
+ * CustomValidators.priorityValidator(
+ *      validateNotNegativeVal(),     
+ *      validateNotSmallerThan3(),
+ * )
+ * val = -1
+ * @fires only validateNotNegativeVal()
+ */
 export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        /**
-         * @description Add multiple validators ordered by priority. First validator to trigger ends loop without
-         * triggering remaining validators.
-         * 
-         * @example
-         * CustomValidators.priorityValidator(
-         *      validateNotNegativeVal(),     
-         *      validateNotSmallerThan3(),
-         * )
-         * val = -1
-         * @fires only validateNotNegativeVal()
-         */
         for (const validator of validators) {
             const result = validator(control);
             if(result) {
@@ -120,6 +120,15 @@ export const emptyAddressSelectValidator = (placeControl: FormControl) : Validat
     return (control: AbstractControl): ValidationErrors | null => {
         if(control?.value.length !== 0 && !placeControl.value) {
             return { emptyAddressSelect: true };
+        }
+        return null;
+    }
+}
+
+export const missingZipcodeAddress2Airport = (): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        if(control && (!control.value.zipCode ||  control?.value.zipCode === '')) {
+            return { missingZipcode: true };
         }
         return null;
     }

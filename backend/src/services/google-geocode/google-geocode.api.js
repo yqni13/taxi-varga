@@ -1,5 +1,6 @@
 const axios = require('axios');
 const Secrets = require('../../utils/secrets.utils');
+const Utils = require('../../utils/common.utils');
 
 class GoogleGeocodeAPI {
     #env_GOOGLE_API_KEY;
@@ -23,10 +24,12 @@ class GoogleGeocodeAPI {
                 console.log("google error: ", error.message);
                 return error.message;
             })
-
-        for(var i = 0; i < result.results.length; i++) {
-            if(!result.results[i].formatted_address.includes('Straße Ohne Straßennamen')) {
-                return result.results[i];
+        
+        if(!Utils.isObjEmpty(result)) {
+            for(var i = 0; i < result.results.length; i++) {
+                if(!result.results[i].formatted_address.includes('Straße Ohne Straßennamen')) {
+                    return result.results[i];
+                }
             }
         }
 

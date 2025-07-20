@@ -121,7 +121,9 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
                 this.sessionToken = uuidv4();
                 this.placeControl.reset();
                 this.byPlaceSelection.emit(this.placeControl?.value);
-                this.formControl.updateValueAndValidity();
+                if(this.formControl.value !== '') {
+                    this.formControl.updateValueAndValidity();
+                }
             }
             if(this.placeControl?.value !== null) {
                 this.byPlaceSelection.emit(this.placeControl?.value);
@@ -212,9 +214,11 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.longText as string);
         const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.longText as string);
         const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.longText as string);
+        const locality = array.filter((entry: any) => entry.types[0] === 'locality').map((entry: any) => entry.longText as string);
+        const alternateAddress = `${name},${zipCode.length > 0 ? ' ' + zipCode : ''} ${province.length > 0 ? province : locality}`;
 
         return {
-            address: types.includes('street_address') ? route : `${name}, ${zipCode} ${province}`,
+            address: types.includes('street_address') ? route : alternateAddress,
             zipCode: zipCode[0] as string,
             province: province[0] as string,
             country: country[0] as string,
