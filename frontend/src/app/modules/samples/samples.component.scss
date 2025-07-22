@@ -18,6 +18,8 @@ $currency-width: 40px;
 .tava-samples-table-wrapper {
     display: flex;
     margin-bottom: sass.$space50;
+    border-radius: sass.$space15;
+    border: 2px outset grey;
 }
 
 .tava-samples-table-header {
@@ -30,7 +32,8 @@ $currency-width: 40px;
         white-space: pre-line;
         font-weight: bold;
         text-transform: uppercase;
-        color: var(--theme-palette-highlight);
+        text-shadow: 1px 1px 5px var(--warning-shadow);
+        color: var(--theme-palette-contrast);
     }
 }
 
@@ -44,7 +47,7 @@ th {
     font-style: italic;
     font-weight: normal;
     white-space: pre-line;
-    color: var(--theme-palette-contrast);
+    color: var(--theme-palette-secondary);
 }
 
 .tava-samples-special-header {

@@ -22,6 +22,7 @@ footer {
         font-size: sass.$footer-h3-size;
         font-weight: bold;
         color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 5px sass.$color-text-black;
     }
 
     .icon-copyright {

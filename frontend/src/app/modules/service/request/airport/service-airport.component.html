@@ -97,7 +97,7 @@
         </div>
         <div *ngIf="!hasOffer && hasToken" class="tava-button-wrapper">
             <button
-                class="tava-button-submit"
+                class="tava-button-simple"
                 [attr.aria-disabled]="true"
                 (click)="onSubmitOffer()"
                 (keydown.enter)="onSubmitOffer()"
@@ -240,7 +240,7 @@
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button
-                class="tava-button-submit"
+                class="tava-button-simple"
                 [attr.aria-disabled]="true"
                 (click)="onSubmitOrder()"
                 (keydown.enter)="onSubmitOrder()"
@@ -252,7 +252,7 @@
             [ngClass]="termCancellation ? '' : 'tava-order-submit-invalid'" 
         >
             <button
-                class="tava-button-submit"
+                class="tava-button-simple"
                 [attr.disabled]="!termCancellation ? true : null"
                 [attr.tabindex]="termCancellation ? 0 : -1"
                 (click)="submitOrder()"

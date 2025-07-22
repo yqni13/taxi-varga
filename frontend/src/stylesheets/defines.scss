@@ -26,6 +26,7 @@
     --theme-snackbar-success: #{sass.$color-lightmode-success};
     --theme-snackbar-warning: #{sass.$color-lightmode-warning};
     --theme-hint-grey: #{sass.$color-grey-lightmode};
+    --theme-button-bg: #{sass.$color-light-highlight};
     --filter-brightness: 1;
     --divider-opacity: 0.8;
     --warning-opacity: 0.7;
@@ -48,6 +49,7 @@
     --theme-snackbar-success: #{sass.$color-darkmode-success};
     --theme-snackbar-warning: #{sass.$color-darkmode-warning};
     --theme-hint-grey: #{sass.$color-grey-label};
+    --theme-button-bg: #{sass.$color-dark-highlight};
     --filter-brightness: 0.4;
     --divider-opacity: 0.1;
     --warning-opacity: 0.6;
