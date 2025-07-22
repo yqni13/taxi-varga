@@ -1,51 +1,96 @@
 <section class="tava-home">
-    <div class="tava-home-video-wrapper">
-        <video autoplay loop [muted]="'muted'" oncanplay="this.play()" onloadedmetadata="this.muted = true">
-            <source src="{{selectedVideo}}" type="video/mp4"/>
-            Your browser does not support video files of type ".mp4". 
-        </video>
-        <header>
-            <h1>
-                Taxi-Varga
-            </h1>
-        </header>
-        <div class="tava-home-content">
-            <div class="tava-home-img-wrapper">
-                <img src="assets/UI/home_profile.webp" alt="404 not found">
+    <div class="tava-home-content" ngClass="{{selectedBg}}">
+
+        <!-- MAIN PART -->
+        <div class="tava-home-block home-main">
+            <img src="{{selectedBg === 'bg-pattern-dark' ? homeImgCollection[0] : homeImgCollection[1]}}" alt="404">
+            <div id="tava-home-main-header">
+                <h2>{{'home.main.title' | translate}}</h2>
             </div>
-            <div class="tava-home-content-wrapper">
-                <ul>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
-                            <span>
-                                {{'modules.home.highlights.start' | translate}}
-                            </span>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="tava-home-content-li-wrapper">
-                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
-                            <div>
-                                <span class="tava-anchor">
-                                    {{'modules.home.highlights.zero-emission' | translate}}
-                                </span>
-                                <span>
-                                    {{'modules.home.highlights.ev' | translate}}
-                                </span>
-                            </div>
-                        </div>
-                    </li>
-                    <li *ngFor="let entry of [].constructor(homeContentLength); let i = index">
-                        <div class="tava-home-content-li-wrapper">
-                            <img src="assets/UI/taxi_bulletpoint.png" alt="404 not found">
-                            
-                            <span>
-                                {{'modules.home.content.entry' + i | translate}}
-                            </span>
-                        </div>
-                    </li>
-                </ul>
+            <div class="tava-home-big-span" id="tava-home-main-tex1">
+                <span>
+                    {{'home.main.text1' | translate}}
+                </span>
+            </div>
+            <div class="tava-home-big-span" id="tava-home-main-text2">
+                <span>
+                    {{'home.main.text2-1' | translate}}
+                </span>
+                <span>
+                    {{'home.main.text2-2' | translate}}
+                </span>
+            </div>
+            <div class="tava-home-big-span" id="tava-home-main-text3">
+                <span>
+                    {{'home.main.text3' | translate}}
+                </span>
+            </div>
+            <div class="tava-home-small-span" id="tava-home-main-info">
+                <span>
+                    {{'home.main.info' | translate}}
+                </span>
+            </div>
+            <div id="tava-home-main-button">
+                <button 
+                    class="tava-button-simple"
+                    [attr.aria-disabled]="true"
+                    (click)="navigateToProfile()"
+                    (keydown.enter)="navigateToProfile()"
+                >
+                    {{'home.main.button' | translate}}
+                    <i class="icon-forward icon-base"></i>
+                </button>
+            </div>
+            <span class="tava-author author-light-bg">
+                <a href="{{selectedBg === 'bg-pattern-dark' ? authors.blockMainDark : authors.blockMainLight}}" target="_blank">
+                    {{'shared.assets.author' | translate}}
+                </a>
+            </span>
+        </div>
+
+        <!-- SUB PART -->
+        <div class="tava-home-block home-sub">
+            <img src="{{selectedBg === 'bg-pattern-dark' ? homeImgCollection[2] : homeImgCollection[3]}}" alt="404">
+            <div id="tava-home-sub-header">
+                <h3>{{'home.sub.title' | translate}}</h3>
+            </div>
+            <div class="tava-home-mid-span" *ngFor="let item of [].constructor(6); let i = index">
+                <span>
+                    {{'home.sub.entry' + i | translate}}
+                </span>
+            </div>
+            <span class="tava-author author-light-bg" *ngIf="selectedBg === 'bg-pattern-dark'">
+                <a href="{{selectedBg === 'bg-pattern-dark' ? authors.blockSubDark : authors.blockSubLight}}" target="_blank">
+                    {{'shared.assets.author' | translate}}
+                </a>
+            </span>
+        </div>
+        <div class="tava-home-block home-service">
+            <div id="tava-home-service-header">
+                <h2>{{'home.services.title' | translate}}</h2>
+            </div>
+            <div id="tava-home-card-wrapper">
+                <div 
+                    class="tava-home-service-card"
+                    [attr.aria-disabled]="true"
+                    (click)="navigateToService(item.service)"
+                    (keydown.enter)="navigateToService(item.service)"
+                    *ngFor="let item of serviceCollection"
+                >
+                    <h3>{{item.title | translate}}</h3>
+                    <span>{{item.text | translate}}</span>
+                    <div class="tava-home-service-img-wrapper">
+                        <img src="{{item.imgPath}}" alt="404-picture-not-found">
+                        <span
+                            class="tava-author author-light-bg author-service-img"
+                            *ngIf="item.authorPath !== ''"
+                        >
+                            <a href="{{item.authorPath}}" target="_blank">
+                                {{'shared.assets.author' | translate}}
+                            </a>
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

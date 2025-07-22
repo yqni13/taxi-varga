@@ -1,7 +1,14 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
-import * as translateContent from "../../../../public/assets/i18n/en.json";
 import { CommonModule } from "@angular/common";
+import { Subscription, tap } from "rxjs";
+import { ThemeOptions } from "../../shared/enums/theme-options.enum";
+import { ObservationService } from "../../shared/services/observation.service";
+import { Router } from "@angular/router";
+import { BaseRoute } from "../../api/routes/base.route.enum";
+import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { default as homeLang } from "../../../../public/assets/i18n/home-en.json";
+import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
 
 @Component({
     selector: 'tava-home',
@@ -13,17 +20,121 @@ import { CommonModule } from "@angular/common";
         TranslateModule
     ]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
-    protected selectedVideo: string;
-    protected homeContentLength: number;
+    protected selectedBg: string;
+    protected authors: any;
+    protected serviceCollection: any[];
+    protected serviceCollLength: number;
+    protected serviceImgCollection: string[];
+    protected homeImgCollection: string[];
+    protected isLoading: boolean;
 
-    constructor() {
-        this.selectedVideo = '';
-        this.homeContentLength = Object.keys(translateContent["modules"]["home"]["content"]).length;
+    private subscriptionThemeObservation$: Subscription;
+
+    constructor(
+        private readonly router: Router,
+        private readonly observation: ObservationService,
+        private readonly assetPreload: AssetsPreloadService
+    ) {
+        this.selectedBg = '';
+        this.authors = {};
+        this.serviceCollection = [];
+        this.serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
+        this.serviceImgCollection = [];
+        this.homeImgCollection = [];
+        this.isLoading = false;
+
+        this.subscriptionThemeObservation$ = new Subscription();
     }
 
     ngOnInit() {
-        this.selectedVideo = 'assets/home-bg-light-trimmed.mp4';
+        this.mapAuthorData();
+        this.mapHomeImgData();
+        this.mapServiceImgData();
+        this.mapServiceData();
+
+        const images = [
+            ...this.serviceImgCollection, 
+            ...this.homeImgCollection
+        ];
+        this.assetPreload.preloadAssets({images: images}).finally(() => {
+            this.isLoading = false;
+        });
+        this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
+            tap((theme: ThemeOptions) => {
+                switch(theme) {
+                    case(ThemeOptions.lightMode): {
+                        this.selectedBg = 'bg-pattern-light';
+                        break;
+                    }
+                    case(ThemeOptions.darkMode):
+                    default: {
+                        this.selectedBg = 'bg-pattern-dark';
+                    }
+                }
+            })
+        ).subscribe();
+    }
+
+    private mapAuthorData() {
+        this.authors = {
+            blockMainDark: 'https://pixabay.com/de/photos/stadt-reisen-tourismus-innenstadt-6870803/',
+            blockMainLight: 'https://pixabay.com/de/photos/der-verkehr-stadt-stau-autos-7859033/',
+            blockSubDark: 'https://pixabay.com/de/photos/autobahn-leichte-spuren-4494907/',
+            blockSubLight: 'https://pixabay.com/de/photos/stra%C3%9Fe-licht-wege-abend-d%C3%A4mmerung-6204694/',
+            serviceAirport: 'https://pixabay.com/de/users/pexels-2286921/',
+            serviceDestination: '',
+            serviceGolf: 'https://pixabay.com/de/users/zhaofugang1234-5835675/',
+            serviceFlatrate: 'https://pixabay.com/de/users/geralt-9301/',
+            serviceQuick: 'https://pixabay.com/de/photos/taxi-taxis-flughafen-transport-7855475/'
+        };
+    }
+
+    private mapServiceImgData() {
+        this.serviceImgCollection = [
+            '/assets/service/service-airport.webp',
+            '/assets/service/service-destination.webp',
+            '/assets/service/service-golf.webp',
+            '/assets/service/service-flatrate.webp',
+            '/assets/service/service-quick.webp',
+        ];
+    }
+
+    private mapHomeImgData() {
+        this.homeImgCollection = [
+            'assets/home/home-main-dark.webp',
+            'assets/home/home-main-light.webp',
+            'assets/home/home-sub-dark.webp',
+            'assets/advertising/car/edit_car_07.jpg',
+        ];
+    }
+
+    private mapServiceData() {
+        let newEntry = {};
+        const services = Object.values(ServiceOptions);
+        const authors = Object.values(this.authors);
+        for(let i = 0; i < this.serviceCollLength; i++) {
+            newEntry = {
+                title: `home.services.content.entry${i}.title`,
+                text: `home.services.content.entry${i}.text`,
+                imgPath: this.serviceImgCollection[i],
+                service: services[i],
+                authorPath: authors[i+4]
+            }
+            this.serviceCollection.push(newEntry);
+        }
+    }
+
+    navigateToProfile() {
+        this.router.navigate([`/${BaseRoute.ABOUT}`]);
+    }
+    
+    navigateToService(service: string) {
+        this.router.navigate([`/${BaseRoute.SERVICE}/${service}`]);
+    }
+
+    ngOnDestroy() {
+        this.subscriptionThemeObservation$.unsubscribe();
     }
 }

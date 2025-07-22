@@ -1,94 +1,234 @@
 @use '../../../stylesheets/utilities' as sass;
 
 
-header {
-    position: relative;
+div {
+    display: flex;
 }
 
 section {
     height: auto;
 }
 
-.tava-home-video-wrapper {
-    position: relative;
-    width: 100vw;
-    height: 100%;
-
-    overflow: hidden;
-
-    display: flex;
+.tava-home-content {
     flex-direction: column;
-    text-align: center;
-    align-items: start;
-    justify-content: center;
+}
 
-    video {
-        filter: grayscale(0.8) brightness(var(--filter-brightness)) blur(1px);
-        object-fit: cover;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
+$opacity-by-white: 0.2;
+.bg-pattern-dark {
+    background: linear-gradient(180deg,rgba(24, 24, 24, 1) 40%, rgba(60, 60, 59, 1) 100%);
+    .home-main,
+    .home-sub {
+        border: 1px outset grey;
+        img {
+            filter: grayscale(1);
+        }
+    }
+    .home-service {
+        border: 1px outset grey;
+        h3 {
+            text-shadow: 1px 1px 5px sass.$color-text-black;
+        }
+        .tava-home-service-card {
+            background: linear-gradient(180deg,rgba(24, 24, 24, 1) 10%, rgba(60, 60, 59, 1) 100%);
+        }
     }
 }
 
-
-.tava-home-content {
-    display: flex;
-    width: 100vw;
-    height: 100%;
-    position: relative;
-    
-    .tava-home-img-wrapper {
-        position: relative;
-        margin-bottom: sass.$space50;
-
+.bg-pattern-light {
+    background: linear-gradient(172deg,rgba(207, 207, 207, 1) 25%, rgba(255, 255, 255, 1) 100%);
+    .home-main,
+    .home-sub {
+        border: 1px solid sass.$color-text-black;
         img {
-            aspect-ratio: 1 / 1;
-            border: solid 3px var(--theme-palette-contrast);
-            border-radius:50%;
+            filter: grayscale(0.3) contrast(0.3);
         }
     }
+    .home-service {
+        border: 1px solid sass.$color-text-black;
+        h3 {
+            text-shadow: none;
+        }
+        .tava-home-service-card {
+            background: linear-gradient(172deg,rgba(207, 207, 207, 1) 25%, rgba(255, 255, 255, 1) 100%);
+        }
+    }
+}
 
-    .tava-home-content-wrapper {        
-        height: auto;
-        margin-bottom: sass.$space50;
-        display: flex;
+.tava-home-block {
+    flex-direction: column;
+    border-radius: sass.$space15;
+}
+
+.home-main,
+.home-sub {
+    position: relative;
+
+    img {
+        border-radius: sass.$space15;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    div {
+        position: relative;
+    }
+
+    h2,
+    h3 {
+        color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 5px sass.$color-text-black;
+    }
+
+    span {
+        color: sass.$color-ice-white;
+    }
+}
+
+#tava-home-main-header {
+    h2 {
+        font-size: clamp(40px, 5.5vw, 80px);
+    }
+}
+
+#tava-home-sub-header {
+    h3 {
+        font-size: clamp(20px, 3.3vw, 45px);
+    }
+}
+
+.tava-home-big-span,
+.tava-home-small-span {
+    margin-top: sass.$space5;
+    margin-bottom: sass.$space5;
+    text-shadow: 1px 1px 5px sass.$color-text-black;
+}
+
+.tava-home-big-span {
+    font-size: clamp(18px, 2.8vw, 40px);
+}
+
+.tava-home-mid-span {
+    font-size: clamp(14px, 1.8vw, 25px);
+    font-weight: bold;
+    margin-top: 12.5px;
+    margin-bottom: 12.5px;
+    text-shadow: 1px 1px 5px sass.$color-text-black;
+    white-space: pre-line;
+    span {
+        text-align: end;
+        color: sass.$color-ice-white;
+    }
+}
+
+.tava-home-small-span {
+    font-size: clamp(10px, 1.2vw, 18px);
+    font-weight: bold;
+}
+
+#tava-home-main-text2 {
+    span:nth-of-type(1) {
+        font-weight: bold;
+        color: var(--theme-palette-highlight);
+        margin-right: sass.$space5;
+        text-shadow: 1px 1px 2px sass.$color-text-black!important;
+    }
+}
+
+#tava-home-main-text3 {
+    margin-bottom: sass.$space50;
+}
+
+#tava-home-main-button {
+    margin-top: 10px;
+    .tava-button-simple {
+        box-shadow: 1px 1px 2px var(--theme-body-text);
+        &:hover {
+            box-shadow: 1px 1px 2px var(--theme-palette-contrast);
+        }
+    }
+    i {
+        width: 20px;
+        height: 20px;
+        vertical-align: top;
+        margin-left: sass.$space5;
+    }
+}
+
+.home-service {
+    background-color: var(--theme-palette-background);
+    h2 {
+        font-size: clamp(20px, 3.3vw, 45px);
+        font-weight: bold;
+        color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 5px sass.$color-text-black;
+    }
+    
+    h3 {
+        font-size: clamp(16px, 1.8vw, 25px);
+        color: var(--theme-palette-highlight);
+    }
+}
+
+#tava-home-service-header {
+    width: 100%;
+    max-width: none;
+}
+
+#tava-home-card-wrapper {
+    flex-flow: row wrap;
+    justify-content: center;
+    max-width: none;
+}
+
+.tava-home-service-card {
+    flex-direction: column;
+    border-radius: sass.$space15;
+
+    span {
+        font-size: clamp(12px, 1.3vw, 16px);
+    }
+    .tava-home-service-img-wrapper {
+        position: relative;
+        max-width: none;
         justify-content: center;
-        
-        ul {
-            border-radius: 40px;
-            backdrop-filter: blur(3px);
-            display: flex;
-            align-items: center;
-            flex-direction: column;
-            padding-inline: 0;
-            text-align: start;
-
-            li {
-                text-wrap: wrap;
-                display: flex;
-                margin: sass.$space25 0; 
-
-                .tava-home-content-li-wrapper {
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-
-                    img {
-                        margin-right: sass.$space15;
-                        width: 30px;
-                        height: 30px;
-                    }
-                }
-                
-                span {
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    line-height: sass.$text-line-height;
-                }
-            }
+        img {
+            object-fit: cover;
+            border-radius: calc(sass.$space15 / 2);
         }
     }
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 1px 1px 10px var(--theme-palette-highlight);
+    }
+}
+
+.tava-author {
+        position: absolute;
+        display: flex;
+        align-self: end;
+        justify-content: right;
+        bottom: 0;
+        
+        a {
+            padding: sass.$space5 sass.$space15;
+            text-decoration: none;
+            cursor: help;
+            font-size: clamp(8px, 0.9vw, 12px);
+        }
+}
+
+.author-dark-bg a {
+    color: sass.$color-grey-label;
+}
+
+.author-light-bg a {
+    color: sass.$color-ice-white;
+}
+
+.author-service-img {
+    width: 100%;
+    margin: 0!important;
 }
