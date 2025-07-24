@@ -43,7 +43,7 @@ header {
 h1 {
     color: var(--theme-palette-highlight);
     font-size: clamp(25px, 4vw, 55px);
-    font-weight: normal;
+    font-weight: bold;
     margin: sass.$space50 0;
     text-align: center;
     text-shadow: 1.5px 1.5px 2px sass.$color-text-black;

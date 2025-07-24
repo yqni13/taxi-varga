@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             'assets/home/home-main-dark.webp',
             'assets/home/home-main-light.webp',
             'assets/home/home-sub-dark.webp',
-            'assets/advertising/car/edit_car_07.jpg',
+            'assets/home/home-sub-light.webp',
         ];
     }
 

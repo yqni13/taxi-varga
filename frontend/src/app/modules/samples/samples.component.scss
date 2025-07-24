@@ -32,7 +32,7 @@ $currency-width: 40px;
         white-space: pre-line;
         font-weight: bold;
         text-transform: uppercase;
-        text-shadow: 1px 1px 5px var(--warning-shadow);
+        text-shadow: 1px 1px 1px sass.$color-text-black;
         color: var(--theme-palette-contrast);
     }
 }
@@ -42,16 +42,17 @@ $currency-width: 40px;
 }
 
 th {
-    text-shadow: 1px 1px 5px var(--warning-shadow);
+    text-shadow: 1px 1px 1px sass.$color-text-black;
     opacity: 0.8;
     font-style: italic;
     font-weight: normal;
     white-space: pre-line;
-    color: var(--theme-palette-secondary);
+    color: var(--theme-palette-highlight);
 }
 
 .tava-samples-special-header {
     line-height: sass.$text-line-height;
+    text-shadow: 1px 1px 2px var(--warning-shadow);
 }
 
 td {

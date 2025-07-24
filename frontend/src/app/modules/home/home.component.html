@@ -41,11 +41,6 @@
                     <i class="icon-forward icon-base"></i>
                 </button>
             </div>
-            <span class="tava-author author-light-bg">
-                <a href="{{selectedBg === 'bg-pattern-dark' ? authors.blockMainDark : authors.blockMainLight}}" target="_blank">
-                    {{'shared.assets.author' | translate}}
-                </a>
-            </span>
         </div>
 
         <!-- SUB PART -->
@@ -59,11 +54,6 @@
                     {{'home.sub.entry' + i | translate}}
                 </span>
             </div>
-            <span class="tava-author author-light-bg" *ngIf="selectedBg === 'bg-pattern-dark'">
-                <a href="{{selectedBg === 'bg-pattern-dark' ? authors.blockSubDark : authors.blockSubLight}}" target="_blank">
-                    {{'shared.assets.author' | translate}}
-                </a>
-            </span>
         </div>
         <div class="tava-home-block home-service">
             <div id="tava-home-service-header">

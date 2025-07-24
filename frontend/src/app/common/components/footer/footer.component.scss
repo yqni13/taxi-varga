@@ -37,6 +37,7 @@ footer {
         span,
         a {
             font-size: sass.$footer-copyright-size;
+            font-weight: bold;
         }
     }
 }
@@ -67,6 +68,7 @@ footer {
                 cursor: pointer;
                 color: var(--theme-palette-highlight);
                 font-size: sass.$footer-text-size;
+                font-weight: bold;
             }
         }
 
