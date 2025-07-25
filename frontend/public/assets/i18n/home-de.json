@@ -1,0 +1,47 @@
+{
+    "home": {
+        "main": {
+            "button": "mehr erfahren",
+            "info": "Erfahren Sie weiteres zum Einzelunternehmer, der Entstehungsgeschichte und den Unternehmenszielen.",
+            "text1": "Beförderungstätigkeit seit 1999",
+            "text2-1": "Emissionsfrei",
+            "text2-2": "(Skoda Enyaq IV 80) seit 2020",
+            "text3": "Wien/Niederösterreich",
+            "title": "Taxi-Varga"
+        },
+        "services": {
+            "content": {
+                "entry0": {
+                    "text": "Eine Fahrt zwischen Wien und dem Flughafen Wien-Schwechat mit viel Platz für Ihr Gepäck.",
+                    "title": "Flughafenfahrt - Wien"
+                },
+                "entry1": {
+                    "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthalts vor Ort.",
+                    "title": "Pauschalfahrt - Niederösterreich"
+                },
+                "entry2": {
+                    "text": "Ein Tagesausflug zu einem Golfplatz Ihrer Wahl mit der Option auf Begleitung als Caddy oder Mitspieler.",
+                    "title": "Golf-Tagesreise"
+                },
+                "entry3": {
+                    "text": "Statt eines fixen Ziels kann auch pauschal nach Zeit eine Reise in Anspruch genommen werden.",
+                    "title": "Zeitmiete"
+                },
+                "entry4": {
+                    "text": "Pauschalpreis prüfen und (je nach Verfügbarkeit) spontan telefonisch bestellen (keine Vorbestellung).",
+                    "title": "Spontanfahrt"
+                }
+            },
+            "title": "Ein Service für jedes Anliegen"
+        },
+        "sub": {
+            "entry0": "Standard Reisezeit (täglich): 04:00 - 12:00 Uhr\n(Außerhalb dieses Zeitraumes auf Anfrage)",
+            "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
+            "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
+            "entry3": "Beförderung erfolgt bei:\nMax 4 Personen mit Gepäck\nMax 3 Personen mit Golf-Equipment\nMax 2 Personen mit Gepäck + Golf-Equipment",
+            "entry4": "Pauschalpreise können abhängig von Verkehrsdaten in der Berechnung variieren",
+            "entry5": "Alle gängigen Zahlungsmittel werden akzeptiert",
+            "title": "Was zeichnet die Beförderung aus?"
+        }
+    }
+}

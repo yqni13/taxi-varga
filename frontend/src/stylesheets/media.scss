@@ -12,27 +12,60 @@
 // width > 1440px
 @media screen and (width > sass.$device-desktop-xk) {
     .tava-home {
-        .tava-home-content {
-            flex-direction: row;
-
-            .tava-home-img-wrapper {
-                width: 40%;
-                text-align: right;
-                img {
-                    margin-top: sass.$space100;
-                    width: 40%;
-                }
+        $block-margin: sass.$space50;
+        $text-margin: sass.$space100;
+        $service-text-margin: calc(25px + 5px);
+        .tava-home-block {
+            margin: $block-margin;
+            div {
+                max-width: calc(100% - ($text-margin * 2));
             }
-
-            .tava-home-content-wrapper {
-                width: 60%;
-                ul {
-                    width: 65%;
-                    li {
-                        width: 75%;
-                        span {
-                            font-size: 16px
-                        }
+        }
+        .home-main,
+        .home-sub {
+            h2,
+            h3 {
+                margin: sass.$space50 0;
+            }
+        }
+        .home-main {
+            min-height: 525px;
+            div {
+                margin: 0 auto 0 calc($text-margin * 2);
+            }
+            #tava-home-main-text2 {
+                flex-direction: row;
+            }
+        }
+        .home-sub {
+            min-height: 675px;
+            div {
+                margin-left: auto;
+                margin-right: calc($text-margin * 2);
+            }
+        }
+        .home-service {
+            margin-bottom: calc($block-margin * 2);
+            h2 {
+                margin: sass.$space50 auto;
+            }
+            h3 {
+                margin: sass.$space25 $service-text-margin;
+            }
+            #tava-home-card-wrapper {
+                margin-bottom: sass.$space50;
+            }
+            .tava-home-service-card {
+                width: 400px;
+                margin: sass.$space15;
+                span {
+                    margin: 0 $service-text-margin 12.5px $service-text-margin;
+                }
+                .tava-home-service-img-wrapper {
+                    margin: auto sass.$space25 sass.$space25;
+                    img {
+                        width: 350px;
+                        aspect-ratio: 7/6;
                     }
                 }
             }
@@ -69,8 +102,6 @@
     .tava-samples {
         .tava-samples-table-wrapper {
             flex-direction: row;
-            border-radius: sass.$space15;
-            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -189,11 +220,19 @@
         }
     }
 
+    nav {
+        ul {
+            li {
+                padding: 0 25px;
+            }
+        }
+    }
+
     footer {
         flex-direction: row;
 
         .tava-footer-credits {
-            width: 40%;
+            width: 50%;
             text-align: left;
 
             h3,
@@ -203,7 +242,7 @@
         }
 
         .tava-footer-links {
-            width: 60%;
+            width: 50%;
         }
     }
 
@@ -223,27 +262,62 @@
 // 1024px > width <= 1440px
 @media screen and (width <= sass.$device-desktop-xk) {
     .tava-home {
-        .tava-home-content {
-            flex-direction: row;
-
-            .tava-home-img-wrapper {
-                width: 40%;
-                text-align: right;
-                img {
-                    margin-top: sass.$space100;
-                    width: 45%;
-                }
+        $block-margin: sass.$space50;
+        $text-margin: 75px;
+        $service-text-margin: calc(15px + 5px);
+        .tava-home-block {
+            margin: $block-margin;
+            div {
+                max-width: calc(100% - ($text-margin * 2));
             }
-
-            .tava-home-content-wrapper {
-                width: 60%;
-                ul {
-                    width: 70%;
-                    li {
-                        width: 75%;
-                        span {
-                            font-size: 14px
-                        }
+        }
+        .home-main,
+        .home-sub {
+            h2,
+            h3 {
+                margin: sass.$space50 0;
+            }
+        }
+        .home-main {
+            min-height: 500px;
+            div {
+                margin: 0 auto 0 $text-margin;
+            }
+            #tava-home-main-text2 {
+                flex-direction: row;
+            }
+        }
+        .home-sub {
+            min-height: 675px;
+            div {
+                margin-left: auto;
+                margin-right: $text-margin;
+            }
+        }
+        .home-service {
+            margin-bottom: calc($block-margin * 2);
+            h2 {
+                margin: sass.$space50 auto;
+            }
+            h3 {
+                margin: sass.$space15 $service-text-margin;
+            }
+            #tava-home-card-wrapper {
+                margin-bottom: sass.$space50;
+            }
+            .tava-home-service-card {
+                max-width: 400px;
+                width: calc(25vw + 30px);
+                margin: sass.$space15;
+                span {
+                    margin: 0 $service-text-margin 12.5px $service-text-margin;
+                }
+                .tava-home-service-img-wrapper {
+                    margin: auto sass.$space15 sass.$space15;
+                    img {
+                        max-width: 350px;
+                        width: 25vw;
+                        aspect-ratio: 7/6;
                     }
                 }
             }
@@ -280,8 +354,6 @@
     .tava-samples {
         .tava-samples-table-wrapper {
             flex-direction: row;
-            border-radius: sass.$space15;
-            border: 2px outset var(--theme-palette-highlight);
             padding: sass.$space50;
 
             table {
@@ -369,11 +441,19 @@
         }
     }
 
+    nav {
+        ul {
+            li {
+                padding: 0 25px;
+            }
+        }
+    }
+
     footer {
         flex-direction: row;
 
         .tava-footer-credits {
-            width: 40%;
+            width: 50%;
             text-align: left;
 
             h3,
@@ -383,7 +463,7 @@
         }
 
         .tava-footer-links {
-            width: 60%;
+            width: 50%;
         }
     }
 
@@ -428,10 +508,37 @@
 // 768px > width <= 1024px
 @media screen and (width <= sass.$device-tablet-landscape) {
     .tava-home {
-        .tava-home-content {
-            .tava-home-img-wrapper {
-                img {
-                    width: 50%;
+        $block-margin: sass.$space50;
+        $text-margin: sass.$space50;
+        .tava-home-block {
+            margin: sass.$space25 $block-margin;
+            div {
+                max-width: calc(100% - ($text-margin * 2));
+            }
+        }
+        .home-main {
+            min-height: 475px;
+            div {
+                margin: 0 auto 0 $text-margin;
+            }
+        }
+        .home-sub {
+            min-height: 575px;
+            div {
+                margin-right: $text-margin;
+            }
+        }
+        .home-service {
+            margin-bottom: $block-margin;
+            h2 {
+                margin: 40px auto sass.$space25 auto;
+            }
+            .tava-home-service-card {
+                width: calc(30vw + 30px);
+                .tava-home-service-img-wrapper {
+                    img {
+                        width: 30vw;
+                    }
                 }
             }
         }
@@ -453,8 +560,6 @@
         .tava-samples-table-wrapper {
             flex-direction: column;
             padding: sass.$space15;
-            border: outset 2px var(--theme-palette-highlight);
-            border-radius: sass.$space15;
             $wrapper-width: 450px;
 
             .tava-samples-table-header {
@@ -488,33 +593,62 @@
 // 500px > width <= 768px
 @media screen and (width <= sass.$device-phone-landscape) {
     .tava-home {
-        .tava-home-content {
-            flex-direction: column;
-
-            .tava-home-img-wrapper {
-                width: 100%;
-                text-align: center;
-                img {
-                    margin-top: 0;
-                    width: 28%;
-                }
+        $block-margin: sass.$space25;
+        $text-margin: sass.$space25;
+        .tava-home-block {
+            margin: $block-margin sass.$space5;
+            div {
+                max-width: none;
             }
-
-            .tava-home-content-wrapper {
-                width: 100%;
-
-                ul {
-                    max-width: 600px;
-                    width: 80vw;
-                    li {
-                        max-width: 450px;
-                        width: 70vw;
-                        span {
-                            font-size: 14px
-                        }
+        }
+        .home-main,
+        .home-sub {
+            h2,
+            h3 {
+                margin: sass.$space25 0;
+            }
+        }
+        .home-main {
+            min-height: 425px;
+            div {
+                margin: 0 auto 0 $text-margin;
+            }
+            .tava-home-small-span {
+                margin-right: sass.$space25;
+            }
+        }
+        .home-sub {
+            min-height: 475px;
+            text-align: end;
+            div {
+                align-self: end;
+                margin-left: $text-margin;
+                margin-right: $text-margin;
+            }
+        }
+        .home-service {
+            margin-bottom: calc($block-margin * 2);
+            h2 {
+                margin: 40px auto sass.$space25 auto;
+            }
+            #tava-home-card-wrapper {
+                margin-bottom: sass.$space25;
+            }
+            .tava-home-service-card {
+                width: calc(30vw + 30px);
+                .tava-home-service-img-wrapper {
+                    img {
+                        width: 30vw;
                     }
                 }
             }
+        }
+    }
+
+    .tava-about {
+        header {
+            margin: 0 sass.$space15;
+            width: calc(100% - (sass.$space15 * 2));
         }
     }
     
@@ -659,6 +793,14 @@
         margin: sass.$space15 0 0 0!important;
     }
 
+    nav {
+        ul {
+            li {
+                padding: 0 4.5vw;
+            }
+        }
+    }
+
     footer {
         flex-direction: column-reverse;
 
@@ -682,23 +824,41 @@
 // width <= 500px
 @media screen and (width <= sass.$device-phone-portrait) {
     .tava-home {
-        .tava-home-content {
-            .tava-home-img-wrapper {
-                //
-
-                img {
-                    width: 33%;
-                }
+        $block-margin: sass.$space25;
+        $text-margin: sass.$space25;
+        .home-main {
+            min-height: 425px;
+            #tava-home-main-text2 {
+                flex-direction: column;
             }
-
-            .tava-home-content-wrapper {
-                ul {
-                    width: 350px;
-                    li {
-                        width: 280px;
-                        span {
-                            font-size: 12px
-                        }
+        }
+        .home-sub {
+            min-height: 525px;
+            h3 {
+                margin: $block-margin 0;
+            }
+            div {
+                margin-right: $text-margin;
+            }
+            #tava-home-sub-header {
+                width: 100%;
+                justify-content: center;
+                margin: 0!important;
+            }
+        }
+        .home-service {
+            margin-bottom: calc($block-margin * 2);
+            h2 {
+                margin: 40px auto sass.$space25 auto;
+            }
+            #tava-home-card-wrapper {
+                margin-bottom: sass.$space25;
+            }
+            .tava-home-service-card {
+                width: calc(66vw + 30px);
+                .tava-home-service-img-wrapper {
+                    img {
+                        width: 66vw;
                     }
                 }
             }

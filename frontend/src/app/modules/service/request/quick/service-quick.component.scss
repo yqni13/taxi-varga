@@ -12,8 +12,8 @@
     }
 }
 
-#gps-invalid {
-    color: var(--theme-snackbar-warning);
+#gps-invalid span {
+    color: var(--theme-snackbar-warning)!important;
     font-weight: bold;
 }
 

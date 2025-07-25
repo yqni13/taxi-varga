@@ -91,3 +91,9 @@
     -webkit-mask-image: var(--svg);
     mask-image: var(--svg);
 }
+.icon-forward {
+    --svg: url("/assets/app-icons/icon_forward.svg");
+    transform: rotate(180deg);
+    -webkit-mask-image: var(--svg);
+    mask-image: var(--svg);
+}

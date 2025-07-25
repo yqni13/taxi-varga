@@ -6,6 +6,18 @@ $addendum-width: 35px;
 $price-width: 50px;
 $currency-width: 40px;
 
+.bg-pattern-dark {
+    .tava-samples-table-header span {
+        text-shadow: 1px 1px 1px sass.$color-text-black;
+    }
+}
+
+.bg-pattern-light {
+    .tava-samples-table-header span {
+        text-shadow: 1px 1px 1px sass.$color-ice-white;
+    }
+}
+
 .tava-samples-content {
     width: 100%;
     height: 100%;
@@ -18,6 +30,8 @@ $currency-width: 40px;
 .tava-samples-table-wrapper {
     display: flex;
     margin-bottom: sass.$space50;
+    border-radius: sass.$space15;
+    border: 2px outset grey;
 }
 
 .tava-samples-table-header {
@@ -30,7 +44,8 @@ $currency-width: 40px;
         white-space: pre-line;
         font-weight: bold;
         text-transform: uppercase;
-        color: var(--theme-palette-highlight);
+        text-shadow: 1px 1px 1px sass.$color-text-black;
+        color: var(--theme-palette-contrast);
     }
 }
 
@@ -39,16 +54,17 @@ $currency-width: 40px;
 }
 
 th {
-    text-shadow: 1px 1px 5px var(--warning-shadow);
+    text-shadow: 1px 1px 1px sass.$color-text-black;
     opacity: 0.8;
     font-style: italic;
     font-weight: normal;
     white-space: pre-line;
-    color: var(--theme-palette-contrast);
+    color: var(--theme-palette-highlight);
 }
 
 .tava-samples-special-header {
     line-height: sass.$text-line-height;
+    text-shadow: 1px 1px 2px var(--warning-shadow);
 }
 
 td {
