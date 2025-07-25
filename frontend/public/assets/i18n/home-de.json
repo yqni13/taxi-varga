@@ -2,7 +2,7 @@
     "home": {
         "main": {
             "button": "mehr erfahren",
-            "info": "Erfahren Sie hier mehr zum Einzelunternehmer, der Entstehungsgeschichte und den Unternehmenszielen.",
+            "info": "Erfahren Sie weiteres zum Einzelunternehmer, der Entstehungsgeschichte und den Unternehmenszielen.",
             "text1": "Beförderungstätigkeit seit 1999",
             "text2-1": "Emissionsfrei",
             "text2-2": "(Skoda Enyaq IV 80) seit 2020",
@@ -16,15 +16,15 @@
                     "title": "Flughafenfahrt - Wien"
                 },
                 "entry1": {
-                    "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthaltes vor Ort.",
+                    "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthalts vor Ort.",
                     "title": "Pauschalfahrt - Niederösterreich"
                 },
                 "entry2": {
-                    "text": "Ein Tages-Ausflug zu einem Golfplatz Ihrer Wahl mit der Option auf Begleitung als Caddy oder Mitspieler.",
+                    "text": "Ein Tagesausflug zu einem Golfplatz Ihrer Wahl mit der Option auf Begleitung als Caddy oder Mitspieler.",
                     "title": "Golf-Tagesreise"
                 },
                 "entry3": {
-                    "text": "Statt einem fixen Ziel, kann auch pauschal nach zeit eine Reise in Anspruch genommen werden.",
+                    "text": "Statt eines fixen Ziels kann auch pauschal nach Zeit eine Reise in Anspruch genommen werden.",
                     "title": "Zeitmiete"
                 },
                 "entry4": {

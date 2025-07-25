@@ -6,6 +6,18 @@ $addendum-width: 35px;
 $price-width: 50px;
 $currency-width: 40px;
 
+.bg-pattern-dark {
+    .tava-samples-table-header span {
+        text-shadow: 1px 1px 1px sass.$color-text-black;
+    }
+}
+
+.bg-pattern-light {
+    .tava-samples-table-header span {
+        text-shadow: 1px 1px 1px sass.$color-ice-white;
+    }
+}
+
 .tava-samples-content {
     width: 100%;
     height: 100%;

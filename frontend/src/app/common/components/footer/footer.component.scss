@@ -27,8 +27,11 @@ footer {
 
     .icon-copyright {
         position: relative;
-        width: 20px;
-        height: 20px;
+        width: 1.3vw;
+        min-width: 13px;
+        min-height: 13px;
+        max-width: 18px;
+        max-height: 18px;
         margin-right: sass.$space5;
         top:5px;
     }

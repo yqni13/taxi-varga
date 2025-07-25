@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     protected serviceCollLength: number;
     protected serviceImgCollection: string[];
     protected homeImgCollection: string[];
-    protected isLoading: boolean;
+    protected activeBg: any;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -43,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
         this.serviceImgCollection = [];
         this.homeImgCollection = [];
-        this.isLoading = false;
+        this.activeBg = {};
 
         this.subscriptionThemeObservation$ = new Subscription();
     }
@@ -53,24 +53,33 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.mapHomeImgData();
         this.mapServiceImgData();
         this.mapServiceData();
-
         const images = [
             ...this.serviceImgCollection, 
             ...this.homeImgCollection
         ];
         this.assetPreload.preloadAssets({images: images}).finally(() => {
-            this.isLoading = false;
+            // this.isLoading = false;
         });
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {
                 switch(theme) {
                     case(ThemeOptions.lightMode): {
                         this.selectedBg = 'bg-pattern-light';
+                        this.activeBg = {
+                            main: this.homeImgCollection[1],
+                            sub: this.homeImgCollection[3]
+                        };
                         break;
                     }
-                    case(ThemeOptions.darkMode):
+                    case(ThemeOptions.darkMode): 
                     default: {
                         this.selectedBg = 'bg-pattern-dark';
+                        console.log("dark mode first")
+                        this.activeBg = {
+                            main: this.homeImgCollection[0],
+                            sub: this.homeImgCollection[2]
+                        };
+                        break;
                     }
                 }
             })
@@ -79,10 +88,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private mapAuthorData() {
         this.authors = {
-            blockMainDark: 'https://pixabay.com/de/photos/stadt-reisen-tourismus-innenstadt-6870803/',
-            blockMainLight: 'https://pixabay.com/de/photos/der-verkehr-stadt-stau-autos-7859033/',
-            blockSubDark: 'https://pixabay.com/de/photos/autobahn-leichte-spuren-4494907/',
-            blockSubLight: 'https://pixabay.com/de/photos/stra%C3%9Fe-licht-wege-abend-d%C3%A4mmerung-6204694/',
             serviceAirport: 'https://pixabay.com/de/users/pexels-2286921/',
             serviceDestination: '',
             serviceGolf: 'https://pixabay.com/de/users/zhaofugang1234-5835675/',

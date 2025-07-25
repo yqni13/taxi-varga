@@ -3,7 +3,9 @@
 
         <!-- MAIN PART -->
         <div class="tava-home-block home-main">
-            <img src="{{selectedBg === 'bg-pattern-dark' ? homeImgCollection[0] : homeImgCollection[1]}}" alt="404">
+            <ng-container *ngIf="activeBg.main">
+                <img [src]="activeBg.main" alt="404-picture-not-found">
+            </ng-container>
             <div id="tava-home-main-header">
                 <h2>{{'home.main.title' | translate}}</h2>
             </div>
@@ -45,7 +47,7 @@
 
         <!-- SUB PART -->
         <div class="tava-home-block home-sub">
-            <img src="{{selectedBg === 'bg-pattern-dark' ? homeImgCollection[2] : homeImgCollection[3]}}" alt="404">
+            <img src="{{activeBg.sub}}" alt="404-picture-not-found">
             <div id="tava-home-sub-header">
                 <h3>{{'home.sub.title' | translate}}</h3>
             </div>

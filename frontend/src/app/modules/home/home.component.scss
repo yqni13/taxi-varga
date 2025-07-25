@@ -6,6 +6,7 @@ div {
 }
 
 section {
+    min-height: calc(100vh - var(--size-nav-height));
     height: auto;
 }
 
@@ -33,12 +34,12 @@ section {
     .home-main,
     .home-sub {
         img {
-            filter: grayscale(0.3) contrast(0.3);
+            filter: grayscale(0.3) contrast(0.2);
         }
     }
     .home-service {
         h3 {
-            text-shadow: 1px 1px 1px sass.$color-text-black;
+            text-shadow: none;
         }
         .tava-home-service-card {
             background: linear-gradient(172deg,rgba(207, 207, 207, 1) 25%, rgba(255, 255, 255, 1) 100%);
