@@ -538,5 +538,77 @@
                 "duration": 15
             }
         ]
+    },
+    "route2542-1200": {
+        "a_information": {
+            "d2o": 0,
+            "o2d": 0,
+            "routeHome": "home"
+        },
+        "back2origin": "false",
+        "destination": "AUVA-Traumazentrum+Wien+-+Standort+Brigittenau+/+Lorenz+Böhler,+1200+Wien,+Austria",
+        "destinationDetails": {
+            "address": "AUVA-Traumazentrum Wien - Standort Brigittenau / Lorenz Böhler, 1200 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJlYJMTFAGbUcRoGCe4Y3jcII",
+            "province": "Wien",
+            "zipCode": "1200"
+        },
+        "origin": "Hauptstraße+1,+2542+Kottingbrunn,+Austria",
+        "originDetails": {
+            "address": "Hauptstraße 1, 2542 Kottingbrunn, Austria",
+            "country": "Austria",
+            "placeId": "ChIJZWgirti2bUcRdgiQPAlV9QQ",
+            "province": "Niederösterreich",
+            "zipCode": "2542"
+        },
+        "latency": 0,
+        "pickupTIME": 10,
+        "returnResult": [
+            {
+                "originIndex": 0,
+                "destinationIndex": 15,
+                "status": {},
+                "distanceMeters": 7.2,
+                "duration": 9.4
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 13,
+                "status": {},
+                "distanceMeters": 10.1,
+                "duration": 20.9
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 22,
+                "status": {},
+                "distanceMeters": 10.2,
+                "duration": 15.4
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 49,
+                "duration": 37.7
+            }
+        ],
+        "serviceResult": [
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 45.6,
+                "duration": 34.2
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 44.5,
+                "duration": 37.5
+            }
+        ]
     }
 }
