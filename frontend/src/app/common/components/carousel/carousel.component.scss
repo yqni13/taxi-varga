@@ -3,7 +3,6 @@
 
 .tava-carousel-wrapper {
     width: 100%;
-    min-height: 350px;
     margin: auto;
     overflow: hidden;
     position: relative;
@@ -42,6 +41,7 @@ $img-width: 80vw;
         aspect-ratio: 16 / 10;
         padding: 3px;
         border: 2px solid var(--theme-palette-highlight);
+        border-radius: sass.$space15;
     }
 }
 

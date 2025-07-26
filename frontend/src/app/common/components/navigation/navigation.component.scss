@@ -37,7 +37,6 @@
         
         li {
             text-decoration: none;
-            padding: 0 2.5vw;
 
             span:not(.tava-active-route),
             i:not(.tava-active-route) {
@@ -53,7 +52,7 @@
             }
 
             i {
-                width: 40px;
+                width: 35px;
                 aspect-ratio: 1/1;
             }
         }

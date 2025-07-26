@@ -39,7 +39,8 @@ export class AboutComponent implements OnInit, OnDestroy {
             'assets/foto5.jpg',
             'assets/foto1.jpg',
             'assets/foto7.jpg',
-            'assets/foto12.jpg'
+            'assets/foto12.jpg',
+            'assets/foto14.jpg'
         ];
         this.isPreloading = true;
 

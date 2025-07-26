@@ -21,13 +21,7 @@ export const routes: Routes = [
             title: BaseRoute.HOME,
             showInNavbar: true,
             showInFooter: false,
-            icon: 'icon-home icon-base',
-            preloadImages: [
-                'assets/UI/home_profile.webp'
-            ],
-            preloadVideos: [
-                'assets/home-bg-light-trimmed.mp4'
-            ]
+            icon: 'icon-home icon-base'
         }
     },
     {

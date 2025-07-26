@@ -43,9 +43,10 @@ header {
 h1 {
     color: var(--theme-palette-highlight);
     font-size: clamp(25px, 4vw, 55px);
-    font-weight: normal;
+    font-weight: bold;
     margin: sass.$space50 0;
     text-align: center;
+    text-shadow: 1px 1px 2px sass.$color-text-black;
 }
 
 h2 {
@@ -54,11 +55,13 @@ h2 {
     font-weight: normal;
     margin: sass.$space50 0;
     text-align: center;
+    text-shadow: 1px 1px 1px sass.$color-text-black;
 }
 
 .tava-active-route {
     color: var(--theme-palette-contrast)!important;
     font-weight: bold;
+    text-shadow: 1px 1px 5px sass.$color-text-black;
 
     &:hover::after,
     &:after {
@@ -96,47 +99,23 @@ h2 {
     margin: calc(sass.$space5 * 3) 0;
 }
 
-.tava-button-submit {    
-    background-color: sass.$color-ice-white;
-    background-image: none;
-    border: 1px solid sass.$color-grey-light;
+.tava-button-simple {
     border-radius: 10px;
-    box-shadow: sass.$color-grey-light 4px 4px 0 0,#000 4px 4px 0 1px;
-    box-sizing: border-box;
-    color: var(--theme-palette-highlight);
-    cursor: pointer;
-    display: inline-block;
-    font-weight: bold;
-    line-height: 20px;
-    margin: 0 5px 10px 0;
-    overflow: visible;
+    border: 1px outset grey;
+    background-color: var(--theme-button-bg);
+    color: sass.$color-ice-white;
+    display: flex;
+    align-items: center;
     padding: 8px 20px;
-    text-align: center;
-    text-transform: none;
-    touch-action: manipulation;
-    user-select: none;
-    -webkit-user-select: none;
-    vertical-align: middle;
-    white-space: nowrap;
-    text-transform: uppercase;
-
-    &:focus {
-        text-decoration: none;
-    }
+    font-weight: bold;
+    font-size: 16px;
+    text-shadow: 1px 1px 1px sass.$color-text-black;
+    box-shadow: 1px 1px 2px grey;
 
     &:hover {
-        text-decoration: none;
-        color: var(--theme-palette-highlight);
-    }
-
-    &:active {
-        box-shadow: rgba(0, 0, 0, .125) 0 3px 5px inset;
-        outline: 0;
-    }
-
-    &:not([disabled]):active {
-        box-shadow: sass.$color-grey-light 2px 2px 0 0, #000 2px 2px 0 1px;
-        transform: translate(2px, 2px);
+        cursor: pointer;
+        text-shadow: none;
+        box-shadow: 1px 1px 2px var(--theme-palette-contrast);
     }
 }
 
