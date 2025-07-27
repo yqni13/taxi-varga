@@ -149,7 +149,6 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: false
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
@@ -175,11 +174,10 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: true
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 23.5;
+            const expectResult = 26.9;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
@@ -201,7 +199,6 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: false
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
@@ -223,11 +220,10 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: false
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 32.2;
+            const expectResult = 23.7;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
@@ -245,7 +241,6 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: true
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
@@ -267,11 +262,10 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: mockParam_routes.o2d.duration + mockParam_routes.d2o.duration,
                 returnObj: mockParam_returnObj,
                 back2origin: mockParam_back2origin,
-                isRouteV2V: false
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
-            const expectResult = 427.4;
+            const expectResult = 306.3;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
@@ -289,7 +283,6 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
                 servTime: null,
                 returnObj: null,
                 back2origin: false,
-                isRouteV2V: false
             };
 
             const testFn = quickModel._calcServDistCosts(mockParam_routes, mockParam_servCostParams);
@@ -488,6 +481,25 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
                 distance: mockResult[0].distanceMeters,
                 duration: mockResult[0].duration,
                 routeHome: false
+            };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Route (2542to1200), expect: routeHome == true', () => {
+            const mockParam_data = structuredClone(MockData_RouteMatrix['route2542-1200']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route2542-1200']['originDetails']);
+            const mockResult = mockParam_data;
+
+            // Does NOT use quicksort because enters condition (zipCode 254*).
+            const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
+            const api = {};
+            const quickModel = new DrivingQuickModel(api);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_data, mockParam_origin);
+            const expectResult = {
+                distance: mockResult[3].distanceMeters,
+                duration: mockResult[3].duration,
+                routeHome: true
             };
 
             expect(testFn).toMatchObject(expectResult);

@@ -46,9 +46,13 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-        backdrop-filter: brightness(0.3);
         padding: sass.$space15;
         cursor: pointer;
+
+        // Filter blur(0px) necessary to visualize border-radius.
+        // bug: https://stackoverflow.com/questions/36378512/backdrop-filter-extends-beyond-border-radius
+        backdrop-filter: brightness(0.3) blur(0px);
+        border-radius: 5px;
 
         span:nth-child(2) {
             color: sass.$color-ice-white;
@@ -248,5 +252,9 @@
     cursor: default;
     pointer-events: none;
     opacity: 0.2;
+}
+
+.tava-button-simple {
+    text-transform: uppercase;
 }
 /* SERVICE SPECIFIC STYLING --- SERVICE SPECIFIC STYLING */

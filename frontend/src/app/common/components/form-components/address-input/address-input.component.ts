@@ -218,7 +218,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         const alternateAddress = `${name},${zipCode.length > 0 ? ' ' + zipCode : ''} ${province.length > 0 ? province : locality}`;
 
         return {
-            address: types.includes('street_address') ? route : alternateAddress,
+            address: types.includes('street_address') || types.includes('postal_code') ? route : alternateAddress,
             zipCode: zipCode[0] as string,
             province: province[0] as string,
             country: country[0] as string,

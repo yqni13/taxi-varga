@@ -45,7 +45,7 @@ class DrivingQuickModel {
         let returnObj = {};
         if(!params.back2origin) {
             returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(returnObj);
+            returnObj = this._mapShortestReturnLocation(returnObj, params['originDetails']);
         }
 
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
@@ -55,8 +55,8 @@ class DrivingQuickModel {
         }
         const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
         const servDist = params['back2origin'] 
-            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters
-            : routes.o2d.distanceMeters;
+            ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
+            : Number((routes.o2d.distanceMeters).toFixed(1));
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isRouteV2V = this._isRouteWithinVienna(params);
         const servCostParams = {
@@ -64,7 +64,6 @@ class DrivingQuickModel {
             servTime: servTime,
             returnObj: returnObj,
             back2origin: params.back2origin,
-            isRouteV2V: isRouteV2V
         };
 
         // Sum all additional costs.
@@ -138,14 +137,15 @@ class DrivingQuickModel {
         }
 
         servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);
-        if(!servCostParams.isRouteV2V) {
+        if(!servCostParams.back2origin) {
             basicReturnCosts = servCostParams.back2origin
-                ? routes.d2o.distanceMeters * basicReturnPrice
+                ? 0
                 : servCostParams.returnObj.distance * basicReturnPrice;
             occupiedReturnCosts = servCostParams.back2origin
                 ? routes.d2o.duration * occupiedReturnPrice
                 : 0;
         }
+
         totalCosts = basicRate + servCosts + basicReturnCosts + occupiedReturnCosts;
 
         return Number(totalCosts.toFixed(1));
@@ -159,7 +159,17 @@ class DrivingQuickModel {
         }
     }
 
-    _mapShortestReturnLocation = (data) => {
+    _mapShortestReturnLocation = (data, origin) => {
+        // Exception for all locations with zipCode 254*.
+        if(origin && origin.zipCode.includes('254')) {
+            const homeBorder = data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0});
+            return {
+                distance: homeBorder.distanceMeters,
+                duration: homeBorder.duration,
+                routeHome: true
+            }
+        }
+
         data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
 
         return {

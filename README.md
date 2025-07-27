@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.3}}$
+$\texttt{\color{teal}{v1.5.6}}$
 
 
 <br><br>
@@ -90,7 +90,7 @@ All services take input for calculating the offer by addresses, timestamps and c
 
 <div align="center">
     <img src="frontend/public/assets/docs/custom_forms_validation.jpg" alt="404 no picture found">
-    Figure 2
+    Figure 2, v1.0.0-beta
 </div>
 
 <br>
@@ -101,7 +101,7 @@ Data from Google, based on the `RoutesAPI`, `PlacesAPI` and `MapsAPI (Geocode)`,
 
 <div align="center">
     <img src="frontend/public/assets/docs/google_autocomplete.png" alt="&nbsp;no picture found">
-    Figure 3
+    Figure 3, v1.0.0
 </div>
 
 <br>
@@ -110,7 +110,7 @@ Additionally, the service for spontaneous drives offers a feature to use coordin
 
 <div align="center">
     <img src="frontend/public/assets/docs/maps_api.gif" alt="&nbsp;no picture found">
-    Figure 4
+    Figure 4, v1.5.2
 </div>
 
 <br>
@@ -121,7 +121,7 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 
 <div align="center">
     <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
-    Figure 5
+    Figure 5, v1.5.6
 </div>
 
 <br>
@@ -132,7 +132,7 @@ For security reasons, the user automatically starts a service with a background-
 
 <div align="center">
     <img src="frontend/public/assets/docs/session-token_login.jpg" alt="&nbsp;no picture found">
-    Figure 6
+    Figure 6, v1.0.0
 </div>
 
 <br>
@@ -141,7 +141,7 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 
 <div align="center">
     <img src="frontend/public/assets/docs/encrypted_request.jpg" alt="&nbsp;no picture found">
-    Figure 7
+    Figure 7, v1.0.0
 </div>
 
 <br>
@@ -162,7 +162,7 @@ this.assetsPreloadService.preloadAssets({
 
 <div align="center">
     <img src="frontend/public/assets/docs/preload.gif" alt="&nbsp;no picture found">
-    Figure 8
+    Figure 8, v1.2.2
 </div>
 
 <br>
@@ -193,7 +193,7 @@ Preventing an unwanted merge with unfinished/failed test run, the project is set
 
 <div align="center">
     <img src="frontend/public/assets/docs/github-action-jest.jpg" alt="&nbsp;no picture found">
-    Figure 9
+    Figure 9, v1.3.1
 </div>
 
 <br>
@@ -233,9 +233,11 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.2\ >>\ {\color{pink}1.5.3}}$
+### $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
 
-- $\textsf{\color{red}Patch:}$ Updated validation on service 'airport' to refuse addresses without zipcode.
+- $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.
+- $\textsf{\color{red}Bugfix:}$ Searching for golf courses within service 'golf' results in listing all existing establishments. [Before: Searching for certain golf courses resulted in missing entries because some golf courses have primary type "hotel" which was not filtered for.]
+- $\textsf{\color{red}Patch:}$ Updated return calculation on service 'quick'.
 
 <br>
 
