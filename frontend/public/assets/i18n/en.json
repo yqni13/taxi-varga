@@ -19,16 +19,19 @@
         "navigation": {
             "about": "About",
             "home": "Home",
+            "quick": "Quick",
             "samples": "Samples",
             "service": "Service"
         },
         "validation": {
             "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+            "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
             "datetime-end-invalid-negative": "Time of return can not be before pickup.",
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "empty-address-select": "Field must contain an address selected from list of options.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
+            "missing-zipcode": "Zipcode is required on address.",
             "required": "Field \"{{fieldName}}\" is required.",
             "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
             "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
@@ -44,8 +47,8 @@
                     "backend-auth-email": "Email service not available. Please try again later or contact support.",
                     "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                     "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                    "backend-invalid-entry": "The input for the record \"{{ENV}}\" is incorrect. Please check your input.",
                     "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
-                    "backend-invalid-language": "The selected language can not be processed. Please check your input.",
                     "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                     "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
                     "backend-invalid-pickupTIME": "The selected pickup time is invalid. Please check your input.",
@@ -53,7 +56,6 @@
                     "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
                     "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                     "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
-                    "backend-invalid-supportmode": "The selected additional service could not be found. Please check your input.",
                     "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
                     "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
                     "backend-jwt-expiration": "The session expired after 30 minutes.",
@@ -79,7 +81,7 @@
         "about": {
             "business": {
                 "primary": "The focus is on classic tariff rides in cooperation with the 40100 dispatch service in Vienna. Transport of pets, foldable wheelchairs, strollers, golf bags, and other bulky cargo possible as well.",
-                "secondary": "In addition, I take on package trips from/to Lower Austria against advance order, especially inexpensive between Leobersdorf and Vienna, but also between BN/WB/WN and W/WU/SW. Alternatively, round trips can also be taken on the basis of timed rentals. Furthermore, I also offer golf day trips to all golf clubs in Vienna and Lower Austria (GC in other provinces or abroad on request). On request, including accompaniment on the round of golf at a fair flat rate."
+                "secondary": "In addition, I take on package trips in/from/to Lower Austria against advance order, especially inexpensive between Leobersdorf and Vienna, but also between BN/WB/WN and W/WU/SW. Alternatively, round trips can also be taken on the basis of timed rentals. Furthermore, I also offer golf day trips to all golf clubs in Vienna and Lower Austria (GC in other provinces or abroad on request). On request, including accompaniment on the round of golf at a fair flat rate.\nOptionally for preorders, beginners or registered callers can arrange spontaneous trips on package prices if available."
             },
             "private": {
                 "first": "In the first 21 years after graduating from school, I worked as an engineer both domestically and abroad.",
@@ -211,10 +213,12 @@
                         "origin": "Pickup address",
                         "passengers": "Number of passengers",
                         "return": "Return address",
+                        "returnTarget": "Code",
                         "stay": "Stay",
                         "tenancy": "Tenancy"
                     },
                     "order": {
+                        "call": "Check availability",
                         "contact": "Contact",
                         "date-dropoff": "Date of service ending",
                         "date-pickup": "Date of pick-up",
@@ -224,6 +228,7 @@
                         "hint-greenfee": "without greenfee",
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
+                        "latency-quick": "Waiting times: First 5 minutes are included. From the 6th minute 0,50 EUR / minute are charged.",
                         "licence": "The transport price meets the requirements of the valid, licensed Viennese taxi fare.",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
@@ -276,6 +281,32 @@
                         "title": "Golf day trip"
                     },
                     "title": "Golf trip - route details"
+                },
+                "quick": {
+                    "info": {
+                        "call": "Call",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
+                        "title": "Please note that"
+                    },
+                    "labels": {
+                        "back2origin": "I want to return to my pickup address.",
+                        "destination": "Return address",
+                        "gps": "I want to use my location for the pickup address.",
+                        "latency": "My required time between arrival and return.",
+                        "origin": "Pickup address",
+                        "pickupTIME": "Time of pickup"
+                    },
+                    "option": {
+                        "gpsSupport": "Location detection via Geolocation is NOT available at the moment or NOT supported by your browser.",
+                        "title": "Spontaneous drive"
+                    },
+                    "snackbar-info": {
+                        "geolocation": {
+                            "text": "The location is determined by means of a GPS module or Internet access. Disable any software that changes the location (e.g.: Tor browser, VPN, etc.). If your internet browser does NOT support location detection, we recommend using 'Google Chrome'.",
+                            "title": "Location detection"
+                        }
+                    },
+                    "title": "Spontaneous drive to hitchhike - route details"
                 }
             }
         }

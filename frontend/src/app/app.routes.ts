@@ -23,10 +23,15 @@ export const routes: Routes = [
             showInFooter: false,
             icon: 'icon-home icon-base',
             preloadImages: [
-                'assets/UI/home_profile.webp'
-            ],
-            preloadVideos: [
-                'assets/home-bg-light-trimmed.mp4'
+                'assets/home/home-main-dark.webp',
+                'assets/home/home-main-light.webp',
+                'assets/home/home-sub-dark.webp',
+                'assets/home/home-sub-light.webp',
+                '/assets/service/service-airport.webp',
+                '/assets/service/service-destination.webp',
+                '/assets/service/service-golf.webp',
+                '/assets/service/service-flatrate.webp',
+                '/assets/service/service-quick.webp',
             ]
         }
     },

@@ -1,43 +1,33 @@
-const { ServiceOption } = require('./enums/service-option.enum');
-const { LanguageOption } = require('./enums/lang-option.enum');
 const Utils = require('../utils/common.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { InvalidPropertiesException } = require('../utils/exceptions/validation.exception');
 const Secrets = require('./secrets.utils');
-const { SupportModeOption } = require('./enums/supportmode-option.enum');
 const { ErrorCodes } = require('./errorCodes.utils');
+const { ServiceOption } = require('./enums/service-option.enum');
 
-exports.validateServiceOption = (value) => {
-    const options = Object.values(ServiceOption);
-    if(!options.includes(value)) {
-        throw new Error('backend-service-option');
+exports.validateEnum = (value, enumObj, enumName) => {
+    const enumValues = Object.values(enumObj);
+    if(!enumValues.includes(value)) {
+        throw new Error(`backend-invalid-entry#${enumName}`);
     }
-    return true;
-}
-
-exports.validateLanguageCompatible = (language) => {
-    const options = Object.values(LanguageOption);
-    if(!options.includes(language)) {
-        throw new Error('backend-invalid-language');
-    }
-
     return true;
 }
 
 exports.validateDestinationServiceAddress = (address, addressDetails, compareDetails) => {
     this.validatePlaceDetails(address, addressDetails)
-    const location = ['Wien', 'Vienna'];
-    if(location.includes(addressDetails.province) && location.includes(compareDetails.province)) {
+    if(Utils.checkAddressInViennaByProvince(addressDetails.province)
+    && Utils.checkAddressInViennaByProvince(compareDetails.province)) {
         throw new Error('backend-destination-vienna');
     }
+
     return true;
 }
 
 exports.validateServiceRouteVIE = (req) => {
     const originZip = req.body.originDetails.zipCode;
     const destinZip = req.body.destinationDetails.zipCode;
-    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInVienna(destinZip))
-    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInVienna(originZip))) {
+    if((Utils.checkAddressAtViennaAirport(originZip) && Utils.checkAddressInViennaByZipCode(destinZip))
+    || (Utils.checkAddressAtViennaAirport(destinZip) && Utils.checkAddressInViennaByZipCode(originZip))) {
         throw new Error('navigate-destination-airport/service');
     }
 
@@ -55,7 +45,7 @@ exports.validateAirportServiceAddress = (details, address) => {
         throw new Error('backend-missing-zipCode');
     }
 
-    if(!Utils.checkAddressInVienna(details.zipCode)) {
+    if(!Utils.checkAddressInViennaByZipCode(details.zipCode)) {
         throw new Error('airport-invalid-place');
     }
 
@@ -63,7 +53,10 @@ exports.validateAirportServiceAddress = (details, address) => {
 }
 
 exports.validatePlaceDetails = (address, details) => {
-    if(details === null || details === undefined || details.address !== Utils.formatRequestStringNoPlus(address)) {
+    // Address with '+' char comes with '#&&#' instead to hide before '+'-swap for empty spaces.
+    let modifiedAddress = Utils.formatRequestStringNoPlus(address);
+    modifiedAddress = modifiedAddress.replaceAll('#&&#', '+');
+    if(details === null || details === undefined || details.address !== modifiedAddress) {
         throw new Error('address-invalid-place');
     }
 
@@ -74,15 +67,6 @@ exports.validateEncryptedSender = (encryptedSender) => {
     const decryptedSender = decryptRSA(encryptedSender, Secrets.PRIVATE_KEY);
     if(!decryptedSender.match(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
         throw new InvalidPropertiesException('backend-invalid-email');
-    }
-
-    return true;
-}
-
-exports.validateGolfSupportMode = (supportMode) => {
-    const options = Object.values(SupportModeOption);
-    if(!options.includes(supportMode)) {
-        throw new Error('backend-invalid-supportmode');
     }
 
     return true;

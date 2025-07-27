@@ -46,9 +46,13 @@
         display: flex;
         flex-direction: column;
         text-align: center;
-        backdrop-filter: brightness(0.3);
         padding: sass.$space15;
         cursor: pointer;
+
+        // Filter blur(0px) necessary to visualize border-radius.
+        // bug: https://stackoverflow.com/questions/36378512/backdrop-filter-extends-beyond-border-radius
+        backdrop-filter: brightness(0.3) blur(0px);
+        border-radius: 5px;
 
         span:nth-child(2) {
             color: sass.$color-ice-white;
@@ -92,15 +96,27 @@
     flex-direction: column;
     align-items: center;
 
+    .tava-service-form {
+        background-color: var(--theme-form-bg);
+    }
+
     span {
         font-size: clamp(12px, 1.6vw, 18px);
+        color: sass.$color-ice-white;
     }
 }
 
 .tava-service-block-label {
-    color: sass.$color-grey-label;
+    color: sass.$color-grey-label!important;
     text-shadow: 0.6px 0.6px;
     margin-bottom: sass.$space5;
+}
+
+.tava-custom-input-checkbox input[type="checkbox"] {
+    border: 2px solid sass.$color-ice-white;
+}
+.tava-custom-input-radio input[type="radio"] {
+    border: 2px solid sass.$color-ice-white;
 }
 
 .tava-text-input-checkbox {
@@ -146,12 +162,12 @@
         width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
-        border: 1px outset var(--theme-snackbar-info);
+        border: 1px outset var(--theme-snackbar-warning);
         border-radius: sass.$space15;
         padding: sass.$space15;
         font-style: italic;
-        color: var(--theme-snackbar-info);
         span {
+            color: var(--theme-snackbar-warning)!important;
             opacity: var(--warning-opacity);
             text-shadow: 1px 1px 5px var(--warning-shadow);
             margin: calc(sass.$space5 / 2);
@@ -236,5 +252,9 @@
     cursor: default;
     pointer-events: none;
     opacity: 0.2;
+}
+
+.tava-button-simple {
+    text-transform: uppercase;
 }
 /* SERVICE SPECIFIC STYLING --- SERVICE SPECIFIC STYLING */

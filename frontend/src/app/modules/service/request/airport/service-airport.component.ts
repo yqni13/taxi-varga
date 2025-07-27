@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
-import { filter, tap } from "rxjs";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
+import { filter, Subscription, tap } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
 import { DOCUMENT } from "@angular/common";
@@ -20,6 +20,7 @@ import { MailTranslateService } from "../../../../shared/services/mail-translate
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-airport',
@@ -34,9 +35,11 @@ import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
         ...ServiceImportsModule
     ]
 })
-export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
+export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected directionOptions = AirportOptions;
+
+    private addressSubscription$: Subscription | undefined;
 
     constructor(
         router: Router,
@@ -56,6 +59,8 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         drivingAPIService: DrivingAPIService,
     ) {
         super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
+
+        this.addressSubscription$ = new Subscription();
     }
 
     override async ngOnInit() {
@@ -91,7 +96,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService)
+                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
                 ])
             ]),
             pickupDATE: new FormControl(''),
@@ -125,24 +130,53 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
          * even property binding [value]="..." can result "on" (default radio value)
          * radio select changes FormControl val => (change) triggers process
          */
-        this.configAddressFields(this.serviceForm.get('airportMode')?.value);
+        this.transformAddressFields(this.serviceForm.get('airportMode')?.value);
     }
 
-    configAddressFields(direction: AirportOptions) {
+    private transformAddressFields(direction: AirportOptions) {
         if(direction === AirportOptions.ARRIVAL) {
+            // Hidden part.
             this.serviceForm.get('originAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
             this.serviceForm.get('originAddress')?.updateValueAndValidity();
-            this.serviceForm.get('destinationAddress')?.setValue('');
+            this.serviceForm.get('originDetails')?.clearValidators();
+            this.serviceForm.get('originDetails')?.setValue(null);
+            this.serviceForm.get('originDetails')?.updateValueAndValidity();
+            // Visual part.
+            this.addressSubscription$ = new Subscription();
+            this.serviceForm.get('destinationAddress')?.clearValidators();
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
+            this.serviceForm.get('destinationAddress')?.setValue('');
+            this.serviceForm.get('destinationAddress')?.markAsPristine();
             this.serviceForm.get('destinationAddress')?.markAsUntouched();
+            // Prevent afresh trigger of valueChanges via emitEvent: false.
+            this.serviceForm.get('destinationAddress')?.updateValueAndValidity({ onlySelf: true, emitEvent: false});
+            this.addressSubscription$ = this.serviceForm.get('destinationDetails')?.valueChanges.subscribe((value) => {
+                if(value && !value.zipCode) {
+                    this.serviceForm.get('destinationAddress')?.setErrors({missingZipcode: true})
+                }
+            })
         } else if(direction === AirportOptions.DEPARTURE) {
+            // Hidden part.
             this.serviceForm.get('destinationAddress')?.setValue('vie-schwechat');
             this.serviceForm.get('destinationAddress')?.setValidators(Validators.required);
             this.serviceForm.get('destinationAddress')?.updateValueAndValidity();
-            this.serviceForm.get('originAddress')?.setValue('');
+            this.serviceForm.get('destinationDetails')?.setValue(null);
+            this.serviceForm.get('destinationDetails')?.clearValidators();
+            // Visual part.
+            this.addressSubscription$ = new Subscription();
+            this.serviceForm.get('originAddress')?.clearValidators();
             this.serviceForm.get('originAddress')?.setValidators(Validators.required);
+            this.serviceForm.get('originAddress')?.setValue('');
+            this.serviceForm.get('originAddress')?.markAsPristine();
             this.serviceForm.get('originAddress')?.markAsUntouched();
+            // Prevent afresh trigger of valueChanges via emitEvent: false.
+            this.serviceForm.get('originAddress')?.updateValueAndValidity({ onlySelf: true, emitEvent: false}); 
+            this.addressSubscription$ = this.serviceForm.get('originDetails')?.valueChanges.subscribe((value) => {
+                if(value && !value.zipCode) {
+                    this.serviceForm.get('originAddress')?.setErrors({missingZipcode: true});
+                }
+            })
         }
     }
 
@@ -177,5 +211,10 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             this.serviceForm.get('pickupTIME')?.value,
             this.translate.currentLang
         );
+    }
+
+    override ngOnDestroy() {
+        super.ngOnDestroy();
+        this.addressSubscription$?.unsubscribe();
     }
 }

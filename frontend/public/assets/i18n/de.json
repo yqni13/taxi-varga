@@ -19,16 +19,19 @@
         "navigation": {
             "about": "Profil",
             "home": "Startseite",
+            "quick": "Quick",
             "samples": "Beispiele",
             "service": "Beförderungsangebot"
         },
         "validation": {
             "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+            "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
             "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
+            "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
             "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
             "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
@@ -44,8 +47,8 @@
                     "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
                     "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
+                    "backend-invalid-entry": "Die Eingabe für den Datensatz \"{{ENV}}\" ist fehlerhaft. Bitte überprüfen Sie Ihre Eingabe.",
                     "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-language": "Die gewählte Sprache kann nicht verarbeitet werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-invalid-pickupTIME": "Die gewählte Abholzeit ist ungültig. Bitte kontrollieren Sie Ihre Angaben.",
@@ -53,7 +56,6 @@
                     "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
                     "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-supportmode": "Der gewählte Zusatz-Service konnte nicht gefunden werden. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
@@ -79,7 +81,7 @@
         "about": {
             "business": {
                 "primary": "Im Fokus stehen klassische Tarif-Fahrten in Kooperation mit dem Vermittlungsdienst 40100 in Wien. Mitnahme von Haustieren, klappbaren Rollstühlen oder Kinderwägen, Golftaschen und sonstigem sperrigen Ladegut möglich.",
-                "secondary": "Zusätzlich übernehme ich gegen Vorbestellung Pauschalfahrten von/nach Niederösterreich, besonders preisgünstig zwischen Leobersdorf und Wien, aber auch zwischen BN/WB/WN und W/WU/SW. Alternativ können Rundfahrten auch auf Basis von Zeitmieten in Anspruch genommen werden. Des Weiteren biete ich auch Golf-Tagesreisen zu allen Golfclubs in Wien und Niederösterreich (GC in anderen Bundesländern oder im Ausland auf Anfrage) an. Auf Wunsch inklusive Begleitung auf der Golfrunde zum fairen Pauschalpreis."
+                "secondary": "Zusätzlich übernehme ich gegen Vorbestellung Pauschalfahrten in/von/nach Niederösterreich, besonders preisgünstig zwischen Leobersdorf und Wien, aber auch zwischen BN/WB/WN und W/WU/SW. Alternativ können Rundfahrten auch auf Basis von Zeitmieten in Anspruch genommen werden. Des Weiteren biete ich auch Golf-Tagesreisen zu allen Golfclubs in Wien und Niederösterreich (GC in anderen Bundesländern oder im Ausland auf Anfrage) an. Auf Wunsch inklusive Begleitung auf der Golfrunde zum fairen Pauschalpreis.\nOptional zu Vorbestellungen können Einsteiger oder registrierte Anrufer bei freier Verfügbarkeit Spontanfahrten zu Pauschalpreisen vereinbaren."
             },
             "private": {
                 "first": "In den ersten 21 Jahren nach meinem Schulabschluss war ich als Ingenieur im In- und Ausland berufstätig.",
@@ -89,21 +91,6 @@
             },
             "title": "Über mich und mein Unternehmen"
         },
-        "home": {
-            "content": {
-                "entry0": "Reisebeginn täglich: 04:00 - 12:00 (außerhalb dieses Zeitraumes auf Anfrage)",
-                "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
-                "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
-                "entry3": "Beförderung: max 4 Personen mit Gepäck, max 3 Personen mit Golf-Equipment, max 2 Personen mit Gepäck und Golf-Equipment",
-                "entry4": "Pauschalpreise können abhängig von der Abfragezeit variieren, weil die Berechnung mit der zur Abfragezeit aktuellen Verkehrslage verknüpft ist.",
-                "entry5": "Alle gängigen Zahlungsmittel akzeptiert"
-            },
-            "highlights": {
-                "ev": " unterwegs mit Skoda Enyaq iV 80 seit 2020",
-                "start": "Beförderungstätigkeit seit 1999",
-                "zero-emission": "Emissionsfrei"
-            }
-        },
         "imprint": {
             "title": "Impressum"
         },
@@ -111,7 +98,7 @@
             "title": "Datenschutz"
         },
         "samples": {
-            "title": "Pauschalfahrt Beispiele"
+            "title": "Pauschalfahrten - Beispiele"
         },
         "service": {
             "commands": {
@@ -211,10 +198,12 @@
                         "origin": "Abholadresse",
                         "passengers": "Anzahl Mitreisender",
                         "return": "Rückfahradresse",
+                        "returnTarget": "Code",
                         "stay": "Aufenthalt",
                         "tenancy": "Mietdauer"
                     },
                     "order": {
+                        "call": "Erreichbarkeit prüfen",
                         "contact": "Kontakt",
                         "date-dropoff": "Datum des Auftragsendes",
                         "date-pickup": "Datum der Abholung",
@@ -224,6 +213,7 @@
                         "hint-greenfee": "ohne Greenfee",
                         "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
+                        "latency-quick": "Wartezeiten: Die ersten 5 Minuten sind im Preis inkludiert. Ab der 6ten Minute werden 0,50 EUR / Minute verrechnet.",
                         "licence": "Der Beförderungspreis erfüllt die Vorgaben des gültigen, lizenzierten Wiener Taxitarif.",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
@@ -276,6 +266,32 @@
                         "title": "Golf-Tagesreise"
                     },
                     "title": "Golfreise - Routendetails"
+                },
+                "quick": {
+                    "info": {
+                        "call": "Anrufen",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
+                        "title": "Bitte beachten Sie"
+                    },
+                    "labels": {
+                        "back2origin": "Ich möchte zur Abholadresse zurückkehren.",
+                        "destination": "Rückkehradresse",
+                        "gps": "Ich möchte meinen Standort für die Abholadresse verwenden.",
+                        "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
+                        "origin": "Abholadresse",
+                        "pickupTIME": "Uhrzeit der Abfahrt"
+                    },
+                    "option": {
+                        "gpsSupport": "Die Standortermittlung via Geolocation ist aktuell NICHT verfügbar oder NICHT vom Browser unterstützt.",
+                        "title": "Spontanfahrt"
+                    },
+                    "snackbar-info": {
+                        "geolocation": {
+                            "text": "Der Standort wird mittels GPS-Modul oder Internet-Zugang ermittelt. Deaktivieren Sie jegliche Software zur Veränderung des Standortes (z.B.: Tor-Browser, VPN, etc.). Sollte Ihr Internet-Browser die Standortermittlung NICHT unterstützen, empfehlen wir die Verwendung von 'Google Chrome'.",
+                            "title": "Standortermittlung"
+                        }
+                    },
+                    "title": "Spontanfahrt für Einsteiger - Routendetails"
                 }
             }
         }

@@ -7,12 +7,14 @@ const {
     drivingAirportSchema,
     drivingDestinationSchema,
     drivingFlatrateSchema,
-    drivingGolfSchema
+    drivingGolfSchema,
+    drivingQuickSchema
 } = require('../middleware/validators/drivingValidator.middleware');
 
 router.post('/airport', auth(), drivingAirportSchema, awaitHandlerFactory(drivingController.calcDrivingAirport));
 router.post('/destination', auth(), drivingDestinationSchema, awaitHandlerFactory(drivingController.calcDrivingDestination));
 router.post('/flatrate', auth(), drivingFlatrateSchema, awaitHandlerFactory(drivingController.calcDrivingFlatrate));
 router.post('/golf', auth(), drivingGolfSchema, awaitHandlerFactory(drivingController.calcDrivingGolf));
+router.post('/quick', auth(), drivingQuickSchema, awaitHandlerFactory(drivingController.calcDrivingQuick));
 
 module.exports = router;

@@ -22,12 +22,16 @@ footer {
         font-size: sass.$footer-h3-size;
         font-weight: bold;
         color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 5px sass.$color-text-black;
     }
 
     .icon-copyright {
         position: relative;
-        width: 20px;
-        height: 20px;
+        width: 1.3vw;
+        min-width: 13px;
+        min-height: 13px;
+        max-width: 18px;
+        max-height: 18px;
         margin-right: sass.$space5;
         top:5px;
     }
@@ -36,6 +40,7 @@ footer {
         span,
         a {
             font-size: sass.$footer-copyright-size;
+            font-weight: bold;
         }
     }
 }
@@ -66,6 +71,7 @@ footer {
                 cursor: pointer;
                 color: var(--theme-palette-highlight);
                 font-size: sass.$footer-text-size;
+                font-weight: bold;
             }
         }
 
@@ -126,7 +132,7 @@ footer {
         bottom: -5px;
         left: -5px;
         border: solid 2px var(--theme-palette-highlight);
-        border-radius: 5px;
+        border-radius: 15px;
         padding: 15px 0;
         background-color: transparent;
         box-shadow: 0 4px 30px rbga(0, 0, 0, 0.1);

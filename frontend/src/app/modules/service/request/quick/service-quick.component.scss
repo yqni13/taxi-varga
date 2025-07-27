@@ -1,0 +1,77 @@
+@use '../../../../../stylesheets/utilities' as sass;
+
+
+#form-geolocation {
+    margin-top: sass.$space25;
+}
+
+#form-maps {
+    iframe {
+        width: 100%;
+        height: 33vh;
+    }
+}
+
+#gps-invalid span {
+    color: var(--theme-snackbar-warning)!important;
+    font-weight: bold;
+}
+
+.form-time-input,
+#form-geolocation,
+#form-checkbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.form-time-input span {
+    align-self: start;
+    margin-top: 9px;
+}
+
+#form-origin {
+    margin-top: sass.$space25;
+}
+
+#form-origin-by-geolocation {
+    color: var(--theme-palette-highlight);
+    margin-bottom: sass.$space15;
+}
+
+.tava-service-specific-content-sum-offer {
+    margin-bottom: sass.$space50;
+}
+
+#tava-service-offer-call a {
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--theme-palette-secondary);
+    font-weight: bold;
+    margin-left: sass.$space5;
+    padding: calc(sass.$space5 * 2);
+    border: 1px outset var(--theme-palette-secondary);
+    border-radius: calc(sass.$space5 * 2);
+    &:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
+}
+
+#tava-service-offer-price {
+    margin: calc(sass.$space5 * 2) 0 0 0!important;
+    span {
+        margin-left: sass.$space5 * 2;
+    }
+}
+
+.tava-button-info {
+    margin-left: sass.$space5;
+    .icon-info {
+        color: var(--theme-snackbar-info);
+        &:hover {
+            cursor: pointer;
+            opacity: 0.6;
+        }
+    }
+}

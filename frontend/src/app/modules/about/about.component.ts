@@ -28,9 +28,16 @@ export class AboutComponent implements OnInit, OnDestroy {
 
     constructor(
         private readonly observation: ObservationService,
-        private readonly assetPreload: AssetsPreloadService
+        private readonly assetsPreloadService: AssetsPreloadService
     ) {
         this.selectedBg = '';
+        this.images = [];
+        this.isPreloading = true;
+
+        this.subscriptionObservation$ = new Subscription();
+    }
+
+    ngOnInit() {
         this.images = [
             'assets/foto4.jpg',
             'assets/foto3.jpg',
@@ -39,15 +46,10 @@ export class AboutComponent implements OnInit, OnDestroy {
             'assets/foto5.jpg',
             'assets/foto1.jpg',
             'assets/foto7.jpg',
-            'assets/foto12.jpg'
+            'assets/foto12.jpg',
+            'assets/foto14.jpg'
         ];
-        this.isPreloading = true;
-
-        this.subscriptionObservation$ = new Subscription();
-    }
-
-    ngOnInit() {
-        this.assetPreload.preloadAssets({images: this.images}).finally(() => {
+        this.assetsPreloadService.preloadAssets({images: this.images}).finally(() => {
             this.isPreloading = false;
         });
         

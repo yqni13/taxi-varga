@@ -1,16 +1,16 @@
 const DrivingGolfModel = require('../../../../src/models/driving/golf.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const { SupportModeOption } = require('../../../../src/utils/enums/supportmode-option.enum');
-const MockData_requestRouteMatrix = require('../../../mock-data/requestRouteMatrix.mock.json')['service-golf'];
+const MockData_RouteMatrix = require('../../../mock-data/routeMatrix_golf.mock.json');
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
     describe('Testing valid fn calls', () => {
 
         test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = none', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2542-2551-2542']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
             mockParam_params['supportMode'] = SupportModeOption.NONE;
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2542-2551-2542']['apiResult']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
@@ -22,9 +22,9 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         })
 
         test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = caddy', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2542-2551-2542']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
             mockParam_params['supportMode'] = SupportModeOption.CADDY;
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2542-2551-2542']['apiResult']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
@@ -36,9 +36,9 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         })
 
         test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = none', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = SupportModeOption.NONE;
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']['apiResult']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
@@ -50,9 +50,9 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         })
 
         test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = player', async () => {
-            const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = SupportModeOption.PLAYER;
-            const mockResult = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']['apiResult']);
+            const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
@@ -88,7 +88,7 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow20Km', () => {
     describe('Testing valid fn calls, priority: service distance', () => {
 
         test('Route (2542to2551to2542), params: <distance> < 20', () => {
-            const mockParam_response = structuredClone(MockData_requestRouteMatrix['route2542-2551-2542']['apiResult']);
+            const mockParam_response = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2g: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -103,7 +103,7 @@ describe('Flatrate tests, priority: _addChargeServiceDistanceBelow20Km', () => {
         })
 
         test('Route (2340to2013to2340), params: <distance> > 20', () => {
-            const mockParam_response = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']['apiResult']);
+            const mockParam_response = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockParam_routes = {
                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
                 o2g: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),

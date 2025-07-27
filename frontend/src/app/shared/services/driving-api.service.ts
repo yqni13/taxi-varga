@@ -7,36 +7,45 @@ import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { Observable } from "rxjs";
 import { DateTimeService } from './datetime.service';
 import { UtilsService } from './utils.service';
+import { ServiceOptions } from '../enums/service-options.enum';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DrivingAPIService {
+    
+    private domainPathV1: string;
 
     private urlAirport: string;
     private urlDestination: string;
     private urlFlatrate: string;
     private urlGolf: string;
+    private urlQuick: string;
 
     private dataAirport: DrivingRequest.DrivingAirportRequest;
     private dataDestination: DrivingRequest.DrivingDestinationRequest;
     private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
     private dataGolf: any;
+    private dataQuick: DrivingRequest.DrivingQuickRequest;
 
     constructor(
         private readonly http: HttpClient,
         private readonly utils: UtilsService,
         private readonly datetimeService: DateTimeService
     ) {
-        // this.urlAirport = '/api/v1/driving/airport';
-        // this.urlDestination = '/api/v1/driving/destination';
-        // this.urlFlatrate = '/api/v1/driving/flatrate';
-        // this.urlGolf = '/api/v1/driving/golf';
-        this.urlAirport = environment.API_BASE_URL + '/api/v1/driving/airport'
-        this.urlDestination = environment.API_BASE_URL + '/api/v1/driving/destination'
-        this.urlFlatrate = environment.API_BASE_URL + '/api/v1/driving/flatrate'
-        this.urlGolf = environment.API_BASE_URL + '/api/v1/driving/golf';
+        this.domainPathV1 = '/api/v1/driving';
+
+        // this.urlAirport = `${this.domainPathV1}/${ServiceOptions.AIRPORT}`;
+        // this.urlDestination = `${this.domainPathV1}/${ServiceOptions.DESTINATION}`;
+        // this.urlFlatrate = `${this.domainPathV1}/${ServiceOptions.FLATRATE}`;
+        // this.urlGolf = `${this.domainPathV1}/${ServiceOptions.GOLF}`;
+        // this.urlQuick = `${this.domainPathV1}/${ServiceOptions.QUICK}`;
+        this.urlAirport = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.AIRPORT}`;
+        this.urlDestination = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.DESTINATION}`;
+        this.urlFlatrate = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.FLATRATE}`;
+        this.urlGolf = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.GOLF}`;
+        this.urlQuick = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.QUICK}`;
 
         this.dataAirport = {
             origin: '',
@@ -69,6 +78,15 @@ export class DrivingAPIService {
             destinationDetails: null,
             stay: 0,
             supportMode: null
+        };
+        this.dataQuick = {
+            origin: '',
+            originDetails: null,
+            destination: '',
+            destinationDetails: null,
+            latency: 0,
+            back2origin: false,
+            pickupTIME: '00:00',
         }
     }
 
@@ -125,6 +143,18 @@ export class DrivingAPIService {
         };
     }
 
+    setDataQuick(data: any, originByGeocode: boolean) {
+        this.dataQuick = {
+            origin: this.utils.configAPIAddressString(originByGeocode ? data.originAddressByGeocode : data.originAddress),
+            originDetails: originByGeocode ? data.originDetailsByGeocode : data.originDetails,
+            destination: this.utils.configAPIAddressString(data.destinationAddress),
+            destinationDetails: data.destinationDetails,
+            latency: this.datetimeService.getTimeInTotalMinutes(data.latency),
+            back2origin: data.back2origin,
+            pickupTIME: data.pickupTIME
+        }
+    }
+
     sendAirportRequest(): Observable<HttpResponse<DrivingResponse.DrivingAirportResponse>> {
         return this.http.post<DrivingResponse.DrivingAirportResponse>(this.urlAirport, this.dataAirport, { observe: 'response' });
     }
@@ -139,5 +169,9 @@ export class DrivingAPIService {
 
     sendGolfRequest(): Observable<HttpResponse<DrivingResponse.DrivingGolfResponse>> {
         return this.http.post<DrivingResponse.DrivingGolfResponse>(this.urlGolf, this.dataGolf, { observe: 'response' });
+    }
+
+    sendQuickRequest(): Observable<HttpResponse<DrivingResponse.DrivingQuickResponse>> {
+        return this.http.post<DrivingResponse.DrivingQuickResponse>(this.urlQuick, this.dataQuick, { observe: 'response' });
     }
 }

@@ -18,7 +18,7 @@ jest.mock('../../src/models/driving/golf.driving.model.js', () => {
 const app = require('../../src/app.js');
 const request = require('supertest');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
-const MockData_requestRouteMatrix = require('../mock-data/requestRouteMatrix.mock.json')['service-golf'];
+const MockData_RouteMatrix = require('../mock-data/routeMatrix_golf.mock.json');
 
 describe('Integration test, service flow: Golf', () => {
 
@@ -30,10 +30,10 @@ describe('Integration test, service flow: Golf', () => {
         jest.clearAllMocks();
     })
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         test('Workflow: calc by route (2340to2013to2340)', async () => {
-            const mockParam_params_driving = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+            const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);
@@ -43,7 +43,7 @@ describe('Integration test, service flow: Golf', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         describe('Priority: express-validators', () => {
 
@@ -60,7 +60,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <origin>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'origin';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -74,7 +74,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <golfcourse>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'golfcourse';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -88,7 +88,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <destination>, validator: notEmpty by undefined', async () => {
                 const invalidParam = 'destination';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
                 mockError['path'] = invalidParam;
@@ -102,7 +102,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <stay>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'stay';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
                 // no 'value' in error object by exists() instead trim() + notEmpty()
@@ -118,7 +118,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <stay>, validator: isInt({max: 4320})', async () => {
                 const invalidParam = 'stay';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 mockParam_params[`${invalidParam}`] = 4321;
 
                 mockError['msg'] = 'backend-invalid-stay';
@@ -134,7 +134,7 @@ describe('Integration test, service flow: Golf', () => {
 
             test('Params: <supportMode>, validator: exists({values: "null"})', async () => {
                 const invalidParam = 'supportMode';
-                const mockParam_params = structuredClone(MockData_requestRouteMatrix['route2340-2013-2340']);
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
                 // no 'value' in error object by exists() instead trim() + notEmpty()

@@ -3,12 +3,15 @@ const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const GeoLocation_ViennaBorder_data = require('./vienna-border.locations.json');
 
 class GoogleRoutesAPI {
     #env_GOOGLE_API_KEY;
+    #env_HOME_ADDRESS;
 
     constructor() {
         this.#env_GOOGLE_API_KEY = Secrets.GOOGLE_API_KEY;
+        this.#env_HOME_ADDRESS = Secrets.HOME_ADDRESS;
     }
 
     getRoutesHeader() {
@@ -42,7 +45,7 @@ class GoogleRoutesAPI {
                 result = response.data;
             })
             .catch(error => {
-                console.log('google error: ', error.message);
+                console.log("google error: ", error.message);
                 result = error.message;
             })
 
@@ -62,7 +65,7 @@ class GoogleRoutesAPI {
             "origins": [
                 {
                     "waypoint": {
-                        "address": Secrets.HOME_ADDRESS
+                        "address": this.#env_HOME_ADDRESS
                     }
                 },
                 {
@@ -94,12 +97,12 @@ class GoogleRoutesAPI {
                 },
                 {
                     "waypoint": {
-                        "address": Secrets.HOME_ADDRESS
+                        "address": this.#env_HOME_ADDRESS
                     }
                 }
             ],
             "travelMode": "DRIVE",
-            "routingPreference": "TRAFFIC_AWARE_OPTIMAL",
+            "routingPreference":"TRAFFIC_AWARE_OPTIMAL"
         }
 
         let result;
@@ -108,14 +111,61 @@ class GoogleRoutesAPI {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
             .catch(error => {
-                console.log('google request error: ', error.message);
+                console.log("google request error: ", error.message);
                 return error;
             })
 
         result.forEach((entry) => {
-            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration);
-            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters);
+            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration ?? 0);
+            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters ?? 0);
         });
+        return result;
+    }
+
+    requestBorderRouteMatrix = async (params) => {
+        const destination = params['destinationDetails']['placeId'];
+        const headers = this.getRoutesHeader()
+        const url = this.getRoutesURL();
+
+        const payload = {
+            "origins": [
+                {
+                    "waypoint": {
+                        "placeId": destination
+                    }
+                }
+            ],
+            "destinations": [
+                {
+                    "waypoint": {
+                        "address": this.#env_HOME_ADDRESS
+                    }
+                }
+            ],
+            "travelMode": "DRIVE",
+            "routingPreference":"TRAFFIC_AWARE_OPTIMAL"
+        }
+
+        const borders = structuredClone(GeoLocation_ViennaBorder_data['borders']);
+        Object.values(borders).forEach((border) => {
+            payload.destinations.push({ "waypoint": border });
+        })
+
+        let result = {};
+        await axios.post(url, payload, { headers })
+            .then(response => {
+                result = response.data; // response[entry] = {distanceMeters: number, duration: number}
+            })
+            .catch(error => {
+                console.log("google request error: ", error.message);
+                return error;
+            })
+
+        result.forEach((entry) => {
+            entry['duration'] = Utilities.getTimeInMinutesFromRoutesMatrix(entry.duration ?? 0);
+            entry['distanceMeters'] = Utilities.getDistanceInKmFromRoutesMatrix(entry.distanceMeters ?? 0);
+        });
+
         return result;
     }
 }

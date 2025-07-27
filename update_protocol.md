@@ -4,6 +4,29 @@
 
 <br>
 
+### 2025/07/27 - $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
+
+- $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.
+- $\textsf{\color{red}Bugfix:}$ Searching for golf courses within service 'golf' results in listing all existing establishments. [Before: Searching for certain golf courses resulted in missing entries because some golf courses have primary type "hotel" which was not filtered for.]
+- $\textsf{\color{red}Patch:}$ Updated return calculation on service 'quick'.
+
+### 2025/07/18 - $\textsf{last\ update\ 1.5.2\ >>\ {\color{pink}1.5.3}}$
+
+- $\textsf{\color{red}Patch:}$ Updated validation on service 'airport' to refuse addresses without zipcode.
+
+### 2025/07/14 - $\textsf{last\ update\ 1.5.0\ >>\ {\color{pink}1.5.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added feature to get location via Geolocation for service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated address validation with '+' characters in original description.
+
+### 2025/07/12 - $\textsf{last\ update\ 1.4.0\ >>\ {\color{pink}1.5.0}}$
+
+- $\textsf{\color{teal}Addition:}$ Added new service 'quick' for spontaneous drives (no pre-ordering).
+
+### 2025/07/01 - $\textsf{last\ update\ 1.3.6\ >>\ {\color{pink}1.4.0}}$
+
+- $\textsf{\color{green}Change:}$ Updated Google Places API from Legacy to New version. Additionally improved search results by focusing on Austria-based addresses.
+
 ### 2025/06/27 - $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
 
 - $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.

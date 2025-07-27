@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.3.6}}$
+$\texttt{\color{teal}{v1.5.6}}$
 
 
 <br><br>
@@ -68,6 +68,7 @@ Currently public/private keys are converted from single-line secret to multi-lin
 <dl>
     <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
     <dd>:repeat: Google Routes/Places API usage in backend</dd>
+    <dd>:triangular_flag_on_post: Google Maps usage in frontend + calculating route by geolocation</dd>
     <dd>:turtle: Custom image/video preload</dd>
     <dd>:mag: Custom search-input form component combined with Google Places API</dd>
     <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
@@ -89,49 +90,58 @@ All services take input for calculating the offer by addresses, timestamps and c
 
 <div align="center">
     <img src="frontend/public/assets/docs/custom_forms_validation.jpg" alt="404 no picture found">
-    Figure 2
+    Figure 2, v1.0.0-beta
 </div>
 
 <br>
 
 ### $\textsf{\color{teal}Google API}$
 
-Data from Google, based on the `RoutesAPI` and `PlacesAPI`, is used for the calculations and address suggestions/autocompletion. The user can type in the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows, that after every change of the search input, a request is sent providing the listed options in the response. Clicking on an option sends a final request to get all details to the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google demands to display their logo if a map or place-data (in this case the address options) are used.
+Data from Google, based on the `RoutesAPI`, `PlacesAPI` and `MapsAPI (Geocode)`, is used for the calculations and address suggestions/autocompletion. The user can type in the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows, that after every change of the search input, a request is sent providing the listed options in the response. Clicking on an option sends a final request to get all details to the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google demands to display their logo if a map or place-data (in this case the address options) are used.
 
 <div align="center">
     <img src="frontend/public/assets/docs/google_autocomplete.png" alt="&nbsp;no picture found">
-    Figure 3
+    Figure 3, v1.0.0
+</div>
+
+<br>
+
+Additionally, the service for spontaneous drives offers a feature to use coordinates via `Geolocation` for determining the starting address and displaying `Google Maps` with the location marked to improve user experience and checking coordinates accuracy (see Figure 4, location used as pickup address). 
+
+<div align="center">
+    <img src="frontend/public/assets/docs/maps_api.gif" alt="&nbsp;no picture found">
+    Figure 4, v1.5.2
 </div>
 
 <br>
 
 ### $\textsf{\color{teal}Theme + Internationalization}$
 
-The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 4). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
+The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 5). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
 
 <div align="center">
     <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
-    Figure 4
+    Figure 5, v1.5.6
 </div>
 
 <br>
 
 ### $\textsf{\color{teal}Security}$
 
-For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 5). The payload consists of the service in use and the credential data. Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 5 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
+For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 6). The payload consists of the service in use and the credential data. Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 6 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
 
 <div align="center">
     <img src="frontend/public/assets/docs/session-token_login.jpg" alt="&nbsp;no picture found">
-    Figure 5
+    Figure 6, v1.0.0
 </div>
 
 <br>
 
-Hybrid encryption is used for encrypting sensible data like the user input used for sending the emails (name, phone number, message and so forth...). Figure 6 displays the encrypted data in the request, decrypted in the backend to handle logic and again encrypting data for the response. On client side, the webcrypto api support Angular to handle RSA and AES en/decryption and in NodeJS on the backend node-forge comes to use.
+Hybrid encryption is used for encrypting sensible data like the user input used for sending the emails (name, phone number, message and so forth...). Figure 7 displays the encrypted data in the request, decrypted in the backend to handle logic and again encrypting data for the response. On client side, the webcrypto api support Angular to handle RSA and AES en/decryption and in NodeJS on the backend node-forge comes to use.
 
 <div align="center">
     <img src="frontend/public/assets/docs/encrypted_request.jpg" alt="&nbsp;no picture found">
-    Figure 6
+    Figure 7, v1.0.0
 </div>
 
 <br>
@@ -140,7 +150,7 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 
 To prevent any delay between building the page and displaying the active assets (images/videos), the `AssetsPreloadService` and `AssetsPreloadGuard` are in use to load everything accordingly. 
 
-Whereas the guard is used within the `*.routes.ts` files to load assets predetermined (see Figure 7, code block), the service can also be used to preload assets/data dynamically or modular:
+Whereas the guard is used within the `*.routes.ts` files to load assets predetermined (see Figure 8, code block), the service can also be used to preload assets/data dynamically or modular:
 ```sh
 this.assetsPreloadService.preloadAssets({
     images?: imagePathArray,
@@ -152,7 +162,7 @@ this.assetsPreloadService.preloadAssets({
 
 <div align="center">
     <img src="frontend/public/assets/docs/preload.gif" alt="&nbsp;no picture found">
-    Figure 7
+    Figure 8, v1.2.2
 </div>
 
 <br>
@@ -166,7 +176,7 @@ Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-130+ tests exist currently for models, utils, validators and workflows - see [tests](./backend/tests).<br>
+180+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config
@@ -179,11 +189,11 @@ or simply save as script command in `package.json` to run `npm test`:
   }
 ```
 To automatically check tests before merging feature/development branch further up, a `GitHub Action` is set up, see [main.yml](.github/workflows/main.yml).<br>
-Preventing an unwanted merge with unfinished/failed test run, the project is set up to disable merging until all tests have passed (see Figure 8).
+Preventing an unwanted merge with unfinished/failed test run, the project is set up to disable merging until all tests have passed (see Figure 9).
 
 <div align="center">
     <img src="frontend/public/assets/docs/github-action-jest.jpg" alt="&nbsp;no picture found">
-    Figure 8
+    Figure 9, v1.3.1
 </div>
 
 <br>
@@ -223,16 +233,16 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.3.4\ >>\ {\color{pink}1.3.6}}$
+### $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
 
-- $\textsf{\color{red}Patch:}$ Updated approach calculation on service 'destination'.
-- $\textsf{\color{red}Bugfix:}$ Switching multiple times between mode 'arrival' and 'departure' on service 'airport' validates input correctly. [Before: Clicking into address-input-field and/or writing input and then switching modes caused wrong validations and blocked sending the request without displaying errors.]
+- $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.
+- $\textsf{\color{red}Bugfix:}$ Searching for golf courses within service 'golf' results in listing all existing establishments. [Before: Searching for certain golf courses resulted in missing entries because some golf courses have primary type "hotel" which was not filtered for.]
+- $\textsf{\color{red}Patch:}$ Updated return calculation on service 'quick'.
 
 <br>
 
 ### Aimed objectives for next $\textsf{\color{green}minor}$ update:
 <dl>
-    <dd>- update Google Places API to Places API (New)</dd>
     <dd>- update email format</dd>
     <dd>- update token handling (refresh token)</dd>
     <dd>- update logging & exception handling (client side)</dd>

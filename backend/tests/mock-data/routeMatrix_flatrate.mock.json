@@ -1,0 +1,537 @@
+{
+    "route1220-2514": {
+        "apiResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 16.2,
+                "duration": 20.2,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 16.2,
+                "duration": 20.2,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 15.7,
+                "duration": 17.6,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 38.3,
+                "duration": 50.5,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 50,
+                "duration": 55.8,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 48.2,
+                "duration": 73.5,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 44.5,
+                "duration": 66.2,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 44.5,
+                "duration": 66.2,
+                "originIndex": 3,
+                "status": {}
+            }
+        ],
+        "destination": "Karl-Theuer-Straße+10,+2514+Traiskirchen,+Austria",
+        "destinationDetails": {
+            "address": "Karl-Theuer-Straße 10, 2514 Traiskirchen, Austria",
+            "country": "Austria",
+            "placeId": "ChIJw02T476xbUcRowgt7lxNNqU",
+            "province": "Niederösterreich",
+            "zipCode": "2514"
+        },
+        "latency": 0,
+        "origin": "Baranygasse+1,+1220+Wien,+Austria",
+        "originDetails": {
+            "address": "Baranygasse 1, 1220 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJxSwFPQEBbUcREf_vavETkNY",
+            "province": "Wien",
+            "zipCode": "1220"
+        },
+        "pickupTIME": 8,
+        "tenancy": 180
+    },
+    "route2320-1020": {
+        "apiResult": [
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 44.2,
+                "duration": 38.5,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 44.6,
+                "duration": 37.9,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 20.8,
+                "duration": 25.2,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 20.8,
+                "duration": 25.2,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 20.7,
+                "duration": 23,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 44.6,
+                "duration": 37.9,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 41.1,
+                "duration": 30.1,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 40.9,
+                "duration": 29.6,
+                "originIndex": 0,
+                "status": {}
+            }
+        ],
+        "destination": "Praterstraße+1,+1020+Wien,+Austria",
+        "destinationDetails": {
+            "address": "Praterstraße 1, 1020 Wien, Austria",
+            "country": "Austria",
+            "placeId": "ChIJt8BqvqAHbUcRCOcO48abiFE",
+            "province": "Wien",
+            "zipCode": "1020"
+        },
+        "latency": 0,
+        "origin": "Kalter+Gang-Weg+9,+2320+Schwechat,+Austria",
+        "originDetails": {
+            "address": "Kalter Gang-Weg 9, 2320 Schwechat, Austria",
+            "country": "Austria",
+            "placeId": "ChIJm36XUxGrbUcRGmgEmsVk3_I",
+            "province": "Niederösterreich",
+            "zipCode": "2320"
+        },
+        "pickupTIME": 8,
+        "tenancy": 180
+    },
+    "route2491-2491": {
+        "apiResult": [
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 18.1,
+                "duration": 22.2,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 18.1,
+                "duration": 22.2,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 18.1,
+                "duration": 22.2,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 18.1,
+                "duration": 22.6,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 18.1,
+                "duration": 22.6,
+                "originIndex": 0,
+                "status": {}
+            }
+        ],
+        "destination": "Eisenstädter-Straße+37,+2491+Neufeld+an+der+Leitha,+Austria",
+        "destinationDetails": {
+            "address": "Eisenstädter-Straße 37, 2491 Neufeld an der Leitha, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ004Z9pxKbEcRO9K11uCO_ug",
+            "province": "Burgenland",
+            "zipCode": "2491"
+        },
+        "latency": 0,
+        "origin": "Eisenstädter-Straße+37,+2491+Neufeld+an+der+Leitha,+Austria",
+        "originDetails": {
+            "address": "Eisenstädter-Straße 37, 2491 Neufeld an der Leitha, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ004Z9pxKbEcRO9K11uCO_ug",
+            "province": "Burgenland",
+            "zipCode": "2491"
+        },
+        "pickupTIME": 8,
+        "tenancy": 180
+    },
+    "route2525-2551": {
+        "apiResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 7.2,
+                "duration": 10.9,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 4.9,
+                "duration": 8.1,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 3.6,
+                "duration": 6.8,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 3.6,
+                "duration": 6.8,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 7.2,
+                "duration": 10.9,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 4.9,
+                "duration": 8,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 7.2,
+                "duration": 11,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 3.6,
+                "duration": 6.8,
+                "originIndex": 2,
+                "status": {}
+            }
+        ],
+        "destination": "Schloßstraße+18,+2551+Enzesfeld-Lindabrunn,+Austria",
+        "destinationDetails": {
+            "address": "Schloßstraße 18, 2551 Enzesfeld-Lindabrunn, Austria",
+            "country": "Austria",
+            "placeId": "ChIJbSyaZL23bUcRMqstGYKdsmo",
+            "province": "Niederösterreich",
+            "zipCode": "2551"
+        },
+        "latency": 0,
+        "origin": "Pachergasse+3,+2525+Schönau+an+der+Triesting,+Austria",
+        "originDetails": {
+            "address": "Pachergasse 3, 2525 Schönau an der Triesting, Austria",
+            "country": "Austria",
+            "placeId": "ChIJ02RTHZK2bUcRjRp2k18oYVc",
+            "province": "Niederösterreich",
+            "zipCode": "2525"
+        },
+        "pickupTIME": 8,
+        "tenancy": 180
+    },
+    "route2700-2651": {
+        "apiResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 13.5,
+                "duration": 16.9,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 13.4,
+                "duration": 16.6,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 45.4,
+                "duration": 37.5,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 45.4,
+                "duration": 37.5,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 45.6,
+                "duration": 37.4,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 61.3,
+                "duration": 47.2,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 60.2,
+                "duration": 45.9,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 61.3,
+                "duration": 47.2,
+                "originIndex": 2,
+                "status": {}
+            }
+        ],
+        "destination": "Bing-Straße+3,+2651+Reichenau+an+der+Rax,+Austria",
+        "destinationDetails": {
+            "address": "Bing-Straße 3, 2651 Reichenau an der Rax, Austria",
+            "country": "Austria",
+            "placeId": "ChIJda2jAFnnbUcRqRMI4YEV3bU",
+            "province": "Niederösterreich",
+            "zipCode": "2651"
+        },
+        "latency": 0,
+        "origin": "Dreipappelstraße+5,+2700+Wiener+Neustadt,+Austria",
+        "originDetails": {
+            "address": "Dreipappelstraße 5, 2700 Wiener Neustadt, Austria",
+            "country": "Austria",
+            "placeId": "ChIJi9foAuXLbUcRUdy4DEN3j5I",
+            "province": "Niederösterreich",
+            "zipCode": "2700"
+        },
+        "pickupTIME": 8,
+        "tenancy": 180
+    }
+}

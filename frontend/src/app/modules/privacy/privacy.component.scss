@@ -18,7 +18,7 @@
         li {
             display: flex;
             margin: sass.$space5 0;
-            
+
             .tava-privacy-content-li-wrapper {
                 display: flex;
                 flex-direction: row;
@@ -32,14 +32,11 @@
                 background-color: var(--privacy-list-bg);
                 border: var(--privacy-list-border);
                 border-radius: 50%;
-
                 img {
                     width: 30px;
                     height: 30px;
                 }
-            }
-            
-            
+            }            
             a {
                 cursor: pointer;
             }

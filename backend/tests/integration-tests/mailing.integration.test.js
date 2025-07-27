@@ -12,12 +12,13 @@ const MockData_common = require('../mock-data/common.mock.json')['mailing'];
 
 describe('Integration test, priority: Mailing', () => {
 
-    describe('Test valid fn calls', () => {
+    describe('Testing valid fn calls', () => {
 
         beforeAll(() => {
             jest.resetModules();
         })
 
+        let app;
         beforeEach(() => {
             // These mocks are not global because we want to check process for invalid fn calls.
             jest.mock('../../src/middleware/validators/mailingValidator.middleware.js', () => ({
@@ -50,7 +51,7 @@ describe('Integration test, priority: Mailing', () => {
         })
     })
 
-    describe('Test invalid fn calls', () => {
+    describe('Testing invalid fn calls', () => {
 
         beforeAll(() => {
             jest.resetModules();

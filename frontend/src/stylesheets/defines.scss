@@ -26,12 +26,13 @@
     --theme-snackbar-success: #{sass.$color-lightmode-success};
     --theme-snackbar-warning: #{sass.$color-lightmode-warning};
     --theme-hint-grey: #{sass.$color-grey-lightmode};
+    --theme-button-bg: #{sass.$color-light-highlight};
+    --theme-form-bg: #{sass.$color-grey-dark};
     --filter-brightness: 1;
     --divider-opacity: 0.8;
     --warning-opacity: 0.7;
-    --warning-shadow: #{sass.$color-ice-white};
-    --option-hover-active: #{sass.$color-light-green};
-    --privacy-list-bg: #{sass.$color-logo-green};
+    --warning-shadow: none;
+    --privacy-list-bg: #{sass.$color-light-green};
     --privacy-list-border: #{1.5px solid sass.$color-light-contrast};
 }
 
@@ -48,11 +49,12 @@
     --theme-snackbar-success: #{sass.$color-darkmode-success};
     --theme-snackbar-warning: #{sass.$color-darkmode-warning};
     --theme-hint-grey: #{sass.$color-grey-label};
+    --theme-button-bg: #{sass.$color-dark-highlight};
+    --theme-form-bg: none;
     --filter-brightness: 0.4;
     --divider-opacity: 0.1;
     --warning-opacity: 0.6;
     --warning-shadow: #{sass.$color-text-black};
-    --option-hover-active: #{sass.$color-dark-green};
     --privacy-list-bg: none;
     --privacy-list-border: none;
 }

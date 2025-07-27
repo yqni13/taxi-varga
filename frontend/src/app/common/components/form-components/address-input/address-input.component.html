@@ -8,6 +8,7 @@
         [formControl]="formControl"
         (keydown)="onInputKeyNav($event)"
         max="{{maxVal}}"
+        [readOnly]="isReadonly"
     >
     <i
         class="icon-warning icon-base"

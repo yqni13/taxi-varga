@@ -13,6 +13,7 @@ const envConfigFile = `import { Environment } from "./environment.model";
 export const environment: Environment = {
     production: true,
     API_BASE_URL: '${process.env['API_URL']}',
+    GOOGLE_API_KEY: '${process.env['GOOGLE_API']}',
     IV_POSITION: ${process.env['IV_POSITION']},
     MAIL_SUBJECT: '${process.env['MAIL_SUBJECT']}',
     AUTH_USER: '${process.env['AUTH_USER']}',

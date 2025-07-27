@@ -19,6 +19,7 @@ import { MailTranslateService } from "../../shared/services/mail-translate.servi
 import { MailAPIService } from "../../shared/services/mail-api.service";
 import { AddressOptions } from "../../shared/enums/address-options.enum";
 import { DrivingAPIService } from "../../shared/services/driving-api.service";
+import { BaseRoute } from "../../api/routes/base.route.enum";
 
 /**
  * This is the base class for all 'service' modules.
@@ -166,7 +167,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
                 if(isStatus200) {
                     this.hasConfirmed = true;
                     this.httpObserve.setEmailStatus(false);
-                    this.router.navigate(['/service']);
+                    this.router.navigate([`/${BaseRoute.SERVICE}`]);
                 } else if(!isStatus200) {
                     this.resetOrderStatus();
                 }
@@ -178,7 +179,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
             tap((response: any) => {
                 if(this.auth.getExceptionCollection().includes(response.error.headers.error)) {
                     this.httpObserve.setErrorStatus(null);
-                    this.router.navigate(['/service']);
+                    this.router.navigate([`/${BaseRoute.SERVICE}`]);
                 }
             })
         ).subscribe();
@@ -226,14 +227,14 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     getAddressDetails(event: any, option: AddressOptions) {
-            if(option === AddressOptions.ORIGIN) {
-                this.serviceForm.get('originDetails')?.setValue(event);
-            } else if(option === AddressOptions.GOLFCOURSE) {
-                this.serviceForm.get('golfcourseDetails')?.setValue(event);
-            }else {
-                this.serviceForm.get('destinationDetails')?.setValue(event);
-            }
+        if(option === AddressOptions.ORIGIN) {
+            this.serviceForm.get('originDetails')?.setValue(event);
+        } else if(option === AddressOptions.GOLFCOURSE) {
+            this.serviceForm.get('golfcourseDetails')?.setValue(event);
+        }else {
+            this.serviceForm.get('destinationDetails')?.setValue(event);
         }
+    }
 
     addMetaProperties2Form(form: FormGroup) {
         Object.values(this.metaProperties).forEach((element) => {

@@ -12,6 +12,9 @@
         <div class="tava-validation-message" *ngIf="control.hasError('requiredTenancy')">
             {{ 'common.validation.required' | translate: {fieldName: fieldName} }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('missingZipcode')">
+            {{ 'common.validation.missing-zipcode' | translate }}
+        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
         </div>
@@ -23,6 +26,9 @@
         </div>
         <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours')">
             {{ 'common.validation.business-invalid-time' | translate }}
+        </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidBHTimeOnly')">
+            {{ 'common.validation.business-invalid-time-only' | translate }}
         </div>
         <div class="tava-validation-message" *ngIf="control.hasError('negativeCurrentDateTime')">
             {{ 'common.validation.datetime-invalid-negative' | translate }}

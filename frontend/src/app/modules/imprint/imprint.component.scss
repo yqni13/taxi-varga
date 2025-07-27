@@ -18,6 +18,7 @@
     a {
         text-decoration: none;
         color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 1px var(--warning-shadow);
 
         &:hover {
             opacity: 0.6;
@@ -35,6 +36,7 @@
             text-shadow: 1px 1px 5px var(--warning-shadow);
             padding: sass.$space15;
             border: 1px outset var(--theme-body-text);
+            border-radius: sass.$space15;
         }
     }
 

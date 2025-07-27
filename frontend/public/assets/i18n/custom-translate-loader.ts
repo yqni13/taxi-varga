@@ -20,7 +20,8 @@ export class CustomTranslateLoader implements TranslateLoader {
             `${this.prefix}${language}.json`,
             `${this.prefix}imprint-${language}.json`,
             `${this.prefix}privacy-${language}.json`,
-            `${this.prefix}samples-${language}.json`
+            `${this.prefix}samples-${language}.json`,
+            `${this.prefix}home-${language}.json`
         ];
 
         return forkJoin(paths.map(path => this.http.get(path))).pipe(
