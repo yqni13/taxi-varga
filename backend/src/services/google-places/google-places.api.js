@@ -22,7 +22,7 @@ class GooglePlacesAPI {
     _getDetailsRequestHeader() {
         return {
             'Content-Type': 'application/json',
-            'X-Goog-FieldMask': 'id,types,addressComponents,formattedAddress,displayName',
+            'X-Goog-FieldMask': 'id,primaryType,types,addressComponents,formattedAddress,displayName',
             'X-Goog-Api-Key': this.#env_GOOGLE_API_KEY
         }
     }
@@ -101,7 +101,7 @@ class GooglePlacesAPI {
 
     _transformAutocompletePayload(result, params) {
         if(params['filter'] === AddressFilterOption.GOLF) {
-            Object.assign(result, { "includedPrimaryTypes": ["golf_course", "sports_club"]});
+            Object.assign(result, { "includedPrimaryTypes": ["golf_course", "sports_club", "hotel", "athletic_field"]});
         }
 
         return result;

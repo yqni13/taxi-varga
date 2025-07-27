@@ -74,7 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                     case(ThemeOptions.darkMode): 
                     default: {
                         this.selectedBg = 'bg-pattern-dark';
-                        console.log("dark mode first")
                         this.activeBg = {
                             main: this.homeImgCollection[0],
                             sub: this.homeImgCollection[2]

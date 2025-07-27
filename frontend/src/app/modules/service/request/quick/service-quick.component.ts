@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, SecurityContext } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { Router } from "@angular/router";
@@ -16,7 +16,7 @@ import { HttpObservationService } from "../../../../shared/services/http-observa
 import { DOCUMENT } from "@angular/common";
 import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
-import { filter, tap } from "rxjs";
+import { filter, Subscription, tap } from "rxjs";
 import { DrivingQuickResponse } from "../../../../shared/interfaces/driving-response.interface";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
@@ -40,7 +40,7 @@ import * as Utils from "../../../../common/helper/common.helper";
         ...ServiceImportsModule
     ]
 })
-export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
+export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected callDirectNr: string;
     protected originByGPS: boolean;
@@ -49,6 +49,8 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected mapUrl: string | SafeResourceUrl | null;
     protected isLoading: boolean;
     protected isSelectingGPSOption: boolean;
+
+    private originSubscription$: Subscription | undefined;
 
     constructor(
         router: Router,
@@ -78,6 +80,8 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.mapUrl = '';
         this.isLoading = false;
         this.isSelectingGPSOption = false;
+
+        this.originSubscription$ = new Subscription();
     }
 
     override async ngOnInit() {
@@ -143,6 +147,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             servTime: null,
             returnTarget: null
         });
+        this.toHandleIsNotUsingGPS();
     }
 
 
@@ -159,7 +164,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         }
     }
 
-    async getLocationByGPS(isUsingGPS: boolean) {
+    private async getLocationByGPS(isUsingGPS: boolean) {
         if(isUsingGPS) {
             this.isLoading = true;
             const success = (position: any) => {
@@ -206,19 +211,29 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         }
     }
 
-    toHandleIsNotUsingGPS() {
+    private toHandleIsNotUsingGPS() {
+        this.originSubscription$ = new Subscription();
         this.originByGPS = false;
         this.mapUrl = '';
-        this.serviceForm.get('originAddress')?.setValidators(Validators.required);
         this.transformOriginByGeocode(null);
+        this.serviceForm.get('originAddress')?.setValidators(Validators.required);
+        this.serviceForm.get('originAddress')?.setValue('');
+        this.serviceForm.get('originAddress')?.markAsPristine();
+        this.serviceForm.get('originAddress')?.markAsUntouched();
+        this.serviceForm.get('originAddress')?.updateValueAndValidity({ onlySelf: true, emitEvent: false })
+        this.originSubscription$ = this.serviceForm.get('originDetails')?.valueChanges.subscribe((value) => {
+            if(value && !value.zipCode) {
+                this.serviceForm.get('originAddress')?.setErrors({missingZipcode: true});
+            }
+        })
     }
 
-    transformMapUrl(placeId: string): SafeResourceUrl {
+    private transformMapUrl(placeId: string): SafeResourceUrl {
         const url = `https://www.google.com/maps/embed/v1/place?key=${environment.GOOGLE_API_KEY}&q=place_id:${placeId}&maptype=satellite&zoom=17`;
         return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
-    transformOriginByGeocode(data: any | null) {
+    private transformOriginByGeocode(data: any | null) {
         if(data) {
             this.serviceForm.get('originAddressByGeocode')?.setValue(data.formatted_address);
             this.serviceForm.get('originDetailsByGeocode')?.setValue({
@@ -285,5 +300,10 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         const title = 'modules.service.content.quick.snackbar-info.geolocation.title';
         const text = 'modules.service.content.quick.snackbar-info.geolocation.text';
         Utils.displayInfo(this.snackbar, this.mailTranslate, this.translate, title, text);
+    }
+
+    override ngOnDestroy() {
+        super.ngOnDestroy();
+        this.originSubscription$?.unsubscribe();
     }
 }
