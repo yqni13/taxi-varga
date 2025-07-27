@@ -4,6 +4,12 @@
 
 <br>
 
+### 2025/07/27 - $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
+
+- $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.
+- $\textsf{\color{red}Bugfix:}$ Searching for golf courses within service 'golf' results in listing all existing establishments. [Before: Searching for certain golf courses resulted in missing entries because some golf courses have primary type "hotel" which was not filtered for.]
+- $\textsf{\color{red}Patch:}$ Updated return calculation on service 'quick'.
+
 ### 2025/07/18 - $\textsf{last\ update\ 1.5.2\ >>\ {\color{pink}1.5.3}}$
 
 - $\textsf{\color{red}Patch:}$ Updated validation on service 'airport' to refuse addresses without zipcode.
