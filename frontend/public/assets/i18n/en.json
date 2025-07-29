@@ -40,6 +40,7 @@
             "validate-backend": {
                 "data": {
                     "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
+                    "address-quick-invalid-origin": "Only addresses with postal code 10**, 11**, 12** or 2544 are usable for the pickup address on spontaneous drives.",
                     "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
                     "backend-404-env": "Secret data {{ENV}} is missing. Please try again later or contact support.",
                     "backend-500-routes": "The api endpoint is not available at the moment. Please try again later or contact support.",
@@ -90,21 +91,6 @@
                 "workrange": "Work range: Vienna"
             },
             "title": "About me and my business"
-        },
-        "home": {
-            "content": {
-                "entry0": "Daily starting business hours: 04:00 - 12:00 (off-time on request)",
-                "entry1": "40100 quality rating: 5.0 (max)",
-                "entry2": "Elevated seat positions for senior friendly entrance/exit",
-                "entry3": "Transportation: max 4 people with luggage, max 3 people with golf equipment, max 2 people with luggage and golf equipment",
-                "entry4": "Flat rates may vary depending on the time of query because the calculation is linked to the current traffic situation at the time of query.",
-                "entry5": "All major payment methods accepted"
-            },
-            "highlights": {
-                "ev": " mobility by Skoda Enyaq iV 80 since 2020",
-                "start": "Commercial transportation of passengers since 1999",
-                "zero-emission": "Zero-emission"
-            }
         },
         "imprint": {
             "title": "Imprint"
@@ -285,7 +271,7 @@
                 "quick": {
                     "info": {
                         "call": "Call",
-                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- Calculations are valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
                         "title": "Please note that"
                     },
                     "labels": {

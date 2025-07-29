@@ -51,13 +51,16 @@ class DrivingDestinationModel {
         };
         let approachCosts = 0;
         let withinBusinessHours = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
+        const servDist = params['back2home'] 
+            ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
+            : routes.o2d.distanceMeters;
+        const servTime = params['back2home']
+            ? routes.o2d.duration + routes.d2o.duration
+            : routes.o2d.duration;
 
         // Approach costs
         if(withinBusinessHours) {
             const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
-            const servDist = params['back2home'] 
-                ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
-                : routes.o2d.distanceMeters;
             approachCosts = servDist <= 20 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
                 : routes.h2o.distanceMeters <= 30
@@ -67,29 +70,16 @@ class DrivingDestinationModel {
             approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
         }
 
-        let serviceDriveTimeCost = 0;
-        let serviceDriveDistanceCost = 0;
-        let totalServiceDistance = 0;
-        let payingServiceDistance = 0;
-        let totalServiceTime = 0;
+        let servTimeCosts = 0;
+        let servDistCosts = 0;
         let additionalCharge = 0;
 
-        if(params['back2home'] === true) {
-            payingServiceDistance = routes.o2d.distanceMeters + routes.d2o.distanceMeters;
-            totalServiceDistance = payingServiceDistance;
-            totalServiceTime = routes.o2d.duration + routes.d2o.duration;
-        } else if(params['back2home'] === false) {
-            totalServiceDistance = routes.o2d.distanceMeters;
-            payingServiceDistance = totalServiceDistance;
-            totalServiceTime = routes.o2d.duration;
-        }
-
-        if(totalServiceDistance <= 30) {
-            serviceDriveTimeCost = totalServiceTime * this.#prices.servDistBelow30Km;
-            serviceDriveDistanceCost = payingServiceDistance * this.#prices.servDistBelow30Km;
+        if(servDist <= 30) {
+            servTimeCosts = servTime * this.#prices.servDistBelow30Km;
+            servDistCosts = servDist * this.#prices.servDistBelow30Km;
         } else {
-            serviceDriveTimeCost = totalServiceTime * this.#prices.servDistAbove30Km;
-            serviceDriveDistanceCost = payingServiceDistance * this.#prices.servDistAbove30Km;
+            servTimeCosts = servTime * this.#prices.servDistAbove30Km;
+            servDistCosts = servDist * this.#prices.servDistAbove30Km;
         }
 
         // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
@@ -103,17 +93,17 @@ class DrivingDestinationModel {
         additionalCharge += this._addChargeParkFlatByBH(params, withinBusinessHours)
         additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
 
-        const totalCosts = approachCosts + serviceDriveDistanceCost + serviceDriveTimeCost + returnCosts + additionalCharge;
+        const totalCosts = approachCosts + servDistCosts + servTimeCosts + returnCosts + additionalCharge;
 
-        result['duration'] = Math.ceil(totalServiceTime);
+        result['duration'] = Math.ceil(servTime);
         result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
             : Math.floor(totalCosts);
-        result['distance'] = (totalServiceDistance % 1) >= 0.5
-            ? Math.ceil(totalServiceDistance) 
-            : totalServiceDistance < 1
-                ? totalServiceDistance
-                : Math.floor(totalServiceDistance);
+        result['distance'] = (servDist % 1) >= 0.5
+            ? Math.ceil(servDist) 
+            : servDist < 1
+                ? servDist
+                : Math.floor(servDist);
 
         return {routeData: result};
     }

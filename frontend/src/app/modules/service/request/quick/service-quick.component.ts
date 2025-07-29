@@ -224,6 +224,8 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.originSubscription$ = this.serviceForm.get('originDetails')?.valueChanges.subscribe((value) => {
             if(value && !value.zipCode) {
                 this.serviceForm.get('originAddress')?.setErrors({missingZipcode: true});
+            } else if(value && !Utils.isQuickOriginValid(value.zipCode)) {
+                this.serviceForm.get('originAddress')?.setErrors({invalidQuickOrigin: true});
             }
         })
     }
@@ -240,7 +242,8 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                 placeId: data.place_id,
                 address: data.formatted_address,
                 province: data.address_components.find((entry: any) => {return entry.types.includes('administrative_area_level_1')})['long_name'],
-                country: data.address_components.find((entry: any) => {return entry.types.includes('country')})['long_name']
+                country: data.address_components.find((entry: any) => {return entry.types.includes('country')})['long_name'],
+                zipCode: data.address_components.find((entry: any) => {return entry.types.includes('postal_code')})['long_name'] ?? null
             });
         } else {
             this.serviceForm.get('originAddressByGeocode')?.setValue('');

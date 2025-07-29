@@ -160,17 +160,11 @@ class DrivingQuickModel {
     }
 
     _mapShortestReturnLocation = (data, origin) => {
-        // Exception for all locations with zipCode 254*.
-        if(origin && origin.zipCode.includes('254')) {
-            const homeBorder = data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0});
-            return {
-                distance: homeBorder.distanceMeters,
-                duration: homeBorder.duration,
-                routeHome: true
-            }
+        if(origin && origin.zipCode === '2544') {
+            data = [data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0})];
+        } else {
+            data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
         }
-
-        data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
 
         return {
             distance: data[0].distanceMeters,

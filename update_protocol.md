@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/07/29 - $\textsf{last\ update\ 1.5.6\ >>\ {\color{pink}1.5.7}}$
+
+- $\textsf{\color{red}Patch:}$ Updated validation on service 'quick' for postal codes (general) and origin address ('quick' only).
+
 ### 2025/07/27 - $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
 
 - $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.

@@ -39,5 +39,8 @@
         <div class="tava-validation-message" *ngIf="control.hasError('emptyAddressSelect')">
             {{ 'common.validation.empty-address-select' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidQuickOrigin')">
+            {{ 'common.validation.validate-backend.data.address-quick-invalid-origin' | translate }}
+        </div>
     </div>
 </ng-container>
