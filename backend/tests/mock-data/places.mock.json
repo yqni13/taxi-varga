@@ -101,5 +101,15 @@
             "zipCode": "2522"
         },
         "simple": "Schloßsee+II+166,+2522+Oberwaltersdorf,+Austria"
+    },
+    "place-2542#1": {
+        "details": {
+            "address": "Hauptstraße 1, 2542 Kottingbrunn, Austria",
+            "country": "Austria",
+            "placeId": "ChIJZWgirti2bUcRdgiQPAlV9QQ",
+            "province": "Niederösterreich",
+            "zipCode": "2542"
+        },
+        "simple": "Hauptstraße+1,+2542+Kottingbrunn,+Austria"
     }
 }
