@@ -41,12 +41,18 @@ exports.validateAirportServiceAddress = (details, address) => {
 
     this.validatePlaceDetails(address, details);
 
-    if(!details.zipCode) {
-        throw new Error('backend-missing-zipCode');
-    }
+    this.validateZipCodeExist(details);
 
     if(!Utils.checkAddressInViennaByZipCode(details.zipCode)) {
         throw new Error('airport-invalid-place');
+    }
+
+    return true;
+}
+
+exports.validateQuickOrigin = (address) => {
+    if(!address.zipCode || (address.zipCode !== '2544' && !Utils.checkAddressInViennaByZipCode(address.zipCode))) {
+        throw new Error('address-quick-invalid-origin');
     }
 
     return true;
@@ -58,6 +64,14 @@ exports.validatePlaceDetails = (address, details) => {
     modifiedAddress = modifiedAddress.replaceAll('#&&#', '+');
     if(details === null || details === undefined || details.address !== modifiedAddress) {
         throw new Error('address-invalid-place');
+    }
+
+    return true;
+}
+
+exports.validateZipCodeExist = (details) => {
+    if(!details.zipCode) {
+        throw new Error('backend-missing-zipCode');
     }
 
     return true;
