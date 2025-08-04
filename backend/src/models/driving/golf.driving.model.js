@@ -60,7 +60,8 @@ class DrivingGolfModel {
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
+        // TODO(yqni13): remove 09/2025
+        // additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
 
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
@@ -96,6 +97,10 @@ class DrivingGolfModel {
         };
     }
 
+    // TODO(yqni13): remove 09/2025
+    /**
+     * @deprecated since version 1.5.8
+     */
     _addChargeServiceDistanceBelow20Km = (routes) => {
         let charge = 0;
         const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;

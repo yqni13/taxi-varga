@@ -24,6 +24,8 @@ export class NavigationComponent implements OnInit {
 
     protected deviceOptions = DeviceOptions;
     protected routes: Route[];
+    protected preloadImages: string[];
+    protected isPreloading: boolean;
     
     protected deviceMode: DeviceOptions;
 
@@ -43,7 +45,10 @@ export class NavigationComponent implements OnInit {
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;
         this.routes = [];
+        this.isPreloading = true;
         this.deviceMode = DeviceOptions.MOBILE;
+
+        this.preloadImages = [];
 
         this.router.events
         .pipe(filter(evt => evt instanceof NavigationEnd))
@@ -54,7 +59,14 @@ export class NavigationComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.assetPreload.preloadAssets({images: ['assets/logo.webp']});
+        const navIcons = this.navigation.getNavigationIconPaths();
+        this.preloadImages = [
+            'assets/logo.webp',
+            ...navIcons
+        ];
+        this.assetPreload.preloadAssets({images: this.preloadImages}).finally(() => {
+            this.isPreloading = false;
+        });
 
         this.routes = this.navigation.getNavigationRoutes();
 

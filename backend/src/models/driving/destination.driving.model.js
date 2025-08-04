@@ -91,7 +91,9 @@ class DrivingDestinationModel {
 
         // Add up all additional charges
         additionalCharge += this._addChargeParkFlatByBH(params, withinBusinessHours)
-        additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
+
+        // TODO(yqni13): remove 09/2025
+        // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
 
         const totalCosts = approachCosts + servDistCosts + servTimeCosts + returnCosts + additionalCharge;
 
@@ -109,6 +111,7 @@ class DrivingDestinationModel {
     }
 
     _calcDestinationReturnCosts = (params, routes, latencyCosts) => {
+        // TODO(yqni13): why keep latencyCosts at this point and not in main calc???
         if(!Utils.checkTimeWithinBusinessHours(params['pickupTIME'])) {
             const returnDistance = params['back2home'] ? routes.o2h.distanceMeters : routes.d2h.distanceMeters;
             return Number(((returnDistance * this.#prices.returnOffBH) + latencyCosts).toFixed(1));
@@ -129,6 +132,10 @@ class DrivingDestinationModel {
         return Number((returnCosts + latencyCosts).toFixed(1));
     }
 
+    // TODO(yqni13): remove 09/2025
+    /**
+     * @deprecated since version 1.5.8
+     */
     _addChargeServiceDistanceBelow20Km = (routes, back2home, price) => {
         let charge = 0;
         const serviceDistance = back2home 
