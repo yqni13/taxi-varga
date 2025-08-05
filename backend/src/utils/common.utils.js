@@ -57,9 +57,13 @@ exports.getTimeAsStringFromTotalMinutes = (time) => {
  * @param {string} adding "hh:mm"
  * @param {string} limit "hh:mm" 
  * @param {string | null | undefined} end "hh:mm"
- * @return {string} start + additional => "hh:mm"
+ * @return {boolean} true if end is within limit
  */
 exports.checkTimeEndingBeforeLimit = (start, adding, limit, end) => {
+    if(!start || !adding || !limit) {
+        return false;
+    }
+
     limit = this.getTimeInTotalMinutesFromString(limit);
     if(!end) {
         const startInMinutes = this.getTimeInTotalMinutesFromString(start);
@@ -70,13 +74,38 @@ exports.checkTimeEndingBeforeLimit = (start, adding, limit, end) => {
     return end <= limit;
 }
 
+/**
+ * 
+ * @param {string} timestamp 'hh:mm'
+ * @param {string} rangeStart 'hh:mm'
+ * @param {string} rangeEnd 'hh:mm'
+ * @return {boolean} true if timestamp within time range (start to end)
+ */
+exports.isTimeStartingWithinRange = (timestamp, rangeStart, rangeEnd) => {
+    if(!timestamp || !rangeStart || !rangeEnd) {
+        return false;
+    }
+
+    timestamp = this.getTimeInTotalMinutesFromString(timestamp);
+    const start = this.getTimeInTotalMinutesFromString(rangeStart);
+    const end = this.getTimeInTotalMinutesFromString(rangeEnd);
+
+    return timestamp >= start && timestamp <= end;
+}
+
 exports.checkAddressInViennaByZipCode = (zipCode) => {
+    if(!zipCode) {
+        return false;
+    }
     const postalCodesVienna = ['1010', '1020', '1030', '1040', '1050', '1060', '1070', '1080', '1090', '1100', '1110', '1120', '1130', '1140', '1150', '1160', '1170', '1180', '1190', '1200', '1210', '1220', '1230'];
 
     return postalCodesVienna.includes(String(zipCode));
 }
 
 exports.checkAddressInViennaByProvince = (province) => {
+    if(!province) {
+        return false;
+    }
     const vienna = ['wien', 'vienna'];
     province = province.toString().toLowerCase();
 
@@ -84,12 +113,15 @@ exports.checkAddressInViennaByProvince = (province) => {
 }
 
 exports.checkAddressAtViennaAirport = (zipCode) => {
+    if(!zipCode) {
+        return false;
+    }
     const postalCodesViennaAirport = ['1300'];
     return postalCodesViennaAirport.includes(String(zipCode));
 }
 
 exports.checkTimeWithinBusinessHours = (hour) => {
-    return (hour > 3 && hour < 13)
+    return !hour ? false : (hour > 3 && hour < 13);
 }
 
 /**

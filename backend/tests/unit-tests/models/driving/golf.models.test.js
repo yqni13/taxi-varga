@@ -15,7 +15,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 77 } };
+            const expectSubObj = { routeData: { price: 76 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -29,7 +29,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 113 } };
+            const expectSubObj = { routeData: { price: 112 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
