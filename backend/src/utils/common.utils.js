@@ -112,6 +112,16 @@ exports.checkAddressInViennaByProvince = (province) => {
     return vienna.includes(province);
 }
 
+exports.checkAddressInLowerAustriaByProvince = (province) => {
+    if(!province) {
+        return false;
+    }
+    const lowerAustria = ['niederösterreich', 'lower austria'];
+    province = province.toString().toLowerCase();
+
+    return lowerAustria.includes(province);
+}
+
 exports.checkAddressAtViennaAirport = (zipCode) => {
     if(!zipCode) {
         return false;

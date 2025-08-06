@@ -27,8 +27,11 @@ class DrivingDestinationModel {
         }
 
         params['back2home'] = params['back2home'] === 'true' ? true : false;
-        // manual discount: cost limit = 3h (3 * 60min)
+        // Manual discount: cost limit = 3h (3 * 60min)
         params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
+        // Price is calculated by every started 30 minute-block.
+        params['latency'] = (Math.ceil(params['latency'] / 30)) * 30; 
+        const pickUp = Utils.getTimeAsStringFromTotalMinutes(Number(params['pickupTIME']) * 60);
 
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
@@ -50,7 +53,7 @@ class DrivingDestinationModel {
             duration: 0
         };
         let approachCosts = 0;
-        let withinBusinessHours = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
+        let withinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
         const servDist = params['back2home'] 
             ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
             : routes.o2d.distanceMeters;
@@ -59,7 +62,7 @@ class DrivingDestinationModel {
             : routes.o2d.duration;
 
         // Approach costs
-        if(withinBusinessHours) {
+        if(withinBH) {
             const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
             approachCosts = servDist <= 20 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
@@ -73,6 +76,7 @@ class DrivingDestinationModel {
         let servTimeCosts = 0;
         let servDistCosts = 0;
         let additionalCharge = 0;
+        let discounts = 0;
 
         if(servDist <= 30) {
             servTimeCosts = servTime * this.#prices.servDistBelow30Km;
@@ -82,20 +86,24 @@ class DrivingDestinationModel {
             servDistCosts = servDist * this.#prices.servDistAbove30Km;
         }
 
+        const returnCosts = this._calcDestinationReturnCosts(params, routes, withinBH);
+
         // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
         const latencyCosts = (params['latency'] / 60) > 1
             ? (2 * this.#prices.latencyBy30Min) + (((params['latency'] - 60) / 30) * (this.#prices.latencyBy30Min / 2))
             : (params['latency'] / 30) * this.#prices.latencyBy30Min;
 
-        const returnCosts = this._calcDestinationReturnCosts(params, routes, latencyCosts);
-
-        // Add up all additional charges
-        additionalCharge += this._addChargeParkFlatByBH(params, withinBusinessHours)
+        // Add up all additional charges.
+        additionalCharge += latencyCosts;
+        additionalCharge += this._addChargeParkFlatByBH(params, withinBH)
 
         // TODO(yqni13): remove 09/2025
         // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
 
-        const totalCosts = approachCosts + servDistCosts + servTimeCosts + returnCosts + additionalCharge;
+        // Add up all discounts to substract.
+        discounts += this._calcDiscountLaToVIA4To10(params.originDetails, params.destinationDetails, servDist, pickUp);
+
+        const totalCosts = approachCosts + servDistCosts + servTimeCosts + returnCosts + additionalCharge - discounts;
 
         result['duration'] = Math.ceil(servTime);
         result['price'] = (totalCosts % 1) >= 0.5
@@ -110,11 +118,10 @@ class DrivingDestinationModel {
         return {routeData: result};
     }
 
-    _calcDestinationReturnCosts = (params, routes, latencyCosts) => {
-        // TODO(yqni13): why keep latencyCosts at this point and not in main calc???
-        if(!Utils.checkTimeWithinBusinessHours(params['pickupTIME'])) {
+    _calcDestinationReturnCosts = (params, routes, isWithinBH) => {
+        if(!isWithinBH) {
             const returnDistance = params['back2home'] ? routes.o2h.distanceMeters : routes.d2h.distanceMeters;
-            return Number(((returnDistance * this.#prices.returnOffBH) + latencyCosts).toFixed(1));
+            return Number((returnDistance * this.#prices.returnOffBH).toFixed(1));
         }
     
         if(!params.back2home) {
@@ -129,7 +136,17 @@ class DrivingDestinationModel {
                 : (routes.o2h.distanceMeters - 30) * this.#prices.returnWithinBH;
         }
     
-        return Number((returnCosts + latencyCosts).toFixed(1));
+        return Number((returnCosts).toFixed(1));
+    }
+
+    _calcDiscountLaToVIA4To10 = (originDetails, destinationDetails, servDist, pickUp) => {
+        if(servDist <= 30) {
+            const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
+            const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
+            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
+            return isTimeWithinRange && isOriginLA && isDestinationVIA ? 6 : 0;
+        }
+        return 0;
     }
 
     // TODO(yqni13): remove 09/2025
