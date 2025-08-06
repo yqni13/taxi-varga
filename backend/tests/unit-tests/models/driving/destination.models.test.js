@@ -78,6 +78,21 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
+
+            test('Route (2542to2540), params: <back2home> = false, withinBH, <latency> = 0', async () => {
+                // Only test in this block to include _mapO2DRouteByHighestDist in calculation.
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2540']);
+                mockParam_params['back2home'] = 'false';
+                const mockResult = structuredClone(MockData_RouteMatrix['route2542-2540']['apiResult']);
+                const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
+
+                const destinationModel = new DrivingDestinationModel(mockAPI);
+                const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
+                const expectSubObj = { routeData: { price: 13 } };
+
+                expect(testFn).toMatchObject(expectSubObj);
+                expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+            })
         })
 
         describe('Test with different latency values', () => {
@@ -546,6 +561,57 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
             const expectResult = 14;
 
             expect(testFn).toBe(expectResult);
+        })
+    })
+})
+
+describe('Destination tests, priority: _mapO2DRouteByHighestDist', () => {
+
+    let destinationModel, mockParam_routes;
+    beforeEach(() => {
+        destinationModel = new DrivingDestinationModel(googleRoutesApi);
+        mockParam_routes = {};
+    })
+
+    describe('Testing valid fn calls', () => {
+
+        test('Route (2824to2700), params: <back2home> = false, origin = LA, destination = LA', () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2824-2700']);
+            mockParam_params['back2home'] = false;
+            const mockParam_response = structuredClone(MockData_RouteMatrix['route2824-2700']['apiResult']);
+            // o2d: 9.5km, 15.7min | d2o: 9.2km, 15min
+            mockParam_routes = {
+                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+                d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+                o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+            };
+
+            const expectResult = structuredClone(mockParam_routes);
+            const testFn = destinationModel._mapO2DRouteByHighestDist(mockParam_routes, mockParam_params);
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Route (2542to2540), params: <back2home> = false, origin = LA, destination = LA', () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2540']);
+            mockParam_params['back2home'] = false;
+            const mockParam_response = structuredClone(MockData_RouteMatrix['route2542-2540']['apiResult']);
+            // o2d: 3km, 5.4min | d2o: 3.1km, 5.7min
+            mockParam_routes = {
+                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+                d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+                o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+            };
+
+            let expectResult = structuredClone(mockParam_routes);
+            const testFn = destinationModel._mapO2DRouteByHighestDist(mockParam_routes, mockParam_params);
+            [expectResult.o2d, expectResult.d2o] = [expectResult.d2o, expectResult.o2d];
+
+            expect(testFn).toMatchObject(expectResult);
         })
     })
 })

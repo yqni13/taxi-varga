@@ -35,18 +35,14 @@ class DrivingDestinationModel {
 
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
-        // h2o: home to origin
-        // o2d: origin to destination
-        // d2o: destination to origin
-        // d2h: destination to home
-        // o2h: origin to home
-        const routes = {
+        let routes = {
             h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
             d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
             d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
             o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
         };
+        routes = this._mapO2DRouteByHighestDist(routes, params);
         let result = {
             price: 0,
             distance: 0,
@@ -191,6 +187,19 @@ class DrivingDestinationModel {
                 : this.#prices.parkFlatOffBH;
         
         return charge;
+    }
+
+    _mapO2DRouteByHighestDist = (routes, params) => {
+        if(params['back2home'] || (!Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) || !Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province))) {
+            return routes;
+        }
+
+        if(routes.o2d.distanceMeters < routes.d2o.distanceMeters) {
+            // Swap values by destructuring assignment.
+            [routes.o2d, routes.d2o] = [routes.d2o, routes.o2d];
+        }
+
+        return routes;
     }
 }
 

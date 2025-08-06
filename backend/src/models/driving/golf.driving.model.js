@@ -23,10 +23,6 @@ class DrivingGolfModel {
 
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
-        // h2o: home to golfcourse
-        // o2g: origin to golfcourse
-        // g2d: golfcourse to destination
-        // d2h: destination to home
         const routes = {
             h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
             o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
