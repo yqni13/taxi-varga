@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.8}}$
+$\texttt{\color{teal}{v1.5.9}}$
 
 
 <br><br>
@@ -233,9 +233,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.7\ >>\ {\color{pink}1.5.8}}$
+### $\textsf{last\ update\ 1.5.8\ >>\ {\color{pink}1.5.9}}$
 
-- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination', 'golf' and 'quick'.
+- $\textsf{\color{red}Bugfix:}$ Service 'destination' uses parameters as expected to calculate. [Before: Additional parameters were undefined due to calling wrong layer in object for values.]
 
 <br>
 
