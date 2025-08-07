@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/08/06 - $\textsf{last\ update\ 1.5.7\ >>\ {\color{pink}1.5.8}}$
+
+- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination', 'golf' and 'quick'.
+
 ### 2025/07/29 - $\textsf{last\ update\ 1.5.6\ >>\ {\color{pink}1.5.7}}$
 
 - $\textsf{\color{red}Patch:}$ Updated validation on service 'quick' for postal codes (general) and origin address ('quick' only).

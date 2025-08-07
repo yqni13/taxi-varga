@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     protected serviceImgCollection: string[];
     protected homeImgCollection: string[];
     protected activeBg: any;
+    protected isPreloading: boolean;
 
     private subscriptionThemeObservation$: Subscription;
 
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.serviceImgCollection = [];
         this.homeImgCollection = [];
         this.activeBg = {};
+        this.isPreloading = true;
 
         this.subscriptionThemeObservation$ = new Subscription();
     }
@@ -58,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             ...this.homeImgCollection
         ];
         this.assetPreload.preloadAssets({images: images}).finally(() => {
-            // this.isLoading = false;
+            this.isPreloading = false;
         });
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
             tap((theme: ThemeOptions) => {

@@ -1,4 +1,5 @@
 const { basicResponse } = require('../utils/common.utils');
+const Utils = require('../utils/common.utils');
 const GoogleRoutes = require('../services/google-routes/google-routes.api');
 const DrivingAirportModel = require('../models/driving/airport.driving.model');
 const DrivingDestinationModel = require('../models/driving/destination.driving.model');
@@ -15,10 +16,23 @@ class DrivingService {
     }
     
     calcDestinationRoute = async (params) => {
-        const hasParams = Object.keys(params).length !== 0;
+        if(Utils.isObjEmpty(params)) {
+            return {error: 'no params found'}
+        }
         const destinationModel = new DrivingDestinationModel(GoogleRoutes);
-        let calculation = await destinationModel.calcDestinationRoute(hasParams ? params : {});        
-        return basicResponse(calculation, 1, "Success");
+        let resultOrig = await destinationModel.calcDestinationRoute(params, false);
+        if(resultOrig.routeData?.result && !params['back2home'] 
+            && Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) 
+            && Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province)
+        ) {
+            // Add route data to avoid repeated api call (and differing route data).
+            Object.assign(params, {routes: resultOrig.routeData.result.routes});
+            const resultSwap = await destinationModel.calcDestinationRoute(params, true);
+            delete resultOrig.routeData.result.routes;
+            delete resultSwap.routeData.result.routes;
+            return basicResponse(resultOrig.routeData?.result.price >= resultSwap.routeData?.result.price ? resultOrig : resultSwap, 1, "Success");
+        }
+        return basicResponse(resultOrig, 1, "Success");
     }
     
     calcFlatrateRoute = async (params) => {

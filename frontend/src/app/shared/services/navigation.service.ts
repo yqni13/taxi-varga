@@ -52,4 +52,15 @@ export class NavigationService {
             .flatMap((route: any) => [route, ...(route.children || [])])
             .filter((route: any) => route.data?.["showInFooter"]);
     }
+
+    getNavigationIconPaths(): string[] {
+        return this.router.config
+            .flatMap((route: any) => [route, ...(route.children || [])])
+            .filter((route: any) => route.data?.["showInNavbar"])
+            .map((route: any) => {
+                let icon = (route.data?.icon as string).replace(' icon-base', '');
+                icon = icon.replace('-', '_');
+                return `/assets/app-icons/${icon}.svg`;
+            })
+    }
 }
