@@ -116,7 +116,7 @@ exports.checkAddressInLowerAustriaByProvince = (province) => {
     if(!province) {
         return false;
     }
-    const lowerAustria = ['niederösterreich', 'lower austria'];
+    const lowerAustria = ['niederösterreich', 'niederoesterreich', 'lower austria'];
     province = province.toString().toLowerCase();
 
     return lowerAustria.includes(province);

@@ -21,11 +21,7 @@ class DrivingDestinationModel {
         };
     }
 
-    calcDestinationRoute = async (params) => {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
-
+    calcDestinationRoute = async (params, swapO2D) => {
         params['back2home'] = params['back2home'] === 'true' ? true : false;
         // Manual discount: cost limit = 3h (3 * 60min)
         params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
@@ -34,22 +30,28 @@ class DrivingDestinationModel {
         const pickUp = Utils.getTimeAsStringFromTotalMinutes(Number(params['pickupTIME']) * 60);
 
         // GET ROUTE DATA
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
-        let routes = {
-            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-            o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-            d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-            o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
-        };
-        routes = this._mapO2DRouteByHighestDist(routes, params);
+        let response, routes;
+        if(!swapO2D) {
+            response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
+            routes = {
+                h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+                d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+                o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+            };
+        } else {
+            routes = params['routes'];
+            [routes.o2d, routes.d2o] = [routes.d2o, routes.o2d];
+        }
         let result = {
             price: 0,
             distance: 0,
-            duration: 0
+            duration: 0,
+            routes: {}
         };
         let approachCosts = 0;
-        let withinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
+        const isWithinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
         const servDist = params['back2home'] 
             ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
             : routes.o2d.distanceMeters;
@@ -58,7 +60,7 @@ class DrivingDestinationModel {
             : routes.o2d.duration;
 
         // Approach costs
-        if(withinBH) {
+        if(isWithinBH) {
             const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
             approachCosts = servDist <= 20 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
@@ -82,7 +84,7 @@ class DrivingDestinationModel {
             servDistCosts = servDist * this.#prices.servDistAbove30Km;
         }
 
-        const returnCosts = this._calcDestinationReturnCosts(params, routes, withinBH);
+        const returnCosts = this._calcDestinationReturnCosts(params, routes, isWithinBH);
 
         // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
         const latencyCosts = (params['latency'] / 60) > 1
@@ -91,7 +93,7 @@ class DrivingDestinationModel {
 
         // Add up all additional charges.
         additionalCharge += latencyCosts;
-        additionalCharge += this._addChargeParkFlatByBH(params, withinBH)
+        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH)
 
         // TODO(yqni13): remove 09/2025
         // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
@@ -110,6 +112,7 @@ class DrivingDestinationModel {
             : servDist < 1
                 ? servDist
                 : Math.floor(servDist);
+        result['routes'] = routes;
 
         return {routeData: result};
     }
@@ -187,19 +190,6 @@ class DrivingDestinationModel {
                 : this.#prices.parkFlatOffBH;
         
         return charge;
-    }
-
-    _mapO2DRouteByHighestDist = (routes, params) => {
-        if(params['back2home'] || (!Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) || !Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province))) {
-            return routes;
-        }
-
-        if(routes.o2d.distanceMeters < routes.d2o.distanceMeters) {
-            // Swap values by destructuring assignment.
-            [routes.o2d, routes.d2o] = [routes.d2o, routes.o2d];
-        }
-
-        return routes;
     }
 }
 
