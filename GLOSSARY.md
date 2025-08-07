@@ -86,7 +86,15 @@ Basic description: `<base>.<subsuffix?>.<suffix>.<ending>` [specific always sing
 
 ## Abbreviations
 
-| Abbreviation           | Definition                  | Value/Importance             |
-|------------------------|-----------------------------|------------------------------|
-| BH                     | Business Hours              | 04:00-12:00 = withinBH       |
-
+| Abbreviation           | Definition                   | Value/Importance             |
+|------------------------|------------------------------|------------------------------|
+| BH                     | Business Hours               | 04:00-12:00 = withinBH       |
+| LA                     | Lower Austria                | short province definition    |
+| VIA                    | Vienna International Airport | short location definition    |
+| h2o                    | Home to Origin               | short route direction        |
+| o2d                    | Origin to Destination        | short route direction        |
+| d2o                    | Destination to Origin        | short route direction        |
+| o2h                    | Origin to Home               | short route direction        |
+| d2h                    | Destination to Home          | short route direction        |
+| o2g                    | Origin to Golf Course        | short route direction        |
+| g2d                    | Golf Course to Destination   | short route direction        |

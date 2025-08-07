@@ -23,9 +23,6 @@ class DrivingFlatrateModel {
 
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
-        // h2o: home to origin
-        // o2d: origin to destination
-        // d2h: destination to home
         const routes = {
             h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),

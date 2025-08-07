@@ -23,10 +23,6 @@ class DrivingGolfModel {
 
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
-        // h2o: home to golfcourse
-        // o2g: origin to golfcourse
-        // g2d: golfcourse to destination
-        // d2h: destination to home
         const routes = {
             h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
             o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -60,7 +56,8 @@ class DrivingGolfModel {
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
+        // TODO(yqni13): remove 09/2025
+        // additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
 
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
@@ -96,6 +93,10 @@ class DrivingGolfModel {
         };
     }
 
+    // TODO(yqni13): remove 09/2025
+    /**
+     * @deprecated since version 1.5.8
+     */
     _addChargeServiceDistanceBelow20Km = (routes) => {
         let charge = 0;
         const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;

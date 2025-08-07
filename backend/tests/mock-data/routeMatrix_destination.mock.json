@@ -341,7 +341,7 @@
         },
         "pickupTIME": 8
     },
-    "route2340-2340": {
+    "route2340-2345": {
         "a_information": {
             "approach_distance": 27.4,
             "back2home": true,
@@ -437,7 +437,7 @@
         ],
         "back2home": "true",
         "destination": "Wienerstraße+154,+2345+Brunn+am+Gebirge,+Austria",
-        "destinationAddress": {
+        "destinationDetails": {
             "address": "Wienerstraße 154, 2345 Brunn am Gebirge, Austria",
             "country": "Austria",
             "placeId": "ChIJp7OV7DGvbUcRViYzpU0HRPM",
@@ -455,7 +455,7 @@
         },
         "pickupTIME": 8
     },
-    "route2384-2384": {
+    "route2384-1220": {
         "a_information": {
             "approach_distance": 45,
             "back2home": true,
@@ -551,7 +551,7 @@
         ],
         "back2home": "true",
         "destination": "Leonard-Bernstein-Straße+10,+1220+Wien,+Austria",
-        "destinationAddress": {
+        "destinationDetails": {
             "address": "Leonard-Bernstein-Straße 10, 1220 Wien, Austria",
             "country": "Austria",
             "placeId": "ChIJnYUaCu8GbUcRBHHYgO4sPr8",
@@ -569,7 +569,7 @@
         },
         "pickupTIME": 8
     },
-    "route2542-2542": {
+    "route2542-2540": {
         "a_information": {
             "approach_distance": 3.2,
             "back2home": true,
@@ -665,7 +665,7 @@
         ],
         "back2home": "true",
         "destination": "Badner+Str.+7-9,+2540+Bad+Vöslau,+Austria",
-        "destinationAddress": {
+        "destinationDetails": {
             "address": "Badner Str. 7-9, 2540 Bad Vöslau, Austria",
             "country": "Austria",
             "placeId": "ChIJA0nwlMqwbUcRhzVLLBxsXcU",
@@ -779,7 +779,7 @@
         ],
         "back2home": "false",
         "destination": "Praterstraße+1,+1020+Wien,+Austria",
-        "destinationAddress": {
+        "destinationDetails": {
             "address": "Praterstraße 1, 1020 Wien, Austria",
             "country": "Austria",
             "placeId": "ChIJt8BqvqAHbUcRCOcO48abiFE",
@@ -920,9 +920,9 @@
             "servDist": 0
         },
         "back2home": "false",
-        "destination": "Leobersdorf,++Niederösterreich",
+        "destination": "Leobersdorf,+Niederösterreich",
         "destinationDetails": {
-            "address": "Leobersdorf,  Niederösterreich",
+            "address": "Leobersdorf, Niederösterreich",
             "country": "Österreich",
             "placeId": "ChIJYVa73wG3bUcRn_ieU3hlzj0",
             "province": "Niederösterreich"
@@ -935,6 +935,72 @@
             "province": "Wien"
         },
         "pickupTIME": 6,
+        "latency": 0
+    },
+    "route2351-1300": {
+        "a_information": {
+            "approach_distance": 25.3,
+            "back2home": false,
+            "BH": "withinBH",
+            "return_distance": 48.1,
+            "servDist": 29.1,
+            "servTime": 24.4
+        },
+        "apiResult": [
+            {
+                "originIndex": 0,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 25.3,
+                "duration": 21.5
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 29.1,
+                "duration": 24.4
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 26.9,
+                "duration": 26.3
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 48.1,
+                "duration": 38.7
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 24.8,
+                "duration": 21.5
+            }
+        ],
+        "back2home": "false",
+        "destination": "Flughafen+Wien+Schwechat,+1300+Niederösterreich,+Austria",
+        "destinationDetails": {
+            "address": "Flughafen Wien Schwechat, 1300 Niederösterreich, Austria",
+            "country": "Austria",
+            "placeId": "ChIJm74aR6tVbEcRS5vSjRBSeiQ",
+            "province": "Niederösterreich",
+            "zipCode": "1300"
+        },
+        "origin": "Weidenweg+6,+2351+Wiener+Neudorf,+Austria",
+        "originDetails": {
+            "address": "Weidenweg 6, 2351 Wiener Neudorf, Austria",
+            "country": "'Austria'",
+            "placeId": "ChIJ4ZjQ6fKubUcRIDmT89SUd58",
+            "province": "Niederösterreich",
+            "zipCode": "2351"
+        },
+        "pickupTIME": 7,
         "latency": 0
     }
 }

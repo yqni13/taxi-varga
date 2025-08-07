@@ -23,7 +23,7 @@
             "province": "Wien",
             "zipCode": "1010"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 16,
@@ -89,7 +89,7 @@
             "province": "Wien",
             "zipCode": "1010"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 0,
@@ -155,7 +155,7 @@
             "province": "Wien",
             "zipCode": "1180"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 31,
@@ -227,7 +227,7 @@
             "province": "Wien",
             "zipCode": "1190"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 10,
@@ -293,7 +293,7 @@
             "province": "Wien",
             "zipCode": "1210"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 19,
@@ -359,7 +359,7 @@
             "province": "Wien",
             "zipCode": "1230"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 15,
@@ -425,7 +425,7 @@
             "province": "Wien",
             "zipCode": "1230"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "destinationIndex": 3,
@@ -491,7 +491,7 @@
             "province": "Wien",
             "zipCode": "1100"
         },
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "originIndex": 0,
@@ -563,7 +563,7 @@
             "zipCode": "2544"
         },
         "latency": 0,
-        "pickupTIME": 10,
+        "pickupTIME": "10:00",
         "returnResult": [
             {
                 "originIndex": 0,
