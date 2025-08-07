@@ -21,16 +21,16 @@ class DrivingService {
         }
         const destinationModel = new DrivingDestinationModel(GoogleRoutes);
         let resultOrig = await destinationModel.calcDestinationRoute(params, false);
-        if(resultOrig.routeData?.result && !params['back2home'] 
+        if(resultOrig.routeData?.routes && !params['back2home'] 
             && Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) 
             && Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province)
         ) {
             // Add route data to avoid repeated api call (and differing route data).
-            Object.assign(params, {routes: resultOrig.routeData.result.routes});
+            Object.assign(params, {routes: resultOrig.routeData.routes});
             const resultSwap = await destinationModel.calcDestinationRoute(params, true);
-            delete resultOrig.routeData.result.routes;
-            delete resultSwap.routeData.result.routes;
-            return basicResponse(resultOrig.routeData?.result.price >= resultSwap.routeData?.result.price ? resultOrig : resultSwap, 1, "Success");
+            delete resultOrig.routeData.routes;
+            delete resultSwap.routeData.routes;
+            return basicResponse(resultOrig.routeData?.price >= resultSwap.routeData?.price ? resultOrig : resultSwap, 1, "Success");
         }
         return basicResponse(resultOrig, 1, "Success");
     }
