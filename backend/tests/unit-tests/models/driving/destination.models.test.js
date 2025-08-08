@@ -94,7 +94,6 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
 
             test('Route (2542to2540) [after swap], params: <back2home> = false, withinBH, <latency> = 0', async () => {
-                // TODO(yqni13): need new route with swaped addresses
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2540-2542']);
                 mockParam_params['back2home'] = 'false';
                 const mockResult = structuredClone(MockData_RouteMatrix['route2540-2542']['apiResult']);
