@@ -20,16 +20,17 @@ class DrivingService {
             return {error: 'no params found'}
         }
         const destinationModel = new DrivingDestinationModel(GoogleRoutes);
-        let resultOrig = await destinationModel.calcDestinationRoute(params, false);
-        if(resultOrig.routeData?.routes && !params['back2home'] 
+        let resultOrig = await destinationModel.calcDestinationRoute(params);
+        if(resultOrig.routeData?.price && !params['back2home'] 
             && Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) 
             && Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province)
+            && !Utils.checkAddressAtViennaAirport(params.originDetails.zipCode ?? '2000')
+            && !Utils.checkAddressAtViennaAirport(params.destinationDetails.zipCode ?? '2000')
         ) {
-            // Add route data to avoid repeated api call (and differing route data).
-            Object.assign(params, {routes: resultOrig.routeData.routes});
-            const resultSwap = await destinationModel.calcDestinationRoute(params, true);
-            delete resultOrig.routeData.routes;
-            delete resultSwap.routeData.routes;
+            // Swap addresses and run calculations again to compare and select by price.
+            [params.origin, params.destination] = [params.destination, params.origin];
+            [params.originDetails, params.destinationDetails] = [params.destinationDetails, params.originDetails];
+            const resultSwap = await destinationModel.calcDestinationRoute(params);
             return basicResponse(resultOrig.routeData?.price >= resultSwap.routeData?.price ? resultOrig : resultSwap, 1, "Success");
         }
         return basicResponse(resultOrig, 1, "Success");

@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/08/08 - $\textsf{last\ update\ 1.5.9\ >>\ {\color{pink}1.5.10}}$
+
+- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to swap addresses in parameters instead of route response data only.
+
 ### 2025/08/07 - $\textsf{last\ update\ 1.5.8\ >>\ {\color{pink}1.5.9}}$
 
 - $\textsf{\color{red}Bugfix:}$ Service 'destination' uses parameters as expected to calculate. [Before: Additional parameters were undefined due to calling wrong layer in object for values.]
