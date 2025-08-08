@@ -21,7 +21,7 @@ class DrivingDestinationModel {
         };
     }
 
-    calcDestinationRoute = async (params, swapO2D) => {
+    calcDestinationRoute = async (params) => {
         params['back2home'] = params['back2home'] === 'true' ? true : false;
         // Manual discount: cost limit = 3h (3 * 60min)
         params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
@@ -30,25 +30,19 @@ class DrivingDestinationModel {
         const pickUp = Utils.getTimeAsStringFromTotalMinutes(Number(params['pickupTIME']) * 60);
 
         // GET ROUTE DATA
-        let response, routes;
-        if(!swapO2D) {
-            response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
-            routes = {
-                h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-                o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-                d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-                d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-                o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
-            };
-        } else {
-            routes = params['routes'];
-            [routes.o2d, routes.d2o] = [routes.d2o, routes.o2d];
-        }
+        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
+        const routes = {
+            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+            o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+            d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+            o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+        };
+
         let result = {
             price: 0,
             distance: 0,
-            duration: 0,
-            routes: {}
+            duration: 0
         };
         let approachCosts = 0;
         const isWithinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
@@ -112,7 +106,6 @@ class DrivingDestinationModel {
             : servDist < 1
                 ? servDist
                 : Math.floor(servDist);
-        result['routes'] = routes;
 
         return {routeData: result};
     }
