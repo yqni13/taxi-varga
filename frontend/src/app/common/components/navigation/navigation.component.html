@@ -1,22 +1,25 @@
 <nav class="tava-nav-bar">
-    <ul>
-        <li>
-            <img
-                [attr.aria-disabled]="true"
-                class="tava-nav-logo"
-                [ngClass]="deviceMode === deviceOptions.MOBILE ? 'mobile-size' : 'stationary-size'"
-                src="assets/logo.webp" 
-                alt="logo to navigate home"
-                routerLink="home"
-            >
-        </li>
-        <li *ngFor="let route of routes">
-            <span
-                class="tava-nav-routes"
-                [attr.aria-disabled]="true"
-                routerLink="{{ route.path }}"
-                routerLinkActive="tava-active-route"
-            >{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="deviceMode === deviceOptions.MOBILE" class="{{route.data?.['icon']}}"></i></span>
-        </li>
-    </ul>
+    <ng-container *ngIf="!isPreloading">
+        <ul>
+            <li>
+                <img
+                    [attr.aria-disabled]="true"
+                    class="tava-nav-logo"
+                    [ngClass]="deviceMode === deviceOptions.MOBILE ? 'mobile-size' : 'stationary-size'"
+                    src="assets/logo.webp" 
+                    alt="logo to navigate home"
+                    routerLink="home"
+                >
+            </li>
+            <li *ngFor="let route of routes">
+                <span
+                    class="tava-nav-routes"
+                    [attr.aria-disabled]="true"
+                    routerLink="{{ route.path }}"
+                    routerLinkActive="tava-active-route"
+                >{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} <i *ngIf="deviceMode === deviceOptions.MOBILE" class="{{route.data?.['icon']}}"></i></span>
+                <!-- TODO(yqni13): preload error again because state of deviceMode is cached like theme mode -->
+            </li>
+        </ul>
+    </ng-container>
 </nav> 

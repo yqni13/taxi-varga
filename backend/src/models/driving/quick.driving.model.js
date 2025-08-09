@@ -23,7 +23,9 @@ class DrivingQuickModel {
             occupiedReturnAbove20km: 0.4,
             occupiedReturnBelow8km: 0.6,
             latencyBy5Min: 0.5,
-            morningSurcharge: 1.15
+            morningSurcharge: 1.15,
+            surchargeAbove20km: 14,
+            surchargeBelow20km: 6
         }
     }
 
@@ -59,6 +61,7 @@ class DrivingQuickModel {
             : Number((routes.o2d.distanceMeters).toFixed(1));
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isRouteV2V = this._isRouteWithinVienna(params);
+        const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
         const servCostParams = {
             servDist: servDist,
             servTime: servTime,
@@ -73,7 +76,10 @@ class DrivingQuickModel {
         let totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
 
         // Surcharge for busy hours.
-        totalCosts = this._updateCostsByTimeBasedSurcharge(totalCosts, servTime, params['pickupTIME']);
+        totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
+        totalCosts = isOriginV 
+            ? this._updateCostsByTimeBasedSurcharge6To10(totalCosts, servDist, params['pickupTIME'])
+            : totalCosts;
 
         result['price'] = (totalCosts % 1) >= 0.5
             ? Math.ceil(totalCosts)
@@ -99,12 +105,20 @@ class DrivingQuickModel {
         return { time: latencyRoundedUp, costs: latencyCosts };
     }
 
-    _updateCostsByTimeBasedSurcharge = (totalCosts, servTime, pickUp) => {
+    _updateCostsByTimeBasedSurcharge4To6 = (totalCosts, servTime, pickUp) => {
         // Costs for route with service time ending before 06:00 are surcharged.
         const servTimeAsString = Utils.getTimeAsStringFromTotalMinutes(servTime);
         const isEndingBeforeLimit =  Utils.checkTimeEndingBeforeLimit(pickUp, servTimeAsString, '06:00')
 
         return isEndingBeforeLimit ? Number((totalCosts * this.#prices.morningSurcharge).toFixed(1)) : totalCosts;
+    }
+
+    _updateCostsByTimeBasedSurcharge6To10 = (totalCosts, servDist, pickUp) => {
+        // Costs for route with service time starting within 06:00 - 10:00 are surcharged.
+        const isPickupWithinRange = Utils.isTimeStartingWithinRange(pickUp, '06:00', '10:00');
+        const surcharge = servDist <= 20 ? this.#prices.surchargeBelow20km : this.#prices.surchargeAbove20km;
+
+        return isPickupWithinRange ? totalCosts + surcharge : totalCosts;
     }
 
     _calcServDistCosts = (routes, servCostParams) => {
@@ -160,17 +174,11 @@ class DrivingQuickModel {
     }
 
     _mapShortestReturnLocation = (data, origin) => {
-        // Exception for all locations with zipCode 254*.
-        if(origin && origin.zipCode.includes('254')) {
-            const homeBorder = data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0});
-            return {
-                distance: homeBorder.distanceMeters,
-                duration: homeBorder.duration,
-                routeHome: true
-            }
+        if(origin && origin.zipCode === '2544') {
+            data = [data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0})];
+        } else {
+            data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
         }
-
-        data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
 
         return {
             distance: data[0].distanceMeters,

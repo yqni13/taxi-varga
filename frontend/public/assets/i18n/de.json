@@ -40,6 +40,7 @@
             "validate-backend": {
                 "data": {
                     "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
+                    "address-quick-invalid-origin": "Für die Abholadresse können bei einer Spontanfahrt nur Adressen mit der Postleitzahl 10**, 11**, 12** oder 2544 gewählt werden.",
                     "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
                     "backend-404-env": "Umgebungsvariable {{ENV}} fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                     "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
@@ -245,7 +246,7 @@
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
-                        "destination": "Rückkehradresse",
+                        "destination": "Zieladresse",
                         "golfcourse": "Golfplatz",
                         "origin": "Abholadresse",
                         "passengers": "Anzahl mitreisender Personen/Spieler",
@@ -270,12 +271,12 @@
                 "quick": {
                     "info": {
                         "call": "Anrufen",
-                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- Berechnungen gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
                         "back2origin": "Ich möchte zur Abholadresse zurückkehren.",
-                        "destination": "Rückkehradresse",
+                        "destination": "Zieladresse",
                         "gps": "Ich möchte meinen Standort für die Abholadresse verwenden.",
                         "latency": "Meine benötigte Zeit zwischen Hin- und Rückfahrt",
                         "origin": "Abholadresse",

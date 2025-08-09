@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.6}}$
+$\texttt{\color{teal}{v1.5.10}}$
 
 
 <br><br>
@@ -176,7 +176,7 @@ Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-180+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
+200+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config
@@ -233,11 +233,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.3\ >>\ {\color{pink}1.5.6}}$
+### $\textsf{last\ update\ 1.5.9\ >>\ {\color{pink}1.5.10}}$
 
-- $\textsf{\color{green}Change:}$ Updated design of starting page + small style modifications on existing pages.
-- $\textsf{\color{red}Bugfix:}$ Searching for golf courses within service 'golf' results in listing all existing establishments. [Before: Searching for certain golf courses resulted in missing entries because some golf courses have primary type "hotel" which was not filtered for.]
-- $\textsf{\color{red}Patch:}$ Updated return calculation on service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to swap addresses in parameters instead of route response data only.
 
 <br>
 

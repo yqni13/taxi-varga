@@ -1,4 +1,5 @@
 const { basicResponse } = require('../utils/common.utils');
+const Utils = require('../utils/common.utils');
 const GoogleRoutes = require('../services/google-routes/google-routes.api');
 const DrivingAirportModel = require('../models/driving/airport.driving.model');
 const DrivingDestinationModel = require('../models/driving/destination.driving.model');
@@ -15,10 +16,24 @@ class DrivingService {
     }
     
     calcDestinationRoute = async (params) => {
-        const hasParams = Object.keys(params).length !== 0;
+        if(Utils.isObjEmpty(params)) {
+            return {error: 'no params found'}
+        }
         const destinationModel = new DrivingDestinationModel(GoogleRoutes);
-        let calculation = await destinationModel.calcDestinationRoute(hasParams ? params : {});        
-        return basicResponse(calculation, 1, "Success");
+        let resultOrig = await destinationModel.calcDestinationRoute(params);
+        if(resultOrig.routeData?.price && !params['back2home'] 
+            && Utils.checkAddressInLowerAustriaByProvince(params.originDetails.province) 
+            && Utils.checkAddressInLowerAustriaByProvince(params.destinationDetails.province)
+            && !Utils.checkAddressAtViennaAirport(params.originDetails.zipCode ?? '2000')
+            && !Utils.checkAddressAtViennaAirport(params.destinationDetails.zipCode ?? '2000')
+        ) {
+            // Swap addresses and run calculations again to compare and select by price.
+            [params.origin, params.destination] = [params.destination, params.origin];
+            [params.originDetails, params.destinationDetails] = [params.destinationDetails, params.originDetails];
+            const resultSwap = await destinationModel.calcDestinationRoute(params);
+            return basicResponse(resultOrig.routeData?.price >= resultSwap.routeData?.price ? resultOrig : resultSwap, 1, "Success");
+        }
+        return basicResponse(resultOrig, 1, "Success");
     }
     
     calcFlatrateRoute = async (params) => {

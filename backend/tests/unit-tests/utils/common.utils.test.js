@@ -95,10 +95,32 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
+        test('fn: isTimeStartingWithinRange', () => {
+            const mockParam_timestamp = "07:11";
+            const mockParam_rangeStart = "06:00";
+            const mockParam_rangeEnd = "10:00";
+
+            const testFn = Utils.isTimeStartingWithinRange(
+                mockParam_timestamp, mockParam_rangeStart, mockParam_rangeEnd
+            );
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
+
         test('fn: checkAddressInViennaByZipCode, result: true', () => {
             const mockParam_zipCode = '1010';
 
             const testFn = Utils.checkAddressInViennaByZipCode(mockParam_zipCode);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkAddressInViennaByProvince, result: true', () => {
+            const mockParam_province = 'Vienna';
+
+            const testFn = Utils.checkAddressInViennaByProvince(mockParam_province);
             const expectResult = true;
 
             expect(testFn).toBe(expectResult);
@@ -154,7 +176,7 @@ describe('Utils tests, priority: common', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('fn: checkTimeEndingBeforeLimit', () => {
+        test('fn: checkTimeEndingBeforeLimit, case: outside time limit', () => {
             const mockParam_start = "05:39";
             const mockParam_adding = "00:37";
             const mockParam_limit = "06:00";
@@ -165,7 +187,44 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: checkAddressInViennaByZipCode, result: false', () => {
+        test('fn: checkTimeEndingBeforeLimit, case: invalid params', () => {
+            const mockParam_start = null;
+            const mockParam_adding = undefined;
+            const mockParam_limit = "06:00";
+
+            const testFn = Utils.checkTimeEndingBeforeLimit(mockParam_start, mockParam_adding, mockParam_limit);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: isTimeStartingWithinRange, params: <timestamp> = "05:44", <rangeStart> = "06:00"', () => {
+            const mockParam_timestamp = "05:44";
+            const mockParam_rangeStart = "06:00";
+            const mockParam_rangeEnd = "10:00";
+
+            const testFn = Utils.isTimeStartingWithinRange(
+                mockParam_timestamp, mockParam_rangeStart, mockParam_rangeEnd
+            );
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: isTimeStartingWithinRange, params: <timestamp> = undefined', () => {
+            const mockParam_timestamp = undefined;
+            const mockParam_rangeStart = "06:00";
+            const mockParam_rangeEnd = "10:00";
+
+            const testFn = Utils.isTimeStartingWithinRange(
+                mockParam_timestamp, mockParam_rangeStart, mockParam_rangeEnd
+            );
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkAddressInViennaByZipCode, params: <zipCode> = "2000"', () => {
             const mockParam_zipCode = '2000';
 
             const testFn = Utils.checkAddressInViennaByZipCode(mockParam_zipCode);
@@ -174,7 +233,34 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: checkAddressAtViennaAirport, result: false', () => {
+        test('fn: checkAddressInViennaByZipCode, params: <zipCode> = undefined', () => {
+            const mockParam_zipCode = undefined;
+
+            const testFn = Utils.checkAddressInViennaByZipCode(mockParam_zipCode);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkAddressInViennaByProvince, params: <province> = "Lower Austria"', () => {
+            const mockParam_province = 'Lower Austria';
+
+            const testFn = Utils.checkAddressInViennaByProvince(mockParam_province);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkAddressInViennaByProvince, params: <province> = null', () => {
+            const mockParam_zipCode = null;
+
+            const testFn = Utils.checkAddressInViennaByProvince(mockParam_zipCode);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkAddressAtViennaAirport, params: <zipCode> = "1010"', () => {
             const mockParam_zipCode = '1010';
 
             const testFn = Utils.checkAddressAtViennaAirport(mockParam_zipCode);
@@ -183,8 +269,26 @@ describe('Utils tests, priority: common', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('fn: checkTimeWithinBusinessHours, result: false', () => {
+        test('fn: checkAddressAtViennaAirport, params: <zipCode> = null', () => {
+            const mockParam_zipCode = null;
+
+            const testFn = Utils.checkAddressAtViennaAirport(mockParam_zipCode);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkTimeWithinBusinessHours, params: <hour> = 13', () => {
             const mockParam_hour = 13;
+
+            const testFn = Utils.checkTimeWithinBusinessHours(mockParam_hour);
+            const expectResult = false;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: checkTimeWithinBusinessHours, params: <hour> = undefined', () => {
+            const mockParam_hour = undefined;
 
             const testFn = Utils.checkTimeWithinBusinessHours(mockParam_hour);
             const expectResult = false;

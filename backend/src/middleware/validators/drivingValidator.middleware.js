@@ -112,7 +112,11 @@ exports.drivingQuickSchema = [
     body('originDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.origin, value))
         .bail()
-        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req)),
+        .custom((value) => CustomValidator.validateZipCodeExist(value))
+        .bail()
+        .custom((_, {req}) => CustomValidator.validateServiceRouteVIE(req))
+        .bail()
+        .custom((value) => CustomValidator.validateQuickOrigin(value)),
     body('destination')
         .trim()
         .notEmpty()
