@@ -28,6 +28,8 @@ jobs:
       SECRET_AUTH_USER: ${{ secrets.SECRET_AUTH_USER }}
       SECRET_AUTH_ID: ${{ secrets.SECRET_AUTH_ID }}
       SECRET_AUTH_PASS: ${{ secrets.SECRET_AUTH_PASS }}
+      SECRET_AUTH_ROLE: ${{ secrets.SECRET_AUTH_ROLE }}
+      SECRET_AUTH_ISSUER: ${{ secrets.SECRET_AUTH_ISSUER }}
       SECRET_PUBLIC_KEY: none
       SECRET_PRIVATE_KEY: none
 
