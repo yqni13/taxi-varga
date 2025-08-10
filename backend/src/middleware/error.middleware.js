@@ -1,5 +1,5 @@
 const Secrets = require('../utils/secrets.utils');
-const { InternalServerException } = require('../utils/exceptions/common.exception');
+const { InternalServerException, UnexpectedException } = require('../utils/exceptions/common.exception');
 const { JWTExpirationException } = require('../utils/exceptions/auth.exception');
 
 function errorMiddleware(err, req, res, next) {
@@ -8,6 +8,8 @@ function errorMiddleware(err, req, res, next) {
         err = new InternalServerException('Internal Server Error');
     } else if(err.status === 401 && err.message === 'jwt expired') {
         err = new JWTExpirationException();
+    } else {
+        err = new UnexpectedException();
     }
 
     let { message, code, error, status, data, stack } = err;
