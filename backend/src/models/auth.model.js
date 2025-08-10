@@ -28,6 +28,8 @@ class AuthModel {
         const id = Secrets.AUTH_ID;
         const user = Secrets.AUTH_USER;
         const password = Secrets.AUTH_PASS;
+        const role = Secrets.AUTH_ROLE;
+        const issuer = Secrets.AUTH_ISSUER;
         const privateKey = Secrets.PRIVATE_KEY;
 
         const decryptedUser = decryptRSA(params['user'], privateKey);
@@ -44,14 +46,14 @@ class AuthModel {
         const payload = {
             id: id,
             user: decryptedUser + String(Date.now()),
-            role: 'user'
+            role: role
         }
 
         const options = {
             expiresIn: '30m',
             algorithm: 'RS256',
             audience: params['aud'],
-            issuer: 'https://taxi-varga.at'
+            issuer: issuer
         }
 
         const token = jwt.sign(payload, privateKey, options)
