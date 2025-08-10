@@ -27,7 +27,7 @@ function errorMiddleware(err, req, res, next) {
         console.error('Status: ', status);
         console.error('Code: ', code);
         console.error('Message: ', message);
-        console.error('Stack: ', stack);
+        console.error('Stack: ', err.stack);
     }
 
     const headers = {
@@ -41,7 +41,7 @@ function errorMiddleware(err, req, res, next) {
     if(testMode) {
         console.error('FINAL STATUS SENT: ', status);
     }
-    res.status(status).json({ headers, body: {}});
+    res.status(status).send({ headers, body: {}});
 }
 
 module.exports = errorMiddleware;
