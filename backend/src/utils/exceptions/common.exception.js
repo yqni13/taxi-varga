@@ -25,8 +25,8 @@ class AuthenticationException extends CommonException {
 }
 
 class InternalServerException extends CommonException {
-    constructor(data) {
-        super(ErrorCodes.InternalServerException, 'Server not connected', data, ErrorStatusCodes.InternalServerException);
+    constructor(message, data) {
+        super(ErrorCodes.InternalServerException, message, data, ErrorStatusCodes.InternalServerException);
     }
 }
 
