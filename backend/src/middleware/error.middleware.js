@@ -10,13 +10,14 @@ function errorMiddleware(err, req, res, next) {
         err = new JWTExpirationException();
     }
 
-    const status = Number.isInteger(err.status) && err.status >= 100 && err.status <= 599 ? err.status : 500;
+    const status = err.status && err.status >= 100 && err.status <= 599 ? err.status : 500;
     const code = err.code || 'UNEXPECTED_ERROR';
     const message = err.message || 'Internal Server Error';
     const error = err.error || err.name || 'UnexpectedError';
     const data = err.data || null;
 
-    if(Secrets.MODE === 'development' || Secrets.MODE === 'staging') {
+    const testMode = Secrets.MODE === 'development' || Secrets.MODE === 'staging' ? true : false;
+    if(testMode) {
         console.error('Exception Handling');
         console.error('Name: ', err.name);
         console.error('Status: ', status);
@@ -33,6 +34,9 @@ function errorMiddleware(err, req, res, next) {
         ...(data ? data : {})
     };
 
+    if(testMode) {
+        console.error('FINAL STATUS SENT: ', status);
+    }
     res.status(status).json({ headers, body: {}});
 }
 
