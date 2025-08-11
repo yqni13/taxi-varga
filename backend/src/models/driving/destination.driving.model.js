@@ -56,7 +56,7 @@ class DrivingDestinationModel {
         // Approach costs
         if(isWithinBH) {
             const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
-            approachCosts = servDist <= 20 
+            approachCosts = servDist <= 15 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
                 : routes.h2o.distanceMeters <= 30
                     ? this.#prices.approachFlatrate
