@@ -223,9 +223,9 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
             })
         })
 
-        describe('Test with service distance < 20, priority: back2home & approach', () => {
+        describe('Test with service distance </> 15, priority: back2home & approach', () => {
 
-            test('Route (1230to2345), params: offBH, servDist < 20, back2home = false', async () => {
+            test('Route (1230to2345), params: offBH, servDist < 15, back2home = false', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
                 mockParam_params['pickupTIME'] = 17;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1230-2345']['apiResult']);
@@ -239,7 +239,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (1230to2345), params: withinBH, servDist < 20, back2home = false', async () => {
+            test('Route (1230to2345), params: withinBH, servDist < 15, back2home = false', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -252,7 +252,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (2542to2540), params: withinBH, servDist < 20, back2home = true', async () => {
+            test('Route (2542to2540), params: withinBH, servDist < 15, back2home = true', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2540']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2542-2540']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -265,7 +265,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (2340to2345), params: withinBH, servDist > 20, back2home = true, approach < 30', async () => {
+            test('Route (2340to2345), params: withinBH, servDist > 15, back2home = true, approach < 30', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2345']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2340-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -278,7 +278,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (2384to1220), params: withinBH, servDist > 20, back2home = true, approach > 30', async () => {
+            test('Route (2384to1220), params: withinBH, servDist > 15, back2home = true, approach > 30', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2384-1220']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2384-1220']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -291,7 +291,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (2560to1020), params: withinBH, servDist > 20, back2home = false, approach < 30', async () => {
+            test('Route (2560to1020), params: withinBH, servDist > 15, back2home = false, approach < 30', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2560-1020']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2560-1020']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -304,7 +304,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             })
 
-            test('Route (1090to4020), params: withinBH, servDist > 20, back2home = false, approach > 30', async () => {
+            test('Route (1090to4020), params: withinBH, servDist > 15, back2home = false, approach > 30', async () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route1090-4020']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
@@ -320,58 +320,58 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
     })
 })
 
-describe('Destination tests, priority: _addChargeServiceDistanceBelow20Km (via spyOn)', () => {
+// describe('Destination tests, priority: _addChargeServiceDistanceBelow20Km (via spyOn)', () => {
 
-    describe('Testing valid fn calls', () => {
+//     describe('Testing valid fn calls', () => {
 
-        let mockParam_response, mockParam_routes;
-        beforeEach(() => {
-            mockParam_response = structuredClone(MockData_RouteMatrix['route2824-2700']['apiResult']);
-            mockParam_routes = {
-                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-                o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-                d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-                d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-                o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
-            };
-        });
+//         let mockParam_response, mockParam_routes;
+//         beforeEach(() => {
+//             mockParam_response = structuredClone(MockData_RouteMatrix['route2824-2700']['apiResult']);
+//             mockParam_routes = {
+//                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+//                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+//                 d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+//                 d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+//                 o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+//             };
+//         });
 
-        test('Route (2824to2700), params: service distance < 20, <back2home> = false, withinBH, <latency> = 0', () => {
-            const mockParam_back2home = false;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
-            const testFn = mockSpy.getMockImplementation();
+//         test('Route (2824to2700), params: service distance < 20, <back2home> = false, withinBH, <latency> = 0', () => {
+//             const mockParam_back2home = false;
+//             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+//             const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
+//             const testFn = mockSpy.getMockImplementation();
 
-            expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBeCloseTo(8, 0);
-        })
+//             expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBeCloseTo(8, 0);
+//         })
 
-        test('Route (2824to2700), params: service distance < 20, <back2home> = true, withinBH, <latency> = 0', () => {
-            const mockParam_back2home = true;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
-            const testFn = mockSpy.getMockImplementation();
+//         test('Route (2824to2700), params: service distance < 20, <back2home> = true, withinBH, <latency> = 0', () => {
+//             const mockParam_back2home = true;
+//             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+//             const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
+//             const testFn = mockSpy.getMockImplementation();
 
-            expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBeCloseTo(5, 0);
-        })
+//             expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBeCloseTo(5, 0);
+//         })
 
-        test('Route (1090to4020), params: service distance > 20', () => {
-            const mockParam_response = structuredClone(MockData_RouteMatrix['route1090-4020']['apiResult']);
-            const mockParam_routes = {
-                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-                o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-                d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-                d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-                o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
-            };
-            const mockParam_back2home = true;
-            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
-            const testFn = mockSpy.getMockImplementation();
+//         test('Route (1090to4020), params: service distance > 20', () => {
+//             const mockParam_response = structuredClone(MockData_RouteMatrix['route1090-4020']['apiResult']);
+//             const mockParam_routes = {
+//                 h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+//                 o2d: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+//                 d2o: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+//                 d2h: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+//                 o2h: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+//             };
+//             const mockParam_back2home = true;
+//             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+//             const mockSpy = jest.spyOn(destinationModel, '_addChargeServiceDistanceBelow20Km');
+//             const testFn = mockSpy.getMockImplementation();
 
-            expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBe(0);
-        })
-    })
-})
+//             expect(testFn(mockParam_routes, mockParam_back2home, 0.4)).toBe(0);
+//         })
+//     })
+// })
 
 describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 

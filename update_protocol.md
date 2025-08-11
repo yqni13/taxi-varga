@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/08/10 - $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
+
+- $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.
+- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to adapt discount-by-distance.
+
 ### 2025/08/08 - $\textsf{last\ update\ 1.5.9\ >>\ {\color{pink}1.5.10}}$
 
 - $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to swap addresses in parameters instead of route response data only.
