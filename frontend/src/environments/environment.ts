@@ -1,7 +1,7 @@
 import { Environment } from "./environment.model";
 
 export const environment: Environment = {
-    production: false,
+    BUILD_MODE: '',
     API_BASE_URL: '',
     GOOGLE_API_KEY: '',
     IV_POSITION: 0,

@@ -7,7 +7,7 @@ import { enableProdMode } from '@angular/core';
 
 (window as any).global = window;
 
-if(environment.production) {
+if(environment.BUILD_MODE) {
   enableProdMode();
 }
 
