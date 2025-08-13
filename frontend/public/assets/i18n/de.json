@@ -122,7 +122,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "von/nach Wien",
+                        "subtitle": "Wien",
                         "title": "Flughafenfahrt"
                     },
                     "title": "Flughafen - Routendetails",
@@ -142,7 +142,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "von/nach Niederösterreich",
+                        "subtitle": "Niederösterreich",
                         "title": "Pauschalfahrt"
                     },
                     "title": "Pauschalfahrt - Routendetails"

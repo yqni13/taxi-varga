@@ -4,6 +4,11 @@
 
 <br>
 
+### 2025/08/13 - $\textsf{last\ update\ 1.6.1\ >>\ {\color{pink}1.6.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added route to request meta data of application.
+- $\textsf{\color{red}Patch:}$ Updated descriptions on services.
+
 ### 2025/08/10 - $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
 
 - $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.
