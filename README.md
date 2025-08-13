@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.5.10}}$
+$\texttt{\color{teal}{v1.6.1}}$
 
 
 <br><br>
@@ -54,7 +54,8 @@ node server.js
 ```
 
 ### Build & Deploy
-The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.
+The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
+Currently there are 2 hosted versions accessible - on staging level (branch: staging) to test outside of an local environment and on production level (branch: production) as ready-to-use software.
 <br>
 <b>Note</b>: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
 <br>
@@ -233,9 +234,10 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.9\ >>\ {\color{pink}1.5.10}}$
+### $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
 
-- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to swap addresses in parameters instead of route response data only.
+- $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.
+- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to adapt discount-by-distance.
 
 <br>
 

@@ -12,6 +12,8 @@ module.exports.Config = {
     AUTH_USER: process.env.SECRET_AUTH_USER || null,
     AUTH_PASS: process.env.SECRET_AUTH_PASS || null,
     AUTH_ID: process.env.SECRET_AUTH_ID || null,
+    AUTH_ISSUER: process.env.SECRET_AUTH_ISSUER || null,
+    AUTH_ROLE: process.env.SECRET_AUTH_ROLE || null,
     PUBLIC_KEY: process.env.SECRET_PUBLIC_KEY || null,
     PRIVATE_KEY: process.env.SECRET_PRIVATE_KEY || null,
 };

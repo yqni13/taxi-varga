@@ -16,6 +16,8 @@ class Secrets {
     AUTH_ID = '';
     AUTH_USER = '';
     AUTH_PASS = '';
+    AUTH_ROLE = '';
+    AUTH_ISSUER = '';
     PUBLIC_KEY = '';
     PRIVATE_KEY = '';
 
@@ -32,6 +34,8 @@ class Secrets {
         this.AUTH_ID = this.#setAuthId();
         this.AUTH_USER = this.#setAuthUser();
         this.AUTH_PASS = this.#setAuthPass();
+        this.AUTH_ROLE = this.#setAuthRole();
+        this.AUTH_ISSUER = this.#setAuthIssuer();
         this.PUBLIC_KEY = this.#setPublicKey();
         this.PRIVATE_KEY = this.#setPrivateKey();
     }
@@ -118,6 +122,20 @@ class Secrets {
             throw new AuthSecretNotFoundException('backend-404-env#AUTH_PASS')
         }
         return Config.AUTH_PASS;
+    }
+
+    #setAuthRole = () => {
+        if(!Config.AUTH_ROLE) {
+            throw new AuthSecretNotFoundException('backend-404-env#AUTH_ROLE')
+        }
+        return Config.AUTH_ROLE;
+    }
+
+    #setAuthIssuer = () => {
+        if(!Config.AUTH_ISSUER) {
+            throw new AuthSecretNotFoundException('backend-404-env#AUTH_ISSUER')
+        }
+        return Config.AUTH_ISSUER;
     }
 
     #setPublicKey = () => {
