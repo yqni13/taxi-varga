@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.1}}$
+$\texttt{\color{teal}{v1.6.2}}$
 
 
 <br><br>
@@ -234,10 +234,10 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
+### $\textsf{last\ update\ 1.6.1\ >>\ {\color{pink}1.6.2}}$
 
-- $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.
-- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to adapt discount-by-distance.
+- $\textsf{\color{teal}Addition:}$ Added route to request meta data of application.
+- $\textsf{\color{red}Patch:}$ Updated descriptions on services.
 
 <br>
 

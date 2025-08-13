@@ -6,6 +6,7 @@ class Secrets {
 
     MODE = '';
     GOOGLE_API_KEY = '';
+    HOME_API_KEY = '';
     HOME_ADDRESS = '';
     EMAIL_RECEIVER = '';
     EMAIL_SENDER = '';
@@ -23,7 +24,8 @@ class Secrets {
 
     constructor() {
         this.MODE = this.#setMode();
-        this.GOOGLE_API_KEY = this.#setAPIKey();
+        this.GOOGLE_API_KEY = this.#setGoogleApiKey();
+        this.HOME_API_KEY = this.#setHomeApiKey();
         this.HOME_ADDRESS = this.#setAddressHome();
         this.EMAIL_RECEIVER = this.#setEmailReceiver();
         this.EMAIL_SENDER = this.#setEmailSender();
@@ -47,11 +49,18 @@ class Secrets {
         return Config.MODE;
     }
 
-    #setAPIKey = () => {
+    #setGoogleApiKey = () => {
         if(!Config.GOOGLE_API_KEY) {
             throw new AuthSecretNotFoundException('backend-404-env#GOOGLE_API_KEY');
         }
         return Config.GOOGLE_API_KEY;
+    }
+
+    #setHomeApiKey = () => {
+        if(!Config.HOME_API_KEY) {
+            throw new AuthSecretNotFoundException('backend-404-env#HOME_API_KEY');
+        }
+        return Config.HOME_API_KEY;
     }
 
     #setAddressHome = () => {
