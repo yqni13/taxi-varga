@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.2}}$
+$\texttt{\color{teal}{v1.6.3}}$
 
 
 <br><br>
@@ -234,10 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.1\ >>\ {\color{pink}1.6.2}}$
+### $\textsf{last\ update\ 1.6.2\ >>\ {\color{pink}1.6.3}}$
 
-- $\textsf{\color{teal}Addition:}$ Added route to request meta data of application.
-- $\textsf{\color{red}Patch:}$ Updated descriptions on services.
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.
 
 <br>
 
