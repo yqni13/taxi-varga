@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/08/16 - $\textsf{last\ update\ 1.6.2\ >>\ {\color{pink}1.6.3}}$
+
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.
+
 ### 2025/08/13 - $\textsf{last\ update\ 1.6.1\ >>\ {\color{pink}1.6.2}}$
 
 - $\textsf{\color{teal}Addition:}$ Added route to request meta data of application.
