@@ -17,7 +17,8 @@ class DrivingDestinationModel {
             returnOffBH: 0.5,
             latencyBy30Min: 12,
             parkFlatWithinBH: 14,
-            parkFlatOffBH: 6
+            parkFlatOffBH: 6,
+            discountLa2VIA: 6
         };
     }
 
@@ -132,11 +133,11 @@ class DrivingDestinationModel {
     }
 
     _calcDiscountLaToVIA4To10 = (originDetails, destinationDetails, servDist, pickUp) => {
-        if(servDist <= 30) {
+        if(servDist <= 35) {
             const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
             const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
             const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
-            return isTimeWithinRange && isOriginLA && isDestinationVIA ? 6 : 0;
+            return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLa2VIA : 0;
         }
         return 0;
     }

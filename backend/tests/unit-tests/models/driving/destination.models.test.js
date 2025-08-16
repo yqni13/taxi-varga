@@ -564,3 +564,92 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         })
     })
 })
+
+describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
+
+    let destinationModel;
+    beforeEach(() => {
+        destinationModel = new DrivingDestinationModel(googleRoutesApi);
+    })
+
+    describe('Testing fn calls with result = 6,-', () => {
+
+        test('Route (2351to1300)', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route2351-1300']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '08:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 6;
+
+            expect(testFn).toBe(expectResult);
+        })
+    })
+
+    describe('Testing fn calls with result = 0,-', () => {
+
+        test('Route (2351to1300), params: <pickUp> = "11:00"', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route2351-1300']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '11:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Route (1010to2361), params: <originDetails> != Lower Austria', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route1010-2361']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '08:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Route (2824to2700), params: <destinationDetails> != Vienna International Airport', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route2824-2700']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '08:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Route (1090to4020), params <servDist> > 35', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route1090-4020']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '08:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+    })
+})
