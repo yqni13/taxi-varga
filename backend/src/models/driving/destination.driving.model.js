@@ -13,6 +13,8 @@ class DrivingDestinationModel {
             approachOffBH: 0.5,
             servDistBelow30Km: 0.65,
             servDistAbove30Km: 0.5,
+            servDistBelow15Km: 0.7,
+            servDistFrom15to30Km: 0.6,
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
@@ -66,25 +68,16 @@ class DrivingDestinationModel {
             approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
         }
 
-        let servTimeCosts = 0;
-        let servDistCosts = 0;
-        let additionalCharge = 0;
-        let discounts = 0;
-
-        if(servDist <= 30) {
-            servTimeCosts = servTime * this.#prices.servDistBelow30Km;
-            servDistCosts = servDist * this.#prices.servDistBelow30Km;
-        } else {
-            servTimeCosts = servTime * this.#prices.servDistAbove30Km;
-            servDistCosts = servDist * this.#prices.servDistAbove30Km;
-        }
-
+        const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
         const returnCosts = this._calcDestinationReturnCosts(params, routes, isWithinBH);
-
+        
         // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
         const latencyCosts = (params['latency'] / 60) > 1
             ? (2 * this.#prices.latencyBy30Min) + (((params['latency'] - 60) / 30) * (this.#prices.latencyBy30Min / 2))
             : (params['latency'] / 30) * this.#prices.latencyBy30Min;
+
+        let additionalCharge = 0;
+        let discounts = 0;
 
         // Add up all additional charges.
         additionalCharge += latencyCosts;
@@ -96,7 +89,7 @@ class DrivingDestinationModel {
         // Add up all discounts to substract.
         discounts += this._calcDiscountLaToVIA4To10(params.originDetails, params.destinationDetails, servDist, pickUp);
 
-        const totalCosts = approachCosts + servDistCosts + servTimeCosts + returnCosts + additionalCharge - discounts;
+        const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
 
         result['duration'] = Math.ceil(servTime);
         result['price'] = (totalCosts % 1) >= 0.5
@@ -109,6 +102,24 @@ class DrivingDestinationModel {
                 : Math.floor(servDist);
 
         return {routeData: result};
+    }
+
+    _calcServCosts = (back2home, servDist, servTime) => {
+        let distCosts, timeCosts = 0;
+        if(back2home) {
+            const servPrice = servDist <= 30 ? this.#prices.servDistBelow30Km : this.#prices.servDistAbove30Km;
+            distCosts = servDist * servPrice;
+            timeCosts = servTime * servPrice;
+        } else {
+            const servPrice = servDist <= 15 
+                ? this.#prices.servDistBelow15Km 
+                : servDist > 30 
+                    ? this.#prices.servDistAbove30Km : this.#prices.servDistFrom15to30Km
+            distCosts = servDist * servPrice;
+            timeCosts = servTime * servPrice;
+        }
+
+        return { dist: distCosts, time: timeCosts };
     }
 
     _calcDestinationReturnCosts = (params, routes, isWithinBH) => {

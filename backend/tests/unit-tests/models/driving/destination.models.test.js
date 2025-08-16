@@ -15,7 +15,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 59 } };
+                const expectSubObj = { routeData: { price: 60 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -43,7 +43,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 58 } };
+                const expectSubObj = { routeData: { price: 59 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -73,7 +73,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 52 } };
+                const expectSubObj = { routeData: { price: 49 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -233,7 +233,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 58 } };
+                const expectSubObj = { routeData: { price: 59 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -246,7 +246,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 59 } };
+                const expectSubObj = { routeData: { price: 60 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -372,6 +372,82 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 //         })
 //     })
 // })
+
+describe('Destination tests, priority: _calcServCosts', () => {
+
+    describe('Testing valid fn calls', () => {
+
+        let destinationModel;
+        beforeEach(() => {
+            destinationModel = new DrivingDestinationModel(googleRoutesApi);
+        })
+
+        test('Params: <back2home> = false, <servDist> < 15', () => {
+            const mockParam_back2home = false;
+            const mockParam_servDist = 10;
+            const mockParam_servTime = 10;
+
+            const testFn = destinationModel._calcServCosts(
+                mockParam_back2home, mockParam_servDist, mockParam_servTime
+            );
+            const expectResult = { dist: 7, time: 7 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <back2home> = false, <servDist> > 15 && < 30', () => {
+            const mockParam_back2home = false;
+            const mockParam_servDist = 20;
+            const mockParam_servTime = 20;
+
+            const testFn = destinationModel._calcServCosts(
+                mockParam_back2home, mockParam_servDist, mockParam_servTime
+            );
+            const expectResult = { dist: 12, time: 12 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <back2home> = false, <servDist> > 30', () => {
+            const mockParam_back2home = false;
+            const mockParam_servDist = 40;
+            const mockParam_servTime = 40;
+
+            const testFn = destinationModel._calcServCosts(
+                mockParam_back2home, mockParam_servDist, mockParam_servTime
+            );
+            const expectResult = { dist: 20, time: 20 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <back2home> = true, <servDist> < 30', () => {
+            const mockParam_back2home = true;
+            const mockParam_servDist = 20;
+            const mockParam_servTime = 20;
+
+            const testFn = destinationModel._calcServCosts(
+                mockParam_back2home, mockParam_servDist, mockParam_servTime
+            );
+            const expectResult = { dist: 13, time: 13 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <back2home> = true, <servDist> > 30', () => {
+            const mockParam_back2home = true;
+            const mockParam_servDist = 40;
+            const mockParam_servTime = 40;
+
+            const testFn = destinationModel._calcServCosts(
+                mockParam_back2home, mockParam_servDist, mockParam_servTime
+            );
+            const expectResult = { dist: 20, time: 20 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+    })
+})
 
 describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
 
