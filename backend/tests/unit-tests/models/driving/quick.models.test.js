@@ -421,7 +421,7 @@ describe('Quick tests, priority: _mapLatencyData', () => {
         test('Params: <latencyInMin> > 5', () => {
             const mockParam_latencyInMin = 16;
             const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
-            const expectResult = { time: 20, costs: 10 };
+            const expectResult = { time: 20, costs: 7.5 };
 
             expect(testFn).toMatchObject(expectResult);
         })

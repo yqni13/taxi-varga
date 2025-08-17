@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/08/17 - $\textsf{last\ update\ 1.6.3\ >>\ {\color{pink}1.6.4}}$
+
+- $\textsf{\color{red}Patch:}$ Updated tenancy calculation on service 'quick' (incorrect handling of included tenancy).
+
 ### 2025/08/16 - $\textsf{last\ update\ 1.6.2\ >>\ {\color{pink}1.6.3}}$
 
 - $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.

@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.3}}$
+$\texttt{\color{teal}{v1.6.4}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.2\ >>\ {\color{pink}1.6.3}}$
+### $\textsf{last\ update\ 1.6.3\ >>\ {\color{pink}1.6.4}}$
 
-- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.
+- $\textsf{\color{red}Patch:}$ Updated tenancy calculation on service 'quick' (incorrect handling of included tenancy).
 
 <br>
 
