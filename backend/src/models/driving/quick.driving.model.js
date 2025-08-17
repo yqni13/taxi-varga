@@ -100,7 +100,7 @@ class DrivingQuickModel {
             return { time: 0, costs: 0 };
         }
         const latencyRoundedUp = latencyInMin % 5 === 0 ? latencyInMin : (Math.ceil(latencyInMin / 5) * 5);
-        const latencyCosts = latencyRoundedUp * this.#prices.latencyBy5Min;
+        const latencyCosts = (latencyRoundedUp - 5) * this.#prices.latencyBy5Min;
 
         return { time: latencyRoundedUp, costs: latencyCosts };
     }

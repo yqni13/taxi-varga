@@ -122,7 +122,7 @@
                         "placeholder": "Type address"
                     },
                     "option": {
-                        "subtitle": "off/to Vienna",
+                        "subtitle": "Vienna",
                         "title": "Airport"
                     },
                     "title": "Airport - route details",
@@ -142,7 +142,7 @@
                         "placeholder": "Type address"
                     },
                     "option": {
-                        "subtitle": "off/to Lower Austria",
+                        "subtitle": "Lower Austria",
                         "title": "Destination"
                     },
                     "title": "Destination - route details"
