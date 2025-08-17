@@ -11,7 +11,7 @@ class MetaModel {
             "app": "taxi-varga",
             "author": "yqni13",
             "environment": Secrets.MODE,
-            "version": "1.6.3",
+            "version": "1.6.4",
         };
     }
 }
