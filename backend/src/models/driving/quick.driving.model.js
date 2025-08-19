@@ -44,8 +44,9 @@ class DrivingQuickModel {
             returnTarget: ''
         }
 
-        let returnObj = {};
-        if(!params.back2origin) {
+        let returnObj = { distance: 0, duration: 0, routeHome: null};
+        const isRouteV2V = this._isRouteWithinVienna(params);
+        if(!params.back2origin && !isRouteV2V) {
             returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
             returnObj = this._mapShortestReturnLocation(returnObj, params['originDetails']);
         }
@@ -60,7 +61,6 @@ class DrivingQuickModel {
             ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
             : Number((routes.o2d.distanceMeters).toFixed(1));
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
-        const isRouteV2V = this._isRouteWithinVienna(params);
         const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
         const servCostParams = {
             servDist: servDist,
@@ -77,7 +77,7 @@ class DrivingQuickModel {
 
         // Surcharge for busy hours.
         totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
-        totalCosts = isOriginV 
+        totalCosts = isOriginV && !isRouteV2V
             ? this._updateCostsByTimeBasedSurcharge6To10(totalCosts, servDist, params['pickupTIME'])
             : totalCosts;
 
@@ -159,7 +159,6 @@ class DrivingQuickModel {
                 ? routes.d2o.duration * occupiedReturnPrice
                 : 0;
         }
-
         totalCosts = basicRate + servCosts + basicReturnCosts + occupiedReturnCosts;
 
         return Number(totalCosts.toFixed(1));
