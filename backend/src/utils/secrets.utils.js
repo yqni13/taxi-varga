@@ -5,6 +5,7 @@ const fs = require('fs');
 class Secrets {
 
     MODE = '';
+    MAINTENANCE_CODE = '';
     GOOGLE_API_KEY = '';
     HOME_API_KEY = '';
     HOME_ADDRESS = '';
@@ -24,6 +25,7 @@ class Secrets {
 
     constructor() {
         this.MODE = this.#setMode();
+        this.MAINTENANCE_CODE = this.#setMaintenanceCode();
         this.GOOGLE_API_KEY = this.#setGoogleApiKey();
         this.HOME_API_KEY = this.#setHomeApiKey();
         this.HOME_ADDRESS = this.#setAddressHome();
@@ -47,6 +49,13 @@ class Secrets {
             throw new AuthSecretNotFoundException('backend-404-env#MODE');
         }
         return Config.MODE;
+    }
+
+    #setMaintenanceCode = () => {
+        if(!Config.MAINTENANCE_CODE) {
+            throw new AuthSecretNotFoundException('backend-404-env#MAINTENANCE_CODE');
+        }
+        return Config.MAINTENANCE_CODE;
     }
 
     #setGoogleApiKey = () => {
