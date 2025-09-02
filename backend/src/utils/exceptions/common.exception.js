@@ -36,6 +36,12 @@ class NotFoundException extends CommonException {
     }
 }
 
+class MaintenanceException extends CommonException {
+    constructor(message, data) {
+        super(ErrorCodes.MaintenanceException, message, data, ErrorStatusCodes.MaintenanceException);
+    }
+}
+
 class RequestExceedMaxException extends CommonException {
     constructor(message = 'backend-max-email', data) {
         super(ErrorCodes.RequestExceedMaxException, message, data, ErrorStatusCodes.RequestExceedMaxException);
@@ -52,6 +58,7 @@ module.exports = {
     AuthenticationException,
     InternalServerException,
     NotFoundException,
+    MaintenanceException,
     RequestExceedMaxException,
     UnexpectedException
 };

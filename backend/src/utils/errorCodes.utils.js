@@ -7,5 +7,6 @@ module.exports.ErrorCodes = {
     AuthSecretNotFoundException: 5,
     TokenMissingException: 6,
     JWTExpirationException: 7,
-    RequestExceedMaxException: 8
+    RequestExceedMaxException: 8,
+    MaintenanceException: 9
 };

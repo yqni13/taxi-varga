@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth.middleware');
+const maintain = require('../middleware/maintenance.middleware');
 const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middleware');
 const addressController = require('../controllers/address.controller');
 const { 
@@ -10,8 +11,8 @@ const {
 } = require('../middleware/validators/addressValidator.middleware');
 
 
-router.post('/autocomplete', auth(), autocompleteSchema, awaitHandlerFactory(addressController.getPlaceAutocomplete));
-router.post('/details', auth(), placeSchema, awaitHandlerFactory(addressController.getPlaceDetails));
-router.post('/geocode', auth(), geocodeSchema, awaitHandlerFactory(addressController.getPlaceByGeolocation));
+router.post('/autocomplete', maintain(), auth(), autocompleteSchema, awaitHandlerFactory(addressController.getPlaceAutocomplete));
+router.post('/details', maintain(), auth(), placeSchema, awaitHandlerFactory(addressController.getPlaceDetails));
+router.post('/geocode', maintain(), auth(), geocodeSchema, awaitHandlerFactory(addressController.getPlaceByGeolocation));
 
 module.exports = router;
