@@ -189,6 +189,24 @@ export async function handleError(response: any, httpObservationService: HttpObs
             type: SnackbarOption.ERROR,
         })
     } 
+    // MAINTENANCE HANDLING
+    else if(response.status === 598) {
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
+        let message = String(response.error.headers.message);
+        snackbarService.notify({
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
+                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
+                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
+            phone: '+436644465466',
+            autoClose: false,
+            type: SnackbarOption.ERROR,
+        })
+        helper.navigateWithRoute('/service', router);
+    }
     // OTHER VALIDATION
     else if(response.status >= 402 && response.status < 500 || response.status === 535) {
         snackbarService.notify({

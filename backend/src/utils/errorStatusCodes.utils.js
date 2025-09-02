@@ -7,5 +7,6 @@ module.exports.ErrorStatusCodes = {
     InvalidCredentialsException: 401,
     AuthSecretNotFoundException: 404,
     JWTExpirationException: 401,
-    RequestExceedMaxException: 429
+    RequestExceedMaxException: 429,
+    MaintenanceException: 598
 }

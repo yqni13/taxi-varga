@@ -34,7 +34,6 @@ const auth = (isSimpleAuth = false) => {
             error.status = 401;
             next(error);
         }
-        
     };
 }
 

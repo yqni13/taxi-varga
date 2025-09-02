@@ -1,5 +1,6 @@
 module.exports.Config = {
     MODE: process.env.NODE_MODE || 'development',
+    MAINTENANCE_CODE: process.env.MAINTENANCE_CODE || null,
     PORT: process.env.NODE_PORT || 3000,
     EMAIL_RECEIVER: process.env.SECRET_EMAIL_RECEIVER || null,
     EMAIL_SENDER: process.env.SECRET_EMAIL_SENDER || null,
