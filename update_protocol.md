@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/02 - $\textsf{last\ update\ 1.6.5\ >>\ {\color{pink}1.6.6}}$
+
+- $\textsf{\color{teal}Addition:}$ Added maintenance middleware to improve control of application handling.
+
 ### 2025/08/19 - $\textsf{last\ update\ 1.6.4\ >>\ {\color{pink}1.6.5}}$
 
 - $\textsf{\color{red}Bugfix:}$ Service 'quick' calculates prices with expected handling of return data. [Before: Return was priced on routes that do not have a return route to price.]

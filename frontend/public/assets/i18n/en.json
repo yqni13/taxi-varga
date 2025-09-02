@@ -64,10 +64,12 @@
                     "backend-max-email": "Email service exceeded request limit and is temporary blocked. Please try again in 24h.",
                     "backend-missing-zipCode": "Your selected address was refused. Please check your address to contain a postal code and that it is selected from the suggested options.",
                     "backend-required": "Not all necessary data were transferred. Please check your input.",
+                    "maintenance-code-1": "The digital service is currently UNAVAILABLE due to maintenance. For inquiries regarding the transport service, please contact us directly at: ",
                     "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Env variable missing",
+                    "MaintenanceException": "Technical servicing",
                     "InternalServerException": "Server connection error",
                     "InvalidCredentialsException": "Invalid credentials",
                     "InvalidPropertiesException": "Invalid data",
@@ -182,7 +184,7 @@
                             "gender": "Select form of address",
                             "last-name": "e.g.: Smith",
                             "note": "Add your personal note if required.",
-                            "phone": "+43 664 123 45 67",
+                            "phone": "+436641234567",
                             "title": "e.g.: Ing."
                         },
                         "title": "Title"
