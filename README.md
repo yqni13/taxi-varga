@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.6}}$
+$\texttt{\color{teal}{v1.6.7}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.5\ >>\ {\color{pink}1.6.6}}$
+### $\textsf{last\ update\ 1.6.6\ >>\ {\color{pink}1.6.7}}$
 
-- $\textsf{\color{teal}Addition:}$ Added maintenance middleware to improve control of application handling.
+- $\textsf{\color{red}Patch:}$ Updated Google API paramters to adapt billing triggers.
 
 <br>
 

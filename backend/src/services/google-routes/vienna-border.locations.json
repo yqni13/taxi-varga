@@ -3,272 +3,64 @@
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.136417,
-                    "longitude": 16.331715
+                    "latitude": 48.125853,
+                    "longitude": 16.319244
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.124569,
-                    "longitude": 16.318521
+                    "latitude": 48.130696,
+                    "longitude": 16.355101
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.120712,
-                    "longitude": 16.306946
+                    "latitude": 48.137126,
+                    "longitude": 16.221103
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.125562,
-                    "longitude": 16.298626
+                    "latitude": 48.152146,
+                    "longitude": 16.471558
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.131956,
-                    "longitude": 16.280801
+                    "latitude": 48.208847,
+                    "longitude": 16.214939
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.130026,
-                    "longitude": 16.258809
+                    "latitude": 48.285387,
+                    "longitude": 16.344713
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.123963,
-                    "longitude": 16.218519
+                    "latitude": 48.298608,
+                    "longitude": 16.421252
                 }
             }
         },
         {
             "location": {
                 "latLng": {
-                    "latitude": 48.137112,
-                    "longitude": 16.221116
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.205075,
-                    "longitude": 16.203296
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.193291,
-                    "longitude": 16.203768
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.243927,
-                    "longitude": 16.258107
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.230839,
-                    "longitude": 16.199546
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.258638,
-                    "longitude": 16.285928
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.281155,
-                    "longitude": 16.333919
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.288915,
-                    "longitude": 16.341111
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.281832,
-                    "longitude": 16.364596
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.296994,
-                    "longitude": 16.376295
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.319079,
-                    "longitude": 16.404089
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.316916,
-                    "longitude": 16.436445
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.296223,
-                    "longitude": 16.440365
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.281906,
-                    "longitude": 16.461148
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.288052,
-                    "longitude": 16.448365
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.292939,
-                    "longitude": 16.483680
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.285901,
-                    "longitude": 16.513942
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.264138,
-                    "longitude": 16.538504
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.248154,
-                    "longitude": 16.540897
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.208134,
-                    "longitude": 16.540835
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.157092,
-                    "longitude": 16.478334
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.158008,
-                    "longitude": 16.492224
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.146393,
-                    "longitude": 16.466673
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.129110,
-                    "longitude": 16.387906
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.130656,
-                    "longitude": 16.355148
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.134661,
-                    "longitude": 16.340690
-                }
-            }
-        },
-        {
-            "location": {
-                "latLng": {
-                    "latitude": 48.118276,
-                    "longitude": 16.412738
+                    "latitude": 48.274674,
+                    "longitude": 16.472883
                 }
             }
         }
