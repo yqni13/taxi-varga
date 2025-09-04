@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/04 - $\textsf{last\ update\ 1.6.6\ >>\ {\color{pink}1.6.7}}$
+
+- $\textsf{\color{red}Patch:}$ Updated Google API paramters to adapt billing triggers.
+
 ### 2025/09/02 - $\textsf{last\ update\ 1.6.5\ >>\ {\color{pink}1.6.6}}$
 
 - $\textsf{\color{teal}Addition:}$ Added maintenance middleware to improve control of application handling.
