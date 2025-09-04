@@ -215,7 +215,13 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.longText as string);
         const sublocality = array.filter((entry: any) => entry.types[0] === 'sublocality_level_1').map((entry: any) => entry.longText as string);
         const locality = array.filter((entry: any) => entry.types[0] === 'locality').map((entry: any) => entry.longText as string);
-        const alternateAddress = `${sublocality},${zipCode.length > 0 ? ' ' + zipCode : ''} ${province.length > 0 ? province : locality}`;
+
+        let alternateAddress = '';
+        if(!postalAddress) {
+            alternateAddress = `${zipCode.length > 0 ? zipCode + ' ' : ''}${sublocality.length > 0 ? sublocality : locality}, ${province.length > 0 ? province : country}`;
+        } else {
+            alternateAddress = `${sublocality.length > 0 ? sublocality + ', ' : ''}${zipCode.length > 0 ? zipCode : ''} ${province.length > 0 ? province : country}`;
+        }
 
         return {
             address: postalAddress?.addressLines ? route : alternateAddress,
