@@ -58,12 +58,12 @@ class DrivingDestinationModel {
 
         // Approach costs
         if(isWithinBH) {
-            const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
+            const priceMoreThan20km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachWithinBH);
             approachCosts = servDist <= 15 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
-                : routes.h2o.distanceMeters <= 30
+                : routes.h2o.distanceMeters <= 20
                     ? this.#prices.approachFlatrate
-                    : priceMoreThan30km;
+                    : priceMoreThan20km;
         } else {
             approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
         }
