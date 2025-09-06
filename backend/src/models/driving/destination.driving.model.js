@@ -18,7 +18,7 @@ class DrivingDestinationModel {
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
-            parkFlatWithinBH: 14,
+            parkFlatWithinBH: 10,
             parkFlatOffBH: 6,
             discountLa2VIA: 6
         };
@@ -65,7 +65,9 @@ class DrivingDestinationModel {
                     ? this.#prices.approachFlatrate
                     : priceMoreThan20km;
         } else {
-            approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
+            approachCosts = routes.h2o.distanceMeters <= 20 
+                ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
+                : this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachOffBH)
         }
 
         const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
@@ -175,9 +177,9 @@ class DrivingDestinationModel {
         return Number((charge).toFixed(1));
     }
 
-    _addChargeParkFlatByBH(params, isWithinBH) {
+    _addChargeParkFlatByBH(params, isWithinBH, servDist) {
         let charge = 0;
-        if(params.back2home) {
+        if(params.back2home || servDist > 60) {
             return charge;
         }
 
