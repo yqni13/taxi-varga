@@ -83,7 +83,7 @@ class DrivingDestinationModel {
 
         // Add up all additional charges.
         additionalCharge += latencyCosts;
-        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH)
+        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH, servDist);
 
         // TODO(yqni13): remove 09/2025
         // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
