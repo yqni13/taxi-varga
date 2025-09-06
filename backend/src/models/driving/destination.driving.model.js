@@ -18,7 +18,7 @@ class DrivingDestinationModel {
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
-            parkFlatWithinBH: 14,
+            parkFlatWithinBH: 10,
             parkFlatOffBH: 6,
             discountLa2VIA: 6
         };
@@ -58,14 +58,16 @@ class DrivingDestinationModel {
 
         // Approach costs
         if(isWithinBH) {
-            const priceMoreThan30km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 30) * this.#prices.approachWithinBH);
+            const priceMoreThan20km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachWithinBH);
             approachCosts = servDist <= 15 
                 ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
-                : routes.h2o.distanceMeters <= 30
+                : routes.h2o.distanceMeters <= 20
                     ? this.#prices.approachFlatrate
-                    : priceMoreThan30km;
+                    : priceMoreThan20km;
         } else {
-            approachCosts = this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
+            approachCosts = routes.h2o.distanceMeters <= 20 
+                ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
+                : this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachOffBH)
         }
 
         const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
@@ -81,7 +83,7 @@ class DrivingDestinationModel {
 
         // Add up all additional charges.
         additionalCharge += latencyCosts;
-        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH)
+        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH, servDist);
 
         // TODO(yqni13): remove 09/2025
         // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
@@ -175,9 +177,9 @@ class DrivingDestinationModel {
         return Number((charge).toFixed(1));
     }
 
-    _addChargeParkFlatByBH(params, isWithinBH) {
+    _addChargeParkFlatByBH(params, isWithinBH, servDist) {
         let charge = 0;
-        if(params.back2home) {
+        if(params.back2home || servDist > 60) {
             return charge;
         }
 
