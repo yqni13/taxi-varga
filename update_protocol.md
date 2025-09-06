@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/06 - $\textsf{last\ update\ 1.6.8\ >>\ {\color{pink}1.6.9}}$
+
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination' (parking rates).
+
 ### 2025/09/05 - $\textsf{last\ update\ 1.6.7\ >>\ {\color{pink}1.6.8}}$
 
 - $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.

@@ -1031,7 +1031,7 @@
             "back2home": false,
             "BH": "withinBH",
             "return_distance": 0,
-            "servDist": 0
+            "servDist": 44.1
         },
         "back2home": "false",
         "destination": "Leobersdorf,+Niederösterreich",
