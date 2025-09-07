@@ -4,6 +4,39 @@
 
 <br>
 
+### 2025/09/06 - $\textsf{last\ update\ 1.6.8\ >>\ {\color{pink}1.6.9}}$
+
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination' (parking rates).
+
+### 2025/09/05 - $\textsf{last\ update\ 1.6.7\ >>\ {\color{pink}1.6.8}}$
+
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.
+
+### 2025/09/04 - $\textsf{last\ update\ 1.6.6\ >>\ {\color{pink}1.6.7}}$
+
+- $\textsf{\color{red}Patch:}$ Updated Google API paramters to adapt billing triggers.
+
+### 2025/09/02 - $\textsf{last\ update\ 1.6.5\ >>\ {\color{pink}1.6.6}}$
+
+- $\textsf{\color{teal}Addition:}$ Added maintenance middleware to improve control of application handling.
+
+### 2025/08/19 - $\textsf{last\ update\ 1.6.4\ >>\ {\color{pink}1.6.5}}$
+
+- $\textsf{\color{red}Bugfix:}$ Service 'quick' calculates prices with expected handling of return data. [Before: Return was priced on routes that do not have a return route to price.]
+
+### 2025/08/17 - $\textsf{last\ update\ 1.6.3\ >>\ {\color{pink}1.6.4}}$
+
+- $\textsf{\color{red}Patch:}$ Updated tenancy calculation on service 'quick' (incorrect handling of included tenancy).
+
+### 2025/08/16 - $\textsf{last\ update\ 1.6.2\ >>\ {\color{pink}1.6.3}}$
+
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination'.
+
+### 2025/08/13 - $\textsf{last\ update\ 1.6.1\ >>\ {\color{pink}1.6.2}}$
+
+- $\textsf{\color{teal}Addition:}$ Added route to request meta data of application.
+- $\textsf{\color{red}Patch:}$ Updated descriptions on services.
+
 ### 2025/08/10 - $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
 
 - $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.

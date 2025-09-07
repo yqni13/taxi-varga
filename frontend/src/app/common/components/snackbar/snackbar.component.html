@@ -6,6 +6,8 @@
         </div>
         <div class="tava-snackbar-text" *ngIf="!!snackbarMsg.text">
             {{snackbarMsg.text}}
+            <a *ngIf="snackbarMsg.phone" href="tel:{{snackbarMsg.phone}}">{{snackbarMsg.phone}}</a>
+            <a *ngIf="snackbarMsg.mail" href="mailto:{{snackbarMsg.mail}}">{{snackbarMsg.mail}}</a>
         </div>
     </div>
     <div class="tava-snackbar-btn" *ngIf="!snackbarMsg.autoClose">

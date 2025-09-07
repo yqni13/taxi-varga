@@ -33,6 +33,8 @@ export class SnackbarComponent implements OnInit {
             title: '',
             text: '',
             type: '',
+            phone: undefined,
+            mail: undefined
         }
         this.snackbarClass = '';
         this.isActive = false;

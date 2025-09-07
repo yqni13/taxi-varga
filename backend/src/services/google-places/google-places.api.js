@@ -22,7 +22,7 @@ class GooglePlacesAPI {
     _getDetailsRequestHeader() {
         return {
             'Content-Type': 'application/json',
-            'X-Goog-FieldMask': 'id,primaryType,types,addressComponents,formattedAddress,displayName',
+            'X-Goog-FieldMask': 'id,addressComponents,formattedAddress,postalAddress',  
             'X-Goog-Api-Key': this.#env_GOOGLE_API_KEY
         }
     }

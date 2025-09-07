@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.1}}$
+$\texttt{\color{teal}{v1.6.9}}$
 
 
 <br><br>
@@ -234,10 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.5.10\ >>\ {\color{pink}1.6.1}}$
+### $\textsf{last\ update\ 1.6.8\ >>\ {\color{pink}1.6.9}}$
 
-- $\textsf{\color{green}Change:}$ Added staging environment to test software outside of local environment before shipping as ready-to-use software.
-- $\textsf{\color{red}Patch:}$ Updated calculations on services 'destination' to adapt discount-by-distance.
+- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination' (parking rates).
 
 <br>
 

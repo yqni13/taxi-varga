@@ -208,17 +208,23 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
 
         const array = data.body?.body.placeData.addressComponents;
-        const types = data.body?.body.placeData.types;
+        const postalAddress = data.body?.body.placeData.postalAddress;
         const route = data.body?.body.placeData.formattedAddress;
-        const name = data.body?.body.placeData.displayName.text;
         const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.longText as string);
         const country = array.filter((entry: any) => entry.types[0] === 'country').map((entry: any) => entry.longText as string);
         const zipCode = array.filter((entry: any) => entry.types[0] === 'postal_code').map((entry: any) => entry.longText as string);
+        const sublocality = array.filter((entry: any) => entry.types[0] === 'sublocality_level_1').map((entry: any) => entry.longText as string);
         const locality = array.filter((entry: any) => entry.types[0] === 'locality').map((entry: any) => entry.longText as string);
-        const alternateAddress = `${name},${zipCode.length > 0 ? ' ' + zipCode : ''} ${province.length > 0 ? province : locality}`;
+
+        let alternateAddress = '';
+        if(!postalAddress) {
+            alternateAddress = `${zipCode.length > 0 ? zipCode + ' ' : ''}${sublocality.length > 0 ? sublocality : locality}, ${province.length > 0 ? province : country}`;
+        } else {
+            alternateAddress = `${sublocality.length > 0 ? sublocality + ', ' : ''}${zipCode.length > 0 ? zipCode : ''} ${province.length > 0 ? province : country}`;
+        }
 
         return {
-            address: types.includes('street_address') || types.includes('postal_code') ? route : alternateAddress,
+            address: postalAddress?.addressLines ? route : alternateAddress,
             zipCode: zipCode[0] as string,
             province: province[0] as string,
             country: country[0] as string,

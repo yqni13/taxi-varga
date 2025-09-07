@@ -99,6 +99,16 @@
         font-size: 12px;
         white-space: pre-line;
         line-height: sass.$text-line-height;
+
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: var(--theme-palette-contrast);
+            &:hover {
+                cursor: pointer;
+                filter: brightness(1.6);
+            }
+        }
     }
 }
 

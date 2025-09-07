@@ -64,10 +64,12 @@
                     "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
                     "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
                     "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
+                    "maintenance-code-1": "Der digitale Service steht wegen Wartungsarbeiten aktuell NICHT zur Verfügung. Für Anfragen zum Beförderungsdienst melden Sie sich bitte direkt unter der Telefonnummer: ",
                     "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
+                    "MaintenanceException": "Technische Wartung",
                     "InternalServerException": "Server Verbindungs-Fehler",
                     "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
@@ -122,7 +124,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "von/nach Wien",
+                        "subtitle": "Wien",
                         "title": "Flughafenfahrt"
                     },
                     "title": "Flughafen - Routendetails",
@@ -142,7 +144,7 @@
                         "placeholder": "Adresse auswählen"
                     },
                     "option": {
-                        "subtitle": "von/nach Niederösterreich",
+                        "subtitle": "Niederösterreich",
                         "title": "Pauschalfahrt"
                     },
                     "title": "Pauschalfahrt - Routendetails"
@@ -182,7 +184,7 @@
                             "gender": "Anrede auswählen",
                             "last-name": "z.B.: Mustermann",
                             "note": "Fügen Sie eine persönliche Notiz hinzu wenn erforderlich.",
-                            "phone": "+43 664 123 45 67",
+                            "phone": "+436641234567",
                             "title": "z.B.: Ing."
                         },
                         "title": "Titel"

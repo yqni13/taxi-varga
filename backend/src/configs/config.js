@@ -1,11 +1,13 @@
 module.exports.Config = {
     MODE: process.env.NODE_MODE || 'development',
+    MAINTENANCE_CODE: process.env.MAINTENANCE_CODE || null,
     PORT: process.env.NODE_PORT || 3000,
     EMAIL_RECEIVER: process.env.SECRET_EMAIL_RECEIVER || null,
     EMAIL_SENDER: process.env.SECRET_EMAIL_SENDER || null,
     EMAIL_PASS: process.env.SECRET_EMAIL_PASS || null,
     EMAIL_SUBJECT: process.env.SECRET_EMAIL_SUBJECT || null,
     GOOGLE_API_KEY: process.env.SECRET_GOOGLE_API_KEY || null,
+    HOME_API_KEY: process.env.SECRET_HOME_API_KEY || null,
     HOME_ADDRESS: process.env.SECRET_HOME_ADDRESS || null,
     PASS_POSITION: process.env.SECRET_PASS_POS || null,
     IV_POSITION: process.env.SECRET_IV_POS || null,
