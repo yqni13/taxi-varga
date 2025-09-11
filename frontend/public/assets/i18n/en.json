@@ -30,6 +30,7 @@
             "datetime-invalid-negative": "Selected time must not be in the past.",
             "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
             "empty-address-select": "Field must contain an address selected from list of options.",
+            "invalid-phone-char": "Phone number contains invalid characters.",
             "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
             "missing-zipcode": "Zipcode is required on address.",
             "required": "Field \"{{fieldName}}\" is required.",
@@ -69,11 +70,11 @@
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Env variable missing",
-                    "MaintenanceException": "Technical servicing",
                     "InternalServerException": "Server connection error",
                     "InvalidCredentialsException": "Invalid credentials",
                     "InvalidPropertiesException": "Invalid data",
                     "JWTExpirationException": "Expired session",
+                    "MaintenanceException": "Technical servicing",
                     "RequestExceedMaxException": "Capacity exceeded",
                     "TokenMissingException": "Session token missing"
                 }
