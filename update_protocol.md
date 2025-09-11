@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/11 - $\textsf{last\ update\ 1.6.9\ >>\ {\color{pink}1.6.10}}$
+
+- $\textsf{\color{red}Patch:}$ Updated validation on phone number in UI form.
+
 ### 2025/09/06 - $\textsf{last\ update\ 1.6.8\ >>\ {\color{pink}1.6.9}}$
 
 - $\textsf{\color{red}Patch:}$ Updated costs on service 'destination' (parking rates).

@@ -282,6 +282,10 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     addMetaData2ServiceForm() {
+        // Remove all empty spaces of phone number.
+        const phoneNr = this.metaForm.get('phone')?.value;
+        this.metaForm.get('phone')?.setValue(phoneNr.replaceAll(' ', ''));
+
         Object.values(this.metaProperties).forEach((element) => {
             this.serviceForm.get(element)?.setValue(this.metaForm.get(element)?.value);
         })
