@@ -20,7 +20,7 @@ class DrivingDestinationModel {
             latencyBy30Min: 12,
             parkFlatWithinBH: 10,
             parkFlatOffBH: 6,
-            discountLa2VIA: 6
+            discountLA2VIA: 6
         };
     }
 
@@ -85,9 +85,6 @@ class DrivingDestinationModel {
         additionalCharge += latencyCosts;
         additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH, servDist);
 
-        // TODO(yqni13): remove 09/2025
-        // additionalCharge += this._addChargeServiceDistanceBelow20Km(routes, params['back2home'], 0.4);
-
         // Add up all discounts to substract.
         discounts += this._calcDiscountLaToVIA4To10(params.originDetails, params.destinationDetails, servDist, pickUp);
 
@@ -146,35 +143,13 @@ class DrivingDestinationModel {
     }
 
     _calcDiscountLaToVIA4To10 = (originDetails, destinationDetails, servDist, pickUp) => {
-        if(servDist <= 35) {
+        if(servDist <= 40) {
             const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
             const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
             const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
-            return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLa2VIA : 0;
+            return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLA2VIA : 0;
         }
         return 0;
-    }
-
-    // TODO(yqni13): remove 09/2025
-    /**
-     * @deprecated since version 1.5.8
-     */
-    _addChargeServiceDistanceBelow20Km = (routes, back2home, price) => {
-        let charge = 0;
-        const serviceDistance = back2home 
-            ? routes.o2d.distanceMeters + routes.d2o.distanceMeters 
-            : routes.o2d.distanceMeters;
-        if(serviceDistance > 20) {
-            return charge;
-        }
-
-        // Additional charge on approach
-        charge += routes.h2o.distanceMeters * price;
-        // Additional charge on return home
-        const returnDistance = back2home ? routes.o2h.distanceMeters : routes.d2h.distanceMeters;
-        charge += returnDistance * price;
-
-        return Number((charge).toFixed(1));
     }
 
     _addChargeParkFlatByBH(params, isWithinBH, servDist) {
