@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.10}}$
+$\texttt{\color{teal}{v1.6.11}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.9\ >>\ {\color{pink}1.6.10}}$
+### $\textsf{last\ update\ 1.6.10\ >>\ {\color{pink}1.6.11}}$
 
-- $\textsf{\color{red}Patch:}$ Updated validation on phone number in UI form.
+- $\textsf{\color{red}Patch:}$ Updated samples and distance condition on service 'destination' logic. Additionally, deprecated code & tests are removed within 09/2025.
 
 <br>
 
