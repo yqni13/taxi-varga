@@ -38,6 +38,17 @@ export const requiredTenancyValidator = (): ValidatorFn => {
     }
 }
 
+export const phoneRegExValidator = (): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const cleanedNr = (control?.value as string).replaceAll(' ', '');
+        const whitelist = /^\+?[0-9]+$/;
+        if(!whitelist.test(cleanedNr) ) {
+            return { invalidPhoneChar: true };
+        }
+        return null;
+    }
+}
+
 export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const time = datetimeService.getTimeInTotalMinutes(control?.value);
@@ -116,7 +127,7 @@ export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
     }
 }
 
-export const emptyAddressSelectValidator = (placeControl: FormControl) : ValidatorFn => {
+export const emptyAddressSelectValidator = (placeControl: FormControl): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         if(control?.value.length !== 0 && !placeControl.value) {
             return { emptyAddressSelect: true };

@@ -30,6 +30,7 @@
             "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
             "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
             "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
+            "invalid-phone-char": "Telefonnummer enthält ungültige Zeichen.",
             "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
             "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
             "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
@@ -69,11 +70,11 @@
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
-                    "MaintenanceException": "Technische Wartung",
                     "InternalServerException": "Server Verbindungs-Fehler",
                     "InvalidCredentialsException": "Ungültige Anmeldedaten",
                     "InvalidPropertiesException": "Ungültiger Datensatz",
                     "JWTExpirationException": "Sitzung abgelaufen",
+                    "MaintenanceException": "Technische Wartung",
                     "RequestExceedMaxException": "Kapazität überschritten",
                     "TokenMissingException": "Sitzungs-Token fehlt"
                 }

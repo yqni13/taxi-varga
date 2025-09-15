@@ -15,6 +15,9 @@
         <div class="tava-validation-message" *ngIf="control.hasError('missingZipcode')">
             {{ 'common.validation.missing-zipcode' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidPhoneChar')">
+            {{ 'common.validation.invalid-phone-char' | translate }}
+        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('invalidTenancyUpperLimit')">
             {{ 'common.validation.tenancy-invalid-upper-limit' | translate }}
         </div>
