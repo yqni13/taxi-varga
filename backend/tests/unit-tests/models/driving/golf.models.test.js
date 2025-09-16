@@ -78,47 +78,6 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
     })
 })
 
-describe('Flatrate tests, priority: _addChargeServiceDistanceBelow20Km', () => {
-
-    let golfModel;
-    beforeEach(() => {
-        golfModel = new DrivingGolfModel(googleRoutesApi);
-    })
-
-    describe('Testing valid fn calls, priority: service distance', () => {
-
-        test('Route (2542to2551to2542), params: <distance> < 20', () => {
-            const mockParam_response = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
-            const mockParam_routes = {
-                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-                o2g: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-                g2d: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-                d2h: mockParam_response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
-            };
-
-            const testFn = golfModel._addChargeServiceDistanceBelow20Km(mockParam_routes);
-            const expectResult = 1.6;
-
-            expect(testFn).toBeCloseTo(expectResult, 1);
-        })
-
-        test('Route (2340to2013to2340), params: <distance> > 20', () => {
-            const mockParam_response = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
-            const mockParam_routes = {
-                h2o: mockParam_response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-                o2g: mockParam_response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-                g2d: mockParam_response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-                d2h: mockParam_response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
-            };
-
-            const testFn = golfModel._addChargeServiceDistanceBelow20Km(mockParam_routes);
-            const expectResult = 0;
-
-            expect(testFn).toBe(expectResult);
-        })
-    })
-})
-
 describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
     let golfModel;

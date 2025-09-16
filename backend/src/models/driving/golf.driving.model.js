@@ -35,7 +35,6 @@ class DrivingGolfModel {
             stay: 0,
             price: 0
         }
-        let additionalCharges = 0;
 
         // validate relevance & update stay time by removing origin route duration (in total minutes)
         params['stay'] = CustomValidator.validateTravelTimeRelevance(
@@ -56,8 +55,7 @@ class DrivingGolfModel {
         const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
         // Add up all additional charges
-        // TODO(yqni13): remove 09/2025
-        // additionalCharges += this._addChargeServiceDistanceBelow20Km(routes);
+        let additionalCharges = 0;
 
         const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
 
@@ -91,25 +89,6 @@ class DrivingGolfModel {
             hours: time,
             costs: time > 6 ? (48 + (this.#prices.stayPerHour * (time - 6))) : 48
         };
-    }
-
-    // TODO(yqni13): remove 09/2025
-    /**
-     * @deprecated since version 1.5.8
-     */
-    _addChargeServiceDistanceBelow20Km = (routes) => {
-        let charge = 0;
-        const serviceDistance = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
-        if(serviceDistance > 20) {
-            return charge;
-        }
-
-        // Additional charge on approach
-        charge += routes.h2o.distanceMeters * this.#prices.servDistBelow20Km;
-        // Additional charge on return home
-        charge += routes.d2h.distanceMeters * this.#prices.servDistBelow20Km;
-
-        return Number((charge).toFixed(1));
     }
 }
 
