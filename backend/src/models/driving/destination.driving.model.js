@@ -145,11 +145,11 @@ class DrivingDestinationModel {
         const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
         const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
         if(servDist <= 40) {
-            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
+            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '09:59');
             return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLA2VIA : 0;
         }
         if(servDist > 40 && servDist <= 55) {
-            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '06:00');
+            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '05:59');
             return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLA2VIA : 0;
         }
         return 0;
