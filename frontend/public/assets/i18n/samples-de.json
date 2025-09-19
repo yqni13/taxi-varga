@@ -24,32 +24,36 @@
                 "route": "Leobersdorf - AKH Wien"
             },
             "entry2": {
-                "price": "64,00",
+                "price": "* 59,00",
                 "route": "Leobersdorf - Flughafen Wien"
             }
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "67,00",
-                "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
+                "price": "* 57,00",
+                "route": "Kottingbrunn / Schönau / Bad Vöslau\n- Flughafen Wien"
             },
             "entry1": {
+                "price": "* 60,00",
+                "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
+            },
+            "entry2": {
                 "price": "75,00",
                 "route": "Berndorf - Flughafen Wien"
             },
-            "entry2": {
+            "entry3": {
                 "price": "80,00",
                 "route": "Wiener Neustadt - Flughafen Wien"
             },
-            "entry3": {
+            "entry4": {
                 "price": "85,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Wien"
             },
-            "entry4": {
+            "entry5": {
                 "price": "90,00",
                 "route": "Mattersburg - Flughafen Wien"
             },
-            "entry5": {
+            "entry6": {
                 "price": "91,00",
                 "route": "Neunkirchen/Ternitz - Flughafen Wien"
             }
@@ -87,6 +91,7 @@
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
+            "discount-info1": "* gilt für Fahrtbeginn zwischen 04:00 und 06:00 Uhr",
             "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "route": "Route"

@@ -1116,5 +1116,71 @@
         },
         "pickupTIME": 7,
         "latency": 0
+    },
+    "route2525-1300": {
+        "a_information": {
+            "approach_distance": 7.7,
+            "back2home": false,
+            "BH": "withinBH",
+            "return_distance": 48.1,
+            "servDist": 45.9,
+            "servTime": 35
+        },
+        "apiResult": [
+            {
+                "originIndex": 0,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 7.7,
+                "duration": 9.6
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 45.9,
+                "duration": 35
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 44.9,
+                "duration": 38.6
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 48.1,
+                "duration": 37.5
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 7.6,
+                "duration": 9.4
+            }
+        ],
+        "back2home": "false",
+        "destination": "Flughafen+Wien+Schwechat,+1300+Niederösterreich,+Austria",
+        "destinationDetails": {
+            "address": "Flughafen Wien Schwechat, 1300 Niederösterreich, Austria",
+            "country": "Austria",
+            "placeId": "ChIJm74aR6tVbEcRS5vSjRBSeiQ",
+            "province": "Niederösterreich",
+            "zipCode": "1300"
+        },
+        "origin": "Triester+Str.+2,+2525+Schönau+an+der+Triesting,+Austria",
+        "originDetails": {
+            "address": "Triester Str. 2, 2525 Schönau an der Triesting, Austria",
+            "country": "'Austria'",
+            "placeId": "ChIJW7TlLYG2bUcRFPtoTL7HZps",
+            "province": "Niederösterreich",
+            "zipCode": "2525"
+        },
+        "pickupTIME": 6,
+        "latency": 0
     }
 }
