@@ -43,7 +43,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 49 } };
+                const expectSubObj = { routeData: { price: 53 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -233,7 +233,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 49 } };
+                const expectSubObj = { routeData: { price: 53 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -528,73 +528,38 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         test('Route (2824to2700), params: <back2home> = true', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = true;
-            const mockParam_isWithinBH = false;
             const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            );
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params, mockParam_servDist);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (2824to2700), params: <back2home> = false, offBH, <origin> != Vienna | VIE', () => {
+        test('Route (2824to2700), params: <back2home> = false, <origin> != Vienna | VIE', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2824-2700']);
             mockParam_params['back2home'] = false;
-            const mockParam_isWithinBH = false;
             const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            );
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params, mockParam_servDist);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (1010to2361), params: <back2home> = false, offBH, <origin> == Vienna | VIE', () => {
+        test('Route (1010to2361), params: <back2home> = false, <origin> == Vienna | VIE', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2361']);
             mockParam_params['back2home'] = false;
-            const mockParam_isWithinBH = false;
             const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            );
-            const expectResult = 6;
-
-            expect(testFn).toBe(expectResult);
-        })
-
-        test('Route (1010to2361), params: <back2home> = false, withinBH, <origin> == Vienna | VIE', () => {
-            const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2361']);
-            mockParam_params['back2home'] = false;
-            const mockParam_isWithinBH = true;
-            const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            );
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params, mockParam_servDist);
             const expectResult = 10;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (AKHto2544), params: <back2home> = false, withinBH, <origin> = AKH Vienna, no zipCode', () => {
+        test('Route (AKHto2544), params: <back2home> = false, <origin> = AKH Vienna, no zipCode', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['routeAKH-2544']);
             mockParam_params['back2home'] = false;
-            const mockParam_isWithinBH = true;
             const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            )
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params, mockParam_servDist);
             const expectResult = 10;
 
             expect(testFn).toBe(expectResult);
@@ -603,13 +568,8 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
         test('Route (1090-4020), params: <back2home> = false, <servDist> > 60', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1090-4020']);
             mockParam_params['back2home'] = false;
-            const mockParam_isWithinBH = true;
             const mockParam_servDist = mockParam_params['a_information']['servDist'];
-            const testFn = destinationModel._addChargeParkFlatByBH(
-                mockParam_params,
-                mockParam_isWithinBH,
-                mockParam_servDist
-            )
+            const testFn = destinationModel._addChargeParkFlatByBH(mockParam_params, mockParam_servDist);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -617,7 +577,7 @@ describe('Destination tests, priority: _addChargeParkFlatByBH', () => {
     })
 })
 
-describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
+describe('Destination tests, priority: _calcDiscountLaToVIA', () => {
 
     let destinationModel;
     beforeEach(() => {
@@ -626,14 +586,29 @@ describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
 
     describe('Testing fn calls with result = 6,-', () => {
 
-        test('Route (2351to1300)', () => {
+        test('Route (2351to1300), params <servDist> < 40', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route2351-1300']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
             const mockParam_pickUp = '08:00';
 
-            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+            const testFn = destinationModel._calcDiscountLaToVIA(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 6;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Route (2525to1300), params <servDist> > 40 < 55, <pickUp> == "06:00"', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route2525-1300']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '06:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
             );
             const expectResult = 6;
@@ -651,7 +626,7 @@ describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
             const mockParam_servDist = mockData['a_information']['servDist'];
             const mockParam_pickUp = '11:00';
 
-            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+            const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
             );
             const expectResult = 0;
@@ -666,7 +641,7 @@ describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
             const mockParam_servDist = mockData['a_information']['servDist'];
             const mockParam_pickUp = '08:00';
 
-            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+            const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
             );
             const expectResult = 0;
@@ -681,7 +656,7 @@ describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
             const mockParam_servDist = mockData['a_information']['servDist'];
             const mockParam_pickUp = '08:00';
 
-            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+            const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
             );
             const expectResult = 0;
@@ -689,14 +664,29 @@ describe('Destination tests, priority: _calcDiscountLaToVIA4To10', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (1090to4020), params <servDist> > 35', () => {
+        test('Route (2525to1300), params: <servDist> > 40 < 55, <pickUp> = "09:00"', () => {
+            const mockData = structuredClone(MockData_RouteMatrix['route2525-1300']);
+            const mockParam_originDetails = mockData['originDetails'];
+            const mockParam_destinationDetails = mockData['destinationDetails'];
+            const mockParam_servDist = mockData['a_information']['servDist'];
+            const mockParam_pickUp = '09:00';
+
+            const testFn = destinationModel._calcDiscountLaToVIA(
+                mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
+            );
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Route (1090to4020), all params invalid', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route1090-4020']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
-            const mockParam_pickUp = '08:00';
+            const mockParam_pickUp = '11:00';
 
-            const testFn = destinationModel._calcDiscountLaToVIA4To10(
+            const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
             );
             const expectResult = 0;

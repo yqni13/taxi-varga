@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/19 - $\textsf{last\ update\ 1.6.11\ >>\ {\color{pink}1.6.12}}$
+
+- $\textsf{\color{red}Patch:}$ Updated samples and surcharge prices/conditions on service 'destination' logic.
+
 ### 2025/09/15 - $\textsf{last\ update\ 1.6.10\ >>\ {\color{pink}1.6.11}}$
 
 - $\textsf{\color{red}Patch:}$ Updated samples and distance condition on service 'destination' logic. Additionally, deprecated code & tests are removed within 09/2025.

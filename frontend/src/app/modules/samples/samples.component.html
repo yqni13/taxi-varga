@@ -1,3 +1,21 @@
+<!-- TEMPLATES -->
+<ng-template #samplesRef let-i="i" let-contentPath="contentPath">
+    <td class="tava-samples-route">
+        {{contentPath + i + '.route' | translate}}
+    </td>
+    <td class="tava-samples-colon">:</td>
+    <td class="tava-samples-addendum">
+        {{'z-content-samples.samples-utility.addendum' | translate}}
+    </td>
+    <td class="tava-samples-price" >
+        {{contentPath + i + '.price' | translate}}
+    </td>
+    <td class="tava-samples-currency">
+        {{'z-content-samples.samples-utility.currency' | translate}}
+    </td>
+</ng-template>
+
+<!-- CONTENT -->
 <section class="tava-samples" ngClass="{{selectedBg}}">
     <header>
         <h1>
@@ -12,14 +30,14 @@
                 </span>
             </div>
             <table>
-                <tbody>
+                <tbody *tavaVar="'z-content-samples.samples-content-option1.entry' as contentPath1">
                     <tr *ngFor="let entry of [].constructor(samplesOption1Length); let i = index">
                         <td class="tava-samples-route tava-table-no-addendum">
-                            {{'z-content-samples.samples-content-option1.entry' + i + '.route' | translate}}
+                            {{contentPath1 + i + '.route' | translate}}
                         </td>
                         <td class="tava-samples-colon">:</td>
                         <td class="tava-samples-price">
-                            {{'z-content-samples.samples-content-option1.entry' + i + '.price' | translate}}
+                            {{contentPath1 + i + '.price' | translate}}
                         </td>
                         <td class="tava-samples-currency">
                             {{'z-content-samples.samples-utility.currency' | translate}}
@@ -35,21 +53,11 @@
                 </span>
             </div>
             <table>
-                <tbody>
+                <tbody *tavaVar="'z-content-samples.samples-content-option2.entry' as contentPath2">
                     <tr *ngFor="let entry of [].constructor(samplesOption2Length); let i = index">
-                        <td class="tava-samples-route">
-                            {{'z-content-samples.samples-content-option2.entry' + i + '.route' | translate}}
-                        </td>
-                        <td class="tava-samples-colon">:</td>
-                        <td class="tava-samples-addendum">
-                            {{'z-content-samples.samples-utility.addendum' | translate}}
-                        </td>
-                        <td class="tava-samples-price">
-                            {{'z-content-samples.samples-content-option2.entry' + i + '.price' | translate}}
-                        </td>
-                        <td class="tava-samples-currency">
-                            {{'z-content-samples.samples-utility.currency' | translate}}
-                        </td>
+                        <ng-container 
+                            *ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath2 }"
+                        ></ng-container>
                     </tr>
                 </tbody>
             </table>
@@ -61,21 +69,11 @@
                 </span>
             </div>
             <table>
-                <tbody>
+                <tbody *tavaVar="'z-content-samples.samples-content-option3.entry' as contentPath3">
                     <tr *ngFor="let entry of [].constructor(samplesOption3Length); let i = index">
-                        <td class="tava-samples-route">
-                            {{'z-content-samples.samples-content-option3.entry' + i + '.route' | translate}}
-                        </td>
-                        <td class="tava-samples-colon">:</td>
-                        <td class="tava-samples-addendum">
-                            {{'z-content-samples.samples-utility.addendum' | translate}}
-                        </td>
-                        <td class="tava-samples-price">
-                            {{'z-content-samples.samples-content-option3.entry' + i + '.price' | translate}}
-                        </td>
-                        <td class="tava-samples-currency">
-                            {{'z-content-samples.samples-utility.currency' | translate}}
-                        </td>
+                        <ng-container 
+                            *ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath3 }"
+                        ></ng-container>
                     </tr>
                 </tbody>
             </table>
@@ -94,24 +92,19 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody *tavaVar="'z-content-samples.samples-content-option4.entry' as contentPath4">
                     <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
-                        <td class="tava-samples-route">
-                            {{'z-content-samples.samples-content-option4.entry' + i + '.route' | translate}}
-                        </td>
-                        <td class="tava-samples-colon">:</td>
-                        <td class="tava-samples-addendum">
-                            {{'z-content-samples.samples-utility.addendum' | translate}}
-                        </td>
-                        <td class="tava-samples-price">
-                            {{'z-content-samples.samples-content-option4.entry' + i + '.price' | translate}}
-                        </td>
-                        <td class="tava-samples-currency">
-                            {{'z-content-samples.samples-utility.currency' | translate}}
-                        </td>
+                        <ng-container 
+                            *ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath4 }"
+                        ></ng-container>
                     </tr>
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="tava-samples-footnote">
+        <span>
+            {{'z-content-samples.samples-utility.discount-info1' | translate}}
+        </span>
     </div>
 </section>

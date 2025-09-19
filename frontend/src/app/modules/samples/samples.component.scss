@@ -95,8 +95,20 @@ td {
 .tava-samples-price {
     padding-left: calc(sass.$space5 * 2);
     width: $price-width;
+    white-space: nowrap;
 }
 
 .tava-samples-currency {
     width: $currency-width;
+}
+
+.tava-samples-footnote {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: sass.$space5 0;
+
+    span {
+        font-size: clamp(8px, 2vw, 14px);
+    }
 }
