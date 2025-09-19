@@ -601,12 +601,12 @@ describe('Destination tests, priority: _calcDiscountLaToVIA', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (2525to1300), params <servDist> > 40 < 55, <pickUp> == "06:00"', () => {
+        test('Route (2525to1300), params <servDist> > 40 < 55, <pickUp> == "05:00"', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route2525-1300']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
-            const mockParam_pickUp = '06:00';
+            const mockParam_pickUp = '05:00';
 
             const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
