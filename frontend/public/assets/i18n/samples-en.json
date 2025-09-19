@@ -24,32 +24,36 @@
                 "route": "Leobersdorf - Vienna General Hospital"
             },
             "entry2": {
-                "price": "64,00",
+                "price": "* 59,00",
                 "route": "Leobersdorf\n- Vienna International Airport"
             }
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "67,00",
-                "route": "Enzesfeld/Lindstart withrunn\n- Vienna International Airport"
+                "price": "* 57,00",
+                "route": "Kottingbrunn / Schönau / Bad Vöslau\n- Vienna International Airport"
             },
             "entry1": {
+                "price": "* 60,00",
+                "route": "Enzesfeld/Lindstart withrunn\n- Vienna International Airport"
+            },
+            "entry2": {
                 "price": "75,00",
                 "route": "Berndorf - Vienna International Airport"
             },
-            "entry2": {
+            "entry3": {
                 "price": "80,00",
                 "route": "Wiener Neustadt\n- Vienna International Airport"
             },
-            "entry3": {
+            "entry4": {
                 "price": "85,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Vienna International Airport"
             },
-            "entry4": {
+            "entry5": {
                 "price": "90,00",
                 "route": "Mattersburg\n- Vienna International Airport"
             },
-            "entry5": {
+            "entry6": {
                 "price": "91,00",
                 "route": "Neunkirchen/Ternitz\n- Vienna International Airport"
             }
@@ -87,6 +91,7 @@
         "samples-utility": {
             "addendum": "from",
             "currency": "EUR",
+            "discount-info1": "* applies to pickup time 04:00 a.m. - 06:00 a.m.",
             "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "route": "Route"

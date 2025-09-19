@@ -6,6 +6,7 @@ import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
 import * as content from "../../../../public/assets/i18n/samples-en.json";
+import { VarDirective } from "../../common/directives/ng-var.directive";
 
 @Component({
     selector: 'tava-samples',
@@ -15,7 +16,8 @@ import * as content from "../../../../public/assets/i18n/samples-en.json";
     imports: [
         CommonModule,
         RouterModule,
-        TranslateModule
+        TranslateModule,
+        VarDirective
     ]
 })
 export class SamplesComponent implements OnInit, OnDestroy {
