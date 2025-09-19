@@ -18,8 +18,7 @@ class DrivingDestinationModel {
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
-            parkFlatWithinBH: 10,
-            parkFlatOffBH: 6,
+            parkFlat: 10,
             discountLA2VIA: 6
         };
     }
@@ -83,10 +82,10 @@ class DrivingDestinationModel {
 
         // Add up all additional charges.
         additionalCharge += latencyCosts;
-        additionalCharge += this._addChargeParkFlatByBH(params, isWithinBH, servDist);
+        additionalCharge += this._addChargeParkFlatByBH(params, servDist);
 
         // Add up all discounts to substract.
-        discounts += this._calcDiscountLaToVIA4To10(params.originDetails, params.destinationDetails, servDist, pickUp);
+        discounts += this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
 
         const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
 
@@ -142,17 +141,21 @@ class DrivingDestinationModel {
         return Number((returnCosts).toFixed(1));
     }
 
-    _calcDiscountLaToVIA4To10 = (originDetails, destinationDetails, servDist, pickUp) => {
+    _calcDiscountLaToVIA = (originDetails, destinationDetails, servDist, pickUp) => {
+        const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
+        const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
         if(servDist <= 40) {
-            const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
-            const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
             const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
+            return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLA2VIA : 0;
+        }
+        if(servDist > 40 && servDist <= 55) {
+            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '06:00');
             return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discountLA2VIA : 0;
         }
         return 0;
     }
 
-    _addChargeParkFlatByBH(params, isWithinBH, servDist) {
+    _addChargeParkFlatByBH(params, servDist) {
         let charge = 0;
         if(params.back2home || servDist > 60) {
             return charge;
@@ -165,11 +168,9 @@ class DrivingDestinationModel {
             zipCode = params.originDetails.zipCode;
         }
 
-        charge = isWithinBH && (Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInViennaByZipCode(zipCode)) 
-            ? this.#prices.parkFlatWithinBH
-            : (!Utils.checkAddressInViennaByZipCode(zipCode) && !Utils.checkAddressAtViennaAirport(zipCode)) 
-                ? 0 
-                : this.#prices.parkFlatOffBH;
+        charge = Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInViennaByZipCode(zipCode) 
+            ? this.#prices.parkFlat 
+            : 0;
         
         return charge;
     }
