@@ -20,6 +20,7 @@ import { MailAPIService } from "../../shared/services/mail-api.service";
 import { AddressOptions } from "../../shared/enums/address-options.enum";
 import { DrivingAPIService } from "../../shared/services/driving-api.service";
 import { BaseRoute } from "../../api/routes/base.route.enum";
+import * as CustomValidators from "../helper/custom-validators";
 
 /**
  * This is the base class for all 'service' modules.
@@ -240,6 +241,10 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         Object.values(this.metaProperties).forEach((element) => {
             if(element === 'email') {
                 form.addControl(element, new FormControl('', [Validators.required, Validators.email]));
+            } else if(element === 'phone') {
+                form.addControl(element, new FormControl('', 
+                    [Validators.required, CustomValidators.phoneRegExValidator()]
+                ));
             } else if(element !== 'title' && element !== 'note') {
                 form.addControl(element, new FormControl('', Validators.required));
             } else {
@@ -277,6 +282,10 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     addMetaData2ServiceForm() {
+        // Remove all empty spaces of phone number.
+        const phoneNr = this.metaForm.get('phone')?.value;
+        this.metaForm.get('phone')?.setValue(phoneNr.replaceAll(' ', ''));
+
         Object.values(this.metaProperties).forEach((element) => {
             this.serviceForm.get(element)?.setValue(this.metaForm.get(element)?.value);
         })

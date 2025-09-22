@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.9}}$
+$\texttt{\color{teal}{v1.6.12}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.8\ >>\ {\color{pink}1.6.9}}$
+### $\textsf{last\ update\ 1.6.11\ >>\ {\color{pink}1.6.12}}$
 
-- $\textsf{\color{red}Patch:}$ Updated costs on service 'destination' (parking rates).
+- $\textsf{\color{red}Patch:}$ Updated samples and surcharge prices/conditions on service 'destination' logic.
 
 <br>
 
