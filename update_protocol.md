@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/28 - $\textsf{last\ update\ 1.6.12\ >>\ {\color{pink}1.6.13}}$
+
+- $\textsf{\color{red}Patch:}$ Updated border-distance logic and cost calculations on service 'quick'.
+
 ### 2025/09/19 - $\textsf{last\ update\ 1.6.11\ >>\ {\color{pink}1.6.12}}$
 
 - $\textsf{\color{red}Patch:}$ Updated samples and surcharge prices/conditions on service 'destination' logic.
