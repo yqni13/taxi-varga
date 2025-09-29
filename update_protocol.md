@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/29 - $\textsf{last\ update\ 1.6.14\ >>\ {\color{pink}1.6.15}}$
+
+- $\textsf{\color{red}Patch:}$ Updated surcharge conditions on service 'quick' due to calculations.
+
 ### 2025/09/29 - $\textsf{last\ update\ 1.6.13\ >>\ {\color{pink}1.6.14}}$
 
 - $\textsf{\color{red}Patch:}$ Updated surcharge calculations on service 'quick' due to changed border-waypoint handling.
