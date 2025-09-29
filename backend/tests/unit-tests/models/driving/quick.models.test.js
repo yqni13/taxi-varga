@@ -406,39 +406,24 @@ describe('Quick tests, priority: _updateCostsByTimeBasedSurcharge6To10', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Params: <totalCosts> = 25, <servDist> = 22, <pickUp> = "08:11"', () => {
+        test('Params: <totalCosts> = 25, <pickUp> = "08:11"', () => {
             const mockParam_totalCosts = 25;
-            const mockParam_servDist = 22;
             const mockParam_pickUp = "08:11";
 
             const testFn = quickModel._updateCostsByTimeBasedSurcharge6To10(
-                mockParam_totalCosts, mockParam_servDist, mockParam_pickUp
+                mockParam_totalCosts, mockParam_pickUp
             );
-            const expectResult = 39;
+            const expectResult = 31;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Params: <totalCosts> = 19, <servDist> = 13, <pickUp> = "08:11"', () => {
+        test('Params: <totalCosts> = 19, <pickUp> = "05:49"', () => {
             const mockParam_totalCosts = 19;
-            const mockParam_servDist = 13;
-            const mockParam_pickUp = "08:11";
-
-            const testFn = quickModel._updateCostsByTimeBasedSurcharge6To10(
-                mockParam_totalCosts, mockParam_servDist, mockParam_pickUp
-            );
-            const expectResult = 25;
-
-            expect(testFn).toBe(expectResult);
-        })
-
-        test('Params: <totalCosts> = 19, <servDist> = 13, <pickUp> = "05:49"', () => {
-            const mockParam_totalCosts = 19;
-            const mockParam_servDist = 13;
             const mockParam_pickUp = "05:49";
 
             const testFn = quickModel._updateCostsByTimeBasedSurcharge6To10(
-                mockParam_totalCosts, mockParam_servDist, mockParam_pickUp
+                mockParam_totalCosts, mockParam_pickUp
             );
             const expectResult = 19;
 
