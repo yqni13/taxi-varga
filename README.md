@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.13}}$
+$\texttt{\color{teal}{v1.6.14}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.12\ >>\ {\color{pink}1.6.13}}$
+### $\textsf{last\ update\ 1.6.13\ >>\ {\color{pink}1.6.14}}$
 
-- $\textsf{\color{red}Patch:}$ Updated border-distance logic and cost calculations on service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated surcharge calculations on service 'quick' due to changed border-waypoint handling.
 
 <br>
 
