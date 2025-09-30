@@ -16,6 +16,7 @@ class DrivingQuickModel {
             returnBelow8km: 0.5,
             returnAbove8km: 0.4,
             latencyBy5Min: 0.5,
+            latencyBy30Min: 12,
             morningSurcharge: 1.15,
             surcharge4to10: 6
         }
@@ -39,8 +40,8 @@ class DrivingQuickModel {
         let returnObj = { distance: 0, duration: 0, routeHome: null};
         const isRouteV2V = this._isRouteWithinVienna(params);
         if(!params.back2origin && !isRouteV2V) {
-            returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(returnObj, params['originDetails']);
+            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
+            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails']);
         }
 
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
@@ -89,14 +90,19 @@ class DrivingQuickModel {
     }
 
     _mapLatencyData = (latencyInMin) => {
-        // First 5 minutes of latency are for free.
-        if(!latencyInMin || latencyInMin <= 5) {
+        if(!latencyInMin || latencyInMin === 0) {
             return { time: 0, costs: 0 };
         }
-        const latencyRoundedUp = latencyInMin % 5 === 0 ? latencyInMin : (Math.ceil(latencyInMin / 5) * 5);
-        const latencyCosts = (latencyRoundedUp - 5) * this.#prices.latencyBy5Min;
 
-        return { time: latencyRoundedUp, costs: latencyCosts };
+        const latencyRoundedTo30 = (Math.ceil(latencyInMin / 30)) * 30;
+        const latencyCalcBase = latencyRoundedTo30 < 180 ? latencyRoundedTo30 : 180;
+
+        // First 60min full price (€24/h), 61st-180st min half price (€12/h), for free beyond the 180st min.
+        const latencyCosts = latencyCalcBase / 60 > 1
+            ? (2 * this.#prices.latencyBy30Min) + ((latencyCalcBase - 60) / 30) * (this.#prices.latencyBy30Min / 2)
+            : (latencyCalcBase / 30) * this.#prices.latencyBy30Min;
+
+        return { time: latencyRoundedTo30, costs: latencyCosts };
     }
 
     _updateCostsByTimeBasedSurcharge4To6 = (totalCosts, servTime, pickUp) => {
