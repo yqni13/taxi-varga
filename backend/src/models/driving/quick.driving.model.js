@@ -15,7 +15,6 @@ class DrivingQuickModel {
             servDistAbove8km: 0.5,
             returnBelow8km: 0.5,
             returnAbove8km: 0.4,
-            latencyBy5Min: 0.5,
             latencyBy30Min: 12,
             morningSurcharge: 1.15,
             surcharge4to10: 6
