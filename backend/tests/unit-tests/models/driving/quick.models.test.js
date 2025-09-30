@@ -441,7 +441,7 @@ describe('Quick tests, priority: _mapLatencyData', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Params: <latencyInMin> == 0', () => {
+        test('Params: <latencyInMin> = 0', () => {
             const mockParam_latencyInMin = 0;
             const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
             const expectResult = { time: 0, costs: 0 };
@@ -449,18 +449,42 @@ describe('Quick tests, priority: _mapLatencyData', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Params: <latencyInMin> < 5', () => {
-            const mockParam_latencyInMin = 4;
+        test('Params: <latencyInMin> < 30min', () => {
+            const mockParam_latencyInMin = 16;
             const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
-            const expectResult = { time: 0, costs: 0 };
+            const expectResult = { time: 30, costs: 12 };
 
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Params: <latencyInMin> > 5', () => {
-            const mockParam_latencyInMin = 16;
+        test('Params: <latencyInMin> < 60min', () => {
+            const mockParam_latencyInMin = 41;
             const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
-            const expectResult = { time: 20, costs: 7.5 };
+            const expectResult = { time: 60, costs: 24 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <latencyInMin> < 120min', () => {
+            const mockParam_latencyInMin = 89;
+            const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
+            const expectResult = { time: 90, costs: 30 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <latencyInMin> < 180min', () => {
+            const mockParam_latencyInMin = 133;
+            const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
+            const expectResult = { time: 150, costs: 42 };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Params: <latencyInMin> > 180min <= 360', () => {
+            const mockParam_latencyInMin = 299;
+            const testFn = quickModel._mapLatencyData(mockParam_latencyInMin);
+            const expectResult = { time: 300, costs: 48 };
 
             expect(testFn).toMatchObject(expectResult);
         })

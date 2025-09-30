@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.15}}$
+$\texttt{\color{teal}{v1.6.16}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](update_protocol.md)
 
-### $\textsf{last\ update\ 1.6.14\ >>\ {\color{pink}1.6.15}}$
+### $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
 
-- $\textsf{\color{red}Patch:}$ Updated surcharge conditions on service 'quick' due to calculations.
+- $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
 
 <br>
 

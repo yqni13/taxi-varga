@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/09/30 - $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
+
+- $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
+
 ### 2025/09/29 - $\textsf{last\ update\ 1.6.14\ >>\ {\color{pink}1.6.15}}$
 
 - $\textsf{\color{red}Patch:}$ Updated surcharge conditions on service 'quick' due to calculations.
