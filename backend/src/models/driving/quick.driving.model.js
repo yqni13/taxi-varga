@@ -10,22 +10,14 @@ class DrivingQuickModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
-            basicRateAbove8km: 4,
-            basicRateAbove20km: 4,
-            basicRateBelow8km: 6,
-            servDistAbove8km: 0.6,
-            servDistAbove20km: 0.5,
-            servDistBelow8km: 0.7,
-            returnAbove8km: 0.5,
-            returnAbove20km: 0.4,
-            returnBelow8km: 0.6,
-            occupiedReturnAbove8km: 0.5,
-            occupiedReturnAbove20km: 0.4,
-            occupiedReturnBelow8km: 0.6,
-            latencyBy5Min: 0.5,
+            basicRate: 4,
+            servDistBelow8km: 0.6,
+            servDistAbove8km: 0.5,
+            returnBelow8km: 0.5,
+            returnAbove8km: 0.4,
+            latencyBy30Min: 12,
             morningSurcharge: 1.15,
-            surchargeAbove20km: 14,
-            surchargeBelow20km: 6
+            surcharge4to10: 6
         }
     }
 
@@ -47,8 +39,8 @@ class DrivingQuickModel {
         let returnObj = { distance: 0, duration: 0, routeHome: null};
         const isRouteV2V = this._isRouteWithinVienna(params);
         if(!params.back2origin && !isRouteV2V) {
-            returnObj = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(returnObj, params['originDetails']);
+            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
+            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails']);
         }
 
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
@@ -66,6 +58,7 @@ class DrivingQuickModel {
             servDist: servDist,
             servTime: servTime,
             returnObj: returnObj,
+            isRouteV2V: isRouteV2V,
             back2origin: params.back2origin,
         };
 
@@ -73,12 +66,13 @@ class DrivingQuickModel {
         let additionalCosts = 0;
         additionalCosts += latencyObj.costs;
 
-        let totalCosts = this._calcServDistCosts(routes, servCostParams) + additionalCosts;
+        let totalCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
 
         // Surcharge for busy hours.
         totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
+
         totalCosts = isOriginV && !isRouteV2V
-            ? this._updateCostsByTimeBasedSurcharge6To10(totalCosts, servDist, params['pickupTIME'])
+            ? this._updateCostsByTimeBasedSurcharge4To10(totalCosts, params['pickupTIME'])
             : totalCosts;
 
         result['price'] = (totalCosts % 1) >= 0.5
@@ -95,14 +89,19 @@ class DrivingQuickModel {
     }
 
     _mapLatencyData = (latencyInMin) => {
-        // First 5 minutes of latency are for free.
-        if(!latencyInMin || latencyInMin <= 5) {
+        if(!latencyInMin || latencyInMin === 0) {
             return { time: 0, costs: 0 };
         }
-        const latencyRoundedUp = latencyInMin % 5 === 0 ? latencyInMin : (Math.ceil(latencyInMin / 5) * 5);
-        const latencyCosts = (latencyRoundedUp - 5) * this.#prices.latencyBy5Min;
 
-        return { time: latencyRoundedUp, costs: latencyCosts };
+        const latencyRoundedTo30 = (Math.ceil(latencyInMin / 30)) * 30;
+        const latencyCalcBase = latencyRoundedTo30 < 180 ? latencyRoundedTo30 : 180;
+
+        // First 60min full price (€24/h), 61st-180st min half price (€12/h), for free beyond the 180st min.
+        const latencyCosts = latencyCalcBase / 60 > 1
+            ? (2 * this.#prices.latencyBy30Min) + ((latencyCalcBase - 60) / 30) * (this.#prices.latencyBy30Min / 2)
+            : (latencyCalcBase / 30) * this.#prices.latencyBy30Min;
+
+        return { time: latencyRoundedTo30, costs: latencyCosts };
     }
 
     _updateCostsByTimeBasedSurcharge4To6 = (totalCosts, servTime, pickUp) => {
@@ -113,15 +112,13 @@ class DrivingQuickModel {
         return isEndingBeforeLimit ? Number((totalCosts * this.#prices.morningSurcharge).toFixed(1)) : totalCosts;
     }
 
-    _updateCostsByTimeBasedSurcharge6To10 = (totalCosts, servDist, pickUp) => {
+    _updateCostsByTimeBasedSurcharge4To10 = (totalCosts, pickUp) => {
         // Costs for route with service time starting within 06:00 - 10:00 are surcharged.
-        const isPickupWithinRange = Utils.isTimeStartingWithinRange(pickUp, '06:00', '10:00');
-        const surcharge = servDist <= 20 ? this.#prices.surchargeBelow20km : this.#prices.surchargeAbove20km;
-
-        return isPickupWithinRange ? totalCosts + surcharge : totalCosts;
+        const isPickupWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
+        return isPickupWithinRange ? totalCosts + this.#prices.surcharge4to10 : totalCosts;
     }
 
-    _calcServDistCosts = (routes, servCostParams) => {
+    _calcServDistCosts = (servCostParams) => {
         let totalCosts = 0;
 
         if(servCostParams.servDist <= 0) {
@@ -129,37 +126,26 @@ class DrivingQuickModel {
         }
         
         // Initiate cost variables.
-        let [servCosts, basicReturnCosts, occupiedReturnCosts] = [0, 0, 0];
+        let [servCosts, basicReturnCosts] = [0, 0];
         // Initiate price variables
-        let [basicRate, servPrice, basicReturnPrice, occupiedReturnPrice] = [0, 0, 0, 0];
+        let [basicRate, servPrice, basicReturnPrice] = [0, 0, 0];
 
-        if(servCostParams.servDist <= 8) {
-            basicRate = this.#prices.basicRateBelow8km;
-            servPrice = this.#prices.servDistBelow8km;
-            basicReturnPrice = this.#prices.returnBelow8km;
-            occupiedReturnPrice = this.#prices.occupiedReturnBelow8km;
-        } else if(servCostParams.servDist > 20) {
-            basicRate = this.#prices.basicRateAbove20km;
-            servPrice = this.#prices.servDistAbove20km;
-            basicReturnPrice = this.#prices.returnAbove20km;
-            occupiedReturnPrice = this.#prices.occupiedReturnAbove20km;
-        } else {
-            basicRate = this.#prices.basicRateAbove8km;
+        if(servCostParams.servDist > 8) {
+            basicRate = this.#prices.basicRate;
             servPrice = this.#prices.servDistAbove8km;
             basicReturnPrice = this.#prices.returnAbove8km;
-            occupiedReturnPrice = this.#prices.occupiedReturnAbove8km;
+        } else {
+            basicRate = this.#prices.basicRate;
+            servPrice = this.#prices.servDistBelow8km;
+            basicReturnPrice = this.#prices.returnBelow8km;
         }
 
         servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);
-        if(!servCostParams.back2origin) {
-            basicReturnCosts = servCostParams.back2origin
-                ? 0
-                : servCostParams.returnObj.distance * basicReturnPrice;
-            occupiedReturnCosts = servCostParams.back2origin
-                ? routes.d2o.duration * occupiedReturnPrice
-                : 0;
-        }
-        totalCosts = basicRate + servCosts + basicReturnCosts + occupiedReturnCosts;
+        basicReturnCosts = servCostParams.servDist > 2 && !servCostParams.back2origin && !servCostParams.isRouteV2V
+            ? servCostParams.returnObj.distance * basicReturnPrice
+            : 0;
+
+        totalCosts = basicRate + servCosts + basicReturnCosts;
 
         return Number(totalCosts.toFixed(1));
     }
@@ -176,7 +162,9 @@ class DrivingQuickModel {
         if(origin && origin.zipCode === '2544') {
             data = [data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0})];
         } else {
-            data = Utils.quicksort(data, SortingOption.ASC, 'distanceMeters');
+            // If origin !== 2544 => return MUST be to Vienna border waypoint (remove oIndex = 0 & dIndex = 0).
+            const filteredData = data.filter((obj) => obj.destinationIndex !== 0);
+            data = Utils.quicksort(filteredData, SortingOption.ASC, 'distanceMeters');
         }
 
         return {

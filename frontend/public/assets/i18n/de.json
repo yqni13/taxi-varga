@@ -217,7 +217,6 @@
                         "hint-greenfee": "ohne Greenfee",
                         "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
-                        "latency-quick": "Wartezeiten: Die ersten 5 Minuten sind im Preis inkludiert. Ab der 6ten Minute werden 0,50 EUR / Minute verrechnet.",
                         "licence": "Der Beförderungspreis erfüllt die Vorgaben des gültigen, lizenzierten Wiener Taxitarif.",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
@@ -274,7 +273,7 @@
                 "quick": {
                     "info": {
                         "call": "Anrufen",
-                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- Berechnungen gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- max 3h Wartezeit kostenpflichtig\n- Berechnungen gelten nur für die offiziellen Geschäftszeiten (04:00 - 12:00 Uhr)",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {

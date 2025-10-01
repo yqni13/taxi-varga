@@ -4,6 +4,22 @@
 
 <br>
 
+### 2025/09/30 - $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
+
+- $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
+
+### 2025/09/29 - $\textsf{last\ update\ 1.6.14\ >>\ {\color{pink}1.6.15}}$
+
+- $\textsf{\color{red}Patch:}$ Updated surcharge conditions on service 'quick' due to calculations.
+
+### 2025/09/29 - $\textsf{last\ update\ 1.6.13\ >>\ {\color{pink}1.6.14}}$
+
+- $\textsf{\color{red}Patch:}$ Updated surcharge calculations on service 'quick' due to changed border-waypoint handling.
+
+### 2025/09/28 - $\textsf{last\ update\ 1.6.12\ >>\ {\color{pink}1.6.13}}$
+
+- $\textsf{\color{red}Patch:}$ Updated border-distance logic and cost calculations on service 'quick'.
+
 ### 2025/09/19 - $\textsf{last\ update\ 1.6.11\ >>\ {\color{pink}1.6.12}}$
 
 - $\textsf{\color{red}Patch:}$ Updated samples and surcharge prices/conditions on service 'destination' logic.
