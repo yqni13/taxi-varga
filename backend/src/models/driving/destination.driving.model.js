@@ -11,10 +11,10 @@ class DrivingDestinationModel {
             approachFlatrate: 4,
             approachWithinBH: 0.4,
             approachOffBH: 0.5,
+            servDistBelow25Km: 0.6,
+            servDistAbove25Km: 0.5,
             servDistBelow30Km: 0.65,
             servDistAbove30Km: 0.5,
-            servDistBelow15Km: 0.7,
-            servDistFrom15to30Km: 0.6,
             returnWithinBH: 0.4,
             returnOffBH: 0.5,
             latencyBy30Min: 12,
@@ -103,19 +103,14 @@ class DrivingDestinationModel {
     }
 
     _calcServCosts = (back2home, servDist, servTime) => {
-        let distCosts, timeCosts = 0;
+        let [distCosts, timeCosts, servPrice] = [0, 0, 0];
         if(back2home) {
-            const servPrice = servDist <= 30 ? this.#prices.servDistBelow30Km : this.#prices.servDistAbove30Km;
-            distCosts = servDist * servPrice;
-            timeCosts = servTime * servPrice;
+            servPrice = servDist <= 30 ? this.#prices.servDistBelow30Km : this.#prices.servDistAbove30Km;
         } else {
-            const servPrice = servDist <= 15 
-                ? this.#prices.servDistBelow15Km 
-                : servDist > 30 
-                    ? this.#prices.servDistAbove30Km : this.#prices.servDistFrom15to30Km
-            distCosts = servDist * servPrice;
-            timeCosts = servTime * servPrice;
+            servPrice = servDist <= 25 ? this.#prices.servDistBelow25Km : this.#prices.servDistAbove25Km;
         }
+        distCosts = servDist * servPrice;
+        timeCosts = servTime * servPrice;
 
         return { dist: distCosts, time: timeCosts };
     }

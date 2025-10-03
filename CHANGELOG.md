@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/10/03 - $\textsf{last\ update\ 1.6.16\ >>\ {\color{pink}1.6.17}}$
+
+- $\textsf{\color{red}Patch:}$ Updated servCost calculation on service 'destination'.
+
 ### 2025/09/30 - $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
 
 - $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
