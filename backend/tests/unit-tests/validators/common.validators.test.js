@@ -4,7 +4,7 @@ const { LanguageOption } = require('../../../src/utils/enums/lang-option.enum');
 const { ServiceOption } = require('../../../src/utils/enums/service-option.enum');
 const { SupportModeOption } = require('../../../src/utils/enums/supportmode-option.enum');
 
-describe('Custom validators test, priority: no model specification', () => {
+describe('CustomValidator tests, priority: no model specification', () => {
 
     describe('Testing valid fn calls', () => {
 

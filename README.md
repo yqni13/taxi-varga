@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.16}}$
+$\texttt{\color{teal}{v1.6.17}}$
 
 
 <br><br>
@@ -232,11 +232,11 @@ $ npm run lint
 <br>
 
 ## Updates
-[list of all updates](update_protocol.md)
+[list of all updates](CHANGELOG.md)
 
-### $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
+### $\textsf{last\ update\ 1.6.16\ >>\ {\color{pink}1.6.17}}$
 
-- $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
+- $\textsf{\color{red}Patch:}$ Updated servCost calculation on service 'destination'.
 
 <br>
 
