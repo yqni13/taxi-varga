@@ -46,7 +46,6 @@ class DrivingDestinationModel {
             distance: 0,
             duration: 0
         };
-        let approachCosts = 0;
         const isWithinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
         const servDist = params['back2home'] 
             ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
@@ -56,35 +55,26 @@ class DrivingDestinationModel {
             : routes.o2d.duration;
 
         // Approach costs
-        if(isWithinBH) {
-            const priceMoreThan20km = this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachWithinBH);
-            approachCosts = servDist <= 15 
-                ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachWithinBH)
-                : routes.h2o.distanceMeters <= 20
-                    ? this.#prices.approachFlatrate
-                    : priceMoreThan20km;
-        } else {
-            approachCosts = routes.h2o.distanceMeters <= 20 
-                ? this.#prices.approachFlatrate + (routes.h2o.distanceMeters * this.#prices.approachOffBH)
-                : this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * this.#prices.approachOffBH)
-        }
+        const approachPricePerKm = isWithinBH ? this.#prices.approachWithinBH : this.#prices.approachOffBH;
+        const approachCosts = routes.h2o.distanceMeters <= 20
+            ? this.#prices.approachFlatrate
+            : this.#prices.approachFlatrate + ((routes.h2o.distanceMeters - 20) * approachPricePerKm);
 
         const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
         const returnCosts = this._calcDestinationReturnCosts(params, routes, isWithinBH);
-        
-        // first 60min cost €24,- and every started 1/2h afterwards costs €12,- 
+
+        // First 60min every started 1/2h costs €12,- afterwards costs €6,-
         const latencyCosts = (params['latency'] / 60) > 1
             ? (2 * this.#prices.latencyBy30Min) + (((params['latency'] - 60) / 30) * (this.#prices.latencyBy30Min / 2))
             : (params['latency'] / 30) * this.#prices.latencyBy30Min;
 
-        let additionalCharge = 0;
-        let discounts = 0;
-
         // Add up all additional charges.
+        let additionalCharge = 0;
         additionalCharge += latencyCosts;
         additionalCharge += this._addChargeParkFlatByBH(params, servDist);
 
         // Add up all discounts to substract.
+        let discounts = 0;
         discounts += this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
 
         const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
@@ -120,11 +110,11 @@ class DrivingDestinationModel {
             const returnDistance = params['back2home'] ? routes.o2h.distanceMeters : routes.d2h.distanceMeters;
             return Number((returnDistance * this.#prices.returnOffBH).toFixed(1));
         }
-    
+
         if(!params.back2home) {
             return Number((routes.d2h.distanceMeters * this.#prices.returnWithinBH).toFixed(1));
         }
-    
+
         let returnCosts = routes.o2h.distanceMeters * this.#prices.returnWithinBH;
 
         if(params['latency'] >= 180) {
@@ -136,6 +126,7 @@ class DrivingDestinationModel {
         return Number((returnCosts).toFixed(1));
     }
 
+    
     _calcDiscountLaToVIA = (originDetails, destinationDetails, servDist, pickUp) => {
         const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
         const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
@@ -166,7 +157,7 @@ class DrivingDestinationModel {
         charge = Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInViennaByZipCode(zipCode) 
             ? this.#prices.parkFlat 
             : 0;
-        
+
         return charge;
     }
 }
