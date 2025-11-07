@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         for(let i = 0; i < this.serviceCollLength; i++) {
             newEntry = {
                 title: `home.services.content.entry${i}.title`,
+                subtitle: `home.services.content.entry${i}.subtitle`,
                 text: `home.services.content.entry${i}.text`,
                 imgPath: this.serviceImgCollection[i],
                 service: services[i],

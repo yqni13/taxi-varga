@@ -4,6 +4,10 @@
 
 <br>
 
+### 2025/11/07 - $\textsf{last\ update\ 1.6.18\ >>\ {\color{pink}1.6.19}}$
+
+- $\textsf{\color{red}Patch:}$ Updated titles of services at 'home' and 'service' page (Frontend).
+
 ### 2025/10/29 - $\textsf{last\ update\ 1.6.17\ >>\ {\color{pink}1.6.18}}$
 
 - $\textsf{\color{red}Patch:}$ Updated servCost calculation on service 'destination'.

@@ -51,6 +51,12 @@
             }
             h3 {
                 margin: sass.$space25 $service-text-margin;
+                margin-bottom: 0;
+            }
+            h4 {
+                margin: sass.$space25 $service-text-margin;
+                margin-top: sass.$space5;
+                margin-bottom: auto;
             }
             #tava-home-card-wrapper {
                 margin-bottom: sass.$space50;
@@ -59,9 +65,10 @@
                 width: 400px;
                 margin: sass.$space15;
                 span {
-                    margin: 0 $service-text-margin 12.5px $service-text-margin;
+                    margin: sass.$space25 sass.$space5 10px sass.$space5;
                 }
                 .tava-home-service-img-wrapper {
+                    flex-direction: column;
                     margin: auto sass.$space25 sass.$space25;
                     img {
                         width: 350px;
@@ -301,6 +308,12 @@
             }
             h3 {
                 margin: sass.$space15 $service-text-margin;
+                margin-bottom: 0;
+            }
+            h4 {
+                margin: sass.$space15 $service-text-margin;
+                margin-top: sass.$space5;
+                margin-bottom: auto;
             }
             #tava-home-card-wrapper {
                 margin-bottom: sass.$space50;
@@ -310,9 +323,10 @@
                 width: calc(25vw + 30px);
                 margin: sass.$space15;
                 span {
-                    margin: 0 $service-text-margin 12.5px $service-text-margin;
+                    margin: sass.$space25 sass.$space5 10px sass.$space5;
                 }
                 .tava-home-service-img-wrapper {
+                    flex-direction: column;
                     margin: auto sass.$space15 sass.$space15;
                     img {
                         max-width: 350px;
