@@ -42,13 +42,12 @@
         white-space: pre-line;
     }
 
-    $anchor-padding: sass.$space15;
     .tava-service-route-description {
         position: absolute;
         display: flex;
         flex-direction: column;
         text-align: center;
-        padding: $anchor-padding;
+        padding: sass.$space15;
         cursor: pointer;
 
         // Filter blur(0px) necessary to visualize border-radius.
