@@ -13,22 +13,27 @@
             "content": {
                 "entry0": {
                     "text": "A trip between Vienna and Vienna International Airport with plenty of space for your luggage.",
-                    "title": "Airport - Vienna"
+                    "subtitle": "Vienna",
+                    "title": "Airport"
                 },
                 "entry1": {
                     "text": "A trip within, from or to Lower Austria with the option of a stay on site.",
-                    "title": "Destination - Lower Austria"
+                    "subtitle": "Lower Austria",
+                    "title": "Airport & Destination"
                 },
                 "entry2": {
                     "text": "A day trip to a golf course of your choice with the option of being accompanied as a caddy or fellow player.",
+                    "subtitle": "",
                     "title": "Golf day trip"
                 },
                 "entry3": {
                     "text": "Instead of a fixed destination, a trip can also be taken by a time flatrate.",
+                    "subtitle": "",
                     "title": "Flatrate"
                 },
                 "entry4": {
                     "text": "Check the package price and (depending on availability) order spontaneously by phone (no pre-order).",
+                    "subtitle": "Vienna & Leobersdorf",
                     "title": "Spontaneous drive"
                 }
             },

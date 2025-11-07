@@ -35,12 +35,13 @@
     &:hover {
         cursor: pointer;
     }
-    
+
     .tava-anchor {
         font-size: 22px;
         text-transform: uppercase;
+        white-space: pre-line;
     }
-    
+
     .tava-service-route-description {
         position: absolute;
         display: flex;
@@ -76,11 +77,11 @@
             font-size: 11px;
         }
     }
-    
+
     .author-dark-bg a {
         color: sass.$color-grey-label;
     }
-    
+
     .author-light-bg a {
         color: sass.$color-ice-white;
     }
@@ -179,7 +180,7 @@
         font-weight: bold;
         color: var(--theme-palette-highlight);
     }
-    
+
     #tava-service-offer-price {
         margin: calc(sass.$space15 + 20px) 0 0 0;
     }
@@ -192,7 +193,7 @@
     border: 2px outset grey;
     border-radius: sass.$space15;
     padding: calc(sass.$space25 / 2) sass.$space25;
-    
+
     .specific-input input,
     .specific-dropdown select {
         width: 250px;

@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.18}}$
+$\texttt{\color{teal}{v1.6.19}}$
 
 
 <br><br>
@@ -234,9 +234,9 @@ $ npm run lint
 ## Updates
 [list of all updates](CHANGELOG.md)
 
-### $\textsf{last\ update\ 1.6.17\ >>\ {\color{pink}1.6.18}}$
+### $\textsf{last\ update\ 1.6.18\ >>\ {\color{pink}1.6.19}}$
 
-- $\textsf{\color{red}Patch:}$ Updated servCost calculation on service 'destination'.
+- $\textsf{\color{red}Patch:}$ Updated titles of services at 'home' and 'service' page (Frontend).
 
 <br>
 

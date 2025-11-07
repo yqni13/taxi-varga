@@ -126,14 +126,14 @@
                     },
                     "option": {
                         "subtitle": "Wien",
-                        "title": "Flughafenfahrt"
+                        "title": "Flughafen\nPauschalfahrt"
                     },
                     "title": "Flughafen - Routendetails",
                     "vie-schwechat": "Flughafen Wien Schwechat"
                 },
                 "destination": {
                     "info": {
-                        "text": "- bei Pauschalfahrten NÖ darf max 1 Adresse in Wien liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig",
+                        "text": "- bei Pauschalfahrten NÖ darf 1 Adresse in Wien oder in einem anderen Bundesland liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -146,7 +146,7 @@
                     },
                     "option": {
                         "subtitle": "Niederösterreich",
-                        "title": "Pauschalfahrt"
+                        "title": "Flughafen &\nsonstige\nPauschalfahrt"
                     },
                     "title": "Pauschalfahrt - Routendetails"
                 },
@@ -286,7 +286,8 @@
                     },
                     "option": {
                         "gpsSupport": "Die Standortermittlung via Geolocation ist aktuell NICHT verfügbar oder NICHT vom Browser unterstützt.",
-                        "title": "Spontanfahrt"
+                        "subtitle": "Wien & Leobersdorf",
+                        "title": "spontane\nPauschalfahrt"
                     },
                     "snackbar-info": {
                         "geolocation": {

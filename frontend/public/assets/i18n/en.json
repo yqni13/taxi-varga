@@ -133,7 +133,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows max 1 address within Vienna.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs.",
+                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -146,7 +146,7 @@
                     },
                     "option": {
                         "subtitle": "Lower Austria",
-                        "title": "Destination"
+                        "title": "Airport &\nDestination"
                     },
                     "title": "Destination - route details"
                 },
@@ -286,6 +286,7 @@
                     },
                     "option": {
                         "gpsSupport": "Location detection via Geolocation is NOT available at the moment or NOT supported by your browser.",
+                        "subtitle": "Vienna & Leobersdorf",
                         "title": "Spontaneous drive"
                     },
                     "snackbar-info": {

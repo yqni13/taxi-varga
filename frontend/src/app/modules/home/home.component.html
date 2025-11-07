@@ -70,8 +70,9 @@
                     *ngFor="let item of serviceCollection"
                 >
                     <h3>{{item.title | translate}}</h3>
-                    <span>{{item.text | translate}}</span>
+                    <h4>{{item.subtitle | translate}}</h4>
                     <div class="tava-home-service-img-wrapper">
+                        <span>{{item.text | translate}}</span>
                         <img src="{{item.imgPath}}" alt="404-picture-not-found">
                         <span
                             class="tava-author author-light-bg author-service-img"
