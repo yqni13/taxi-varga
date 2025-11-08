@@ -95,18 +95,6 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Discount, params: service distance == 75, <tenancyTime> < 180', () => {
-            const mockParam_distance = 75;
-            const mockParam_tenancyTime = 60;
-            const testFn = flatrateModel._calcChargeByTenancyDiscount(
-                mockParam_distance,
-                mockParam_tenancyTime
-            );
-            const expectResult = 0;
-
-            expect(testFn).toBe(expectResult);
-        })
-
         test('Discount, params: service distance == 75, <tenancyTime> == 180', () => {
             const mockParam_distance = 75;
             const mockParam_tenancyTime = 180;
@@ -129,18 +117,6 @@ describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
-        })
-
-        test('Discount, params: service distance > 75, <tenancyTime> < 180', () => {
-            const mockParam_distance = 150;
-            const mockParam_tenancyTime = 60;
-            const testFn = flatrateModel._calcChargeByTenancyDiscount(
-                mockParam_distance,
-                mockParam_tenancyTime
-            );
-            const expectResult = 37.5;
-
-            expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
         test('Discount, params: service distance > 75, <tenancyTime> == 180', () => {

@@ -29,7 +29,7 @@ class DrivingFlatrateModel {
             d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
         }
 
-        // validate relevance comparing tenancy to min time effort of origin2destination route
+        // Validate relevance comparing tenancy to min time effort of origin2destination route.
         CustomValidator.validateTravelTimeRelevance(
             Number(params['tenancy']),
             routes.o2d.duration,
@@ -80,9 +80,6 @@ class DrivingFlatrateModel {
         let chargedFullHours = (tenancyTime % 60) !== 0 
             ? Math.floor(tenancyTime / 60) 
             : tenancyTime / 60;
-
-        // Check again on tenancy time equals min 3h
-        chargedFullHours = chargedFullHours < 3 ? 3 : chargedFullHours;
 
         // Substract 25 km each hour of tenancy from total service distance.
         const chargedDistance = distance - (25 * chargedFullHours);
