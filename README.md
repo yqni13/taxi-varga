@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.16}}$
+$\texttt{\color{teal}{v1.6.20}}$
 
 
 <br><br>
@@ -232,11 +232,12 @@ $ npm run lint
 <br>
 
 ## Updates
-[list of all updates](update_protocol.md)
+[list of all updates](CHANGELOG.md)
 
-### $\textsf{last\ update\ 1.6.15\ >>\ {\color{pink}1.6.16}}$
+### $\textsf{\color{forestgreen}last update:}$
 
-- $\textsf{\color{red}Patch:}$ Updated latency calculation on service 'quick'.
+$\textsf{[v1.6.19\ =>\ {\textbf{\color{brown}v1.6.20}]}}$ app
+- $\textsf{\color{red}Patch:}$ Updated documentation formatting.
 
 <br>
 

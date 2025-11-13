@@ -13,23 +13,28 @@
             "content": {
                 "entry0": {
                     "text": "Eine Fahrt zwischen Wien und dem Flughafen Wien-Schwechat mit viel Platz für Ihr Gepäck.",
-                    "title": "Flughafenfahrt - Wien"
+                    "subtitle": "Wien",
+                    "title": "Flughafen Pauschalfahrt"
                 },
                 "entry1": {
                     "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthalts vor Ort.",
-                    "title": "Pauschalfahrt - Niederösterreich"
+                    "subtitle": "Niederösterreich",
+                    "title": "Flughafen & sonstige Pauschalfahrt"
                 },
                 "entry2": {
                     "text": "Ein Tagesausflug zu einem Golfplatz Ihrer Wahl mit der Option auf Begleitung als Caddy oder Mitspieler.",
+                    "subtitle": "",
                     "title": "Golf-Tagesreise"
                 },
                 "entry3": {
                     "text": "Statt eines fixen Ziels kann auch pauschal nach Zeit eine Reise in Anspruch genommen werden.",
+                    "subtitle": "",
                     "title": "Zeitmiete"
                 },
                 "entry4": {
                     "text": "Pauschalpreis prüfen und (je nach Verfügbarkeit) spontan telefonisch bestellen (keine Vorbestellung).",
-                    "title": "Spontanfahrt"
+                    "subtitle": "Wien & Leobersdorf",
+                    "title": "Spontane Pauschalfahrt"
                 }
             },
             "title": "Ein Service für jedes Anliegen"
