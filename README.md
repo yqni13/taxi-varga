@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.19}}$
+$\texttt{\color{teal}{v1.6.20}}$
 
 
 <br><br>
@@ -234,9 +234,10 @@ $ npm run lint
 ## Updates
 [list of all updates](CHANGELOG.md)
 
-### $\textsf{last\ update\ 1.6.18\ >>\ {\color{pink}1.6.19}}$
+### $\textsf{\color{forestgreen}last update:}$
 
-- $\textsf{\color{red}Patch:}$ Updated titles of services at 'home' and 'service' page (Frontend).
+$\textsf{[v1.6.19\ =>\ {\textbf{\color{brown}v1.6.20}]}}$ app
+- $\textsf{\color{red}Patch:}$ Updated documentation formatting.
 
 <br>
 
