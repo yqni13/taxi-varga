@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.20}}$
+$\texttt{\color{teal}{v1.6.22}}$
 
 
 <br><br>
@@ -236,8 +236,9 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.19\ =>\ {\textbf{\color{brown}v1.6.20}]}}$ app
-- $\textsf{\color{red}Patch:}$ Updated documentation formatting.
+$\textsf{[v1.6.20\ =>\ {\textbf{\color{brown}v1.6.22}]}}$ app
+- $\textsf{\color{green}Change:}$ Added new logo to navbar and favicon.
+- $\textsf{\color{red}Patch:}$ Updated UI headers on page 'home' (frontend).
 
 <br>
 
