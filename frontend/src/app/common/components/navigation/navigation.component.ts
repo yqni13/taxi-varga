@@ -61,7 +61,7 @@ export class NavigationComponent implements OnInit {
     ngOnInit() {
         const navIcons = this.navigation.getNavigationIconPaths();
         this.preloadImages = [
-            'assets/logo.webp',
+            'assets/logo_v2.webp',
             ...navIcons
         ];
         this.assetPreload.preloadAssets({images: this.preloadImages}).finally(() => {
