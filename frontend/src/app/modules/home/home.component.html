@@ -79,7 +79,12 @@
                             *ngIf="item.authorPath.length > 0"
                             on
                         >
-                            <a href="{{item.authorPath}}" target="_blank" (click)="isNavigatingToAuthor = true">
+                            <a
+                                href="{{item.authorPath}}"
+                                target="_blank"
+                                (click)="isNavigatingToAuthor = true"
+                                (keydown.enter)="isNavigatingToAuthor = true"
+                            >
                                 {{'shared.assets.author' | translate}}
                             </a>
                         </span>
