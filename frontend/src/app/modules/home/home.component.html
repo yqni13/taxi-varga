@@ -76,9 +76,10 @@
                         <img src="{{item.imgPath}}" alt="404-picture-not-found">
                         <span
                             class="tava-author author-light-bg author-service-img"
-                            *ngIf="item.authorPath !== ''"
+                            *ngIf="item.authorPath.length > 0"
+                            on
                         >
-                            <a href="{{item.authorPath}}" target="_blank">
+                            <a href="{{item.authorPath}}" target="_blank" (click)="isNavigatingToAuthor = true">
                                 {{'shared.assets.author' | translate}}
                             </a>
                         </span>

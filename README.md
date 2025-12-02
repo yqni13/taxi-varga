@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.22}}$
+$\texttt{\color{teal}{v1.6.23}}$
 
 
 <br><br>
@@ -236,9 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.20\ =>\ {\textbf{\color{brown}v1.6.22}]}}$ app
-- $\textsf{\color{green}Change:}$ Added new logo to navbar and favicon.
-- $\textsf{\color{red}Patch:}$ Updated UI headers on page 'home' (frontend).
+$\textsf{[v1.6.22\ =>\ {\textbf{\color{brown}v1.6.23}]}}$ app
+- $\textsf{\color{red}Bugfix:}$ Author links on page 'home' at 'services' navigates user to source of image on new tab meanwhile application does not execute any other logic. [Before: Clicking on author link navigated user to source of image but application simultaneously navigated to service in combination with clicked author link.]
 
 <br>
 
