@@ -4,9 +4,16 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2025/12/02}$
+
+$\textsf{[v1.6.22\ =>\ {\textbf{\color{brown}v1.6.23}]}}$ app
+- $\textsf{\color{red}Bugfix:}$ Author links on page 'home' at 'services' navigates user to source of image on new tab meanwhile application does not execute any other logic. [Before: Clicking on author link navigated user to source of image but application simultaneously navigated to service in combination with clicked author link.]
+
+<br>
+
 ### $\textsf{\color{skyblue}2025/11/30}$
 
-$\textsf{[v1.6.20\ =>\ {\textbf{\color{brown}v1.6.22}]}}$ app
+$\textsf{[v1.6.20\ =>\ v1.6.22]}$ app
 - $\textsf{\color{green}Change:}$ Added new logo to navbar and favicon.
 - $\textsf{\color{red}Patch:}$ Updated UI headers on page 'home' (frontend).
 
