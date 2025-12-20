@@ -239,7 +239,6 @@
                     }
                 },
                 "golf": {
-                    "block-validation": "Bitte wählen Sie eine Option für zusätzlichen Service aus.",
                     "info": {
                         "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n",
                         "title": "Bitte beachten Sie"
