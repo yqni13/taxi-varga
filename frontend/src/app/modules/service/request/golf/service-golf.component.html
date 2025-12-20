@@ -68,53 +68,31 @@
                         {{'modules.service.content.golf.labels.passengers' | translate}}*
                     </span>
                 </div>
-                <div
-                    class="tava-service-specific-block"
-                    *tavaVar="serviceForm.get('supportMode') as supportMode"
-                    id="form-radio"
-                >
-                    <div class="tava-service-golf-radio-wrapper">
-                        <label class="tava-form-radio-first tava-custom-input-radio">
+                <ng-container *tavaVar="serviceForm.get('supportMode')?.value as supportMode">
+                    <div
+                        class="tava-service-specific-block"
+                        *ngIf="supportMode !== null"
+                        id="form-checkbox"
+                    >
+                        <div class="tava-custom-input-checkbox">
                             <input
-                                type="radio"
-                                class="tava-text-input-radio"
-                                [value]="GolfSupportOptionsEnum.NONE"
-                                formControlName="supportMode"
-                            >
-                            <span>{{'modules.service.content.golf.labels.support-mode.none' | translate}}</span>
-                        </label>
-                        <label class="tava-form-radio-second tava-custom-input-radio">
-                            <input
-                                type="radio"
-                                class="tava-text-input-radio"
-                                [value]="GolfSupportOptionsEnum.CADDY"
-                                formControlName="supportMode"
-                            >
-                            <span>{{'modules.service.content.golf.labels.support-mode.caddy' | translate}}</span>
-                        </label>
-                        <label
-                            class="tava-form-radio-third tava-custom-input-radio"
-                            *ngIf="serviceForm.get('passengers')?.value !== PassengerOptionsEnum.PPL3"
-                        >
-                            <input
-                                type="radio"
-                                class="tava-text-input-radio"
-                                [value]="GolfSupportOptionsEnum.PLAYER"
-                                formControlName="supportMode"
+                                class="tava-text-input-checkbox"
+                                type="checkbox"
+                                (change)="getSupportCheckboxValue($event)"
                             >
                             <span>{{'modules.service.content.golf.labels.support-mode.player' | translate}}</span>
-                        </label>
-                    </div>
-                    <div
-                        *ngIf="supportMode?.invalid && (supportMode?.dirty || supportMode?.touched)"
-                        class="tava-service-golf-block-validation"
-                    >
-                        <span>
-                            {{'modules.service.content.golf.block-validation' | translate}}
-                        </span>
-                        <i class="icon-warning icon-base"></i>
-                    </div>
-                </div>                
+                        </div>
+                        <div
+                            *ngIf="supportMode?.invalid && (supportMode?.dirty || supportMode?.touched)"
+                            class="tava-service-golf-block-validation"
+                        >
+                            <span>
+                                {{'modules.service.content.golf.block-validation' | translate}}
+                            </span>
+                            <i class="icon-warning icon-base"></i>
+                        </div>
+                    </div>                
+                </ng-container>
                 <div class="tava-service-specific-block tava-datetime-double">
                     <div class="tava-service-stay-wrapper" id="tava-service-golf-stay-left">
                         <span class="tava-service-block-label">
@@ -277,14 +255,14 @@
                 </span>
             </div>
             <div
-                *ngIf="serviceForm.get('supportMode')?.value !== GolfSupportOptionsEnum.NONE"
+                *ngIf="serviceForm.get('supportMode')?.value === true"
                 class="tava-service-specific-offer-sum"
             >
                 <span class="tava-service-specific-offer-sum-left">
                     {{('modules.service.content.form.order.support-mode.label' | translate) + ':'}}
                 </span>
                 <span class="tava-service-specific-offer-sum-right">
-                    {{'modules.service.content.form.order.support-mode.' + serviceForm.get('supportMode')?.value | translate}}
+                    {{'modules.service.content.form.order.support-mode.player' | translate}}
                 </span>
             </div>
             <div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">

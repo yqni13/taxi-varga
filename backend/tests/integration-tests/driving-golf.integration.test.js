@@ -32,8 +32,18 @@ describe('Integration test, service flow: Golf', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Workflow: calc by route (2340to2013to2340)', async () => {
+        test('Workflow: calc by route (2340to2013to2340), supportMode === false', async () => {
             const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
+            const mockResponse_driving = await request(app)
+                .post('/api/v1/driving/golf')
+                .send(mockParam_params_driving);
+    
+            expect(mockResponse_driving.statusCode).toBe(200);
+            expect(mockResponse_driving.body.body).toMatchObject(mockResult);
+        })
+
+        test('Workflow: calc by route (2340to2013to2340), supportMode === true', async () => {
+            const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);
@@ -137,7 +147,6 @@ describe('Integration test, service flow: Golf', () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
-                // no 'value' in error object by exists() instead trim() + notEmpty()
                 delete mockError['value'];
                 mockError['path'] = invalidParam;
                 const mockResponse = await request(app)
