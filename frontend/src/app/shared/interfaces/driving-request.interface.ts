@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { GolfSupportOptions } from "../enums/golf-support-options.enum"
-
 export declare interface DrivingAirportRequest {
     origin: string,
     originDetails: any,
@@ -35,7 +33,7 @@ export declare interface DrivingGolfRequest {
     destination: string,
     destinationDetails: any,
     stay: number,
-    supportMode: GolfSupportOptions
+    supportMode: boolean
 }
 
 export declare interface DrivingQuickRequest {

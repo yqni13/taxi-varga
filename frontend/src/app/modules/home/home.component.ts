@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     protected isPreloading: boolean;
 
     private subscriptionThemeObservation$: Subscription;
+    private _isNavigatingToAuthor: boolean;
 
     constructor(
         private readonly router: Router,
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.isPreloading = true;
 
         this.subscriptionThemeObservation$ = new Subscription();
+        this._isNavigatingToAuthor = false;
     }
 
     ngOnInit() {
@@ -85,6 +87,14 @@ export class HomeComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+    }
+
+    get isNavigatingToAuthor(): boolean {
+        return this._isNavigatingToAuthor;
+    }
+
+    set isNavigatingToAuthor(val: boolean) {
+        this._isNavigatingToAuthor = val;
     }
 
     private mapAuthorData() {
@@ -127,7 +137,7 @@ export class HomeComponent implements OnInit, OnDestroy {
                 text: `home.services.content.entry${i}.text`,
                 imgPath: this.serviceImgCollection[i],
                 service: services[i],
-                authorPath: authors[i+4]
+                authorPath: authors[i]
             }
             this.serviceCollection.push(newEntry);
         }
@@ -136,9 +146,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     navigateToProfile() {
         this.router.navigate([`/${BaseRoute.ABOUT}`]);
     }
-    
-    navigateToService(service: string) {
-        this.router.navigate([`/${BaseRoute.SERVICE}/${service}`]);
+
+    navigateToService(service: ServiceOptions) {
+        if(!this.isNavigatingToAuthor) {
+            this.router.navigate([`/${BaseRoute.SERVICE}/${service}`]);
+        } else {
+            this.isNavigatingToAuthor = false;
+        }
     }
 
     ngOnDestroy() {

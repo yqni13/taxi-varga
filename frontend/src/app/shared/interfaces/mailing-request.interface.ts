@@ -1,4 +1,3 @@
-import { GolfSupportOptions } from "../enums/golf-support-options.enum"
 import { PassengerOptions } from "../enums/passenger-options.enum"
 import { ServiceOptions } from "../enums/service-options.enum"
 
@@ -26,7 +25,7 @@ export declare interface MailingMessage {
     pickupTIME: string,
     dropOffDATE?: string,
     dropOffTIME?: string,
-    supportMode: GolfSupportOptions,
+    supportMode: boolean,
     passengers?: PassengerOptions,
     stay?: string,
     tenancy?: string,

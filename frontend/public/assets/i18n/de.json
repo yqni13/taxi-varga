@@ -223,7 +223,6 @@
                         "stay": "Pauschalierter Aufenthalt",
                         "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 6 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
                         "support-mode": {
-                            "caddy": "Begleitung als Caddy",
                             "label": "Zusatzservice",
                             "player": "Begleitung als Mitspieler"
                         },
@@ -240,7 +239,6 @@
                     }
                 },
                 "golf": {
-                    "block-validation": "Bitte wählen Sie eine Option für zusätzlichen Service aus.",
                     "info": {
                         "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n",
                         "title": "Bitte beachten Sie"
@@ -260,9 +258,7 @@
                         "return": "Ich möchte zur Abholadresse zurückkehren.",
                         "stay": "Meine gewünschte Zeit des Aufenthalts.",
                         "support-mode": {
-                            "caddy": "Ich möchte Sie zur Begleitung als Caddy buchen.",
-                            "none": "Ich benötige keinen zusätzlichen Service.",
-                            "player": "Ich möchte Sie zur Begleitung als Mitspieler buchen (Greenfeekosten des Begleiters gehen zu Lasten von taxi-varga)."
+                            "player": "Ich wünsche Sie als Mitspieler."
                         }
                     },
                     "option": {

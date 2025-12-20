@@ -1,15 +1,14 @@
 const DrivingGolfModel = require('../../../../src/models/driving/golf.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const { SupportModeOption } = require('../../../../src/utils/enums/supportmode-option.enum');
 const MockData_RouteMatrix = require('../../../mock-data/routeMatrix_golf.mock.json');
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = none', async () => {
+        test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = false', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
-            mockParam_params['supportMode'] = SupportModeOption.NONE;
+            mockParam_params['supportMode'] = false;
             const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -21,23 +20,9 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
-        test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = caddy', async () => {
-            const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
-            mockParam_params['supportMode'] = SupportModeOption.CADDY;
-            const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
-            const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
-
-            const golfModel = new DrivingGolfModel(mockAPI);
-            const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 112 } };
-
-            expect(testFn).toMatchObject(expectSubObj);
-            expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
-        })
-
-        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = none', async () => {
+        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = false', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
-            mockParam_params['supportMode'] = SupportModeOption.NONE;
+            mockParam_params['supportMode'] = false;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -49,15 +34,15 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
-        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = player', async () => {
+        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = true', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
-            mockParam_params['supportMode'] = SupportModeOption.PLAYER;
+            mockParam_params['supportMode'] = true;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 228 } };
+            const expectSubObj = { routeData: { price: 192 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();

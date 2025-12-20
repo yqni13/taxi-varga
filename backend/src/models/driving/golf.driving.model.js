@@ -1,5 +1,4 @@
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
-const { SupportModeOption } = require("../../utils/enums/supportmode-option.enum");
 const CustomValidator = require('../../utils/customValidator.utils');
 
 class DrivingGolfModel {
@@ -36,14 +35,14 @@ class DrivingGolfModel {
             price: 0
         }
 
-        // validate relevance & update stay time by removing origin route duration (in total minutes)
+        // Validate relevance & update stay time by removing origin route duration (in total minutes).
         params['stay'] = CustomValidator.validateTravelTimeRelevance(
             Number(params['stay']),
             routes.o2g.duration,
             ServiceOption.GOLF
         );
 
-        // already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes
+        // Already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes.
         const serveWay = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
         const serveTime = routes.o2g.duration + routes.g2d.duration;
 
@@ -52,12 +51,11 @@ class DrivingGolfModel {
         const approachCosts = this._calcHomeBasedRouteCosts(routes.h2o.distanceMeters);
         const returnCosts = this._calcHomeBasedRouteCosts(routes.d2h.distanceMeters);
         const stayObj = this._calcStayCosts(Number(params['stay']));
-        const supportCosts = params['supportMode'] !== SupportModeOption.NONE ? 36 : 0;
 
-        // Add up all additional charges
+        // Add up all additional charges.
         let additionalCharges = 0;
 
-        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + supportCosts + additionalCharges;
+        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
 
         result['distance'] = Math.ceil(serveWay);
         result['duration'] = Math.ceil(serveTime);
