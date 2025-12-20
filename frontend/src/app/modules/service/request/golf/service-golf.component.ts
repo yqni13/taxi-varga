@@ -21,7 +21,6 @@ import { filter, Subject, tap } from "rxjs";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
 import { PassengerOptions } from "../../../../shared/enums/passenger-options.enum";
-import { GolfSupportOptions } from "../../../../shared/enums/golf-support-options.enum";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
@@ -44,7 +43,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
     protected AddressFilterOptionsEnum = AddressFilterOptions;
     protected PassengerOptionsEnum = PassengerOptions;
-    protected GolfSupportOptionsEnum = GolfSupportOptions;
     protected dropoffTimeByLang$: Subject<string>;
     protected dropoffTimeByLangStatic: string;
     protected minStayStamp$: Subject<string>;
@@ -116,7 +114,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             datetimeEnd: new FormControl(''),
             passengers: new FormControl('', Validators.required),
             stay: new FormControl(''),
-            supportMode: new FormControl('', Validators.required),
+            supportMode: new FormControl(''),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             dropOffDATE: new FormControl(''),
@@ -140,7 +138,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             return: true,
             passengers: '',
             stay: null,
-            supportMode: null,
+            supportMode: false,
             datetimeStart: '',
             datetimeEnd: '',
             pickupDATE: '',
@@ -167,7 +165,11 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         }
     }
 
-    configReturnAddress(isOrigin: boolean) {
+    getSupportCheckboxValue(event: any) {
+        this.serviceForm.get('supportMode')?.setValue(event.target?.checked);
+    }
+
+    private configReturnAddress(isOrigin: boolean) {
         this.serviceForm.get('destinationAddress')?.clearValidators();
         if(!isOrigin) {
             this.serviceForm.get('destinationAddress')?.setValue('');
@@ -180,11 +182,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     configSupportModeOnPassengers() {
-        if(this.serviceForm.get('passengers')?.value === PassengerOptions.PPL3 &&
-        this.serviceForm.get('supportMode')?.value === GolfSupportOptions.PLAYER) {
-            this.serviceForm.get('supportMode')?.reset();
+        if(this.serviceForm.get('passengers')?.value === PassengerOptions.PPL3) {
             this.serviceForm.get('supportMode')?.setValue(null);
-            this.serviceForm.get('supportMode')?.addValidators(Validators.required);
+        } else if(this.serviceForm.get('supportMode')?.value === null) {
+            this.serviceForm.get('supportMode')?.setValue(false);
         }
     }
 
@@ -226,6 +227,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         }
 
         this.configDateTimeData();
+        this.configSupportMode();
         this.drivingAPIService.setDataGolf(this.serviceForm.getRawValue());
         this.drivingAPIService.sendGolfRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -235,7 +237,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.scrollToTop();
     }
 
-    configDateTimeData() {
+    private configDateTimeData() {
         this.serviceForm.get('stay')?.setValue(this.datetimeService.getTimeDifferenceAsString(
             this.serviceForm.get('datetimeStart')?.value,
             this.serviceForm.get('datetimeEnd')?.value,
@@ -263,5 +265,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             this.serviceForm.get('dropOffTIME')?.value,
             this.translate.currentLang
         );
+    }
+
+    private configSupportMode() {
+        const val = this.serviceForm.get('supportMode')?.value;
+        this.serviceForm.get('supportMode')?.setValue(val === null ? false : val);
     }
 }
