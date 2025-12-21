@@ -4,9 +4,16 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2025/12/21}$
+
+$\textsf{[v1.6.24\ =>\ {\textbf{\color{brown}v1.6.25}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated calculation on service 'golf'.
+
+<br>
+
 ### $\textsf{\color{skyblue}2025/12/20}$
 
-$\textsf{[v1.6.23\ =>\ {\textbf{\color{brown}v1.6.24}]}}$ app
+$\textsf{[v1.6.23\ =>\ v1.6.24]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated text passages on page 'home' + service 'golf' (frontend) and support mode handling.
 
 <br>

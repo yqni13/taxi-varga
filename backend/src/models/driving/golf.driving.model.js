@@ -8,11 +8,13 @@ class DrivingGolfModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
+            baseFlat: 4,
             below30Km: 0.65,
             above30Km: 0.5,
             homeBasedRoutePerKm: 0.4,
             stayPerHour: 12,
-            servDistBelow20Km: 0.4
+            servDistBelow20Km: 0.4,
+            totalDiscount: 0.25
         }
     }
     calcGolfRoute = async (params) => {
@@ -43,36 +45,39 @@ class DrivingGolfModel {
         );
 
         // Already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes.
-        const serveWay = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
-        const serveTime = routes.o2g.duration + routes.g2d.duration;
+        const servDist = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
+        const servTime = routes.o2g.duration + routes.g2d.duration;
 
-        const serveWayCosts = serveWay <= 30 ? serveWay * this.#prices.below30Km : serveWay * this.#prices.above30Km;
-        const serveTimeCosts = serveWay <= 30 ? serveTime * this.#prices.below30Km : serveTime * this.#prices.above30Km;
-        const approachCosts = this._calcHomeBasedRouteCosts(routes.h2o.distanceMeters);
-        const returnCosts = this._calcHomeBasedRouteCosts(routes.d2h.distanceMeters);
+        const approachCosts = this._calcApproachH2O(routes.h2o.distanceMeters);
+        const servDistCosts = servDist <= 30 ? servDist * this.#prices.below30Km : servDist * this.#prices.above30Km;
+        const servTimeCosts = servDist <= 30 ? servTime * this.#prices.below30Km : servTime * this.#prices.above30Km;
+        const returnCosts = routes.d2h.distanceMeters * this.#prices.homeBasedRoutePerKm;
         const stayObj = this._calcStayCosts(Number(params['stay']));
 
         // Add up all additional charges.
         let additionalCharges = 0;
 
-        const totalCosts = serveWayCosts + serveTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
+        let totalCosts = this.#prices.baseFlat + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
 
-        result['distance'] = Math.ceil(serveWay);
-        result['duration'] = Math.ceil(serveTime);
+        // Map additional discounts.
+        totalCosts = this._mapDiscountToTotalCosts(totalCosts, params['supportMode']);
+
+        result['distance'] = Math.ceil(servDist);
+        result['duration'] = Math.ceil(servTime);
         result['stay'] = stayObj.hours;
         result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
         return {routeData: result};
     }
 
-    _calcHomeBasedRouteCosts = (distance) => {
+    _calcApproachH2O(distance) {
         if(typeof(distance) !== 'number') {
             return 0;
         }
-        return distance <= 30 ? 0 : (distance - 30) * this.#prices.homeBasedRoutePerKm;
+        return distance <= 20 ? 0 : (distance - 20) * this.#prices.homeBasedRoutePerKm;
     }
 
-    _calcStayCosts = (time) => {
+    _calcStayCosts(time) {
         if(typeof(time) !== 'number') {
             return { hours: 6, costs: 48 };
         }
@@ -87,6 +92,14 @@ class DrivingGolfModel {
             hours: time,
             costs: time > 6 ? (48 + (this.#prices.stayPerHour * (time - 6))) : 48
         };
+    }
+
+    _mapDiscountToTotalCosts(costs, support) {
+        if(!support) {
+            return costs;
+        }
+        const discount = costs * this.#prices.totalDiscount;
+        return discount <= 48 ? costs - discount : costs - 48;
     }
 }
 
