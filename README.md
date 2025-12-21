@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.24}}$
+$\texttt{\color{teal}{v1.6.25}}$
 
 
 <br><br>
@@ -236,8 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.23\ =>\ {\textbf{\color{brown}v1.6.24}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated text passages on page 'home' + service 'golf' (frontend) and support mode handling.
+$\textsf{[v1.6.24\ =>\ {\textbf{\color{brown}v1.6.25}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated calculation on service 'golf'.
 
 <br>
 

@@ -8,13 +8,13 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
         test('Route (2542to2551to2542), params: service distance < 20, <supportMode> = false', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
-            mockParam_params['supportMode'] = false;
+            mockParam_params['supportMode'] = true;
             const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 76 } };
+            const expectSubObj = { routeData: { price: 60 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -22,13 +22,13 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
         test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = false', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
-            mockParam_params['supportMode'] = false;
+            mockParam_params['supportMode'] = true;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 192 } };
+            const expectSubObj = { routeData: { price: 163 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -42,7 +42,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectSubObj = { routeData: { price: 192 } };
+            const expectSubObj = { routeData: { price: 163 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -63,7 +63,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
     })
 })
 
-describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
+describe('Flatrate tests, priority: _calcApproachH2O', () => {
 
     let golfModel;
     beforeEach(() => {
@@ -72,26 +72,26 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
     describe('Testing valid fn calls, priority: h2o/d2h distance', () => {
 
-        test('Params: <distance> < 30', () => {
+        test('Params: <distance> < 20', () => {
             const mockParam_distance = 11.7;
-            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcApproachH2O(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Params: <distance> == 30', () => {
-            const mockParam_distance = 30;
-            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
+        test('Params: <distance> == 20', () => {
+            const mockParam_distance = 20;
+            const testFn = golfModel._calcApproachH2O(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
         })
 
-        test('Params: <distance> > 30', () => {
+        test('Params: <distance> > 20', () => {
             const mockParam_distance = 47.5;
-            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
-            const expectResult = 7;
+            const testFn = golfModel._calcApproachH2O(mockParam_distance);
+            const expectResult = 11;
 
             expect(testFn).toBe(expectResult);
         })
@@ -101,7 +101,7 @@ describe('Flatrate tests, priority: _calcHomeBasedRouteCosts', () => {
 
         test('Params: <distance> == \'test\'', () => {
             const mockParam_distance = 'test';
-            const testFn = golfModel._calcHomeBasedRouteCosts(mockParam_distance);
+            const testFn = golfModel._calcApproachH2O(mockParam_distance);
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
@@ -151,6 +151,53 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
             const expectSubObj = { hours: 6, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
+        })
+    })
+})
+
+describe('Flatrate tests, priority: _mapDiscountToTotalCosts', () => {
+
+    let golfModel;
+    beforeEach(() => {
+        golfModel = new DrivingGolfModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls, priority: time of stay', () => {
+
+        test('Params: <costs> < 48, <support> == false', () => {
+            const mockParam_costs = 100;
+            const mockParam_support = false;
+            const testFn = golfModel._mapDiscountToTotalCosts(mockParam_costs, mockParam_support);
+            const expectSubObj = 100;
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: <costs> < 48, <support> == true', () => {
+            const mockParam_costs = 100;
+            const mockParam_support = true;
+            const testFn = golfModel._mapDiscountToTotalCosts(mockParam_costs, mockParam_support);
+            const expectSubObj = 75;
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: <costs> == 48, <support> == true', () => {
+            const mockParam_costs = 192;
+            const mockParam_support = true;
+            const testFn = golfModel._mapDiscountToTotalCosts(mockParam_costs, mockParam_support);
+            const expectSubObj = 144;
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: <costs> > 48, <support> == true', () => {
+            const mockParam_costs = 300;
+            const mockParam_support = true;
+            const testFn = golfModel._mapDiscountToTotalCosts(mockParam_costs, mockParam_support);
+            const expectSubObj = 252;
+
+            expect(testFn).toBe(expectSubObj);
         })
     })
 })
