@@ -60,31 +60,33 @@
         },
         "samples-content-option4": {
             "entry0": {
-                "price": "121,00",
+                "price-classic": "147,00",
+                "price-support": "110,00",
                 "route": "Wien - Golfclub Himberg - Wien"
             },
             "entry1": {
-                "price": "124,00",
+                "price-classic": "153,00",
+                "price-support": "115,00",
                 "route": "Wien - Golfclub Frühling - Wien"
             },
             "entry2": {
-                "price": "127,00",
-                "route": "Wien - Golfclub Fontana - Wien"
-            },
-            "entry3": {
-                "price": "131,00",
+                "price-classic": "151,00",
+                "price-support": "113,00",
                 "route": "Wien - Golfclub Ebreichsdorf - Wien"
             },
-            "entry4": {
-                "price": "153,00",
-                "route": "Wien - Golfclub Enzesfeld - Wien"
+            "entry3": {
+                "price-classic": "194,00",
+                "price-support": "146,00",
+                "route": "Wien - Golfclub Atzenbrugg - Wien"
             },
-            "entry5": {
-                "price": "170,00",
+            "entry4": {
+                "price-classic": "195,00",
+                "price-support": "147,00",
                 "route": "Wien - Golfclub Föhrenwald - Wien"
             },
-            "entry6": {
-                "price": "202,00",
+            "entry5": {
+                "price-classic": "224,00",
+                "price-support": "176,00",
                 "route": "Wien - Golfclub Adamstal - Wien"
             }
         },
@@ -92,8 +94,11 @@
             "addendum": "ab",
             "currency": "EUR",
             "discount-info1": "* gilt für Fahrtbeginn zwischen 04:00 und 06:00 Uhr",
+            "discount-info2": "** Paket 1 = Anreise und Rückreise nach Vereinbarung,\nPaket 2 = Anreise, gemeinsame Golfrunde und Rückreise",
             "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
+            "price-classic": "Paket 1",
+            "price-support": "Paket 2",
             "route": "Route"
         },
         "samples-header": {
