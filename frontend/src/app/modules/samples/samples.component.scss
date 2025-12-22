@@ -3,6 +3,7 @@
 
 $colon-width: 10px;
 $addendum-width: 35px;
+$price-divider-width: 20px;
 $price-width: 50px;
 $currency-width: 40px;
 
@@ -53,7 +54,7 @@ $currency-width: 40px;
     text-align: end;
 }
 
-th {
+th.tava-samples-special-header {
     text-shadow: 1px 1px 1px sass.$color-text-black;
     opacity: 0.8;
     font-style: italic;
@@ -65,6 +66,15 @@ th {
 .tava-samples-special-header {
     line-height: sass.$text-line-height;
     text-shadow: 1px 1px 2px var(--warning-shadow);
+}
+
+.tava-samples-golf-table-header {
+    text-shadow: 1px 1px 2px var(--warning-shadow);
+    color: var(--theme-palette-contrast);
+}
+
+.tava-samples-header-bottom-close {
+    padding-bottom: 2.5px!important;
 }
 
 td {
@@ -102,13 +112,25 @@ td {
     width: $currency-width;
 }
 
+.tava-samples-price-divider {
+    width: $price-divider-width;
+}
+
+.samples-orientation-center {
+    text-align: center;
+    padding: 0px 5px;
+}
+
 .tava-samples-footnote {
     display: flex;
+    flex-direction: column;
     width: 100%;
-    justify-content: center;
-    margin: sass.$space5 0;
-
+    text-align: center;
+    margin: sass.$space5;
+    
     span {
         font-size: clamp(8px, 2vw, 14px);
+        margin: 4px 0;
+        white-space: pre-line;
     }
 }
