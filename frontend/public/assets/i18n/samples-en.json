@@ -65,14 +65,14 @@
                 "route": "Vienna - Golf Club Himberg - Vienna"
             },
             "entry1": {
-                "price-classic": "153,00",
-                "price-support": "115,00",
-                "route": "Vienna - Golf Club Frühling - Vienna"
-            },
-            "entry2": {
                 "price-classic": "151,00",
                 "price-support": "113,00",
                 "route": "Vienna - Golf Club Ebreichsdorf - Vienna"
+            },
+            "entry2": {
+                "price-classic": "153,00",
+                "price-support": "115,00",
+                "route": "Vienna - Golf Club Frühling - Vienna"
             },
             "entry3": {
                 "price-classic": "194,00",
@@ -94,7 +94,7 @@
             "addendum": "from",
             "currency": "EUR",
             "discount-info1": "* applies to pickup time 04:00 a.m. - 06:00 a.m.",
-            "discount-info2": "** Package 1 = arrival and departure by arrangement,\nPackage 2 = arrival, playing golf together and departure",
+            "discount-info2": "** Pack 1 = arrival and departure by arrangement,\nPack 2 = arrival, playing golf together and departure",
             "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "price-classic": "Pack 1",

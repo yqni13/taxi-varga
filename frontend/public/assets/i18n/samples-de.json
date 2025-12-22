@@ -65,14 +65,14 @@
                 "route": "Wien - Golfclub Himberg - Wien"
             },
             "entry1": {
-                "price-classic": "153,00",
-                "price-support": "115,00",
-                "route": "Wien - Golfclub Frühling - Wien"
-            },
-            "entry2": {
                 "price-classic": "151,00",
                 "price-support": "113,00",
                 "route": "Wien - Golfclub Ebreichsdorf - Wien"
+            },
+            "entry2": {
+                "price-classic": "153,00",
+                "price-support": "115,00",
+                "route": "Wien - Golfclub Frühling - Wien"
             },
             "entry3": {
                 "price-classic": "194,00",
