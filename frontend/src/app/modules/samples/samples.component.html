@@ -87,16 +87,44 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="5" class="tava-samples-special-header">
+                        <th colspan="7" class="tava-samples-special-header">
                             {{'z-content-samples.samples-utility.header-golf' | translate}}
+                        </th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tr>
+                        <th class="tava-samples-header-bottom-close"></th>
+                        <th class="tava-samples-header-bottom-close">**</th>
+                        <th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
+                            {{'z-content-samples.samples-utility.price-classic' | translate}}
+                        </th>
+                        <th colspan="1" class="tava-samples-header-bottom-close">
+                            |
+                        </th>
+                        <th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
+                            {{'z-content-samples.samples-utility.price-support' | translate}}
                         </th>
                     </tr>
                 </thead>
                 <tbody *tavaVar="'z-content-samples.samples-content-option4.entry' as contentPath4">
                     <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
-                        <ng-container 
-                            *ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath4 }"
-                        ></ng-container>
+                        <td class="tava-samples-route tava-table-no-addendum">
+                            {{contentPath4 + i + '.route' | translate}}
+                        </td>
+                        <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-price samples-orientation-center">
+                            {{contentPath4 + i + '.price-classic' | translate}}
+                        </td>
+                        <td class="tava-samples-price-divider samples-orientation-center">
+                            |
+                        </td>
+                        <td class="tava-samples-price samples-orientation-center">
+                            {{contentPath4 + i + '.price-support' | translate}}
+                        </td>
+                        <td class="tava-samples-currency">
+                            {{'z-content-samples.samples-utility.currency' | translate}}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -105,6 +133,9 @@
     <div class="tava-samples-footnote">
         <span>
             {{'z-content-samples.samples-utility.discount-info1' | translate}}
+        </span>
+        <span>
+            {{'z-content-samples.samples-utility.discount-info2' | translate}}
         </span>
     </div>
 </section>
