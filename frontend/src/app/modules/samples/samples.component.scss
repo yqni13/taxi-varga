@@ -2,7 +2,6 @@
 
 
 $colon-width: 10px;
-$addendum-width: 35px;
 $price-divider-width: 20px;
 $price-width: 50px;
 $currency-width: 40px;
@@ -91,6 +90,7 @@ td {
 
 .tava-table-no-addendum {
     width: 100%;
+    padding: 5px 0;
 }
 
 .tava-samples-colon {
@@ -99,7 +99,7 @@ td {
 }
 
 .tava-samples-addendum {
-    width: $addendum-width;
+    padding: 0 5px;
 }
 
 .tava-samples-price {

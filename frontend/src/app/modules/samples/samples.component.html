@@ -95,6 +95,7 @@
                 <thead>
                     <tr>
                         <th class="tava-samples-header-bottom-close"></th>
+                        <th class="tava-samples-header-bottom-close"></th>
                         <th class="tava-samples-header-bottom-close">**</th>
                         <th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
                             {{'z-content-samples.samples-utility.price-classic' | translate}}
@@ -109,10 +110,13 @@
                 </thead>
                 <tbody *tavaVar="'z-content-samples.samples-content-option4.entry' as contentPath4">
                     <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
-                        <td class="tava-samples-route tava-table-no-addendum">
+                        <td class="tava-samples-route">
                             {{contentPath4 + i + '.route' | translate}}
                         </td>
                         <td class="tava-samples-colon">:</td>
+                        <td class="tava-samples-addendum">
+                            {{'z-content-samples.samples-utility.addendum' | translate}}
+                        </td>
                         <td class="tava-samples-price samples-orientation-center">
                             {{contentPath4 + i + '.price-classic' | translate}}
                         </td>
