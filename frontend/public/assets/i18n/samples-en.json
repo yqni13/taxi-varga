@@ -60,31 +60,33 @@
         },
         "samples-content-option4": {
             "entry0": {
-                "price": "121,00",
+                "price-classic": "147,00",
+                "price-support": "110,00",
                 "route": "Vienna - Golf Club Himberg - Vienna"
             },
             "entry1": {
-                "price": "124,00",
-                "route": "Vienna - Golf Club Frühling - Vienna"
-            },
-            "entry2": {
-                "price": "127,00",
-                "route": "Vienna - Golf Club Fontana - Vienna"
-            },
-            "entry3": {
-                "price": "131,00",
+                "price-classic": "151,00",
+                "price-support": "113,00",
                 "route": "Vienna - Golf Club Ebreichsdorf - Vienna"
             },
-            "entry4": {
-                "price": "153,00",
-                "route": "Vienna - Golf Club Enzesfeld - Vienna"
+            "entry2": {
+                "price-classic": "153,00",
+                "price-support": "115,00",
+                "route": "Vienna - Golf Club Frühling - Vienna"
             },
-            "entry5": {
-                "price": "170,00",
+            "entry3": {
+                "price-classic": "194,00",
+                "price-support": "146,00",
+                "route": "Vienna - Golf Club Atzenbrugg - Vienna"
+            },
+            "entry4": {
+                "price-classic": "195,00",
+                "price-support": "147,00",
                 "route": "Vienna - Golf Club Föhrenwald - Vienna"
             },
-            "entry6": {
-                "price": "202,00",
+            "entry5": {
+                "price-classic": "224,00",
+                "price-support": "176,00",
                 "route": "Vienna - Golf Club Adamstal - Vienna"
             }
         },
@@ -92,8 +94,11 @@
             "addendum": "from",
             "currency": "EUR",
             "discount-info1": "* applies to pickup time 04:00 a.m. - 06:00 a.m.",
+            "discount-info2": "** Pack 1 = arrival and departure by arrangement,\nPack 2 = arrival, playing golf together and departure",
             "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
+            "price-classic": "Pack 1",
+            "price-support": "Pack 2",
             "route": "Route"
         },
         "samples-header": {

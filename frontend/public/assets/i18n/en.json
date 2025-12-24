@@ -223,8 +223,7 @@
                         "stay": "Charged stay",
                         "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
                         "support-mode": {
-                            "caddy": "Accompanied as caddy",
-                            "label": "Auxiliary service",
+                            "label": "Additional service",
                             "player": "Accompanied as player"
                         },
                         "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
@@ -240,7 +239,6 @@
                     }
                 },
                 "golf": {
-                    "block-validation": "Please select your option of additional service.",
                     "info": {
                         "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 3h are included in the price, following 3h are for free)",
                         "title": "Please note that"
@@ -260,9 +258,7 @@
                         "return": "I want to return to my pickup address.",
                         "stay": "My required time of stay.",
                         "support-mode": {
-                            "caddy": "I would like to book you as a caddy.",
-                            "none": "I do not require an additional service.",
-                            "player": "I would like to book you as a playing partner (the greenfee for the accompanying playing partner will be covered by taxi-varga)."
+                            "player": "I want you as playing partner."
                         }
                     },
                     "option": {
