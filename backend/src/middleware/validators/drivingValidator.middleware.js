@@ -1,6 +1,5 @@
 const CustomValidator = require('../../utils/customValidator.utils');
 const { body } = require('express-validator');
-const { SupportModeOption } = require('../../utils/enums/supportmode-option.enum');
 
 exports.drivingAirportSchema = [
     body('origin')
@@ -98,10 +97,8 @@ exports.drivingGolfSchema = [
         .isInt({ max: 4320 }) // x < 72h
         .withMessage('backend-invalid-stay'),
     body('supportMode')
-        .exists({values: 'null'})
+        .isBoolean()
         .withMessage('backend-required')
-        .bail()
-        .custom((value) => CustomValidator.validateEnum(value, SupportModeOption, 'supportMode'))
 ];
 
 exports.drivingQuickSchema = [

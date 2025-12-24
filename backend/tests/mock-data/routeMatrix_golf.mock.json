@@ -112,7 +112,7 @@
             "zipCode": "2340"
         },
         "stay": 480,
-        "supportMode": "none"
+        "supportMode": false
     },
     "route2542-2551-2542": {
         "apiResult": [
@@ -227,6 +227,6 @@
             "zipCode": "2542"
         },
         "stay": 360,
-        "supportMode": "none"
+        "supportMode": true
     }
 }
