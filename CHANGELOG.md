@@ -4,16 +4,17 @@
 
 <br>
 
-### $\textsf{\color{skyblue}2025/12/29}$
+### $\textsf{\color{skyblue}2025/12/30}$
 
-$\textsf{[v1.6.26\ =>\ {\textbf{\color{brown}v1.6.27}]}}$ app
+$\textsf{[v1.6.26\ =>\ {\textbf{\color{brown}v1.6.28}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated calculation of service 'destination' for price adaptation.
 - $\textsf{\color{orange}Patch:}$ Updated calculation of service 'golf' for additional discounts regarding service distance.
 
 <br>
 
 ### $\textsf{\color{skyblue}2025/12/22}$
 
-$\textsf{[v1.6.25\ =>\ {\textbf{\color{brown}v1.6.26}]}}$ app
+$\textsf{[v1.6.25\ =>\ v1.6.26]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated sample data on page 'samples'.
 
 <br>
