@@ -14,7 +14,10 @@ class DrivingGolfModel {
             homeBasedRoutePerKm: 0.4,
             stayPerHour: 12,
             servDistBelow20Km: 0.4,
-            totalDiscount: 0.25
+            supportDiscount: 0.25,
+            servDistDiscount10: 0.1,
+            servDistDiscount15: 0.15,
+            servDistDiscount20: 0.2,
         }
     }
     calcGolfRoute = async (params) => {
@@ -29,13 +32,13 @@ class DrivingGolfModel {
             o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
             g2d: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
             d2h: response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
-        }
+        };
         let result = {
             distance: 0,
             duration: 0,
             stay: 0,
             price: 0
-        }
+        };
 
         // Validate relevance & update stay time by removing origin route duration (in total minutes).
         params['stay'] = CustomValidator.validateTravelTimeRelevance(
@@ -60,7 +63,8 @@ class DrivingGolfModel {
         let totalCosts = this.#prices.baseFlat + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
 
         // Map additional discounts.
-        totalCosts = this._mapDiscountToTotalCosts(totalCosts, params['supportMode']);
+        totalCosts = this._mapSupportDiscount(totalCosts, params['supportMode']);
+        totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
 
         result['distance'] = Math.ceil(servDist);
         result['duration'] = Math.ceil(servTime);
@@ -94,12 +98,23 @@ class DrivingGolfModel {
         };
     }
 
-    _mapDiscountToTotalCosts(costs, support) {
+    _mapSupportDiscount(costs, support) {
         if(!support) {
             return costs;
         }
-        const discount = costs * this.#prices.totalDiscount;
+        const discount = costs * this.#prices.supportDiscount;
         return discount <= 48 ? costs - discount : costs - 48;
+    }
+
+    _mapLongDistanceDiscount(costs, servDist) {
+        const distanceRules = [
+            { max: 200, apply: (cost) => cost },
+            { max: 300, apply: (cost) => cost * (1 - this.#prices.servDistDiscount10) },
+            { max: 400, apply: (cost) => cost * (1 - this.#prices.servDistDiscount15) },
+            { max: Infinity, apply: (cost) => cost * (1 - this.#prices.servDistDiscount20) }
+        ];
+
+        return distanceRules.find(rule => servDist < rule.max).apply(costs);
     }
 }
 
