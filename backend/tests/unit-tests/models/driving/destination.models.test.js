@@ -345,7 +345,223 @@ describe('Destination tests, priority: _calcServCosts', () => {
     })
 })
 
-describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
+describe('Destination tests, priority: _calcApproachCosts', () => {
+
+    let destinationModel;
+    beforeEach(() => {
+        destinationModel = new DrivingDestinationModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls, priority: <back2home> = true', () => {
+
+        let mockParam_back2home;
+        beforeEach(() => {
+            mockParam_back2home = true;
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {<20, <100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 15, service: 50 };
+
+            const mockResult = 4;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {<20, <100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 15, service: 50 };
+
+            const mockResult = 4;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, <100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 50 };
+
+            const mockResult = 8;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, <100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 50 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, >=100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 150 };
+
+            const mockResult = 8;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, >=100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 150 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, >=250}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 300 };
+
+            const mockResult = 8;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, >=250}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 300 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+    })
+
+    describe('Testing valid fn calls, priority: <back2home> = false', () => {
+
+        let mockParam_back2home;
+        beforeEach(() => {
+            mockParam_back2home = false;
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {<20, <100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 15, service: 50 };
+
+            const mockResult = 4;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {<20, <100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 15, service: 50 };
+
+            const mockResult = 4;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, <100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 50 };
+
+            const mockResult = 8;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, <100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 50 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, >=100}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 150 };
+
+            const mockResult = 8.5;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, >=100}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 150 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = true, <distances> = {>20, >=250}', () => {
+            const mockParam_isWithinBH = true;
+            const mockParam_distances = { approach: 30, service: 300 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <isWithinBH> = false, <distances> = {>20, >=250}', () => {
+            const mockParam_isWithinBH = false;
+            const mockParam_distances = { approach: 30, service: 300 };
+
+            const mockResult = 9;
+            const testFn = destinationModel._calcApproachCosts(
+                mockParam_isWithinBH, mockParam_distances, mockParam_back2home
+            );
+
+            expect(testFn).toBe(mockResult);
+        })
+    })
+})
+
+describe('Destination tests, priority: _calcReturnCosts', () => {
 
     describe('Testing valid fn calls', () => {
 
@@ -368,7 +584,7 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             mockParam_params['back2home'] = true;
             mockParam_isWithinBH = false;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
+            const testFn = destinationModel._calcReturnCosts(
                 mockParam_params,
                 mockParam_routes,
                 mockParam_isWithinBH
@@ -382,7 +598,7 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             mockParam_params['back2home'] = false;
             mockParam_isWithinBH = false;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
+            const testFn = destinationModel._calcReturnCosts(
                 mockParam_params,
                 mockParam_routes,
                 mockParam_isWithinBH
@@ -392,17 +608,50 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
 
-        test('Route (1090to4020), params: <back2home> = false, withinBH', () => {
-            mockParam_params['back2home'] = false;
-            mockParam_params['pickupTIME'] = 8;
-            mockParam_isWithinBH = true;
+        test('Params: <back2home> = false, <withinBH> = true, servDist < 100', () => {
+            const testParam_params = { back2home: false };
+            const testParam_routes = {
+                o2d: { distanceMeters: 40 },
+                d2h: { distanceMeters: 50 }
+            };
+            const testParam_isWithinBH = true;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
-                mockParam_params,
-                mockParam_routes,
-                mockParam_isWithinBH
+            const testFn = destinationModel._calcReturnCosts(
+                testParam_params, testParam_routes, testParam_isWithinBH
             );
-            const expectResult = 77.3;
+            const expectResult = 20;
+
+            expect(testFn).toBeCloseTo(expectResult, 1);
+        })
+
+        test('Params: <back2home> = false, <withinBH> = true, servDist > 100', () => {
+            const testParam_params = { back2home: false };
+            const testParam_routes = {
+                o2d: { distanceMeters: 150 },
+                d2h: { distanceMeters: 200 }
+            };
+            const testParam_isWithinBH = true;
+            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+            const testFn = destinationModel._calcReturnCosts(
+                testParam_params, testParam_routes, testParam_isWithinBH
+            );
+            const expectResult = 90;
+
+            expect(testFn).toBeCloseTo(expectResult, 1);
+        })
+
+        test('Params: <back2home> = false, <withinBH> = true, servDist > 250', () => {
+            const testParam_params = { back2home: false };
+            const testParam_routes = {
+                o2d: { distanceMeters: 300 },
+                d2h: { distanceMeters: 350 }
+            };
+            const testParam_isWithinBH = true;
+            const destinationModel = new DrivingDestinationModel(googleRoutesApi);
+            const testFn = destinationModel._calcReturnCosts(
+                testParam_params, testParam_routes, testParam_isWithinBH
+            );
+            const expectResult = 175;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
@@ -413,7 +662,7 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             mockParam_params['pickupTIME'] = 8;
             mockParam_isWithinBH = true;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
+            const testFn = destinationModel._calcReturnCosts(
                 mockParam_params,
                 mockParam_routes,
                 mockParam_isWithinBH
@@ -429,7 +678,7 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             mockParam_params['latency'] = 180;
             mockParam_isWithinBH = true;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
+            const testFn = destinationModel._calcReturnCosts(
                 mockParam_params,
                 mockParam_routes,
                 mockParam_isWithinBH
@@ -453,7 +702,7 @@ describe('Destination tests, priority: _calcDestinationReturnCosts', () => {
             mockParam_params['latency'] = 180;
             mockParam_isWithinBH = true;
             const destinationModel = new DrivingDestinationModel(googleRoutesApi);
-            const testFn = destinationModel._calcDestinationReturnCosts(
+            const testFn = destinationModel._calcReturnCosts(
                 mockParam_params,
                 mockParam_routes,
                 mockParam_isWithinBH
