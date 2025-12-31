@@ -75,10 +75,11 @@ class DrivingDestinationModel {
             : routes.o2d.duration;
 
         // Approach costs
-        const approachCalcDistParams = { approach: routes.h2o.distanceMeters, service: servDist };
-        const approachCosts = this._calcApproachCosts(isWithinBH, approachCalcDistParams, params.back2home);
+        const approachCalcDistances = { approach: routes.h2o.distanceMeters, service: servDist };
+        const approachCosts = this._calcApproachCosts(isWithinBH, approachCalcDistances, params.back2home);
 
         const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
+        // TODO(yqni13): update order, param assignment, ... (TAVA-148)
         const returnCosts = this._calcReturnCosts(params, routes, isWithinBH);
 
         // First 60min every started 1/2h costs €12,- afterwards costs €6,-
@@ -126,15 +127,16 @@ class DrivingDestinationModel {
 
     _calcApproachCosts(isWithinBH, distances, back2home) {
         const servDistRules = [
-            { max: 100, b2h: true, apply: (inTime) => inTime ? this.#prices.approach.withinBH.low : this.#prices.approach.offBH },
-            { max: 100, b2h: false, apply: (inTime) => inTime ? this.#prices.approach.withinBH.low : this.#prices.approach.offBH },
-            { max: 250, b2h: true, apply: (inTime) => inTime ? this.#prices.approach.withinBH.low : this.#prices.approach.offBH },
-            { max: 250, b2h: false, apply: (inTime) => inTime ? this.#prices.approach.withinBH.mid : this.#prices.approach.offBH },
-            { max: Infinity, b2h: true, apply: (inTime) => inTime ? this.#prices.approach.withinBH.low : this.#prices.approach.offBH },
-            { max: Infinity, b2h: false, apply: (inTime) => inTime ? this.#prices.approach.withinBH.high : this.#prices.approach.offBH }
+            { max: 100, apply: (inBH) => inBH ? this.#prices.approach.withinBH.low : this.#prices.approach.offBH },
+            { max: 250, apply: (inBH, b2h) => inBH 
+                ? (b2h ? this.#prices.approach.withinBH.low : this.#prices.approach.withinBH.mid)
+                : this.#prices.approach.offBH },
+            { max: Infinity,apply: (inBH, b2h) => inBH
+                ? (b2h ? this.#prices.approach.withinBH.low : this.#prices.approach.withinBH.high)
+                : this.#prices.approach.offBH },
         ];
 
-        const price = servDistRules.find(rule => distances.service < rule.max && back2home === rule.b2h).apply(isWithinBH);
+        const price = servDistRules.find(rule => distances.service < rule.max).apply(isWithinBH, back2home);
         return distances.approach <= 20
             ? this.#prices.base
             : this.#prices.base + ((distances.approach - 20) * price);
