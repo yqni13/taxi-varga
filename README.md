@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.28}}$
+$\texttt{\color{teal}{v1.6.29}}$
 
 
 <br><br>
@@ -236,9 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.26\ =>\ {\textbf{\color{brown}v1.6.28}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated calculation of service 'destination' for price adaptation.
-- $\textsf{\color{orange}Patch:}$ Updated calculation of service 'golf' for additional discounts regarding service distance.
+$\textsf{[v1.6.28\ =>\ {\textbf{\color{brown}v1.6.29}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated calculation of service 'quick' for price adaptation.
 
 <br>
 

@@ -4,6 +4,13 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/01/02}$
+
+$\textsf{[v1.6.28\ =>\ {\textbf{\color{brown}v1.6.29}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated calculation of service 'quick' for price adaptation.
+
+<br>
+
 ### $\textsf{\color{skyblue}2025/12/30}$
 
 $\textsf{[v1.6.26\ =>\ {\textbf{\color{brown}v1.6.28}]}}$ app

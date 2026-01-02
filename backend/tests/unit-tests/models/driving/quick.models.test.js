@@ -19,6 +19,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const mockResult_service = structuredClone(MockData_RouteMatrix['route1230-2345']['serviceResult']);
             const mockResult_latency = { time: 25, costs: 12.5 };
+            const mockResult_servDistSurcharge = 0;
             const mockResult_surcharge4to6 = 47;
             const mockResult_surcharge4to10 = 47; // pickupTime = 05:00
             const mockResult_servCosts = 34.2;
@@ -32,6 +33,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const quickModel = new DrivingQuickModel(mockAPI);
             jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_calcServDistSurcharge').mockReturnValue(mockResult_servDistSurcharge);
             jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge4To6').mockReturnValue(mockResult_surcharge4to6);
             jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge4To10').mockReturnValue(mockResult_surcharge4to10);
             jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue({});
@@ -53,6 +55,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
             expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._calcServDistSurcharge).toHaveBeenCalled();
             expect(quickModel._updateCostsByTimeBasedSurcharge4To6).toHaveBeenCalled();
             expect(quickModel._updateCostsByTimeBasedSurcharge4To10).toHaveBeenCalled();
             expect(quickModel._isRouteWithinVienna).toHaveBeenCalled();
@@ -70,6 +73,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             const mockResult_return = structuredClone(MockData_RouteMatrix['route1230-2345']['returnResult']);
             const mockResult_shortestReturn = { distance: 2.5, duration: 4, routeHome: false };
             const mockResult_latency = { time: 0, costs: 0 };
+            const mockResult_servDistSurcharge = 0;
             const mockResult_surcharge4to6 = 34;
             const mockResult_surcharge4to10 = 40;
             const mockResult_servCosts = 34.2;
@@ -83,6 +87,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
 
             const quickModel = new DrivingQuickModel(mockAPI);
             jest.spyOn(quickModel, '_mapLatencyData').mockReturnValue(mockResult_latency);
+            jest.spyOn(quickModel, '_calcServDistSurcharge').mockReturnValue(mockResult_servDistSurcharge);
             jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge4To6').mockReturnValue(mockResult_surcharge4to6);
             jest.spyOn(quickModel, '_updateCostsByTimeBasedSurcharge4To10').mockReturnValue(mockResult_surcharge4to10);
             jest.spyOn(quickModel, '_mapShortestReturnLocation').mockReturnValue(mockResult_shortestReturn);
@@ -106,6 +111,7 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             expect(mockAPI.requestBorderRouteMatrix).toHaveBeenCalled();
             expect(quickModel._mapShortestReturnLocation).toHaveBeenCalled();
             expect(quickModel._mapLatencyData).toHaveBeenCalled();
+            expect(quickModel._calcServDistSurcharge).toHaveBeenCalled();
             expect(quickModel._updateCostsByTimeBasedSurcharge4To6).toHaveBeenCalled();
             expect(quickModel._updateCostsByTimeBasedSurcharge4To10).toHaveBeenCalled();
             expect(quickModel._isRouteWithinVienna).toHaveBeenCalled();
@@ -349,6 +355,47 @@ describe('Quick tests, priority: _calcServDistCosts', () => {
             const expectResult = 0;
 
             expect(testFn).toBe(expectResult);
+        })
+    })
+})
+
+describe('Quick tests, priority: _calcServDistSurcharge', () => {
+
+    let quickModel;
+    beforeEach(() => {
+        quickModel = new DrivingQuickModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls', () => {
+
+        test('Params: <back2origin> = true', () => {
+            const mockParam_back2origin = true;
+            const mockParam_servDist = 0;
+
+            const mockResult = 0;
+            const testFn = quickModel._calcServDistSurcharge(mockParam_back2origin, mockParam_servDist);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <back2origin> = false, <servDist> > 100km', () => {
+            const mockParam_back2origin = true;
+            const mockParam_servDist = 150;
+
+            const mockResult = 15;
+            const testFn = quickModel._calcServDistSurcharge(mockParam_back2origin, mockParam_servDist);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <back2origin> = false, <servDist> > 250km ', () => {
+            const mockParam_back2origin = true;
+            const mockParam_servDist = 300;
+
+            const mockResult = 30;
+            const testFn = quickModel._calcServDistSurcharge(mockParam_back2origin, mockParam_servDist);
+
+            expect(testFn).toBe(mockResult);
         })
     })
 })
