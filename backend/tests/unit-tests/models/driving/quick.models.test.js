@@ -613,28 +613,30 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
     describe('Testing valid fn calls', () => {
 
         test('Route (1010to2500), expect: routeHome == true', () => {
-            const mockParam_data = structuredClone(MockData_RouteMatrix['route1010-2500']['returnResult']);
-            const mockResult = mockParam_data;
+            const mockParam_borderRouteData = structuredClone(MockData_RouteMatrix['route1010-2500']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route1010-2500']['originDetails']);
+            const mockParam_servDist = structuredClone(MockData_RouteMatrix['route1010-2500']['a_information']['o2d']);
+            const mockResult = mockParam_borderRouteData;
 
-            jest.mock('../../../../src/utils/common.utils.js', () => ({
-                quicksort: jest.fn().mockReturnValue(mockResult)
-            }));
+            // quicksort necessary at this point to get correct array
             const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
             const api = {};
             const quickModel = new DrivingQuickModel(api);
-            const testFn = quickModel._mapShortestReturnLocation(mockParam_data);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_borderRouteData, mockParam_origin, mockParam_servDist);
             const expectResult = { 
-                distance: mockResult[0].distanceMeters,
-                duration: mockResult[0].duration,
-                routeHome: true
+                distance: mockResult[1].distanceMeters,
+                duration: mockResult[1].duration,
+                routeHome: false
             };
 
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Route (1010to2000), expect: routeHome == false', () => {
-            const mockParam_data = structuredClone(MockData_RouteMatrix['route1010-2000']['returnResult']);
-            const mockResult = mockParam_data;
+        test('Route (1010to2000), expect: routeHome == false, servDist < 100, return to Vienna Border', () => {
+            const mockParam_borderRouteData = structuredClone(MockData_RouteMatrix['route1010-2000']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route1010-2000']['originDetails']);
+            const mockParam_servDist = structuredClone(MockData_RouteMatrix['route1010-2000']['a_information']['o2d']);
+            const mockResult = mockParam_borderRouteData;
 
             jest.mock('../../../../src/utils/common.utils.js', () => ({
                 quicksort: jest.fn().mockReturnValue(mockResult)
@@ -642,7 +644,7 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
             const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
             const api = {};
             const quickModel = new DrivingQuickModel(api);
-            const testFn = quickModel._mapShortestReturnLocation(mockParam_data);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_borderRouteData, mockParam_origin, mockParam_servDist);
             const expectResult = { 
                 distance: mockResult[0].distanceMeters,
                 duration: mockResult[0].duration,
@@ -652,19 +654,66 @@ describe('Quick tests, priority: _mapShortestReturnLocation', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Route (2544to1200), expect: routeHome == true', () => {
-            const mockParam_data = structuredClone(MockData_RouteMatrix['route2544-1200']['returnResult']);
-            const mockParam_origin = structuredClone(MockData_RouteMatrix['route2544-1200']['originDetails']);
-            const mockResult = mockParam_data;
+        test('Route (1190to4020), expect: routeHome == false, servDist > 100, return to Vienna Border', () => {
+            const mockParam_borderRouteData = structuredClone(MockData_RouteMatrix['route1190-4020']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route1190-4020']['originDetails']);
+            const mockParam_servDist = structuredClone(MockData_RouteMatrix['route1190-4020']['a_information']['o2d']);
+            const mockResult = mockParam_borderRouteData;
 
-            // Does NOT use quicksort because enters condition (zipCode 254*).
+            jest.mock('../../../../src/utils/common.utils.js', () => ({
+                quicksort: jest.fn().mockReturnValue(mockResult)
+            }));
             const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
             const api = {};
             const quickModel = new DrivingQuickModel(api);
-            const testFn = quickModel._mapShortestReturnLocation(mockParam_data, mockParam_origin);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_borderRouteData, mockParam_origin, mockParam_servDist);
+            const expectResult = { 
+                distance: mockResult[0].distanceMeters,
+                duration: mockResult[0].duration,
+                routeHome: false
+            };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Route (2544to1200), expect: routeHome == true, servDist < 100, return to 2544', () => {
+            const mockParam_borderRouteData = structuredClone(MockData_RouteMatrix['route2544-1200']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route2544-1200']['originDetails']);
+            const mockParam_servDist = structuredClone(MockData_RouteMatrix['route2544-1200']['a_information']['o2d']);
+            const mockResult = mockParam_borderRouteData;
+
+            jest.mock('../../../../src/utils/common.utils.js', () => ({
+                quicksort: jest.fn().mockReturnValue(mockResult)
+            }));
+            const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
+            const api = {};
+            const quickModel = new DrivingQuickModel(api);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_borderRouteData, mockParam_origin, mockParam_servDist);
             const expectResult = {
                 distance: mockResult[3].distanceMeters,
                 duration: mockResult[3].duration,
+                routeHome: true
+            };
+
+            expect(testFn).toMatchObject(expectResult);
+        })
+
+        test('Route (2544to7535), expect: routeHome == true, servDist > 100, return to 2544', () => {
+            const mockParam_borderRouteData = structuredClone(MockData_RouteMatrix['route2544-7535']['returnResult']);
+            const mockParam_origin = structuredClone(MockData_RouteMatrix['route2544-7535']['originDetails']);
+            const mockParam_servDist = structuredClone(MockData_RouteMatrix['route2544-7535']['a_information']['o2d']);
+            const mockResult = mockParam_borderRouteData;
+
+            jest.mock('../../../../src/utils/common.utils.js', () => ({
+                quicksort: jest.fn().mockReturnValue(mockResult)
+            }));
+            const DrivingQuickModel = require('../../../../src/models/driving/quick.driving.model');
+            const api = {};
+            const quickModel = new DrivingQuickModel(api);
+            const testFn = quickModel._mapShortestReturnLocation(mockParam_borderRouteData, mockParam_origin, mockParam_servDist);
+            const expectResult = {
+                distance: mockResult[0].distanceMeters,
+                duration: mockResult[0].duration,
                 routeHome: true
             };
 

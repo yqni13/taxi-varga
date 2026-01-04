@@ -1,5 +1,5 @@
-const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const Utils = require('../../utils/common.utils');
+const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
 const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
 
@@ -48,13 +48,6 @@ class DrivingQuickModel {
             returnTarget: ''
         }
 
-        let returnObj = { distance: 0, duration: 0, routeHome: null};
-        const isRouteV2V = this._isRouteWithinVienna(params);
-        if(!params.back2origin && !isRouteV2V) {
-            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails']);
-        }
-
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
         const routes = {
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -64,6 +57,14 @@ class DrivingQuickModel {
         const servDist = params['back2origin'] 
             ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
             : Number((routes.o2d.distanceMeters).toFixed(1));
+
+        let returnObj = { distance: 0, duration: 0, routeHome: null};
+        const isRouteV2V = this._isRouteWithinVienna(params);
+        if(!params.back2origin && !isRouteV2V) {
+            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
+            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails'], servDist);
+        }
+
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
         const servCostParams = {
@@ -183,19 +184,29 @@ class DrivingQuickModel {
         }
     }
 
-    _mapShortestReturnLocation = (data, origin) => {
-        if(origin && origin.zipCode === '2544') {
-            data = [data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0})];
+    _mapShortestReturnLocation = (borderRouteData, origin, servDist) => {
+        let returnData;
+        const returnLocation2544 = [borderRouteData.find(obj => {
+            return obj.originIndex === 0 && obj.destinationIndex === 0
+        })];
+        const returnLocationViennaBorder = Utils.quicksort(
+            borderRouteData.filter((obj) => obj.destinationIndex !== 0), SortingOption.ASC, 'distanceMeters'
+        );
+
+        if(servDist >= 100) {
+            returnData = returnLocation2544[0].distanceMeters < returnLocationViennaBorder[0].distanceMeters 
+                ? returnLocation2544[0] 
+                : returnLocationViennaBorder[0];
+        } else if(origin && origin.zipCode === '2544') {
+            returnData = returnLocation2544[0];
         } else {
-            // If origin !== 2544 => return MUST be to Vienna border waypoint (remove oIndex = 0 & dIndex = 0).
-            const filteredData = data.filter((obj) => obj.destinationIndex !== 0);
-            data = Utils.quicksort(filteredData, SortingOption.ASC, 'distanceMeters');
+            returnData = returnLocationViennaBorder[0];
         }
 
         return {
-            distance: data[0].distanceMeters,
-            duration: data[0].duration,
-            routeHome: data[0].originIndex === 0 && data[0].destinationIndex === 0 ? true : false
+            distance: returnData.distanceMeters,
+            duration: returnData.duration,
+            routeHome: returnData.originIndex === 0 && returnData.destinationIndex === 0 ? true : false
         };
     }
 
