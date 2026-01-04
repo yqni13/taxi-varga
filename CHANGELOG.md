@@ -4,6 +4,13 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/01/04}$
+
+$\textsf{[v1.6.29\ =>\ {\textbf{\color{brown}v1.6.30}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated selection of return address of service 'quick'.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/01/02}$
 
 $\textsf{[v1.6.28\ =>\ {\textbf{\color{brown}v1.6.29}]}}$ app
