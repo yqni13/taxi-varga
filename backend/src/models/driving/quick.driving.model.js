@@ -1,5 +1,5 @@
-const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const Utils = require('../../utils/common.utils');
+const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
 const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
 
@@ -10,14 +10,26 @@ class DrivingQuickModel {
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
-            basicRate: 4,
-            servDistBelow8km: 0.6,
-            servDistAbove8km: 0.5,
-            returnBelow8km: 0.5,
-            returnAbove8km: 0.4,
-            latencyBy30Min: 12,
-            morningSurcharge: 1.15,
-            surcharge4to10: 6
+            base: 4,
+            servDist: {
+                above8Km: 0.5,
+                below8Km: 0.6
+            },
+            return: {
+                above8Km: 0.4,
+                below8Km: 0.5
+            },
+            latency: {
+                per30Min: 12
+            },
+            surcharge: {
+                servDist: {
+                    mid: 15,
+                    high: 30
+                },
+                time4to6: 0.15,
+                time4to10: 6
+            }
         }
     }
 
@@ -36,13 +48,6 @@ class DrivingQuickModel {
             returnTarget: ''
         }
 
-        let returnObj = { distance: 0, duration: 0, routeHome: null};
-        const isRouteV2V = this._isRouteWithinVienna(params);
-        if(!params.back2origin && !isRouteV2V) {
-            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails']);
-        }
-
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
         const routes = {
             o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
@@ -52,6 +57,14 @@ class DrivingQuickModel {
         const servDist = params['back2origin'] 
             ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
             : Number((routes.o2d.distanceMeters).toFixed(1));
+
+        let returnObj = { distance: 0, duration: 0, routeHome: null};
+        const isRouteV2V = this._isRouteWithinVienna(params);
+        if(!params.back2origin && !isRouteV2V) {
+            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
+            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails'], servDist);
+        }
+
         const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
         const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
         const servCostParams = {
@@ -65,6 +78,7 @@ class DrivingQuickModel {
         // Sum all additional costs.
         let additionalCosts = 0;
         additionalCosts += latencyObj.costs;
+        additionalCosts += this._calcServDistSurcharge(params.back2origin, servDist);
 
         let totalCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
 
@@ -98,10 +112,20 @@ class DrivingQuickModel {
 
         // First 60min full price (€24/h), 61st-180st min half price (€12/h), for free beyond the 180st min.
         const latencyCosts = latencyCalcBase / 60 > 1
-            ? (2 * this.#prices.latencyBy30Min) + ((latencyCalcBase - 60) / 30) * (this.#prices.latencyBy30Min / 2)
-            : (latencyCalcBase / 30) * this.#prices.latencyBy30Min;
+            ? (2 * this.#prices.latency.per30Min) + ((latencyCalcBase - 60) / 30) * (this.#prices.latency.per30Min / 2)
+            : (latencyCalcBase / 30) * this.#prices.latency.per30Min;
 
         return { time: latencyRoundedTo30, costs: latencyCosts };
+    }
+
+    _calcServDistSurcharge(back2origin, servDist) {
+        const distanceRules = [
+            { max: 100, apply: () => 0 },
+            { max: 250, apply: () => this.#prices.surcharge.servDist.mid },
+            { max: Infinity, apply: () => this.#prices.surcharge.servDist.high }
+        ];
+
+        return distanceRules.find(rule => servDist < rule.max).apply();
     }
 
     _updateCostsByTimeBasedSurcharge4To6 = (totalCosts, servTime, pickUp) => {
@@ -109,13 +133,15 @@ class DrivingQuickModel {
         const servTimeAsString = Utils.getTimeAsStringFromTotalMinutes(servTime);
         const isEndingBeforeLimit =  Utils.checkTimeEndingBeforeLimit(pickUp, servTimeAsString, '06:00')
 
-        return isEndingBeforeLimit ? Number((totalCosts * this.#prices.morningSurcharge).toFixed(1)) : totalCosts;
+        return isEndingBeforeLimit 
+            ? Number((totalCosts * (1 + this.#prices.surcharge.time4to6)).toFixed(1)) 
+            : totalCosts;
     }
 
     _updateCostsByTimeBasedSurcharge4To10 = (totalCosts, pickUp) => {
         // Costs for route with service time starting within 06:00 - 10:00 are surcharged.
         const isPickupWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
-        return isPickupWithinRange ? totalCosts + this.#prices.surcharge4to10 : totalCosts;
+        return isPickupWithinRange ? totalCosts + this.#prices.surcharge.time4to10 : totalCosts;
     }
 
     _calcServDistCosts = (servCostParams) => {
@@ -131,13 +157,13 @@ class DrivingQuickModel {
         let [basicRate, servPrice, basicReturnPrice] = [0, 0, 0];
 
         if(servCostParams.servDist > 8) {
-            basicRate = this.#prices.basicRate;
-            servPrice = this.#prices.servDistAbove8km;
-            basicReturnPrice = this.#prices.returnAbove8km;
+            basicRate = this.#prices.base;
+            servPrice = this.#prices.servDist.above8Km;
+            basicReturnPrice = this.#prices.return.above8Km;
         } else {
-            basicRate = this.#prices.basicRate;
-            servPrice = this.#prices.servDistBelow8km;
-            basicReturnPrice = this.#prices.returnBelow8km;
+            basicRate = this.#prices.base;
+            servPrice = this.#prices.servDist.below8Km;
+            basicReturnPrice = this.#prices.return.below8Km;
         }
 
         servCosts = (servCostParams.servDist * servPrice) + (servCostParams.servTime * servPrice);
@@ -158,19 +184,29 @@ class DrivingQuickModel {
         }
     }
 
-    _mapShortestReturnLocation = (data, origin) => {
-        if(origin && origin.zipCode === '2544') {
-            data = [data.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 0})];
+    _mapShortestReturnLocation = (borderRouteData, origin, servDist) => {
+        let returnData;
+        const returnLocation2544 = [borderRouteData.find(obj => {
+            return obj.originIndex === 0 && obj.destinationIndex === 0
+        })];
+        const returnLocationViennaBorder = Utils.quicksort(
+            borderRouteData.filter((obj) => obj.destinationIndex !== 0), SortingOption.ASC, 'distanceMeters'
+        );
+
+        if(servDist >= 100) {
+            returnData = returnLocation2544[0].distanceMeters < returnLocationViennaBorder[0].distanceMeters 
+                ? returnLocation2544[0] 
+                : returnLocationViennaBorder[0];
+        } else if(origin && origin.zipCode === '2544') {
+            returnData = returnLocation2544[0];
         } else {
-            // If origin !== 2544 => return MUST be to Vienna border waypoint (remove oIndex = 0 & dIndex = 0).
-            const filteredData = data.filter((obj) => obj.destinationIndex !== 0);
-            data = Utils.quicksort(filteredData, SortingOption.ASC, 'distanceMeters');
+            returnData = returnLocationViennaBorder[0];
         }
 
         return {
-            distance: data[0].distanceMeters,
-            duration: data[0].duration,
-            routeHome: data[0].originIndex === 0 && data[0].destinationIndex === 0 ? true : false
+            distance: returnData.distanceMeters,
+            duration: returnData.duration,
+            routeHome: returnData.originIndex === 0 && returnData.destinationIndex === 0 ? true : false
         };
     }
 

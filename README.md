@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.26}}$
+$\texttt{\color{teal}{v1.6.30}}$
 
 
 <br><br>
@@ -236,8 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.25\ =>\ {\textbf{\color{brown}v1.6.26}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated sample data on page 'samples'.
+$\textsf{[v1.6.29\ =>\ {\textbf{\color{brown}v1.6.30}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated selection of return address of service 'quick'.
 
 <br>
 

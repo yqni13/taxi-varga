@@ -171,6 +171,12 @@
                 "distanceMeters": 35,
                 "duration": 39.2,
                 "originIndex": 2
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 13.9,
+                "duration": 14,
+                "originIndex": 0
             }
         ]
     },
@@ -745,6 +751,78 @@
                 "duration": 3,
                 "originIndex": 2,
                 "status": {}
+            }
+        ]
+    },
+    "route2544-7535": {
+        "a_information": {
+            "d2o": 112.7,
+            "o2d": 112.5,
+            "routeHome": "home"
+        },
+        "back2origin": "false",
+        "destination": "7535+Rauchwart+im+Burgenland,+Burgenland,+Austria",
+        "destinationDetails": {
+            "address": "7535 Rauchwart im Burgenland, Burgenland, Austria",
+            "country": "Austria",
+            "placeId": "ChIJO5CRf5PubkcRUA_mLVeXAAQ",
+            "province": "Burgenland",
+            "zipCode": "7535"
+        },
+        "latency": 0,
+        "origin": "Hauptstraße+9,+2544+Leobersdorf,+Austria",
+        "originDetails": {
+            "address": "Hauptstraße 9, 2544 Leobersdorf, Austria",
+            "country": "Austria",
+            "placeId": "ChIJsyMf-Bu3bUcRKRS4zyuGiXA",
+            "province": "Niederösterreich",
+            "zipCode": "2544"
+        },
+        "pickupTIME": "07:00",
+        "returnResult": [
+            {
+                "originIndex": 0,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 112.4,
+                "duration": 79.8
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 135.3,
+                "duration": 91.6
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 4,
+                "status": {},
+                "distanceMeters": 151.4,
+                "duration": 102.3
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 5,
+                "status": {},
+                "distanceMeters": 151.3,
+                "duration": 112.6
+            }
+        ],
+        "serviceResult": [
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 112.5,
+                "duration": 80.8
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 112.7,
+                "duration": 79.6
             }
         ]
     }

@@ -114,6 +114,120 @@
         "stay": 480,
         "supportMode": false
     },
+    "route2500-7574-2500": {
+        "apiResult": [
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 0,
+                "duration": 0,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 12.5,
+                "duration": 16.2,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 12.7,
+                "duration": 17.1,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 12.5,
+                "duration": 16.2,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 102.8,
+                "duration": 78.8,
+                "originIndex": 0,
+                "status": {}
+            },
+            {
+                "destinationIndex": 2,
+                "distanceMeters": 102.9,
+                "duration": 77.4,
+                "originIndex": 2,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 110.2,
+                "duration": 84.3,
+                "originIndex": 3,
+                "status": {}
+            },
+            {
+                "destinationIndex": 0,
+                "distanceMeters": 110.2,
+                "duration": 84.3,
+                "originIndex": 1,
+                "status": {}
+            },
+            {
+                "destinationIndex": 1,
+                "distanceMeters": 109.6,
+                "duration": 83,
+                "originIndex": 2,
+                "status": {}
+            }
+        ],
+        "destination": "Am+Flachhard+29,+2500+Baden,+Austria",
+        "destinationDetails": {
+            "address": "Am Flachhard 29, 2500 Baden, Austria",
+            "country": "Austria",
+            "placeId": "ChIJqb7HzpGwbUcRsmhS2HgbRdA",
+            "province": "Niederösterreich",
+            "zipCode": "2500"
+        },
+        "golfcourse": "Zum+Golfzentrum+8,+7574+Burgauberg,+Austria",
+        "golfcourseDetails": {
+            "address": "Zum Golfzentrum 8, 7574 Burgauberg, Austria",
+            "country": "Austria",
+            "placeId": "ChIJyem8EI7xbkcRMuU0D7hqEdk",
+            "province": "Burgenland",
+            "zipCode": "7574"
+        },
+        "origin": "Am+Flachhard+29,+2500+Baden,+Austria",
+        "originDetails": {
+            "address": "Am Flachhard 29, 2500 Baden, Austria",
+            "country": "Austria",
+            "placeId": "ChIJqb7HzpGwbUcRsmhS2HgbRdA",
+            "province": "Niederösterreich",
+            "zipCode": "2500"
+        },
+        "stay": 360,
+        "supportMode": true
+    },
     "route2542-2551-2542": {
         "apiResult": [
             {
