@@ -35,7 +35,7 @@ class GooglePlacesAPI {
         return 'https://places.googleapis.com/v1/places/';
     }
 
-    requestPlaceDetails = async (params) => {
+    async requestPlaceDetails(params) {
         const id = params['placeId'];
         const lang = params['language'];
         const token = params['sessionToken'] ? params['sessionToken'] : null;
@@ -57,7 +57,7 @@ class GooglePlacesAPI {
         return result;
     }
 
-    requestPlaceAutocomplete = async (params) => {
+    async requestPlaceAutocomplete(params) {
         const headers = this._getAutocompleteRequestHeader();
         const url = this._getAutocompleteRequestURL();
 

@@ -10,7 +10,7 @@ class AddressModel {
         this.#googleGeocode = googleGeocodeApi;
     }
 
-    getPlaceAutocomplete = async (params) => {
+    async getPlaceAutocomplete(params) {
         if(Utils.isObjEmpty(params)) {
             return {error: 'no params found'};
         }
@@ -20,7 +20,7 @@ class AddressModel {
         return { placeData: result };
     }
 
-    getPlaceDetails = async (params) => {
+    async getPlaceDetails(params) {
         if(Utils.isObjEmpty(params)) {
             return {error: 'no params found'};
         }
@@ -30,7 +30,7 @@ class AddressModel {
         return { placeData: result };
     }
 
-    getPlaceDetailsByGeolocation = async (params) => {
+    async getPlaceDetailsByGeolocation(params) {
         if(Utils.isObjEmpty(params)) {
             return { error: 'no params found' };
         }

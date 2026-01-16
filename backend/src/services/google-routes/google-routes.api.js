@@ -26,7 +26,7 @@ class GoogleRoutesAPI {
         return 'https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix';
     }
 
-    requestMapsMatrix = async (params, useId) => {
+    async requestMapsMatrix(params, useId) {
         const prefix = 'place_id:';
         let origins, destinations;
         if(useId === 'origin') {
@@ -53,7 +53,7 @@ class GoogleRoutesAPI {
     }
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
-    requestRouteMatrix = async (params, service) => {
+    async requestRouteMatrix(params, service) {
         const origin = params['originDetails']['placeId'];
         const destination = params['destinationDetails']['placeId'];
         const golfcourse = service === ServiceOption.GOLF ? params['golfcourseDetails']['placeId'] : '';
@@ -121,7 +121,7 @@ class GoogleRoutesAPI {
         return result;
     }
 
-    requestBorderRouteMatrix = async (params) => {
+    async requestBorderRouteMatrix(params) {
         const destination = params['destinationDetails']['placeId'];
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();

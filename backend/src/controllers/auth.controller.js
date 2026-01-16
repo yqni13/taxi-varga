@@ -1,8 +1,8 @@
 const AuthService = require('../services/auth.service');
-const { checkValidation } = require('../middleware/validation.middleware');
+const checkValidation = require('../middleware/validation.middleware');
 
 class AuthController {
-    initSession = async (req, res, next) => {
+    async initSession(req, res, next) {
         checkValidation(req);
         const response = await AuthService.initSession(req.body);
         res.send(response);

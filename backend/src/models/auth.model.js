@@ -12,7 +12,7 @@ class AuthModel {
         this.msg1 = 'Success';
     }
 
-    generateToken = async (params) => {
+    async generateToken(params) {
         if(!Object.keys(params).length) {
             return {
                 body: {

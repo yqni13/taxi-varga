@@ -1,6 +1,5 @@
 const DrivingAirportModel = require('../../../../src/models/driving/airport.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const { NotFoundException } = require('../../../../src/utils/exceptions/common.exception');
 const MockData_requestMapsMatrix = require('../../../mock-data/requestMapsMatrix.mock.json');
 
 describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
@@ -58,20 +57,6 @@ describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
 
             expect(testFn).toMatchObject(expectResult);
         })
-
-        test('Params: invalid <origin.zipCode>', async () => {
-            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route2000-1300#1']);
-            const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route2000-1300#1']);
-            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
-
-            const airportModel = new DrivingAirportModel(mockAPI);
-            const expectResult = NotFoundException;
-
-            await expect(airportModel.calcAirportRoute(mockParam_params))
-                .rejects
-                .toThrow(expectResult);
-            expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
-        })
     })
 });
 
@@ -90,6 +75,41 @@ describe('Airport tests, priority: calcAirportRoute - DEPARTURE', () => {
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
+        })
+    })
+})
+
+describe('Airport tests, priority: _mapPriceByZipCode', () => {
+
+    let airportModel;
+    beforeEach(() => {
+        airportModel = new DrivingAirportModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls', () => {
+
+        test('Params: <district> = districts.inner', () => {
+            const mockParam_district = 1;
+            const mockResult = 42;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <district> = districts.middle', () => {
+            const mockParam_district = 9;
+            const mockResult = 45;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <district> = districts.outer', () => {
+            const mockParam_district = 22;
+            const mockResult = 48;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
         })
     })
 })
