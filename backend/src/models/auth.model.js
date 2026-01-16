@@ -13,16 +13,6 @@ class AuthModel {
     }
 
     async generateToken(params) {
-        if(!Object.keys(params).length) {
-            return {
-                body: {
-                    error: 'no params found'
-                },
-                code: 0,
-                msg: this.msg0
-            };
-        }
-
         // ENCRYPT / COMPARE - LOGIN DATA
         const position = Secrets.PASS_POSITION;
         const id = Secrets.AUTH_ID;

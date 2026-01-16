@@ -11,9 +11,6 @@ class AddressModel {
     }
 
     async getPlaceAutocomplete(params) {
-        if(Utils.isObjEmpty(params)) {
-            return {error: 'no params found'};
-        }
 
         const result = await this.#googlePlaces.requestPlaceAutocomplete(params);
 
@@ -21,9 +18,6 @@ class AddressModel {
     }
 
     async getPlaceDetails(params) {
-        if(Utils.isObjEmpty(params)) {
-            return {error: 'no params found'};
-        }
 
         const result = await this.#googlePlaces.requestPlaceDetails(params);
 
@@ -31,9 +25,6 @@ class AddressModel {
     }
 
     async getPlaceDetailsByGeolocation(params) {
-        if(Utils.isObjEmpty(params)) {
-            return { error: 'no params found' };
-        }
 
         const result = await this.#googleGeocode.requestGeolocation(params);
 

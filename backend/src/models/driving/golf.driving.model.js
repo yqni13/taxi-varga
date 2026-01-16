@@ -31,10 +31,6 @@ class DrivingGolfModel {
         }
     }
     async calcGolfRoute(params) {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
-
         // GET ROUTE DATA
         const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
         const routes = {

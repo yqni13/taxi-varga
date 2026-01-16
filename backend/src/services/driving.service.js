@@ -9,16 +9,12 @@ const DrivingQuickModel = require('../models/driving/quick.driving.model');
 
 class DrivingService {
     async calcAirportRoute(params) {
-        const hasParams = Object.keys(params).length !== 0;
         const airportModel = new DrivingAirportModel(GoogleRoutes);
-        let calculation = await airportModel.calcAirportRoute(hasParams ? params : {});
+        let calculation = await airportModel.calcAirportRoute(params);
         return basicResponse(calculation, 1, "Success");
     }
-    
+
     async calcDestinationRoute(params) {
-        if(Utils.isObjEmpty(params)) {
-            return {error: 'no params found'}
-        }
         const destinationModel = new DrivingDestinationModel(GoogleRoutes);
         let resultOrig = await destinationModel.calcDestinationRoute(params);
         if(resultOrig.routeData?.price && !params['back2home'] 
@@ -35,25 +31,22 @@ class DrivingService {
         }
         return basicResponse(resultOrig, 1, "Success");
     }
-    
+
     async calcFlatrateRoute(params) {
-        const hasParams = Object.keys(params).length !== 0;
         const flatrateModel = new DrivingFlatrateModel(GoogleRoutes);
-        let calculation = await flatrateModel.calcFlatrateRoute(hasParams ? params : {});
+        let calculation = await flatrateModel.calcFlatrateRoute(params);
         return basicResponse(calculation, 1, "Success");
     }
 
     async calcGolfRoute(params) {
-        const hasParams = Object.keys(params).length !== 0;
         const golfModel = new DrivingGolfModel(GoogleRoutes);
-        let calculation = await golfModel.calcGolfRoute(hasParams ? params : {});
+        let calculation = await golfModel.calcGolfRoute(params);
         return basicResponse(calculation, 1, "Success");
     }
 
     async calcQuickRoute(params) {
-        const hasParams = Object.keys(params).length !== 0;
         const quickModel = new DrivingQuickModel(GoogleRoutes);
-        let calculation = await quickModel.calcQuickRoute(hasParams ? params : {});
+        let calculation = await quickModel.calcQuickRoute(params);
         return basicResponse(calculation, 1, "Success");
     }
 }

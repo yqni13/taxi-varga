@@ -3,9 +3,13 @@ const checkValidation = require('../middleware/validation.middleware');
 
 class MailingController {
     async createMail(req, res, next) {
-        checkValidation(req);
-        const response = await MailingService.sendMail(req.body);
-        res.send(response);
+        try {
+            checkValidation(req);
+            const response = await MailingService.sendMail(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 }
 

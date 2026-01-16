@@ -23,10 +23,6 @@ class DrivingFlatrateModel {
         }
     }
     async calcFlatrateRoute(params) {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
-
         let totalCost = 0;
 
         // GET ROUTE DATA

@@ -34,9 +34,6 @@ class DrivingQuickModel {
     }
 
     async calcQuickRoute(params) {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
         params['back2origin'] = params['back2origin'] === 'true' ? true : false;
         params['latency'] = Number(params['latency']);
 

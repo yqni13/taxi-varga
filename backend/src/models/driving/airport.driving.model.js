@@ -20,10 +20,6 @@ class DrivingAirportModel {
     }
 
     async calcAirportRoute(params) {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
-
         let district, matrixParams;
         if(params['origin'] === 'vie-schwechat') {
             district = params['destinationDetails']['zipCode'];
