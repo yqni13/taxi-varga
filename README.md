@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.30}}$
+$\texttt{\color{teal}{v1.6.35}}$
 
 
 <br><br>
@@ -236,8 +236,13 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.29\ =>\ {\textbf{\color{brown}v1.6.30}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated selection of return address of service 'quick'.
+$\textsf{[v1.6.30\ =>\ {\textbf{\color{brown}v1.6.35}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Refactored code structure on multiple locations:
+    + logo occurrence on documentation responsive image
+    + normal vs arrow functions
+    + centralized payload validation controller layer only
+    + try/catch in controller layer
+- $\textsf{\color{orange}Patch:}$ Removed deprecated code with target '10/2025'.
 
 <br>
 

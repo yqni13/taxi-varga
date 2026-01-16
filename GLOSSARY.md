@@ -48,7 +48,7 @@ Basic description: `<base>.<subsuffix?>.<suffix>.<ending>` [specific always sing
 |-------------------------|-----------------------|-------------------------------|
 | Calculate data          | `calc`                | calcDrivingAirport()          |
 | Get data                | `get`                 | getPlaceDetails()             |
-| Check status            | `is`, `has`, `can`    | hasParams()                   |
+| Check status            | `is`, `has`, `can`    | isLoading()                   |
 | Configure data          | `format`, `transform` | transformOptions()            |
 | Validate data           | `validate`            | validateImageSize()           |
 | Initiate data/process   | `init`                | initRouteCollection()         |
