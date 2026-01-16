@@ -4,18 +4,21 @@ const GooglePlaces = require('../services/google-places/google-places.api');
 const GoogleGeocode = require('../services/google-geocode/google-geocode.api');
 
 class AddressService {
-    async getPlaceAutocomplete(params) {
+    async getPlaceAutocompleteByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
+        const result = await addressModel.mapPlaceAutocompleteApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 
-    async getPlaceDetails(params) {
+    async getPlaceDetailsByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
+        const result = await addressModel.mapPlaceDetailsApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 
-    async getPlaceByGeolocation(params) {
+    async getPlaceByGeolocationByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
+        const result = await addressModel.mapPlaceDetailsByGeolocationApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 }

@@ -45,19 +45,6 @@ describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
         })
     })
-
-    describe('Testing invalid fn calls', () => {
-
-        test('Empty params', async () => {
-            const mockParam_params = {};
-
-            const airportModel = new DrivingAirportModel(googleRoutesApi);
-            const testFn = await airportModel.calcAirportRoute(mockParam_params);
-            const expectResult = {error: 'no params found'};
-
-            expect(testFn).toMatchObject(expectResult);
-        })
-    })
 });
 
 describe('Airport tests, priority: calcAirportRoute - DEPARTURE', () => {

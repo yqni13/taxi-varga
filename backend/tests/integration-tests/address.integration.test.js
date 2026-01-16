@@ -36,9 +36,9 @@ describe('Integration test, priority: Address workflow', () => {
             jest.mock('../../src/models/address.model.js', () => {
                 return jest.fn().mockImplementation(() => {
                     return {
-                        getPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult_autocomplete),
-                        getPlaceDetails: jest.fn().mockResolvedValue(mockResult_places),
-                        getPlaceByGeolocation: jest.fn().mockResolvedValue({})
+                        mapPlaceAutocompleteApiResult: jest.fn().mockResolvedValue(mockResult_autocomplete),
+                        mapPlaceDetailsApiResult: jest.fn().mockResolvedValue(mockResult_places),
+                        mapPlaceDetailsByGeolocationApiResult: jest.fn().mockResolvedValue({})
                     }
                 })
             });
@@ -46,7 +46,7 @@ describe('Integration test, priority: Address workflow', () => {
             app = require('../../src/app.js');
         })
 
-        test('Workflow: request autocomplete on partly address', async () => {
+        test('Workflow: request autocomplete on partial address', async () => {
             const mockParam_params = structuredClone(MockData_common['autocomplete']['non-specific_entry0']['params']);
             const mockResponse = await request(app)
                 .post(apiUrl_autocomplete)
@@ -88,7 +88,7 @@ describe('Integration test, priority: Address workflow', () => {
                 jest.mock('../../src/models/address.model.js', () => {
                     return jest.fn().mockImplementation(() => {
                         return {
-                            getPlaceAutocomplete: jest.fn().mockResolvedValue(mockResult_autocomplete),
+                            mapPlaceAutocompleteApiResult: jest.fn().mockResolvedValue(mockResult_autocomplete),
                         }
                     })
                 });
@@ -172,7 +172,7 @@ describe('Integration test, priority: Address workflow', () => {
                 jest.mock('../../src/models/address.model.js', () => {
                     return jest.fn().mockImplementation(() => {
                         return {
-                            getPlaceDetails: jest.fn().mockResolvedValue(mockResult_places)
+                            mapPlaceDetailsApiResult: jest.fn().mockResolvedValue(mockResult_places)
                         }
                     })
                 });
