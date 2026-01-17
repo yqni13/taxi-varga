@@ -43,7 +43,7 @@ class DrivingDestinationModel {
         }
     }
 
-    calcDestinationRoute = async (params) => {
+    async calcDestinationRoute(params) {
         params['back2home'] = params['back2home'] === 'true' ? true : false;
         // Manual discount: cost limit = 3h (3 * 60min)
         params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
@@ -112,7 +112,7 @@ class DrivingDestinationModel {
         return {routeData: result};
     }
 
-    _calcServCosts = (back2home, servDist, servTime) => {
+    _calcServCosts(back2home, servDist, servTime) {
         let [distCosts, timeCosts, servPrice] = [0, 0, 0];
         if(back2home) {
             servPrice = servDist <= 30 ? this.#prices.servDist.below30Km : this.#prices.servDist.above30Km;
@@ -142,7 +142,7 @@ class DrivingDestinationModel {
             : this.#prices.base + ((distances.approach - 20) * price);
     }
 
-    _calcReturnCosts = (params, routes, isWithinBH) => {
+    _calcReturnCosts(params, routes, isWithinBH) {
         if(!isWithinBH) {
             const returnDistance = params['back2home'] ? routes.o2h.distanceMeters : routes.d2h.distanceMeters;
             return Number((returnDistance * this.#prices.return.offBH).toFixed(1));
@@ -170,7 +170,7 @@ class DrivingDestinationModel {
     }
 
     
-    _calcDiscountLaToVIA = (originDetails, destinationDetails, servDist, pickUp) => {
+    _calcDiscountLaToVIA(originDetails, destinationDetails, servDist, pickUp) {
         const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
         const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
         if(servDist <= 40) {

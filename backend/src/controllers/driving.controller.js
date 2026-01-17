@@ -1,35 +1,55 @@
 const DrivingService = require('../services/driving.service');
-const { checkValidation } = require('../middleware/validation.middleware');
+const checkValidation = require('../middleware/validation.middleware');
 
 class DrivingController {
-    calcDrivingAirport = async (req, res, next) => {
-        checkValidation(req);
-        const response = await DrivingService.calcAirportRoute(req.body);
-        res.send(response);
+    async calcDrivingAirport(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await DrivingService.calcAirportRoute(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    calcDrivingDestination = async (req, res, next) => {
-        checkValidation(req);
-        const response = await DrivingService.calcDestinationRoute(req.body);
-        res.send(response);
+    async calcDrivingDestination(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await DrivingService.calcDestinationRoute(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    calcDrivingFlatrate = async (req, res, next) => {
-        checkValidation(req);
-        const response = await DrivingService.calcFlatrateRoute(req.body);
-        res.send(response);
+    async calcDrivingFlatrate(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await DrivingService.calcFlatrateRoute(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    calcDrivingGolf = async (req, res, next) => {
-        checkValidation(req);
-        const response = await DrivingService.calcGolfRoute(req.body);
-        res.send(response);
+    async calcDrivingGolf(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await DrivingService.calcGolfRoute(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    calcDrivingQuick = async (req, res, next) => {
-        checkValidation(req);
-        const response = await DrivingService.calcQuickRoute(req.body);
-        res.send(response);
+    async calcDrivingQuick(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await DrivingService.calcQuickRoute(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 }
 

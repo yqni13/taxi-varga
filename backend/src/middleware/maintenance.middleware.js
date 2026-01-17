@@ -1,7 +1,7 @@
 const { MaintenanceException } = require('../utils/exceptions/common.exception');
 const Secrets = require('../utils/secrets.utils');
 
-const maintain = () => {
+function maintain() {
     return async function (req, res, next) {
         try {
             if(Secrets.MAINTENANCE_CODE !== 'maintenance-code-0') {

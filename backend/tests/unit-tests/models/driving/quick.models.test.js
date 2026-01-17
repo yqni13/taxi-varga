@@ -120,19 +120,6 @@ describe('Quick tests, priority: calcQuickRoute', () => {
             expect(testFn).toMatchObject(expectSubObj);
         })
     })
-
-    describe('Testing invalid fn calls', () => {
-
-        test('Empty params', async () => {
-            const mockParam_params = {};
-
-            const quickModel = new DrivingQuickModel(googleRoutesApi);
-            const testFn = await quickModel.calcQuickRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
-
-            expect(testFn).toMatchObject(expectResult);
-        })
-    })
 })
 
 describe('Quick tests, priority: _calcServDistCosts', () => {

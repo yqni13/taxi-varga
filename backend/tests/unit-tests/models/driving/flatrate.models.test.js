@@ -71,19 +71,6 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
     })
-
-    describe('Testing invalid fn calls', () => {
-
-        test('Empty params', async () => {
-            const mockParam_params = {};
-
-            const flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
-            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
-
-            expect(testFn).toMatchObject(expectResult);
-        })
-    })
 })
 
 describe('Flatrate tests, priority: _calcChargeByTenancyDiscount', () => {

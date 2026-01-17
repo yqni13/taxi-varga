@@ -9,7 +9,7 @@ class GoogleGeocodeAPI {
         this.#env_GOOGLE_API_KEY = Secrets.GOOGLE_API_KEY;
     }
 
-    requestGeolocation = async (params) => {
+    async requestGeolocation(params) {
         const lat = params['latitude'];
         const lng = params['longitude'];
 

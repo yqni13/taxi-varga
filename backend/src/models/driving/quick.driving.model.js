@@ -33,10 +33,7 @@ class DrivingQuickModel {
         }
     }
 
-    calcQuickRoute = async (params) => {
-        if(!Object.keys(params).length) {
-            return {error: 'no params found'};
-        }
+    async calcQuickRoute(params) {
         params['back2origin'] = params['back2origin'] === 'true' ? true : false;
         params['latency'] = Number(params['latency']);
 
@@ -102,7 +99,7 @@ class DrivingQuickModel {
         return { routeData: result };
     }
 
-    _mapLatencyData = (latencyInMin) => {
+    _mapLatencyData(latencyInMin) {
         if(!latencyInMin || latencyInMin === 0) {
             return { time: 0, costs: 0 };
         }
@@ -128,7 +125,7 @@ class DrivingQuickModel {
         return distanceRules.find(rule => servDist < rule.max).apply();
     }
 
-    _updateCostsByTimeBasedSurcharge4To6 = (totalCosts, servTime, pickUp) => {
+    _updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, pickUp) {
         // Costs for route with service time ending before 06:00 are surcharged.
         const servTimeAsString = Utils.getTimeAsStringFromTotalMinutes(servTime);
         const isEndingBeforeLimit =  Utils.checkTimeEndingBeforeLimit(pickUp, servTimeAsString, '06:00')
@@ -138,13 +135,13 @@ class DrivingQuickModel {
             : totalCosts;
     }
 
-    _updateCostsByTimeBasedSurcharge4To10 = (totalCosts, pickUp) => {
+    _updateCostsByTimeBasedSurcharge4To10(totalCosts, pickUp) {
         // Costs for route with service time starting within 06:00 - 10:00 are surcharged.
         const isPickupWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '10:00');
         return isPickupWithinRange ? totalCosts + this.#prices.surcharge.time4to10 : totalCosts;
     }
 
-    _calcServDistCosts = (servCostParams) => {
+    _calcServDistCosts(servCostParams) {
         let totalCosts = 0;
 
         if(servCostParams.servDist <= 0) {
@@ -176,7 +173,7 @@ class DrivingQuickModel {
         return Number(totalCosts.toFixed(1));
     }
 
-    _mapReturnTarget = (back2origin, routeHome, isRouteV2V) => {
+    _mapReturnTarget(back2origin, routeHome, isRouteV2V) {
         if(isRouteV2V) {
             return back2origin ? QuickRouteOption.OR : QuickRouteOption.DES;
         } else {
@@ -184,7 +181,7 @@ class DrivingQuickModel {
         }
     }
 
-    _mapShortestReturnLocation = (borderRouteData, origin, servDist) => {
+    _mapShortestReturnLocation(borderRouteData, origin, servDist) {
         let returnData;
         const returnLocation2544 = [borderRouteData.find(obj => {
             return obj.originIndex === 0 && obj.destinationIndex === 0
@@ -210,7 +207,7 @@ class DrivingQuickModel {
         };
     }
 
-    _isRouteWithinVienna = (params) => {
+    _isRouteWithinVienna(params) {
         const isOriginWithinVienna = params.originDetails.zipCode
             ? Utils.checkAddressInViennaByZipCode(params.originDetails.zipCode)
             : Utils.checkAddressInViennaByProvince(params.originDetails.province);

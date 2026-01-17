@@ -10,7 +10,7 @@ const Secrets = require('../utils/secrets.utils');
 const { ServiceOption } = require('../utils/enums/service-option.enum');
 
 class MailingModel {
-    sendMail = async (params) => {
+    async sendMail(params) {
         if(!Object.keys(params).length) {
             return { error: 'no params found' };
         }
@@ -90,13 +90,13 @@ class MailingModel {
         })
     }
 
-    validateDecryptedSubject = (subject, secretSubject) => {
+    validateDecryptedSubject(subject, secretSubject) {
         if(subject !== secretSubject) {
             throw new InvalidCredentialsException('backend-invalid-subject');
         }
     }
 
-    createEmailContent = (data) => {
+    createEmailContent(data) {
         const divider = `
         ------------------
         ------------------
@@ -119,7 +119,7 @@ class MailingModel {
         }
     }
 
-    configEmailConfirmDE = (data) => {
+    configEmailConfirmDE(data) {
         let introduction;
         if(data.gender === 'female') {
             introduction = data.title 
@@ -134,7 +134,7 @@ class MailingModel {
         return `\n${introduction}\nVielen Dank für Ihre Anfrage bei taxi-varga.\nWir werden uns sobald wie möglich bei Ihnen melden!\n\nBitte antworten Sie NICHT auf dieses automatische Mail.\n`
     }
 
-    configEmailConfirmEN = (data) => {
+    configEmailConfirmEN(data) {
         let introduction;
         if(data.gender === 'female') {
             introduction = data.title 
@@ -149,7 +149,7 @@ class MailingModel {
         return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n`
     }
 
-    configEmailBodyDE = (data) => {
+    configEmailBodyDE(data) {
         const msgStart = `Anfrage für Service: ${data.serviceTranslateDE}`;
 
         const msgCustomer = `Daten zur Person\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz: ${data.note ? '"' + data.note + '"' : '--'}`;
@@ -183,7 +183,7 @@ class MailingModel {
         return msgOutput;
     }
 
-    configEmailBodyEN = (data) => {
+    configEmailBodyEN(data) {
         const msgStart = `Request for service: ${data.serviceTranslateEN}`;
 
         const msgCustomer = `Customer data\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note: ${data.note ? '"' + data.note + '"' : '--'}`;

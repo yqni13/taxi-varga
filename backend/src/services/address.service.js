@@ -2,27 +2,23 @@ const { basicResponse } = require('../utils/common.utils');
 const AddressModel = require('../models/address.model');
 const GooglePlaces = require('../services/google-places/google-places.api');
 const GoogleGeocode = require('../services/google-geocode/google-geocode.api');
-const Utils = require('../utils/common.utils');
 
 class AddressService {
-    getPlaceAutocomplete = async (params) => {
-        const hasParams = Utils.isObjEmpty(params)
+    async getPlaceAutocompleteByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
-        const result = await addressModel.getPlaceAutocomplete(hasParams ? {} : params);
+        const result = await addressModel.mapPlaceAutocompleteApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 
-    getPlaceDetails = async (params) => {
-        const hasParams = Utils.isObjEmpty(params)
+    async getPlaceDetailsByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
-        const result = await addressModel.getPlaceDetails(hasParams ? {} : params);
+        const result = await addressModel.mapPlaceDetailsApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 
-    getPlaceByGeolocation = async (params) => {
-        const hasParams = Utils.isObjEmpty(params);
+    async getPlaceByGeolocationByApi(params) {
         const addressModel = new AddressModel(GooglePlaces, GoogleGeocode);
-        const result = await addressModel.getPlaceDetailsByGeolocation(hasParams ? {} : params);
+        const result = await addressModel.mapPlaceDetailsByGeolocationApiResult(params);
         return basicResponse(result, 1, "Success");
     }
 }

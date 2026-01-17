@@ -63,19 +63,6 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
     })
-
-    describe('Testing invalid fn calls', () => {
-
-        test('Empty params', async () => {
-            const mockParam_params = {};
-
-            const golfModel = new DrivingGolfModel(googleRoutesApi);
-            const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
-
-            expect(testFn).toMatchObject(expectResult);
-        })
-    })
 })
 
 describe('Flatrate tests, priority: _calcApproachH2O', () => {

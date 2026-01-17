@@ -1,23 +1,35 @@
 const AddressService = require('../services/address.service');
-const { checkValidation } = require('../middleware/validation.middleware');
+const checkValidation = require('../middleware/validation.middleware');
 
 class AddressController {
-    getPlaceAutocomplete = async (req, res, next) => {
-        checkValidation(req);
-        const response = await AddressService.getPlaceAutocomplete(req.body);
-        res.send(response);
+    async getPlaceAutocomplete(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await AddressService.getPlaceAutocompleteByApi(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    getPlaceDetails = async (req, res, next) => {
-        checkValidation(req);
-        const response = await AddressService.getPlaceDetails(req.body);
-        res.send(response);
+    async getPlaceDetails(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await AddressService.getPlaceDetailsByApi(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 
-    getPlaceByGeolocation = async (req, res, next) => {
-        checkValidation(req);
-        const response = await AddressService.getPlaceByGeolocation(req.body);
-        res.send(response);
+    async getPlaceByGeolocation(req, res, next) {
+        try {
+            checkValidation(req);
+            const response = await AddressService.getPlaceByGeolocationByApi(req.body);
+            res.send(response);
+        } catch(err) {
+            next(err);
+        }
     }
 }
 
