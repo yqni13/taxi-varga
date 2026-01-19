@@ -8,6 +8,18 @@ function mapMockApiResult(mockResult, mockBoolean, mockErrorMsg = null) {
     return apiResult;
 }
 
+function mapMockDecryptResult(mockResult, mockErrorMsg = null) {
+    let decryptResult = null;
+    if(mockErrorMsg) {
+        decryptResult = jest.fn().mockRejectedValueOnce(new Error(mockErrorMsg));
+    } else if(mockResult) {
+        decryptResult = jest.fn().mockResolvedValueOnce(mockResult);
+    }
+
+    return decryptResult;
+}
+
 module.exports = {
-    mapMockApiResult: mapMockApiResult
+    mapMockApiResult: mapMockApiResult,
+    mapMockDecryptResult: mapMockDecryptResult
 }

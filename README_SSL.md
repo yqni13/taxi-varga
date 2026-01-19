@@ -7,9 +7,9 @@ Look up "local ssl setup" on the internet for help with the local setup (due to 
 
 ### package.json
 
-Adapt script command `start-local-ssl` within [package.json](package.json) to reference your cert and key to run the application on localhost:
+Adapt script command `start-local-ssl` within [package.json](package.json) to ignore errors status 0 (self-signed certificate), set env-variables and reference your cert and key to run the application on localhost (development environment):
 ```sh
-node set-env.dev.ts && ng serve --ssl true --ssl-cert <your-path>/local-ssl-certificate.crt --ssl-key <your-path>/local-ssl-key.key --open
+cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 && node set-env.dev.ts && ng serve --ssl true --ssl-cert <your-path>/local-ssl-certificate.crt --ssl-key <your-path>/local-ssl-key.key --open
 ```
 <br>
 

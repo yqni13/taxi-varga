@@ -1,15 +1,21 @@
+jest.mock('../../../../src/utils/crypto.utils.js', () => ({
+    decryptRSA: jest.fn()
+}))
+
 const AuthModel = require("../../../../src/models/auth.model");
-const { InvalidCredentialsException } = require("../../../../src/utils/exceptions/auth.exception");
 const MockData_common = require('../../../mock-data/common.mock.json');
 const jwt = require('jsonwebtoken');
+const Secrets = require('../../../../src/utils/secrets.utils');
+const Utils = require('../../../../src/utils/common.utils');
+const Crypt = require('../../../../src/utils/crypto.utils');
+const { InvalidCredentialsException } = require("../../../../src/utils/exceptions/auth.exception");
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+
+const unexpectedException = UnexpectedException;
 
 describe('Auth tests, priority: generateToken', () => {
 
-    describe('Testing valid fn calls', () => {
-
-        test('Keep file alive', () => {
-            expect(true).toBe(true);
-        })
+    // describe('Testing valid fn calls', () => {
 
         // TODO(yqni13): update of auth model and crypto utils necessary to use tests
         // test('Authentication by \'admin\' user', async () => {
@@ -51,5 +57,45 @@ describe('Auth tests, priority: generateToken', () => {
 
         //     mockJWT.mockRestore();
         // })
+    // })
+
+    describe('Testing invalid fn calls', () => {
+
+        beforeEach(() => {
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+        })
+
+        test('Throw InvalidCredentialsException by first decrypt task', async () => {
+            const mockParam_params = { user: '' };
+            Crypt.decryptRSA.mockReturnValueOnce('invalid-demo-user');
+
+            const authModel = new AuthModel();
+
+            await expect(() => authModel.generateToken(mockParam_params))
+                .rejects.toBeInstanceOf(InvalidCredentialsException);
+        })
+
+        test('Throw InvalidCredentialsException by decryptedPass !== password', async () => {
+            const mockParam_params = { user: '', pass: '' };
+            Crypt.decryptRSA.mockReturnValueOnce(Secrets.AUTH_USER);
+            Crypt.decryptRSA.mockReturnValueOnce('invalid-demo-password');
+
+            const authModel = new AuthModel();
+
+            await expect(() => authModel.generateToken(mockParam_params))
+                .rejects.toThrow(new InvalidCredentialsException('backend-invalid-pass'));
+        })
+
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockErrorMsg = 'ERROR ON AUTHENTICATION';
+
+            Crypt.decryptRSA.mockRejectedValueOnce(new Error(mockErrorMsg));
+
+            const authModel = new AuthModel();
+
+            await expect(() => authModel.generateToken(mockParam_params))
+                .rejects.toThrow(unexpectedException);
+        })
     })
 })

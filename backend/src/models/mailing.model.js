@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const Utils = require('../utils/common.utils');
 const { 
     AuthenticationException,
     RequestExceedMaxException,

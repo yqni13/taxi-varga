@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const Utils = require('../utils/common.utils');
 const Secrets = require('../utils/secrets.utils');
 const { decryptRSA } = require('../utils/crypto.utils');
 const { UnexpectedException } = require('../utils/exceptions/common.exception');
