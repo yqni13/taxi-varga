@@ -1,6 +1,12 @@
+const Utils = require('../../../../src/utils/common.utils');
 const DrivingAirportModel = require('../../../../src/models/driving/airport.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const MockData_requestMapsMatrix = require('../../../mock-data/requestMapsMatrix.mock.json');
+const { mapMockApiResult } = require('../../../common.test-utils');
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+
+const expectExceptionResult = UnexpectedException;
+const mockBoolean = false;
 
 describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
 
@@ -45,6 +51,23 @@ describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
         })
     })
+
+    describe('Testing invalid fn calls', () => {
+
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const airportModel = new DrivingAirportModel(mockAPI);
+
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
+
+            await expect(() => airportModel.calcAirportRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
+        })
+    })
 });
 
 describe('Airport tests, priority: calcAirportRoute - DEPARTURE', () => {
@@ -62,6 +85,23 @@ describe('Airport tests, priority: calcAirportRoute - DEPARTURE', () => {
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
+        })
+    })
+
+    describe('Testing invalid fn calls', () => {
+
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const airportModel = new DrivingAirportModel(mockAPI);
+
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
+
+            await expect(() => airportModel.calcAirportRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
         })
     })
 })
