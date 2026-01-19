@@ -2,8 +2,9 @@ require('dotenv').config();
 const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
-const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const GeoLocation_ViennaBorder_data = require('./vienna-border.locations.json');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class GoogleRoutesAPI {
     #env_GOOGLE_API_KEY;
@@ -44,9 +45,11 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data;
             })
-            .catch(error => {
-                console.log("google error: ", error.message);
-                result = error.message;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_MapsMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         return result;
@@ -109,9 +112,11 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
-            .catch(error => {
-                console.log("google request error: ", error.message);
-                return error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_RouteMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         result.forEach((entry) => {
@@ -154,9 +159,11 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
-            .catch(error => {
-                console.log("google request error: ", error.message);
-                return error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_BorderRouteMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         result.forEach((entry) => {

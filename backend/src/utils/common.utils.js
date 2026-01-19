@@ -1,4 +1,5 @@
 const {SortingOption} = require('./enums/sorting-option.enum');
+const Secrets = require('../utils/secrets.utils');
 
 exports.basicResponse = (body, success, message) => {
     return {
@@ -14,6 +15,16 @@ exports.isObjEmpty = (obj) => {
         }
     }
     return true;
+}
+
+exports.logError = (message, method, err) => {
+    message += ` - ENV: '${Secrets.MODE.trim()}'`;
+    // integrate logger
+    console.log('Logger [MESSAGE]: ', message);
+    console.log('Logger [ERROR]: ', err.error);
+    console.log('Logger [CODE]: ', err.code ? err.code : err.status ? err.status : null);
+    console.log('Logger [STACK]: ', err.stack);
+    console.log('Logger [CONTEXT]: ', { method: method });
 }
 
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {

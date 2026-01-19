@@ -11,47 +11,56 @@ const { ServiceOption } = require('../utils/enums/service-option.enum');
 
 class MailingModel {
     async sendMail(params) {
-        if(!Object.keys(params).length) {
-            return { error: 'no params found' };
-        }
-
-        const encryptedBody = await decryptAES(params['body'], Secrets.IV_POSITION);
-        const sender = decryptRSA(params['sender'], Secrets.PRIVATE_KEY);
-        const subject = decryptRSA(params['subject'], Secrets.PRIVATE_KEY);
-        
-        const content = this.createEmailContent(JSON.parse(encryptedBody));
-        const msgRequest = content.msgRequest;
-        const msgConfirm = content.msgConfirm;
-
-        this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
-
-        const mailOptionsRequest = {
-            from: Secrets.EMAIL_SENDER,
-            to: Secrets.EMAIL_RECEIVER,
-            replyTo: sender,
-            subject: subject,
-            text: msgRequest
-        };
-
-        const mailOptionsConfirm = {
-            from: Secrets.EMAIL_SENDER,
-            to: sender,
-            subject: 'taxi-varga, request received',
-            text: msgConfirm
-        }
-        
-        const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const accessableSender = sender;
-        // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
-
-        return { 
-            response: {
-                sendRequestTo: sendRequest,
-                confirmedRequestFrom: confirmRequest,
-                sender: accessableSender
+        try {
+            const encryptedBody = await decryptAES(params['body'], Secrets.IV_POSITION);
+            const sender = decryptRSA(params['sender'], Secrets.PRIVATE_KEY);
+            const subject = decryptRSA(params['subject'], Secrets.PRIVATE_KEY);
+            
+            const content = this.createEmailContent(JSON.parse(encryptedBody));
+            const msgRequest = content.msgRequest;
+            const msgConfirm = content.msgConfirm;
+    
+            this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
+    
+            const mailOptionsRequest = {
+                from: Secrets.EMAIL_SENDER,
+                to: Secrets.EMAIL_RECEIVER,
+                replyTo: sender,
+                subject: subject,
+                text: msgRequest
+            };
+    
+            const mailOptionsConfirm = {
+                from: Secrets.EMAIL_SENDER,
+                to: sender,
+                subject: 'taxi-varga, request received',
+                text: msgConfirm
             }
-        };
+            
+            const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+            const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+            const accessableSender = sender;
+            // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
+    
+            return { 
+                response: {
+                    sendRequestTo: sendRequest,
+                    confirmedRequestFrom: confirmRequest,
+                    sender: accessableSender
+                }
+            };
+        } catch(err) {
+            const message = 'ERROR ON MODEL PROCESSING + API';
+            const method = 'TAVA_MailingModel_sendMail';
+            Utils.logError(message, method, err);
+            if(err instanceof AuthenticationException
+                || err instanceof RequestExceedMaxException
+                || err instanceof InvalidCredentialsException
+            ) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     async wrapedSendMail(mailOptions, emailSender, emailPass) {

@@ -1,3 +1,7 @@
+const Utils = require('../../utils/common.utils');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
+const { UnexpectedException } = require("../../utils/exceptions/common.exception");
+
 class DrivingAirportModel {
     #googleRoutes;
     #prices;
@@ -20,35 +24,45 @@ class DrivingAirportModel {
     }
 
     async calcAirportRoute(params) {
-        let district, matrixParams;
-        if(params['origin'] === 'vie-schwechat') {
-            district = params['destinationDetails']['zipCode'];
-            matrixParams = {
-                origin: params['origin'],
-                destination: params['destinationDetails']['placeId'],
-                useId: 'destination'
-            };
-        } else if(params['destination'] === 'vie-schwechat') {
-            district = params['originDetails']['zipCode'];
-            matrixParams = {
-                origin: params['originDetails']['placeId'],
-                destination: params['destination'],
-                useId: 'origin'
-            };
-        }
-
-        const route = await this.#googleRoutes.requestMapsMatrix(matrixParams, matrixParams['useId']);
-        const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000 to get total km
-        const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60 to get total minutes
-        const price = this._mapPriceByZipCode(Number(district.slice(1,3)))
-
-        return {
-            routeData: {
-                duration: Math.ceil(duration),
-                distance: Math.ceil(distance),
-                price: price
+        try {
+            let district, matrixParams;
+            if(params['origin'] === 'vie-schwechat') {
+                district = params['destinationDetails']['zipCode'];
+                matrixParams = {
+                    origin: params['origin'],
+                    destination: params['destinationDetails']['placeId'],
+                    useId: 'destination'
+                };
+            } else if(params['destination'] === 'vie-schwechat') {
+                district = params['originDetails']['zipCode'];
+                matrixParams = {
+                    origin: params['originDetails']['placeId'],
+                    destination: params['destination'],
+                    useId: 'origin'
+                };
             }
-        };
+
+            const route = await this.#googleRoutes.requestMapsMatrix(matrixParams, matrixParams['useId']);
+            const distance = (route.rows[0].elements[0].distance.value) / 1000 // result divided by 1000, get total km
+            const duration = (route.rows[0].elements[0].duration.value) / 60 // result divided by 60, get total minutes
+            const price = this._mapPriceByZipCode(Number(district.slice(1,3)))
+
+            return {
+                routeData: {
+                    duration: Math.ceil(duration),
+                    distance: Math.ceil(distance),
+                    price: price
+                }
+            };
+        } catch(err) {
+            const message = 'ERROR ON MODEL CALCULATION + API';
+            const method = 'TAVA_DrivingModel_calcAirportRoute';
+            Utils.logError(message, method, err);
+            if(err instanceof UnexpectedApiResponseException) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     _mapPriceByZipCode(district) {

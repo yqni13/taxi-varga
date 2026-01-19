@@ -1,7 +1,9 @@
 const Utils = require('../../utils/common.utils');
+const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
 const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class DrivingQuickModel {
     #googleRoutes;
@@ -34,69 +36,79 @@ class DrivingQuickModel {
     }
 
     async calcQuickRoute(params) {
-        params['back2origin'] = params['back2origin'] === 'true' ? true : false;
-        params['latency'] = Number(params['latency']);
+        try {
+            params['back2origin'] = params['back2origin'] === 'true' ? true : false;
+            params['latency'] = Number(params['latency']);
 
-        const result = {
-            price: 0,
-            servTime: 0,
-            servDist: 0,
-            latency: {},
-            returnTarget: ''
+            const result = {
+                price: 0,
+                servTime: 0,
+                servDist: 0,
+                latency: {},
+                returnTarget: ''
+            }
+
+            const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
+            const routes = {
+                o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1})
+            }
+            const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
+            const servDist = params['back2origin'] 
+                ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
+                : Number((routes.o2d.distanceMeters).toFixed(1));
+
+            let returnObj = { distance: 0, duration: 0, routeHome: null};
+            const isRouteV2V = this._isRouteWithinVienna(params);
+            if(!params.back2origin && !isRouteV2V) {
+                const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
+                returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails'], servDist);
+            }
+
+            const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
+            const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
+            const servCostParams = {
+                servDist: servDist,
+                servTime: servTime,
+                returnObj: returnObj,
+                isRouteV2V: isRouteV2V,
+                back2origin: params.back2origin,
+            };
+
+            // Sum all additional costs.
+            let additionalCosts = 0;
+            additionalCosts += latencyObj.costs;
+            additionalCosts += this._calcServDistSurcharge(params.back2origin, servDist);
+
+            let totalCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
+
+            // Surcharge for busy hours.
+            totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
+
+            totalCosts = isOriginV && !isRouteV2V
+                ? this._updateCostsByTimeBasedSurcharge4To10(totalCosts, params['pickupTIME'])
+                : totalCosts;
+
+            result['price'] = (totalCosts % 1) >= 0.5
+                ? Math.ceil(totalCosts)
+                : Math.floor(totalCosts);
+            result['servTime'] = (servTime % 1) >= 0.5
+                ? Math.ceil(servTime)
+                : Math.floor(servTime)
+            result['servDist'] = servDist;
+            result['latency'] = latencyObj;
+            result['returnTarget'] = this._mapReturnTarget(params.back2origin, returnObj.routeHome ?? false, isRouteV2V);
+
+            return { routeData: result };
+        } catch(err) {
+            const message = 'ERROR ON MODEL CALCULATION + API';
+            const method = 'TAVA_DrivingModel_Quick';
+            Utils.logError(message, method, err);
+            if(err instanceof UnexpectedApiResponseException) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
         }
-
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.QUICK);
-        const routes = {
-            o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1})
-        }
-        const servTime = params['back2origin'] ? routes.o2d.duration + routes.d2o.duration : routes.o2d.duration;
-        const servDist = params['back2origin'] 
-            ? Number((routes.o2d.distanceMeters + routes.d2o.distanceMeters).toFixed(1))
-            : Number((routes.o2d.distanceMeters).toFixed(1));
-
-        let returnObj = { distance: 0, duration: 0, routeHome: null};
-        const isRouteV2V = this._isRouteWithinVienna(params);
-        if(!params.back2origin && !isRouteV2V) {
-            const borderRouteData = await this.#googleRoutes.requestBorderRouteMatrix(params);
-            returnObj = this._mapShortestReturnLocation(borderRouteData, params['originDetails'], servDist);
-        }
-
-        const latencyObj = this._mapLatencyData(params.back2origin ? params.latency : 0);
-        const isOriginV = Utils.checkAddressInViennaByProvince(params['originDetails']['province']) || Utils.checkAddressInViennaByZipCode(params['originDetails']['zipCode']) ? true : false;
-        const servCostParams = {
-            servDist: servDist,
-            servTime: servTime,
-            returnObj: returnObj,
-            isRouteV2V: isRouteV2V,
-            back2origin: params.back2origin,
-        };
-
-        // Sum all additional costs.
-        let additionalCosts = 0;
-        additionalCosts += latencyObj.costs;
-        additionalCosts += this._calcServDistSurcharge(params.back2origin, servDist);
-
-        let totalCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
-
-        // Surcharge for busy hours.
-        totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
-
-        totalCosts = isOriginV && !isRouteV2V
-            ? this._updateCostsByTimeBasedSurcharge4To10(totalCosts, params['pickupTIME'])
-            : totalCosts;
-
-        result['price'] = (totalCosts % 1) >= 0.5
-            ? Math.ceil(totalCosts)
-            : Math.floor(totalCosts);
-        result['servTime'] = (servTime % 1) >= 0.5
-            ? Math.ceil(servTime)
-            : Math.floor(servTime)
-        result['servDist'] = servDist;
-        result['latency'] = latencyObj;
-        result['returnTarget'] = this._mapReturnTarget(params.back2origin, returnObj.routeHome ?? false, isRouteV2V);
-
-        return { routeData: result };
     }
 
     _mapLatencyData(latencyInMin) {

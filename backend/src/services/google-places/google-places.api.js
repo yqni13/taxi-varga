@@ -3,6 +3,7 @@ const axios = require('axios');
 const Utils = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
 const { AddressFilterOption } = require('../../utils/enums/addressfilter-option.enum');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class GooglePlacesAPI {
     #env_GOOGLE_API_KEY;
@@ -49,9 +50,11 @@ class GooglePlacesAPI {
             .then(response => {
                 result = response.data;
             })
-            .catch(error => {
-                console.log("google place details error: ", error.message);
-                result = error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_PlaceDetails';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         return result;
@@ -91,9 +94,11 @@ class GooglePlacesAPI {
             .then(response => {
                 result = response.data;
             })
-            .catch(error => {
-                console.log("google place autocomplete error: ", error.message);
-                result = error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_PlaceAutocomplete';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         return result;
