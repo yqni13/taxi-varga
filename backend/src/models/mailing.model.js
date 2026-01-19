@@ -19,9 +19,9 @@ class MailingModel {
             const content = this.createEmailContent(JSON.parse(encryptedBody));
             const msgRequest = content.msgRequest;
             const msgConfirm = content.msgConfirm;
-    
+
             this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
-    
+
             const mailOptionsRequest = {
                 from: Secrets.EMAIL_SENDER,
                 to: Secrets.EMAIL_RECEIVER,
@@ -29,7 +29,7 @@ class MailingModel {
                 subject: subject,
                 text: msgRequest
             };
-    
+
             const mailOptionsConfirm = {
                 from: Secrets.EMAIL_SENDER,
                 to: sender,
@@ -41,7 +41,7 @@ class MailingModel {
             const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
             const accessableSender = sender;
             // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
-    
+
             return { 
                 response: {
                     sendRequestTo: sendRequest,

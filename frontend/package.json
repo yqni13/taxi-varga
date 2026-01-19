@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "start-local-ssl": "node set-env.dev.ts && ng serve --ssl true --ssl-cert D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.crt --ssl-key D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.key --open",
+    "start-local-ssl": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 && node set-env.dev.ts && ng serve --ssl true --ssl-cert D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.crt --ssl-key D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.key --open",
     "start:stag": "node set-env.ts && ng serve --configuration staging",
     "start:prod": "node set-env.ts && ng serve --configuration production",
     "build": "ng build",
@@ -52,6 +52,7 @@
     "@types/node": "^18.19.68",
     "@types/underscore": "^1.13.0",
     "angular-eslint": "18.4.0",
+    "cross-env": "^10.1.0",
     "dotenv": "^16.4.7",
     "eslint": "^9.26.0",
     "jasmine-core": "~5.2.0",
