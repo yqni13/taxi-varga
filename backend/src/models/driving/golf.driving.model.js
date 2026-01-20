@@ -1,5 +1,8 @@
+const Utils = require('../../utils/common.utils');
 const { ServiceOption } = require("../../utils/enums/service-option.enum");
+const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const CustomValidator = require('../../utils/customValidator.utils');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class DrivingGolfModel {
     #googleRoutes;
@@ -30,58 +33,69 @@ class DrivingGolfModel {
             },
         }
     }
+
     async calcGolfRoute(params) {
-        // GET ROUTE DATA
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
-        const routes = {
-            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-            o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            g2d: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-            d2h: response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
-        };
-        let result = {
-            distance: 0,
-            duration: 0,
-            stay: 0,
-            price: 0
-        };
+        try {
+            // GET ROUTE DATA
+            const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.GOLF);
+            const routes = {
+                h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2g: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                g2d: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+                d2h: response.find(obj => {return obj.originIndex === 3 && obj.destinationIndex === 2}),
+            };
+            let result = {
+                distance: 0,
+                duration: 0,
+                stay: 0,
+                price: 0
+            };
 
-        // Validate relevance & update stay time by removing origin route duration (in total minutes).
-        params['stay'] = CustomValidator.validateTravelTimeRelevance(
-            Number(params['stay']),
-            routes.o2g.duration,
-            ServiceOption.GOLF
-        );
+            // Validate relevance & update stay time by removing origin route duration (in total minutes).
+            params['stay'] = CustomValidator.validateTravelTimeRelevance(
+                Number(params['stay']),
+                routes.o2g.duration,
+                ServiceOption.GOLF
+            );
 
-        // Already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes.
-        const servDist = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
-        const servTime = routes.o2g.duration + routes.g2d.duration;
+            // Already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes.
+            const servDist = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
+            const servTime = routes.o2g.duration + routes.g2d.duration;
 
-        const approachCosts = this._calcApproachH2O(routes.h2o.distanceMeters);
-        const servDistCosts = servDist <= 30
-            ? servDist * this.#prices.service.below30Km
-            : servDist * this.#prices.service.above30Km;
-        const servTimeCosts = servDist <= 30
-            ? servTime * this.#prices.service.below30Km
-            : servTime * this.#prices.service.above30Km;
-        const returnCosts = routes.d2h.distanceMeters * this.#prices.return.perKm;
-        const stayObj = this._calcStayCosts(Number(params['stay']));
+            const approachCosts = this._calcApproachH2O(routes.h2o.distanceMeters);
+            const servDistCosts = servDist <= 30
+                ? servDist * this.#prices.service.below30Km
+                : servDist * this.#prices.service.above30Km;
+            const servTimeCosts = servDist <= 30
+                ? servTime * this.#prices.service.below30Km
+                : servTime * this.#prices.service.above30Km;
+            const returnCosts = routes.d2h.distanceMeters * this.#prices.return.perKm;
+            const stayObj = this._calcStayCosts(Number(params['stay']));
 
-        // Add up all additional charges.
-        let additionalCharges = 0;
+            // Add up all additional charges.
+            let additionalCharges = 0;
 
-        let totalCosts = this.#prices.base + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
+            let totalCosts = this.#prices.base + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
 
-        // Map additional discounts.
-        totalCosts = this._mapSupportDiscount(totalCosts, params['supportMode']);
-        totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
+            // Map additional discounts.
+            totalCosts = this._mapSupportDiscount(totalCosts, params['supportMode']);
+            totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
 
-        result['distance'] = Math.ceil(servDist);
-        result['duration'] = Math.ceil(servTime);
-        result['stay'] = stayObj.hours;
-        result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
+            result['distance'] = Math.ceil(servDist);
+            result['duration'] = Math.ceil(servTime);
+            result['stay'] = stayObj.hours;
+            result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
-        return {routeData: result};
+            return {routeData: result};
+        } catch(err) {
+            const message = 'ERROR ON MODEL CALCULATION + API';
+            const method = 'TAVA_DrivingModel_calcGolfRoute';
+            Utils.logError(message, method, err);
+            if(err instanceof UnexpectedApiResponseException) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     _calcApproachH2O(distance) {

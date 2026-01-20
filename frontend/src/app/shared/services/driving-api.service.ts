@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { DateTimeService } from './datetime.service';
 import { UtilsService } from './utils.service';
 import { ServiceOptions } from '../enums/service-options.enum';
@@ -156,22 +156,42 @@ export class DrivingAPIService {
     }
 
     sendAirportRequest(): Observable<HttpResponse<DrivingResponse.DrivingAirportResponse>> {
-        return this.http.post<DrivingResponse.DrivingAirportResponse>(this.urlAirport, this.dataAirport, { observe: 'response' });
+        return this.http.post<DrivingResponse.DrivingAirportResponse>(this.urlAirport, this.dataAirport, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendDestinationRequest(): Observable<HttpResponse<DrivingResponse.DrivingDestinationResponse>> {
-        return this.http.post<DrivingResponse.DrivingDestinationResponse>(this.urlDestination, this.dataDestination, { observe: 'response' });
+        return this.http.post<DrivingResponse.DrivingDestinationResponse>(this.urlDestination, this.dataDestination, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendFlatrateRequest(): Observable<HttpResponse<DrivingResponse.DrivingFlatrateResponse>> {
-        return this.http.post<DrivingResponse.DrivingFlatrateResponse>(this.urlFlatrate, this.dataFlatrate, { observe: 'response' });
+        return this.http.post<DrivingResponse.DrivingFlatrateResponse>(this.urlFlatrate, this.dataFlatrate, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendGolfRequest(): Observable<HttpResponse<DrivingResponse.DrivingGolfResponse>> {
-        return this.http.post<DrivingResponse.DrivingGolfResponse>(this.urlGolf, this.dataGolf, { observe: 'response' });
+        return this.http.post<DrivingResponse.DrivingGolfResponse>(this.urlGolf, this.dataGolf, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendQuickRequest(): Observable<HttpResponse<DrivingResponse.DrivingQuickResponse>> {
-        return this.http.post<DrivingResponse.DrivingQuickResponse>(this.urlQuick, this.dataQuick, { observe: 'response' });
+        return this.http.post<DrivingResponse.DrivingQuickResponse>(this.urlQuick, this.dataQuick, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 }

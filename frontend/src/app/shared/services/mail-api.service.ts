@@ -11,6 +11,7 @@ import { environment } from "../../../environments/environment";
 import { ServiceOptions } from "../enums/service-options.enum";
 import { AirportOptions } from "../enums/airport-options.enum";
 import { LanguageOptions } from "../enums/language-options.enum";
+import { catchError, throwError } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -152,6 +153,10 @@ export class MailAPIService {
     }
 
     sendMail() {
-        return this.http.post(this.urlSend, this.mailData, { observe: 'response' });        
+        return this.http.post(this.urlSend, this.mailData, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );        
     }
 }

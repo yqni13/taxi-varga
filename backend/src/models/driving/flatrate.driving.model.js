@@ -1,5 +1,8 @@
+const Utils = require('../../utils/common.utils');
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const CustomValidator = require('../../utils/customValidator.utils');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class DrivingFlatrateModel {
     #googleRoutes;
@@ -22,49 +25,60 @@ class DrivingFlatrateModel {
             }
         }
     }
+
     async calcFlatrateRoute(params) {
-        let totalCost = 0;
+        try {
+            let totalCost = 0;
 
-        // GET ROUTE DATA
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
-        const routes = {
-            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-            o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-        }
-
-        // Validate relevance comparing tenancy to min time effort of origin2destination route.
-        CustomValidator.validateTravelTimeRelevance(
-            Number(params['tenancy']),
-            routes.o2d.duration,
-            ServiceOption.FLATRATE
-        );
-
-        const tenancyObj = this._calcTenancyValues(Number(params['tenancy']));
-
-        const approachDistance = routes.h2o.distanceMeters > 20 ? routes.h2o.distanceMeters - 20 : 0;
-        const returnDistance = routes.d2h.distanceMeters > 20 ? routes.d2h.distanceMeters - 20 : 0;
-
-        const approachCost = (approachDistance % 1) >= 5
-            ? Math.ceil(approachDistance) * this.#prices.approach.perKm
-            : Math.floor(approachDistance) * this.#prices.approach.perKm;
-
-        if(params['origin'] !== params['destination']) {
-            const minDistanceCost = this._calcChargeByTenancyDiscount(routes.o2d.distanceMeters, tenancyObj.time);
-            const returnCost = (returnDistance % 1) >= 0.5
-                ? Math.ceil(returnDistance) * this.#prices.return.perKm
-                : Math.floor(returnDistance) * this.#prices.return.perKm;
-            totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
-        } else {
-            totalCost = (approachCost * 2) + tenancyObj.costs;
-        }
-
-        return { 
-            routeData: {
-                tenancy: tenancyObj.time,
-                price: Math.ceil(totalCost)
+            // GET ROUTE DATA
+            const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.FLATRATE);
+            const routes = {
+                h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
             }
-        };
+
+            // Validate relevance comparing tenancy to min time effort of origin2destination route.
+            CustomValidator.validateTravelTimeRelevance(
+                Number(params['tenancy']),
+                routes.o2d.duration,
+                ServiceOption.FLATRATE
+            );
+
+            const tenancyObj = this._calcTenancyValues(Number(params['tenancy']));
+
+            const approachDistance = routes.h2o.distanceMeters > 20 ? routes.h2o.distanceMeters - 20 : 0;
+            const returnDistance = routes.d2h.distanceMeters > 20 ? routes.d2h.distanceMeters - 20 : 0;
+
+            const approachCost = (approachDistance % 1) >= 5
+                ? Math.ceil(approachDistance) * this.#prices.approach.perKm
+                : Math.floor(approachDistance) * this.#prices.approach.perKm;
+
+            if(params['origin'] !== params['destination']) {
+                const minDistanceCost = this._calcChargeByTenancyDiscount(routes.o2d.distanceMeters, tenancyObj.time);
+                const returnCost = (returnDistance % 1) >= 0.5
+                    ? Math.ceil(returnDistance) * this.#prices.return.perKm
+                    : Math.floor(returnDistance) * this.#prices.return.perKm;
+                totalCost = approachCost + minDistanceCost + tenancyObj.costs + returnCost;
+            } else {
+                totalCost = (approachCost * 2) + tenancyObj.costs;
+            }
+
+            return { 
+                routeData: {
+                    tenancy: tenancyObj.time,
+                    price: Math.ceil(totalCost)
+                }
+            };
+        } catch(err) {
+            const message = 'ERROR ON MODEL CALCULATION + API';
+            const method = 'TAVA_DrivingModel_calcFlatrateRoute';
+            Utils.logError(message, method, err);
+            if(err instanceof UnexpectedApiResponseException) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     _calcTenancyValues(time) {

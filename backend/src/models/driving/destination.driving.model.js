@@ -1,5 +1,7 @@
 const Utils = require('../../utils/common.utils');
+const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class DrivingDestinationModel {
     #googleRoutes;
@@ -44,72 +46,81 @@ class DrivingDestinationModel {
     }
 
     async calcDestinationRoute(params) {
-        params['back2home'] = params['back2home'] === 'true' ? true : false;
-        // Manual discount: cost limit = 3h (3 * 60min)
-        params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
-        // Price is calculated by every started 30 minute-block.
-        params['latency'] = (Math.ceil(params['latency'] / 30)) * 30; 
-        const pickUp = Utils.getTimeAsStringFromTotalMinutes(Number(params['pickupTIME']) * 60);
+        try {
+            params['back2home'] = params['back2home'] === 'true' ? true : false;
+            // Manual discount: cost limit = 3h (3 * 60min)
+            params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
+            // Price is calculated by every started 30 minute-block.
+            params['latency'] = (Math.ceil(params['latency'] / 30)) * 30; 
+            const pickUp = Utils.getTimeAsStringFromTotalMinutes(Number(params['pickupTIME']) * 60);
 
-        // GET ROUTE DATA
-        const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
-        const routes = {
-            h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
-            o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
-            d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
-            d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
-            o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
-        };
+            // GET ROUTE DATA
+            const response = await this.#googleRoutes.requestRouteMatrix(params, ServiceOption.DESTINATION);
+            const routes = {
+                h2o: response.find(obj => {return obj.originIndex === 0 && obj.destinationIndex === 1}),
+                o2d: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 0}),
+                d2o: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 1}),
+                d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
+                o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
+            };
 
-        let result = {
-            price: 0,
-            distance: 0,
-            duration: 0
-        };
-        const isWithinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
-        const servDist = params['back2home'] 
-            ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
-            : routes.o2d.distanceMeters;
-        const servTime = params['back2home']
-            ? routes.o2d.duration + routes.d2o.duration
-            : routes.o2d.duration;
+            let result = {
+                price: 0,
+                distance: 0,
+                duration: 0
+            };
+            const isWithinBH = Utils.checkTimeWithinBusinessHours(params['pickupTIME']);
+            const servDist = params['back2home'] 
+                ? (routes.o2d.distanceMeters + routes.d2o.distanceMeters)
+                : routes.o2d.distanceMeters;
+            const servTime = params['back2home']
+                ? routes.o2d.duration + routes.d2o.duration
+                : routes.o2d.duration;
 
-        // Approach costs
-        const approachCalcDistances = { approach: routes.h2o.distanceMeters, service: servDist };
-        const approachCosts = this._calcApproachCosts(isWithinBH, approachCalcDistances, params.back2home);
+            // Approach costs
+            const approachCalcDistances = { approach: routes.h2o.distanceMeters, service: servDist };
+            const approachCosts = this._calcApproachCosts(isWithinBH, approachCalcDistances, params.back2home);
 
-        const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
-        // TODO(yqni13): update order, param assignment, ... (TAVA-148)
-        const returnCosts = this._calcReturnCosts(params, routes, isWithinBH);
+            const servCosts = this._calcServCosts(params.back2home, servDist, servTime);
+            const returnCosts = this._calcReturnCosts(params, routes, isWithinBH);
 
-        // First 60min every started 1/2h costs €12,- afterwards costs €6,-
-        const latencyPrice = this.#prices.latency.per30Min;
-        const latencyCosts = (params['latency'] / 60) > 1
-            ? (2 * latencyPrice) + (((params['latency'] - 60) / 30) * (latencyPrice / 2))
-            : (params['latency'] / 30) * latencyPrice;
+            // First 60min every started 1/2h costs €12,- afterwards costs €6,-
+            const latencyPrice = this.#prices.latency.per30Min;
+            const latencyCosts = (params['latency'] / 60) > 1
+                ? (2 * latencyPrice) + (((params['latency'] - 60) / 30) * (latencyPrice / 2))
+                : (params['latency'] / 30) * latencyPrice;
 
-        // Add up all additional charges.
-        let additionalCharge = 0;
-        additionalCharge += latencyCosts;
-        additionalCharge += this._addChargeParkFlatByBH(params, servDist);
+            // Add up all additional charges.
+            let additionalCharge = 0;
+            additionalCharge += latencyCosts;
+            additionalCharge += this._addChargeParkFlatByBH(params, servDist);
 
-        // Add up all discounts to substract.
-        let discounts = 0;
-        discounts += this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
+            // Add up all discounts to substract.
+            let discounts = 0;
+            discounts += this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
 
-        const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
+            const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
 
-        result['duration'] = Math.ceil(servTime);
-        result['price'] = (totalCosts % 1) >= 0.5
-            ? Math.ceil(totalCosts)
-            : Math.floor(totalCosts);
-        result['distance'] = (servDist % 1) >= 0.5
-            ? Math.ceil(servDist) 
-            : servDist < 1
-                ? servDist
-                : Math.floor(servDist);
+            result['duration'] = Math.ceil(servTime);
+            result['price'] = (totalCosts % 1) >= 0.5
+                ? Math.ceil(totalCosts)
+                : Math.floor(totalCosts);
+            result['distance'] = (servDist % 1) >= 0.5
+                ? Math.ceil(servDist) 
+                : servDist < 1
+                    ? servDist
+                    : Math.floor(servDist);
 
-        return {routeData: result};
+            return {routeData: result};
+        } catch(err) {
+            const message = 'ERROR ON MODEL CALCULATION + API';
+            const method = 'TAVA_DrivingModel_calcDestinationRoute';
+            Utils.logError(message, method, err);
+            if(err instanceof UnexpectedApiResponseException) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     _calcServCosts(back2home, servDist, servTime) {

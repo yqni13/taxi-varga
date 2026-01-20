@@ -4,9 +4,17 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/01/19}$
+
+$\textsf{[v1.6.35\ =>\ {\textbf{\color{brown}v1.7.1}]}}$ app
+- $\textsf{\color{green}Change:}$ Security update: extended exception handling (frontend+backend) for model calculation and api data fetch.
+- $\textsf{\color{orange}Patch:}$ Added command to ignore status 0 error on 'development' environment (self-signed certificate for HTTPS).
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/01/16}$
 
-$\textsf{[v1.6.30\ =>\ {\textbf{\color{brown}v1.6.35}]}}$ app
+$\textsf{[v1.6.30\ =>\ v1.6.35]}$ app
 - $\textsf{\color{orange}Patch:}$ Refactored code structure on multiple locations:
     + logo occurrence on documentation responsive image
     + normal vs arrow functions
