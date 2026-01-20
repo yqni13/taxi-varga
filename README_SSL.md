@@ -9,9 +9,11 @@ Look up "local ssl setup" on the internet for help with the local setup (due to 
 
 Adapt script command `start-local-ssl` within [package.json](package.json) to ignore errors status 0 (self-signed certificate), set env-variables and reference your cert and key to run the application on localhost (development environment):
 ```sh
-cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 && node set-env.dev.ts && ng serve --ssl true --ssl-cert <your-path>/local-ssl-certificate.crt --ssl-key <your-path>/local-ssl-key.key --open
+cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 cmd /c \"node ./set-env.dev.ts && ng serve --ssl true --ssl-cert D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.crt --ssl-key D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.key --open\"
 ```
-<br>
+`cross-env`: sets and uses environment variables across platforms/shells<br>
+`cmd /c`: use Windows-Shell (explicit useage can help because cross-env, npm and node are not guaranteed to use the same shell) and flag /c shows following as command to execute
+<br><br>
 
 ### Proxy setting
 

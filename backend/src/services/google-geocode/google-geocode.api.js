@@ -23,7 +23,7 @@ class GoogleGeocodeAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_Geolocation';
+                const method = 'TAVA_GoogleApi_requestGeolocation';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })

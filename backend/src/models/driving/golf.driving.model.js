@@ -89,7 +89,7 @@ class DrivingGolfModel {
             return {routeData: result};
         } catch(err) {
             const message = 'ERROR ON MODEL CALCULATION + API';
-            const method = 'TAVA_DrivingModel_Golf';
+            const method = 'TAVA_DrivingModel_calcGolfRoute';
             Utils.logError(message, method, err);
             if(err instanceof UnexpectedApiResponseException) {
                 throw err;

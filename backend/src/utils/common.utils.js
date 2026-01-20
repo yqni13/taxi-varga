@@ -19,7 +19,7 @@ exports.isObjEmpty = (obj) => {
 
 exports.logError = (message, method, err) => {
     message += ` - ENV: '${Secrets.MODE.trim()}'`;
-    // integrate logger
+    // TODO(yqni13): add logger (TAVA-95)
     console.log('Logger [MESSAGE]: ', message);
     console.log('Logger [ERROR]: ', err.error);
     console.log('Logger [CODE]: ', err.code ? err.code : err.status ? err.status : null);

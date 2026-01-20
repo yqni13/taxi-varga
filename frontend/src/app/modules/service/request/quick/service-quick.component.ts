@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, NgModule, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { Router } from "@angular/router";

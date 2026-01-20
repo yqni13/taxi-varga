@@ -102,7 +102,7 @@ class DrivingQuickModel {
             return { routeData: result };
         } catch(err) {
             const message = 'ERROR ON MODEL CALCULATION + API';
-            const method = 'TAVA_DrivingModel_Quick';
+            const method = 'TAVA_DrivingModel_calcQuickRoute';
             Utils.logError(message, method, err);
             if(err instanceof UnexpectedApiResponseException) {
                 throw err;

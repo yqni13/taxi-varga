@@ -72,7 +72,7 @@ class DrivingFlatrateModel {
             };
         } catch(err) {
             const message = 'ERROR ON MODEL CALCULATION + API';
-            const method = 'TAVA_DrivingModel_Flatrate';
+            const method = 'TAVA_DrivingModel_calcFlatrateRoute';
             Utils.logError(message, method, err);
             if(err instanceof UnexpectedApiResponseException) {
                 throw err;

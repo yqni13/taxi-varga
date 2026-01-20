@@ -52,7 +52,7 @@ class GooglePlacesAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_PlaceDetails';
+                const method = 'TAVA_GoogleApi_requestPlaceDetails';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })
@@ -96,7 +96,7 @@ class GooglePlacesAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_PlaceAutocomplete';
+                const method = 'TAVA_GoogleApi_requestPlaceAutocomplete';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })

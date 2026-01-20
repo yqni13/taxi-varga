@@ -44,7 +44,7 @@ class DrivingDestinationModel {
             }
         }
     }
-    
+
     async calcDestinationRoute(params) {
         try {
             params['back2home'] = params['back2home'] === 'true' ? true : false;
@@ -114,7 +114,7 @@ class DrivingDestinationModel {
             return {routeData: result};
         } catch(err) {
             const message = 'ERROR ON MODEL CALCULATION + API';
-            const method = 'TAVA_DrivingModel_Destination';
+            const method = 'TAVA_DrivingModel_calcDestinationRoute';
             Utils.logError(message, method, err);
             if(err instanceof UnexpectedApiResponseException) {
                 throw err;

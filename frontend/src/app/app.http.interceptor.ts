@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { catchError, Observable, of, tap, throwError } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { HttpObservationService } from "./shared/services/http-observation.service";
 import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";

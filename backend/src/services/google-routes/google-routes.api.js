@@ -47,7 +47,7 @@ class GoogleRoutesAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_MapsMatrix';
+                const method = 'TAVA_GoogleApi_requestMapsMatrix';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })
@@ -114,7 +114,7 @@ class GoogleRoutesAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_RouteMatrix';
+                const method = 'TAVA_GoogleApi_requestRouteMatrix';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })
@@ -161,7 +161,7 @@ class GoogleRoutesAPI {
             })
             .catch(err => {
                 const message = 'ERROR ON API REQUEST';
-                const method = 'TAVA_GoogleApi_BorderRouteMatrix';
+                const method = 'TAVA_GoogleApi_requestBorderRouteMatrix';
                 Utils.logError(message, method, err);
                 throw new UnexpectedApiResponseException(err);
             })
