@@ -3,6 +3,7 @@ const Secrets = require('../utils/secrets.utils');
 const { Logtail } = require('@logtail/node');
 const { LogtailTransport } = require('@logtail/winston');
 const { EnvMode } = require('../utils/enums/env-mode.enum');
+const MetaModel = require('../models/meta.model');
 
 class Logger {
     static _logger;
@@ -28,8 +29,14 @@ class Logger {
             transports.push(new LogtailTransport(logtail));
         }
 
+        const meta = MetaModel.getInstance();
+
         this._logger = winston.createLogger({
             level: 'info',
+            defaultMeta: {
+                environment: Secrets.MODE.trim(),
+                version: meta.getInfoData().version
+            },
             format: winston.format.combine(
                 winston.format.timestamp(),
                 winston.format.json()

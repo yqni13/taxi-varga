@@ -1,10 +1,7 @@
 const {SortingOption} = require('./enums/sorting-option.enum');
-const Secrets = require('../utils/secrets.utils');
 const Logger = require('../logger/config.logger');
-const MetaModel = require('../models/meta.model');
 
 const logger = Logger.getLogger();
-const meta = MetaModel.getInstance();
 
 exports.basicResponse = (body, success, message) => {
     return {
@@ -28,9 +25,7 @@ exports.logError = (message, method, err) => {
         code: err.status ? err.status : err.code ? err.code : null,
         stack: err.stack,
         context: { 
-            method: method,
-            environment: Secrets.MODE.trim(),
-            version: meta.getInfoData().version
+            method: method
         }
     });
 }
