@@ -4,9 +4,16 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/01/21}$
+
+$\textsf{[v1.7.1\ =>\ {\textbf{\color{brown}v1.8.0}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added logger and updated helper function for logging.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/01/19}$
 
-$\textsf{[v1.6.35\ =>\ {\textbf{\color{brown}v1.7.1}]}}$ app
+$\textsf{[v1.6.35\ =>\ v1.7.1]}$ app
 - $\textsf{\color{green}Change:}$ Security update: extended exception handling (frontend+backend) for model calculation and api data fetch.
 - $\textsf{\color{orange}Patch:}$ Added command to ignore status 0 error on 'development' environment (self-signed certificate for HTTPS).
 

@@ -1,5 +1,7 @@
 const {SortingOption} = require('./enums/sorting-option.enum');
-const Secrets = require('../utils/secrets.utils');
+const Logger = require('../logger/config.logger');
+
+const logger = Logger.getLogger();
 
 exports.basicResponse = (body, success, message) => {
     return {
@@ -18,13 +20,14 @@ exports.isObjEmpty = (obj) => {
 }
 
 exports.logError = (message, method, err) => {
-    message += ` - ENV: '${Secrets.MODE.trim()}'`;
-    // TODO(yqni13): add logger (TAVA-95)
-    console.log('Logger [MESSAGE]: ', message);
-    console.log('Logger [ERROR]: ', err.error);
-    console.log('Logger [CODE]: ', err.code ? err.code : err.status ? err.status : null);
-    console.log('Logger [STACK]: ', err.stack);
-    console.log('Logger [CONTEXT]: ', { method: method });
+    logger.error(message, {
+        error: err.error,
+        code: err.status ? err.status : err.code ? err.code : null,
+        stack: err.stack,
+        context: { 
+            method: method
+        }
+    });
 }
 
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {
