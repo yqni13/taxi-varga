@@ -8,5 +8,6 @@ module.exports.ErrorCodes = {
     TokenMissingException: 6,
     JWTExpirationException: 7,
     RequestExceedMaxException: 8,
-    MaintenanceException: 9
+    MaintenanceException: 9,
+    UnexpectedApiResponseException: 10,
 };

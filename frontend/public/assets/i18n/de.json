@@ -66,7 +66,8 @@
                     "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
                     "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
                     "maintenance-code-1": "Der digitale Service steht wegen Wartungsarbeiten aktuell NICHT zur Verfügung. Für Anfragen zum Beförderungsdienst melden Sie sich bitte direkt unter der Telefonnummer: ",
-                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden."
+                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
+                    "tava-unexpected-api-error": "Daten, die von einem externen Service für die weitere Berechnung benötigt werden, sind aktuell nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden sich an den Support."
                 },
                 "header": {
                     "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
@@ -76,7 +77,8 @@
                     "JWTExpirationException": "Sitzung abgelaufen",
                     "MaintenanceException": "Technische Wartung",
                     "RequestExceedMaxException": "Kapazität überschritten",
-                    "TokenMissingException": "Sitzungs-Token fehlt"
+                    "TokenMissingException": "Sitzungs-Token fehlt",
+                    "UnexpectedApiResponseException": "Externer Service Fehler"
                 }
             }
         }

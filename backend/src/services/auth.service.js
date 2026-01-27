@@ -2,10 +2,9 @@ const { basicResponse } = require('../utils/common.utils');
 const AuthModel = require('../models/auth.model');
 
 class AuthService {
-    initSession = async (params) => {
-        const hasParams = Object.keys(params).length !== 0;
+    async initSession(params) {
         const authModel = new AuthModel();
-        const result = await authModel.generateToken(hasParams ? params : {});
+        const result = await authModel.generateToken(params);
         return basicResponse(result.body, result.code, result.msg);
     }
 }

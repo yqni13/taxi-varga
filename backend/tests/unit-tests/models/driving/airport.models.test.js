@@ -1,7 +1,12 @@
+const Utils = require('../../../../src/utils/common.utils');
 const DrivingAirportModel = require('../../../../src/models/driving/airport.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
-const { NotFoundException } = require('../../../../src/utils/exceptions/common.exception');
 const MockData_requestMapsMatrix = require('../../../mock-data/requestMapsMatrix.mock.json');
+const { mapMockApiResult } = require('../../../common.test-utils');
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+
+const expectExceptionResult = UnexpectedException;
+const mockBoolean = false;
 
 describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
 
@@ -49,28 +54,18 @@ describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('Empty params', async () => {
-            const mockParam_params = {};
-
-            const airportModel = new DrivingAirportModel(googleRoutesApi);
-            const testFn = await airportModel.calcAirportRoute(mockParam_params);
-            const expectResult = {error: 'no params found'};
-
-            expect(testFn).toMatchObject(expectResult);
-        })
-
-        test('Params: invalid <origin.zipCode>', async () => {
-            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route2000-1300#1']);
-            const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route2000-1300#1']);
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
             const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
-
             const airportModel = new DrivingAirportModel(mockAPI);
-            const expectResult = NotFoundException;
 
-            await expect(airportModel.calcAirportRoute(mockParam_params))
-                .rejects
-                .toThrow(expectResult);
-            expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
+
+            await expect(() => airportModel.calcAirportRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
         })
     })
 });
@@ -90,6 +85,58 @@ describe('Airport tests, priority: calcAirportRoute - DEPARTURE', () => {
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
+        })
+    })
+
+    describe('Testing invalid fn calls', () => {
+
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const airportModel = new DrivingAirportModel(mockAPI);
+
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
+
+            await expect(() => airportModel.calcAirportRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
+        })
+    })
+})
+
+describe('Airport tests, priority: _mapPriceByZipCode', () => {
+
+    let airportModel;
+    beforeEach(() => {
+        airportModel = new DrivingAirportModel(googleRoutesApi);
+    })
+
+    describe('Testing valid fn calls', () => {
+
+        test('Params: <district> = districts.inner', () => {
+            const mockParam_district = 1;
+            const mockResult = 42;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <district> = districts.middle', () => {
+            const mockParam_district = 9;
+            const mockResult = 45;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
+        })
+
+        test('Params: <district> = districts.outer', () => {
+            const mockParam_district = 22;
+            const mockResult = 48;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
         })
     })
 })

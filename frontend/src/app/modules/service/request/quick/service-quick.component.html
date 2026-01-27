@@ -12,6 +12,7 @@
                     <input
                         class="tava-text-input-checkbox"
                         type="checkbox"
+                        [checked]="isGeoChecked"
                         (change)="getGeolocationCheckboxValue($event)"
                     >
                     <span class="tava-service-block-input">

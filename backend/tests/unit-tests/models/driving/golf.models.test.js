@@ -1,6 +1,12 @@
+const Utils = require('../../../../src/utils/common.utils');
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+const { mapMockApiResult } = require('../../../common.test-utils');
 const DrivingGolfModel = require('../../../../src/models/driving/golf.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const MockData_RouteMatrix = require('../../../mock-data/routeMatrix_golf.mock.json');
+
+const expectExceptionResult = UnexpectedException;
+const mockBoolean = false;
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
@@ -65,15 +71,19 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
     })
 
     describe('Testing invalid fn calls', () => {
+    
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const golfModel = new DrivingGolfModel(mockAPI);
 
-        test('Empty params', async () => {
-            const mockParam_params = {};
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
 
-            const golfModel = new DrivingGolfModel(googleRoutesApi);
-            const testFn = await golfModel.calcGolfRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
-
-            expect(testFn).toMatchObject(expectResult);
+            await expect(() => golfModel.calcGolfRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
         })
     })
 })
