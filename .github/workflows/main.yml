@@ -34,6 +34,8 @@ jobs:
       SECRET_AUTH_ISSUER: ${{ secrets.SECRET_AUTH_ISSUER }}
       SECRET_PUBLIC_KEY: none
       SECRET_PRIVATE_KEY: none
+      SECRET_BETTERSTACK_LOGGING_KEY: ${{ secrets.SECRET_BETTERSTACK_LOGGING_KEY }}
+      SECRET_BETTERSTACK_HOST: ${{ secrets.SECRET_BETTERSTACK_HOST }}
 
     steps:
       - name: Checkout repository

@@ -6,7 +6,7 @@ const {
 const Secrets = require('../utils/secrets.utils');
 
 
-const auth = (isSimpleAuth = false) => {
+function auth(isSimpleAuth = false) {
     return async function (req, res, next) {
         try {
             if(isSimpleAuth) {

@@ -4,23 +4,50 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/01/21}$
+
+$\textsf{[v1.7.1\ =>\ {\textbf{\color{brown}v1.8.0}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added logger and updated helper function for logging.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/01/19}$
+
+$\textsf{[v1.6.35\ =>\ v1.7.1]}$ app
+- $\textsf{\color{green}Change:}$ Security update: extended exception handling (frontend+backend) for model calculation and api data fetch.
+- $\textsf{\color{orange}Patch:}$ Added command to ignore status 0 error on 'development' environment (self-signed certificate for HTTPS).
+
+<br>
+
+### $\textsf{\color{skyblue}2026/01/16}$
+
+$\textsf{[v1.6.30\ =>\ v1.6.35]}$ app
+- $\textsf{\color{orange}Patch:}$ Refactored code structure on multiple locations:
+    + logo occurrence on documentation responsive image
+    + normal vs arrow functions
+    + centralized payload validation controller layer only
+    + try/catch in controller layer
+- $\textsf{\color{orange}Patch:}$ Removed deprecated code with target '10/2025'.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/01/04}$
 
-$\textsf{[v1.6.29\ =>\ {\textbf{\color{brown}v1.6.30}]}}$ app
+$\textsf{[v1.6.29\ =>\ v1.6.30]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated selection of return address of service 'quick'.
 
 <br>
 
 ### $\textsf{\color{skyblue}2026/01/02}$
 
-$\textsf{[v1.6.28\ =>\ {\textbf{\color{brown}v1.6.29}]}}$ app
+$\textsf{[v1.6.28\ =>\ v1.6.29]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated calculation of service 'quick' for price adaptation.
 
 <br>
 
 ### $\textsf{\color{skyblue}2025/12/30}$
 
-$\textsf{[v1.6.26\ =>\ {\textbf{\color{brown}v1.6.28}]}}$ app
+$\textsf{[v1.6.26\ =>\ v1.6.28]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated calculation of service 'destination' for price adaptation.
 - $\textsf{\color{orange}Patch:}$ Updated calculation of service 'golf' for additional discounts regarding service distance.
 

@@ -22,6 +22,8 @@ class Secrets {
     AUTH_ISSUER = '';
     PUBLIC_KEY = '';
     PRIVATE_KEY = '';
+    BETTERSTACK_LOGGING_KEY = '';
+    BETTERSTACK_HOST = '';
 
     constructor() {
         this.MODE = this.#setMode();
@@ -42,6 +44,8 @@ class Secrets {
         this.AUTH_ISSUER = this.#setAuthIssuer();
         this.PUBLIC_KEY = this.#setPublicKey();
         this.PRIVATE_KEY = this.#setPrivateKey();
+        this.BETTERSTACK_LOGGING_KEY = this.#setBetterstackLoggingKey();
+        this.BETTERSTACK_HOST = this.#setBetterstackHost();
     }
 
     #setMode = () => {
@@ -182,6 +186,20 @@ class Secrets {
             throw new AuthSecretNotFoundException('backend-404-env#PRIVATE_KEY');
         }    
         return key;
+    }
+
+    #setBetterstackLoggingKey = () => {
+        if(!Config.BETTERSTACK_LOGGING_KEY) {
+            throw new AuthSecretNotFoundException('backend-404-env#BETTERSTACK_LOGGING_KEY')
+        }
+        return Config.BETTERSTACK_LOGGING_KEY;
+    }
+
+    #setBetterstackHost = () => {
+        if(!Config.BETTERSTACK_HOST) {
+            throw new AuthSecretNotFoundException('backend-404-env#BETTERSTACK_HOST')
+        }
+        return Config.BETTERSTACK_HOST;
     }
 }
 

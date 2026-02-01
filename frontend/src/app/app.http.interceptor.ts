@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { catchError, Observable, of, tap } from "rxjs";
+import { catchError, Observable, tap, throwError } from "rxjs";
 import { HttpObservationService } from "./shared/services/http-observation.service";
 import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
@@ -66,8 +66,8 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
             handleError(response, httpObservationService, snackbarService, mailTranslateService, translate, router, helper).catch((err) => {
                 console.error('Error handling failed', err);
             })
-            
-            return of(response);
+
+            return throwError(() => response);
         })
     )
 }
@@ -208,10 +208,17 @@ export async function handleError(response: any, httpObservationService: HttpObs
         helper.navigateWithRoute('/service', router);
     }
     // OTHER VALIDATION
-    else if(response.status >= 402 && response.status < 500 || response.status === 535) {
+    else if(response.status >= 402 && response.status <= 599) {
+        const currentLang = translateService.currentLang;
+        const path = 'common.validation.validate-backend';
+        let message = String(response.error.headers.message);
         snackbarService.notify({
-            title: response.error.headers.error,
-            text: response.error.headers.message,
+            title: currentLang === 'de' 
+                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
+                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
+            text: currentLang === 'de'
+                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
+                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
             autoClose: false,
             type: SnackbarOption.ERROR,
         })

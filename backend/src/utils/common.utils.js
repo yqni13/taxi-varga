@@ -1,4 +1,7 @@
 const {SortingOption} = require('./enums/sorting-option.enum');
+const Logger = require('../logger/config.logger');
+
+const logger = Logger.getLogger();
 
 exports.basicResponse = (body, success, message) => {
     return {
@@ -14,6 +17,17 @@ exports.isObjEmpty = (obj) => {
         }
     }
     return true;
+}
+
+exports.logError = (message, method, err) => {
+    logger.error(message, {
+        error: err.error,
+        code: err.status ? err.status : err.code ? err.code : null,
+        stack: err.stack,
+        context: { 
+            method: method
+        }
+    });
 }
 
 exports.getTimeInMinutesFromRoutesMatrix = (value) => {

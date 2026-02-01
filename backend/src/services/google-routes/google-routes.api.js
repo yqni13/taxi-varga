@@ -2,8 +2,9 @@ require('dotenv').config();
 const axios = require('axios');
 const Utilities = require('../../utils/common.utils');
 const Secrets = require('../../utils/secrets.utils');
-const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const GeoLocation_ViennaBorder_data = require('./vienna-border.locations.json');
+const { ServiceOption } = require('../../utils/enums/service-option.enum');
+const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 
 class GoogleRoutesAPI {
     #env_GOOGLE_API_KEY;
@@ -26,7 +27,7 @@ class GoogleRoutesAPI {
         return 'https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix';
     }
 
-    requestMapsMatrix = async (params, useId) => {
+    async requestMapsMatrix(params, useId) {
         const prefix = 'place_id:';
         let origins, destinations;
         if(useId === 'origin') {
@@ -44,16 +45,18 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data;
             })
-            .catch(error => {
-                console.log("google error: ", error.message);
-                result = error.message;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_requestMapsMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         return result;
     }
 
     // request service route matrix (home => ) origin => destination => origin ( => home)
-    requestRouteMatrix = async (params, service) => {
+    async requestRouteMatrix(params, service) {
         const origin = params['originDetails']['placeId'];
         const destination = params['destinationDetails']['placeId'];
         const golfcourse = service === ServiceOption.GOLF ? params['golfcourseDetails']['placeId'] : '';
@@ -109,9 +112,11 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
-            .catch(error => {
-                console.log("google request error: ", error.message);
-                return error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_requestRouteMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         result.forEach((entry) => {
@@ -121,7 +126,7 @@ class GoogleRoutesAPI {
         return result;
     }
 
-    requestBorderRouteMatrix = async (params) => {
+    async requestBorderRouteMatrix(params) {
         const destination = params['destinationDetails']['placeId'];
         const headers = this.getRoutesHeader()
         const url = this.getRoutesURL();
@@ -154,9 +159,11 @@ class GoogleRoutesAPI {
             .then(response => {
                 result = response.data; // response[entry] = {distanceMeters: number, duration: number}
             })
-            .catch(error => {
-                console.log("google request error: ", error.message);
-                return error;
+            .catch(err => {
+                const message = 'ERROR ON API REQUEST';
+                const method = 'TAVA_GoogleApi_requestBorderRouteMatrix';
+                Utils.logError(message, method, err);
+                throw new UnexpectedApiResponseException(err);
             })
 
         result.forEach((entry) => {

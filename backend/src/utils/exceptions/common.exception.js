@@ -49,8 +49,8 @@ class RequestExceedMaxException extends CommonException {
 }
 
 class UnexpectedException extends CommonException {
-    constructor(message, data) {
-        super(ErrorCodes.UnexpectedException, message, data, ErrorStatusCodes.UnexpectedException);
+    constructor(data) {
+        super(ErrorCodes.UnexpectedException, 'tava-unexpected-error', data);
     }
 }
 

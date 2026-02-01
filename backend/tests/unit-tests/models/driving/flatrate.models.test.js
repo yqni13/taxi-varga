@@ -1,6 +1,12 @@
+const Utils = require('../../../../src/utils/common.utils');
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+const { mapMockApiResult } = require('../../../common.test-utils');
 const DrivingFlatrateModel = require('../../../../src/models/driving/flatrate.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const MockData_RouteMatrix = require('../../../mock-data/routeMatrix_flatrate.mock.json');
+
+const expectExceptionResult = UnexpectedException;
+const mockBoolean = false;
 
 describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
@@ -74,14 +80,18 @@ describe('Flatrate tests, priority: calcFlatrateRoute', () => {
 
     describe('Testing invalid fn calls', () => {
 
-        test('Empty params', async () => {
-            const mockParam_params = {};
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const flatrateModel = new DrivingFlatrateModel(mockAPI);
 
-            const flatrateModel = new DrivingFlatrateModel(googleRoutesApi);
-            const testFn = await flatrateModel.calcFlatrateRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
 
-            expect(testFn).toMatchObject(expectResult);
+            await expect(() => flatrateModel.calcFlatrateRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
         })
     })
 })
