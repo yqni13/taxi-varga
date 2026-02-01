@@ -3,7 +3,7 @@ import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";
 import { UtilsService } from "./utils.service";
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { AddressFilterOptions } from "../enums/addressfilter-options.enum";
 import { environment } from "../../../environments/environment";
 
@@ -80,14 +80,26 @@ export class AddressAPIService {
     }
 
     sendAutocompleteRequest(): Observable<HttpResponse<any>> {
-        return this.http.post<any>(this.urlAutocomplete, this.dataAutocomplete, { observe: 'response' });
+        return this.http.post<any>(this.urlAutocomplete, this.dataAutocomplete, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendDetailsRequest(): Observable<HttpResponse<any>> {
-        return this.http.post<any>(this.urlDetails, this.dataDetails, { observe: 'response' });
+        return this.http.post<any>(this.urlDetails, this.dataDetails, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 
     sendGeolocationRequest(): Observable<HttpResponse<any>> {
-        return this.http.post<any>(this.urlGeolocation, this.dataGeolocation, { observe: 'response' });
+        return this.http.post<any>(this.urlGeolocation, this.dataGeolocation, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 }

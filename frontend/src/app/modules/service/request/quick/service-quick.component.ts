@@ -48,6 +48,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected browserGeolocationSupport: boolean;
     protected mapUrl: string | SafeResourceUrl | null;
     protected isLoading: boolean;
+    protected isGeoChecked: boolean;
     protected isSelectingGPSOption: boolean;
 
     private originSubscription$: Subscription | undefined;
@@ -79,6 +80,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.browserGeolocationSupport = true;
         this.mapUrl = '';
         this.isLoading = false;
+        this.isGeoChecked = false;
         this.isSelectingGPSOption = false;
 
         this.originSubscription$ = new Subscription();
@@ -150,10 +152,9 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.toHandleIsNotUsingGPS();
     }
 
-
-
     getGeolocationCheckboxValue(event: any) {
         this.isSelectingGPSOption = event.target?.checked;
+        this.isGeoChecked = event.target?.checked;
         this.getLocationByGPS(event.target?.checked);
     }
 
@@ -177,18 +178,26 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                     longitude: position.coords.longitude,
                     language: this.translate.currentLang
                 });
-                this.addressAPI.sendGeolocationRequest().subscribe(async (result) => {
-                    if(Utils.isObjEmpty(result.body.body.placeData)) {
-                        this.toHandleIsNotUsingGPS();
+                this.addressAPI.sendGeolocationRequest().subscribe({
+                    next: async (result: any) => {
+                        if(Utils.isObjEmpty(result.body.body.placeData)) {
+                            this.toHandleIsNotUsingGPS();
+                            await this.delay(500);
+                            this.browserGeolocationSupport = false;
+                            this.isLoading = false;
+                            return;
+                        }
+                        this.mapUrl = this.transformMapUrl(result.body.body.placeData.place_id);
+                        this.transformOriginByGeocode(result.body.body.placeData);
                         await this.delay(500);
-                        this.browserGeolocationSupport = false;
                         this.isLoading = false;
-                        return;
+                    },
+                    error: async (error) => {
+                        console.log("Error processing Geolocation by 3rd level service", error);
+                        await this.delay(500);
+                        this.getGeolocationCheckboxValue({event: { target: { checked: false}}});
+                        this.isLoading = false;
                     }
-                    this.mapUrl = this.transformMapUrl(result.body.body.placeData.place_id);
-                    this.transformOriginByGeocode(result.body.body.placeData);
-                    await this.delay(500);
-                    this.isLoading = false;
                 })
             }
             const error = async () => {

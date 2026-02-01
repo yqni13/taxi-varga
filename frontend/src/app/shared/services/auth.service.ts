@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { DateTimeService } from "./datetime.service";
-import { Observable } from "rxjs";
+import { catchError, Observable, throwError } from "rxjs";
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { CryptoService } from "./crypto.service";
 import { ServiceOptions } from "../enums/service-options.enum";
@@ -64,6 +64,10 @@ export class AuthService {
     }
 
     sendInitRequest(): Observable<HttpResponse<any>> {
-        return this.http.post<any>(this.url, this.credentials, { observe: 'response' });
+        return this.http.post<any>(this.url, this.credentials, { observe: 'response' }).pipe(
+            catchError(err => {
+                return throwError(() => err);
+            })
+        );
     }
 }

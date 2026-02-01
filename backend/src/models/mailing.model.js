@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const Utils = require('../utils/common.utils');
 const { 
     AuthenticationException,
     RequestExceedMaxException,
@@ -10,48 +11,57 @@ const Secrets = require('../utils/secrets.utils');
 const { ServiceOption } = require('../utils/enums/service-option.enum');
 
 class MailingModel {
-    sendMail = async (params) => {
-        if(!Object.keys(params).length) {
-            return { error: 'no params found' };
-        }
+    async sendMail(params) {
+        try {
+            const encryptedBody = await decryptAES(params['body'], Secrets.IV_POSITION);
+            const sender = decryptRSA(params['sender'], Secrets.PRIVATE_KEY);
+            const subject = decryptRSA(params['subject'], Secrets.PRIVATE_KEY);
+            
+            const content = this.createEmailContent(JSON.parse(encryptedBody));
+            const msgRequest = content.msgRequest;
+            const msgConfirm = content.msgConfirm;
 
-        const encryptedBody = await decryptAES(params['body'], Secrets.IV_POSITION);
-        const sender = decryptRSA(params['sender'], Secrets.PRIVATE_KEY);
-        const subject = decryptRSA(params['subject'], Secrets.PRIVATE_KEY);
-        
-        const content = this.createEmailContent(JSON.parse(encryptedBody));
-        const msgRequest = content.msgRequest;
-        const msgConfirm = content.msgConfirm;
+            this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
 
-        this.validateDecryptedSubject(subject, Secrets.EMAIL_SUBJECT);
+            const mailOptionsRequest = {
+                from: Secrets.EMAIL_SENDER,
+                to: Secrets.EMAIL_RECEIVER,
+                replyTo: sender,
+                subject: subject,
+                text: msgRequest
+            };
 
-        const mailOptionsRequest = {
-            from: Secrets.EMAIL_SENDER,
-            to: Secrets.EMAIL_RECEIVER,
-            replyTo: sender,
-            subject: subject,
-            text: msgRequest
-        };
-
-        const mailOptionsConfirm = {
-            from: Secrets.EMAIL_SENDER,
-            to: sender,
-            subject: 'taxi-varga, request received',
-            text: msgConfirm
-        }
-        
-        const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
-        const accessableSender = sender;
-        // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
-
-        return { 
-            response: {
-                sendRequestTo: sendRequest,
-                confirmedRequestFrom: confirmRequest,
-                sender: accessableSender
+            const mailOptionsConfirm = {
+                from: Secrets.EMAIL_SENDER,
+                to: sender,
+                subject: 'taxi-varga, request received',
+                text: msgConfirm
             }
-        };
+            
+            const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+            const confirmRequest = await this.wrapedSendMail(mailOptionsConfirm, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
+            const accessableSender = sender;
+            // const encryptedSender = encryptRSA(sender, Secrets.PUBLIC_KEY);
+
+            return { 
+                response: {
+                    sendRequestTo: sendRequest,
+                    confirmedRequestFrom: confirmRequest,
+                    sender: accessableSender
+                }
+            };
+        } catch(err) {
+            const message = 'ERROR ON MODEL PROCESSING + API';
+            const method = 'TAVA_MailingModel_sendMail';
+            Utils.logError(message, method, err);
+            if(err instanceof AuthenticationException
+                || err instanceof RequestExceedMaxException
+                || err instanceof InvalidCredentialsException
+            ) {
+                throw err;
+            }
+            throw new UnexpectedException(err);
+        }
     }
 
     async wrapedSendMail(mailOptions, emailSender, emailPass) {
@@ -90,13 +100,13 @@ class MailingModel {
         })
     }
 
-    validateDecryptedSubject = (subject, secretSubject) => {
+    validateDecryptedSubject(subject, secretSubject) {
         if(subject !== secretSubject) {
             throw new InvalidCredentialsException('backend-invalid-subject');
         }
     }
 
-    createEmailContent = (data) => {
+    createEmailContent(data) {
         const divider = `
         ------------------
         ------------------
@@ -119,7 +129,7 @@ class MailingModel {
         }
     }
 
-    configEmailConfirmDE = (data) => {
+    configEmailConfirmDE(data) {
         let introduction;
         if(data.gender === 'female') {
             introduction = data.title 
@@ -134,7 +144,7 @@ class MailingModel {
         return `\n${introduction}\nVielen Dank für Ihre Anfrage bei taxi-varga.\nWir werden uns sobald wie möglich bei Ihnen melden!\n\nBitte antworten Sie NICHT auf dieses automatische Mail.\n`
     }
 
-    configEmailConfirmEN = (data) => {
+    configEmailConfirmEN(data) {
         let introduction;
         if(data.gender === 'female') {
             introduction = data.title 
@@ -149,7 +159,7 @@ class MailingModel {
         return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n`
     }
 
-    configEmailBodyDE = (data) => {
+    configEmailBodyDE(data) {
         const msgStart = `Anfrage für Service: ${data.serviceTranslateDE}`;
 
         const msgCustomer = `Daten zur Person\n${data.genderTranslateDE} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nPersönliche Notiz: ${data.note ? '"' + data.note + '"' : '--'}`;
@@ -183,7 +193,7 @@ class MailingModel {
         return msgOutput;
     }
 
-    configEmailBodyEN = (data) => {
+    configEmailBodyEN(data) {
         const msgStart = `Request for service: ${data.serviceTranslateEN}`;
 
         const msgCustomer = `Customer data\n${data.genderTranslateEN} ${data.title ? data.title + ' ' : ''}${data.firstName} ${data.lastName}\n${data.phone}\n${data.email}\nCustomer note: ${data.note ? '"' + data.note + '"' : '--'}`;

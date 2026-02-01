@@ -1,6 +1,3 @@
-require('dotenv').config();
-const Utils = require('../utils/common.utils');
-
 class AddressModel {
     #googlePlaces;
     #googleGeocode;
@@ -10,33 +7,18 @@ class AddressModel {
         this.#googleGeocode = googleGeocodeApi;
     }
 
-    getPlaceAutocomplete = async (params) => {
-        if(Utils.isObjEmpty(params)) {
-            return {error: 'no params found'};
-        }
-
+    async mapPlaceAutocompleteApiResult(params) {
         const result = await this.#googlePlaces.requestPlaceAutocomplete(params);
-
         return { placeData: result };
     }
 
-    getPlaceDetails = async (params) => {
-        if(Utils.isObjEmpty(params)) {
-            return {error: 'no params found'};
-        }
-
+    async mapPlaceDetailsApiResult(params) {
         const result = await this.#googlePlaces.requestPlaceDetails(params);
-
         return { placeData: result };
     }
 
-    getPlaceDetailsByGeolocation = async (params) => {
-        if(Utils.isObjEmpty(params)) {
-            return { error: 'no params found' };
-        }
-
+    async mapPlaceDetailsByGeolocationApiResult(params) {
         const result = await this.#googleGeocode.requestGeolocation(params);
-
         return { placeData: result };
     }
 }

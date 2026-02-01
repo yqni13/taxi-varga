@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.6.30}}$
+$\texttt{\color{teal}{v1.8.0}}$
 
 
 <br><br>
@@ -236,8 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.6.29\ =>\ {\textbf{\color{brown}v1.6.30}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated selection of return address of service 'quick'.
+$\textsf{[v1.7.1\ =>\ {\textbf{\color{brown}v1.8.0}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added logger and updated helper function for logging.
 
 <br>
 

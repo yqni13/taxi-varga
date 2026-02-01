@@ -1,7 +1,13 @@
+const Utils = require('../../../../src/utils/common.utils');
+const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
+const { mapMockApiResult } = require('../../../common.test-utils');
 const DrivingQuickModel = require("../../../../src/models/driving/quick.driving.model");
 const googleRoutesApi = require("../../../../src/services/google-routes/google-routes.api");
 const { QuickRouteOption } = require("../../../../src/utils/enums/quickroute-option.enum");
 const MockData_RouteMatrix = require("../../../mock-data/routeMatrix_quick.mock.json");
+
+const expectExceptionResult = UnexpectedException;
+const mockBoolean = false;
 
 describe('Quick tests, priority: calcQuickRoute', () => {
 
@@ -122,15 +128,19 @@ describe('Quick tests, priority: calcQuickRoute', () => {
     })
 
     describe('Testing invalid fn calls', () => {
+    
+        test('Throw UnexpectedException by catch-block', async () => {
+            const mockParam_params = null;
+            const mockResult = null;
+            const mockErrorMsg = 'ERROR ON MODEL CALCULATION + API';
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+            const quickModel = new DrivingQuickModel(mockAPI);
 
-        test('Empty params', async () => {
-            const mockParam_params = {};
+            jest.spyOn(Utils, 'logError').mockReturnValue();
+            const _ = mapMockApiResult(mockResult, mockBoolean, mockErrorMsg);
 
-            const quickModel = new DrivingQuickModel(googleRoutesApi);
-            const testFn = await quickModel.calcQuickRoute(mockParam_params);
-            const expectResult = { error: 'no params found' };
-
-            expect(testFn).toMatchObject(expectResult);
+            await expect(() => quickModel.calcQuickRoute(mockParam_params))
+                .rejects.toThrow(expectExceptionResult);
         })
     })
 })

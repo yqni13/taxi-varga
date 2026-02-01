@@ -18,4 +18,6 @@ module.exports.Config = {
     AUTH_ROLE: process.env.SECRET_AUTH_ROLE || null,
     PUBLIC_KEY: process.env.SECRET_PUBLIC_KEY || null,
     PRIVATE_KEY: process.env.SECRET_PRIVATE_KEY || null,
+    BETTERSTACK_LOGGING_KEY: process.env.SECRET_BETTERSTACK_LOGGING_KEY || null,
+    BETTERSTACK_HOST: process.env.SECRET_BETTERSTACK_HOST || null
 };
