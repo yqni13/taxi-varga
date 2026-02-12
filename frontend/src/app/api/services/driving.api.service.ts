@@ -5,9 +5,9 @@ import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { catchError, Observable, throwError } from "rxjs";
-import { DateTimeService } from './datetime.service';
-import { UtilsService } from './utils.service';
-import { ServiceOptions } from '../enums/service-options.enum';
+import { DateTimeService } from '../../shared/services/datetime.service';
+import { UtilsService } from '../../shared/services/utils.service';
+import { ServiceRoute } from '../routes/service.route.enum';
 import { environment } from '../../../environments/environment';
 
 @Injectable({
@@ -36,16 +36,16 @@ export class DrivingAPIService {
     ) {
         this.domainPathV1 = '/api/v1/driving';
 
-        // this.urlAirport = `${this.domainPathV1}/${ServiceOptions.AIRPORT}`;
-        // this.urlDestination = `${this.domainPathV1}/${ServiceOptions.DESTINATION}`;
-        // this.urlFlatrate = `${this.domainPathV1}/${ServiceOptions.FLATRATE}`;
-        // this.urlGolf = `${this.domainPathV1}/${ServiceOptions.GOLF}`;
-        // this.urlQuick = `${this.domainPathV1}/${ServiceOptions.QUICK}`;
-        this.urlAirport = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.AIRPORT}`;
-        this.urlDestination = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.DESTINATION}`;
-        this.urlFlatrate = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.FLATRATE}`;
-        this.urlGolf = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.GOLF}`;
-        this.urlQuick = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceOptions.QUICK}`;
+        // this.urlAirport = `${this.domainPathV1}/${ServiceRoute.AIRPORT}`;
+        // this.urlDestination = `${this.domainPathV1}/${ServiceRoute.DESTINATION}`;
+        // this.urlFlatrate = `${this.domainPathV1}/${ServiceRoute.FLATRATE}`;
+        // this.urlGolf = `${this.domainPathV1}/${ServiceRoute.GOLF}`;
+        // this.urlQuick = `${this.domainPathV1}/${ServiceRoute.QUICK}`;
+        this.urlAirport = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.AIRPORT}`;
+        this.urlDestination = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.DESTINATION}`;
+        this.urlFlatrate = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.FLATRATE}`;
+        this.urlGolf = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.GOLF}`;
+        this.urlQuick = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.QUICK}`;
 
         this.dataAirport = {
             origin: '',

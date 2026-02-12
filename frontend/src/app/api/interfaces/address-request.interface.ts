@@ -1,4 +1,4 @@
-import { AddressFilterOptions } from "../enums/addressfilter-options.enum"
+import { AddressFilterOptions } from "../../shared/enums/addressfilter-options.enum"
 
 export declare interface AddressAutocompleteRequest {
     address: string,

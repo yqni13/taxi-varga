@@ -3,29 +3,29 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { Router } from "@angular/router";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "../../../../shared/services/auth.service";
+import { AuthService } from "../../../../api/services/auth.api.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ObservationService } from "../../../../shared/services/observation.service";
 import { TranslateService } from "@ngx-translate/core";
 import { NavigationService } from "../../../../shared/services/navigation.service";
-import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DOCUMENT } from "@angular/common";
-import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
-import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subscription, tap } from "rxjs";
-import { DrivingQuickResponse } from "../../../../shared/interfaces/driving-response.interface";
+import { DrivingQuickResponse } from "../../../../api/interfaces/driving-response.interface";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { AddressAPIService } from "../../../../shared/services/address-api.service";
+import { AddressAPIService } from "../../../../api/services/address.api.service";
 import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
+import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 
 @Component({
     selector: 'tava-service-quick',
@@ -87,7 +87,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     override async ngOnInit() {
-        this.service = ServiceOptions.QUICK;
+        this.service = ServiceRoute.QUICK;
         super.ngOnInit();
         this.initEdit();
     }

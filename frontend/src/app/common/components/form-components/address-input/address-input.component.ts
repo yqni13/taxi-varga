@@ -6,9 +6,9 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
 import { AbstractInputComponent } from "../abstract-input.component";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { Subscription } from "rxjs";
-import { AddressAPIService } from "../../../../shared/services/address-api.service";
+import { AddressAPIService } from "../../../../api/services/address.api.service";
 import { v4 as uuidv4 } from 'uuid';
-import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../shared/interfaces/address-response.interface";
+import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../api/interfaces/address-response.interface";
 import * as CustomValidators from "../../../helper/custom-validators";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 

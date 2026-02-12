@@ -4,15 +4,14 @@ import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
 import { DOCUMENT } from "@angular/common";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
-import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { Router } from "@angular/router";
-import { AuthService } from "../../../../shared/services/auth.service";
-import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { AuthService } from "../../../../api/services/auth.api.service";
+import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { TokenService } from "../../../../shared/services/token.service";
 import { NavigationService } from "../../../../shared/services/navigation.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
@@ -21,6 +20,7 @@ import { BaseServiceComponent } from "../../../../common/components/base-service
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
+import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 
 @Component({
     selector: 'tava-service-airport',
@@ -64,7 +64,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     }
 
     override async ngOnInit() {
-        this.service = ServiceOptions.AIRPORT;
+        this.service = ServiceRoute.AIRPORT;
         super.ngOnInit();
         this.initEdit();
     }
