@@ -6,7 +6,7 @@ import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Router } from "@angular/router";
 import { BaseRoute } from "../../api/routes/base.route.enum";
-import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { default as homeLang } from "../../../../public/assets/i18n/home-en.json";
 import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
 
@@ -128,7 +128,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private mapServiceData() {
         let newEntry = {};
-        const services = Object.values(ServiceOptions);
+        const services = Object.values(ServiceRoute);
         const authors = Object.values(this.authors);
         for(let i = 0; i < this.serviceCollLength; i++) {
             newEntry = {
@@ -147,7 +147,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.router.navigate([`/${BaseRoute.ABOUT}`]);
     }
 
-    navigateToService(service: ServiceOptions) {
+    navigateToService(service: ServiceRoute) {
         if(!this.isNavigatingToAuthor) {
             this.router.navigate([`/${BaseRoute.SERVICE}/${service}`]);
         } else {

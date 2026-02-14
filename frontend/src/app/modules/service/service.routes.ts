@@ -3,7 +3,7 @@ import { ServiceComponent } from "./service.component";
 import { ServiceAirportComponent } from "./request/airport/service-airport.component";
 import { ServiceDestinationComponent } from "./request/destination/service-destination.component";
 import { ServiceFlatrateComponent } from "./request/flatrate/service-flatrate.component";
-import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { ServiceGolfComponent } from "./request/golf/service-golf.component";
 import { AssetsPreloadGuard } from "../../common/guards/assets-preload.guard";
 import { ServiceQuickComponent } from "./request/quick/service-quick.component";
@@ -25,23 +25,23 @@ export const serviceRoutes: Routes = [
         }
     },
     {
-        path: ServiceOptions.AIRPORT,
+        path: ServiceRoute.AIRPORT,
         component: ServiceAirportComponent
     },
     {
-        path: ServiceOptions.DESTINATION,
+        path: ServiceRoute.DESTINATION,
         component: ServiceDestinationComponent
     },
     {
-        path: ServiceOptions.GOLF,
+        path: ServiceRoute.GOLF,
         component: ServiceGolfComponent
     },
     {
-        path: ServiceOptions.FLATRATE,
+        path: ServiceRoute.FLATRATE,
         component: ServiceFlatrateComponent
     },
     {
-        path: ServiceOptions.QUICK,
+        path: ServiceRoute.QUICK,
         component: ServiceQuickComponent
     }
 ]

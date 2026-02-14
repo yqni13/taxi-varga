@@ -7,20 +7,20 @@ import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { ObservationService } from "../../shared/services/observation.service";
 import { HttpObservationService } from "../../shared/services/http-observation.service";
 import { Router } from "@angular/router";
-import { AuthService } from "../../shared/services/auth.service";
+import { AuthService } from "../../api/services/auth.api.service";
 import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
-import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { SnackbarOption } from "../../shared/enums/snackbar-options.enum";
 import { SnackbarMessageService } from "../../shared/services/snackbar.service";
 import { NavigationService } from "../../shared/services/navigation.service";
 import { TokenService } from "../../shared/services/token.service";
 import { MailTranslateService } from "../../shared/services/mail-translate.service";
-import { MailAPIService } from "../../shared/services/mail-api.service";
+import { MailAPIService } from "../../api/services/mail.api.service";
 import { AddressOptions } from "../../shared/enums/address-options.enum";
-import { DrivingAPIService } from "../../shared/services/driving-api.service";
 import { BaseRoute } from "../../api/routes/base.route.enum";
 import * as CustomValidators from "../helper/custom-validators";
+import { DrivingAPIService } from "../../api/services/driving.api.service";
 
 /**
  * This is the base class for all 'service' modules.
@@ -49,7 +49,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected loadOrderResponse: boolean;
     protected serviceForm: FormGroup;
     protected metaForm: FormGroup;
-    protected service!: ServiceOptions;
+    protected service!: ServiceRoute;
     protected subscriptionHttpObservationDriving$: Subscription;
     protected window: any;
     protected delay: any;

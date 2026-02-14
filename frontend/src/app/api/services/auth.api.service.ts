@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
-import { DateTimeService } from "./datetime.service";
+import { DateTimeService } from "../../shared/services/datetime.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { HttpClient, HttpResponse } from "@angular/common/http";
-import { CryptoService } from "./crypto.service";
-import { ServiceOptions } from "../enums/service-options.enum";
+import { CryptoService } from "../../shared/services/crypto.service";
+import { ServiceRoute } from "../routes/service.route.enum";
 import { environment } from '../../../environments/environment';
 import { AuthRequest } from "../interfaces/auth-request.interface";
 
@@ -50,7 +50,7 @@ export class AuthService {
         return this.statusCodes;
     }
 
-    async initSession(service: ServiceOptions) {
+    async initSession(service: ServiceRoute) {
         const addition = this.datetime.getCurrentTimeInMilliseconds();
         try {
             this.credentials = {
