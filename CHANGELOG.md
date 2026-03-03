@@ -4,6 +4,13 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/03/03}$
+
+$\textsf{[v1.8.1\ =>\ {\textbf{\color{brown}v1.8.2}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated pages 'home' and 'sample' on translations and styling.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/02/12}$
 
 $\textsf{[v1.8.0\ =>\ {\textbf{\color{brown}v1.8.1}]}}$ app

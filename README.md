@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.8.1}}$
+$\texttt{\color{teal}{v1.8.2}}$
 
 
 <br><br>
@@ -236,8 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.8.0\ =>\ {\textbf{\color{brown}v1.8.1}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated api specific code structure (internal layers).
+$\textsf{[v1.8.1\ =>\ {\textbf{\color{brown}v1.8.2}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated pages 'home' and 'sample' on translations and styling.
 
 <br>
 
