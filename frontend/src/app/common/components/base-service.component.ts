@@ -51,6 +51,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected metaForm: FormGroup;
     protected service!: ServiceRoute;
     protected subscriptionHttpObservationDriving$: Subscription;
+    protected snackbarTextMail?: string;
+    protected snackbarTextPhone?: string;
     protected window: any;
     protected delay: any;
     
@@ -145,6 +147,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
                         ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.text`)
                         : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.text`),
                     autoClose: false,
+                    phone: this.snackbarTextPhone,
+                    mail: this.snackbarTextMail,
                     type: SnackbarOption.INFO
                 })
                 this.hasToken = true;

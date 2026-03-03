@@ -44,7 +44,7 @@ $currency-width: 40px;
         white-space: pre-line;
         font-weight: bold;
         text-transform: uppercase;
-        text-shadow: 1px 1px 1px sass.$color-text-black;
+        text-shadow: 1px 1px 1px var(--theme-shadow-color);
         color: var(--theme-palette-contrast);
     }
 }
@@ -54,7 +54,7 @@ $currency-width: 40px;
 }
 
 th.tava-samples-special-header {
-    text-shadow: 1px 1px 1px sass.$color-text-black;
+    text-shadow: 1px 1px 1px var(--theme-shadow-color);
     opacity: 0.8;
     font-style: italic;
     font-weight: normal;
@@ -68,6 +68,7 @@ th.tava-samples-special-header {
 }
 
 .tava-samples-golf-table-header {
+    width: calc($price-width + 20px)!important;
     text-shadow: 1px 1px 2px var(--warning-shadow);
     color: var(--theme-palette-contrast);
 }
@@ -80,10 +81,15 @@ td {
     text-align: end;
     padding: sass.$space5 0;
     border-bottom: solid 1px rgba(128, 128, 128, 0.595);
+    #tava-samples-addendum-star-info {
+        display: flex;
+        justify-content: center;
+        line-height: 5px;
+        margin-top: 8px;
+    }
 }
 
 .tava-samples-route {
-    width: 290px;
     text-wrap: wrap;
     white-space: pre-line;
 }
@@ -99,6 +105,8 @@ td {
 }
 
 .tava-samples-addendum {
+    text-align: center;
+    width: 30px;
     padding: 0 5px;
 }
 
