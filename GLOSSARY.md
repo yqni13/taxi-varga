@@ -98,3 +98,4 @@ Basic description: `<base>.<subsuffix?>.<suffix>.<ending>` [specific always sing
 | d2h                    | Destination to Home          | short route direction        |
 | o2g                    | Origin to Golf Course        | short route direction        |
 | g2d                    | Golf Course to Destination   | short route direction        |
+| GC                     | Golf Course                  | golf specific abbreviation   |

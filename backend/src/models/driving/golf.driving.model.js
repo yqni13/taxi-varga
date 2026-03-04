@@ -3,10 +3,12 @@ const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const CustomValidator = require('../../utils/customValidator.utils');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
+const discountConfig = require('../../configs/discounts.json');
 
 class DrivingGolfModel {
     #googleRoutes;
     #prices;
+    #preferenceGcIdList;
 
     constructor(googleRoutesApi) {
         this.#googleRoutes = googleRoutesApi;
@@ -31,7 +33,8 @@ class DrivingGolfModel {
             return: {
                 perKm: 0.4
             },
-        }
+        };
+        this.#preferenceGcIdList = Object.values(discountConfig.service.golf.preference);
     }
 
     async calcGolfRoute(params) {
@@ -78,7 +81,11 @@ class DrivingGolfModel {
             let totalCosts = this.#prices.base + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
 
             // Map additional discounts.
-            totalCosts = this._mapSupportDiscount(totalCosts, params['supportMode']);
+            totalCosts = this._mapSupportDiscount({
+                costs: totalCosts,
+                hasSupportSelected: params.supportMode,
+                golfcourseId: params.golfcourseDetails.placeId
+            });
             totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
@@ -122,12 +129,14 @@ class DrivingGolfModel {
         };
     }
 
-    _mapSupportDiscount(costs, support) {
-        if(!support) {
-            return costs;
+    _mapSupportDiscount(params) {
+        const isPreferenceGC = this.#preferenceGcIdList.includes(params.golfcourseId);
+        if(!isPreferenceGC && !params.hasSupportSelected) {
+            return params.costs;
         }
-        const discount = costs * this.#prices.discount.support;
-        return discount <= 48 ? costs - discount : costs - 48;
+        const discount = params.costs * this.#prices.discount.support;
+        // Always put 25% discount on preference golf course.
+        return isPreferenceGC || discount <= 48 ? params.costs - discount : params.costs - 48;
     }
 
     _mapLongDistanceDiscount(costs, servDist) {

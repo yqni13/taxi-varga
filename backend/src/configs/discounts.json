@@ -1,0 +1,10 @@
+{
+    "service": {
+        "golf": {
+            "preference": {
+                "gc-linsberg": "ChIJDQ7My2vNbUcRjb9sxEUZa4M",
+                "gc-föhrenwald": "ChIJz5aze1TMbUcR7GlKjDV1d3Y"
+            }
+        }
+    }
+}

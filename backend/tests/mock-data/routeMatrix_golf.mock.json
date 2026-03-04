@@ -342,5 +342,119 @@
         },
         "stay": 360,
         "supportMode": true
+    },
+    "route1010-2821-1010": {
+        "apiResult": [
+            {
+                "originIndex": 2,
+                "destinationIndex": 0,
+                "status": {},
+                "duration": 0,
+                "distanceMeters": 0
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 2,
+                "status": {},
+                "duration": 0,
+                "distanceMeters": 0
+            },
+            {
+                "originIndex": 3,
+                "destinationIndex": 1,
+                "status": {},
+                "duration": 0,
+                "distanceMeters": 0
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 1,
+                "status": {},
+                "duration": 0,
+                "distanceMeters": 0
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 26,
+                "duration": 21.1
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 26.4,
+                "duration": 21.8
+            },
+            {
+                "originIndex": 0,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 45,
+                "duration": 40.4
+            },
+            {
+                "originIndex": 3,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 65.5,
+                "duration": 50.2
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 0,
+                "status": {},
+                "distanceMeters": 65.5,
+                "duration": 50.2
+            },
+            {
+                "originIndex": 1,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 44.7,
+                "duration": 39.5
+            },
+            {
+                "originIndex": 2,
+                "destinationIndex": 1,
+                "status": {},
+                "distanceMeters": 64.5,
+                "duration": 49.7
+            },
+            {
+                "originIndex": 3,
+                "destinationIndex": 2,
+                "status": {},
+                "distanceMeters": 44.7,
+                "duration": 39.5
+            }
+        ],
+        "origin": "Wien,+1010+Wien",
+        "originDetails": {
+            "address": "Wien, 1010 Wien",
+            "country": "Austria",
+            "placeId": "ChIJn8o2UZ4HbUcRRluiUYrlwv0",
+            "province": "Wien",
+            "zipCode": "1010"
+        },
+        "destination": "Wien,+1010+Wien",
+        "destinationDetails": {
+            "address": "Wien, 1010 Wien",
+            "country": "Austria",
+            "placeId": "ChIJn8o2UZ4HbUcRRluiUYrlwv0",
+            "province": "Wien",
+            "zipCode": "1010"
+        },
+        "golfcourse": "Am+Golfpl.+1,+2821+Lanzenkirchen,+Austria",
+        "golfcourseDetails": {
+            "address": "Am Golfpl. 1, 2821 Lanzenkirchen, Austria",
+            "country": "Austria",
+            "placeId": "ChIJz5aze1TMbUcR7GlKjDV1d3Y",
+            "province": "Niederösterreich",
+            "zipCode": "2821"
+        },
+        "stay": 360,
+        "supportMode": false
     }
 }
