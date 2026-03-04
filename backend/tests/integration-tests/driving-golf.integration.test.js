@@ -37,7 +37,7 @@ describe('Integration test, service flow: Golf', () => {
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);
-    
+
             expect(mockResponse_driving.statusCode).toBe(200);
             expect(mockResponse_driving.body.body).toMatchObject(mockResult);
         })
@@ -47,7 +47,7 @@ describe('Integration test, service flow: Golf', () => {
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);
-    
+
             expect(mockResponse_driving.statusCode).toBe(200);
             expect(mockResponse_driving.body.body).toMatchObject(mockResult);
         })
