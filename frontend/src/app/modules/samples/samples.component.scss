@@ -69,7 +69,7 @@ th.tava-samples-special-header {
 
 .tava-samples-golf-table-header {
     width: calc($price-width + 20px)!important;
-    text-shadow: 1px 1px 2px var(--warning-shadow);
+    text-shadow: 1px 1px 2px var(--theme-shadow-color);
     color: var(--theme-palette-contrast);
 }
 
@@ -135,7 +135,7 @@ td {
     width: 100%;
     text-align: center;
     margin: sass.$space5;
-    
+    color: var(--theme-hint-grey);
     span {
         font-size: clamp(8px, 2vw, 14px);
         margin: 4px 0;

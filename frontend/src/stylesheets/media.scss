@@ -39,9 +39,8 @@
         }
         .home-sub {
             min-height: 800px;
-            div {
-                margin-left: auto;
-                margin-right: calc($text-margin * 2);
+            #tava-home-sub-wrapper {
+                padding: sass.$space25 sass.$space50;
             }
         }
         .home-service {
@@ -294,9 +293,8 @@
         }
         .home-sub {
             min-height: 675px;
-            div {
-                margin-left: auto;
-                margin-right: $text-margin;
+            #tava-home-sub-wrapper {
+                padding: sass.$space25 sass.$space50;
             }
         }
         .home-service {
@@ -535,9 +533,6 @@
         }
         .home-sub {
             min-height: 575px;
-            div {
-                margin-right: $text-margin;
-            }
         }
         .home-service {
             h2 {
@@ -630,10 +625,9 @@
         .home-sub {
             min-height: 475px;
             text-align: end;
-            div {
-                align-self: end;
-                margin-left: $text-margin;
-                margin-right: $text-margin;
+            #tava-home-sub-wrapper {
+                padding: sass.$space15 sass.$space25;
+                width: calc(100vw - (sass.$space25 * 2) - 5vw); // 5vw as buffer
             }
         }
         .home-service {
@@ -845,9 +839,6 @@
             min-height: 525px;
             h3 {
                 margin: $block-margin 0;
-            }
-            div {
-                margin-right: $text-margin;
             }
             #tava-home-sub-header {
                 width: 100%;

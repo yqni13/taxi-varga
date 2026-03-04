@@ -33,7 +33,7 @@
                 </span>
             </div>
             <div id="tava-home-main-button">
-                <button 
+                <button
                     class="tava-button-simple"
                     [attr.aria-disabled]="true"
                     (click)="navigateToProfile()"
@@ -48,15 +48,19 @@
         <!-- SUB PART -->
         <div class="tava-home-block home-sub">
             <img src="{{activeBg.sub}}" alt="404-picture-not-found">
-            <div id="tava-home-sub-header">
-                <h3>{{'home.sub.title' | translate}}</h3>
-            </div>
-            <div class="tava-home-mid-span" *ngFor="let item of [].constructor(6); let i = index">
-                <span>
-                    {{'home.sub.entry' + i | translate}}
-                </span>
+            <div id="tava-home-sub-wrapper">
+                <div id="tava-home-sub-header">
+                    <h3>{{'home.sub.title' | translate}}</h3>
+                </div>
+                <div class="tava-home-mid-span" *ngFor="let item of [].constructor(6); let i = index">
+                    <span>
+                        {{'home.sub.entry' + i | translate}}
+                    </span>
+                </div>
             </div>
         </div>
+
+        <!-- SERVICE PART -->
         <div class="tava-home-block home-service">
             <div id="tava-home-service-header">
                 <h2>{{'home.services.title' | translate}}</h2>
