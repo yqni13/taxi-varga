@@ -96,9 +96,9 @@
                     <tr>
                         <th class="tava-samples-header-bottom-close"></th>
                         <th class="tava-samples-header-bottom-close"></th>
-                        <th class="tava-samples-header-bottom-close">**</th>
+                        <th class="tava-samples-header-bottom-close"></th>
                         <th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
-                            {{'z-content-samples.samples-utility.price-classic' | translate}}
+                            {{'** ' + ('z-content-samples.samples-utility.price-classic' | translate)}}
                         </th>
                         <th colspan="1" class="tava-samples-header-bottom-close">
                             |
@@ -109,12 +109,20 @@
                     </tr>
                 </thead>
                 <tbody *tavaVar="'z-content-samples.samples-content-option4.entry' as contentPath4">
-                    <tr *ngFor="let entry of [].constructor(samplesOption4Length); let i = index">
-                        <td class="tava-samples-route">
+                    <tr
+                        *ngFor="let entry of samplesOption4Entries; let i = index"
+                        ngClass="{{entry[0] === 'entry4' ? 'tava-color-secondary-style' : ''}}"
+                    >
+                        <td class="tava-samples-route" >
                             {{contentPath4 + i + '.route' | translate}}
                         </td>
                         <td class="tava-samples-colon">:</td>
                         <td class="tava-samples-addendum">
+                            <ng-container *ngIf="entry[0] ==='entry4'">
+                                <span id="tava-samples-addendum-star-info">
+                                    {{'*** '}}
+                                </span>
+                            </ng-container>
                             {{'z-content-samples.samples-utility.addendum' | translate}}
                         </td>
                         <td class="tava-samples-price samples-orientation-center">
@@ -140,6 +148,9 @@
         </span>
         <span>
             {{'z-content-samples.samples-utility.discount-info2' | translate}}
+        </span>
+        <span>
+            {{'z-content-samples.samples-utility.discount-info3' | translate}}
         </span>
     </div>
 </section>

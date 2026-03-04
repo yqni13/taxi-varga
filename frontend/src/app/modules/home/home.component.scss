@@ -34,7 +34,7 @@ section {
     .home-main,
     .home-sub {
         img {
-            filter: grayscale(0.3) contrast(0.2);
+            filter: grayscale(0.2) contrast(0.4);
         }
     }
     .home-service {
@@ -91,6 +91,10 @@ section {
     margin-top: 0;
 }
 
+.home-sub {
+    align-items: center;
+}
+
 #tava-home-main-header {
     h2 {
         font-size: clamp(40px, 5.5vw, 80px);
@@ -137,7 +141,7 @@ section {
         font-weight: bold;
         color: var(--theme-palette-highlight);
         margin-right: sass.$space5;
-        text-shadow: 1px 1px 2px sass.$color-text-black!important;
+        text-shadow: 1px 1px 1px sass.$color-text-black!important;
     }
 }
 
@@ -158,6 +162,17 @@ section {
         height: 20px;
         vertical-align: top;
         margin-left: sass.$space5;
+    }
+}
+
+#tava-home-sub-wrapper {
+    flex-direction: column;
+    align-items: end;
+    backdrop-filter: blur(3px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    div {
+        max-width: none;
     }
 }
 

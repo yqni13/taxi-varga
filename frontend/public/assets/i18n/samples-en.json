@@ -3,21 +3,21 @@
         "samples-content-option1": {
             "entry0": {
                 "price": "42,00",
-                "route": "Vienna district (1, 2, 3, 4, 10, 11) - Vienna International Airport"
+                "route": "Vienna districts: (1, 2, 3, 4, 10, 11) - Vienna International Airport"
             },
             "entry1": {
                 "price": "45,00",
-                "route": "Vienna district (5, 6, 7, 8, 9, 12, 15, 20) - Vienna International Airport"
+                "route": "Vienna districts: (5, 6, 7, 8, 9, 12, 15, 20) - Vienna International Airport"
             },
             "entry2": {
                 "price": "48,00",
-                "route": "Vienna district\n(13, 14, 16, 17, 18, 19, 21, 22, 23)\n- Vienna International Airport"
+                "route": "Vienna districts: (13, 14, 16, 17, 18, 19, 21, 22, 23) - Vienna International Airport"
             }
         },
         "samples-content-option2": {
             "entry0": {
                 "price": "55,00",
-                "route": "Leobersdorf\n- Vienna Central Railway Station"
+                "route": "Leobersdorf - Vienna Central Railway Station"
             },
             "entry1": {
                 "price": "61,00",
@@ -25,17 +25,17 @@
             },
             "entry2": {
                 "price": "* 59,00",
-                "route": "Leobersdorf\n- Vienna International Airport"
+                "route": "Leobersdorf - Vienna International Airport"
             }
         },
         "samples-content-option3": {
             "entry0": {
                 "price": "* 57,00",
-                "route": "Kottingbrunn / Schönau / Bad Vöslau\n- Vienna International Airport"
+                "route": "Kottingbrunn / Schönau / Bad Vöslau - Vienna International Airport"
             },
             "entry1": {
                 "price": "* 60,00",
-                "route": "Enzesfeld/Lindstart withrunn\n- Vienna International Airport"
+                "route": "Enzesfeld/Lindstart withrunn - Vienna International Airport"
             },
             "entry2": {
                 "price": "75,00",
@@ -43,7 +43,7 @@
             },
             "entry3": {
                 "price": "80,00",
-                "route": "Wiener Neustadt\n- Vienna International Airport"
+                "route": "Wiener Neustadt - Vienna International Airport"
             },
             "entry4": {
                 "price": "85,00",
@@ -51,11 +51,11 @@
             },
             "entry5": {
                 "price": "90,00",
-                "route": "Mattersburg\n- Vienna International Airport"
+                "route": "Mattersburg - Vienna International Airport"
             },
             "entry6": {
                 "price": "91,00",
-                "route": "Neunkirchen/Ternitz\n- Vienna International Airport"
+                "route": "Neunkirchen/Ternitz - Vienna International Airport"
             }
         },
         "samples-content-option4": {
@@ -80,9 +80,9 @@
                 "route": "Vienna - Golf Club Atzenbrugg - Vienna"
             },
             "entry4": {
-                "price-classic": "195,00",
+                "price-classic": "147,00",
                 "price-support": "147,00",
-                "route": "Vienna - Golf Club Föhrenwald - Vienna"
+                "route": "Vienna - Golf Club Föhrenwald / Golf Club Linsberg - Vienna"
             },
             "entry5": {
                 "price-classic": "224,00",
@@ -95,6 +95,7 @@
             "currency": "EUR",
             "discount-info1": "* applies to pickup time 04:00 a.m. - 06:00 a.m.",
             "discount-info2": "** Pack 1 = arrival and departure by arrangement,\nPack 2 = arrival, playing golf together and departure",
+            "discount-info3": "*** Price advantage through personal club membership (Laszlo Varga)",
             "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "price-classic": "Pack 1",
