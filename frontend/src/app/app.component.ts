@@ -5,7 +5,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { SnackbarComponent } from './common/components/snackbar/snackbar.component';
 import { SnackbarMessageService } from './shared/services/snackbar.service';
-import { ServiceOptions } from './shared/enums/service-options.enum';
+import { ServiceRoute } from './api/routes/service.route.enum';
 import { TokenService } from './shared/services/token.service';
 
 @Component({
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
         this.scrollToTop();
 
         // destroy session (token) leaving a service mask
-        const servicePaths = Object.values(ServiceOptions) as string[];
+        const servicePaths = Object.values(ServiceRoute) as string[];
         const currentPath = event.url.startsWith('/') ? event.url.replace('/', '') : event.url;
         if(!servicePaths.includes(currentPath)) {
           this.tokenService.removeToken();

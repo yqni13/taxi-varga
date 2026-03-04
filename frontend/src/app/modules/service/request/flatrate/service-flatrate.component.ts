@@ -8,17 +8,17 @@ import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
-import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
-import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { Router } from "@angular/router";
-import { AuthService } from "../../../../shared/services/auth.service";
+import { AuthService } from "../../../../api/services/auth.api.service";
 import { TokenService } from "../../../../shared/services/token.service";
-import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { NavigationService } from "../../../../shared/services/navigation.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
+import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -65,7 +65,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     override async ngOnInit() {
-        this.service = ServiceOptions.FLATRATE;
+        this.service = ServiceRoute.FLATRATE;
         super.ngOnInit();
         this.initEdit();
     }
@@ -142,7 +142,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
                     this.serviceForm.get('datetimeStart')?.value
                 )
             ]),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.FLATRATE)
+            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceRoute.FLATRATE)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();

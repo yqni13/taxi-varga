@@ -4,9 +4,23 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/03/03}$
+
+$\textsf{[v1.8.1\ =>\ {\textbf{\color{brown}v1.8.2}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated pages 'home' and 'sample' on translations and styling.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/02/12}$
+
+$\textsf{[v1.8.0\ =>\ {\textbf{\color{brown}v1.8.1}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated api specific code structure (internal layers).
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/01/21}$
 
-$\textsf{[v1.7.1\ =>\ {\textbf{\color{brown}v1.8.0}]}}$ app
+$\textsf{[v1.7.1\ =>\ v1.8.0]}$ app
 - $\textsf{\color{teal}Addition:}$ Added logger and updated helper function for logging.
 
 <br>

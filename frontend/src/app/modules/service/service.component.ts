@@ -1,4 +1,4 @@
-import { ServiceOptions } from './../../shared/enums/service-options.enum';
+import { ServiceRoute } from '../../api/routes/service.route.enum';
 import { CommonModule } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
@@ -25,7 +25,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
     protected authorFlatrateImg: string;
     protected authorGolfImg: string;
     protected authorQuickImg: string;
-    protected ServiceRouteEnum = ServiceOptions;
+    protected ServiceRouteEnum = ServiceRoute;
 
     private subscriptionThemeObservation$: Subscription;
 

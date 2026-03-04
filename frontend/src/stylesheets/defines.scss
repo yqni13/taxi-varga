@@ -28,6 +28,7 @@
     --theme-hint-grey: #{sass.$color-grey-lightmode};
     --theme-button-bg: #{sass.$color-light-highlight};
     --theme-form-bg: #{sass.$color-grey-dark};
+    --theme-shadow-color: #{sass.$color-ice-white};
     --filter-brightness: 1;
     --divider-opacity: 0.8;
     --warning-opacity: 0.7;
@@ -51,6 +52,7 @@
     --theme-hint-grey: #{sass.$color-grey-label};
     --theme-button-bg: #{sass.$color-dark-highlight};
     --theme-form-bg: none;
+    --theme-shadow-color: #{sass.$color-text-black};
     --filter-brightness: 0.4;
     --divider-opacity: 0.1;
     --warning-opacity: 0.6;

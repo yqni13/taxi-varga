@@ -4,19 +4,18 @@ import { BaseServiceComponent } from "../../../../common/components/base-service
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { Router } from "@angular/router";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "../../../../shared/services/auth.service";
+import { AuthService } from "../../../../api/services/auth.api.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ObservationService } from "../../../../shared/services/observation.service";
 import { TranslateService } from "@ngx-translate/core";
 import { NavigationService } from "../../../../shared/services/navigation.service";
-import { MailAPIService } from "../../../../shared/services/mail-api.service";
+import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DOCUMENT } from "@angular/common";
-import { DrivingAPIService } from "../../../../shared/services/driving-api.service";
-import { ServiceOptions } from "../../../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subject, tap } from "rxjs";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
@@ -24,6 +23,7 @@ import { PassengerOptions } from "../../../../shared/enums/passenger-options.enu
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
+import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 
 @Component({
     selector: 'tava-service-golf',
@@ -71,10 +71,12 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.dropoffTimeByLangStatic = '';
         this.minStayStamp$ = new Subject<string>();
         this.maxStayStamp$ = new Subject<string>();
+
+        this.snackbarTextMail = 'laszlovarga@gmx.at';
     }
 
     override async ngOnInit() {
-        this.service = ServiceOptions.GOLF;
+        this.service = ServiceRoute.GOLF;
         super.ngOnInit();
         this.initEdit();
     }
@@ -201,7 +203,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 this.serviceForm.get('datetimeStart')?.value
             ),
             CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceOptions.GOLF)
+            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceRoute.GOLF)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
