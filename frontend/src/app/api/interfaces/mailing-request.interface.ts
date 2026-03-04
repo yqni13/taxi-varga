@@ -1,5 +1,5 @@
-import { PassengerOptions } from "../enums/passenger-options.enum"
-import { ServiceOptions } from "../enums/service-options.enum"
+import { PassengerOptions } from "../../shared/enums/passenger-options.enum"
+import { ServiceRoute } from "../routes/service.route.enum"
 
 export declare interface MailingRequest {
     sender: string,
@@ -8,7 +8,7 @@ export declare interface MailingRequest {
 }
 
 export declare interface MailingMessage {
-    service: ServiceOptions,
+    service: ServiceRoute,
     gender: 'male' | 'female',
     title?: string,
     firstName: string,

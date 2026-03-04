@@ -1,4 +1,4 @@
-import { QuickRouteOption } from "../enums/quickroute-option.enum"
+import { QuickRouteOption } from "../../shared/enums/quickroute-option.enum"
 
 export declare interface DrivingAirportResponse {
     body: {

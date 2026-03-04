@@ -29,7 +29,7 @@ $color-lightmode-error: #b01515;
 $color-darkmode-error: #d62323;
 
 $color-border-info: #1226d3;
-$color-lightmode-info: #4252e6e6;
+$color-lightmode-info: #1306d6e6;
 $color-darkmode-info: #3778d8;
 
 $color-border-success: #0e4512;
@@ -50,7 +50,7 @@ $color-dark-secondary: #00a8c6;
 $color-light-background: $color-grey-lightmode;
 $color-light-highlight: $color-logo-green;
 $color-light-contrast: $color-icon-sun;
-$color-light-secondary: #40c0cb;
+$color-light-secondary: $color-lightmode-info;
 
 /* CUSTOM VALUES */
 $space5: 5px;

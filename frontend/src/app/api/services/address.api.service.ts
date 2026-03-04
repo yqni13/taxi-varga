@@ -2,9 +2,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";
-import { UtilsService } from "./utils.service";
+import { UtilsService } from "../../shared/services/utils.service";
 import { catchError, Observable, throwError } from "rxjs";
-import { AddressFilterOptions } from "../enums/addressfilter-options.enum";
+import { AddressFilterOptions } from "../../shared/enums/addressfilter-options.enum";
 import { environment } from "../../../environments/environment";
 
 @Injectable({

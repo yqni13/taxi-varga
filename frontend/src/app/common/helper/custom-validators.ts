@@ -1,16 +1,16 @@
 import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@angular/forms";
 import { DateTimeService } from "../../shared/services/datetime.service";
-import { ServiceOptions } from "../../shared/enums/service-options.enum";
+import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
 
-export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceOptions): ValidatorFn => {
+export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const currentDateTime = (new Date(control?.value).getTime());
         const limitDateTime = (new Date(maxLimit).getTime());
-        if(currentDateTime > limitDateTime && service === ServiceOptions.FLATRATE) {
+        if(currentDateTime > limitDateTime && service === ServiceRoute.FLATRATE) {
             return { invalidTenancyUpperLimit: true };
         }
-        if(currentDateTime > limitDateTime && service === ServiceOptions.GOLF) {
+        if(currentDateTime > limitDateTime && service === ServiceRoute.GOLF) {
             return { invalidStayUpperLimit: true };
         }
         return null;

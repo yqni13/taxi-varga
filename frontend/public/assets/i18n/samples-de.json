@@ -3,15 +3,15 @@
         "samples-content-option1": {
             "entry0": {
                 "price": "42,00",
-                "route": "Wien Bezirk (1, 2, 3, 4, 10, 11)\n- Flughafen Wien"
+                "route": "Wien Bezirke: 1, 2, 3, 4, 10, 11 - Flughafen Wien"
             },
             "entry1": {
                 "price": "45,00",
-                "route": "Wien Bezirk (5, 6, 7, 8, 9, 12, 15, 20)\n- Flughafen Wien"
+                "route": "Wien Bezirke: 5, 6, 7, 8, 9, 12, 15, 20 - Flughafen Wien"
             },
             "entry2": {
                 "price": "48,00",
-                "route": "Wien Bezirk\n(13, 14, 16, 17, 18, 19, 21, 22, 23)\n- Flughafen Wien"
+                "route": "Wien Bezirke: 13, 14, 16, 17, 18, 19, 21, 22, 23 - Flughafen Wien"
             }
         },
         "samples-content-option2": {
@@ -31,7 +31,7 @@
         "samples-content-option3": {
             "entry0": {
                 "price": "* 57,00",
-                "route": "Kottingbrunn / Schönau / Bad Vöslau\n- Flughafen Wien"
+                "route": "Kottingbrunn / Schönau / Bad Vöslau - Flughafen Wien"
             },
             "entry1": {
                 "price": "* 60,00",
@@ -80,9 +80,9 @@
                 "route": "Wien - Golfclub Atzenbrugg - Wien"
             },
             "entry4": {
-                "price-classic": "195,00",
+                "price-classic": "147,00",
                 "price-support": "147,00",
-                "route": "Wien - Golfclub Föhrenwald - Wien"
+                "route": "Wien - Golfclub Föhrenwald / Golfclub Linsberg - Wien"
             },
             "entry5": {
                 "price-classic": "224,00",
@@ -95,6 +95,7 @@
             "currency": "EUR",
             "discount-info1": "* gilt für Fahrtbeginn zwischen 04:00 und 06:00 Uhr",
             "discount-info2": "** Paket 1 = Anreise und Rückreise nach Vereinbarung,\nPaket 2 = Anreise, gemeinsame Golfrunde und Rückreise",
+            "discount-info3": "*** Preisvorteil durch persönliche Clubmitgliedschaft (Laszlo Varga)",
             "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "price-classic": "Paket 1",
