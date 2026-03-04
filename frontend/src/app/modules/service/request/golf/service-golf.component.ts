@@ -71,6 +71,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.dropoffTimeByLangStatic = '';
         this.minStayStamp$ = new Subject<string>();
         this.maxStayStamp$ = new Subject<string>();
+
+        this.snackbarTextMail = 'laszlovarga@gmx.at';
     }
 
     override async ngOnInit() {
