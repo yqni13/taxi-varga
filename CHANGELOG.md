@@ -4,9 +4,16 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/03/11}$
+
+$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/03/04}$
 
-$\textsf{[v1.8.2\ =>\ {\textbf{\color{brown}v1.8.3}]}}$ app
+$\textsf{[v1.8.2\ =>\ v1.8.3]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'golf' calculation with discount for preference golf course.
 
 <br>

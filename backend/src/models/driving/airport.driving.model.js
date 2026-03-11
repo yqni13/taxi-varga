@@ -11,13 +11,15 @@ class DrivingAirportModel {
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
             district: {
+                exception: 35,
                 inner: 42,
                 middle: 45,
                 outer: 48
             }
         };
         this.#districts = {
-            inner: [1, 2, 3, 4, 10, 11],
+            exception: [11],
+            inner: [1, 2, 3, 4, 10],
             middle: [5, 6, 7, 8, 9, 12, 15, 20],
             outer: [13, 14, 16, 17, 18, 19, 21, 22, 23]
         };
@@ -67,6 +69,7 @@ class DrivingAirportModel {
 
     _mapPriceByZipCode(district) {
         const districtPriceRules = [
+            { area: this.#districts.exception, apply: () => this.#prices.district.exception },
             { area: this.#districts.inner, apply: () => this.#prices.district.inner },
             { area: this.#districts.middle, apply: () => this.#prices.district.middle },
             { area: this.#districts.outer, apply: () => this.#prices.district.outer },

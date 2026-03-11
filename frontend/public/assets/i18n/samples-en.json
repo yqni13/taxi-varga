@@ -2,16 +2,20 @@
     "z-content-samples": {
         "samples-content-option1": {
             "entry0": {
-                "price": "42,00",
-                "route": "Vienna districts: (1, 2, 3, 4, 10, 11) - Vienna International Airport"
+                "price": "35,00",
+                "route": "Vienna district: 11 - Vienna International Airport"
             },
             "entry1": {
-                "price": "45,00",
-                "route": "Vienna districts: (5, 6, 7, 8, 9, 12, 15, 20) - Vienna International Airport"
+                "price": "42,00",
+                "route": "Vienna districts: 1, 2, 3, 4, 10 - Vienna International Airport"
             },
             "entry2": {
+                "price": "45,00",
+                "route": "Vienna districts: 5, 6, 7, 8, 9, 12, 15, 20 - Vienna International Airport"
+            },
+            "entry3": {
                 "price": "48,00",
-                "route": "Vienna districts: (13, 14, 16, 17, 18, 19, 21, 22, 23) - Vienna International Airport"
+                "route": "Vienna districts: 13, 14, 16, 17, 18, 19, 21, 22, 23 - Vienna International Airport"
             }
         },
         "samples-content-option2": {

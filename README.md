@@ -1,5 +1,5 @@
 # yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.8.3}}$
+$\texttt{\color{teal}{v1.8.4}}$
 
 
 <br><br>
@@ -236,8 +236,8 @@ $ npm run lint
 
 ### $\textsf{\color{forestgreen}last update:}$
 
-$\textsf{[v1.8.2\ =>\ {\textbf{\color{brown}v1.8.3}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'golf' calculation with discount for preference golf course.
+$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
 
 <br>
 
