@@ -54,6 +54,17 @@
                 "zipCode": "2000"
             },
             "origin": "vie-schwechat"
+        },
+        "route1110-1300#1": {
+            "origin": "Reimmichlgasse+17,+1110+Wien,+Austria",
+            "originDetails": {
+                "address": "Reimmichlgasse 17, 1110 Wien, Austria",
+                "country": "Austria",
+                "placeId": "ChIJTbE6q1iqbUcRoVsNWVNaNXk",
+                "province": "Wien",
+                "zipCode": "1110"
+            },
+            "destination": "vie-schwechat"
         }
     },
     "response": {
@@ -102,6 +113,19 @@
                     "distance": 20,
                     "duration": 24,
                     "price": 42
+                }
+            },
+            "headers": {
+                "message": "Success",
+                "success": 1
+            }
+        },
+        "route1110-1300#1": {
+            "body": {
+                "routeData": {
+                    "distance": 10,
+                    "duration": 12,
+                    "price": 35
                 }
             },
             "headers": {
@@ -230,6 +254,31 @@
                             "duration": {
                                 "text": "36 mins",
                                 "value": 2161
+                            }
+                        }
+                    ]
+                }
+            ],
+            "status": "OK"
+        },
+        "route1110-1300#1": {
+            "origin_addresses": [
+                "Reimmichlgasse 17, 1110 Wien, Austria"
+            ],
+            "destination_addresses": [
+                "Vienna International Airport (VIE), 1300 Schwechat, Austria"
+            ],
+            "rows": [
+                {
+                    "elements": [
+                        {
+                            "distance": {
+                                "text": "10.2 km",
+                                "value": 10200
+                            },
+                            "duration": {
+                                "text": "12 mins",
+                                "value": 720
                             }
                         }
                     ]
