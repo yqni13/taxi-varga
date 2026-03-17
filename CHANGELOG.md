@@ -4,16 +4,30 @@
 
 <br>
 
+### $\textsf{\color{skyblue}2026/03/11}$
+
+$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/03/04}$
+
+$\textsf{[v1.8.2\ =>\ v1.8.3]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' calculation with discount for preference golf course.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/03/03}$
 
-$\textsf{[v1.8.1\ =>\ {\textbf{\color{brown}v1.8.2}]}}$ app
+$\textsf{[v1.8.1\ =>\ v1.8.2]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated pages 'home' and 'sample' on translations and styling.
 
 <br>
 
 ### $\textsf{\color{skyblue}2026/02/12}$
 
-$\textsf{[v1.8.0\ =>\ {\textbf{\color{brown}v1.8.1}]}}$ app
+$\textsf{[v1.8.0\ =>\ v1.8.1]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated api specific code structure (internal layers).
 
 <br>

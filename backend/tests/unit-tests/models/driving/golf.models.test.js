@@ -55,6 +55,20 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
+        test('Route (1010to2821to1010), params: service distance > 20, <supportMode> = false', async () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2821-1010']);
+            mockParam_params['supportMode'] = false;
+            const mockResult = structuredClone(MockData_RouteMatrix['route1010-2821-1010']['apiResult']);
+            const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
+
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
+            const expectSubObj = { routeData: { price: 146 } };
+
+            expect(testFn).toMatchObject(expectSubObj);
+            expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+        })
+
         test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = true', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = true;
@@ -189,38 +203,74 @@ describe('Flatrate tests, priority: _mapSupportDiscount', () => {
 
     describe('Testing valid fn calls, priority: time of stay', () => {
 
-        test('Params: <costs> < 48, <support> == false', () => {
-            const mockParam_costs = 100;
-            const mockParam_support = false;
-            const testFn = golfModel._mapSupportDiscount(mockParam_costs, mockParam_support);
+        test('Params: discount < 48, <support> == false, golfcourseId !== preference', () => {
+            const mockParam_params = {
+                costs: 100,
+                hasSupportSelected: false,
+                golfcourseId: 'no-preference-id'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 100;
 
             expect(testFn).toBe(expectSubObj);
         })
 
-        test('Params: <costs> < 48, <support> == true', () => {
-            const mockParam_costs = 100;
-            const mockParam_support = true;
-            const testFn = golfModel._mapSupportDiscount(mockParam_costs, mockParam_support);
+        test('Params: discount < 48, <support> == false, golfcourseId === preference', () => {
+            const mockParam_params = {
+                costs: 100,
+                hasSupportSelected: false,
+                golfcourseId: 'ChIJDQ7My2vNbUcRjb9sxEUZa4M'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 75;
 
             expect(testFn).toBe(expectSubObj);
         })
 
-        test('Params: <costs> == 48, <support> == true', () => {
-            const mockParam_costs = 192;
-            const mockParam_support = true;
-            const testFn = golfModel._mapSupportDiscount(mockParam_costs, mockParam_support);
+        test('Params: discount < 48, <support> == true, golfcourseId !== preference', () => {
+            const mockParam_params = {
+                costs: 100,
+                hasSupportSelected: true,
+                golfcourseId: 'no-preference-id'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
+            const expectSubObj = 75; // discount = 25% of costs
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: <costs> == 48, <support> == true, golfcourseId !== preference', () => {
+            const mockParam_params = {
+                costs: 192,
+                hasSupportSelected: true,
+                golfcourseId: 'no-preference-id'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 144;
 
             expect(testFn).toBe(expectSubObj);
         })
 
-        test('Params: <costs> > 48, <support> == true', () => {
-            const mockParam_costs = 300;
-            const mockParam_support = true;
-            const testFn = golfModel._mapSupportDiscount(mockParam_costs, mockParam_support);
+        test('Params: <costs> > 48, <support> == true, golfcourseId !== preference', () => {
+            const mockParam_params = {
+                costs: 300,
+                hasSupportSelected: true,
+                golfcourseId: 'no-preference-id'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 252;
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: <costs> > 48, <support> == true, golfcourseId === preference', () => {
+            const mockParam_params = {
+                costs: 300,
+                hasSupportSelected: true,
+                golfcourseId: 'ChIJDQ7My2vNbUcRjb9sxEUZa4M'
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
+            const expectSubObj = 225;
 
             expect(testFn).toBe(expectSubObj);
         })

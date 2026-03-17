@@ -12,6 +12,19 @@ describe('Airport tests, priority: calcAirportRoute - ARRIVAL', () => {
 
     describe('Testing valid fn calls', () => {
 
+        test('Price: 35', async () => {
+            const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1110-1300#1']);
+            const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1110-1300#1']);
+            const mockAPI = { requestMapsMatrix: jest.fn().mockResolvedValue(mockResult) };
+
+            const airportModel = new DrivingAirportModel(mockAPI);
+            const testFn = await airportModel.calcAirportRoute(mockParam_params);
+            const expectSubObj = { routeData: { price: 35 } };
+
+            expect(testFn).toMatchObject(expectSubObj);
+            expect(mockAPI.requestMapsMatrix).toHaveBeenCalled();
+        })
+
         test('Price: 42', async () => {
             const mockParam_params = structuredClone(MockData_requestMapsMatrix['params']['route1010-1300#1']);
             const mockResult = structuredClone(MockData_requestMapsMatrix['results']['route1010-1300#1']);
@@ -114,6 +127,14 @@ describe('Airport tests, priority: _mapPriceByZipCode', () => {
     })
 
     describe('Testing valid fn calls', () => {
+
+        test('Params: <district> = districts.inner', () => {
+            const mockParam_district = 11;
+            const mockResult = 35;
+            const testFn = airportModel._mapPriceByZipCode(mockParam_district);
+
+            expect(testFn).toBe(mockResult);
+        })
 
         test('Params: <district> = districts.inner', () => {
             const mockParam_district = 1;
