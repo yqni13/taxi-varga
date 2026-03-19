@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
 import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";
 import { TranslateService } from "@ngx-translate/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
-import { MailTranslateService } from "../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../shared/services/custom-translate.service";
 import { UtilsService } from "../../shared/services/utils.service";
 import { CryptoService } from "../../shared/services/crypto.service";
 import { environment } from "../../../environments/environment";
@@ -29,7 +29,7 @@ export class MailAPIService {
         private readonly crypto: CryptoService,
         private readonly translate: TranslateService,
         private readonly datetimeService: DateTimeService,
-        private readonly mailTranslateService: MailTranslateService
+        private readonly customTranslate: CustomTranslateService
     ) {
         this.mailData = {
             sender: '',

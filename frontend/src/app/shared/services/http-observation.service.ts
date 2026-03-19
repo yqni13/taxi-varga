@@ -12,6 +12,9 @@ export class HttpObservationService {
     private drivingFlatrateStatusSubject = new BehaviorSubject<boolean>(false);
     private drivingGolfStatusSubject = new BehaviorSubject<boolean>(false);
     private drivingQuickStatusSubject = new BehaviorSubject<boolean>(false);
+    private ratingStatusSubject = new BehaviorSubject<boolean>(false);
+    private feedbackStatusSubject = new BehaviorSubject<boolean>(false);
+    private supportStatusSubject = new BehaviorSubject<boolean>(false);
     private emailStatusSubject = new BehaviorSubject<boolean | null>(null);
     private errorStatusSubject = new BehaviorSubject<any>(null);
 
@@ -20,6 +23,9 @@ export class HttpObservationService {
     drivingFlatrateStatus$ = this.drivingFlatrateStatusSubject.asObservable();
     drivingGolfStatus$ = this.drivingGolfStatusSubject.asObservable();
     drivingQuickStatus$ = this.drivingQuickStatusSubject.asObservable();
+    ratingStatus$ = this.ratingStatusSubject.asObservable();
+    feedbackStatus$ = this.feedbackStatusSubject.asObservable();
+    supportStatus$ = this.supportStatusSubject.asObservable();
     emailStatus$ = this.emailStatusSubject.asObservable();
     errorStatus$ = this.errorStatusSubject.asObservable();
 
@@ -41,6 +47,18 @@ export class HttpObservationService {
 
     setDrivingQuickStatus(isStatus200: boolean) {
         this.drivingQuickStatusSubject.next(isStatus200);
+    }
+
+    setRatingStatus(isStatus200: boolean) {
+        this.ratingStatusSubject.next(isStatus200);
+    }
+
+    setFeedbackStatus(isStatus200: boolean) {
+        this.feedbackStatusSubject.next(isStatus200);
+    }
+
+    setSupportStatus(isStatus200: boolean) {
+        this.supportStatusSubject.next(isStatus200);
     }
 
     setEmailStatus(isStatus200: boolean) {
