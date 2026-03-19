@@ -1,0 +1,128 @@
+{
+    "validation": {
+        "backend": {
+            "data": {
+                "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
+                "address-quick-invalid-origin": "Für die Abholadresse können bei einer Spontanfahrt nur Adressen mit der Postleitzahl 10**, 11**, 12** oder 2544 gewählt werden.",
+                "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
+                "backend-404-env": "Umgebungsvariable {{VAL}} fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
+                "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
+                "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
+                "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
+                "backend-invalid-entry": "Die Eingabe für den Datensatz \"{{VAL}}\" ist fehlerhaft. Bitte überprüfen Sie Ihre Eingabe.",
+                "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
+                "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-invalid-pickupTIME": "Die gewählte Abholzeit ist ungültig. Bitte kontrollieren Sie Ihre Angaben.",
+                "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
+                "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
+                "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
+                "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
+                "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
+                "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
+                "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
+                "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
+                "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
+                "maintenance-code-1": "Der digitale Service steht wegen Wartungsarbeiten aktuell NICHT zur Verfügung. Für Anfragen zum Beförderungsdienst melden Sie sich bitte direkt unter der Telefonnummer: ",
+                "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
+                "support-arg-forbidden": "Ihre Anfrage enthält unerlaubte Daten. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-arg-required": "Ihrer Anfrage fehlen erforderliche Daten. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-blocked-users": "User mit dieser Email-Adresse sind vom Support ausgeschlossen. Es werden keine Anfragen mehr akzeptiert.",
+                "support-dbquery-error": "Aufgrund eines technischen Fehlers wurde Ihre Anfrage nicht durchgeführt. Bitte versuchen Sie es später erneut.",
+                "support-files-invalid-name": "Ungültiger Dateiname erkannt. Der Dateiname muss sich nach folgender Struktur richten: [Name] + \".\" + [Typ], da es sonst zu unerwarteten Fehlern kommen kann.",
+                "support-files-mimetype": "Ungültiger Dateityp erkannt. Unterstützt werden nur Dateien vom Typ: \".webp\", \".png\", \".jpeg\", \".jpg\", \".jpe\", \".pjpg\", \".jfif\", \".jfif-tbnl\", \".jif\" und \".png\"",
+                "support-files-size-each": "Ungültige Dateigröße erkannt. Unterstützt wird nur eine Größe bis max 1 MB pro Datei.",
+                "support-forbidden-clients-auth": "Der verwendete Zugangsschlüssel verfügt über keine aktiven Berechtigungen. Bitte versuchen Sie es später erneut.",
+                "support-invalid-admin-auth": "Dieser Vorgang ist nur für Administratoren gestattet. Sie verwenden keinen geeigneten Zugangsschlüssel.",
+                "support-invalid-api": "Aufgrund eines technischen Fehlers wurde Ihre Anfrage nicht durchgeführt. Bitte versuchen Sie es später erneut.",
+                "support-invalid-email": "Ihre Email-Adresse ist ungültig betreffend: \"{{VAL}}\". Es gelten die globalen Richtlinien. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-entry": "Die Eingabe für den Datensatz \"{{VAL}}\" ist fehlerhaft. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-length": "Die Länge/Anzahl für den Datensatz \"{{VAL}}\" muss exakt {{LENGTH}} Zeichen/Einheiten sein. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-max": "Die Länge/Anzahl für den Datensatz \"{{VAL}}\" darf nicht länger als {{MAX}} Zeichen/Einheiten sein. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-min": "Die Länge/Anzahl für den Datensatz \"{{VAL}}\" darf nicht kürzer als {{MIN}} Zeichen/Einheiten lang sein. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-properties": "Ihre Anfrage enthält ungültige Daten. Bitte kontrollieren Sie Ihre Angaben.",
+                "support-invalid-users": "Aufgrund von verdächtigem Verhalten wurde Ihre Email-Adresse geflaggt und Anfragen werden vorläufig nicht akzeptiert.",
+                "support-maintenance-E-013": "Der Support-Dienst ist wegen technischen Problemen vorübergehend nicht verfügbar.",
+                "support-maintenance-M-008": "Der Support-Dienst ist wegen Wartungsarbeiten aktuell nicht verfügbar.",
+                "support-maintenance-T-011": "Der Support-Dienst ist wegen unerwarteter Überbelastung vorübergehend nicht verfügbar.",
+                "support-malformed-apikey": "Der Zugangsschlüssel ist ungültig und entspricht nicht den strukturellen Anforderungen.",
+                "support-missing-admin-auth": "Dieser Vorgang ist nur für Administratoren gestattet. Es wurde kein geeigneter Zugangsschlüssel gefunden.",
+                "support-missing-clients-auth": "Dieser Vorgang ist nur für berechtigte Webseiten gestattet. Es wurde kein geeigneter Zugangsschlüssel gefunden.",
+                "support-ratelimits-clients-burst": "Ihre Anfrage konnte aufgrund einer unerwarteten und kurzfristigen Überbelastung durch die Webseite nicht bearbeitet werden. Bitte versuchen Sie es später erneut.",
+                "support-ratelimits-clients-daily": "Ihre Anfrage konnte nicht bearbeitet werden, da das tagesbezogene Nutzungslimit dieser Webseite unerwartet überschritten wurde. Bitte versuchen Sie es später erneut.",
+                "support-ratelimits-total-daily": "Ihre Anfrage konnte nicht bearbeitet werden, da das tagesbezogene Nutzungslimit des Dienstes unerwartet überschritten wurde. Bitte versuchen Sie es später erneut.",
+                "support-ratelimits-users-burst": "Ihre Anfrage konnte aufgrund einer unerwarteten und kurzfristigen Überbelastung durch Ihre Email-Adresse nicht bearbeitet werden. Bitte versuchen Sie es später erneut.",
+                "support-ratelimits-users-daily": "Ihre Anfrage konnte nicht bearbeitet werden, da das tagesbezogene Nutzungslimit dieser Email-Adresse unerwartet überschritten wurde. Bitte versuchen Sie es später erneut.",
+                "support-unimplemented": "Das gewünschte Feature befindet sich in der Entwicklung und ist noch nicht abrufbar.",
+                "tava-unexpected-api-error": "Daten, die von einem externen Service für die weitere Berechnung benötigt werden, sind aktuell nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
+                "unknown-error": "Es ist ein unbekannter Fehler aufgetreten. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support."
+            },
+            "header": {
+                "AuthenticationException": "Verbindung fehlgeschlagen",
+                "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
+                "BlockedUsersException": "User blockiert",
+                "DBConnectionException": "Verbindung fehlgeschlagen",
+                "DBSyntaxSQLException": "Datenbank Fehler",
+                "ExceedMaxEndpointException": "Ungewöhnliche Auslastung",
+                "ForbiddenApiKeyException": "Unerlaubter Zugang",
+                "InternalServerException": "Server Unerreichbar",
+                "InvalidApiKeyException": "Ungültiger API-Key",
+                "InvalidCredentialsException": "Ungültige Anmeldedaten",
+                "InvalidFilesException": "Fehler im Anhang",
+                "InvalidPropertiesException": "Ungültiger Datensatz",
+                "InvalidTokenException": "Ungültiger Token",
+                "InvalidUsersException": "User ungültig",
+                "JWTExpirationException": "Sitzung abgelaufen",
+                "MaintenanceException": "Wartungszustand",
+                "MalformedApiKeyException": "Ungültiger API-Key",
+                "MissingApiKeyException": "API-Key nicht gefunden",
+                "RequestExceedMaxException": "Kapazität überschritten",
+                "TokenMissingException": "Sitzungs-Token fehlt",
+                "UnexpectedApiResponseException": "Externer Service Fehler",
+                "UnimplementedException": "Feature nicht verfügbar",
+                "UnknownException": "Unbekannter Fehler"
+            }
+        },
+        "frontend": {
+            "file-upload": {
+                "text": {
+                    "allowed-types": "Für den Upload sind nur die folgenden Formate erlaubt: {{VAL}}",
+                    "max-number-total": "Die max Anzahl an hochzuladenden Dateien beträgt: {{MAX}}",
+                    "max-size-each": "Die max. Größe für hochzuladende Dateien beträgt jeweils: {{VAL}}"
+                },
+                "title": {
+                    "allowed-types": "Eingeschränkte Formate",
+                    "max-number-total": "Limitierte Anzahl",
+                    "max-size-each": "Limitierte Größe"
+                }
+            },
+            "form": {
+                "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+                "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
+                "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
+                "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
+                "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
+                "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
+                "invalid-phone-char": "Telefonnummer enthält ungültige Zeichen.",
+                "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
+                "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
+                "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
+                "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
+                "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
+                "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
+                "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen."
+            },
+            "interceptor": {
+                "support-feedback-confirm": "Feedback verschickt!"
+            },
+            "support": {
+                "text": "Ihre Anfrage wurde erfolgreich an uns weitergeleitet und als neues Ticket erstellt. Ihre Daten werden schnellstmöglich verarbeitet und bei Notwendigkeit via Email Rücksprache gehalten.",
+                "title": "Ticket erstellt!"
+            }
+        }
+    }
+}
