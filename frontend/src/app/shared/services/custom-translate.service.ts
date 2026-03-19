@@ -14,15 +14,34 @@ export class CustomTranslateService {
         //
     }
 
-    apply(path: string): string {
+    apply(path: string, source?: string): string {
         if(path === '' || path.includes('undefined')) {
             return this.getDefaultErrorTranslation();
         } else if(!path.includes('#')) {
             return this.translate.instant(path);
         }
-        const params = this.toTranslationParams(path);
 
-        return this.getExtendedTranslation(params);
+        const params: TranslationParams = this.toTranslationParams(path);
+        const result: string = this.mapTranslationParams(params, source);
+
+        return result;
+    }
+
+    getTranslationFromSource(path: string, source: any): string {
+        const accessKeys: string[] = [];
+        let start = 0;
+        // Use "." as filter and store every set of characters as string in array.
+        [...path.matchAll(new RegExp('.', 'g'))].map(char => {
+            if(char[0] === '.') {
+                accessKeys.push(path.slice(start, char.index));
+                start = char.index + 1;
+            } else if (path.length-1 === char.index) {
+                accessKeys.push(path.slice(start, char.index+1));
+            }
+        });
+
+        // Chain all strings from array as key to access value in source.
+        return accessKeys.reduce((prev, curr) => prev?.[curr], source);
     }
 
     /**
@@ -56,24 +75,11 @@ export class CustomTranslateService {
     /**
      * @description Map all dynamic values into the returning translated title/text.
      */
-    private getExtendedTranslation(data: TranslationParams): string {
-        const accessKeys: string[] = [];
-        let start = 0;
+    private mapTranslationParams(data: TranslationParams, source?: any): string {
+        const lang = this.translate.currentLang;
+        const resource = !source ? this.translate.translations[lang] as any : source;
+        let result = this.getTranslationFromSource(data.path, resource);
 
-        // Get all validation scripts for the current language.
-        const resource = this.translate.translations[this.translate.currentLang] as any;
-
-        // '.' is not a RegExp obj => needs 'g' flag to avoid TypeError
-        [...data.path.matchAll(new RegExp('.', 'g'))].map(char => {
-            if(char[0] === '.') {
-                accessKeys.push(data.path.slice(start, char.index));
-                start = char.index + 1;
-            } else if (data.path.length-1 === char.index) {
-                accessKeys.push(data.path.slice(start, char.index+1));
-            }
-        });
-
-        let result = accessKeys.reduce((prev, curr) => prev?.[curr], resource);
         if(data.valParams && data.valParams.val && result.includes('{{VAL}}')){
             result = result.replace('{{VAL}}', data.valParams.val);
         }

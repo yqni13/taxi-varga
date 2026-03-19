@@ -15,7 +15,7 @@ import { SnackbarOption } from "../../shared/enums/snackbar-options.enum";
 import { SnackbarMessageService } from "../../shared/services/snackbar.service";
 import { NavigationService } from "../../shared/services/navigation.service";
 import { TokenService } from "../../shared/services/token.service";
-import { MailTranslateService } from "../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../shared/services/custom-translate.service";
 import { MailAPIService } from "../../api/services/mail.api.service";
 import { AddressOptions } from "../../shared/enums/address-options.enum";
 import { BaseRoute } from "../../api/routes/base.route.enum";
@@ -74,7 +74,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         protected mailAPIService: MailAPIService,
         protected datetimeService: DateTimeService,
         protected snackbar: SnackbarMessageService,
-        protected mailTranslate: MailTranslateService,
+        protected customTranslate: CustomTranslateService,
         protected httpObserve: HttpObservationService,
         @Inject(DOCUMENT) protected document: Document,
         protected drivingAPIService: DrivingAPIService,
@@ -140,12 +140,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
             if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
                 this.snackbar.notify({
-                    title: this.translate.currentLang === 'de'
-                        ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.title`)
-                        : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.title`),
-                    text: this.translate.currentLang === 'de'
-                        ? this.mailTranslate.getTranslationDE(`modules.service.content.${this.service}.info.text`)
-                        : this.mailTranslate.getTranslationEN(`modules.service.content.${this.service}.info.text`),
+                    title: `modules.service.content.${this.service}.info.title`,
+                    text: `modules.service.content.${this.service}.info.text`,
                     autoClose: false,
                     phone: this.snackbarTextPhone,
                     mail: this.snackbarTextMail,

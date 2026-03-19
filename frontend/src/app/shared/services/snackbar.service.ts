@@ -48,7 +48,10 @@ export class SnackbarMessageService {
         }
 
         this.isActive = true;
-        this.snackbarCollection.push(snackbar);
+        // Avoid redundant display of same error multiple times.
+        if(!this.snackbarCollection.find((entry) => entry.title === snackbar.title)) {
+            this.snackbarCollection.push(snackbar);
+        }
     }
 
     close(snackbar: SnackbarMessage) {
