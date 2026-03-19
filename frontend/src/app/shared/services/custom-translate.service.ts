@@ -14,7 +14,7 @@ export class CustomTranslateService {
         //
     }
 
-    apply(path: string, source?: string): string {
+    apply(path: string, source?: any): string {
         if(path === '' || path.includes('undefined')) {
             return this.getDefaultErrorTranslation();
         } else if(!path.includes('#')) {

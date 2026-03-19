@@ -1,8 +1,7 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { SnackbarOption } from "../enums/snackbar-options.enum";
 import { Subject } from "rxjs";
 import { SnackbarMessage } from "../interfaces/snackbar.interface";
-import { DOCUMENT } from "@angular/common";
 import { CustomTranslateService } from "./custom-translate.service";
 
 @Injectable({
@@ -15,7 +14,6 @@ export class SnackbarMessageService {
     isActive: boolean;
 
     constructor(
-        @Inject(DOCUMENT) private document: Document,
         private readonly customTranslate: CustomTranslateService
     ) {
         this.snackbarCollection = [];

@@ -148,7 +148,6 @@ export async function handleError(response: any, httpObservationService: HttpObs
         let route: string | null = null;
         Object.values(response.error.headers.data).forEach((data: any) => {
             if(route === null && data.msg.includes('navigate')) {
-                // TODO(yqni13) do we need to remove or update?
                 const sub = String(data.msg).substring(0, String(data.msg).indexOf('/'));
                 route = String(data.msg).replace(sub, '');
             }
