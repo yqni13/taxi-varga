@@ -1,0 +1,128 @@
+{
+    "validation": {
+        "backend": {
+            "data": {
+                "address-invalid-place": "Please check all addresses for completeness and that they are selected from the suggested options.",
+                "address-quick-invalid-origin": "Only addresses with postal code 10**, 11**, 12** or 2544 are usable for the pickup address on spontaneous drives.",
+                "airport-invalid-place": "The airport service is only available from/to Vienna. Please adapt your address input.",
+                "backend-404-env": "Secret data {{VAL}} is missing. Please try again later or contact support.",
+                "backend-500-routes": "The api endpoint is not available at the moment. Please try again later or contact support.",
+                "backend-500-server": "Communication with the server is not available at the moment. Please try again later or contact support.",
+                "backend-auth-email": "Email service not available. Please try again later or contact support.",
+                "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
+                "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
+                "backend-invalid-entry": "The input for the record \"{{VAL}}\" is incorrect. Please check your input.",
+                "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
+                "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
+                "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
+                "backend-invalid-pickupTIME": "The selected pickup time is invalid. Please check your input.",
+                "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
+                "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
+                "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
+                "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
+                "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
+                "backend-invalid-user": "The login user is invalid. Please try again later or contact support.",
+                "backend-jwt-expiration": "The session expired after 30 minutes.",
+                "backend-jwt-missing": "Access can not be authenticated without a session token. Please try again later or contact support.",
+                "backend-max-email": "Email service exceeded request limit and is temporary blocked. Please try again in 24h.",
+                "backend-missing-zipCode": "Your selected address was refused. Please check your address to contain a postal code and that it is selected from the suggested options.",
+                "backend-required": "Not all necessary data were transferred. Please check your input.",
+                "maintenance-code-1": "The digital service is currently UNAVAILABLE due to maintenance. For inquiries regarding the transport service, please contact us directly at: ",
+                "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used.",
+                "support-arg-forbidden": "Your request contains unauthorized data. Please check your input.",
+                "support-arg-required": "Your request is missing required data. Please check your input.",
+                "support-blocked-users": "Users with this email address are excluded from support. No further requests will be accepted.",
+                "support-dbquery-error": "Due to a technical error, your request could not be processed. Please try again later.",
+                "support-files-invalid-name": "Invalid file name detected. The file name has to follow a specific structure: [name] + \".\" + [type] - otherwise, unexpected errors may occur.",
+                "support-files-mimetype": "Invalid file type detected. Only files of the following types are supported: \".webp\", \".png\", \".jpeg\", \".jpg\", \".jpe\", \".pjpg\", \".jfif\", \".jfif-tbnl\", \".jif\" and \".png\"",
+                "support-files-size-each": "Invalid file size detected. Only files up to a maximum size of 1 MB (each) are supported.",
+                "support-forbidden-clients-auth": "The access key in use has no active permissions. Please try again later.",
+                "support-invalid-admin-auth": "This operation is only permitted for administrators. You are not using an appropriate access key.",
+                "support-invalid-api": "Due to a technical error, your request could not be processed. Please try again later.",
+                "support-invalid-email": "Your email address is invalid regarding: \"{{VAL}}\". Global policies apply. Please check your input.",
+                "support-invalid-entry": "The input for the record \"{{VAL}}\" is incorrect. Please check your input.",
+                "support-invalid-length": "The length/number for the record \"{{VAL}}\" must be exactly {{LENGTH}} characters/entries long. Please check your input.",
+                "support-invalid-max": "The length/number for the record \"{{VAL}}\" must not be longer than {{MAX}} characters/entries. Please check your input.",
+                "support-invalid-min": "The length/number for the record \"{{VAL}}\" must not be shorter than {{MIN}} characters/entries. Please check your input.",
+                "support-invalid-properties": "Your request contains invalid data. Please check your input.",
+                "support-invalid-users": "Due to suspicious behavior, your email address has been flagged and requests will not be accepted for the time being.",
+                "support-maintenance-E-013": "The support service is temporarily unavailable due to technical problems.",
+                "support-maintenance-M-008": "The support service is currently unavailable due to maintenance work.",
+                "support-maintenance-T-011": "The support service is temporarily unavailable due to unexpected overload.",
+                "support-malformed-apikey": "The access key is invalid and does not meet structural requirements.",
+                "support-missing-admin-auth": "This operation is only permitted for administrators. No valid access key was found.",
+                "support-missing-clients-auth": "This operation is only permitted for valid websides. No valid access key was found.",
+                "support-ratelimits-clients-burst": "Your request could not be processed due to an unexpected and short-term overload of this website. Please try again later.",
+                "support-ratelimits-clients-daily": "Your request could not be processed because the daily usage limit of this website was unexpectedly exceeded. Please try again later.",
+                "support-ratelimits-total-daily": "Your request could not be processed because the daily usage limit of this service was unexpectedly exceeded. Please try again later.",
+                "support-ratelimits-users-burst": "Your request could not be processed due to an unexpected and short-term overload of your email address. Please try again later.",
+                "support-ratelimits-users-daily": "Your request could not be processed because the daily usage limit of your email address was unexpectedly exceeded. Please try again later.",
+                "support-unimplemented": "The requested feature is under development and is not available yet.",
+                "tava-unexpected-api-error": "Data required by an external service for further calculations are currently unavailable. Please try again later or contact support.",
+                "unknown-error": "An unknown error has occurred. Please try again later or contact support."
+            },
+            "header": {
+                "AuthenticationException": "Connection failed",
+                "AuthSecretNotFoundException": "Env variable missing",
+                "BlockedUsersException": "User blocked",
+                "DBConnectionException": "Connection failed",
+                "DBSyntaxSQLException": "Invalid database",
+                "ExceedMaxEndpointException": "Unusual workload",
+                "ForbiddenApiKeyException": "Unauthorized access",
+                "InternalServerException": "Server unreachable",
+                "InvalidApiKeyException": "Invalid API-Key",
+                "InvalidCredentialsException": "Invalid credentials",
+                "InvalidFilesException": "Error on attachment",
+                "InvalidPropertiesException": "Invalid data",
+                "InvalidTokenException": "Invalid token",
+                "InvalidUsersException": "User invalid",
+                "JWTExpirationException": "Expired session",
+                "MaintenanceException": "Maintenance status",
+                "MalformedApiKeyException": "Invalid API-Key",
+                "MissingApiKeyException": "API-Key not found",
+                "RequestExceedMaxException": "Capacity exceeded",
+                "TokenMissingException": "Session token missing",
+                "UnexpectedApiResponseException": "External service error",
+                "UnimplementedException": "Feature not implemented",
+                "UnknownException": "Unknown error"
+            }
+        },
+        "frontend": {
+            "file-upload": {
+                "text": {
+                    "allowed-types": "Only files of the following types are allowed to upload: {{VAL}}",
+                    "max-number-total": "The max. number of uploaded files is: {{MAX}}",
+                    "max-size-each": "The max. size for each uploaded file is: {{VAL}}"
+                },
+                "title": {
+                    "allowed-types": "Limited types",
+                    "max-number-total": "Limited number",
+                    "max-size-each": "Limited size"
+                }
+            },
+            "form": {
+                "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+                "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
+                "datetime-end-invalid-negative": "Time of return can not be before pickup.",
+                "datetime-invalid-negative": "Selected time must not be in the past.",
+                "email-invalid": "Field \"{{fieldName}}\" has invalid format.",
+                "empty-address-select": "Field must contain an address selected from list of options.",
+                "invalid-phone-char": "Phone number contains invalid characters.",
+                "latency-invalid-upper-limit": "Latency must not be bigger than 6h.",
+                "missing-zipcode": "Zipcode is required on address.",
+                "required": "Field \"{{fieldName}}\" is required.",
+                "stay-invalid-upper-limit": "Time of stay must not be bigger than 72h.",
+                "tenancy-invalid-upper-limit": "Tenancy must not be bigger than 24h.",
+                "tenancy-invalid-value": "Tenancy must be selected in full hours.",
+                "tenancy-invalid-zero": "Tenancy can not be zero."
+            },
+            "interceptor": {
+                "support-feedback-confirm": "Feedback sent!"
+            },
+            "support": {
+                "text": "Your request has been successfully forwarded to us and created as a new ticket. Your data will be processed as quickly as possible and, if necessary, we will contact you via email.",
+                "title": "Ticket created!"
+            }
+        }
+    }
+}
