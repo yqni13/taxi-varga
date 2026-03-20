@@ -225,6 +225,41 @@
         }
     }
 
+    .tava-support {
+        .tava-support-content {
+            .tava-support-category i {
+                width: 50px;
+                height: 50px;
+            }
+            .tava-support-hint {
+                width: calc((100% - 400px) * 0.75);
+                max-width: 750px;
+            }
+            form {
+                width: calc(100% - 400px);
+                .tava-support-form-wrapper-mid {
+                    width: 40%;
+                    padding: 0 30%;
+                }
+                .tava-support-form-wrapper-starrating {
+                    width: 40%;
+                    padding: 0 30%;
+                    margin: sass.$space15 0;
+                }
+            }
+            #tava-support-attachment-list {
+                width: calc((100% - 400px) * 0.75);
+                max-width: 708px;
+            }
+            .tava-support-button-wrapper {
+                a,
+                button {
+                    margin: 0 sass.$space25;
+                }
+            }
+        }
+    }
+
     nav {
         ul {
             li {
@@ -450,6 +485,41 @@
         }
     }
 
+    .tava-support {
+        .tava-support-content {
+            .tava-support-category i {
+                width: 50px;
+                height: 50px;
+            }
+            .tava-support-hint {
+                width: calc((100% - 200px) * 0.75);
+                max-width: 750px;
+            }
+            form {
+                width: calc(100% - 200px);
+                .tava-support-form-wrapper-mid {
+                    width: 50%;
+                    padding: 0 25%;
+                }
+                .tava-support-form-wrapper-starrating {
+                    width: 50%;
+                    padding: 0 25%;
+                    margin: sass.$space15 0;
+                }
+            }
+            #tava-support-attachment-list {
+                width: calc((100% - 200px) * 0.75);
+                max-width: 708px;
+            }
+            .tava-support-button-wrapper {
+                a,
+                button {
+                    margin: 0 sass.$space25;
+                }
+            }
+        }
+    }
+
     nav {
         ul {
             li {
@@ -590,6 +660,39 @@
         .tava-service-terms {
             input {
                 margin: 0 sass.$space50 0 sass.$space25!important;
+            }
+        }
+    }
+
+    .tava-support {
+        .tava-support-content {
+            .tava-support-category i {
+                width: 45px;
+                height: 45px;
+            }
+            .tava-support-hint {
+                width: calc((100% - 200px) * 0.75);
+            }
+            form {
+                width: calc(100% - 200px);
+                .tava-support-form-wrapper-mid {
+                    width: 100%;
+                    padding: 0;
+                }
+                .tava-support-form-wrapper-starrating {
+                    width: 100%;
+                    padding: 0;
+                    margin: sass.$space15 0;
+                }
+            }
+            #tava-support-attachment-list {
+                width: calc((100% - 200px) * 0.75);
+            }
+            .tava-support-button-wrapper {
+                a,
+                button {
+                    margin: 0 sass.$space15;
+                }
             }
         }
     }
@@ -788,6 +891,24 @@
         }
     }
 
+    .tava-support {
+        .tava-support-content {
+            .tava-support-category i {
+                width: 40px;
+                height: 40px;
+            }
+            .tava-support-hint {
+                width: calc(100% - 20px);
+            }
+            form {
+                width: calc(100% - 20px);
+            }
+            #tava-support-attachment-list {
+                width: calc(100% - 20px);
+            }
+        }
+    }
+
     .tava-component-snackbar {
         align-items: center!important;
     }
@@ -935,6 +1056,15 @@
         .tava-service-golf-radio-wrapper {
             span {
                 width: calc(100% - 35px);
+            }
+        }
+    }
+
+    .tava-support {
+        .tava-support-content {
+            .tava-support-category i {
+                width: 35px;
+                height: 35px;
             }
         }
     }
