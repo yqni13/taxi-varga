@@ -99,7 +99,7 @@ div {
 
 .outer-border {
     background-color: var(--theme-palette-contrast);
-    border: 1px solid var(--theme-body-bg);
+    border: 1px solid sass.$color-text-black;
     border-radius: 7px;
 }
 

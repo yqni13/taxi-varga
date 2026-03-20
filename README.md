@@ -59,11 +59,11 @@ Create new .env file and fill in your credentials/other env data [(see docs)](./
 ```sh
 $ npm ci
 ```
-This web project uses Google API calls, which require to run the application on ssl (https) - for each environment (dev/stag/prod). Therefore, running on localhost you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configurated [see set-env.ts](./frontend/set-env.ts) (env:prod) and create local copy [see docs](./CONFIGURATION.md) for local development. Then start application in local environment:
+This web project uses Google API calls, which require to run the application on ssl (https) - for each environment (dev/stag/prod). Therefore, running on localhost you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured [see set-env.ts](./frontend/set-env.ts) (env:prod) and create local copy [see docs](./CONFIGURATION.md) for local development. Start application (frontend part) in local environment:
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`. To run backend use:
+which will open automatically on `https://localhost:4200/`. To run backend part, use:
 ```sh
 node server.js
 ```

@@ -16,7 +16,7 @@
 ### Create this file as "set-env.dev.ts" at the root of /frontend.
 `Support` is an additional GitHub repository in use (https://github.com/yqni13/support).
 <br>
-Hosting services do NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.Therefore, private/public keys are converted from single-line secret to multi-line secret via `fs.readFileSync`.
+Hosting services do NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts secrets beforehand (thats why we use one for localhost too) or manually add the prepared keys as single-line text and then convert it. Therefore, private/public keys are converted from single-line secret to multi-line secret via `fs.readFileSync`.
 
 ```sh
 const fs_dev = require('fs');

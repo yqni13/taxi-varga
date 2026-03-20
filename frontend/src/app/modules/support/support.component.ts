@@ -16,10 +16,11 @@ import { HttpObservationService } from "../../shared/services/http-observation.s
 import { HttpResponse } from "@angular/common/http";
 import { SupportRatingResponse } from "../../api/interfaces/support.interface";
 import { SnackbarOption } from "../../shared/enums/snackbar-options.enum";
-import { SupportFeedbackData, SupportTicketData } from "./support-form.interface";
+import { SupportInitEditParams, SupportFeedbackData, SupportTicketData } from "./support-form.interface";
 import { CastAbstract2FormControlPipe } from "../../common/pipes/cast-abstract2form-control.pipe";
 import { StarRatingComponent } from "../../common/components/star-rating/star-rating.component";
 import { FileUploadService } from "../../shared/services/file-upload.service";
+import { NavigationService } from "../../shared/services/navigation.service";
 
 
 @Component({
@@ -58,14 +59,18 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
     private subscriptionHttpObservationFeedback$: Subscription;
     private subscriptionHttpObservationRating$: Subscription;
     private subscriptionHttpObservationError$: Subscription;
+    private fileMaxNumberLimit: number;
+    private anchor!: HTMLElement;
     private window: any;
     private delay: any;
 
     constructor(
         private readonly fb: FormBuilder,
         private readonly auth: AuthService,
+        private readonly elRef: ElementRef,
         @Inject(DOCUMENT) private document: Document,
         private readonly translate: TranslateService,
+        private readonly navigation: NavigationService,
         private readonly supportApi: SupportAPIService,
         private readonly snackbar: SnackbarMessageService,
         private readonly httpObservation: HttpObservationService,
@@ -91,11 +96,13 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
         this.subscriptionHttpObservationFeedback$ = new Subscription();
         this.subscriptionHttpObservationRating$ = new Subscription();
         this.subscriptionHttpObservationError$ = new Subscription();
+        this.fileMaxNumberLimit = 5;
         this.window = this.document.defaultView;
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
+        this.anchor = this.elRef.nativeElement.querySelector(".tava-support");
         this.subscriptionHttpObservationRating$ = this.httpObservation.ratingStatus$.pipe(
             filter((x) => x !== null && x !== undefined),
             tap((isStatus200: boolean) => {
@@ -158,7 +165,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
 
     private initForm() {
         this.supportForm = this.fb.group({
-            attachment: new FormControl(null, Validators.maxLength(5)),
+            attachment: new FormControl(null, Validators.maxLength(this.fileMaxNumberLimit)),
             userEmail: new FormControl('', [Validators.required, Validators.email]),
             option: new FormControl(null, Validators.required),
             rating: new FormControl(null),
@@ -171,12 +178,12 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
         });
     }
 
-    private initEdit() {
+    private initEdit(params?: SupportInitEditParams) {
         this.initForm();
         this.supportForm.patchValue({
             attachment: null,
             userEmail: '',
-            option: '',
+            option: params?.option ? params.option : '',
             rating: this.defaultRatingValue,
             device: this.getPlaceholderByDeviceSuggestion(),
             os: '',
@@ -251,6 +258,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
                 type: SnackbarOption.WARNING,
                 displayTime: 2000
             });
+            this.navigation.scrollToTop(this.anchor, this.document);
             return;
         }
 
@@ -293,7 +301,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
 
     private handleFileInput() {
         this.fileUpload.setValidations({
-            maxNumberOfFiles: 5,
+            maxNumberOfFiles: this.fileMaxNumberLimit,
             maxSizeEachFileInMB: 1,
             allowedFileTypes: [
                 'application/pdf',
@@ -336,10 +344,20 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
         this.supportForm.get('rating')?.setValue(this.defaultRatingValue);
     }
 
-    reset() {
-        this.initEdit();
-        this.resetRatingValue.emit(this.defaultRatingValue);
-        this.supportForm.markAsUntouched();
+    async reset(loadingProcess: boolean = false) {
+        if(loadingProcess) {
+            this.isLoadingResponse = true;
+            this .initEdit(this.supportForm.get('option')?.value);
+            this.resetRatingValue.emit(this.defaultRatingValue);
+            this.supportForm.markAsUntouched();
+            this.navigation.scrollToTop(this.anchor, this.document);
+            await this.delay(750);
+            this.isLoadingResponse = false;
+        } else {
+            this.initEdit();
+            this.resetRatingValue.emit(this.defaultRatingValue);
+            this.supportForm.markAsUntouched();
+        }
     }
 
     ngOnDestroy() {

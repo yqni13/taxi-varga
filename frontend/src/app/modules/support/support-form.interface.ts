@@ -19,3 +19,10 @@ export interface SupportFeedbackData {
     termFeedback: boolean,
     message?: string
 }
+
+/**
+ * @description Extend params to overwrite data when initiating form (initEdit()).
+ */
+export interface SupportInitEditParams {
+    option?: SupportOption
+}
