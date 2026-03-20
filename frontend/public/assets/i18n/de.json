@@ -1,5 +1,10 @@
 {
     "common": {
+        "component": {
+            "star-rating": {
+                "select": "Ihre Bewertung"
+            }
+        },
         "footer": {
             "content": {
                 "copyright": "Alle Rechte vorbehalten.",
@@ -7,7 +12,8 @@
             },
             "title": {
                 "imprint": "Impressum",
-                "privacy": "Datenschutz"
+                "privacy": "Datenschutz",
+                "support": "Support / Feedback"
             }
         },
         "interceptor": {
@@ -237,6 +243,51 @@
                     "title": "Spontanfahrt für Einsteiger - Routendetails"
                 }
             }
+        },
+        "support": {
+            "buttons": {
+                "reset": "Reset",
+                "send": "Senden"
+            },
+            "form": {
+                "fieldNames": {
+                    "browser": "Internet-Browser",
+                    "device": "Gerät",
+                    "email": "E-Mail",
+                    "feedback": "Feedback",
+                    "message": "Beschreibung",
+                    "option": "Kategorie",
+                    "os": "Betriebssystem",
+                    "title": "Titel"
+                },
+                "placeholders": {
+                    "browser": "z.B.: Chrome 146.0.7680.80 (Offizieller Build) (64-Bit)",
+                    "device": "Wählen Sie die Kategorie Ihres Gerätes.",
+                    "email": "z.B.: demo.test@gmail.com",
+                    "feedback": "Wie bewerten Sie www.artcreation-dv.at?",
+                    "message-bug": "Beschreiben Sie bitte den von Ihnen entdeckten Fehler so genau wie möglich.",
+                    "message-feedback": "Beschreiben Sie hier bitte relevante Punkte für Ihr Feedback / Ihre Kritik.",
+                    "message-support": "Beschreiben Sie hier bitte Ihren Sachverhalt so genau wie möglich.",
+                    "option": "Was möchten Sie uns mitteilen?",
+                    "os": "z.B.: Windows 11, Android 15, ...",
+                    "term-feedback": "Ich erkläre mich dazu bereit, mein persönliches Feedback zur weiteren Verwendung freizugeben.",
+                    "title": "Kurze Beschreibung Ihres Anliegens."
+                }
+            },
+            "title": "Support",
+            "warning": {
+                "list": [
+                    "Passwörter oder PINs",
+                    "Bankverbindungen oder Kreditkartendaten",
+                    "Daten von Führerschein, Personalausweis oder Reisepass",
+                    "Sozialversicherungsnummern"
+                ],
+                "text": [
+                    "Teilen Sie in Ihrer Anfrage bitte KEINE vertraulichen Informationen wie:",
+                    "Für die Bearbeitung Ihrer Anfrage benötigen wir lediglich Ihre Email-Adresse."
+                ],
+                "title": "Bitte schützen Sie Ihre persönlichen Daten"
+            }
         }
     },
     "shared": {
@@ -244,6 +295,11 @@
             "author": "\u00a9 bild"
         },
         "enum": {
+            "device-option": {
+                "COMPUTER": "Computer (Laptop, Desktop PC)",
+                "MOBILE": "Mobiles Gerät (Smartphone, Tablet, ebook Reader)",
+                "OTHER": "Alternatives Gerät"
+            },
             "gender": {
                 "female": "Frau",
                 "male": "Herr"
@@ -266,6 +322,11 @@
             "theme": {
                 "darkMode": "Dunkel",
                 "lightMode": "Hell"
+            },
+            "ticket-option": {
+                "BUG": "Error",
+                "FEEDBACK": "Feedback",
+                "SUPPORT": "Hilfe"
             }
         }
     }

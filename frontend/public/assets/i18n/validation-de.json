@@ -29,6 +29,7 @@
                 "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
                 "maintenance-code-1": "Der digitale Service steht wegen Wartungsarbeiten aktuell NICHT zur Verfügung. Für Anfragen zum Beförderungsdienst melden Sie sich bitte direkt unter der Telefonnummer: ",
                 "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
+                "server-500-routes-support": "Der Support-API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut.",
                 "support-arg-forbidden": "Ihre Anfrage enthält unerlaubte Daten. Bitte kontrollieren Sie Ihre Angaben.",
                 "support-arg-required": "Ihrer Anfrage fehlen erforderliche Daten. Bitte kontrollieren Sie Ihre Angaben.",
                 "support-blocked-users": "User mit dieser Email-Adresse sind vom Support ausgeschlossen. Es werden keine Anfragen mehr akzeptiert.",
@@ -90,9 +91,9 @@
         "frontend": {
             "file-upload": {
                 "text": {
-                    "allowed-types": "Für den Upload sind nur die folgenden Formate erlaubt: {{VAL}}",
+                    "allowed-types": "Für den Upload sind nur die folgenden Formate erlaubt:\n{{VAL}}",
                     "max-number-total": "Die max Anzahl an hochzuladenden Dateien beträgt: {{MAX}}",
-                    "max-size-each": "Die max. Größe für hochzuladende Dateien beträgt jeweils: {{VAL}}"
+                    "max-size-each": "Die max. Größe für hochzuladende Dateien beträgt jeweils: {{MAX}}MB"
                 },
                 "title": {
                     "allowed-types": "Eingeschränkte Formate",
@@ -103,6 +104,7 @@
             "form": {
                 "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
                 "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
+                "check-data": "Eingaben überprüfen!",
                 "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
                 "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
                 "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
