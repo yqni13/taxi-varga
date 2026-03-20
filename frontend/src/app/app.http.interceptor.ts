@@ -1,25 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SupportHttpInterceptor } from './common/http/support.http.interceptor';
 import { HttpEvent, HttpHandlerFn, HttpRequest, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { catchError, Observable, tap, throwError } from "rxjs";
 import { HttpObservationService } from "./shared/services/http-observation.service";
 import { SnackbarMessageService } from "./shared/services/snackbar.service";
 import { SnackbarOption } from "./shared/enums/snackbar-options.enum";
-import { MailTranslateService } from "./shared/services/mail-translate.service";
-import { TranslateService } from "@ngx-translate/core";
 import { Router } from "@angular/router";
 import * as Helper from "./common/helper/common.helper";
 import { ServiceRoute } from "./api/routes/service.route.enum";
-// import { CryptoService } from "./shared/services/crypto.service";
+import { SupportRoute } from "./api/routes/support.route.enum";
 
 export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> {
     const httpObservationService = inject(HttpObservationService);
-    const mailTranslateService = inject(MailTranslateService);
+    const supportIntercept = inject(SupportHttpInterceptor);
     const snackbarService = inject(SnackbarMessageService);
-    const translate = inject(TranslateService);
     const router = inject(Router);
     const helper = Helper;
-    // const encodingService = inject(CryptoService);
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     return next(req).pipe(
@@ -28,6 +25,10 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                 const httpbody = (httpEvent as HttpResponse<any>);
                 if(httpbody.body.title && httpbody.body.text) {
                     console.log('successful communication!');
+                } else if(httpbody.url?.includes(`/${SupportRoute.FEEDBACK}`)
+                || httpbody.url?.includes(`/${SupportRoute.FEEDBACKRATING}`)
+                || httpbody.url?.includes(`/${SupportRoute.TICKETS}`)) {
+                    supportIntercept.handleSupportResponse(httpEvent as HttpResponse<any>);
                 }
                 if(httpbody.url?.includes(`/driving/${ServiceRoute.AIRPORT}`)) {
                     await delay(1000);
@@ -46,24 +47,19 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
                     httpObservationService.setDrivingQuickStatus(true);
                 } else if(httpbody.url?.includes('/mailing/send')) {
                     await delay(1000);
-                    const param = httpbody.body.body.response.sender;
-                    // const decryptSender = await encodingService.decryptRSA(param);
                     httpObservationService.setEmailStatus(true);
                     snackbarService.notify({
-                        title: translate.currentLang === 'en'
-                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-title')
-                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-title'),
-                        text: translate.currentLang === 'en'
-                            ? mailTranslateService.getTranslationEN('common.interceptor.email.success-text') + param
-                            : mailTranslateService.getTranslationDE('common.interceptor.email.success-text') + param,
+                        title: 'common.interceptor.email.success-title',
+                        text: 'common.interceptor.email.success-text',
                         autoClose: false,
+                        mail: httpbody.body.body.response.sender,
                         type: SnackbarOption.SUCCESS,
                     })
                 }
             }
         }),
         catchError((response) => {
-            handleError(response, httpObservationService, snackbarService, mailTranslateService, translate, router, helper).catch((err) => {
+            handleError(response, httpObservationService, supportIntercept, snackbarService, router, helper).catch((err) => {
                 console.error('Error handling failed', err);
             })
 
@@ -72,10 +68,15 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
     )
 }
 
-export async function handleError(response: any, httpObservationService: HttpObservationService, snackbarService: SnackbarMessageService, mailTranslateService: MailTranslateService, translateService: TranslateService, router: Router, helper: any) {
+export async function handleError(response: any, httpObservationService: HttpObservationService, supportIntercept: SupportHttpInterceptor, snackbarService: SnackbarMessageService, router: Router, helper: any) {
     const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+    const path = 'validation.backend';
 
-    if(response.url.includes(`/driving/${ServiceRoute.AIRPORT}`)) {
+    if(response.url.includes(`/${SupportRoute.FEEDBACK}`)
+    || response.url.includes(`/${SupportRoute.FEEDBACKRATING}`)
+    || response.url.includes(`/${SupportRoute.TICKETS}`)) {
+        supportIntercept.handleSupportError(response);
+    } else if(response.url.includes(`/driving/${ServiceRoute.AIRPORT}`)) {
         await delay(1000);
         httpObservationService.setDrivingAirportStatus(false);
     } else if(response.url.includes(`/driving/${ServiceRoute.DESTINATION}`)) {
@@ -99,55 +100,55 @@ export async function handleError(response: any, httpObservationService: HttpObs
     if(response.status === 0 && 
         (response.url.includes('/driving/') 
         || response.url.includes('/mailing/')
-        || response.url.includes('/address/'))) {
+        || response.url.includes('/address/')
+        || response.url.includes(`/${SupportRoute.FEEDBACK}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACKRATING}`)
+        || response.url.includes(`/${SupportRoute.TICKETS}`))) {
+
+        const errorText = response.url.includes(`/${SupportRoute.TICKETS}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACK}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACKRATING}`)
+            ? 'server-500-routes-support'
+            : 'backend-500-routes';
         Object.assign(response, {
             error: {
                 headers: {
                     error: 'InternalServerException',
-                    message: 'backend-500-server'
+                    message: errorText
                 }
             }
         })
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
         snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.InternalServerException`)
-                : mailTranslateService.getTranslationEN(`${path}.header.InternalServerException`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-routes`)
-                : mailTranslateService.getTranslationEN(`${path}.data.backend-500-routes`),
+            title: `${path}.header.InternalServerException`,
+            text: `${path}.data.${errorText}`,
             autoClose: false,
             type: SnackbarOption.ERROR
         })
     } 
     // SERVER CONNECTION
     else if(response.status === 500) {
+        const errorText = response.url.includes(`/${SupportRoute.TICKETS}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACK}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACKRATING}`)
+            ? 'server-500-routes-support'
+            : 'backend-500-server';
         Object.assign(response, {
             error: {
                 headers: {
                     error: 'InternalServerException',
-                    message: 'backend-500-server'
+                    message: errorText
                 }
             }
         })
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
         snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.InternalServerException`)
-                : mailTranslateService.getTranslationEN(`${path}.header.InternalServerException`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.backend-500-server`)
-                : mailTranslateService.getTranslationEN(`${path}.data.backend-500-server`),
+            title: `${path}.header.InternalServerException`,
+            text: `${path}.data.${errorText}`,
             autoClose: false,
             type: SnackbarOption.ERROR
         })
     } 
     // PROPERTY VALIDATION
     else if(response.status === 400) {
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
         // multiple backend messages only for property validations expected
         let route: string | null = null;
         Object.values(response.error.headers.data).forEach((data: any) => {
@@ -156,51 +157,19 @@ export async function handleError(response: any, httpObservationService: HttpObs
                 route = String(data.msg).replace(sub, '');
             }
             snackbarService.notify({
-                title: currentLang === 'de' 
-                    ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
-                    : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
-                text: currentLang === 'de'
-                    ? mailTranslateService.getTranslationDE(`${path}.data.${data.msg}`)
-                    : mailTranslateService.getTranslationEN(`${path}.data.${data.msg}`),
+                title: `${path}.header.${response.error.headers.error}`,
+                text: `${path}.data.${data.msg}`,
                 autoClose: false,
                 type: SnackbarOption.ERROR,
             })
         })
         helper.navigateWithRoute(route, router);
-    } 
-    // AUTHORIZATION | AUTHENTICATION
-    else if(response.status === 401 || response.status === 404 || response.status === 429) {
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
-        let env: string | undefined = undefined;
-        let message = String(response.error.headers.message);
-        if(message.includes('backend-404-env#')) {
-            env = message.replace('backend-404-env#', '');
-            message = message.replace(`#${env}`, '');
-        }
-        snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
-                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`, env)
-                : mailTranslateService.getTranslationEN(`${path}.data.${message}`, env),
-            autoClose: false,
-            type: SnackbarOption.ERROR,
-        })
-    } 
+    }
     // MAINTENANCE HANDLING
     else if(response.status === 598) {
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
-        let message = String(response.error.headers.message);
         snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
-                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
-                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
+            title: `${path}.header.${response.error.headers.error}`,
+            text: `${path}.data.${response.error.headers.message}`,
             phone: '+436644465466',
             autoClose: false,
             type: SnackbarOption.ERROR,
@@ -209,16 +178,9 @@ export async function handleError(response: any, httpObservationService: HttpObs
     }
     // OTHER VALIDATION
     else if(response.status >= 402 && response.status <= 599) {
-        const currentLang = translateService.currentLang;
-        const path = 'common.validation.validate-backend';
-        let message = String(response.error.headers.message);
         snackbarService.notify({
-            title: currentLang === 'de' 
-                ? mailTranslateService.getTranslationDE(`${path}.header.${response.error.headers.error}`)
-                : mailTranslateService.getTranslationEN(`${path}.header.${response.error.headers.error}`),
-            text: currentLang === 'de'
-                ? mailTranslateService.getTranslationDE(`${path}.data.${message}`)
-                : mailTranslateService.getTranslationEN(`${path}.data.${message}`),
+            title: `${path}.header.${response.error.headers.error}`,
+            text: `${path}.data.${response.error.headers.message}`,
             autoClose: false,
             type: SnackbarOption.ERROR,
         })

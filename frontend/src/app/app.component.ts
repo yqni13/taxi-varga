@@ -7,6 +7,7 @@ import { SnackbarComponent } from './common/components/snackbar/snackbar.compone
 import { SnackbarMessageService } from './shared/services/snackbar.service';
 import { ServiceRoute } from './api/routes/service.route.enum';
 import { TokenService } from './shared/services/token.service';
+import { NavigationService } from './shared/services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -29,14 +30,15 @@ export class AppComponent implements OnInit {
 
   constructor(
     protected readonly snackbarService: SnackbarMessageService,
+    private readonly navigation: NavigationService,
     @Inject(DOCUMENT) private document: Document,
     private readonly tokenService: TokenService,
     private readonly elRef: ElementRef,
     private readonly router: Router,
   ) {
-    router.events.subscribe(event => {
+    this.router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
-        this.scrollToTop();
+        this.navigation.scrollToTop(this.scrollAnchor, this.document);
 
         // destroy session (token) leaving a service mask
         const servicePaths = Object.values(ServiceRoute) as string[];
@@ -50,15 +52,5 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-scroll-anchor");
-  }
-
-  scrollToTop() {
-    if(this.scrollAnchor && this.document.scrollingElement !== null) {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      HTMLElement.prototype.scrollTo = () => {};
-      this.scrollAnchor.scrollTo(0,0);
-      // need to kill the y-offset caused by navbar in mobile mode
-      this.document.scrollingElement.scrollTop = 0;
-    }
   }
 }

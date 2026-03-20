@@ -6,6 +6,8 @@ import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
+import { BaseRoute } from "../../api/routes/base.route.enum";
+import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
 
 @Component({
     selector: 'tava-imprint',
@@ -23,22 +25,24 @@ export class ImprintComponent implements OnInit, OnDestroy {
     protected selectedBg: string;
     protected devData: any;
     protected ownerData: any;
+    protected images: string[];
+    protected isPreloading: boolean;
 
     private subscriptionThemeObservation$: Subscription;
 
     constructor(
-        private readonly translate: TranslateService,
-        private readonly observation: ObservationService
+        private readonly observation: ObservationService,
+        private readonly preload: AssetsPreloadService
     ) {
         this.selectedBg = '';
         this.subscriptionThemeObservation$ = new Subscription();
         
         this.devData = {
             project: 'taxi-varga',
-            version: 'v1.8.4',
-            github: 'https://github.com/yqni13/taxi-varga',
+            version: 'v1.9.7',
+            github: 'https://github.com/yqni13/taxi-varga/tree/production',
             portfolio: 'https://yqni13.com',
-            email: 'lukas.varga@yqni13.com'
+            contact: BaseRoute.SUPPORT
         };
 
         this.ownerData = {
@@ -48,6 +52,8 @@ export class ImprintComponent implements OnInit, OnDestroy {
             email: 'laszlovarga@gmx.at',
             phone: '+436644465466',
         };
+        this.images = [];
+        this.isPreloading = true;
     }
 
     ngOnInit() {
@@ -65,6 +71,10 @@ export class ImprintComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+        this.images = ['assets/docs/icons/yqni13-small.png'];
+        this.preload.preloadAssets({images: this.images}).finally(() => {
+            this.isPreloading = false;
+        })
     }
 
     ngOnDestroy() {

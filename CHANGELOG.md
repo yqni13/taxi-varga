@@ -1,12 +1,35 @@
-# yqni13 | taxi-varga
+## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
-### $\texttt{\color{olive}{LIST\ OF\ UPDATES}}$
+### $\textsf{\color{skyblue}2026/03/20}$
+
+$\textsf{[v1.9.4\ =>\ {\textbf{\color{brown}v1.9.7}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added support component (including routing).
+- $\textsf{\color{teal}Addition:}$ Added file-upload service.
+- $\textsf{\color{orange}Patch:}$ Updated imprint data + links.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/03/19}$
+
+$\textsf{[v1.9.0\ =>\ v1.9.4]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + custom translation service (including dynamic translation values).
+  + mail translations + bugfixes (missing airport translation).
+  + simplified snackbar message service including centralized translations.
+  + validation translation data distributed across separate files. 
+
+<br>
+
+### $\textsf{\color{skyblue}2026/03/17}$
+
+$\textsf{[v1.8.4\ =>\ v1.9.0]}$ app
+- $\textsf{\color{teal}Addition:}$ Added support API service/enums/interfaces/env variables.
 
 <br>
 
 ### $\textsf{\color{skyblue}2026/03/11}$
 
-$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
+$\textsf{[v1.8.3\ =>\ v1.8.4]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
 
 <br>

@@ -1,6 +1,5 @@
-# yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.8.4}}$
-
+# yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
+### $\textsf{\color{brown}{v1.9.7}}$
 
 <br><br>
 
@@ -8,80 +7,84 @@ $\texttt{\color{teal}{v1.8.4}}$
     <img src="frontend/public/assets/docs/responsive_overview.png" alt="no responsive design at the moment">
 </div>
 
-### Technology
 
 <br>
-<div style="display:flex; align-items:center;">
-    <img src="frontend/public/assets/docs/icons/angular.png" alt="Angular">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI">&nbsp;&nbsp;
+<div align="center">
+    <a href="https://v18.angular.dev/overview"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular"></a>
+    <a href="https://nodejs.org/en"><img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js"></a>
+    <a href="https://mapsplatform.google.com/maps-products/?hl=en#places-section"><img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI"></a>
+    <a href="https://rxjs.dev/"><img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS"></a>
+    <a href="https://expressjs.com/"><img src="frontend/public/assets/docs/icons/express.png" alt="Express"></a>
+    <a href="https://mapsplatform.google.com/maps-products/?hl=en#routes-section"><img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI"></a>
+    <a href="https://www.i18next.com/"><img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n"></a>
+    <a href="https://jestjs.io/"><img src="frontend/public/assets/docs/icons/jest.png" alt="Jest"></a>
 </div>
 
-<div style="display:flex; align-items:center">
-    <img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/express.png" alt="Express">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI">&nbsp;&nbsp;
-</div>
-    
-<div style="display:flex; align-items:center">
-    <img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/jest.png" alt="Jest">&nbsp;&nbsp;
-</div>
 <br>
 
+
+### $\textsf{\color{teal}Hosting}$
+This project runs live (see link). The frontend-part is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile the backend-part is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
+For testing purposes one instance runs on env:stag while the live version runs on env:prod.
+<br>
 ### visit the <a href="https://taxi-varga.at">WEBSITE</a>
 
 <br>
 
-## How to:
+## 🪄 $\textsf{\color{salmon}Getting started}$
 
-### Start
+### $\textsf{\color{teal}Prerequisites}$
+
+- node: v22+
+- Google API Key (geocode, places, distanceMatrix)
+- Betterstack Telemetry (logging)
+
+<br>
 
 `ALL LISTED COMMANDS ARE DEFINED TO WORK AT LEAST ON POWERSHELL/COMMAND PROMPT.`
 
-Create necessary modules (/frontend and /backend):
+<br>
+
+### $\textsf{\color{teal}Local setup}$
+
+
+Download or clone project
+
 ```sh
-$ npm install
+git clone https://github.com/yqni13/taxi-varga
 ```
-This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Fill environment variables with necessary data/paths and serve on localhost:
+
+Create new .env file and fill in your credentials/other env data [(see docs)](./CONFIGURATION.md)
+<br>Navigate/cd into the root paths (/frontend and /backend) and install dependencies via npm:
+```sh
+$ npm ci
+```
+This web project uses Google API calls, which require to run the application on ssl (https) - for each environment (dev/stag/prod). Therefore, running on localhost you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured [see set-env.ts](./frontend/set-env.ts) (env:prod) and create local copy [see docs](./CONFIGURATION.md) for local development. Start application (frontend part) in local environment:
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`. To run backend use:
+which will open automatically on `https://localhost:4200/`. To run backend part, use:
 ```sh
 node server.js
 ```
 
-### Build & Deploy
-The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
-Currently there are 2 hosted versions accessible - on staging level (branch: staging) to test outside of an local environment and on production level (branch: production) as ready-to-use software.
 <br>
-<b>Note</b>: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
-<br>
-Currently public/private keys are converted from single-line secret to multi-line secret in: <a href="./frontend/set-env.ts">set-env.ts</a>
-<br><br>
 
-## Overview
+## 🧩 $\textsf{\color{salmon}Features}$
 
-### $\textsf{\color{teal}Features}$
-
-<dl>
-    <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
-    <dd>:repeat: Google Routes/Places API usage in backend</dd>
-    <dd>:triangular_flag_on_post: Google Maps usage in frontend + calculating route by geolocation</dd>
-    <dd>:turtle: Custom image/video preload</dd>
-    <dd>:mag: Custom search-input form component combined with Google Places API</dd>
-    <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
-    <dd>:computer: Key navigation on forms and carousel</dd>
-    <dd>:wrench: Custom validation Angular/Express-Validator</dd>
-    <dd>:lock: Asymmetric/hybrid (RSA/AES) encrypted requests</dd>
-    <dd>:e-mail: Mail service with node.js & nodemailer for Backend</dd>
-    <dd>:signal_strength: Http interception + custom snackbar modal</dd>
-    <dd>:new_moon_with_face:/:sun_with_face: Custom color theme (dark/light mode)</dd>
-    <dd>:globe_with_meridians: i18n (internationalization) - translate to german or english</dd>
-    <dd>:iphone: Responsive design 400px > width < 1800px via flexbox & media queries</dd>
-</dl>
+| Feature | Description |
+|---------|-------------|
+| 🪁 Angular | Angular v18 standalone with routing + nested routes on id |
+| 🌍 Google API | Google places/routes/geolocation API calculation/visualization |
+| ⌨ Input | Customized form components (text/textarea/select) |
+| 🔍 Search | Customized search-input form component combined with Google Places API |
+| ⚠️ Validation | Customized validation in combination with Angular + Express-Validator |
+| 🖼️ Preload | Customized image/video preload |
+| 🔐 Encryption | Asymmetric/hybrid (RSA/AES) encrypted requests |
+| 📧 Email | Email service with node.js & nodemailer |
+| 🗯️ Notification | Customized snackbar + extended translation service |
+| 🎨 Themes | Customized theme options (dark/light mode) |
+| 📱 Design | Responsive design 400px > width < 1800px supported via flexbox & media queries |
 
 <br>
 
@@ -168,7 +171,7 @@ this.assetsPreloadService.preloadAssets({
 
 <br>
 
-## Testing
+## 🔧 $\textsf{\color{salmon}Testing}$
 
 ### $\textsf{\color{teal}Jest}$
 
@@ -218,7 +221,7 @@ $ npm run lint
 ```
 <br>
 
-### Cross-browser testing
+### $\textsf{\color{teal}Cross-browser testing}$
 
 <img src="frontend/public/assets/docs/icons/firefox_logo50.ico"> | <img src="frontend/public/assets/docs/icons/chrome_logo50.ico"> | <img src="frontend/public/assets/docs/icons/opera_logo50.ico"> | <img src="frontend/public/assets/docs/icons/edge_logo50.ico"> | <img src="frontend/public/assets/docs/icons/duckduckgo_logo50.ico"> | <img src="frontend/public/assets/docs/icons/brave_logo50.ico">
 |:------:|:------:|:------:|:------:|:------:|:------:|
@@ -231,13 +234,13 @@ $ npm run lint
 
 <br>
 
-## Updates
-[list of all updates](CHANGELOG.md)
+## 📈 $\textsf{\color{salmon}Updates}$
+[see changelog for all updates](CHANGELOG.md)
 
-### $\textsf{\color{forestgreen}last update:}$
-
-$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
+$\textsf{[v1.9.4\ =>\ {\textbf{\color{brown}v1.9.7}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added support component (including routing).
+- $\textsf{\color{teal}Addition:}$ Added file-upload service.
+- $\textsf{\color{orange}Patch:}$ Updated imprint data + links.
 
 <br>
 

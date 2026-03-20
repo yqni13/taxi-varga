@@ -1,8 +1,8 @@
-import { Inject, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { SnackbarOption } from "../enums/snackbar-options.enum";
 import { Subject } from "rxjs";
 import { SnackbarMessage } from "../interfaces/snackbar.interface";
-import { DOCUMENT } from "@angular/common";
+import { CustomTranslateService } from "./custom-translate.service";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +13,9 @@ export class SnackbarMessageService {
     subject: Subject<boolean>;
     isActive: boolean;
 
-    constructor(@Inject(DOCUMENT) private document: Document) {
+    constructor(
+        private readonly customTranslate: CustomTranslateService
+    ) {
         this.snackbarCollection = [];
         this.subject = new Subject<boolean>();
         this.isActive = false;
@@ -26,8 +28,9 @@ export class SnackbarMessageService {
     notify(snackbar: SnackbarMessage) {
         snackbar.type = snackbar.type || SnackbarOption.INFO;
 
-        if(snackbar.title.length === 0) {
-            snackbar.title = 'No title selected.'
+        snackbar.title = this.customTranslate.apply(snackbar.title);
+        if(snackbar.text) {
+            snackbar.text = this.customTranslate.apply(snackbar.text);
         }
 
         if(!snackbar.autoClose) {
@@ -39,12 +42,14 @@ export class SnackbarMessageService {
         }
 
         if(snackbar.autoClose) {
-            // this.document.body.style.setProperty('': '')
             snackbar.displayHandler = setTimeout(() => this.close(snackbar), snackbar.displayTime);
         }
 
         this.isActive = true;
-        this.snackbarCollection.push(snackbar);
+        // Avoid redundant display of same error multiple times.
+        if(!this.snackbarCollection.find((entry) => entry.title === snackbar.title)) {
+            this.snackbarCollection.push(snackbar);
+        }
     }
 
     close(snackbar: SnackbarMessage) {
@@ -53,5 +58,5 @@ export class SnackbarMessageService {
             this.snackbarCollection.splice(displayedSnackbarIndex, 1);
         }
         this.isActive = this.snackbarCollection.length === 0 ? false : true;
-    } 
+    }
 }

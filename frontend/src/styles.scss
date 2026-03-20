@@ -96,6 +96,11 @@ h2 {
     visibility: hidden;
 }
 
+.tava-readonly {
+    filter: opacity(0.5);
+    pointer-events: none;
+}
+
 .tava-divider {
     border: 1px inset sass.$color-ice-white;
     opacity: var(--divider-opacity);
