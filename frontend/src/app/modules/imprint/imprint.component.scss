@@ -53,6 +53,25 @@
         .tava-imprint-content-break {
             margin-bottom: sass.$space15;
         }
+
+        #tava-imprint-dev-icon-wrapper {
+            display: flex;
+            flex-direction: row;
+            a {
+                display: flex;
+                align-items: center;
+                margin: sass.$space5 sass.$space15 0 0;
+            }
+            .icon-GitHub {
+                width: 45px;
+                height: 45px;
+                background-color: var(--theme-body-text);
+            }
+            img {
+                width: 45px;
+                height: 45px;
+            }
+        }
     }
 
     p {

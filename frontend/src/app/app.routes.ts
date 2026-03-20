@@ -6,6 +6,7 @@ import { SamplesComponent } from './modules/samples/samples.component';
 import { PrivacyComponent } from './modules/privacy/privacy.component';
 import { BaseRoute } from './api/routes/base.route.enum';
 import { AssetsPreloadGuard } from './common/guards/assets-preload.guard';
+import { SupportComponent } from './modules/support/support.component';
 
 export const routes: Routes = [
     {
@@ -59,6 +60,11 @@ export const routes: Routes = [
         path: BaseRoute.PRIVACY,
         component: PrivacyComponent,
         data: {title: BaseRoute.PRIVACY, showInNavbar: false, showInFooter: true, icon: 'icon-privacy'}
+    },
+    {
+        path: BaseRoute.SUPPORT,
+        component: SupportComponent,
+        data: {title: BaseRoute.SUPPORT, showInNavbar: false, showInFooter: true, icon: 'icon-support'}
     },
     {
         path: '**',

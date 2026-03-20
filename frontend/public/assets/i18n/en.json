@@ -1,5 +1,10 @@
 {
     "common": {
+        "component": {
+            "star-rating": {
+                "select": "your rating"
+            }
+        },
         "footer": {
             "content": {
                 "copyright": "All rights reserved.",
@@ -7,7 +12,8 @@
             },
             "title": {
                 "imprint": "Imprint",
-                "privacy": "Privacy police"
+                "privacy": "Privacy police",
+                "support": "Support / Feedback"
             }
         },
         "interceptor": {
@@ -237,6 +243,51 @@
                     "title": "Spontaneous drive to hitchhike - route details"
                 }
             }
+        },
+        "support": {
+            "buttons": {
+                "reset": "Reset",
+                "send": "Send"
+            },
+            "form": {
+                "fieldNames": {
+                    "browser": "Internet browser",
+                    "device": "Device",
+                    "email": "E-Mail",
+                    "feedback": "Feedback",
+                    "message": "Message",
+                    "option": "Category",
+                    "os": "Operational System",
+                    "title": "Title"
+                },
+                "placeholders": {
+                    "browser": "e.g.: Chrome 146.0.7680.80 (Official Build) (64-Bit)",
+                    "device": "Select your device category.",
+                    "email": "e.g.: demo.test@gmail.com",
+                    "feedback": "How do you rate www.taxi-varga.at?",
+                    "message-bug": "Please describe the error you discovered as precisely as possible.",
+                    "message-feedback": "Please describe relevant points for your feedback/criticism here.",
+                    "message-support": "Please describe your situation here as precisely as possible.",
+                    "option": "What would you like to tell us?",
+                    "os": "e.g.: Windows 11, Android 15, ...",
+                    "term-feedback": "I agree to release my personal feedback for further use.",
+                    "title": "Brief description of your request"
+                }
+            },
+            "title": "Support",
+            "warning": {
+                "list": [
+                    "Passwords and pins",
+                    "Bank account details or credit card details",
+                    "Data from driver's license, identity card or passport",
+                    "Social security numbers"
+                ],
+                "text": [
+                    "Please do NOT share any confidential information in your request, such as:",
+                    "To process your request, we only need your email address."
+                ],
+                "title": "Please protect your personal data."
+            }
         }
     },
     "shared": {
@@ -244,6 +295,11 @@
             "author": "\u00a9 image"
         },
         "enum": {
+            "device-option": {
+                "COMPUTER": "Computer (laptop, desktop pc)",
+                "MOBILE": "Mobile device (smartphone, tablet, ebook reader)",
+                "OTHER": "Alternative device"
+            },
             "gender": {
                 "female": "Ms.",
                 "male": "Mr."
@@ -266,6 +322,11 @@
             "theme": {
                 "darkMode": "Dark",
                 "lightMode": "Light"
+            },
+            "ticket-option": {
+                "BUG": "Bug",
+                "FEEDBACK": "Feedback",
+                "SUPPORT": "Support"
             }
         }
     }

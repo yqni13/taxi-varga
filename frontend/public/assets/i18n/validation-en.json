@@ -29,6 +29,7 @@
                 "backend-required": "Not all necessary data were transferred. Please check your input.",
                 "maintenance-code-1": "The digital service is currently UNAVAILABLE due to maintenance. For inquiries regarding the transport service, please contact us directly at: ",
                 "navigate-destination-airport/service": "For a route between Vienna and Vienna International Airport, the service \"AIRPORT\" must be used.",
+                "server-500-routes-support": "The support-api endpoint is not available at the moment. Please try again later.",
                 "support-arg-forbidden": "Your request contains unauthorized data. Please check your input.",
                 "support-arg-required": "Your request is missing required data. Please check your input.",
                 "support-blocked-users": "Users with this email address are excluded from support. No further requests will be accepted.",
@@ -90,9 +91,9 @@
         "frontend": {
             "file-upload": {
                 "text": {
-                    "allowed-types": "Only files of the following types are allowed to upload: {{VAL}}",
+                    "allowed-types": "Only files of the following types are allowed to upload:\n{{VAL}}",
                     "max-number-total": "The max. number of uploaded files is: {{MAX}}",
-                    "max-size-each": "The max. size for each uploaded file is: {{VAL}}"
+                    "max-size-each": "The max. size for each uploaded file is: {{MAX}}MB"
                 },
                 "title": {
                     "allowed-types": "Limited types",
@@ -103,6 +104,7 @@
             "form": {
                 "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
                 "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
+                "check-data": "Check input!",
                 "datetime-end-invalid-negative": "Time of return can not be before pickup.",
                 "datetime-invalid-negative": "Selected time must not be in the past.",
                 "email-invalid": "Field \"{{fieldName}}\" has invalid format.",

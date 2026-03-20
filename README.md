@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.4}}$
+### $\textsf{\color{brown}{v1.9.7}}$
 
 <br><br>
 
@@ -22,6 +22,11 @@
 
 <br>
 
+
+### $\textsf{\color{teal}Hosting}$
+This project runs live (see link). The frontend-part is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile the backend-part is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
+For testing purposes one instance runs on env:stag while the live version runs on env:prod.
+<br>
 ### visit the <a href="https://taxi-varga.at">WEBSITE</a>
 
 <br>
@@ -49,30 +54,21 @@ Download or clone project
 git clone https://github.com/yqni13/taxi-varga
 ```
 
-Create new .env file and fill in your credentials/other env data [(see docs)](./docs/)
+Create new .env file and fill in your credentials/other env data [(see docs)](./CONFIGURATION.md)
 <br>Navigate/cd into the root paths (/frontend and /backend) and install dependencies via npm:
 ```sh
 $ npm ci
 ```
-This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Fill environment variables with necessary data/paths and serve on localhost:
+This web project uses Google API calls, which require to run the application on ssl (https) - for each environment (dev/stag/prod). Therefore, running on localhost you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured [see set-env.ts](./frontend/set-env.ts) (env:prod) and create local copy [see docs](./CONFIGURATION.md) for local development. Start application (frontend part) in local environment:
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`. To run backend use:
+which will open automatically on `https://localhost:4200/`. To run backend part, use:
 ```sh
 node server.js
 ```
 
 <br>
-
-### $\textsf{\color{teal}Build and Deploy}$
-The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
-Currently there are 2 hosted versions accessible - on staging level (branch: staging) to test outside of an local environment and on production level (branch: production) as ready-to-use software.
-<br>
-<b>Note</b>: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
-<br>
-Currently public/private keys are converted from single-line secret to multi-line secret in: <a href="./frontend/set-env.ts">set-env.ts</a>
-<br><br>
 
 ## 🧩 $\textsf{\color{salmon}Features}$
 
@@ -241,12 +237,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.0\ =>\ {\textbf{\color{brown}v1.9.4}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated:
-  + custom translation service (including dynamic translation values).
-  + mail translations + bugfixes (missing airport translation).
-  + simplified snackbar message service including centralized translations.
-  + validation translation data distributed across separate files. 
+$\textsf{[v1.9.4\ =>\ {\textbf{\color{brown}v1.9.7}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added support component (including routing).
+- $\textsf{\color{teal}Addition:}$ Added file-upload service.
+- $\textsf{\color{orange}Patch:}$ Updated imprint data + links.
 
 <br>
 

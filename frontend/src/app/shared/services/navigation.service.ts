@@ -63,4 +63,14 @@ export class NavigationService {
                 return `/assets/app-icons/${icon}.svg`;
             })
     }
+
+    scrollToTop(anchor: HTMLElement, document: Document) {
+        if(anchor && document.scrollingElement !== null) {
+            // eslint-disable-next-line @typescript-eslint/no-empty-function
+            HTMLElement.prototype.scrollTo = () => {};
+            anchor.scrollTo(0,0);
+            // Need to kill the y-offset caused by navbar in mobile mode.
+            document.scrollingElement.scrollTop = 0;
+        }
+    }
 }

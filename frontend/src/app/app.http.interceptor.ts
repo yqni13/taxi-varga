@@ -127,17 +127,22 @@ export async function handleError(response: any, httpObservationService: HttpObs
     } 
     // SERVER CONNECTION
     else if(response.status === 500) {
+        const errorText = response.url.includes(`/${SupportRoute.TICKETS}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACK}`)
+        || response.url.includes(`/${SupportRoute.FEEDBACKRATING}`)
+            ? 'server-500-routes-support'
+            : 'backend-500-server';
         Object.assign(response, {
             error: {
                 headers: {
                     error: 'InternalServerException',
-                    message: 'backend-500-server'
+                    message: errorText
                 }
             }
         })
         snackbarService.notify({
             title: `${path}.header.InternalServerException`,
-            text: `${path}.data.${response.error.headers.message}`,
+            text: `${path}.data.${errorText}`,
             autoClose: false,
             type: SnackbarOption.ERROR
         })
