@@ -6,6 +6,7 @@ import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
+import { BaseRoute } from "../../api/routes/base.route.enum";
 
 @Component({
     selector: 'tava-imprint',
@@ -36,9 +37,9 @@ export class ImprintComponent implements OnInit, OnDestroy {
         this.devData = {
             project: 'taxi-varga',
             version: 'v1.9.4',
-            github: 'https://github.com/yqni13/taxi-varga',
+            github: 'https://github.com/yqni13/taxi-varga/tree/production',
             portfolio: 'https://yqni13.com',
-            email: 'lukas.varga@yqni13.com'
+            contact: BaseRoute.SUPPORT
         };
 
         this.ownerData = {

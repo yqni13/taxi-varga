@@ -1,0 +1,90 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+$rate-height: 30px;
+
+#tava-starrating {
+    display: flex;
+
+    .tava-starrating-wrapper {
+        display: inline-flex;
+        height: $rate-height;
+    }
+
+    .rating__icon {
+        pointer-events: none;
+    }
+
+    .rating__input { // Hide radio inputs.
+    position: absolute !important;
+    left: -9999px !important;
+    }
+
+    .rating__input--none { // Hide 'none' input from screenreaders.
+        display: none
+    }
+
+    .rating__label {
+        cursor: pointer;
+        padding: 0 sass.$space5;
+        font-size: 2rem;
+    }
+
+    .star-passive { // Default selected rating.
+        color: sass.$color-darkmode-warning;
+    }
+
+    .star-active { // Active/manually selected rating.
+        color: sass.$color-lightmode-warning;
+    }
+
+    .rating__input:checked ~ .rating__label .rating__icon--star {
+        color: #ddd;
+        opacity: var(--theme-rating-passive-opacity);
+    }
+
+    .tava-starrating-wrapper:hover .rating__label .rating__icon--star { // Change color on hover like selection.
+        color: sass.$color-lightmode-warning;
+        opacity: 1; // Overwrite opacity from hover for non-selected stars
+    }
+
+    .tava-starrating-wrapper:hover ~ #tava-rating-value-wrapper #tava-rating-value {
+        opacity: 0;
+    }
+
+    .tava-starrating-wrapper:hover ~ #tava-rating-value-wrapper #tava-rating-text {
+        opacity: 1;
+    }
+
+    .rating__input:hover ~ .rating__label .rating__icon--star { // Change non-selected stars grey on hover.
+        color: #ddd;
+        opacity: var(--theme-rating-passive-opacity);
+    }
+
+    #tava-rating-value-wrapper {
+        align-content: center;
+        height: $rate-height;
+        position: absolute;
+        margin-left: 205px;
+
+        #tava-rating-value {
+            position: absolute;
+            font-size: 20px;
+            height: 100%;
+            top: 0;
+            align-content: center;
+            color: var(--theme-body-text);
+            opacity: 0.5;
+        }
+
+        #tava-rating-text {
+            opacity: 0;
+            height: 100%;
+            top: 0;
+            align-content: center;
+            font-size: clamp(14px, 1.8vw, 16px);
+            color: var(--theme-body-text);
+        }
+    }
+}
+
