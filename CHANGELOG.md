@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/03/20}$
+
+$\textsf{[v1.9.4\ =>\ {\textbf{\color{brown}v1.9.7}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added support component (including routing).
+- $\textsf{\color{teal}Addition:}$ Added file-upload service.
+- $\textsf{\color{orange}Patch:}$ Updated imprint data + links.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/03/19}$
 
-$\textsf{[v1.9.0\ =>\ {\textbf{\color{brown}v1.9.4}]}}$ app
+$\textsf{[v1.9.0\ =>\ v1.9.4]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + custom translation service (including dynamic translation values).
   + mail translations + bugfixes (missing airport translation).
