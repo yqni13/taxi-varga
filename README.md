@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.7}}$
+### $\textsf{\color{brown}{v1.9.9}}$
 
 <br><br>
 
@@ -236,10 +236,9 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.4\ =>\ {\textbf{\color{brown}v1.9.7}]}}$ app
-- $\textsf{\color{teal}Addition:}$ Added support component (including routing).
-- $\textsf{\color{teal}Addition:}$ Added file-upload service.
-- $\textsf{\color{orange}Patch:}$ Updated imprint data + links.
+$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
+- $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
 
 <br>
 
