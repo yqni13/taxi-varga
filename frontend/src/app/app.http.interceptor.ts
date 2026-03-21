@@ -151,19 +151,28 @@ export async function handleError(response: any, httpObservationService: HttpObs
     else if(response.status === 400) {
         // multiple backend messages only for property validations expected
         let route: string | null = null;
-        Object.values(response.error.headers.data).forEach((data: any) => {
-            if(route === null && data.msg.includes('navigate')) {
-                const sub = String(data.msg).substring(0, String(data.msg).indexOf('/'));
-                route = String(data.msg).replace(sub, '');
-            }
+        if(response.error.headers.data) {
+            Object.values(response.error.headers.data).forEach((data: any) => {
+                if(route === null && data.msg.includes('navigate')) {
+                    const sub = String(data.msg).substring(0, String(data.msg).indexOf('/'));
+                    route = String(data.msg).replace(sub, '');
+                }
+                snackbarService.notify({
+                    title: `${path}.header.${response.error.headers.error}`,
+                    text: `${path}.data.${data.msg}`,
+                    autoClose: false,
+                    type: SnackbarOption.ERROR,
+                })
+            })
+            helper.navigateWithRoute(route, router);
+        } else {
             snackbarService.notify({
                 title: `${path}.header.${response.error.headers.error}`,
-                text: `${path}.data.${data.msg}`,
+                text: `${path}.data.${response.error.headers.message}`,
                 autoClose: false,
                 type: SnackbarOption.ERROR,
             })
-        })
-        helper.navigateWithRoute(route, router);
+        }
     }
     // MAINTENANCE HANDLING
     else if(response.status === 598) {
@@ -177,7 +186,7 @@ export async function handleError(response: any, httpObservationService: HttpObs
         helper.navigateWithRoute('/service', router);
     }
     // OTHER VALIDATION
-    else if(response.status >= 402 && response.status <= 599) {
+    else if(response.status > 400 && response.status <= 599) {
         snackbarService.notify({
             title: `${path}.header.${response.error.headers.error}`,
             text: `${path}.data.${response.error.headers.message}`,

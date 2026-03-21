@@ -58,7 +58,7 @@ exports.drivingFlatrateSchema = [
     body('destination')
         .trim()
         .notEmpty()
-        .withMessage('backend-required'),    
+        .withMessage('backend-required'),
     body('destinationDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
     body('tenancy')
