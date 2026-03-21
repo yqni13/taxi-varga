@@ -3,7 +3,7 @@
 
 <br><br>
 
-<div>
+<div align="center">
     <img src="frontend/public/assets/docs/responsive_overview.png" alt="no responsive design at the moment">
 </div>
 
@@ -38,10 +38,6 @@ For testing purposes one instance runs on env:stag while the live version runs o
 - node: v22+
 - Google API Key (geocode, places, distanceMatrix)
 - Betterstack Telemetry (logging)
-
-<br>
-
-`ALL LISTED COMMANDS ARE DEFINED TO WORK AT LEAST ON POWERSHELL/COMMAND PROMPT.`
 
 <br>
 
@@ -119,10 +115,13 @@ Additionally, the service for spontaneous drives offers a feature to use coordin
 
 <br>
 
-### $\textsf{\color{teal}Theme + Internationalization}$
+### $\textsf{\color{teal}Theme, Internationalization and extended translate service}$
 
-The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 5). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
+The application is visualized by one of two different themes: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$ (see Figure 5). The selected theme as well as the current language for translations are stored in the localstorage. Dark mode and german language are set for default. For easier maintainence/readability a loader joins multiple .json files for the same language translation [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
 
+<br>
+
+Additionally to the ngx-translate package, a `customized extention` is used to handle dynamic values for translations [see docs](./TRANSLATIONS.md).
 <div align="center">
     <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
     Figure 5, v1.5.6
