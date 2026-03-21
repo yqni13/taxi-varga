@@ -47,7 +47,7 @@ export class SnackbarMessageService {
 
         this.isActive = true;
         // Avoid redundant display of same error multiple times.
-        if(!this.snackbarCollection.find((entry) => entry.title === snackbar.title)) {
+        if(!this.snackbarCollection.find((entry) => entry.title === snackbar.title && entry?.text === snackbar?.text)) {
             this.snackbarCollection.push(snackbar);
         }
     }
