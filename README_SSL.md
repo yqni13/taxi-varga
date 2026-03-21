@@ -2,12 +2,12 @@
 
 ### Preparations
 
-Look up "local ssl setup" on the internet for help with the local setup (due to different versions, operating systems and methods I don't suggest a certain way). Create a certificate and key (also multiple ways to do so) and config your environment respectively.
+Look up "local SSL setup" on the internet for help with the local setup (due to different versions, operating systems and methods I don't suggest a certain way). Create a certificate and key (also multiple ways to do so) and configure your environment respectively.
 <br><br>
 
 ### package.json
 
-Adapt script command `start-local-ssl` within [package.json](package.json) to ignore errors status 0 (self-signed certificate), set env-variables and reference your cert and key to run the application on localhost (development environment):
+Adapt script command `start-local-ssl` within [package.json](package.json) to ignore errors status 0 (self-signed certificate), set env-variables and reference your cert and key to run the application on localhost (env:development):
 ```sh
 cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 cmd /c \"node ./set-env.dev.ts && ng serve --ssl true --ssl-cert D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.crt --ssl-key D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.key --open\"
 ```
@@ -35,7 +35,7 @@ which also needs to be entered in angular.json on path "architect/serve/" as:
 <br>
 
 ### API url's
-Due to the proxy configuration, the api call urls need to be adapted too by removing the domain added from env var (every api call). See example:
+Due to the proxy configuration, the api call urls need to be adapted too by removing the domain added from env var (every API call). See example:
 ```sh
 this.url = '/api/v1/auth/init';
 ```
@@ -47,7 +47,7 @@ this.url = `${environment.API_BASE_URL}/api/v1/auth/init`;
 
 ### server.js
 
-Finally, `server.js` for the backend must be adapted to local ssl usage:
+Finally, `server.js` for the backend must be adapted to local SSL usage:
 ```sh
 require('dotenv').config();
 const { Config } = require('./src/configs/config');
