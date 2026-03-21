@@ -1,93 +1,92 @@
-# yqni13 | taxi-varga
-$\texttt{\color{teal}{v1.8.4}}$
-
+# yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
+### $\textsf{\color{brown}{v1.9.9}}$
 
 <br><br>
 
-<div>
+<div align="center">
     <img src="frontend/public/assets/docs/responsive_overview.png" alt="no responsive design at the moment">
 </div>
 
-### Technology
 
 <br>
-<div style="display:flex; align-items:center;">
-    <img src="frontend/public/assets/docs/icons/angular.png" alt="Angular">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI">&nbsp;&nbsp;
+<div align="center">
+    <a href="https://v18.angular.dev/overview"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular"></a>
+    <a href="https://nodejs.org/en"><img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js"></a>
+    <a href="https://mapsplatform.google.com/maps-products/?hl=en#places-section"><img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI"></a>
+    <a href="https://rxjs.dev/"><img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS"></a>
+    <a href="https://expressjs.com/"><img src="frontend/public/assets/docs/icons/express.png" alt="Express"></a>
+    <a href="https://mapsplatform.google.com/maps-products/?hl=en#routes-section"><img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI"></a>
+    <a href="https://www.i18next.com/"><img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n"></a>
+    <a href="https://jestjs.io/"><img src="frontend/public/assets/docs/icons/jest.png" alt="Jest"></a>
 </div>
 
-<div style="display:flex; align-items:center">
-    <img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/express.png" alt="Express">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/routes.png" alt="GoogleRoutesAPI">&nbsp;&nbsp;
-</div>
-    
-<div style="display:flex; align-items:center">
-    <img src="frontend/public/assets/docs/icons/eslint.png" alt="ESLint">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/i18n.png" alt="i18n">&nbsp;&nbsp;
-    <img src="frontend/public/assets/docs/icons/jest.png" alt="Jest">&nbsp;&nbsp;
-</div>
 <br>
 
+
+### $\textsf{\color{teal}Hosting}$
+This project runs live (see link). The frontend is hosted by <a href="https://app.netlify.com/">Netlify</a>, while the backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
+For testing purposes one instance runs on env:stag while the live version runs on env:prod.
+<br>
 ### visit the <a href="https://taxi-varga.at">WEBSITE</a>
 
 <br>
 
-## How to:
+## 🪄 $\textsf{\color{salmon}Getting started}$
 
-### Start
+### $\textsf{\color{teal}Prerequisites}$
 
-`ALL LISTED COMMANDS ARE DEFINED TO WORK AT LEAST ON POWERSHELL/COMMAND PROMPT.`
+- node: v22+
+- Google API Key (geocode, places, distanceMatrix)
+- Betterstack Telemetry (logging)
 
-Create necessary modules (/frontend and /backend):
+<br>
+
+### $\textsf{\color{teal}Local setup}$
+
+
+Download or clone project
+
 ```sh
-$ npm install
+git clone https://github.com/yqni13/taxi-varga
 ```
-This web project uses Google API calls, which require to run the application on ssl (https) - both on production environment as well as localhost. Therefore, in development mode you need to use a self-assigned certificate and set your local environment ready to trust the certificate and enable local ssl connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Fill environment variables with necessary data/paths and serve on localhost:
+
+Create new .env file and fill in your credentials/other env data [(see docs)](./CONFIGURATION.md).
+<br>Navigate/cd into the root paths (/frontend and /backend) and install dependencies via npm:
+```sh
+$ npm ci
+```
+This web project uses Google API calls, which require the application to run on SSL (https) - for each environment (dev/stag/prod). Therefore, when running on localhost, you need to use a self-signed certificate and configure your local environment to trust the certificate and enable an SSL connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured within [set-env.ts](./frontend/set-env.ts) (env:prod). Create a local copy [(see docs)](./CONFIGURATION.md) for local development. Start application (frontend) in local environment:
 ```sh
 npm run start-local-ssl
 ```
-which will open automatically on `https://localhost:4200/`. To run backend use:
+which will open automatically on `https://localhost:4200/`. To run backend, use:
 ```sh
 node server.js
 ```
 
-### Build & Deploy
-The project at /frontend is hosted by <a href="https://app.netlify.com/">Netlify</a> meanwhile /backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
-Currently there are 2 hosted versions accessible - on staging level (branch: staging) to test outside of an local environment and on production level (branch: production) as ready-to-use software.
 <br>
-<b>Note</b>: Netlify does NOT support multi-line environment variables. To use ssh keys, it is neccessary to store the keys as single-line text and convert it back to the preferred format before building the project. Best practice would be to have a script that converts Netlify secrets beforehand or manually add the prepared keys as single-line text and then convert it.
-<br>
-Currently public/private keys are converted from single-line secret to multi-line secret in: <a href="./frontend/set-env.ts">set-env.ts</a>
-<br><br>
 
-## Overview
+## 🧩 $\textsf{\color{salmon}Features}$
 
-### $\textsf{\color{teal}Features}$
-
-<dl>
-    <dd>:diamond_shape_with_a_dot_inside: Angular v18 standalone with routing + nested routes on id</dd>
-    <dd>:repeat: Google Routes/Places API usage in backend</dd>
-    <dd>:triangular_flag_on_post: Google Maps usage in frontend + calculating route by geolocation</dd>
-    <dd>:turtle: Custom image/video preload</dd>
-    <dd>:mag: Custom search-input form component combined with Google Places API</dd>
-    <dd>:clipboard: Custom form components (text-, textarea- & select-input)</dd>
-    <dd>:computer: Key navigation on forms and carousel</dd>
-    <dd>:wrench: Custom validation Angular/Express-Validator</dd>
-    <dd>:lock: Asymmetric/hybrid (RSA/AES) encrypted requests</dd>
-    <dd>:e-mail: Mail service with node.js & nodemailer for Backend</dd>
-    <dd>:signal_strength: Http interception + custom snackbar modal</dd>
-    <dd>:new_moon_with_face:/:sun_with_face: Custom color theme (dark/light mode)</dd>
-    <dd>:globe_with_meridians: i18n (internationalization) - translate to german or english</dd>
-    <dd>:iphone: Responsive design 400px > width < 1800px via flexbox & media queries</dd>
-</dl>
+| Feature | Description |
+|---------|-------------|
+| 🪁 Angular | Angular v18 standalone with routing + nested routes on id |
+| 🌍 Google API | Google places/routes/geolocation API calculation/visualization |
+| ⌨ Input | Customized form components (text/textarea/select) |
+| 🔍 Search | Customized search-input form component combined with Google Places API |
+| ⚠️ Validation | Customized validation in combination with Angular + Express-Validator |
+| 🖼️ Preload | Customized image/video preload |
+| 🔐 Encryption | Asymmetric/hybrid (RSA/AES) encrypted requests |
+| 📧 Email | Email service with node.js & nodemailer |
+| 🗯️ Notification | Customized snackbar + extended translation service |
+| 🎨 Themes | Customized theme options (dark/light mode) |
+| 📱 Design | Responsive design 400px > width < 1800px supported via flexbox & media queries |
 
 <br>
 
 ### $\textsf{\color{teal}Customized form}$
 
-All services take input for calculating the offer by addresses, timestamps and checkboxes/radio buttons as well as customer data like name, email, phone and notes. For full control, custom form components in combination with custom validation are used. The example of figure 2 shows built-in required-validator as well as custom time-related validation to be highlighted via red warning symbol and regarding validation message. Data validated by backend inform user via (custom) snackbar-message of invalid input.
+All services take input for calculating the offer based on addresses, timestamps and checkboxes/radio buttons, as well as customer data such as name, email, phone number and notes. For full control, custom form components in combination with custom validation are used. The example of figure 2 shows built-in required-validator as well as custom time-related validation to be highlighted via red warning symbol and regarding validation message. Data validated by the backend informs the user via a (custom) snackbar message of any invalid input.
 
 <div align="center">
     <img src="frontend/public/assets/docs/custom_forms_validation.jpg" alt="404 no picture found">
@@ -98,7 +97,7 @@ All services take input for calculating the offer by addresses, timestamps and c
 
 ### $\textsf{\color{teal}Google API}$
 
-Data from Google, based on the `RoutesAPI`, `PlacesAPI` and `MapsAPI (Geocode)`, is used for the calculations and address suggestions/autocompletion. The user can type in the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows, that after every change of the search input, a request is sent providing the listed options in the response. Clicking on an option sends a final request to get all details to the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google demands to display their logo if a map or place-data (in this case the address options) are used.
+Data from Google, based on the `RoutesAPI`, `PlacesAPI` and `MapsAPI (Geocode)`, is used for the calculations and address suggestions/autocompletion. The user can type their address into the search field for his address and gets a max of 5 addresses listed as a result of the current input. Figure 3 shows that, after every change to the search input, a request is sent, providing the listed options in the response. Clicking on an option sends a final request to get all details of the selected address/place, which is necessary to continue the service. If no option is selected, the form will be invalid and the regarding validation message displayed. Google requires its logo to be displayed whenever a map or place data (in this case, the address options) is used.
 
 <div align="center">
     <img src="frontend/public/assets/docs/google_autocomplete.png" alt="&nbsp;no picture found">
@@ -107,7 +106,7 @@ Data from Google, based on the `RoutesAPI`, `PlacesAPI` and `MapsAPI (Geocode)`,
 
 <br>
 
-Additionally, the service for spontaneous drives offers a feature to use coordinates via `Geolocation` for determining the starting address and displaying `Google Maps` with the location marked to improve user experience and checking coordinates accuracy (see Figure 4, location used as pickup address). 
+Additionally, the service for spontaneous drives offers a feature that uses coordinates via `Geolocation` to determine the starting address and displaying `Google Maps` with the location marked, improving user experience and coordinate accuracy verification (see Figure 4, location used as pickup address). 
 
 <div align="center">
     <img src="frontend/public/assets/docs/maps_api.gif" alt="&nbsp;no picture found">
@@ -116,10 +115,13 @@ Additionally, the service for spontaneous drives offers a feature to use coordin
 
 <br>
 
-### $\textsf{\color{teal}Theme + Internationalization}$
+### $\textsf{\color{teal}Theme, Internationalization and extended translate service}$
 
-The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$. The information on the active setting is stored in the localstorage with dark mode as default setting at the beginning. Additionally, internationalization was implemented (via ngx-translate/core & /http-loader) and at this point 2 languages are available to select (see Figure 5). Dynamic and static texts can be displayed in english or german by choosing the regarding option in the footer. The value gets saved in the localstorage (same as the colour theme) and will stay translated in the selected language. To improve maintanence, the TranslateHttpLoader was customized to join multiple .json files for the same language translation rather than the usual way with only 1 file per language [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
+The applications design can be changed to one of two different themes: $\textsf{\color{gray}{dark mode}}$ & $\textsf{\color{goldenrod}{light mode}}$ (see Figure 5). The selected theme as well as the current language for translations are stored in the localstorage. Dark mode and german language are set for default. For easier maintenance and readability, a loader combines multiple .json files for the same language translations [see custom-translate-loader.ts](/frontend/public/assets/i18n/custom-translate-loader.ts).
 
+<br>
+
+Additionally to the ngx-translate package, a `customized extention` is used to handle dynamic values for translations [(see docs)](./TRANSLATIONS.md).
 <div align="center">
     <img src="frontend/public/assets/docs/theme_i18n.gif" alt="&nbsp;no picture found">
     Figure 5, v1.5.6
@@ -129,7 +131,7 @@ The webpage offeres two theme settings: $\textsf{\color{gray}{dark mode}}$ & $\t
 
 ### $\textsf{\color{teal}Security}$
 
-For security reasons, the user automatically starts a service with a background-login process which sends an init request (see figure 6). The payload consists of the service in use and the credential data. Currently both username and password are asymmetrically encrypted => best practice is to hash the password but we dont use a database for hash comparison. The server compares the data to authenticate the validity of the client and generates a random jsonwebtoken with an appropriate expiration time. In the response of figure 6 we can see the generated token that gets stored (currently not cookie, follows with update) and included with each following request to ensure authentication.
+For security reasons, the user automatically initiates a background login process, which sends an inittialization request (see figure 6). The payload consists of the service in use and the credentials. Currently, both username and password are asymmetrically encrypted; the best practice would be to hash the password, but we don't use a database for hash comparison. The server compares the data to verify the authenticity of the client and generates a random JSON Web Token (JWT) with an appropriate expiration time. In the response shown in Figure 6, we can see the generated token, which is stored (currently not as a cookie; this will be addressed in a future update) and included with each following request to ensure authentication.
 
 <div align="center">
     <img src="frontend/public/assets/docs/session-token_login.jpg" alt="&nbsp;no picture found">
@@ -138,7 +140,7 @@ For security reasons, the user automatically starts a service with a background-
 
 <br>
 
-Hybrid encryption is used for encrypting sensible data like the user input used for sending the emails (name, phone number, message and so forth...). Figure 7 displays the encrypted data in the request, decrypted in the backend to handle logic and again encrypting data for the response. On client side, the webcrypto api support Angular to handle RSA and AES en/decryption and in NodeJS on the backend node-forge comes to use.
+Hybrid encryption is used for encrypting sensitive data such as the user input submitted when sending emails (name, phone number, message, and so forth). Figure 7 displays the encrypted data in the request, decrypted in the backend to handle logic and again encrypting data for the response. On client side, the webcrypto api support Angular to handle RSA and AES en/decryption and in NodeJS on the backend, node-forge is used.
 
 <div align="center">
     <img src="frontend/public/assets/docs/encrypted_request.jpg" alt="&nbsp;no picture found">
@@ -149,9 +151,9 @@ Hybrid encryption is used for encrypting sensible data like the user input used 
 
 ### $\textsf{\color{teal}Preloading}$
 
-To prevent any delay between building the page and displaying the active assets (images/videos), the `AssetsPreloadService` and `AssetsPreloadGuard` are in use to load everything accordingly. 
+To prevent any delay between building the page and displaying the active assets (images/videos), the `AssetsPreloadService` and `AssetsPreloadGuard` are used to load all assets accordingly. 
 
-Whereas the guard is used within the `*.routes.ts` files to load assets predetermined (see Figure 8, code block), the service can also be used to preload assets/data dynamically or modular:
+While the guard is used within the `*.routes.ts` files to load assets in advance (see Figure 8, code block), the service can also be used to preload assets/data dynamically or modular:
 ```sh
 this.assetsPreloadService.preloadAssets({
     images?: imagePathArray,
@@ -168,16 +170,16 @@ this.assetsPreloadService.preloadAssets({
 
 <br>
 
-## Testing
+## 🔧 $\textsf{\color{salmon}Testing}$
 
 ### $\textsf{\color{teal}Jest}$
 
-Added `jest` testing framework to project providing unit tests and integration tests for the `backend`.<br>
+The `jest` testing framework was added to the project, providing unit-tests and integration-tests for the `backend`.<br>
 Install the packages `@jest/globals`, `@types/jest`, `supertest` additional to `jest`:
 ```sh
 npm install jest @jest/globals @types/jest supertest --save-dev
 ```
-200+ tests exist currently for models, utils, validators and workflows (integration tests) - see [tests](./backend/tests).<br>
+Currently, 200+ tests exist for models, utilities, validators, and workflows/integration-tests [(see tests)](./backend/tests).<br>
 Run tests on local device by including setup for dotenv/config to provide environment variables:
 ```sh
 set NODE_MODE=staging && jest --setupFiles dotenv/config
@@ -189,8 +191,8 @@ or simply save as script command in `package.json` to run `npm test`:
     "test": "set NODE_MODE=staging && jest --setupFiles dotenv/config"
   }
 ```
-To automatically check tests before merging feature/development branch further up, a `GitHub Action` is set up, see [main.yml](.github/workflows/main.yml).<br>
-Preventing an unwanted merge with unfinished/failed test run, the project is set up to disable merging until all tests have passed (see Figure 9).
+To automatically run tests before merging a feature/development branch upstream, a `GitHub Action` is set up, see [main.yml](.github/workflows/main.yml).<br>
+To prevent an unwanted merge due to an unfinished or failed test run, the project is set up to disable merging until all tests have passed (see Figure 9).
 
 <div align="center">
     <img src="frontend/public/assets/docs/github-action-jest.jpg" alt="&nbsp;no picture found">
@@ -218,7 +220,7 @@ $ npm run lint
 ```
 <br>
 
-### Cross-browser testing
+### $\textsf{\color{teal}Cross-browser testing}$
 
 <img src="frontend/public/assets/docs/icons/firefox_logo50.ico"> | <img src="frontend/public/assets/docs/icons/chrome_logo50.ico"> | <img src="frontend/public/assets/docs/icons/opera_logo50.ico"> | <img src="frontend/public/assets/docs/icons/edge_logo50.ico"> | <img src="frontend/public/assets/docs/icons/duckduckgo_logo50.ico"> | <img src="frontend/public/assets/docs/icons/brave_logo50.ico">
 |:------:|:------:|:------:|:------:|:------:|:------:|
@@ -231,13 +233,12 @@ $ npm run lint
 
 <br>
 
-## Updates
-[list of all updates](CHANGELOG.md)
+## 📈 $\textsf{\color{salmon}Updates}$
+[see changelog for all updates](CHANGELOG.md)
 
-### $\textsf{\color{forestgreen}last update:}$
-
-$\textsf{[v1.8.3\ =>\ {\textbf{\color{brown}v1.8.4}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'airport' calculation with discount for closest district to airport.
+$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
+- $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
 
 <br>
 

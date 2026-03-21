@@ -12,7 +12,7 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
-import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DOCUMENT } from "@angular/common";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
@@ -60,12 +60,12 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         mailAPIService: MailAPIService,
         snackbar: SnackbarMessageService,
         datetimeService: DateTimeService,
-        mailTranslate: MailTranslateService,
+        customTranslate: CustomTranslateService,
         httpObserve: HttpObservationService,
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
+        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
 
         this.dropoffTimeByLang$ = new Subject<string>();
         this.dropoffTimeByLangStatic = '';

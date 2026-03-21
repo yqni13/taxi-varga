@@ -42,6 +42,7 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
     @Input() ngClass: string;
     @Input() className: string;
     @Input() rows: number;
+    @Input() maxLength: number;
 
     @Output() byChange: EventEmitter<any>;
 
@@ -56,6 +57,7 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
         this.ngClass = '';
         this.className = '';
         this.rows = 0;
+        this.maxLength = 0;
 
         this.byChange = new EventEmitter<any>();
 

@@ -11,7 +11,7 @@ import { NavigationService } from "../../../../shared/services/navigation.servic
 import { MailAPIService } from "../../../../api/services/mail.api.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
-import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DOCUMENT } from "@angular/common";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
@@ -26,6 +26,7 @@ import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
 
 @Component({
     selector: 'tava-service-quick',
@@ -65,14 +66,14 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         mailAPIService: MailAPIService,
         snackbar: SnackbarMessageService,
         datetimeService: DateTimeService,
-        mailTranslate: MailTranslateService,
+        customTranslate: CustomTranslateService,
         httpObserve: HttpObservationService,
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
         private readonly addressAPI: AddressAPIService,
         private readonly domSanitizer: DomSanitizer
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
+        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
 
         this.callDirectNr = '+436644465466';
         this.originByGPS = false;
@@ -309,9 +310,12 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     displayGeolocationInfo() {
-        const title = 'modules.service.content.quick.snackbar-info.geolocation.title';
-        const text = 'modules.service.content.quick.snackbar-info.geolocation.text';
-        Utils.displayInfo(this.snackbar, this.mailTranslate, this.translate, title, text);
+        this.snackbar.notify({
+            title: 'modules.service.content.quick.snackbar-info.geolocation.title',
+            text: 'modules.service.content.quick.snackbar-info.geolocation.text',
+            autoClose: false,
+            type: SnackbarOption.INFO
+        })
     }
 
     override ngOnDestroy() {

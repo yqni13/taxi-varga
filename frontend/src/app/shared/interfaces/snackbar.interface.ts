@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export declare interface SnackbarMessage {
+export interface SnackbarMessage {
     title: string,
     text?: string,
     phone?: string,

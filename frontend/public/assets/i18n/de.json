@@ -1,5 +1,10 @@
 {
     "common": {
+        "component": {
+            "star-rating": {
+                "select": "Ihre Bewertung"
+            }
+        },
         "footer": {
             "content": {
                 "copyright": "Alle Rechte vorbehalten.",
@@ -7,7 +12,8 @@
             },
             "title": {
                 "imprint": "Impressum",
-                "privacy": "Datenschutz"
+                "privacy": "Datenschutz",
+                "support": "Support / Feedback"
             }
         },
         "interceptor": {
@@ -22,65 +28,6 @@
             "quick": "Quick",
             "samples": "Beispiele",
             "service": "Beförderungsangebot"
-        },
-        "validation": {
-            "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
-            "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
-            "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
-            "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
-            "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
-            "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
-            "invalid-phone-char": "Telefonnummer enthält ungültige Zeichen.",
-            "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
-            "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
-            "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
-            "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
-            "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
-            "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
-            "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen.",
-            "validate-backend": {
-                "data": {
-                    "address-invalid-place": "Bitte kontrollieren Sie alle Adressen auf Vollständigkeit und das diese aus den vorgeschlagenen Optionen ausgewählt sind.",
-                    "address-quick-invalid-origin": "Für die Abholadresse können bei einer Spontanfahrt nur Adressen mit der Postleitzahl 10**, 11**, 12** oder 2544 gewählt werden.",
-                    "airport-invalid-place": "Der Flughafen-Service ist nur von/nach Wien zulässig. Bitte passen Sie Ihre Eingabe der Adresse an.",
-                    "backend-404-env": "Umgebungsvariable {{ENV}} fehlt. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-500-routes": "Der passende API Zugang/Endpunkt ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
-                    "backend-500-server": "Die Kommunikation mit dem Server ist im Moment nicht verfügbar. Bitte versuchen Sie es später erneut, oder wenden Sie sich an den Support.",
-                    "backend-auth-email": "Email Service ist nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-destination-vienna": "Für diesen Service dürfen beide Adressen nicht innerhalb Wiens liegen. Wählen Sie bitte eine Adresse außerhalb von Wien.",
-                    "backend-invalid-email": "Ihre Email-Adresse ist ungültig. Prüfen Sie bitte Schreibfehler und Aufbau:\nindividuelle Kennzeichnung + @ + Host + '.' + Top-Level-Domain.\nBeispiel: local@host.com",
-                    "backend-invalid-entry": "Die Eingabe für den Datensatz \"{{ENV}}\" ist fehlerhaft. Bitte überprüfen Sie Ihre Eingabe.",
-                    "backend-invalid-id": "Die ID für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-latency": "Die Wartezeit darf 6h nicht überschreiten. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-pass": "Das Passwort für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-pickupTIME": "Die gewählte Abholzeit ist ungültig. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
-                    "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
-                    "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "backend-invalid-user": "Der Username für den Login ist ungültig. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
-                    "backend-jwt-expiration": "Die aktuelle Sitzung ist nach 30 Minuten abgelaufen.",
-                    "backend-jwt-missing": "Ohne Sitzungs-Token kann die Anfrage nicht authentifiziert werden. Bitte versuchen Sie es später erneut oder wenden sich an den Support.",
-                    "backend-max-email": "Email Service hat das Anfragen-Limit überschritten und ist temporär blockiert. Bitte versuchen Sie es in 24h erneut.",
-                    "backend-missing-zipCode": "Ihre ausgewählte Adresse wird nicht akzeptiert. Bitte achten Sie darauf, dass eine Adresse inklusive Postleitzahl aus den vorgeschlagenen Optionen ausgewählt ist.",
-                    "backend-required": "Es wurden nicht alle notwendigen Daten übertragen. Bitte kontrollieren Sie Ihre Angaben.",
-                    "maintenance-code-1": "Der digitale Service steht wegen Wartungsarbeiten aktuell NICHT zur Verfügung. Für Anfragen zum Beförderungsdienst melden Sie sich bitte direkt unter der Telefonnummer: ",
-                    "navigate-destination-airport/service": "Für eine Fahrt zwischen Wien und Flughafen Wien/Schwechat muss der Service \"FLUGHAFENFAHRT\" genutzt werden.",
-                    "tava-unexpected-api-error": "Daten, die von einem externen Service für die weitere Berechnung benötigt werden, sind aktuell nicht verfügbar. Bitte versuchen Sie es später erneut oder wenden sich an den Support."
-                },
-                "header": {
-                    "AuthSecretNotFoundException": "Umgebungsvariable fehlt",
-                    "InternalServerException": "Server Verbindungs-Fehler",
-                    "InvalidCredentialsException": "Ungültige Anmeldedaten",
-                    "InvalidPropertiesException": "Ungültiger Datensatz",
-                    "JWTExpirationException": "Sitzung abgelaufen",
-                    "MaintenanceException": "Technische Wartung",
-                    "RequestExceedMaxException": "Kapazität überschritten",
-                    "TokenMissingException": "Sitzungs-Token fehlt",
-                    "UnexpectedApiResponseException": "Externer Service Fehler"
-                }
-            }
         }
     },
     "modules": {
@@ -296,6 +243,51 @@
                     "title": "Spontanfahrt für Einsteiger - Routendetails"
                 }
             }
+        },
+        "support": {
+            "buttons": {
+                "reset": "Reset",
+                "send": "Senden"
+            },
+            "form": {
+                "fieldNames": {
+                    "browser": "Internet-Browser",
+                    "device": "Gerät",
+                    "email": "E-Mail",
+                    "feedback": "Feedback",
+                    "message": "Beschreibung",
+                    "option": "Kategorie",
+                    "os": "Betriebssystem",
+                    "title": "Titel"
+                },
+                "placeholders": {
+                    "browser": "z.B.: Chrome 146.0.7680.80 (Offizieller Build) (64-Bit)",
+                    "device": "Wählen Sie die Kategorie Ihres Gerätes.",
+                    "email": "z.B.: demo.test@gmail.com",
+                    "feedback": "Wie bewerten Sie www.taxi-varga.at?",
+                    "message-bug": "Beschreiben Sie bitte den von Ihnen entdeckten Fehler so genau wie möglich.",
+                    "message-feedback": "Beschreiben Sie hier bitte relevante Punkte für Ihr Feedback / Ihre Kritik.",
+                    "message-support": "Beschreiben Sie hier bitte Ihren Sachverhalt so genau wie möglich.",
+                    "option": "Was möchten Sie uns mitteilen?",
+                    "os": "z.B.: Windows 11, Android 15, ...",
+                    "term-feedback": "Ich erkläre mich dazu bereit, mein persönliches Feedback zur weiteren Verwendung freizugeben.",
+                    "title": "Kurze Beschreibung Ihres Anliegens."
+                }
+            },
+            "title": "Support",
+            "warning": {
+                "list": [
+                    "Passwörter oder PINs",
+                    "Bankverbindungen oder Kreditkartendaten",
+                    "Daten von Führerschein, Personalausweis oder Reisepass",
+                    "Sozialversicherungsnummern"
+                ],
+                "text": [
+                    "Teilen Sie in Ihrer Anfrage bitte KEINE vertraulichen Informationen wie:",
+                    "Für die Bearbeitung Ihrer Anfrage benötigen wir lediglich Ihre Email-Adresse."
+                ],
+                "title": "Bitte schützen Sie Ihre persönlichen Daten"
+            }
         }
     },
     "shared": {
@@ -303,6 +295,11 @@
             "author": "\u00a9 bild"
         },
         "enum": {
+            "device-option": {
+                "COMPUTER": "Computer (Laptop, Desktop PC)",
+                "MOBILE": "Mobiles Gerät (Smartphone, Tablet, ebook Reader)",
+                "OTHER": "Alternatives Gerät"
+            },
             "gender": {
                 "female": "Frau",
                 "male": "Herr"
@@ -325,6 +322,11 @@
             "theme": {
                 "darkMode": "Dunkel",
                 "lightMode": "Hell"
+            },
+            "ticket-option": {
+                "BUG": "Error",
+                "FEEDBACK": "Feedback",
+                "SUPPORT": "Hilfe"
             }
         }
     }
