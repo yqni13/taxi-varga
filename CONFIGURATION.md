@@ -35,8 +35,8 @@ export const environment: Environment = {
     MAIL_SUBJECT: '', /*decide for yourself like "Request \"taxi-varga\""*/
     AUTH_USER: '', /*decide for yourself*/
     AUTH_PASSWORD: '', /*decide for yourself*/
-    PUBLIC_KEY: \`${public_key_dev}\`, /*add your self-assigned certificate to root*/
-    PRIVATE_KEY: \`${private_key_dev}\` /*add your self-assigned certificate to root*/
+    PUBLIC_KEY: \`${public_key_dev}\`, /*add your .pem file to (/frontend) root*/
+    PRIVATE_KEY: \`${private_key_dev}\` /*add your .pem file to (/frontend) root*/
 };
 `;
 fs_dev.writeFileSync(targetPath_dev, envConfigFile_dev);
