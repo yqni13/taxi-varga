@@ -15,7 +15,7 @@ import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { TokenService } from "../../../../shared/services/token.service";
 import { NavigationService } from "../../../../shared/services/navigation.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
-import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
@@ -53,12 +53,12 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         mailAPIService: MailAPIService,
         snackbar: SnackbarMessageService,
         datetimeService: DateTimeService,
-        mailTranslate: MailTranslateService,
+        customTranslate: CustomTranslateService,
         httpObserve: HttpObservationService,
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
+        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
 
         this.addressSubscription$ = new Subscription();
     }

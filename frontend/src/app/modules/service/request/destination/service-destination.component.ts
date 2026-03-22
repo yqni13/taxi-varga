@@ -15,7 +15,7 @@ import { AuthService } from "../../../../api/services/auth.api.service";
 import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { NavigationService } from "../../../../shared/services/navigation.service";
-import { MailTranslateService } from "../../../../shared/services/mail-translate.service";
+import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
@@ -48,12 +48,12 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
         mailAPIService: MailAPIService,
         snackbar: SnackbarMessageService,
         datetimeService: DateTimeService,
-        mailTranslate: MailTranslateService,
+        customTranslate: CustomTranslateService,
         httpObserve: HttpObservationService,
         @Inject(DOCUMENT) document: Document,
         drivingAPIService: DrivingAPIService,
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, mailTranslate, httpObserve, document, drivingAPIService);
+        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
     }
 
     override async ngOnInit() {

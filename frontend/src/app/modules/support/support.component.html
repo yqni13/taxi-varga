@@ -1,0 +1,218 @@
+<ng-template #attachmentRef let-i="i" let-file="file">
+    <div class="tava-attachmentref-wrapper">
+        <span>{{file.name}}</span>
+        <i
+            class="icon-closeX icon-base"
+            (click)="fileUpload.removeFile(i)"
+            (keydown.enter)="fileUpload.removeFile(i)"
+            [attr.tabindex]="0"
+        ></i>
+    </div>
+</ng-template>
+
+<section class="tava-support">
+    <header>
+        <h1>{{'modules.support.title' | translate}}</h1>
+    </header>
+    <div class="tava-support-content">
+        <ng-container *tavaVar="supportForm.get('option')?.value as opt">
+            <div class="tava-support-category" *ngIf="opt !== ''">
+                <i
+                    [ngClass]="ticketOptionIcons[opt]"
+                    [ngStyle]="ticketOptionStylings[opt]"
+                ></i>
+            </div>
+            <form [formGroup]="supportForm">
+
+                <!-- OPTION -->
+                <div class="tava-support-form-wrapper-mid">
+                    <span>{{('modules.support.form.fieldNames.option' | translate) + ':*'}}</span>
+                    <tava-selectinput
+                        [formControl]="supportForm.get('option') | controlCast"
+                        [placeholder]="'modules.support.form.placeholders.option' | translate"
+                        [options]="ticketOption"
+                        [optionsTranslateRoot]="'shared.enum.ticket-option.'"
+                        [fieldName]="'modules.support.form.fieldNames.option' | translate"
+                        (byChange)="updateFormOnOptionChange($event)"
+                    ></tava-selectinput>
+                </div>
+
+                <ng-container *ngIf="opt !== ''">
+                    <!-- FEEDBACK -->
+                    <div class="tava-support-form-wrapper-starrating" *ngIf="opt === ticketOption.FEEDBACK">
+                        <tava-starrating
+                            [startValue]="defaultRatingValue"
+                            [resetValue]="resetRatingValue"
+                            (byChange)="getRatingInput($event)"
+                        ></tava-starrating>
+                    </div>
+
+                    <!-- TITLE -->
+                    <div class="tava-support-form-wrapper-mid" *ngIf="opt !== ticketOption.FEEDBACK">
+                        <span>{{('modules.support.form.fieldNames.title' | translate) + ':*'}}</span>
+                        <tava-textinput
+                            [inputType]="'text'"
+                            [placeholder]="'modules.support.form.placeholders.title' | translate"
+                            [formControl]="supportForm.get('title') | controlCast"
+                            [fieldName]="'modules.support.form.fieldNames.title' | translate"
+                        ></tava-textinput>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="tava-support-form-wrapper-mid">
+                        <span>{{('modules.support.form.fieldNames.email' | translate) + ':*'}}</span>
+                        <tava-textinput
+                            [inputType]="'text'"
+                            [placeholder]="'modules.support.form.placeholders.email' | translate"
+                            [formControl]="supportForm.get('userEmail') | controlCast"
+                            [fieldName]="'modules.support.form.fieldNames.email' | translate"
+                        ></tava-textinput>
+                    </div>
+
+                    <!-- DEVICE -->
+                    <div class="tava-support-form-wrapper-mid" *ngIf="opt !== ticketOption.FEEDBACK">
+                        <span>{{('modules.support.form.fieldNames.device' | translate) + ':'}}</span>
+                        <tava-selectinput
+                            [formControl]="supportForm.get('device') | controlCast"
+                            [placeholder]="'modules.support.form.placeholders.device' | translate"
+                            [options]="deviceOption"
+                            [optionsTranslateRoot]="'shared.enum.device-option.'"
+                            [fieldName]="'modules.support.form.fieldNames.device' | translate"
+                        ></tava-selectinput>
+                    </div>
+
+                    <!-- OS -->
+                    <div class="tava-support-form-wrapper-mid" *ngIf="opt !== ticketOption.FEEDBACK">
+                        <span>{{('modules.support.form.fieldNames.os' | translate) + ':'}}</span>
+                        <tava-textinput
+                            [inputType]="'text'"
+                            [formControl]="supportForm.get('os') | controlCast"
+                            [fieldName]="'modules.support.form.fieldNames.os' | translate"
+                            [placeholder]="'modules.support.form.placeholders.os' | translate"
+                        ></tava-textinput>
+                    </div>
+
+                    <!-- BROWSER -->
+                    <div class="tava-support-form-wrapper-mid" *ngIf="opt !== ticketOption.FEEDBACK">
+                        <span>{{('modules.support.form.fieldNames.browser' | translate) + ':'}}</span>
+                        <tava-textinput
+                            [inputType]="'text'"
+                            [formControl]="supportForm.get('browser') | controlCast"
+                            [fieldName]="'modules.support.form.fieldNames.browser' | translate"
+                            [placeholder]="'modules.support.form.placeholders.browser' | translate"
+                        ></tava-textinput>
+                    </div>
+
+                    <!-- MESSAGE -->
+                    <div class="tava-support-form-wrapper-big">
+                        <span>{{('modules.support.form.fieldNames.message' | translate) + ':' + (opt !== ticketOption.FEEDBACK ? '*' : '')}}</span>
+                        <tava-textareainput
+                            [ngStyle]="{'width': '100%'}"
+                            [formControl]="supportForm.get('message') | controlCast"
+                            [fieldName]="'modules.support.form.fieldNames.message' | translate"
+                            [placeholder]="'modules.support.form.placeholders.message-' + opt | translate"
+                            [rows]="20"
+                            [maxLength]="messageLength+1"
+                        ></tava-textareainput>
+                        <span
+                            *ngIf="supportForm.get('message')?.value.length <= messageLength"
+                            id="tava-support-message-length"
+                        >
+                            {{(messageLength - supportForm.get('message')?.value.length) + ' / ' + messageLength}}
+                        </span>
+                    </div>
+
+                    <!-- TERM (FEEDBACK)-->
+                    <div
+                        class="tava-support-form-wrapper-mid"
+                        id="tava-support-checkbox" 
+                        *ngIf="opt === ticketOption.FEEDBACK"
+                    >
+                        <input
+                            type="checkbox"
+                            (change)="getFeedbackTerm($event)"
+                            checked
+                        >
+                        <span>{{'modules.support.form.placeholders.term-feedback' | translate}}</span>
+                    </div>
+                </ng-container>
+            </form>
+
+            <!-- INFORMATION PANEL -->
+            <div class="tava-support-hint" *ngIf="opt !== ''">
+                <div class="tava-support-hint-wrapper">
+                    <ng-container *tavaVar="('modules.support.warning.text' | translate) as warningText">
+                        <span>{{warningText[0]}}</span>
+                        <ng-container *tavaVar="('modules.support.warning.list' | translate) as warningBullets">
+                            <ul>
+                                <li *ngFor="let bullet of warningBullets">
+                                    <span>{{bullet}}</span>
+                                </li>
+                            </ul>
+                        </ng-container>
+                        <span>{{warningText[1]}}</span>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!-- ATTACHMENT PANEL -->
+            <ng-container *tavaVar="supportForm.get('attachment')?.value as attachment">
+                <div
+                    id="tava-support-attachment-list"
+                    class="outer-border"
+                    *ngIf="opt !== ticketOption.FEEDBACK && attachment && attachment?.length > 0"
+                >
+                    <div class="inner-border">
+                        <ng-container *ngFor="let file of attachment; let i = index">
+                            <ng-container
+                                *ngTemplateOutlet="attachmentRef; context: {i: i, file: file}"
+                            ></ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+            </ng-container>
+
+            <!-- BUTTON PANEL -->
+            <div class="tava-support-button-wrapper" *ngIf="opt !== ''">
+                <a
+                    [attr.tabindex]="0"
+                    *ngIf="opt !== ticketOption.FEEDBACK"
+                    class="tava-button-simple"
+                    (click)="fileInput.click()"
+                    (keydown.enter)="fileInput.click()"
+                >
+                    <i class="icon-attachment icon-base">
+                        <input
+                            type="file"
+                            multiple="multiple"
+                            id="tava-support-attachment-input"
+                            (change)="fileUpload.selectFiles($event);handleFileReset()"
+                            #fileInput
+                        >
+                    </i>
+                </a>
+                <button
+                    type="submit"
+                    class="tava-button-simple"
+                    (click)="onSubmit()"
+                    #sendBtn
+                >
+                    {{'modules.support.buttons.send' | translate}}
+                </button>
+                <button
+                    type="submit"
+                    class="tava-button-simple"
+                    (click)="reset(true)"
+                    #resetBtn
+                >
+                    {{'modules.support.buttons.reset' | translate}}
+                </button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="tava-loading-animation" [ngClass]="isLoadingResponse ? 'tava-visible' : 'tava-hidden'">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+    </div>
+</section>

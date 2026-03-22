@@ -44,7 +44,6 @@ export class FooterComponent implements OnInit, AfterViewInit {
     constructor(
         private readonly themeHandler: ThemeHandlerService,
         private readonly languageHandler: LanguageHandlerService,
-        private readonly translate: TranslateService,
         private navigation: NavigationService
     ) {
         this.selectedTheme = this.themeHandler.checkThemeSettings();

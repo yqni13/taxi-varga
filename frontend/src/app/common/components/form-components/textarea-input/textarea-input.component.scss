@@ -2,7 +2,7 @@
 
 
 .tava-textarea-wrapper {
-    // use ngStyle for width to style lvl above => <tava-textareainput>
+    // Use ngStyle for width to style lvl above => <tava-textareainput>
     display: grid;
 
     textarea {
@@ -17,4 +17,11 @@
             font-size: sass.$input-text-size;
         }
     }
+}
+
+i {
+    position: absolute;
+    display: flex;
+    justify-self: end;
+    margin: 4px sass.$space5 0 0;
 }

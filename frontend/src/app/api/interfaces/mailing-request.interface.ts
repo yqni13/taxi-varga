@@ -1,3 +1,4 @@
+import { AirportOptions } from "../../shared/enums/airport-options.enum"
 import { PassengerOptions } from "../../shared/enums/passenger-options.enum"
 import { ServiceRoute } from "../routes/service.route.enum"
 
@@ -16,7 +17,7 @@ export declare interface MailingMessage {
     phone: string,
     email: string,
     note?: string,
-    airport?: string,
+    airportMode?: AirportOptions,
     originAddress: string,
     golfcourseAddress?: string,
     destinationAddress: string,
