@@ -347,7 +347,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
     async reset(loadingProcess: boolean = false) {
         if(loadingProcess) {
             this.isLoadingResponse = true;
-            this .initEdit(this.supportForm.get('option')?.value);
+            this.initEdit({ option: this.supportForm.get('option')?.value });
             this.resetRatingValue.emit(this.defaultRatingValue);
             this.supportForm.markAsUntouched();
             this.navigation.scrollToTop(this.anchor, this.document);
