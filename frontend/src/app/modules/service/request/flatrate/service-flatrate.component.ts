@@ -19,6 +19,8 @@ import { CustomTranslateService } from "../../../../shared/services/custom-trans
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -86,6 +88,13 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     private initForm() {
+        const invalidBHValidatorParamsStart: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 17,
+            isPickup: true
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -95,7 +104,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             tenancy: new FormControl(''),
             datetimeStart: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService)
+                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParamsStart)
             ]),
             datetimeEnd: new FormControl(''),
             pickupDATE: new FormControl(''),
@@ -126,7 +136,14 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     configDateTimeEnd($event: any) {
-        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 24);
+        const restrictDateTime = this.datetimeService.getRestrictionTimestampByDateAndTime($event, '20:00:00');
+        const invalidBHValidatorParamsStart: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 20,
+            isPickup: false
+        };
         this.minTenancyStamp$.next(this.datetimeService.getTodayStartingTimestamp(false, $event));
         this.maxTenancyStamp$.next(restrictDateTime);
         this.serviceForm.get('datetimeEnd')?.clearValidators();
@@ -142,7 +159,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
                     this.serviceForm.get('datetimeStart')?.value
                 )
             ]),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceRoute.FLATRATE)
+            CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParamsStart)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();

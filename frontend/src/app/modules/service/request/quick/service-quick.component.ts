@@ -27,6 +27,7 @@ import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-quick',
@@ -109,6 +110,13 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     private initForm() {
+        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.HHMM,
+            startHour: 4,
+            endHour: 12,
+            isPickup: true
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -120,7 +128,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             back2origin: new FormControl(''),
             pickupTIME: new FormControl('', [
                 Validators.required,
-                CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.HHMM)
+                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
             ]),
             price: new FormControl(''),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),

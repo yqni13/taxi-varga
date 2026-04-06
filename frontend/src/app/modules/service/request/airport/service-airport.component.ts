@@ -21,6 +21,7 @@ import { ServiceImportsModule } from "../../../../common/helper/service-imports.
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-airport',
@@ -85,6 +86,13 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     }
 
     private initForm() {
+        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 12,
+            isPickup: true
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             airportMode: new FormControl('', Validators.required),
@@ -96,7 +104,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
+                    CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
                 ])
             ]),
             pickupDATE: new FormControl(''),
