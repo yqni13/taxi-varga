@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/06}$
+
+$\textsf{[v1.9.9\ =>\ {\textbf{\color{brown}v1.9.11}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + readonly state of datetime-end when datetime-start is invalid
+  + business hour information on each service + validation
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/03/21}$
 
-$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
+$\textsf{[v1.9.7\ =>\ v1.9.9]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
 - $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
 
