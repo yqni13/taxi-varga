@@ -2,10 +2,11 @@
 
 ### $\textsf{\color{skyblue}2026/04/06}$
 
-$\textsf{[v1.9.9\ =>\ {\textbf{\color{brown}v1.9.11}]}}$ app
+$\textsf{[v1.9.9\ =>\ {\textbf{\color{brown}v1.9.12}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + readonly state of datetime-end when datetime-start is invalid
   + business hour information on each service + validation
+  + backend validation on service 'destination' calculation
 
 <br>
 

@@ -1,4 +1,5 @@
 const Utils = require('../../../../src/utils/common.utils');
+const CustomValidator = require('../../../../src/utils/customValidator.utils');
 const DrivingDestinationModel = require('../../../../src/models/driving/destination.driving.model');
 const googleRoutesApi = require('../../../../src/services/google-routes/google-routes.api');
 const { UnexpectedException } = require('../../../../src/utils/exceptions/common.exception');
@@ -18,7 +19,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route1230-2345']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 46 } };
@@ -32,7 +33,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['back2home'] = 'true';
                 const mockResult = structuredClone(MockData_RouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 53 } };
@@ -61,7 +62,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['pickupTIME'] = 15;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1230-2345']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 58 } };
@@ -123,7 +124,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 60;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 102 } };
@@ -139,7 +140,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 60;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 109 } };
@@ -155,7 +156,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 90;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 108 } };
@@ -171,7 +172,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 90;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 115 } };
@@ -187,7 +188,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 180;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 114 } };
@@ -203,7 +204,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 180;
                 const mockResult = structuredClone(MockData_RouteMatrix['route1010-2361']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 133 } };
@@ -219,7 +220,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 mockParam_params['latency'] = 20;
                 const mockResult = structuredClone(MockData_RouteMatrix['route2351-1300']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 81 } };
@@ -235,7 +236,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2560-1020']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2560-1020']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 63 } };
@@ -248,7 +249,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2384-1220']);
                 const mockResult = structuredClone(MockData_RouteMatrix['route2384-1220']['apiResult']);
                 const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult)};
-
+                jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
                 const expectSubObj = { routeData: { price: 111 } };

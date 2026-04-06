@@ -18,6 +18,7 @@
                 "backend-invalid-pickupTIME": "The selected pickup time is invalid. Please check your input.",
                 "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
                 "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
+                "backend-invalid-return-withinbh": "The return must take place until \"{{VAL}}\" p.m. Please adjust your pick-up time or waiting time accordingly.",
                 "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                 "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                 "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
