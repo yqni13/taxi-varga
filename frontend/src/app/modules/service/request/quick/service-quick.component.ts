@@ -114,7 +114,8 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             service: this.datetimeService,
             format: DatetimeOption.HHMM,
             startHour: 4,
-            endHour: 12
+            endHour: 12,
+            isPickup: true
         };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),

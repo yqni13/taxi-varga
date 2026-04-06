@@ -6,4 +6,5 @@ export interface InvalidBHValidatorParams {
     format: DatetimeOption,
     startHour: number,
     endHour: number
+    isPickup: boolean
 }

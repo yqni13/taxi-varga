@@ -57,6 +57,13 @@ export class DateTimeService {
         return `${this.getDateFromTimestamp(new Date(limit).toString(), true)}T${this.getTimeFromTimestamp(new Date(limit).toString())}`;
     }
 
+    /**
+     * @param {string} time "hh:mm:ss"
+     */
+    getRestrictionTimestampByDateAndTime(date: string, time: string): string {
+        return `${this.getDateFromTimestamp(new Date(date).toString(), true)}T${time}`;
+    }
+
     hasSameDate(start: string, end: string): boolean {
         return (new Date(start).getDate()) === (new Date(end).getDate());
     }

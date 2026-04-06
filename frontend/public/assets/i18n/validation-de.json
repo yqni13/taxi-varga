@@ -102,10 +102,11 @@
                 }
             },
             "form": {
+                "business-invalid-return": "Rückfahrt ist nur zwischen 07:00 und 20:00 Uhr möglich.",
                 "business-invalid-time": "Abholung ist nur zwischen {{START}} und {{END}} Uhr möglich.",
+                "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
                 "business-invalid-time12": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
                 "business-invalid-time17": "Abholung ist nur zwischen 04:00 und 17:00 Uhr möglich.",
-                "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
                 "check-data": "Eingaben überprüfen!",
                 "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
                 "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",

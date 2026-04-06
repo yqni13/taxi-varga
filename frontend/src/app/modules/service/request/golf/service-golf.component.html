@@ -97,13 +97,17 @@
                             (byChange)="configDateTimeEnd($event)"
                         ></tava-textinput>
                     </div>
-                    <div class="tava-service-stay-wrapper" id="tava-service-golf-stay-right">
+                    <div
+                        class="tava-service-stay-wrapper"
+                        id="tava-service-golf-stay-right"
+                        *tavaVar="serviceForm.get('datetimeStart') as startFc"
+                    >
                         <span class="tava-service-block-label">
                             {{('modules.service.content.golf.labels.datetime-end' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'datetime-local'"
-                            [ngClass]="!serviceForm.get('datetimeStart')?.value ? 'tava-input-inactive' : ''"
+                            [ngClass]="startFc?.value && !startFc?.invalid ? '' : 'tava-input-inactive'"
                             [minStringObservable]="minStayStamp$"
                             [maxStringObservable]="maxStayStamp$"
                             [formControl]="serviceForm.get('datetimeEnd') | controlCast"

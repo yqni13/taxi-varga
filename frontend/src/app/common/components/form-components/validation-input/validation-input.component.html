@@ -36,6 +36,9 @@
         <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours17')">
             {{ 'validation.frontend.form.business-invalid-time17' | translate }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessReturn')">
+            {{ 'validation.frontend.form.business-invalid-return' | translate }}
+        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('invalidBHTimeOnly')">
             {{ 'validation.frontend.form.business-invalid-time-only' | translate }}
         </div>

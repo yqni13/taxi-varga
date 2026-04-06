@@ -84,7 +84,8 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             service: this.datetimeService,
             format: DatetimeOption.FULL,
             startHour: 4,
-            endHour: 17
+            endHour: 17,
+            isPickup: true
         };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),

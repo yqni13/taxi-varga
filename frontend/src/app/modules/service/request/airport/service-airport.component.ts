@@ -90,7 +90,8 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             service: this.datetimeService,
             format: DatetimeOption.FULL,
             startHour: 4,
-            endHour: 12
+            endHour: 12,
+            isPickup: true
         };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),

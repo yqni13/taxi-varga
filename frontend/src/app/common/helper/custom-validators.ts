@@ -71,8 +71,10 @@ export const invalidBusinessHoursValidator = (param: InvalidBHValidatorParams) :
         if(time < (60 * param.startHour) || time > (60 * param.endHour)) {
             if(param.format === DatetimeOption.HHMM) {
                 return { invalidBHTimeOnly: true };
-            } else {
+            } else if(param.isPickup) {
                 return param.endHour === 12 ? { invalidBusinessHours12: true } : { invalidBusinessHours17: true };
+            } else {
+                return { invalidBusinessReturn: true };
             }
         }
         return null;

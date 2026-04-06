@@ -92,7 +92,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             service: this.datetimeService,
             format: DatetimeOption.FULL,
             startHour: 4,
-            endHour: 17
+            endHour: 17,
+            isPickup: true
         };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
@@ -135,7 +136,14 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     configDateTimeEnd($event: any) {
-        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 24);
+        const restrictDateTime = this.datetimeService.getRestrictionTimestampByDateAndTime($event, '20:00:00');
+        const invalidBHValidatorParamsStart: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 20,
+            isPickup: false
+        };
         this.minTenancyStamp$.next(this.datetimeService.getTodayStartingTimestamp(false, $event));
         this.maxTenancyStamp$.next(restrictDateTime);
         this.serviceForm.get('datetimeEnd')?.clearValidators();
@@ -151,7 +159,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
                     this.serviceForm.get('datetimeStart')?.value
                 )
             ]),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceRoute.FLATRATE)
+            CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParamsStart)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
