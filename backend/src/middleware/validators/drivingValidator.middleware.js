@@ -64,9 +64,6 @@ exports.drivingFlatrateSchema = [
     body('tenancy')
         .exists({values: 'null'})
         .withMessage('backend-required')
-        .bail()
-        .isInt({ max: 1440 }) //  x <= 24h
-        .withMessage('backend-invalid-tenancy')
 ];
 
 exports.drivingGolfSchema = [

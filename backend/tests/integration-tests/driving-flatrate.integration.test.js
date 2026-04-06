@@ -101,22 +101,6 @@ describe('Integration test, service flow: Flatrate', () => {
                 expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
-
-            test('Params: <tenancy>, validator: isInt({max: 1440})', async () => {
-                const invalidParam = 'tenancy';
-                const mockParam_params = structuredClone(MockData_RouteMatrix['route1220-2514']);
-                mockParam_params[`${invalidParam}`] = 1441;
-
-                mockError['msg'] = 'backend-invalid-tenancy';
-                mockError['path'] = invalidParam;
-                mockError['value'] = mockParam_params[`${invalidParam}`];
-                const mockResponse = await request(app)
-                    .post('/api/v1/driving/flatrate')
-                    .send(mockParam_params);
-
-                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
-                expect(mockResponse.body.headers.data).toContainEqual(mockError);
-            })
         })
     })
 })

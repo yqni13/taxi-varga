@@ -62,7 +62,7 @@
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
                     "info": {
-                        "text": "'Airport' service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
+                        "text": "time of pickup for 'Airport' service orders are only accepted between 04:00 a.m. and 12:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs.",
+                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- time of pickup for 'Destination' service orders are only accepted between 04:00 a.m. and 17:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -101,7 +101,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Tenancy will be charged for min 3h and max 24h.\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately.",
+                        "text": "- Tenancy will be charged for min 3h\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately\n- time of pickup for 'Flatrate' service orders are only accepted between 04:00 a.m. and 17:00 p.m. and time of return up to 20:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -189,7 +189,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 3h are included in the price, following 3h are for free)\n- for trips lasting several days, inquire directly by email:",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 3h are included in the price, following 3h are for free)\n- time of pickup for 'Golf' service orders are only accepted between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -218,7 +218,7 @@
                 "quick": {
                     "info": {
                         "call": "Call",
-                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- max 3h latency with costs.\n- Calculations are valid for the official business hours (04:00 a.m. - 12:00 p.m.)",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- max 3h latency with costs.\n- Calculations are valid for the official business hours between 04:00 a.m. and 12:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {

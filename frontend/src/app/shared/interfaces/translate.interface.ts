@@ -3,6 +3,8 @@ export interface TranslateExtendedParams {
     len?: string,
     min?: string,
     max?: string,
+    start?: string,
+    end?: string
 }
 
 export interface TranslationParams {
