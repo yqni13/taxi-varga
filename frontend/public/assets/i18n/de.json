@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- bei Pauschalfahrten NÖ darf 1 Adresse in Wien oder in einem anderen Bundesland liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig\n- die Buchung vom Zeitrahmen für Pauschalfahrten kann nur zwischen 04:00 und 17:00 Uhr festgelegt werden",
+                        "text": "- bei Pauschalfahrten NÖ darf 1 Adresse in Wien oder in einem anderen Bundesland liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig\n- die Buchung vom Zeitrahmen für Pauschalfahrten kann nur zwischen 04:00 und 17:00 Uhr festgelegt werden und der Zeitpunkt für Rückfahrten ist bis 20:00 Uhr möglich",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {

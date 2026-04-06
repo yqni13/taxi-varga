@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- time of pickup for 'Destination' service orders are only accepted between 04:00 a.m. and 17:00 p.m.",
+                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- time of pickup for 'Destination' service orders are only accepted between 04:00 a.m. and 17:00 p.m. and time of return up to 20:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
