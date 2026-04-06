@@ -20,6 +20,8 @@ import { SnackbarMessageService } from "../../../../shared/services/snackbar.ser
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-destination',
@@ -78,6 +80,12 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     }
 
     private initForm() {
+        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 17
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -87,7 +95,8 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             back2home: new FormControl(''),
             datetime: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService)
+                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
             ]),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),

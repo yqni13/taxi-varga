@@ -19,6 +19,8 @@ import { CustomTranslateService } from "../../../../shared/services/custom-trans
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
@@ -86,6 +88,12 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     }
 
     private initForm() {
+        const invalidBHValidatorParamsStart: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 17
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -95,7 +103,8 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             tenancy: new FormControl(''),
             datetimeStart: new FormControl('', [
                 Validators.required,
-                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService)
+                CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParamsStart)
             ]),
             datetimeEnd: new FormControl(''),
             pickupDATE: new FormControl(''),

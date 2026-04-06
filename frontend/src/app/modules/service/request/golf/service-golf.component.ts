@@ -24,6 +24,7 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-golf',
@@ -97,6 +98,12 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     private initForm() {
+        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 12
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -110,7 +117,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
+                    CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
                 ])
             ]),
             datetimeEnd: new FormControl(''),

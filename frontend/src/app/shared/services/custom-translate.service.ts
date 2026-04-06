@@ -49,6 +49,16 @@ export class CustomTranslateService {
      */
     private toTranslationParams(path: string): TranslationParams {
         const params: TranslateExtendedParams = {};
+        if(path.includes('&')) {
+            const substring = path.substring(path.indexOf('&'), path.length);
+            path = path.replace(substring, '');
+            params.start = substring.replace('&', '');
+        }
+        if(path.includes('%')) {
+            const substring = path.substring(path.indexOf('%'), path.length);
+            path = path.replace(substring, '');
+            params.end = substring.replace('%', '');
+        }
         if(path.includes('!')) {
             const substring = path.substring(path.indexOf('!'), path.length);
             path = path.replace(substring, '');
@@ -91,6 +101,12 @@ export class CustomTranslateService {
         }
         if(data.valParams && data.valParams.max && result.includes('{{MAX}}')) {
             result = result.replace('{{MAX}}', data.valParams.max);
+        }
+        if(data.valParams && data.valParams.val && result.includes('{{START}}')){
+            result = result.replace('{{START}}', data.valParams.val);
+        }
+        if(data.valParams && data.valParams.val && result.includes('{{END}}')){
+            result = result.replace('{{END}}', data.valParams.val);
         }
 
         return result ? result : this.getDefaultErrorTranslation();

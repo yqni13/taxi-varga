@@ -102,7 +102,9 @@
                 }
             },
             "form": {
-                "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+                "business-invalid-time": "Pickup is only available at {{START}} a.m. - {{END}} p.m. time range.",
+                "business-invalid-time12": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+                "business-invalid-time17": "Pickup is only available at 04:00 a.m. - 17:00 p.m. time range.",
                 "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
                 "check-data": "Check input!",
                 "datetime-end-invalid-negative": "Time of return can not be before pickup.",

@@ -84,6 +84,7 @@ section {
 
     span {
         color: sass.$color-ice-white;
+        backdrop-filter: blur(5px);
     }
 }
 
