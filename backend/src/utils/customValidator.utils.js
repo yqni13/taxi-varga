@@ -105,3 +105,13 @@ exports.validateTravelTimeRelevance = (compareTime, travelTime, serviceOption) =
         throw new InvalidPropertiesException(msg, { flag: flag, data: [{msg: msg}] });
     }
 }
+
+exports.validateReturnWithinExtendedBH = (data) => {
+    const limitInMinutes = Utils.getTimeInTotalMinutesFromString(data.limit);
+    const pickupInMinutes = Utils.getTimeInTotalMinutesFromString(`${data.pickup}:00`);
+    const returnInMinutes = (data.o2d.duration + pickupInMinutes + data.latency + data.d2o.duration);
+    if(limitInMinutes < returnInMinutes) {
+        throw new InvalidPropertiesException(`backend-invalid-return-withinbh#${data.limit}`);
+    }
+    return true;
+}

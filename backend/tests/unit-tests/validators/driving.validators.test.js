@@ -70,6 +70,20 @@ describe('CustomValidator tests, priority: DRIVING', () => {
 
             expect(testFn).toBe(expectResult);
         })
+
+        test('fn: validateReturnWithinExtendedBH', () => {
+            const mockParam_data = {
+                limit: '20:00',
+                latency: 45,
+                pickup: 16,
+                o2d: { duration: 31 },
+                d2o: { duration: 34 }
+            };
+            const testFn = CustomValidators.validateReturnWithinExtendedBH(mockParam_data);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
     })
 
     describe('Testing invalid fn calls', () => {
@@ -170,6 +184,21 @@ describe('CustomValidator tests, priority: DRIVING', () => {
                     mockParam_travelTime,
                     mockParam_serviceOption
                 )
+            }).toThrow(expectResult);
+        })
+
+        test('fn: validateReturnWithinExtendedBH', () => {
+            const mockParam_data = {
+                limit: '20:00',
+                latency: 180,
+                pickup: 16,
+                o2d: { duration: 31 },
+                d2o: { duration: 34 }
+            };
+            const expectResult = `backend-invalid-return-withinbh#${mockParam_data.limit}`;
+
+            expect(() => {
+                CustomValidators.validateReturnWithinExtendedBH(mockParam_data)
             }).toThrow(expectResult);
         })
     })
