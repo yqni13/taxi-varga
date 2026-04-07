@@ -2,6 +2,8 @@ const Utils = require('../../utils/common.utils');
 const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
+const CustomValidator = require('../../utils/customValidator.utils');
+const { InvalidPropertiesException } = require('../../utils/exceptions/validation.exception');
 
 class DrivingDestinationModel {
     #googleRoutes;
@@ -49,6 +51,7 @@ class DrivingDestinationModel {
         try {
             params['back2home'] = params['back2home'] === 'true' ? true : false;
             // Manual discount: cost limit = 3h (3 * 60min)
+            const origLatency = params.latency;
             params['latency'] = Number(params['latency']) >= 180 ? 180 : Number(params['latency']);
             // Price is calculated by every started 30 minute-block.
             params['latency'] = (Math.ceil(params['latency'] / 30)) * 30; 
@@ -63,6 +66,16 @@ class DrivingDestinationModel {
                 d2h: response.find(obj => {return obj.originIndex === 2 && obj.destinationIndex === 2}),
                 o2h: response.find(obj => {return obj.originIndex === 1 && obj.destinationIndex === 2}),
             };
+
+            if(params.back2home) {
+                CustomValidator.validateReturnWithinExtendedBH({
+                    limit: '20:00',
+                    latency: origLatency,
+                    pickup: params.pickupTIME,
+                    o2d: routes.o2d,
+                    d2o: routes.d2o
+                });
+            }
 
             let result = {
                 price: 0,
@@ -116,7 +129,7 @@ class DrivingDestinationModel {
             const message = 'ERROR ON MODEL CALCULATION + API';
             const method = 'TAVA_DrivingModel_calcDestinationRoute';
             Utils.logError(message, method, err);
-            if(err instanceof UnexpectedApiResponseException) {
+            if(err instanceof UnexpectedApiResponseException || err instanceof InvalidPropertiesException) {
                 throw err;
             }
             throw new UnexpectedException(err);

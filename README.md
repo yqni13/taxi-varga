@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.9}}$
+### $\textsf{\color{brown}{v1.9.12}}$
 
 <br><br>
 
@@ -236,9 +236,11 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
-- $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
+$\textsf{[v1.9.9\ =>\ {\textbf{\color{brown}v1.9.12}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + readonly state of datetime-end when datetime-start is invalid
+  + business hour information on each service + validation
+  + backend validation on service 'destination' calculation
 
 <br>
 

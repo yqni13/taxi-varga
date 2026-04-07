@@ -18,6 +18,7 @@
                 "backend-invalid-pickupTIME": "The selected pickup time is invalid. Please check your input.",
                 "backend-invalid-relevance-stay": "A stay at the golf course is not possible because the chosen time for the return trip is too short. Please adjust your input.",
                 "backend-invalid-relevance-travel": "The chosen time range between pickup and target destination is too narrow. Please adjust your input.",
+                "backend-invalid-return-withinbh": "The return must take place until \"{{VAL}}\" p.m. Please adjust your pick-up time or waiting time accordingly.",
                 "backend-invalid-stay": "Stay must not exceed 72h. Please check your input.",
                 "backend-invalid-subject": "The request was denied because suspicious data were detected. Please try again later or contact support.",
                 "backend-invalid-tenancy": "Tenancy can be max 24h. Please check your input.",
@@ -102,8 +103,11 @@
                 }
             },
             "form": {
-                "business-invalid-time": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+                "business-invalid-return": "Return is only available at 07:00 a.m. - 20:00 p.m. time range.",
+                "business-invalid-time": "Pickup is only available at {{START}} a.m. - {{END}} p.m. time range.",
                 "business-invalid-time-only": "Valid time: 04:00 a.m. - 12:00 p.m.",
+                "business-invalid-time12": "Pickup is only available at 04:00 a.m. - 12:00 p.m. time range.",
+                "business-invalid-time17": "Pickup is only available at 04:00 a.m. - 17:00 p.m. time range.",
                 "check-data": "Check input!",
                 "datetime-end-invalid-negative": "Time of return can not be before pickup.",
                 "datetime-invalid-negative": "Selected time must not be in the past.",

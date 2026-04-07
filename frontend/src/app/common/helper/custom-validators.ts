@@ -2,6 +2,7 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@an
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
+import { InvalidBHValidatorParams } from "../../shared/interfaces/custom-validators.interface";
 
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -59,16 +60,22 @@ export const maxLatencyValidator = (datetimeService: DateTimeService) : Validato
     }
 }
 
-export const invalidBusinessHoursValidator = (datetimeService: DateTimeService, format: string) : ValidatorFn => {
+export const invalidBusinessHoursValidator = (param: InvalidBHValidatorParams) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         let time = 0;
-        if(format === DatetimeOption.HHMM) {
-            time = datetimeService.getTimeInTotalMinutes(control?.value);
-        } else if(format === DatetimeOption.FULL) {
-            time = datetimeService.getTimeInTotalMinutes(datetimeService.getTimeFromTimestamp(control?.value));
+        if(param.format === DatetimeOption.HHMM) {
+            time = param.service.getTimeInTotalMinutes(control?.value);
+        } else if(param.format === DatetimeOption.FULL) {
+            time = param.service.getTimeInTotalMinutes(param.service.getTimeFromTimestamp(control?.value));
         }
-        if(time < (60 * 4) || time > (60 * 12)) {
-            return format === DatetimeOption.HHMM ? { invalidBHTimeOnly: true } : { invalidBusinessHours: true };
+        if(time < (60 * param.startHour) || time > (60 * param.endHour)) {
+            if(param.format === DatetimeOption.HHMM) {
+                return { invalidBHTimeOnly: true };
+            } else if(param.isPickup) {
+                return param.endHour === 12 ? { invalidBusinessHours12: true } : { invalidBusinessHours17: true };
+            } else {
+                return { invalidBusinessReturn: true };
+            }
         }
         return null;
     }

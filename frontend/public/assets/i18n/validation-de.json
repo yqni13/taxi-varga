@@ -18,6 +18,7 @@
                 "backend-invalid-pickupTIME": "Die gewählte Abholzeit ist ungültig. Bitte kontrollieren Sie Ihre Angaben.",
                 "backend-invalid-relevance-stay": "Ein Aufenthalt am Golfplatz ist nicht möglich, da der gewählte Zeitpunkt für die Rückfahrt zu knapp gewählt ist. Bitte passen Sie Ihre Eingaben an.",
                 "backend-invalid-relevance-travel": "Die gewählte Zeitspanne zwischen Abholung und Zielort ist zu knapp gewählt. Bitte passen Sie ihre Eingaben an.",
+                "backend-invalid-return-withinbh": "Die Rückfahrt muss bis \"{{VAL}}\" Uhr stattfinden. Passen Sie Ihre Abholzeit oder Wartezeit entsprechend an.",
                 "backend-invalid-stay": "Der Aufenthalt darf max 72h betragen. Bitte kontrollieren Sie Ihre Angaben.",
                 "backend-invalid-subject": "Die Anfrage wurde abgelehnt weil verdächtige Daten erkannt wurden. Bitte versuchen Sie es später erneut oder wenden Sie sich an den Support.",
                 "backend-invalid-tenancy": "Die Mietdauer darf max 24h betragen. Bitte kontrollieren Sie Ihre Angaben.",
@@ -102,8 +103,11 @@
                 }
             },
             "form": {
-                "business-invalid-time": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+                "business-invalid-return": "Rückfahrt ist nur zwischen 07:00 und 20:00 Uhr möglich.",
+                "business-invalid-time": "Abholung ist nur zwischen {{START}} und {{END}} Uhr möglich.",
                 "business-invalid-time-only": "Gültige Zeit: 04:00 - 12:00 Uhr",
+                "business-invalid-time12": "Abholung ist nur zwischen 04:00 und 12:00 Uhr möglich.",
+                "business-invalid-time17": "Abholung ist nur zwischen 04:00 und 17:00 Uhr möglich.",
                 "check-data": "Eingaben überprüfen!",
                 "datetime-end-invalid-negative": "Zeitpunkt der Rückfahrt kann nicht vor der Abholung liegen.",
                 "datetime-invalid-negative": "Ausgewählter Zeitpunkt darf nicht in der Vergangenheit liegen.",
