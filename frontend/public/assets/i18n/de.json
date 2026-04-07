@@ -62,7 +62,7 @@
                 "airport": {
                     "block-validation": "Bitte wählen Sie die Option für Ankunft oder Abflug aus.",
                     "info": {
-                        "text": "- die Buchung vom Abholzeitpunkt für Flughafenfahrten kann nur zwischen 04:00 und 12:00 Uhr festgelegt werden",
+                        "text": "- Abholzeitpunkt für Flughafenfahrten zwischen 04:00 und 12:00 Uhr",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- bei Pauschalfahrten NÖ darf 1 Adresse in Wien oder in einem anderen Bundesland liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig\n- die Buchung vom Zeitrahmen für Pauschalfahrten kann nur zwischen 04:00 und 17:00 Uhr festgelegt werden und der Zeitpunkt für Rückfahrten ist bis 20:00 Uhr möglich",
+                        "text": "- bei Pauschalfahrten NÖ darf 1 Adresse in Wien oder in einem anderen Bundesland liegen\n- wird die Option für die Rückfahrt ausgewählt, darf die max Wartezeit 6h nicht überschreiten\n- max 3h Wartezeit kostenpflichtig\n- Pauschalfahrten können zwischen 04:00 und 17:00 Uhr beginnen und Rückfahrten bis 20:00 Uhr enden",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -101,7 +101,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Für Zeitmieten werden min 3h verrechnet\n- Pro Stunde Mietzeit werden pauschal 35,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu\n- die Buchung vom Abholzeitpunkt für Zeitmieten kann nur zwischen 04:00 und 17:00 festgelegt werden und der Zeitpunkt für Rückfahrten ist bis 20:00 Uhr möglich",
+                        "text": "- Für Zeitmieten werden min 3h verrechnet\n- Pro Stunde Mietzeit werden pauschal 35,00 EUR verrechnet und inkludieren 25km. Zusätzlich kommen je nach Abhol- und Zieladresse weitere Kosten für die An- und Rückfahrt hinzu\n- der Abholzeitpunkt für Zeitmieten kann nur zwischen 04:00 und 17:00 Uhr und Mietende bis 20:00 Uhr festgelegt werden",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -189,7 +189,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n- die Buchung vom Abholzeitpunkt für Golfreisen kann nur zwischen 04:00 und 12:00 Uhr festgelegt werden\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 3h sind im Preis inkludiert, weitere 3h sind gratis)\n- Abholzeitpunkt für Golfreisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -218,7 +218,7 @@
                 "quick": {
                     "info": {
                         "call": "Anrufen",
-                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- max 3h Wartezeit kostenpflichtig\n- Berechnungen gelten nur für die offiziellen Geschäftszeiten von 04:00 bis 12:00 Uhr",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- max 3h Wartezeit kostenpflichtig\n- Abholzeitpunkt für Spontanfahrten zwischen 04:00 und 12:00 Uhr",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
