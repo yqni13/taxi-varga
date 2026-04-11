@@ -184,12 +184,13 @@ class DrivingDestinationModel {
 
         let returnCosts = routes.o2h.distanceMeters * this.#prices.return.withinBH.low;
 
-        if(params['latency'] >= 180) {
-            returnCosts = routes.o2h.distanceMeters <= 30 
-                ? 0 
-                : (routes.o2h.distanceMeters - 30) * this.#prices.return.withinBH.low;
-        }
-    
+        // TODO(yqni13): for testing purposes remove discount on return route
+        // if(params['latency'] >= 180) {
+        //     returnCosts = routes.o2h.distanceMeters <= 30 
+        //         ? 0 
+        //         : (routes.o2h.distanceMeters - 30) * this.#prices.return.withinBH.low;
+        // }
+
         return Number((returnCosts).toFixed(1));
     }
 
