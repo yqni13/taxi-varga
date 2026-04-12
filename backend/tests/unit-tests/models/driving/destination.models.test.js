@@ -191,7 +191,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 114 } };
+                const expectSubObj = { routeData: { price: 126 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -707,7 +707,7 @@ describe('Destination tests, priority: _calcReturnCosts', () => {
                 mockParam_routes,
                 mockParam_isWithinBH
             );
-            const expectResult = 6.4;
+            const expectResult = 18.4;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })
@@ -731,7 +731,7 @@ describe('Destination tests, priority: _calcReturnCosts', () => {
                 mockParam_routes,
                 mockParam_isWithinBH
             );
-            const expectResult = 0;
+            const expectResult = 2.4;
 
             expect(testFn).toBeCloseTo(expectResult, 1);
         })

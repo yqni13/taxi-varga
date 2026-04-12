@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/12}$
+
+$\textsf{[v1.9.12\ =>\ {\textbf{\color{brown}v1.9.13}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'destination' return cost calculation.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/06}$
 
-$\textsf{[v1.9.9\ =>\ {\textbf{\color{brown}v1.9.12}]}}$ app
+$\textsf{[v1.9.9\ =>\ v1.9.12]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + readonly state of datetime-end when datetime-start is invalid
   + business hour information on each service + validation
