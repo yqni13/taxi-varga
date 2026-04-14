@@ -78,6 +78,7 @@ export class DrivingAPIService {
             destinationDetails: null,
             stay: 0,
             supportMode: false,
+            passengers: 1
         };
         this.dataQuick = {
             origin: '',
@@ -140,7 +141,7 @@ export class DrivingAPIService {
             destinationDetails: data.destinationDetails,
             stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
             supportMode: data.supportMode,
-            passengers: data.passengers ? Number(data.passengers) : undefined
+            passengers: Number(data.passengers)
         };
     }
 

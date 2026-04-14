@@ -115,16 +115,3 @@ exports.validateReturnWithinExtendedBH = (data) => {
     }
     return true;
 }
-
-exports.validateGolfPassengers = (support, passengers) => {
-    if(support) {
-        if(!passengers) {
-            throw new InvalidPropertiesException('backend-required');
-        }
-        if(!(typeof passengers === 'number')) {
-            throw new InvalidPropertiesException('backend-invalid-golf-passengers');
-        }
-        return true;
-    }
-    return true;
-}
