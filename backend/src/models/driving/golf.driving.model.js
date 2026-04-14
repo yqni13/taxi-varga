@@ -84,7 +84,8 @@ class DrivingGolfModel {
             totalCosts = this._mapSupportDiscount({
                 costs: totalCosts,
                 hasSupportSelected: params.supportMode,
-                golfcourseId: params.golfcourseDetails.placeId
+                golfcourseId: params.golfcourseDetails.placeId,
+                passengers: params.passengers
             });
             totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
 
@@ -131,7 +132,7 @@ class DrivingGolfModel {
 
     _mapSupportDiscount(params) {
         const isPreferenceGC = this.#preferenceGcIdList.includes(params.golfcourseId);
-        if(!isPreferenceGC && !params.hasSupportSelected) {
+        if(!isPreferenceGC && (!params.hasSupportSelected || (params.passengers && params.passengers > 2))) {
             return params.costs;
         }
         const discount = params.costs * this.#prices.discount.support;

@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/14}$
+
+$\textsf{[v1.9.13\ =>\ {\textbf{\color{brown}v1.9.14}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' discount cost calculation based on number of passengers.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/12}$
 
-$\textsf{[v1.9.12\ =>\ {\textbf{\color{brown}v1.9.13}]}}$ app
+$\textsf{[v1.9.12\ =>\ v1.9.13]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'destination' return cost calculation.
 
 <br>

@@ -311,7 +311,8 @@
             "passengers": {
                 "PPL1": "1",
                 "PPL2": "2",
-                "PPL3": "3"
+                "PPL3": "3",
+                "PPL4": "4"
             },
             "service": {
                 "airport": "Flughafenfahrt",

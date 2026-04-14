@@ -69,15 +69,31 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
         })
 
-        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = true', async () => {
+        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = true, <passengers> = 1', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = true;
+            mockParam_params['passengers'] = 1;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
             const golfModel = new DrivingGolfModel(mockAPI);
             const testFn = await golfModel.calcGolfRoute(mockParam_params);
             const expectSubObj = { routeData: { price: 163 } };
+
+            expect(testFn).toMatchObject(expectSubObj);
+            expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
+        })
+
+        test('Route (2340to2013to2340), params: service distance > 20, <supportMode> = true, <passengers> = 3', async () => {
+            const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
+            mockParam_params['supportMode'] = true;
+            mockParam_params['passengers'] = 3;
+            const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
+            const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
+
+            const golfModel = new DrivingGolfModel(mockAPI);
+            const testFn = await golfModel.calcGolfRoute(mockParam_params);
+            const expectSubObj = { routeData: { price: 211 } };
 
             expect(testFn).toMatchObject(expectSubObj);
             expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -207,7 +223,7 @@ describe('Flatrate tests, priority: _mapSupportDiscount', () => {
             const mockParam_params = {
                 costs: 100,
                 hasSupportSelected: false,
-                golfcourseId: 'no-preference-id'
+                golfcourseId: 'no-preference-id',
             };
             const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 100;
@@ -227,14 +243,28 @@ describe('Flatrate tests, priority: _mapSupportDiscount', () => {
             expect(testFn).toBe(expectSubObj);
         })
 
-        test('Params: discount < 48, <support> == true, golfcourseId !== preference', () => {
+        test('Params: discount < 48, <support> == true, golfcourseId !== preference, <passengers> == 2', () => {
             const mockParam_params = {
                 costs: 100,
                 hasSupportSelected: true,
-                golfcourseId: 'no-preference-id'
+                golfcourseId: 'no-preference-id',
+                passengers: 2
             };
             const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 75; // discount = 25% of costs
+
+            expect(testFn).toBe(expectSubObj);
+        })
+
+        test('Params: discount < 48, <support> == true, golfcourseId !== preference, <passengers> == 3', () => {
+            const mockParam_params = {
+                costs: 100,
+                hasSupportSelected: true,
+                golfcourseId: 'no-preference-id',
+                passengers: 3
+            };
+            const testFn = golfModel._mapSupportDiscount(mockParam_params);
+            const expectSubObj = 100;
 
             expect(testFn).toBe(expectSubObj);
         })
@@ -243,7 +273,8 @@ describe('Flatrate tests, priority: _mapSupportDiscount', () => {
             const mockParam_params = {
                 costs: 192,
                 hasSupportSelected: true,
-                golfcourseId: 'no-preference-id'
+                golfcourseId: 'no-preference-id',
+                passengers: 1
             };
             const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 144;
@@ -255,7 +286,8 @@ describe('Flatrate tests, priority: _mapSupportDiscount', () => {
             const mockParam_params = {
                 costs: 300,
                 hasSupportSelected: true,
-                golfcourseId: 'no-preference-id'
+                golfcourseId: 'no-preference-id',
+                passengers: 1
             };
             const testFn = golfModel._mapSupportDiscount(mockParam_params);
             const expectSubObj = 252;
