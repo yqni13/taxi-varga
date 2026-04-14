@@ -112,7 +112,8 @@
             "zipCode": "2340"
         },
         "stay": 480,
-        "supportMode": false
+        "supportMode": false,
+        "passengers": 1
     },
     "route2500-7574-2500": {
         "apiResult": [
@@ -457,6 +458,7 @@
             "zipCode": "2821"
         },
         "stay": 360,
-        "supportMode": false
+        "supportMode": false,
+        "passengers": 1
     }
 }
