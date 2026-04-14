@@ -226,7 +226,8 @@
             "zipCode": "2500"
         },
         "stay": 360,
-        "supportMode": true
+        "supportMode": true,
+        "passengers": 1
     },
     "route2542-2551-2542": {
         "apiResult": [
@@ -341,7 +342,8 @@
             "zipCode": "2542"
         },
         "stay": 360,
-        "supportMode": true
+        "supportMode": true,
+        "passengers": 1
     },
     "route1010-2821-1010": {
         "apiResult": [

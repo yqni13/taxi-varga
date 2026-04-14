@@ -12,6 +12,7 @@
                 "backend-destination-vienna": "This service does not allow both addresses to be located within Vienna. Select one address out of Vienna.",
                 "backend-invalid-email": "Your email address is invalid. Check spelling mistakes and structure:\nlocal-part + @ + host-name + '.' + top-level-domain.\nExample: local@host.com",
                 "backend-invalid-entry": "The input for the record \"{{VAL}}\" is incorrect. Please check your input.",
+                "backend-invalid-golf-passengers": "The number of selected players must be 1-4.",
                 "backend-invalid-id": "The login identifier is invalid. Please try again later or contact support.",
                 "backend-invalid-latency": "Latency must not be bigger than 6h. Please check your input.",
                 "backend-invalid-pass": "The login password is invalid. Please try again later or contact support.",
