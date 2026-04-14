@@ -84,6 +84,24 @@ describe('CustomValidator tests, priority: DRIVING', () => {
 
             expect(testFn).toBe(expectResult);
         })
+
+        test('fn: validateGolfPassengers, <support> = true', () => {
+            const mockParam_support = true;
+            const mockParam_passengers = 1;
+            const testFn = CustomValidators.validateGolfPassengers(mockParam_support, mockParam_passengers);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('fn: validateGolfPassengers, <support> = false', () => {
+            const mockParam_support = true;
+            const mockParam_passengers = 1;
+            const testFn = CustomValidators.validateGolfPassengers(mockParam_support, mockParam_passengers);
+            const expectResult = true;
+
+            expect(testFn).toBe(expectResult);
+        })
     })
 
     describe('Testing invalid fn calls', () => {
@@ -200,6 +218,24 @@ describe('CustomValidator tests, priority: DRIVING', () => {
             expect(() => {
                 CustomValidators.validateReturnWithinExtendedBH(mockParam_data)
             }).toThrow(expectResult);
+        })
+
+        test('fn: validateGolfPassengers, <passengers> = undefined', () => {
+            const mockParam_support = true;
+            const mockParam_passengers = undefined;
+            const expectResult = 'backend-required';
+
+            expect(() => { CustomValidators.validateGolfPassengers(mockParam_support, mockParam_passengers)})
+                .toThrow(expectResult);
+        })
+
+        test('fn: validateGolfPassengers, <passengers> = "2"', () => {
+            const mockParam_support = true;
+            const mockParam_passengers = "2";
+            const expectResult = 'backend-invalid-golf-passengers';
+
+            expect(() => { CustomValidators.validateGolfPassengers(mockParam_support, mockParam_passengers)})
+                .toThrow(expectResult);
         })
     })
 })

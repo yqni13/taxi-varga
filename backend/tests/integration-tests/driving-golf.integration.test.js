@@ -42,8 +42,21 @@ describe('Integration test, service flow: Golf', () => {
             expect(mockResponse_driving.body.body).toMatchObject(mockResult);
         })
 
-        test('Workflow: calc by route (2340to2013to2340), supportMode === true', async () => {
+        test('Workflow: calc by route (2340to2013to2340), supportMode = true, passengers = 2', async () => {
             const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
+            const mockResponse_driving = await request(app)
+                .post('/api/v1/driving/golf')
+                .send(mockParam_params_driving);
+
+            expect(mockResponse_driving.statusCode).toBe(200);
+            expect(mockResponse_driving.body.body).toMatchObject(mockResult);
+        })
+
+        test('Workflow: calc by route (2340to2013to2340), supportMode = true, passengers = 3', async () => {
+            const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
+            mockParam_params_driving['passengers'] = 3
+            const testResult = structuredClone(mockResult);
+            testResult[''] = 0;
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);

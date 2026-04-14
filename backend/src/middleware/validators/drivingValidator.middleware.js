@@ -95,7 +95,9 @@ exports.drivingGolfSchema = [
         .withMessage('backend-invalid-stay'),
     body('supportMode')
         .isBoolean()
-        .withMessage('backend-required')
+        .withMessage('backend-required'),
+    body('passengers')
+        .custom((value, { req }) => CustomValidator.validateGolfPassengers(req.supportMode, value))
 ];
 
 exports.drivingQuickSchema = [

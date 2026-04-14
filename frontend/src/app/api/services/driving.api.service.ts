@@ -26,7 +26,7 @@ export class DrivingAPIService {
     private dataAirport: DrivingRequest.DrivingAirportRequest;
     private dataDestination: DrivingRequest.DrivingDestinationRequest;
     private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
-    private dataGolf: any;
+    private dataGolf: DrivingRequest.DrivingGolfRequest;
     private dataQuick: DrivingRequest.DrivingQuickRequest;
 
     constructor(
@@ -77,7 +77,7 @@ export class DrivingAPIService {
             destination: '',
             destinationDetails: null,
             stay: 0,
-            supportMode: null
+            supportMode: false,
         };
         this.dataQuick = {
             origin: '',
@@ -139,7 +139,8 @@ export class DrivingAPIService {
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
             stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
-            supportMode: data.supportMode
+            supportMode: data.supportMode,
+            passengers: data.passengers ? Number(data.passengers) : undefined
         };
     }
 
