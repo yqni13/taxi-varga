@@ -192,8 +192,12 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     configSupportModeOnPassengers() {
-        if(this.serviceForm.get('passengers')?.value === PassengerOptions.PPL3) {
-            this.serviceForm.get('supportMode')?.setValue(null);
+        const passengers = this.serviceForm.get('passengers')?.value;
+        if(passengers === PassengerOptions.PPL4) {
+            this.serviceForm.get('supportMode')?.setValue(false);
+        }
+        if(passengers === PassengerOptions.PPL3 || passengers === PassengerOptions.PPL4) {
+            this.serviceForm.get('supportMode')?.setValue(false);
         } else if(this.serviceForm.get('supportMode')?.value === null) {
             this.serviceForm.get('supportMode')?.setValue(false);
         }

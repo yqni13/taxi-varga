@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.13}}$
+### $\textsf{\color{brown}{v1.9.15}}$
 
 <br><br>
 
@@ -236,8 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.12\ =>\ {\textbf{\color{brown}v1.9.13}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'destination' return cost calculation.
+$\textsf{[v1.9.14\ =>\ {\textbf{\color{brown}v1.9.15}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' UI selection for supportMode and passengers option.
 
 <br>
 
