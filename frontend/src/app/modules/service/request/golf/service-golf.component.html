@@ -71,7 +71,7 @@
                 <ng-container *tavaVar="serviceForm.get('supportMode')?.value as supportMode">
                     <div
                         class="tava-service-specific-block"
-                        *ngIf="supportMode !== null"
+                        *ngIf="supportMode !== null && serviceForm.get('passengers')?.value !== PassengerOptionsEnum.PPL4"
                         id="form-checkbox"
                     >
                         <div class="tava-custom-input-checkbox">
