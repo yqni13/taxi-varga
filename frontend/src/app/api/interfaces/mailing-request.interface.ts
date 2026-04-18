@@ -2,13 +2,13 @@ import { AirportOptions } from "../../shared/enums/airport-options.enum"
 import { PassengerOptions } from "../../shared/enums/passenger-options.enum"
 import { ServiceRoute } from "../routes/service.route.enum"
 
-export declare interface MailingRequest {
+export interface MailingRequest {
     sender: string,
     subject: string,
     body: string
 }
 
-export declare interface MailingMessage {
+export interface MailingMessage {
     service: ServiceRoute,
     gender: 'male' | 'female',
     title?: string,

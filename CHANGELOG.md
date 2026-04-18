@@ -1,8 +1,20 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/18}$
+
+$\textsf{[v1.9.15\ =>\ {\textbf{\color{brown}v1.9.20}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + translations (user email + new validation)
+  + cursor on hover effects for arrival/departure selection on service 'airport'
+  + validation behavior on empty input for meta form control 'phone'
+  + issued backend dependencies (including fixes for email logic due to nodemailer version changes)
+- $\textsf{\color{red}Bugfix:}$ Input for 'note' in service forms can be used as expected. [Before: Input was impossible because no maxlength was defined and default value was 0 => no input possible. Fixed by setting maxlength values for all meta form text-inputs.]
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/15}$
 
-$\textsf{[v1.9.14\ =>\ {\textbf{\color{brown}v1.9.15}]}}$ app
+$\textsf{[v1.9.14\ =>\ v1.9.15]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'golf' UI selection for supportMode and passengers option.
 
 <br>

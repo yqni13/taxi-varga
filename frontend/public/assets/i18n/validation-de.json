@@ -116,6 +116,7 @@
                 "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
                 "invalid-phone-char": "Telefonnummer enthält ungültige Zeichen.",
                 "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
+                "maxlength": "Ihre Eingabe ({{fieldValue}}) darf nicht länger als: {{fieldMax}} Zeichen sein.",
                 "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
                 "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
                 "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
