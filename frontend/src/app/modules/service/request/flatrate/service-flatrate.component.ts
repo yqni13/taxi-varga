@@ -79,7 +79,7 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addMetaProperties2Form(this.serviceForm);
+                    this.mapMetaFormControls(this.serviceForm);
                     this.httpObserve.setDrivingFlatrateStatus(false);
                 }
                 this.loadOfferResponse = false;

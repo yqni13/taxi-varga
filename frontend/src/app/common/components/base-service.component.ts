@@ -21,6 +21,7 @@ import { AddressOptions } from "../../shared/enums/address-options.enum";
 import { BaseRoute } from "../../api/routes/base.route.enum";
 import * as CustomValidators from "../helper/custom-validators";
 import { DrivingAPIService } from "../../api/services/driving.api.service";
+import { MetaFormValidationData } from "../../shared/interfaces/meta-request.interface";
 
 /**
  * This is the base class for all 'service' modules.
@@ -42,6 +43,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected pickupTimeByLangStatic: string;
     protected customer: string;
     protected metaProperties: string[];
+    protected validationData: MetaFormValidationData;
     protected termCancellation: boolean;
     protected termSurchargeParking: boolean;
     protected termSurchargeFuel: boolean;
@@ -55,7 +57,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     protected snackbarTextPhone?: string;
     protected window: any;
     protected delay: any;
-    
+
     private scrollAnchor!: HTMLElement;
     private subscriptionThemeObservation$: Subscription;
     private subscriptionLangObservation$: Subscription;
@@ -102,15 +104,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.subscriptionHttpObservationError$ = new Subscription();
         this.window = this.document.defaultView;
-        this.metaProperties = [
-            'gender',
-            'title',
-            'firstName',
-            'lastName',
-            'phone',
-            'email',
-            'note'
-        ];
+        this.metaProperties = this.initMetaProperties();
+        this.validationData = this.initMetaValidationData();
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
@@ -155,7 +150,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
             }
         });
 
-        this.addMetaProperties2Form(this.metaForm);
+        this.mapMetaFormControls(this.metaForm);
         this.scrollAnchor = this.elRef.nativeElement.querySelector(`.tava-service-${this.service}`);
     }
 
@@ -206,6 +201,21 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
+    initMetaProperties(): string[] {
+        return ['gender', 'title', 'firstName', 'lastName', 'phone', 'email', 'note'];
+    }
+
+    initMetaValidationData(): MetaFormValidationData {
+        return {
+            titleMaxLength: 100,
+            firstNameMaxLength: 50,
+            lastNameMaxLength: 50,
+            phoneMaxLength: 25,
+            emailMaxLength: 100,
+            noteMaxLength: 1000
+        };
+    }
+
     getTermsCheckboxValue(event: any) {
         this.termCancellation = event.target?.checked;
     }
@@ -237,20 +247,22 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    addMetaProperties2Form(form: FormGroup) {
-        Object.values(this.metaProperties).forEach((element) => {
-            if(element === 'email') {
-                form.addControl(element, new FormControl('', [Validators.required, Validators.email]));
-            } else if(element === 'phone') {
-                form.addControl(element, new FormControl('', 
-                    [Validators.required, CustomValidators.phoneRegExValidator()]
-                ));
-            } else if(element !== 'title' && element !== 'note') {
-                form.addControl(element, new FormControl('', Validators.required));
-            } else {
-                form.addControl(element, new FormControl(''))
-            }
-        })
+    mapMetaFormControls(form: FormGroup) {
+        form.addControl('gender', new FormControl('', Validators.required));
+        form.addControl('title', new FormControl('', Validators.maxLength(this.validationData.titleMaxLength)));
+        form.addControl('firstName', new FormControl('', [
+            Validators.required, Validators.maxLength(this.validationData.firstNameMaxLength)
+        ]));
+        form.addControl('lastName', new FormControl('', [
+            Validators.required, Validators.maxLength(this.validationData.lastNameMaxLength)
+        ]));
+        form.addControl('phone', new FormControl('', [
+            Validators.required, CustomValidators.phoneRegExValidator(), Validators.maxLength(this.validationData.phoneMaxLength)
+        ]));
+        form.addControl('email', new FormControl('', [
+            Validators.required, Validators.email, Validators.maxLength(this.validationData.emailMaxLength)
+        ]));
+        form.addControl('note', new FormControl('', Validators.maxLength(this.validationData.noteMaxLength)));
     }
 
     addResponseRouteData2Form(response: any) {

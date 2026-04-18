@@ -3,6 +3,9 @@
         <div class="tava-validation-message" *ngIf="control.hasError('required')">
             {{ 'validation.frontend.form.required' | translate: {fieldName: fieldName} }}
         </div>
+        <div class="tava-validation-message" *ngIf="control.hasError('maxlength')">
+            {{ 'validation.frontend.form.maxlength' | translate: {fieldValue: control.value.length, fieldMax: control.errors.maxlength.requiredLength} }}
+        </div>
         <div class="tava-validation-message" *ngIf="control.hasError('email')">
             {{ 'validation.frontend.form.email-invalid' | translate: {fieldName: fieldName} }}
         </div>

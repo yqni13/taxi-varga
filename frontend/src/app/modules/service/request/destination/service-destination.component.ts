@@ -71,7 +71,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addMetaProperties2Form(this.serviceForm);
+                    this.mapMetaFormControls(this.serviceForm);
                     this.httpObserve.setDrivingDestinationStatus(false);
                 }
                 this.loadOfferResponse = false;

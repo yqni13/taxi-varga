@@ -43,7 +43,7 @@ export const phoneRegExValidator = (): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const cleanedNr = (control?.value as string).replaceAll(' ', '');
         const whitelist = /^\+?[0-9]+$/;
-        if(!whitelist.test(cleanedNr) ) {
+        if(cleanedNr !== '' && !whitelist.test(cleanedNr) ) {
             return { invalidPhoneChar: true };
         }
         return null;

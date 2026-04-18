@@ -304,7 +304,7 @@
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-specific-content-input-order tava-service-form">
-            <tava-servicemeta [metaFormGroup]="metaForm"></tava-servicemeta>
+            <tava-servicemeta [metaFormGroup]="metaForm" [validationData]="validationData"></tava-servicemeta>
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button
