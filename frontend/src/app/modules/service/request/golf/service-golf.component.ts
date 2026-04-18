@@ -89,7 +89,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addMetaProperties2Form(this.serviceForm);
+                    this.mapMetaFormControls(this.serviceForm);
                     this.httpObserve.setDrivingGolfStatus(false);
                 }
                 this.loadOfferResponse = false;

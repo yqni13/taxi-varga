@@ -1,6 +1,6 @@
 import { FormControl } from "@angular/forms"
 
-export declare interface MetaFormRequest {
+export interface MetaFormRequest {
     gender: FormControl<string>,
     title: FormControl<string>,
     firstName: FormControl<string>,
@@ -8,4 +8,13 @@ export declare interface MetaFormRequest {
     phone: FormControl<string>,
     email: FormControl<string>,
     note: FormControl<string>
+}
+
+export interface MetaFormValidationData {
+    titleMaxLength: number,
+    firstNameMaxLength: number,
+    lastNameMaxLength: number,
+    phoneMaxLength: number,
+    emailMaxLength: number,
+    noteMaxLength: number
 }
