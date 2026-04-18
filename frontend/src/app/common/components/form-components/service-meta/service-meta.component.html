@@ -22,6 +22,7 @@
                     [inputType]="'text'"
                     [formControl]="metaFormGroup.get('title') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.title' | translate"
+                    [maxValNumber]="validationData.titleMaxLength"
                 ></tava-textinput>
             </div>
         </div>
@@ -35,6 +36,7 @@
                     [inputType]="'text'"
                     [formControl]="metaFormGroup.get('firstName') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.first-name' | translate"
+                    [maxValNumber]="validationData.firstNameMaxLength"
                 ></tava-textinput>
             </div>
             <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
@@ -46,6 +48,7 @@
                     [inputType]="'text'"
                     [formControl]="metaFormGroup.get('lastName') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.last-name' | translate"
+                    [maxValNumber]="validationData.lastNameMaxLength"
                 ></tava-textinput>
             </div>
         </div>
@@ -59,6 +62,7 @@
                     [inputType]="'text'"
                     [formControl]="metaFormGroup.get('phone') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.phone' | translate"
+                    [maxValNumber]="validationData.phoneMaxLength"
                 ></tava-textinput>
             </div>
             <div class="tava-service-form-customer-double" id="tava-service-customer-double-right">
@@ -70,6 +74,7 @@
                     [inputType]="'email'"
                     [formControl]="metaFormGroup.get('email') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.email' | translate"
+                    [maxValNumber]="validationData.emailMaxLength"
                 ></tava-textinput>
             </div>
         </div>
@@ -83,7 +88,14 @@
                     [rows]="4"
                     [formControl]="metaFormGroup.get('note') | controlCast"
                     [fieldName]="'modules.service.content.form.customer.note' | translate"
+                    [maxLength]="validationData.noteMaxLength"
                 ></tava-textareainput>
+                <span
+                    class="tava-input-count"
+                    *ngIf="metaFormGroup.get('note')?.value!.length <= validationData.noteMaxLength"
+                >
+                    {{(validationData.noteMaxLength - metaFormGroup.get('note')?.value!.length) + ' / ' + validationData.noteMaxLength}}
+                </span>
             </div>
         </div>
     </form>

@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { VarDirective } from "../../../directives/ng-var.directive";
 
 @Component({
@@ -20,7 +20,7 @@ export class ValidationInputComponent {
     @Input() ngControl: FormControl;
     @Input() fieldName: string;
 
-    constructor(private translate: TranslateService) { 
+    constructor() { 
         this.ngControl = new FormControl();
         this.fieldName = '';
     }
