@@ -177,7 +177,7 @@ class MailingModel {
                 const support = data.supportMode ? 'Mitspieler' : '';
                 const newServiceBasic = `Daten zum Service:\nGewählte Anzahl Reisender: ${data.passengers}\nAbholadresse: ${data.originTranslateDE}\nGolfplatz: ${data.golfcourseTranslateDE}\nRückkehradresse: ${data.destinationTranslateDE}\nDatum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
 
-                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Abfahrtsdatum der Rückfahrt: ' + data.dropOffDATE + '\n' : ''}Abfahrtszeit der Rückfahrt: ${data.dropOffTIME} Uhr\nGeplanter Aufenthalt: ${data.stay} h\n${data.supportMode ? 'Zusätzlich gewählter Service: ' + support + '\n' : ''}Geschätzter Preis: ${data.price},00 EUR`;
+                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Abfahrtsdatum der Rückfahrt: ' + data.dropOffDATE + '\n' : ''}Abfahrtszeit der Rückfahrt: ${data.dropOffTIME} Uhr\nGeplanter Aufenthalt: ${data.stay} h\n${data.supportMode ? 'Zusätzlich gewählter Service: ' + support + '\n' : ''}Pauschalpreis: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgServiceGolf}`;
                 break;
@@ -211,7 +211,7 @@ class MailingModel {
                 const support = data.supportMode ? 'Co-Player' : '';
                 const newServiceBasic = `Service data:\nSelected number of passengers: ${data.passengers}\nPickup address: ${data.originTranslateEN}\nGolfcourse: ${data.golfcourseTranslateEN}\nReturn address: ${data.destinationTranslateEN}\nDate of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
 
-                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of departure for return: ' + data.dropOffDATE + '\n' : ''}Time of departure for return: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nIntended time of stay: ${data.stay} h\n${data.supportMode ? 'Selected auxiliary service: ' + support + '\n' : ''}Estimated price: ${data.price},00 EUR`;
+                const msgServiceGolf = `${data.dropOffDATE && data.pickupDATE !== data.dropOffDATE ? 'Date of departure for return: ' + data.dropOffDATE + '\n' : ''}Time of departure for return: ${data.dropOffTIME ? data.dropOffTimeEN : ''}\nIntended time of stay: ${data.stay} h\n${data.supportMode ? 'Selected auxiliary service: ' + support + '\n' : ''}Fixed price: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgServiceGolf}`;
                 break;
