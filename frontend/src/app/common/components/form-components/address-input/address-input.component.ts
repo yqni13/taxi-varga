@@ -15,7 +15,10 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
 @Component({
     selector: 'tava-addressinput',
     templateUrl: './address-input.component.html',
-    styleUrl: './address-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './address-input.component.scss'
+    ],
     standalone: true,
     imports: [
         CommonModule,

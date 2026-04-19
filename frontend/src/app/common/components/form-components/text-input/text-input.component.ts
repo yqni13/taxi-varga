@@ -9,7 +9,10 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
 @Component({
     selector: 'tava-textinput',
     templateUrl: './text-input.component.html',
-    styleUrl: './text-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './text-input.component.scss',
+    ],
     standalone: true,
     imports: [
         CommonModule,
@@ -35,7 +38,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     keyListening($event: any) {
         this.tabOutside($event, this.fieldName);
     }
-    
+
     @Input() fieldName: string;
     @Input() formControl: FormControl;
     @Input() readonly: boolean;
@@ -85,6 +88,9 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     
     ngOnInit() {
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
+            if(this.formControl.errors && !this.isFocused) {
+                console.log("I have an unfocused error!");
+            }
             this.byChange.emit(change);
             this.isFocused = true;
         })

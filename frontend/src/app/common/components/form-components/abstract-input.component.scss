@@ -1,0 +1,44 @@
+@use '../../../../stylesheets/utilities' as sass;
+
+
+$icon-margin-error: 7.5px;
+$icon-size-error: 30px;
+$icon-padding-error: calc(($icon-margin-error * 2) + $icon-size-error);
+$border: 1px;
+$target-height: 40px;
+$inline-padding: 2px;
+
+tava-validation {
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+
+#error-icon {
+    display: flex;
+    position: absolute;
+    justify-self: end;
+    align-self: center;
+    color: sass.$color-valid-red;
+}
+
+.tava-input-padding-error {
+    width: calc(100% - (7px + 33px));
+    padding: 0 calc(30px + 3px) 0 sass.$form-padding-small;
+    height: calc($target-height - ($inline-padding * 2));
+}
+.tava-input-padding-base {
+    width: calc(100% - 12px);
+    padding: 0 sass.$form-padding-small;
+    height: calc($target-height - ($inline-padding * 2));
+}
+
+.tava-form-indented {
+    width: 200px;
+    margin-right: calc(sass.$space15 + sass.$space5);
+
+    input {
+        padding: 7px sass.$form-padding-small;
+        font-family: sass.$font-text-family;
+    }
+}

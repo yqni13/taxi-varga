@@ -9,7 +9,10 @@ import { AbstractInputComponent } from "../abstract-input.component";
 @Component({
     selector: 'tava-selectinput',
     templateUrl: './select-input.component.html',
-    styleUrl: './select-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './select-input.component.scss',
+    ],
     standalone: true,
     imports: [
         CommonModule,
