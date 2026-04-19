@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/19}$
+
+$\textsf{[v1.9.20\ =>\ {\textbf{\color{brown}v1.9.21}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated styling of custom input components.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/18}$
 
-$\textsf{[v1.9.15\ =>\ {\textbf{\color{brown}v1.9.20}]}}$ app
+$\textsf{[v1.9.15\ =>\ v1.9.20]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + translations (user email + new validation)
   + cursor on hover effects for arrival/departure selection on service 'airport'

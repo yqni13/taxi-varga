@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.20}}$
+### $\textsf{\color{brown}{v1.9.21}}$
 
 <br><br>
 
@@ -236,13 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.15\ =>\ {\textbf{\color{brown}v1.9.20}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated:
-  + translations (user email + new validation)
-  + cursor on hover effects for arrival/departure selection on service 'airport'
-  + validation behavior on empty input for meta form control 'phone'
-  + issued backend dependencies (including fixes for email logic due to nodemailer version changes)
-- $\textsf{\color{red}Bugfix:}$ Input for 'note' in service forms can be used as expected. [Before: Input was impossible because no maxlength was defined and default value was 0 => no input possible. Fixed by setting maxlength values for all meta form text-inputs.]
+$\textsf{[v1.9.20\ =>\ {\textbf{\color{brown}v1.9.21}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated styling of custom input components.
 
 <br>
 
