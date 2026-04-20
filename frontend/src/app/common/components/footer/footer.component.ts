@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { LanguageOptions } from "../../../shared/enums/language-options.enum";
 import { ThemeHandlerService } from "../../../shared/services/theme-handler.service";
@@ -18,16 +18,12 @@ import { LanguageHandlerService } from "../../../shared/services/language-handle
         CommonModule,
         RouterModule,
         TranslateModule
-    ]
+    ],
+    host: {
+        '(window:click)': 'clickOutside($event)'
+    }
 })
 export class FooterComponent implements OnInit, AfterViewInit {
-
-    @HostListener('window:click', ['$event'])
-    clickOutside($event: any) {
-        if(!$event.target.className.includes('tava-language-element')) {
-            this.showLanguageWindow = false;
-        }
-    }
 
     @ViewChild('themeMode') themeMode?: ElementRef; 
     @ViewChild('themeIcon') themeIcon?: ElementRef; 
@@ -90,5 +86,11 @@ export class FooterComponent implements OnInit, AfterViewInit {
         this.languageHandler.setLanguageData(language);
         this.selectedLanguage = language;
         this.showLanguageWindow = false;
+    }
+
+    clickOutside($event: any) {
+        if(!$event.target.className.includes('tava-language-element')) {
+            this.showLanguageWindow = false;
+        }
     }
 }

@@ -1,35 +1,22 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-.tava-text-wrapper {
+.tava-text {
     // use ngStyle for width to style lvl above => <tava-textinput>
     display: grid;
-    
+    position: relative;
     input {
-        width: calc(100% - 12px);
-        padding: 9.5px sass.$form-padding-small;
         border-radius: calc(sass.$space5 + 1px);
         text-overflow: ellipsis;
+        padding-block: 0;
     }
 }
-
-input[type="text"] {
-    padding: 9.5px sass.$form-padding-small;
+input[type="time"] {
+    padding: 7.2px sass.$form-padding-small;
 }
-
 input[type="datetime-local"] {
     font-family: sass.$font-text-family;
-    padding: 8.5px sass.$form-padding-small;
-}
-
-.tava-input-time {
-    width: 150px;
-    margin-right: calc(sass.$space15 + sass.$space5);
-    
-    input {
-        padding: 7px sass.$form-padding-small;
-        font-family: sass.$font-text-family;
-    }
+    padding: 9px sass.$form-padding-small;
 }
 
 .tava-input-inactive input {
@@ -38,21 +25,11 @@ input[type="datetime-local"] {
     color: grey;
 }
 
-i {
-    position: absolute;
-    display: flex;
-    justify-self: end;
-    // TODO(yqni13): adapt hard coded styling for different device sizes
-}
-
 .tava-warning-input-text {
-    margin: 4px sass.$space5 0 0;
+    margin: 0 sass.$space5 0 0;
 }
 
+.tava-warning-input-time,
 .tava-warning-input-datetime-local {
-    margin: sass.$space5 sass.$space25 0 0;
-}
-
-.tava-warning-input-time {
-    margin: 4px sass.$space25 0 0;
+    margin: 0 sass.$space25 0 0;
 }

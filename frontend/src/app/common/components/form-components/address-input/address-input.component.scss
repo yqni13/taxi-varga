@@ -1,25 +1,16 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-.tava-address-wrapper {
+.tava-address {
     display: grid;
-    
+    position: relative;
     input {
-        width: calc(100% - 12px);
-        padding: 9.5px sass.$form-padding-small;
         border-radius: calc(sass.$space5 + 1px);
     }
 }
 
-i {
-    position: absolute;
-    display: flex;
-    justify-self: end;
-    // TODO(yqni13): adapt hard coded styling for different device sizes
-}
-
-.tava-warning-address-text {
-    margin: 4px sass.$space5 0 0;
+#error-icon {
+    margin: 0 sass.$space5 0 0;
 }
 
 #google-logo {
