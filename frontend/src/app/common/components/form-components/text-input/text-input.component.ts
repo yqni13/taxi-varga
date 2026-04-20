@@ -82,9 +82,6 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     
     ngOnInit() {
         this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
-            if(this.formControl.errors && !this.isFocused) {
-                console.log("I have an unfocused error!");
-            }
             this.byChange.emit(change);
             this.isFocused = true;
         })
