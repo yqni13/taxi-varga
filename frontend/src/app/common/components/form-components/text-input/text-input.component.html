@@ -1,19 +1,27 @@
-<div class="tava-text-wrapper {{className}}" ngClass="{{ngClass}}">
-    <input 
-        type="{{inputType}}"
-        placeholder="{{placeholder}}"
-        id="{{'tava-' + fieldName}}"
-        [readonly]="readonly"
-        [formControl]="formControl"
-        min="{{minVal}}"
-        max="{{maxVal}}"
-        [readOnly]="isReadonly"
-    >
-    <i
-        class="icon-warning icon-base"
-        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
-        [ngClass]="classNameWarningIcon"
-    ></i>
+<div class="tava-text-wrapper" ngClass="{{ngClass}}">
+    <div class="tava-text {{className}}">
+        <input 
+            type="{{inputType}}"
+            placeholder="{{placeholder}}"
+            id="{{'tava-' + fieldName}}"
+            [readonly]="readonly"
+            [formControl]="formControl"
+            min="{{minVal}}"
+            max="{{maxVal}}"
+            [readOnly]="isReadonly"
+            ngClass="{{
+                formControl.errors && !isFocused && inputType !== 'time' && inputType !== 'datetime-local'
+                    ? 'tava-input-padding-error'
+                    : 'tava-input-padding-base'
+            }}"
+        >
+        <i
+            class="icon-warning icon-base"
+            id="error-icon"
+            *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
+            [ngClass]="classNameWarningIcon"
+        ></i>
+    </div>
     <tava-validation
         *ngIf="!isFocused"
         [ngControl]="formControl"

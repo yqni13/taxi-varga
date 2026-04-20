@@ -75,7 +75,7 @@
                 </div>
                 <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-block form-time-input" id="form-latency">
                     <tava-textinput
-                        [ngClass]="'tava-input-time'"
+                        [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
                         [formControl]="serviceForm.get('latency') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.latency' | translate"
@@ -86,7 +86,7 @@
                 </div>
                 <div class="tava-service-specific-block form-time-input">
                     <tava-textinput
-                        [ngClass]="'tava-input-time'"
+                        [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
                         [formControl]="serviceForm.get('pickupTIME') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.pickupTIME' | translate"
