@@ -2,8 +2,10 @@
 
 ### $\textsf{\color{skyblue}2026/04/19}$
 
-$\textsf{[v1.9.20\ =>\ {\textbf{\color{brown}v1.9.21}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated styling of custom input components.
+$\textsf{[v1.9.20\ =>\ {\textbf{\color{brown}v1.9.22}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + styling of custom input components
+  + using 'host' property in components instead of @HostListener decorator
 
 <br>
 

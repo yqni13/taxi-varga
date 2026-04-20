@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -32,29 +32,13 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
             useExisting: forwardRef(() => AddressInputComponent),
             multi: true,
         }
-    ]
+    ],
+    host: {
+        '(window:click)': 'clickOutside($event)',
+        '(window:keydown)': 'tabOutside($event)'
+    }
 })
 export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
-
-    @HostListener('window:click', ['$event'])
-    override clickOutside($event: any) {
-        if($event.target?.id !== `tava-${this.fieldName}`) {
-            this.showOptions = false;
-            this.isFocused = false;
-        } else {
-            this.showOptions = true;
-            this.isFocused = true;
-        }
-    }
-
-    @HostListener('window:keydown', ['$event'])
-    override tabOutside($event: any) {
-        if($event.key === 'Tab' && ($event.target?.id === `tava-${this.fieldName}`)) {
-            this.isFocused = false;
-        } else if($event.key === 'Escape') {
-            this.showOptions = false;
-        }
-    }
 
     @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
     @ViewChildren('optionRef') optionRefList!: QueryList<ElementRef<HTMLElement>>;
@@ -283,6 +267,24 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         // define input value length and set focus to last position of input
         const inputLength = this.inputRef.nativeElement.value.length;
         this.inputRef.nativeElement.setSelectionRange(inputLength, inputLength);
+    }
+
+    override clickOutside($event: any) {
+        if($event.target?.id !== `tava-${this.fieldName}`) {
+            this.showOptions = false;
+            this.isFocused = false;
+        } else {
+            this.showOptions = true;
+            this.isFocused = true;
+        }
+    }
+
+    override tabOutside($event: any) {
+        if($event.key === 'Tab' && ($event.target?.id === `tava-${this.fieldName}`)) {
+            this.isFocused = false;
+        } else if($event.key === 'Escape') {
+            this.showOptions = false;
+        }
     }
 
     ngOnDestroy() {
