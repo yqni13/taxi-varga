@@ -38,7 +38,11 @@
                         {{'modules.service.content.destination.labels.back2home' | translate}}
                     </span>
                 </div>
-                <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-specific-block" id="form-latency">
+                <div
+                    *ngIf="serviceForm.get('back2home')?.value"
+                    class="tava-service-specific-block flex-direction-small"
+                    id="form-latency"
+                >
                     <tava-textinput
                         [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
