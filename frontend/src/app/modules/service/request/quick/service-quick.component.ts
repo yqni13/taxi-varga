@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { Router } from "@angular/router";
@@ -13,7 +13,6 @@ import { SnackbarMessageService } from "../../../../shared/services/snackbar.ser
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
-import { DOCUMENT } from "@angular/common";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subscription, tap } from "rxjs";
 import { DrivingQuickResponse } from "../../../../api/interfaces/driving-response.interface";

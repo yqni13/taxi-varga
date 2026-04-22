@@ -1,5 +1,5 @@
-import { CommonModule, DOCUMENT } from "@angular/common";
-import { Component, Inject, OnDestroy, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
