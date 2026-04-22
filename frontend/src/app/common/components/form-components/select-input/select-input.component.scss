@@ -1,16 +1,13 @@
 @use '../../../../../stylesheets/utilities' as sass;
+@use '../abstract-input.component.scss' as abstract;
 
 
-$select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-padding);
-
-.tava-select-wrapper {
+.tava-select {
     // use ngStyle for width to style lvl above => <tava-selectinput>
     display: grid;
     margin-right: -1px; // to adapt calculating width as last-right form element
-    
+    position: relative;
     select {
-        width: 100%;
-        padding: 9.5px 0 9.5px $select-left-padding;
         border-radius: calc(sass.$space5 + 1px);
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -25,20 +22,17 @@ $select-left-padding: calc(sass.$form-padding-small - sass.$select-balance-paddi
     }
 }
 
-.tava-form-intended {
-    width: 150px;
-    margin-right: calc(sass.$space15 + sass.$space5);
-
-    input {
-        padding: 7px sass.$form-padding-small;
-        font-family: sass.$font-text-family;
-    }
+// Adapt position due to fixed arrow (dropdown) icon.
+#error-icon {
+    margin-right: 15px;
 }
-
-
-i {
-    position: absolute;
-    display: flex;
-    justify-self: end;
-    margin: calc(sass.$space5 / 2) sass.$space15 0 0;
+.tava-input-padding-error {
+    width: auto;
+    padding: 0 calc(30px + 15px) 0 sass.$form-padding-small;
+    height: abstract.$target-height;
+}
+.tava-input-padding-base {
+    width: auto;
+    padding: 0 0 0 sass.$form-padding-small;
+    height: abstract.$target-height;
 }

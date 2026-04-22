@@ -1,15 +1,17 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-#form-checkbox,
-.service-form-indented {
+#form-checkbox {
     display: flex;
     flex-direction: row;
 }
 
-.service-form-indented span {
-    align-self: start;
-    margin-top: 9px;
+.service-form-indented {
+    display: flex;
+    span {
+        align-self: start;
+        margin-top: 9px;
+    }
 }
 
 .tava-text-input-checkbox {

@@ -1,8 +1,27 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/22}$
+
+$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + preload of warning icon for validations + position in textarea
+  + responsive design for input fields with text in same row on small width devices
+  + translation text for additional information on order
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/19}$
+
+$\textsf{[v1.9.20\ =>\ v1.9.22]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + styling of custom input components
+  + using 'host' property in components instead of @HostListener decorator
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/18}$
 
-$\textsf{[v1.9.15\ =>\ {\textbf{\color{brown}v1.9.20}]}}$ app
+$\textsf{[v1.9.15\ =>\ v1.9.20]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + translations (user email + new validation)
   + cursor on hover effects for arrival/departure selection on service 'airport'

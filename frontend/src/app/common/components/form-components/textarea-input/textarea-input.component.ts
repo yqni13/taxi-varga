@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, HostListener, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -9,7 +9,10 @@ import { Subscription } from "rxjs";
 @Component({
     selector: 'tava-textareainput',
     templateUrl: './textarea-input.component.html',
-    styleUrl: './textarea-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './textarea-input.component.scss'
+    ],
     standalone: true,
     imports: [
         CommonModule,
@@ -22,19 +25,13 @@ import { Subscription } from "rxjs";
             useExisting: forwardRef(() => TextareaInputComponent),
             multi: true,
         }
-    ]
+    ],
+    host: {
+        '(window:click)': 'clickListening($event)',
+        '(window:keydown)': 'keyListening($event)'
+    }
 })
 export class TextareaInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
-
-    @HostListener('window:click', ['$event']) 
-    clickListening($event: any) {
-        this.clickOutside($event, this.fieldName);
-    }
-
-    @HostListener('window:keydown', ['$event'])
-    keyListening($event: any) {
-        this.tabOutside($event, this.fieldName);
-    }
 
     @Input() fieldName: string;
     @Input() formControl: FormControl;
@@ -69,6 +66,14 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
             this.byChange.emit(change);
             this.isFocused = true;
         })
+    }
+
+    clickListening($event: any) {
+        this.clickOutside($event, this.fieldName);
+    }
+
+    keyListening($event: any) {
+        this.tabOutside($event, this.fieldName);
     }
 
     ngOnDestroy() {

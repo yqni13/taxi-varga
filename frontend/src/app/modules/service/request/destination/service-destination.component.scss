@@ -1,10 +1,13 @@
 @use '../../../../../stylesheets/utilities' as sass;
 
 
-#form-checkbox,
-#form-latency {
+#form-checkbox {
     display: flex;
     flex-direction: row;
+}
+
+#form-latency {
+    display: flex;
 }
 
 #form-latency span {

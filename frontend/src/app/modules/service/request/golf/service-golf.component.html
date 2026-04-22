@@ -54,11 +54,11 @@
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>                    
                 </div>
-                <div class="tava-service-specific-block service-form-indented">
+                <div class="tava-service-specific-block service-form-indented flex-direction-small">
                     <tava-selectinput
                         [placeholder]="('modules.service.content.golf.labels.placeholder.number' | translate) + (':')"
                         [formControl]="serviceForm.get('passengers') | controlCast"
-                        [ngClass]="'tava-form-intended'"
+                        [ngClass]="'tava-form-indented'"
                         [options]="PassengerOptionsEnum"
                         [optionsTranslateRoot]="'shared.enum.passengers.'"
                         (byChange)="configSupportModeOnPassengers()"

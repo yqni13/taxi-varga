@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, HostListener, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
@@ -9,7 +9,10 @@ import { AbstractInputComponent } from "../abstract-input.component";
 @Component({
     selector: 'tava-selectinput',
     templateUrl: './select-input.component.html',
-    styleUrl: './select-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './select-input.component.scss',
+    ],
     standalone: true,
     imports: [
         CommonModule,
@@ -23,19 +26,13 @@ import { AbstractInputComponent } from "../abstract-input.component";
             useExisting: forwardRef(() => SelectInputComponent),
             multi: true,
         }
-    ]
+    ],
+    host: {
+        '(window:click)': 'clickListening($event)',
+        '(window:keydown)': 'keyListening($event)'
+    }
 })
 export class SelectInputComponent extends AbstractInputComponent {
-
-    @HostListener('window:click', ['$event']) 
-    clickListening($event: any) {
-        this.clickOutside($event, this.fieldName);
-    }
-
-    @HostListener('window:keydown', ['$event'])
-    keyListening($event: any) {
-        this.tabOutside($event, this.fieldName);
-    }
 
     @Input() fieldName: string;
     @Input() formControl: FormControl;
@@ -63,5 +60,13 @@ export class SelectInputComponent extends AbstractInputComponent {
     selectOption(option: Event) {
         this.byChange.emit(option);
         this.isFocused = false;
+    }
+
+    clickListening($event: any) {
+        this.clickOutside($event, this.fieldName);
+    }
+
+    keyListening($event: any) {
+        this.tabOutside($event, this.fieldName);
     }
 }
