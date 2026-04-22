@@ -1,15 +1,19 @@
-<div class="tava-textarea-wrapper {{className}}" ngClass="{{ngClass}}">
-    <textarea
-        placeholder="{{placeholder}}"
-        id="{{'tava-' + fieldName}}"
-        [formControl]="formControl"
-        rows="{{rows}}"
-        maxlength="{{maxLength}}"
-    ></textarea>
-    <i
-        class="icon-warning icon-base"
-        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
-    ></i>
+<div class="tava-textarea-wrapper" ngClass="{{ngClass}}">
+    <div class="tava-textarea {{className}}">
+        <textarea
+            placeholder="{{placeholder}}"
+            id="{{'tava-' + fieldName}}"
+            [formControl]="formControl"
+            rows="{{rows}}"
+            maxlength="{{maxLength}}"
+            ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
+        ></textarea>
+        <i
+            class="icon-warning icon-base"
+            id="error-icon"
+            *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
+        ></i>
+    </div>
     <tava-validation
         *ngIf="!isFocused"
         [ngControl]="formControl"

@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.22}}$
+### $\textsf{\color{brown}{v1.9.25}}$
 
 <br><br>
 
@@ -236,10 +236,11 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.20\ =>\ {\textbf{\color{brown}v1.9.22}]}}$ app
+$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
-  + styling of custom input components
-  + using 'host' property in components instead of @HostListener decorator
+  + preload of warning icon for validations + position in textarea
+  + responsive design for input fields with text in same row on small width devices
+  + translation text for additional information on order
 
 <br>
 

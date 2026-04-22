@@ -9,7 +9,10 @@ import { Subscription } from "rxjs";
 @Component({
     selector: 'tava-textareainput',
     templateUrl: './textarea-input.component.html',
-    styleUrl: './textarea-input.component.scss',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './textarea-input.component.scss'
+    ],
     standalone: true,
     imports: [
         CommonModule,

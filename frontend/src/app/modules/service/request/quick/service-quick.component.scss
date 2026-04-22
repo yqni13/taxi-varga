@@ -17,7 +17,10 @@
     font-weight: bold;
 }
 
-.form-time-input,
+.form-time-input {
+    display: flex;
+}
+
 #form-geolocation,
 #form-checkbox {
     display: flex;
@@ -27,7 +30,7 @@
 
 .form-time-input span {
     align-self: start;
-    margin-top: 9px;
+    margin: auto 0;
 }
 
 #form-origin {
