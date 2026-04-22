@@ -73,7 +73,11 @@
                         {{'modules.service.content.quick.labels.back2origin' | translate}}
                     </span>
                 </div>
-                <div *ngIf="serviceForm.get('back2origin')?.value" class="tava-service-specific-block form-time-input" id="form-latency">
+                <div
+                    *ngIf="serviceForm.get('back2origin')?.value"
+                    class="tava-service-specific-block form-time-input flex-direction-small"
+                    id="form-latency"
+                >
                     <tava-textinput
                         [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
@@ -84,7 +88,7 @@
                         {{'modules.service.content.quick.labels.latency' | translate}}
                     </span>
                 </div>
-                <div class="tava-service-specific-block form-time-input">
+                <div class="tava-service-specific-block form-time-input flex-direction-small">
                     <tava-textinput
                         [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
@@ -92,7 +96,7 @@
                         [fieldName]="'modules.service.content.form.offer.pickupTIME' | translate"
                     ></tava-textinput>
                     <span class="tava-service-block-input">
-                        {{'modules.service.content.quick.labels.pickupTIME' | translate}}
+                        {{('modules.service.content.quick.labels.pickupTIME' | translate) + '*'}}
                     </span>                    
                 </div>
             </form>

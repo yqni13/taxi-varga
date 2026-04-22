@@ -175,7 +175,7 @@
                             "label": "Additional service",
                             "player": "Accompanied as player"
                         },
-                        "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a distance more than 250 km (EUR 0,07/km after 250th km).",
+                        "surcharge-fuel": "I accept that additional costs per kilometer for boost charging (DC) will become due for a transport of more than 250 km (EUR 0,07/km after 250th km).",
                         "surcharge-parking": "I accept that additional costs for road charges and/or parking will become due if necessary.",
                         "tenancy": "Overall tenancy",
                         "tenancy-calc": "25 km per hour of rental time are included. Each additional kilometer costs additionally 0,50 EUR.",
