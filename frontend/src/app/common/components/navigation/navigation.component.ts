@@ -13,7 +13,6 @@ import { AssetsPreloadService } from "../../../shared/services/assets-preload.se
     selector: 'tava-navigation',
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

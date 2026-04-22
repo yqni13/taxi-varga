@@ -10,7 +10,6 @@ import * as content from "../../../../public/assets/i18n/privacy-en.json";
     selector: 'app-privacy',
     templateUrl: './privacy.component.html',
     styleUrl: './privacy.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         TranslateModule

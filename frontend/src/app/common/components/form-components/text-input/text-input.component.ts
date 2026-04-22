@@ -13,7 +13,6 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
         '../abstract-input.component.scss',
         './text-input.component.scss',
     ],
-    standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

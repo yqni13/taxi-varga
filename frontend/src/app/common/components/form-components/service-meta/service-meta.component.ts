@@ -12,7 +12,6 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
     selector: 'tava-servicemeta',
     templateUrl: './service-meta.component.html',
     styleUrl: './service-meta.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         CastAbstract2FormControlPipe,

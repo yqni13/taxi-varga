@@ -11,7 +11,6 @@ import { RouterModule } from "@angular/router";
     selector: 'tava-service',
     templateUrl: './service.component.html',
     styleUrl: './service.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

@@ -10,17 +10,16 @@ import { TokenService } from './shared/services/token.service';
 import { NavigationService } from './shared/services/navigation.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
-  standalone: true,
-  imports: [
-    CommonModule,
-    NavigationComponent,
-    FooterComponent,
-    RouterOutlet,
-    SnackbarComponent
-  ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss',
+    imports: [
+        CommonModule,
+        NavigationComponent,
+        FooterComponent,
+        RouterOutlet,
+        SnackbarComponent
+    ]
 })
 export class AppComponent implements OnInit {
 

@@ -13,7 +13,6 @@ import { LanguageHandlerService } from "../../../shared/services/language-handle
     selector: 'tava-footer',
     templateUrl: './footer.component.html',
     styleUrl: './footer.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

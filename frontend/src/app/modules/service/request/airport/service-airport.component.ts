@@ -30,7 +30,6 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-airport.component.scss'
     ],
-    standalone: true,
     imports: [
         DistanceFormatPipe,
         ...ServiceImportsModule

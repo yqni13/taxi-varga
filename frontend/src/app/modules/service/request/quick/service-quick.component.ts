@@ -36,7 +36,6 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-quick.component.scss'
     ],
-    standalone: true,
     imports: [
         DistanceFormatPipe,
         ...ServiceImportsModule

@@ -33,7 +33,6 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
-    standalone: true,
     imports: [
         DistanceFormatPipe,
         SelectInputComponent,

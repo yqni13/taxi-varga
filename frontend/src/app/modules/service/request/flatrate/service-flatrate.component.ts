@@ -29,7 +29,6 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
         '../../service.component.scss',
         './service-flatrate.component.scss'
     ],
-    standalone: true,
     imports: [
         ...ServiceImportsModule
     ]

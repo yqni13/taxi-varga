@@ -14,7 +14,6 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-home',
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         TranslateModule
