@@ -33,7 +33,8 @@ export declare interface DrivingGolfRequest {
     destination: string,
     destinationDetails: any,
     stay: number,
-    supportMode: boolean
+    supportMode: boolean,
+    passengers: number
 }
 
 export declare interface DrivingQuickRequest {

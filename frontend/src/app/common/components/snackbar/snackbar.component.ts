@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 import { SnackbarMessageService } from "../../../shared/services/snackbar.service";
 import { CommonModule } from "@angular/common";
 import { SnackbarOption } from "../../../shared/enums/snackbar-options.enum";
@@ -11,21 +11,17 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
     standalone: true,
     imports: [
         CommonModule
-    ]
+    ],
+    host: {
+        '(window:keydown.escape)': 'closeOnEscape()'
+    }
 })
 export class SnackbarComponent implements OnInit {
-
-    @HostListener('window:keydown', ['$event'])
-    closeOnEscape(event: KeyboardEvent) {        
-        if(event.key === 'Escape' && this.isActive) {
-            this.close();
-        }
-    }
 
     @Input() snackbarMsg: SnackbarMessage;
     protected snackbarOptions = SnackbarOption;
     protected snackbarClass: string;
-    
+
     private isActive: boolean;
 
     constructor(private snackbarService: SnackbarMessageService) {
@@ -52,5 +48,11 @@ export class SnackbarComponent implements OnInit {
     close() {
         this.snackbarService.close(this.snackbarMsg);
         this.isActive = false;
+    }
+
+    closeOnEscape() {        
+        if(this.isActive && !this.snackbarMsg.autoClose) {
+            this.close();
+        }
     }
 }

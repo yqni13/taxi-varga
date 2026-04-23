@@ -44,13 +44,17 @@
                         (byChange)="configDateTimeEnd($event)"
                     ></tava-textinput>
                 </div>
-                <div class="tava-service-tenancy-wrapper" id="tava-service-flatrate-tenancy-right">
+                <div
+                    class="tava-service-tenancy-wrapper"
+                    id="tava-service-flatrate-tenancy-right"
+                    *tavaVar="serviceForm.get('datetimeStart') as startFc"
+                >
                     <span class="tava-service-block-label">
                         {{('modules.service.content.flatrate.labels.datetime-end' | translate) + '*'}}
                     </span>
                     <tava-textinput
                         [inputType]="'datetime-local'"
-                        [ngClass]="!serviceForm.get('datetimeStart')?.value ? 'tava-input-inactive' : ''"
+                        [ngClass]="startFc?.value && !startFc?.invalid ? '' : 'tava-input-inactive'"
                         [minStringObservable]="minTenancyStamp$"
                         [maxStringObservable]="maxTenancyStamp$"
                         [formControl]="serviceForm.get('datetimeEnd') | controlCast"
@@ -213,7 +217,7 @@
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-specific-content-input-order tava-service-form">
-            <tava-servicemeta [metaFormGroup]="metaForm"></tava-servicemeta>
+            <tava-servicemeta [metaFormGroup]="metaForm" [validationData]="validationData"></tava-servicemeta>
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button

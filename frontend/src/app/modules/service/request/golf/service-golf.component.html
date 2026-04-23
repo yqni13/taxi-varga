@@ -54,11 +54,11 @@
                         (byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
                     ></tava-addressinput>                    
                 </div>
-                <div class="tava-service-specific-block service-form-indented">
+                <div class="tava-service-specific-block service-form-indented flex-direction-small">
                     <tava-selectinput
                         [placeholder]="('modules.service.content.golf.labels.placeholder.number' | translate) + (':')"
                         [formControl]="serviceForm.get('passengers') | controlCast"
-                        [ngClass]="'tava-form-intended'"
+                        [ngClass]="'tava-form-indented'"
                         [options]="PassengerOptionsEnum"
                         [optionsTranslateRoot]="'shared.enum.passengers.'"
                         (byChange)="configSupportModeOnPassengers()"
@@ -71,7 +71,7 @@
                 <ng-container *tavaVar="serviceForm.get('supportMode')?.value as supportMode">
                     <div
                         class="tava-service-specific-block"
-                        *ngIf="supportMode !== null"
+                        *ngIf="supportMode !== null && serviceForm.get('passengers')?.value !== PassengerOptionsEnum.PPL4"
                         id="form-checkbox"
                     >
                         <div class="tava-custom-input-checkbox">
@@ -97,13 +97,17 @@
                             (byChange)="configDateTimeEnd($event)"
                         ></tava-textinput>
                     </div>
-                    <div class="tava-service-stay-wrapper" id="tava-service-golf-stay-right">
+                    <div
+                        class="tava-service-stay-wrapper"
+                        id="tava-service-golf-stay-right"
+                        *tavaVar="serviceForm.get('datetimeStart') as startFc"
+                    >
                         <span class="tava-service-block-label">
                             {{('modules.service.content.golf.labels.datetime-end' | translate) + '*'}}
                         </span>
                         <tava-textinput
                             [inputType]="'datetime-local'"
-                            [ngClass]="!serviceForm.get('datetimeStart')?.value ? 'tava-input-inactive' : ''"
+                            [ngClass]="startFc?.value && !startFc?.invalid ? '' : 'tava-input-inactive'"
                             [minStringObservable]="minStayStamp$"
                             [maxStringObservable]="maxStayStamp$"
                             [formControl]="serviceForm.get('datetimeEnd') | controlCast"
@@ -300,7 +304,7 @@
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-specific-content-input-order tava-service-form">
-            <tava-servicemeta [metaFormGroup]="metaForm"></tava-servicemeta>
+            <tava-servicemeta [metaFormGroup]="metaForm" [validationData]="validationData"></tava-servicemeta>
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button

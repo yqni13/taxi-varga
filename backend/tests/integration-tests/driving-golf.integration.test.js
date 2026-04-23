@@ -32,7 +32,7 @@ describe('Integration test, service flow: Golf', () => {
 
     describe('Testing valid fn calls', () => {
 
-        test('Workflow: calc by route (2340to2013to2340), supportMode === false', async () => {
+        test('Workflow: calc by route (2340to2013to2340), supportMode = false, passengers = 1', async () => {
             const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
@@ -42,8 +42,20 @@ describe('Integration test, service flow: Golf', () => {
             expect(mockResponse_driving.body.body).toMatchObject(mockResult);
         })
 
-        test('Workflow: calc by route (2340to2013to2340), supportMode === true', async () => {
+        test('Workflow: calc by route (2340to2013to2340), supportMode = true, passengers = 2', async () => {
             const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
+            mockParam_params_driving['passengers'] = 2;
+            const mockResponse_driving = await request(app)
+                .post('/api/v1/driving/golf')
+                .send(mockParam_params_driving);
+
+            expect(mockResponse_driving.statusCode).toBe(200);
+            expect(mockResponse_driving.body.body).toMatchObject(mockResult);
+        })
+
+        test('Workflow: calc by route (2340to2013to2340), supportMode = true, passengers = 3', async () => {
+            const mockParam_params_driving = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
+            mockParam_params_driving['passengers'] = 3
             const mockResponse_driving = await request(app)
                 .post('/api/v1/driving/golf')
                 .send(mockParam_params_driving);
@@ -149,6 +161,37 @@ describe('Integration test, service flow: Golf', () => {
 
                 delete mockError['value'];
                 mockError['path'] = invalidParam;
+                const mockResponse = await request(app)
+                    .post('/api/v1/driving/golf')
+                    .send(mockParam_params);
+
+                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
+                expect(mockResponse.body.headers.data).toContainEqual(mockError);
+            })
+
+            test('Params: <passengers>, validator: exists()', async () => {
+                const invalidParam = 'passengers';
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
+                delete mockParam_params[`${invalidParam}`];
+
+                delete mockError['value'];
+                mockError['path'] = invalidParam;
+                const mockResponse = await request(app)
+                    .post('/api/v1/driving/golf')
+                    .send(mockParam_params);
+
+                expect(mockResponse.statusCode).toBe(ErrorStatusCodes.InvalidPropertiesException);
+                expect(mockResponse.body.headers.data).toContainEqual(mockError);
+            })
+
+            test('Params: <passengers>, validator: isInt()', async () => {
+                const invalidParam = 'passengers';
+                const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
+                mockParam_params[`${invalidParam}`] = "abc";
+
+                mockError['msg'] = 'backend-invalid-golf-passengers';
+                mockError['path'] = invalidParam;
+                mockError['value'] = mockParam_params[`${invalidParam}`];
                 const mockResponse = await request(app)
                     .post('/api/v1/driving/golf')
                     .send(mockParam_params);

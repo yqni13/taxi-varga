@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.9}}$
+### $\textsf{\color{brown}{v1.9.25}}$
 
 <br><br>
 
@@ -236,9 +236,11 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
-- $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
+$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + preload of warning icon for validations + position in textarea
+  + responsive design for input fields with text in same row on small width devices
+  + translation text for additional information on order
 
 <br>
 

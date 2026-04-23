@@ -1,20 +1,24 @@
-<div class="tava-select-wrapper {{className}}" ngClass="{{ngClass}}">
-    <select 
-        [formControl]="formControl"
-        id="{{'tava-' + fieldName}}"
-        (change)="selectOption($event)"
-    >
-        <option value="" disabled>{{placeholder}}</option>
-        <hr>
-        <option 
-            *ngFor="let option of options | keyvalue" 
-            value="{{option.value}}"
-        >{{optionsTranslateRoot + option.key | translate}}</option>
-    </select>
-    <i
-        class="icon-warning icon-base"
-        *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
-    ></i>
+<div class="tava-select-wrapper" ngClass="{{ngClass}}">
+    <div class="tava-select {{className}}" >
+        <select 
+            [formControl]="formControl"
+            id="{{'tava-' + fieldName}}"
+            (change)="selectOption($event)"
+            ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
+        >
+            <option value="" disabled>{{placeholder}}</option>
+            <hr>
+            <option 
+                *ngFor="let option of options | keyvalue" 
+                value="{{option.value}}"
+            >{{optionsTranslateRoot + option.key | translate}}</option>
+        </select>
+        <i
+            class="icon-warning icon-base"
+            id="error-icon"
+            *ngIf="!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)"
+        ></i>
+    </div>
     <tava-validation
         *ngIf="!isFocused"
         [ngControl]="formControl"

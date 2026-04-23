@@ -7,6 +7,7 @@ import { CryptoService } from "../../shared/services/crypto.service";
 import { ServiceRoute } from "../routes/service.route.enum";
 import { environment } from '../../../environments/environment';
 import { AuthRequest } from "../interfaces/auth-request.interface";
+import { default as validationJson } from "../../../../public/assets/i18n/validation-en.json";
 
 
 @Injectable({
@@ -15,7 +16,6 @@ import { AuthRequest } from "../interfaces/auth-request.interface";
 export class AuthService {
     private url: string;
     private credentials: AuthRequest;
-    private exceptions: string[];
     private statusCodes: string[];
 
     constructor(
@@ -30,20 +30,11 @@ export class AuthService {
             pass: '',
             aud: ''
         };
-        this.exceptions = [
-            'JWTExpirationException',
-            'TokenMissingException',
-            'InvalidCredentialsException',
-            'InvalidPropertiesException',
-            'InternalServerException',
-            'AuthSecretNotFoundException',
-            'RequestExceedMaxException'
-        ];
         this.statusCodes = ['401', '404', '429', '500', '0'];
     }
 
     getExceptionCollection(): string[] {
-        return this.exceptions;
+        return Object.keys(validationJson.validation.backend.header);
     }
 
     getExceptionStatusCodes(): string[] {

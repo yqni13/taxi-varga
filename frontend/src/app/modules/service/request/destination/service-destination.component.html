@@ -38,9 +38,13 @@
                         {{'modules.service.content.destination.labels.back2home' | translate}}
                     </span>
                 </div>
-                <div *ngIf="serviceForm.get('back2home')?.value" class="tava-service-specific-block" id="form-latency">
+                <div
+                    *ngIf="serviceForm.get('back2home')?.value"
+                    class="tava-service-specific-block flex-direction-small"
+                    id="form-latency"
+                >
                     <tava-textinput
-                        [ngClass]="'tava-input-time'"
+                        [ngClass]="'tava-form-indented'"
                         [inputType]="'time'"
                         [formControl]="serviceForm.get('latency') | controlCast"
                         [fieldName]="'modules.service.content.form.offer.latency' | translate"
@@ -222,7 +226,7 @@
 
         <!-- 2ND FORM (PRIVATE CUSTOMER DATA) -->
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-service-specific-content-input-order tava-service-form">
-            <tava-servicemeta [metaFormGroup]="metaForm"></tava-servicemeta>
+            <tava-servicemeta [metaFormGroup]="metaForm" [validationData]="validationData"></tava-servicemeta>
         </div>
         <div *ngIf="!loadOfferResponse && hasOffer && !hasOrder" class="tava-button-wrapper">
             <button

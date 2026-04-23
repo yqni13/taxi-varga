@@ -16,6 +16,9 @@
     
             input {
                 margin-right: calc(sass.$space15 - sass.$space5);
+                &:hover {
+                    cursor: pointer;
+                }
             }
         }
 

@@ -1,8 +1,70 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/22}$
+
+$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + preload of warning icon for validations + position in textarea
+  + responsive design for input fields with text in same row on small width devices
+  + translation text for additional information on order
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/19}$
+
+$\textsf{[v1.9.20\ =>\ v1.9.22]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + styling of custom input components
+  + using 'host' property in components instead of @HostListener decorator
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/18}$
+
+$\textsf{[v1.9.15\ =>\ v1.9.20]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + translations (user email + new validation)
+  + cursor on hover effects for arrival/departure selection on service 'airport'
+  + validation behavior on empty input for meta form control 'phone'
+  + issued backend dependencies (including fixes for email logic due to nodemailer version changes)
+- $\textsf{\color{red}Bugfix:}$ Input for 'note' in service forms can be used as expected. [Before: Input was impossible because no maxlength was defined and default value was 0 => no input possible. Fixed by setting maxlength values for all meta form text-inputs.]
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/15}$
+
+$\textsf{[v1.9.14\ =>\ v1.9.15]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' UI selection for supportMode and passengers option.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/14}$
+
+$\textsf{[v1.9.13\ =>\ v1.9.14]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' discount cost calculation based on number of passengers.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/12}$
+
+$\textsf{[v1.9.12\ =>\ v1.9.13]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'destination' return cost calculation.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/04/06}$
+
+$\textsf{[v1.9.9\ =>\ v1.9.12]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + readonly state of datetime-end when datetime-start is invalid
+  + business hour information on each service + validation
+  + backend validation on service 'destination' calculation
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/03/21}$
 
-$\textsf{[v1.9.7\ =>\ {\textbf{\color{brown}v1.9.9}]}}$ app
+$\textsf{[v1.9.7\ =>\ v1.9.9]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated documentation by describing feature of custom-translate service.
 - $\textsf{\color{red}Bugfix:}$ Exceptions with the status code 401 are processed as expected. [Before: Exceptions with this status code were simply ignored, because there was no condition including it => modified range of status code in specifc block to catch it.]
 

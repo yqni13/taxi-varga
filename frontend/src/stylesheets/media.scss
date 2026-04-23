@@ -1,4 +1,3 @@
-
 @use '../stylesheets/utilities' as sass;
 
 
@@ -222,6 +221,9 @@
             span {
                 width: calc(100% - sass.$space50);
             }
+        }
+        .flex-direction-small {
+            flex-direction: row!important;
         }
     }
 
@@ -482,6 +484,9 @@
             span {
                 width: calc(100% - sass.$space50);
             }
+        }
+        .flex-direction-small {
+            flex-direction: row!important;
         }
     }
 
@@ -1056,6 +1061,13 @@
         .tava-service-golf-radio-wrapper {
             span {
                 width: calc(100% - 35px);
+            }
+        }
+        .flex-direction-small {
+            flex-direction: column-reverse!important;
+            span {
+                color: sass.$color-grey-label!important;
+                text-shadow: 0.6px 0.6px;
             }
         }
     }

@@ -64,9 +64,6 @@ exports.drivingFlatrateSchema = [
     body('tenancy')
         .exists({values: 'null'})
         .withMessage('backend-required')
-        .bail()
-        .isInt({ max: 1440 }) //  x <= 24h
-        .withMessage('backend-invalid-tenancy')
 ];
 
 exports.drivingGolfSchema = [
@@ -98,7 +95,13 @@ exports.drivingGolfSchema = [
         .withMessage('backend-invalid-stay'),
     body('supportMode')
         .isBoolean()
+        .withMessage('backend-required'),
+    body('passengers')
+        .exists()
         .withMessage('backend-required')
+        .bail()
+        .isInt()
+        .withMessage('backend-invalid-golf-passengers')
 ];
 
 exports.drivingQuickSchema = [

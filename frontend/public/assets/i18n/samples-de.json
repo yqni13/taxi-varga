@@ -64,23 +64,23 @@
         },
         "samples-content-option4": {
             "entry0": {
-                "price-classic": "147,00",
-                "price-support": "110,00",
+                "price-classic": "110,00",
+                "price-support": "147,00",
                 "route": "Wien - Golfclub Himberg - Wien"
             },
             "entry1": {
-                "price-classic": "151,00",
-                "price-support": "113,00",
+                "price-classic": "113,00",
+                "price-support": "151,00",
                 "route": "Wien - Golfclub Ebreichsdorf - Wien"
             },
             "entry2": {
-                "price-classic": "153,00",
-                "price-support": "115,00",
+                "price-classic": "115,00",
+                "price-support": "153,00",
                 "route": "Wien - Golfclub Frühling - Wien"
             },
             "entry3": {
-                "price-classic": "194,00",
-                "price-support": "146,00",
+                "price-classic": "146,00",
+                "price-support": "194,00",
                 "route": "Wien - Golfclub Atzenbrugg - Wien"
             },
             "entry4": {
@@ -89,8 +89,8 @@
                 "route": "Wien - Golfclub Föhrenwald / Golfclub Linsberg - Wien"
             },
             "entry5": {
-                "price-classic": "224,00",
-                "price-support": "176,00",
+                "price-classic": "176,00",
+                "price-support": "224,00",
                 "route": "Wien - Golfclub Adamstal - Wien"
             }
         },
@@ -98,12 +98,12 @@
             "addendum": "ab",
             "currency": "EUR",
             "discount-info1": "* gilt für Fahrtbeginn zwischen 04:00 und 06:00 Uhr",
-            "discount-info2": "** Paket 1 = Anreise und Rückreise nach Vereinbarung,\nPaket 2 = Anreise, gemeinsame Golfrunde und Rückreise",
+            "discount-info2": "** Pauschalpreis 1: 1-2 SpielerInnen mit Golfbags und optional mit faltbaren Trolleys mit abnehmbaren Räder,\nPauschalpreis 2: 3-4 SpielerInnen mit Golfbags ohne Trolleys",
             "discount-info3": "*** Preisvorteil durch persönliche Clubmitgliedschaft (Laszlo Varga)",
             "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
-            "price-classic": "Paket 1",
-            "price-support": "Paket 2",
+            "price-classic": "Pp 1",
+            "price-support": "Pp 2",
             "route": "Route"
         },
         "samples-header": {

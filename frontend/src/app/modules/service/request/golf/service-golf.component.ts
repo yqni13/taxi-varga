@@ -24,6 +24,7 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { DrivingAPIService } from "../../../../api/services/driving.api.service";
+import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-golf',
@@ -88,7 +89,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.addMetaProperties2Form(this.serviceForm);
+                    this.mapMetaFormControls(this.serviceForm);
                     this.httpObserve.setDrivingGolfStatus(false);
                 }
                 this.loadOfferResponse = false;
@@ -97,6 +98,13 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     private initForm() {
+        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+            service: this.datetimeService,
+            format: DatetimeOption.FULL,
+            startHour: 4,
+            endHour: 12,
+            isPickup: true
+        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -110,7 +118,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(this.datetimeService, DatetimeOption.FULL)
+                    CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
                 ])
             ]),
             datetimeEnd: new FormControl(''),
@@ -184,8 +192,12 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     configSupportModeOnPassengers() {
-        if(this.serviceForm.get('passengers')?.value === PassengerOptions.PPL3) {
-            this.serviceForm.get('supportMode')?.setValue(null);
+        const passengers = this.serviceForm.get('passengers')?.value;
+        if(passengers === PassengerOptions.PPL4) {
+            this.serviceForm.get('supportMode')?.setValue(false);
+        }
+        if(passengers === PassengerOptions.PPL3 || passengers === PassengerOptions.PPL4) {
+            this.serviceForm.get('supportMode')?.setValue(false);
         } else if(this.serviceForm.get('supportMode')?.value === null) {
             this.serviceForm.get('supportMode')?.setValue(false);
         }
