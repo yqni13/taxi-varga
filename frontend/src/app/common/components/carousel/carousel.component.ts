@@ -6,7 +6,6 @@ import { Component, Input, TemplateRef } from "@angular/core";
     selector: 'tava-carousel',
     templateUrl: './carousel.component.html',
     styleUrl: './carousel.component.scss',
-    standalone: true,
     imports: [
         CommonModule
     ],

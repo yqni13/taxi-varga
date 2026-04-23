@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
 import _ from 'underscore';
-import { CommonModule, DOCUMENT } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { DeviceOptions } from "../../../shared/enums/device-option.enum";
 import { filter } from "rxjs";
 import { AssetsPreloadService } from "../../../shared/services/assets-preload.service";
@@ -13,7 +13,6 @@ import { AssetsPreloadService } from "../../../shared/services/assets-preload.se
     selector: 'tava-navigation',
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

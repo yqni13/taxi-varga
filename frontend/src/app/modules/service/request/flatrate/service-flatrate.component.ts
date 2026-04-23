@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { filter, Subject, tap } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
-import { DOCUMENT } from "@angular/common";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
@@ -29,7 +28,6 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
         '../../service.component.scss',
         './service-flatrate.component.scss'
     ],
-    standalone: true,
     imports: [
         ...ServiceImportsModule
     ]

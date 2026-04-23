@@ -19,7 +19,6 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
         '../abstract-input.component.scss',
         './address-input.component.scss'
     ],
-    standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

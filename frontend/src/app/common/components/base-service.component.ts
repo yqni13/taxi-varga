@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";

@@ -8,7 +8,6 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
     selector: 'tava-snackbar',
     templateUrl: './snackbar.component.html',
     styleUrl: './snackbar.component.scss',
-    standalone: true,
     imports: [
         CommonModule
     ],

@@ -13,7 +13,6 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-imprint',
     templateUrl: './imprint.component.html',
     styleUrl: './imprint.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

@@ -13,7 +13,6 @@ import { AbstractInputComponent } from "../abstract-input.component";
         '../abstract-input.component.scss',
         './select-input.component.scss',
     ],
-    standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

@@ -13,7 +13,6 @@ import { Subscription } from "rxjs";
         '../abstract-input.component.scss',
         './textarea-input.component.scss'
     ],
-    standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

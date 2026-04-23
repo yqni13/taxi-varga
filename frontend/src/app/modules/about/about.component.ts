@@ -11,7 +11,6 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-about',
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss',
-    standalone: true,
     imports: [
         CarouselComponent,
         CommonModule,
