@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
     protected authors: any;
+    protected subCollection: string[];
     protected serviceCollection: any[];
     protected serviceCollLength: number;
     protected serviceImgCollection: string[];
@@ -40,6 +41,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ) {
         this.selectedBg = '';
         this.authors = {};
+        this.subCollection = Object.values(homeLang['home']['sub']);
         this.serviceCollection = [];
         this.serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
         this.serviceImgCollection = [];

@@ -1,9 +1,9 @@
 @use 'stylesheets/utilities' as sass;
 
-@import 'stylesheets/backgrounds.scss';
-@import 'stylesheets/defines.scss';
-@import 'stylesheets/icons.scss';
-@import 'stylesheets/media.scss';
+@use 'stylesheets/backgrounds.scss';
+@use 'stylesheets/defines.scss';
+@use 'stylesheets/icons.scss';
+@use 'stylesheets/media.scss';
 
 
 html {

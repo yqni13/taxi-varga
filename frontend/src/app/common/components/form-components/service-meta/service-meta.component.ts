@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, Input } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
@@ -13,14 +13,13 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
     templateUrl: './service-meta.component.html',
     styleUrl: './service-meta.component.scss',
     imports: [
-        CommonModule,
-        CastAbstract2FormControlPipe,
-        ReactiveFormsModule,
-        TranslateModule,
-        TextareaInputComponent,
-        TextInputComponent,
-        SelectInputComponent
-    ]
+    CastAbstract2FormControlPipe,
+    ReactiveFormsModule,
+    TranslateModule,
+    TextareaInputComponent,
+    TextInputComponent,
+    SelectInputComponent
+]
 })
 export class ServiceMetaComponent {
     
