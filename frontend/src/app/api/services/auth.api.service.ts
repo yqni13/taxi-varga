@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { catchError, Observable, throwError } from "rxjs";
