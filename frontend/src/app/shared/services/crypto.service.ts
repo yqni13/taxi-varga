@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/prefer-for-of */
 import { inject, Injectable, PLATFORM_ID } from "@angular/core";
 import { environment } from "../../../environments/environment";
 import { isPlatformBrowser } from "@angular/common";
@@ -22,7 +20,6 @@ export class CryptoService {
 
     async encryptAES(data: string): Promise<string> {
         const passphrase = 'passw0rd';
-        
         // part 1: create symmetric key, iv & salt
         const salt = this.generateRandomHex(32);
         const key = await this.deriveKey(passphrase, salt);

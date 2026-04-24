@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Inject, Injectable, DOCUMENT } from "@angular/core";
 import { LanguageOptions } from "../enums/language-options.enum";
 import { TranslateService } from "@ngx-translate/core";

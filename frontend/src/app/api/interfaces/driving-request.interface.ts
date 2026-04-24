@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 export declare interface DrivingAirportRequest {
     origin: string,
     originDetails: any,

@@ -8,7 +8,6 @@ import { environment } from '../../../environments/environment';
 import { AuthRequest } from "../interfaces/auth-request.interface";
 import { default as validationJson } from "../../../../public/assets/i18n/validation-en.json";
 
-
 @Injectable({
     providedIn: 'root'
 })

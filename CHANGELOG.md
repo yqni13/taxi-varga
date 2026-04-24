@@ -2,9 +2,11 @@
 
 ### $\textsf{\color{skyblue}2026/04/24}$
 
-$\textsf{[v1.9.25\ =>\ {\textbf{\color{brown}v2.0.1}]}}$ app
+$\textsf{[v1.9.25\ =>\ {\textbf{\color{brown}v2.0.2}]}}$ app
 - $\textsf{\color{green}Change:}$ Upgraded Angular framework from v18 to v21.
-- $\textsf{\color{orange}Patch:}$ Updated service 'destination' calculation.
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + service 'destination' calculation
+  + dependency vulnerabilities from static fixes in package.json
 
 <br>
 
