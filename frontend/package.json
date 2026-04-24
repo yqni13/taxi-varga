@@ -51,10 +51,10 @@
     "@types/jasmine": "~5.1.0",
     "@types/node": "^18.19.68",
     "@types/underscore": "^1.13.0",
-    "angular-eslint": "18.4.0",
+    "angular-eslint": "^18.4.0",
     "cross-env": "^10.1.0",
     "dotenv": "^16.4.7",
-    "eslint": "^9.26.0",
+    "eslint": "^9.39.4",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -63,12 +63,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "8.10.0",
-    "webpack-dev-server": "^5.2.2"
-  },
-  "overrides": {
-    "brace-expansion": "$brace-expansion",
-    "esbuild": "$esbuild",
-    "http-proxy-middleware": "$http-proxy-middleware",
-    "webpack-dev-server": "$webpack-dev-server"
+    "webpack-dev-server": "^5.2.3"
   }
 }

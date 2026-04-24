@@ -315,7 +315,7 @@ describe('Destination tests, priority: _calcServCosts', () => {
             destinationModel = new DrivingDestinationModel(googleRoutesApi);
         })
 
-        test('Params: <back2home> = false, <servDist> < 25', () => {
+        test('Params: <back2home> = false, <servDist> <= 20', () => {
             const mockParam_back2home = false;
             const mockParam_servDist = 20;
             const mockParam_servTime = 20;
@@ -328,7 +328,7 @@ describe('Destination tests, priority: _calcServCosts', () => {
             expect(testFn).toMatchObject(expectResult);
         })
 
-        test('Params: <back2home> = false, <servDist> > 25', () => {
+        test('Params: <back2home> = false, <servDist> > 20', () => {
             const mockParam_back2home = false;
             const mockParam_servDist = 40;
             const mockParam_servTime = 40;

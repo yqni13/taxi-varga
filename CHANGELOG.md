@@ -1,8 +1,16 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/24}$
+
+$\textsf{[v1.9.25\ =>\ {\textbf{\color{brown}v2.0.1}]}}$ app
+- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v18 to v21.
+- $\textsf{\color{orange}Patch:}$ Updated service 'destination' calculation.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/22}$
 
-$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
+$\textsf{[v1.9.22\ =>\ v1.9.25]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + preload of warning icon for validations + position in textarea
   + responsive design for input fields with text in same row on small width devices

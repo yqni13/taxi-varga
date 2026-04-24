@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v1.9.25}}$
+### $\textsf{\color{brown}{v2.0.1}}$
 
 <br><br>
 
@@ -70,7 +70,7 @@ node server.js
 
 | Feature | Description |
 |---------|-------------|
-| 🪁 Angular | Angular v18 standalone with routing + nested routes on id |
+| 🪁 Framework | Angular v21 |
 | 🌍 Google API | Google places/routes/geolocation API calculation/visualization |
 | ⌨ Input | Customized form components (text/textarea/select) |
 | 🔍 Search | Customized search-input form component combined with Google Places API |
@@ -236,11 +236,9 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.22\ =>\ {\textbf{\color{brown}v1.9.25}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated:
-  + preload of warning icon for validations + position in textarea
-  + responsive design for input fields with text in same row on small width devices
-  + translation text for additional information on order
+$\textsf{[v1.9.25\ =>\ {\textbf{\color{brown}v2.0.1}]}}$ app
+- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v18 to v21.
+- $\textsf{\color{orange}Patch:}$ Updated service 'destination' calculation.
 
 <br>
 
