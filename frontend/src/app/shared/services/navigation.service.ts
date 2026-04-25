@@ -8,15 +8,16 @@ export class NavigationService {
 
     private currentUrl: string;
     private previousUrl: string;
+    private warning = 'UNAVAILABLE';
 
     constructor(private router: Router) {
-        this.currentUrl = '';
-        this.previousUrl = '';
+        this.currentUrl = this.warning;
+        this.previousUrl = this.warning;
     }
 
     setCurrentUrl(url: string) {
         if(url.length < 1) {
-            this.currentUrl = 'UNAVAILABLE';
+            this.currentUrl = this.warning;
             return;
         }
 
@@ -29,11 +30,11 @@ export class NavigationService {
 
     setPreviousUrl(url: string) {
         if(url.length < 1) {
-            this.previousUrl = 'UNAVAILABLE';
+            this.previousUrl = this.warning;
             return;
         }
 
-        this.previousUrl = url;
+        this.previousUrl = url === this.warning ? this.previousUrl : url;
     }
 
     getPreviousUrl(): string {

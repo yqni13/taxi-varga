@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { CommonModule } from "@angular/common";
 import { Subscription, tap } from "rxjs";
@@ -9,6 +9,7 @@ import { BaseRoute } from "../../api/routes/base.route.enum";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { default as homeLang } from "../../../../public/assets/i18n/home-en.json";
 import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
+import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
     selector: 'tava-home',
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private subscriptionThemeObservation$: Subscription;
     private _isNavigatingToAuthor: boolean;
+    private navigation = inject(NavigationService);
 
     constructor(
         private readonly router: Router,
@@ -154,6 +156,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
             this.isNavigatingToAuthor = false;
         }
+    }
+
+    overridePreviousUrl() {
+        this.navigation.setPreviousUrl(`/${BaseRoute.HOME}`);
     }
 
     ngOnDestroy() {
