@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { filter, tap } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";

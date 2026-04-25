@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";

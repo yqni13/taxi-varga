@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";

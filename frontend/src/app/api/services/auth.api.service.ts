@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { catchError, Observable, throwError } from "rxjs";
@@ -8,7 +7,6 @@ import { ServiceRoute } from "../routes/service.route.enum";
 import { environment } from '../../../environments/environment';
 import { AuthRequest } from "../interfaces/auth-request.interface";
 import { default as validationJson } from "../../../../public/assets/i18n/validation-en.json";
-
 
 @Injectable({
     providedIn: 'root'

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { Route, Router } from "@angular/router";
 
@@ -66,7 +65,6 @@ export class NavigationService {
 
     scrollToTop(anchor: HTMLElement, document: Document) {
         if(anchor && document.scrollingElement !== null) {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             HTMLElement.prototype.scrollTo = () => {};
             anchor.scrollTo(0,0);
             // Need to kill the y-offset caused by navbar in mobile mode.
