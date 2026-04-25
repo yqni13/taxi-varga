@@ -1,30 +1,30 @@
 <div class="tava-select-wrapper" ngClass="{{ngClass}}">
-  <div class="tava-select {{className}}" >
-    <select
-      [formControl]="formControl"
-      id="{{'tava-' + fieldName}}"
-      (change)="selectOption($event)"
-      ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
-      >
-      <option value="" disabled>{{placeholder}}</option>
-      <hr>
-        @for (option of options | keyvalue; track option.key) {
-          <option
-            value="{{option.value}}"
-          >{{optionsTranslateRoot + (option.key).toString() | translate}}</option>
-        }
-      </select>
-      @if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
-        <i
-          class="icon-warning icon-base"
-          id="error-icon"
-        ></i>
-      }
-    </div>
-    @if (!isFocused) {
-      <tava-validation
-        [ngControl]="formControl"
-        [fieldName]="fieldName"
-      ></tava-validation>
-    }
-  </div>
+	<div class="tava-select {{className}}" >
+		<select
+			[formControl]="formControl"
+			id="{{'tava-' + fieldName}}"
+			(change)="selectOption($event)"
+			ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
+		>
+		<option value="" disabled>{{placeholder}}</option>
+		<hr>
+		@for (option of options | keyvalue; track option.key) {
+			<option
+				value="{{option.value}}"
+			>{{optionsTranslateRoot + (option.key).toString() | translate}}</option>
+		}
+		</select>
+		@if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
+			<i
+			class="icon-warning icon-base"
+			id="error-icon"
+			></i>
+		}
+	</div>
+	@if (!isFocused) {
+		<tava-validation
+			[ngControl]="formControl"
+			[fieldName]="fieldName"
+		></tava-validation>
+	}
+</div>

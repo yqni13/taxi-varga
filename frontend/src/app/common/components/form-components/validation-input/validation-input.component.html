@@ -1,99 +1,96 @@
 <ng-container *tavaVar="ngControl as control">
-  @if (control.invalid && (control.dirty || control.touched)) {
-    <div class="tava-validation-errors">
-      @if (control.hasError('required')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.required' | translate: {fieldName: fieldName} }}
-        </div>
-      }
-      @if (control.hasError('maxlength')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.maxlength' | translate: {fieldValue: control.value.length, fieldMax: control.errors.maxlength.requiredLength} }}
-        </div>
-      }
-      @if (control.hasError('email')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.email-invalid' | translate: {fieldName: fieldName} }}
-        </div>
-      }
-      @if (control.hasError('invalidZeroTenancy')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.tenancy-invalid-zero' | translate }}
-        </div>
-      }
-      @if (control.hasError('requiredTenancy')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.required' | translate: {fieldName: fieldName} }}
-        </div>
-      }
-      @if (control.hasError('missingZipcode')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.missing-zipcode' | translate }}
-        </div>
-      }
-      @if (control.hasError('invalidPhoneChar')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.invalid-phone-char' | translate }}
-        </div>
-      }
-      @if (control.hasError('invalidTenancyUpperLimit')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.tenancy-invalid-upper-limit' | translate }}
-        </div>
-      }
-      @if (control.hasError('invalidStayUpperLimit')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.stay-invalid-upper-limit' | translate }}
-        </div>
-      }
-      @if (control.hasError('maxLatency')) {
-        <div class="tava-validation-message">
-          {{ 'validation.frontend.form.latency-invalid-upper-limit' | translate }}
-        </div>
-      }
-      <!-- <div class="tava-validation-message" *ngIf="control.hasError('invalidBusinessHours')">
-      {{ 'validation.frontend.form.business-invalid-time' | translate }}
-    </div> -->
-    @if (control.hasError('invalidBusinessHours12')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.business-invalid-time12' | translate }}
-      </div>
-    }
-    @if (control.hasError('invalidBusinessHours17')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.business-invalid-time17' | translate }}
-      </div>
-    }
-    @if (control.hasError('invalidBusinessReturn')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.business-invalid-return' | translate }}
-      </div>
-    }
-    @if (control.hasError('invalidBHTimeOnly')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.business-invalid-time-only' | translate }}
-      </div>
-    }
-    @if (control.hasError('negativeCurrentDateTime')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.datetime-invalid-negative' | translate }}
-      </div>
-    }
-    @if (control.hasError('negativeFixedDateTime')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.datetime-end-invalid-negative' | translate }}
-      </div>
-    }
-    @if (control.hasError('emptyAddressSelect')) {
-      <div class="tava-validation-message">
-        {{ 'validation.frontend.form.empty-address-select' | translate }}
-      </div>
-    }
-    @if (control.hasError('invalidQuickOrigin')) {
-      <div class="tava-validation-message">
-        {{ 'validation.backend.data.address-quick-invalid-origin' | translate }}
-      </div>
-    }
-  </div>
-}
+	@if (control.invalid && (control.dirty || control.touched)) {
+		<div class="tava-validation-errors">
+			@if (control.hasError('required')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.required' | translate: {fieldName: fieldName} }}
+				</div>
+			}
+			@if (control.hasError('maxlength')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.maxlength' | translate: {fieldValue: control.value.length, fieldMax: control.errors.maxlength.requiredLength} }}
+				</div>
+			}
+			@if (control.hasError('email')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.email-invalid' | translate: {fieldName: fieldName} }}
+				</div>
+			}
+			@if (control.hasError('invalidZeroTenancy')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.tenancy-invalid-zero' | translate }}
+				</div>
+			}
+			@if (control.hasError('requiredTenancy')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.required' | translate: {fieldName: fieldName} }}
+				</div>
+			}
+			@if (control.hasError('missingZipcode')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.missing-zipcode' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidPhoneChar')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.invalid-phone-char' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidTenancyUpperLimit')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.tenancy-invalid-upper-limit' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidStayUpperLimit')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.stay-invalid-upper-limit' | translate }}
+				</div>
+			}
+			@if (control.hasError('maxLatency')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.latency-invalid-upper-limit' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidBusinessHours12')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-time12' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidBusinessHours17')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-time17' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidBusinessReturn')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-return' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidBHTimeOnly')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-time-only' | translate }}
+				</div>
+			}
+			@if (control.hasError('negativeCurrentDateTime')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.datetime-invalid-negative' | translate }}
+				</div>
+			}
+			@if (control.hasError('negativeFixedDateTime')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.datetime-end-invalid-negative' | translate }}
+				</div>
+			}
+			@if (control.hasError('emptyAddressSelect')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.empty-address-select' | translate }}
+				</div>
+			}
+			@if (control.hasError('invalidQuickOrigin')) {
+				<div class="tava-validation-message">
+					{{ 'validation.backend.data.address-quick-invalid-origin' | translate }}
+				</div>
+			}
+		</div>
+	}
 </ng-container>

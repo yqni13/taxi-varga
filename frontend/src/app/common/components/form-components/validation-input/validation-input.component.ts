@@ -9,9 +9,9 @@ import { VarDirective } from "../../../directives/ng-var.directive";
     templateUrl: './validation-input.component.html',
     styleUrl: './validation-input.component.scss',
     imports: [
-    TranslateModule,
-    VarDirective
-]
+        TranslateModule,
+        VarDirective
+    ]
 })
 export class ValidationInputComponent {
 

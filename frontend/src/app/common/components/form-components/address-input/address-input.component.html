@@ -1,50 +1,50 @@
 <div class="tava-address-wrapper" ngClass="{{ngClass}}">
-  <div class="tava-address {{className}}">
-    <input
-      #inputRef
-      type="text"
-      class="tava-address-input-text"
-      id="{{'tava-' + fieldName}}"
-      placeholder="{{placeholder}}"
-      [formControl]="formControl"
-      (keydown)="onInputKeyNav($event)"
-      max="{{maxVal}}"
-      [readOnly]="isReadonly"
-      ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
-      >
-      @if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
-        <i
-          class="icon-warning icon-base"
-          id="error-icon"
-        ></i>
-      }
-      @if (showOptions && options.length > 0) {
-        <div id="google-logo">
-          <img src="/assets/UI/google_on_white.png" alt="404 not found">
-        </div>
-      }
-      @if (showOptions) {
-        <div class="tava-address-input-options-wrapper">
-          @for (option of options; track option; let i = $index) {
-            <div
-              #optionRef
-              class="tava-address-input-options"
-              (click)="selectPlace(option.placeId)"
-              (keydown)="onOptionKeyNav($event, i)"
-              tabindex="-1"
-              >
-              <span>
-                {{option.descriptionFull}}
-              </span>
-            </div>
-          }
-        </div>
-      }
-    </div>
-    @if (!isFocused) {
-      <tava-validation
-        [ngControl]="formControl"
-        [fieldName]="fieldName"
-      ></tava-validation>
-    }
-  </div>
+	<div class="tava-address {{className}}">
+		<input
+			#inputRef
+			type="text"
+			class="tava-address-input-text"
+			id="{{'tava-' + fieldName}}"
+			placeholder="{{placeholder}}"
+			[formControl]="formControl"
+			(keydown)="onInputKeyNav($event)"
+			max="{{maxVal}}"
+			[readOnly]="isReadonly"
+			ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
+		>
+		@if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
+			<i
+				class="icon-warning icon-base"
+				id="error-icon"
+			></i>
+		}
+		@if (showOptions && options.length > 0) {
+			<div id="google-logo">
+				<img src="/assets/UI/google_on_white.png" alt="404 not found">
+			</div>
+		}
+		@if (showOptions) {
+			<div class="tava-address-input-options-wrapper">
+				@for (option of options; track option; let i = $index) {
+					<div
+						#optionRef
+						class="tava-address-input-options"
+						(click)="selectPlace(option.placeId)"
+						(keydown)="onOptionKeyNav($event, i)"
+						tabindex="-1"
+					>
+						<span>
+							{{option.descriptionFull}}
+						</span>
+					</div>
+				}
+			</div>
+		}
+	</div>
+	@if (!isFocused) {
+		<tava-validation
+			[ngControl]="formControl"
+			[fieldName]="fieldName"
+		></tava-validation>
+	}
+</div>
