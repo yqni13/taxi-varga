@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
 require('dotenv').config();
 let targetPath, public_key, private_key;

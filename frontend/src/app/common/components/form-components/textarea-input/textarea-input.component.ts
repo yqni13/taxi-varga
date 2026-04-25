@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
@@ -13,7 +12,6 @@ import { Subscription } from "rxjs";
         '../abstract-input.component.scss',
         './textarea-input.component.scss'
     ],
-    standalone: true,
     imports: [
         CommonModule,
         ReactiveFormsModule,

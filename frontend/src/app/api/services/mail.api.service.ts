@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";

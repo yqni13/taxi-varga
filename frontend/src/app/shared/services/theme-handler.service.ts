@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Inject, Injectable } from "@angular/core";
+import { Inject, Injectable, DOCUMENT } from "@angular/core";
 import { ThemeOptions } from "../enums/theme-options.enum";
-import { DOCUMENT } from "@angular/common";
 import { ObservationService } from "./observation.service";
 
 @Injectable({

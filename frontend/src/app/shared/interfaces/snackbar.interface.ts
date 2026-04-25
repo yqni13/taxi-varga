@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface SnackbarMessage {
     title: string,
     text?: string,

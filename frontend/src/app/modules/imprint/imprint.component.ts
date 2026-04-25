@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { CommonModule } from "@angular/common";
@@ -13,7 +12,6 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-imprint',
     templateUrl: './imprint.component.html',
     styleUrl: './imprint.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,
@@ -39,7 +37,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
         
         this.devData = {
             project: 'taxi-varga',
-            version: 'v1.9.25',
+            version: 'v2.0.2',
             github: 'https://github.com/yqni13/taxi-varga/tree/production',
             portfolio: 'https://yqni13.com',
             contact: BaseRoute.SUPPORT
