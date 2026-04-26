@@ -1,11 +1,13 @@
 import { ServiceRoute } from '../../api/routes/service.route.enum';
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
+import { NavigationService } from '../../shared/services/navigation.service';
+import { BaseRoute } from '../../api/routes/base.route.enum';
 
 @Component({
     selector: 'tava-service',
@@ -27,6 +29,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
     protected ServiceRouteEnum = ServiceRoute;
 
     private subscriptionThemeObservation$: Subscription;
+    private navigation = inject(NavigationService);
 
     constructor(
         private readonly observation: ObservationService
@@ -54,6 +57,10 @@ export class ServiceComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+    }
+
+    overridePreviousUrl() {
+        this.navigation.setPreviousUrl(`/${BaseRoute.SERVICE}`);
     }
 
     ngOnDestroy() {

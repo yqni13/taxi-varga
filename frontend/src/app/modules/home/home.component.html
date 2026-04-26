@@ -73,8 +73,8 @@
 						<div
 							class="tava-home-service-card"
 							[attr.aria-disabled]="true"
-							(click)="navigateToService(item.service)"
-							(keydown.enter)="navigateToService(item.service)"
+							(click)="navigateToService(item.service);overridePreviousUrl()"
+							(keydown.enter)="navigateToService(item.service);overridePreviousUrl()"
 						>
 							<h3>{{item.title | translate}}</h3>
 							<h4>{{item.subtitle | translate}}</h4>

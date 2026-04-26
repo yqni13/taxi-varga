@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.2}}$
+### $\textsf{\color{brown}{v2.0.5}}$
 
 <br><br>
 
@@ -236,11 +236,11 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v1.9.25\ =>\ {\textbf{\color{brown}v2.0.2}]}}$ app
-- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v18 to v21.
+$\textsf{[v2.0.2\ =>\ {\textbf{\color{brown}v2.0.5}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 
-  + service 'destination' calculation
-  + dependency vulnerabilities from static fixes in package.json
+  + SSR configuration by removing settings and package due to wrong creation
+  + loading behaviour by initializing theme and default background color
+- $\textsf{\color{red}Bugfix:}$ Navigating to service works as expected. [Before: Service was navigating back to overview when no previous page was navigated (entering from 'home' or after refresh). Fixed by manually setting a previous URL.]
 
 <br>
 

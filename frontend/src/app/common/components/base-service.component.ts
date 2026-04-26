@@ -130,7 +130,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         await this.auth.initSession(this.service);
         this.auth.sendInitRequest().subscribe(response => {
             // avoid refreshing token after reload of webpage
-            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+            const previousUrl = this.navigation.getPreviousUrl();
+            if(previousUrl !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
                 this.snackbar.notify({
                     title: `modules.service.content.${this.service}.info.title`,
