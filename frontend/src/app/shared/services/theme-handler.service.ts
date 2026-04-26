@@ -16,6 +16,11 @@ export class ThemeHandlerService {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
     }
 
+    initTheme() {
+        const theme: ThemeOptions = this.checkThemeSettings();
+        this.setThemeSettings(theme ? theme : ThemeOptions.darkMode);
+    }
+
     checkThemeSettings(): ThemeOptions {
         if(this.isLocalStorageAvailable) {
             const theme = localStorage.getItem('taxi-varga.at-theme');

@@ -47,6 +47,13 @@ export class SnackbarComponent implements OnInit {
     close() {
         this.snackbarService.close(this.snackbarMsg);
         this.isActive = false;
+        this.scrollToTop();
+    }
+
+    scrollToTop() {
+        if(document.scrollingElement !== null) {
+            document.scrollingElement.scrollTop = 0;
+        }
     }
 
     closeOnEscape() {        

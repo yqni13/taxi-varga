@@ -1,11 +1,13 @@
 import { ServiceRoute } from '../../api/routes/service.route.enum';
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
+import { NavigationService } from '../../shared/services/navigation.service';
+import { BaseRoute } from '../../api/routes/base.route.enum';
 
 @Component({
     selector: 'tava-service',
@@ -19,6 +21,9 @@ import { RouterModule } from "@angular/router";
 })
 export class ServiceComponent implements OnInit, OnDestroy {
 
+    private readonly navigation = inject(NavigationService);
+    private readonly observation = inject(ObservationService);
+
     protected selectedBg: string;
     protected authorAirportImg: string;
     protected authorFlatrateImg: string;
@@ -28,9 +33,7 @@ export class ServiceComponent implements OnInit, OnDestroy {
 
     private subscriptionThemeObservation$: Subscription;
 
-    constructor(
-        private readonly observation: ObservationService
-    ) {
+    constructor() {
         this.selectedBg = '';
         this.authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
         this.authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';
@@ -54,6 +57,10 @@ export class ServiceComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+    }
+
+    overridePreviousUrl() {
+        this.navigation.setPreviousUrl(`/${BaseRoute.SERVICE}`);
     }
 
     ngOnDestroy() {
