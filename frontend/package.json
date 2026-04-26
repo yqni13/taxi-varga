@@ -12,7 +12,6 @@
     "build:prod": "node set-env.ts && ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:taxi-varga": "node dist/taxi-varga/server/server.mjs",
     "lint": "ng lint"
   },
   "private": true,
