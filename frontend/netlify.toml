@@ -1,8 +1,5 @@
 [plugins]
     package = "@netlify/angular-runtime"
-    
-    [plugins.inputs]
-        enabled = false
 
 [[redirects]]
     from = "/*"
