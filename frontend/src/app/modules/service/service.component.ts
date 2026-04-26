@@ -21,6 +21,9 @@ import { BaseRoute } from '../../api/routes/base.route.enum';
 })
 export class ServiceComponent implements OnInit, OnDestroy {
 
+    private readonly navigation = inject(NavigationService);
+    private readonly observation = inject(ObservationService);
+
     protected selectedBg: string;
     protected authorAirportImg: string;
     protected authorFlatrateImg: string;
@@ -29,11 +32,8 @@ export class ServiceComponent implements OnInit, OnDestroy {
     protected ServiceRouteEnum = ServiceRoute;
 
     private subscriptionThemeObservation$: Subscription;
-    private navigation = inject(NavigationService);
 
-    constructor(
-        private readonly observation: ObservationService
-    ) {
+    constructor() {
         this.selectedBg = '';
         this.authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
         this.authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';

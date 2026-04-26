@@ -1,0 +1,10 @@
+[plugins]
+    package = "@netlify/angular-runtime"
+    
+    [plugins.inputs]
+        enabled = false
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
