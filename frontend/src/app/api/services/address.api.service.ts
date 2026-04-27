@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";

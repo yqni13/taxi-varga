@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
@@ -13,7 +12,6 @@ import { LanguageHandlerService } from "../../../shared/services/language-handle
     selector: 'tava-footer',
     templateUrl: './footer.component.html',
     styleUrl: './footer.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

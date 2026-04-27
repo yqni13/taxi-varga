@@ -7,11 +7,10 @@ import { Observable } from "rxjs";
     selector: 'tava-starrating',
     templateUrl: './star-rating.component.html',
     styleUrl: './star-rating.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         TranslateModule
-    ],
+    ]
 })
 export class StarRatingComponent implements OnInit, OnChanges {
 

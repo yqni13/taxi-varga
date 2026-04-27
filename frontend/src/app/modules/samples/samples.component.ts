@@ -12,7 +12,6 @@ import { VarDirective } from "../../common/directives/ng-var.directive";
     selector: 'tava-samples',
     templateUrl: './samples.component.html',
     styleUrl: './samples.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,

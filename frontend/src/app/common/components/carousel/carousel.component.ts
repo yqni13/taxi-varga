@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from "@angular/common";
 import { Component, Input, TemplateRef } from "@angular/core";
 
@@ -6,7 +5,6 @@ import { Component, Input, TemplateRef } from "@angular/core";
     selector: 'tava-carousel',
     templateUrl: './carousel.component.html',
     styleUrl: './carousel.component.scss',
-    standalone: true,
     imports: [
         CommonModule
     ],

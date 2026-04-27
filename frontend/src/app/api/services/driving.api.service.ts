@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";

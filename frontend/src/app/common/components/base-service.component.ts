@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { DOCUMENT } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -132,7 +130,8 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         await this.auth.initSession(this.service);
         this.auth.sendInitRequest().subscribe(response => {
             // avoid refreshing token after reload of webpage
-            if(this.navigation.getPreviousUrl() !== 'UNAVAILABLE') {
+            const previousUrl = this.navigation.getPreviousUrl();
+            if(previousUrl !== 'UNAVAILABLE') {
                 this.tokenService.setToken(response.body?.body.token);
                 this.snackbar.notify({
                     title: `modules.service.content.${this.service}.info.title`,

@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { filter, tap } from "rxjs";
 import { TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../../../shared/services/observation.service";
-import { DOCUMENT } from "@angular/common";
 import { FormBuilder, FormControl, Validators } from "@angular/forms";
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { HttpObservationService } from '../../../../shared/services/http-observation.service';
@@ -30,7 +28,6 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-destination.component.scss'
     ],
-    standalone: true,
     imports: [
         DistanceFormatPipe,
         ...ServiceImportsModule

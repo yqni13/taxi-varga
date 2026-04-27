@@ -1,11 +1,17 @@
-<tava-navigation></tava-navigation>
-<main class="tava-scroll-anchor">
-
-    <router-outlet></router-outlet>
-
-    <div class="tava-component-snackbar" *ngIf="snackbarService.snackbarCollection.length > 0">
-        <tava-snackbar *ngFor="let snackbar of snackbarService.snackbarCollection" [snackbarMsg]="snackbar"></tava-snackbar>
-    </div>
-
-</main>
-<tava-footer></tava-footer>
+@defer {
+	<tava-navigation></tava-navigation>
+	<main class="tava-scroll-anchor">
+	
+		<router-outlet></router-outlet>
+	
+		@if (snackbarService.snackbarCollection.length > 0) {
+			<div class="tava-component-snackbar">
+				@for (snackbar of snackbarService.snackbarCollection; track snackbar) {
+					<tava-snackbar [snackbarMsg]="snackbar"></tava-snackbar>
+				}
+			</div>
+		}
+	
+	</main>
+	<tava-footer></tava-footer>
+}

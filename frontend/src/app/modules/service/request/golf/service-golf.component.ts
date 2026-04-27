@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, Inject, OnInit } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { Router } from "@angular/router";
@@ -14,7 +13,6 @@ import { SnackbarMessageService } from "../../../../shared/services/snackbar.ser
 import { DateTimeService } from "../../../../shared/services/datetime.service";
 import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { HttpObservationService } from "../../../../shared/services/http-observation.service";
-import { DOCUMENT } from "@angular/common";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subject, tap } from "rxjs";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
@@ -33,7 +31,6 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
-    standalone: true,
     imports: [
         DistanceFormatPipe,
         SelectInputComponent,
