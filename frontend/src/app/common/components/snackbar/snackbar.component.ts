@@ -8,7 +8,6 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
     selector: 'tava-snackbar',
     templateUrl: './snackbar.component.html',
     styleUrl: './snackbar.component.scss',
-    standalone: true,
     imports: [
         CommonModule
     ],
@@ -48,6 +47,13 @@ export class SnackbarComponent implements OnInit {
     close() {
         this.snackbarService.close(this.snackbarMsg);
         this.isActive = false;
+        this.scrollToTop();
+    }
+
+    scrollToTop() {
+        if(document.scrollingElement !== null) {
+            document.scrollingElement.scrollTop = 0;
+        }
     }
 
     closeOnEscape() {        

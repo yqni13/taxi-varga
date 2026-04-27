@@ -16,7 +16,7 @@ class MetaModel {
             "author": "yqni13",
             "environment": Secrets.MODE,
             "maintenance-code": Secrets.MAINTENANCE_CODE,
-            "version": "1.9.25",
+            "version": "2.0.5",
         };
     }
 }

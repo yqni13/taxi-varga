@@ -1,43 +1,46 @@
 <div class="tava-carousel-wrapper">
-    <div class="tava-carousel-slides" [style.transform]="getTransform()" *ngIf="!isLoading">
-        <div class="tava-carousel-slide" *ngFor="let slide of slides">            
-            <ng-container *ngIf="slideTemplate; else defaultTemplate">
-                <ng-container *ngTemplateOutlet="slideTemplate; context: { $implicit: slide }"></ng-container>
-            </ng-container>
-            <ng-template #defaultTemplate>
-                <div class="tava-carousel-default-wrapper">
-                    <div class="tava-carousel-default-img">
-                        <img
-                            src="{{slide}}" 
-                            alt="404-picture-not-found"
-                            [attr.aria-disabled]="true"
-                        >
-                    </div>
-                </div>
-            </ng-template>
-        </div>
-    </div>
-    <div class="tava-carousel-arrow-wrapper">
-        <div class="tava-carousel-arrow" id="tava-carousel-arrow-left">
-            <i 
-                [attr.aria-disabled]="true"
-                class="icon-arrow icon-base tava-arrow-left"
-                (click)="prev()"
-                (keydown.enter)="prev()"
-            ></i>
-        </div>
-        <div class="tava-carousel-arrow" id="tava-carousel-arrow-right">
-            <i 
-                [attr.aria-disabled]="true"
-                class="icon-arrow icon-base tava-arrow-right"
-                (click)="next()"
-                (keydown.enter)="next()"
-            ></i>
-        </div>
-    </div>
-    <div class="tava-loading-animation" [ngClass]="isLoading ? 'tava-visible' : 'tava-hidden'">
-        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-        </svg>
-    </div>
+	@if (!isLoading) {
+		<div class="tava-carousel-slides" [style.transform]="getTransform()">
+			@for (slide of slides; track slide) {
+				<div class="tava-carousel-slide">
+					@if (slideTemplate) {
+						<ng-container *ngTemplateOutlet="slideTemplate; context: { $implicit: slide }"></ng-container>
+					} @else {
+						<div class="tava-carousel-default-wrapper">
+							<div class="tava-carousel-default-img">
+								<img
+									src="{{slide}}"
+									alt="404-picture-not-found"
+									[attr.aria-disabled]="true"
+								>
+							</div>
+						</div>
+					}
+				</div>
+			}
+		</div>
+	}
+	<div class="tava-carousel-arrow-wrapper">
+		<div class="tava-carousel-arrow" id="tava-carousel-arrow-left">
+			<i
+				[attr.aria-disabled]="true"
+				class="icon-arrow icon-base tava-arrow-left"
+				(click)="prev()"
+				(keydown.enter)="prev()"
+			></i>
+		</div>
+		<div class="tava-carousel-arrow" id="tava-carousel-arrow-right">
+			<i
+				[attr.aria-disabled]="true"
+				class="icon-arrow icon-base tava-arrow-right"
+				(click)="next()"
+				(keydown.enter)="next()"
+			></i>
+		</div>
+	</div>
+	<div class="tava-loading-animation" [ngClass]="isLoading ? 'tava-visible' : 'tava-hidden'">
+		<svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+			<circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+		</svg>
+	</div>
 </div>

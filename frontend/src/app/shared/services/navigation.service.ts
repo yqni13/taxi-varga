@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Injectable } from "@angular/core";
 import { Route, Router } from "@angular/router";
 
@@ -9,15 +8,16 @@ export class NavigationService {
 
     private currentUrl: string;
     private previousUrl: string;
+    private warning = 'UNAVAILABLE';
 
     constructor(private router: Router) {
-        this.currentUrl = '';
-        this.previousUrl = '';
+        this.currentUrl = this.warning;
+        this.previousUrl = this.warning;
     }
 
     setCurrentUrl(url: string) {
         if(url.length < 1) {
-            this.currentUrl = 'UNAVAILABLE';
+            this.currentUrl = this.warning;
             return;
         }
 
@@ -30,11 +30,11 @@ export class NavigationService {
 
     setPreviousUrl(url: string) {
         if(url.length < 1) {
-            this.previousUrl = 'UNAVAILABLE';
+            this.previousUrl = this.warning;
             return;
         }
 
-        this.previousUrl = url;
+        this.previousUrl = url === this.warning ? this.previousUrl : url;
     }
 
     getPreviousUrl(): string {
@@ -66,7 +66,6 @@ export class NavigationService {
 
     scrollToTop(anchor: HTMLElement, document: Document) {
         if(anchor && document.scrollingElement !== null) {
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
             HTMLElement.prototype.scrollTo = () => {};
             anchor.scrollTo(0,0);
             // Need to kill the y-offset caused by navbar in mobile mode.

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { CommonModule } from "@angular/common";
 import { Subscription, tap } from "rxjs";
@@ -9,12 +9,12 @@ import { BaseRoute } from "../../api/routes/base.route.enum";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { default as homeLang } from "../../../../public/assets/i18n/home-en.json";
 import { AssetsPreloadService } from "../../shared/services/assets-preload.service";
+import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
     selector: 'tava-home',
     templateUrl: './home.component.html',
     styleUrl: './home.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         TranslateModule
@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     protected selectedBg: string;
     protected authors: any;
+    protected subCollection: string[];
     protected serviceCollection: any[];
     protected serviceCollLength: number;
     protected serviceImgCollection: string[];
@@ -33,6 +34,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     private subscriptionThemeObservation$: Subscription;
     private _isNavigatingToAuthor: boolean;
+    private navigation = inject(NavigationService);
 
     constructor(
         private readonly router: Router,
@@ -41,6 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ) {
         this.selectedBg = '';
         this.authors = {};
+        this.subCollection = Object.values(homeLang['home']['sub']);
         this.serviceCollection = [];
         this.serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
         this.serviceImgCollection = [];
@@ -153,6 +156,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
             this.isNavigatingToAuthor = false;
         }
+    }
+
+    overridePreviousUrl() {
+        this.navigation.setPreviousUrl(`/${BaseRoute.HOME}`);
     }
 
     ngOnDestroy() {

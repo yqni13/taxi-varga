@@ -1,4 +1,3 @@
-import { CommonModule } from "@angular/common";
 import { Component, Input } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
@@ -12,9 +11,7 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
     selector: 'tava-servicemeta',
     templateUrl: './service-meta.component.html',
     styleUrl: './service-meta.component.scss',
-    standalone: true,
     imports: [
-        CommonModule,
         CastAbstract2FormControlPipe,
         ReactiveFormsModule,
         TranslateModule,
@@ -24,7 +21,7 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
     ]
 })
 export class ServiceMetaComponent {
-    
+
     @Input() metaFormGroup!: FormGroup<MetaFormRequest>;
     @Input() validationData: MetaFormValidationData;
 

@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Inject, OnInit } from "@angular/core";
+import { Component, Inject, OnInit, DOCUMENT } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
 import _ from 'underscore';
-import { CommonModule, DOCUMENT } from "@angular/common";
+import { CommonModule } from "@angular/common";
 import { DeviceOptions } from "../../../shared/enums/device-option.enum";
 import { filter } from "rxjs";
 import { AssetsPreloadService } from "../../../shared/services/assets-preload.service";
@@ -13,7 +12,6 @@ import { AssetsPreloadService } from "../../../shared/services/assets-preload.se
     selector: 'tava-navigation',
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.scss',
-    standalone: true,
     imports: [
         CommonModule,
         RouterModule,
@@ -26,7 +24,7 @@ export class NavigationComponent implements OnInit {
     protected routes: Route[];
     protected preloadImages: string[];
     protected isPreloading: boolean;
-    
+
     protected deviceMode: DeviceOptions;
 
     private maxMobileWidth: number;
@@ -37,8 +35,7 @@ export class NavigationComponent implements OnInit {
         private readonly router: Router,
         private readonly navigation: NavigationService,
         @Inject(DOCUMENT) private document: Document,
-        private readonly assetPreload: AssetsPreloadService
-        
+        private readonly assetPreload: AssetsPreloadService,
     ) {
         this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
 

@@ -1,4 +1,4 @@
-import { CommonModule } from "@angular/common";
+
 import { Component, Input } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
@@ -8,9 +8,7 @@ import { VarDirective } from "../../../directives/ng-var.directive";
     selector: 'tava-validation',
     templateUrl: './validation-input.component.html',
     styleUrl: './validation-input.component.scss',
-    standalone: true,
     imports: [
-        CommonModule,
         TranslateModule,
         VarDirective
     ]

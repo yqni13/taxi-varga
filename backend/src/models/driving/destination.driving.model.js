@@ -30,9 +30,9 @@ class DrivingDestinationModel {
                 }
             },
             servDist: {
-                below25Km: 0.6,
+                below20Km: 0.6,
                 below30Km: 0.65,
-                above25Km: 0.5,
+                above20Km: 0.5,
                 above30Km: 0.5
             },
             latency: {
@@ -141,7 +141,7 @@ class DrivingDestinationModel {
         if(back2home) {
             servPrice = servDist <= 30 ? this.#prices.servDist.below30Km : this.#prices.servDist.above30Km;
         } else {
-            servPrice = servDist <= 25 ? this.#prices.servDist.below25Km : this.#prices.servDist.above25Km;
+            servPrice = servDist <= 20 ? this.#prices.servDist.below20Km : this.#prices.servDist.above20Km;
         }
         distCosts = servDist * servPrice;
         timeCosts = servTime * servPrice;
