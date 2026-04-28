@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, OnInit, DOCUMENT } from '@angular/core';
-import { NavigationStart, Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
 import { FooterComponent } from './common/components/footer/footer.component';
 import { SnackbarComponent } from './common/components/snackbar/snackbar.component';
@@ -34,7 +34,7 @@ export class AppComponent implements OnInit {
 		private readonly router: Router,
 	) {
 		this.router.events.subscribe(event => {
-			if(event instanceof NavigationStart) {
+			if(event instanceof NavigationEnd) {
 				this.navigation.scrollToTop(this.scrollAnchor, this.document);
 				// destroy session (token) leaving a service mask
 				const servicePaths = Object.values(ServiceRoute) as string[];
