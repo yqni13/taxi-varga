@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/04/28}$
+
+$\textsf{[v2.0.5\ =>\ {\textbf{\color{brown}v2.0.7}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + automatic scroll-to-top via withInMemoryScrolling parameter in provideRouter of app.config
+  + email text of default answer for user offer
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/26}$
 
-$\textsf{[v2.0.2\ =>\ {\textbf{\color{brown}v2.0.5}]}}$ app
+$\textsf{[v2.0.2\ =>\ v2.0.5]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 
   + SSR configuration by removing settings and package due to wrong creation
   + loading behaviour by initializing theme and default background color

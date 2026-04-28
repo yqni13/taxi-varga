@@ -138,7 +138,7 @@ class MailingModel {
                 : `Sehr geehrter Herr ${data.lastName}!`;
         }
 
-        return `\n${introduction}\nVielen Dank für Ihre Anfrage bei taxi-varga.\nWir werden uns sobald wie möglich bei Ihnen melden!\n\nBitte antworten Sie NICHT auf dieses automatische Mail.\n`
+        return `\n${introduction}\nVielen Dank für Ihre Anfrage bei taxi-varga.\nWir werden uns sobald wie möglich bei Ihnen melden!\n\nBitte antworten Sie NICHT auf dieses automatische Mail.\n\nMöchten Sie ihre angefragte oder bestätigte Beförderungsfahrt stornieren, dann benachrichtigen Sie mich ehest möglich per Mail unter laszlovarga@gmx.at oder über Telefon: 06644465466`
     }
 
     configEmailConfirmEN(data) {
@@ -153,7 +153,7 @@ class MailingModel {
                 : `Dear Mr. ${data.lastName}!`;
         }
 
-        return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n`
+        return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n\nIf you wish to cancel your requested or confirmed transport, please notify me as soon as possible by mail at laszlovarga@gmx.at or via phone: 06644465466`
     }
 
     configEmailBodyDE(data) {

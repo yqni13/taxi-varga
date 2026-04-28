@@ -1,5 +1,5 @@
 import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer, provideZoneChangeDetection } from '@angular/core';
-import { PreloadAllModules, provideRouter, withPreloading } from '@angular/router';
+import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { HttpClient, provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
@@ -20,7 +20,11 @@ export const appConfig: ApplicationConfig = {
       const themeHandler = inject(ThemeHandlerService);
       themeHandler.initTheme();
     }),
-    provideRouter(routes, withPreloading(PreloadAllModules)), 
+    provideRouter(
+      routes,
+      withPreloading(PreloadAllModules),
+      withInMemoryScrolling({scrollPositionRestoration: "top"})
+    ),
     provideClientHydration(),
     provideHttpClient(
       withFetch(),
