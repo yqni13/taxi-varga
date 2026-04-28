@@ -24,12 +24,10 @@ export class NavigationComponent implements OnInit {
     protected routes: Route[];
     protected preloadImages: string[];
     protected isPreloading: boolean;
-
     protected deviceMode: DeviceOptions;
 
     private maxMobileWidth: number;
     private window: any;
-    private isLocalStorageAvailable: any;
 
     constructor(
         private readonly router: Router,
@@ -37,8 +35,6 @@ export class NavigationComponent implements OnInit {
         @Inject(DOCUMENT) private document: Document,
         private readonly assetPreload: AssetsPreloadService,
     ) {
-        this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
-
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;
         this.routes = [];

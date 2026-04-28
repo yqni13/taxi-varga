@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.5}}$
+### $\textsf{\color{brown}{v2.0.7}}$
 
 <br><br>
 
@@ -236,11 +236,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.2\ =>\ {\textbf{\color{brown}v2.0.5}]}}$ app
+$\textsf{[v2.0.5\ =>\ {\textbf{\color{brown}v2.0.7}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 
-  + SSR configuration by removing settings and package due to wrong creation
-  + loading behaviour by initializing theme and default background color
-- $\textsf{\color{red}Bugfix:}$ Navigating to service works as expected. [Before: Service was navigating back to overview when no previous page was navigated (entering from 'home' or after refresh). Fixed by manually setting a previous URL.]
+  + automatic scroll-to-top via withInMemoryScrolling parameter in provideRouter of app.config
+  + email text of default answer for user offer
 
 <br>
 
