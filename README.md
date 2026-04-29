@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.7}}$
+### $\textsf{\color{brown}{v2.0.8}}$
 
 <br><br>
 
@@ -236,10 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.5\ =>\ {\textbf{\color{brown}v2.0.7}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated 
-  + automatic scroll-to-top via withInMemoryScrolling parameter in provideRouter of app.config
-  + email text of default answer for user offer
+$\textsf{[v2.0.7\ =>\ {\textbf{\color{brown}v2.0.8}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated hero button navigating to page 'service' instead 'about'.
 
 <br>
 
