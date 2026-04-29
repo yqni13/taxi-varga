@@ -4,8 +4,8 @@
 
 			<!-- MAIN PART -->
 			<div class="tava-home-block home-main">
-				@if (activeBg.main) {
-					<img [src]="activeBg.main" alt="404-picture-not-found">
+				@if (activeBg['main']) {
+					<img [src]="activeBg['main']" alt="404-picture-not-found">
 				}
 				<div id="tava-home-main-header">
 					<h2>{{'home.main.title' | translate}}</h2>
@@ -28,27 +28,22 @@
 						{{'home.main.text3' | translate}}
 					</span>
 				</div>
-				<div class="tava-home-small-span" id="tava-home-main-info">
-					<span>
-						{{'home.main.info' | translate}}
-					</span>
-				</div>
 				<div id="tava-home-main-button">
 					<button
 							class="tava-button-simple"
 							[attr.aria-disabled]="true"
-							(click)="navigateToProfile()"
-							(keydown.enter)="navigateToProfile()"
+							(click)="navigateToService()"
+							(keydown.enter)="navigateToService()"
 						>
 							{{'home.main.button' | translate}}
-							<i class="icon-forward icon-base"></i>
+							<i class="icon-GoTo icon-base"></i>
 					</button>
 				</div>
 			</div>
 
 			<!-- SUB PART -->
 			<div class="tava-home-block home-sub">
-				<img src="{{activeBg.sub}}" alt="404-picture-not-found">
+				<img src="{{activeBg['sub']}}" alt="404-picture-not-found">
 				<div id="tava-home-sub-wrapper">
 					<div id="tava-home-sub-header">
 						<h3>{{'home.sub-title' | translate}}</h3>

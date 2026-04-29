@@ -37,7 +37,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
         
         this.devData = {
             project: 'taxi-varga',
-            version: 'v2.0.5',
+            version: 'v2.0.8',
             github: 'https://github.com/yqni13/taxi-varga/tree/production',
             portfolio: 'https://yqni13.com',
             contact: BaseRoute.SUPPORT
