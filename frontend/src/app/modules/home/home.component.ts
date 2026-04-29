@@ -1,3 +1,4 @@
+import { DrivingServiceBase } from './../../shared/interfaces/driving-overview.interface';
 import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { CommonModule } from "@angular/common";
@@ -13,47 +14,32 @@ import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
     selector: 'tava-home',
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
     imports: [
         CommonModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './home.component.html',
+    styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-    protected selectedBg: string;
-    protected authors: any;
-    protected subCollection: string[];
-    protected serviceCollection: any[];
-    protected serviceCollLength: number;
-    protected serviceImgCollection: string[];
-    protected homeImgCollection: string[];
-    protected activeBg: any;
-    protected isPreloading: boolean;
+    private readonly router = inject(Router);
+    private readonly navigation = inject(NavigationService);
+    private readonly observation = inject(ObservationService);
+    private readonly assetPreload = inject(AssetsPreloadService);
 
-    private subscriptionThemeObservation$: Subscription;
-    private _isNavigatingToAuthor: boolean;
-    private navigation = inject(NavigationService);
+    protected selectedBg = '';
+    protected authors: Record<string, string> = {};
+    protected subCollection: string[] = Object.values(homeLang['home']['sub']);
+    protected serviceCollection: DrivingServiceBase[] = [];
+    protected serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
+    protected serviceImgCollection: string[] = [];
+    protected homeImgCollection: string[] = [];
+    protected activeBg: Record<string, string> = {};
+    protected isPreloading = true;
 
-    constructor(
-        private readonly router: Router,
-        private readonly observation: ObservationService,
-        private readonly assetPreload: AssetsPreloadService
-    ) {
-        this.selectedBg = '';
-        this.authors = {};
-        this.subCollection = Object.values(homeLang['home']['sub']);
-        this.serviceCollection = [];
-        this.serviceCollLength = Object.values(homeLang['home']['services']['content']).length;
-        this.serviceImgCollection = [];
-        this.homeImgCollection = [];
-        this.activeBg = {};
-        this.isPreloading = true;
-
-        this.subscriptionThemeObservation$ = new Subscription();
-        this._isNavigatingToAuthor = false;
-    }
+    private subscriptionThemeObservation$ = new Subscription();
+    private _isNavigatingToAuthor = false;
 
     ngOnInit() {
         this.mapAuthorData();
@@ -130,7 +116,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
 
     private mapServiceData() {
-        let newEntry = {};
+        let newEntry: DrivingServiceBase = {title: '', subtitle: '', text: '', imgPath: '', service: ServiceRoute.QUICK, authorPath: ''};
         const services = Object.values(ServiceRoute);
         const authors = Object.values(this.authors);
         for(let i = 0; i < this.serviceCollLength; i++) {
@@ -146,12 +132,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
     }
 
-    navigateToProfile() {
-        this.router.navigate([`/${BaseRoute.ABOUT}`]);
-    }
-
-    navigateToService(service: ServiceRoute) {
-        if(!this.isNavigatingToAuthor) {
+    navigateToService(service?: ServiceRoute) {
+        if(!service) {
+            this.router.navigate([`/${BaseRoute.SERVICE}`]);
+        } else if(!this.isNavigatingToAuthor) {
             this.router.navigate([`/${BaseRoute.SERVICE}/${service}`]);
         } else {
             this.isNavigatingToAuthor = false;

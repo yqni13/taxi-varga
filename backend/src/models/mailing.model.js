@@ -153,7 +153,7 @@ class MailingModel {
                 : `Dear Mr. ${data.lastName}!`;
         }
 
-        return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n\nIf you wish to cancel your requested or confirmed transport, please notify me as soon as possible by mail at laszlovarga@gmx.at or via phone: +436644465466`
+        return `\n${introduction}\nThank you for your inquiry at taxi-varga.\nWe will get back to you as soon as possible!\n\nPlease DO NOT reply to this automatic mail.\n\nIf you wish to cancel your requested or confirmed transport, please let me know as soon as possible by mail at laszlovarga@gmx.at or via phone: +436644465466`
     }
 
     configEmailBodyDE(data) {
