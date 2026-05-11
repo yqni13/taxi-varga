@@ -28,14 +28,14 @@ class MailingModel {
                 to: Secrets.EMAIL_RECEIVER,
                 replyTo: sender,
                 subject: subject,
-                text: msgRequest
+                html: this.mapEmailStructure(msgRequest)
             };
 
             const mailOptionsConfirm = {
                 from: Secrets.EMAIL_SENDER,
                 to: sender,
                 subject: 'taxi-varga, request received',
-                text: msgConfirm
+                html: this.mapEmailStructure(msgConfirm)
             }
             
             const sendRequest = await this.wrapedSendMail(mailOptionsRequest, Secrets.EMAIL_SENDER, Secrets.EMAIL_PASS);
@@ -222,6 +222,49 @@ class MailingModel {
         }
 
         return msgOutput;
+    }
+
+    mapEmailStructure(content) {
+        const headImgPath = '';
+        const footerImgPath = '';
+        return `
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <style>
+                    body {
+                        margin: 0;
+                        padding: 0;
+                        font-family: Arial, sans-serif;
+                        background-color: #f4f4f4;
+                    }
+                    .email-container {
+                        .head,
+                        .footer {
+                            width: auto;
+                            height: 20%;
+                        }
+                        .text p {
+                            white-space: pre-line;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="email-container">
+                    <div class="head">
+                        <img src="${headImgPath}" alt="head-logo">
+                    </div>
+                    <div class="text">
+                        <p>${content}</p>
+                    </div>
+                    <div class="footer">
+                        <img src="${footerImgPath}" alt="footer-logo">
+                    </div>
+                </div>
+            </body>
+        </html>
+        `;
     }
 }
 
