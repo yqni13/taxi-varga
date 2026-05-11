@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.8}}$
+### $\textsf{\color{brown}{v2.0.9}}$
 
 <br><br>
 
@@ -236,14 +236,13 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.7\ =>\ {\textbf{\color{brown}v2.0.8}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated hero button navigating to page 'service' instead 'about'.
+$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated email format by adding html structure with inline styling.
 
 <br>
 
 ### Aimed objectives for next $\textsf{\color{green}minor}$ update:
 <dl>
-    <dd>- update email format</dd>
     <dd>- update token handling (refresh token)</dd>
     <dd>- update logging & exception handling (client side)</dd>
     <dd>- add testing (frontend)</dd>

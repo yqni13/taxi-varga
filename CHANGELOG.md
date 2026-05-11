@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/05/11}$
+
+$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated email format by adding html structure with inline styling.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/04/29}$
 
-$\textsf{[v2.0.7\ =>\ {\textbf{\color{brown}v2.0.8}]}}$ app
+$\textsf{[v2.0.7\ =>\ v2.0.8]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated hero button navigating to page 'service' instead 'about'.
 
 <br>

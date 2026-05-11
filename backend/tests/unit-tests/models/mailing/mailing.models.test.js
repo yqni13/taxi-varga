@@ -25,3 +25,17 @@ describe('Mailing tests, priority: sendMail', () => {
         })
     })
 })
+
+describe('Mailing tests, priority: fn mapEmailStructure()', () => {
+
+    describe('Testing valid fn calls', () => {
+
+        test('Map text to new HTML structure for email', () => {
+            const mockParam_content = 'I am demo text.';
+            const testFn = mailingModel.mapEmailStructure(mockParam_content);
+
+            console.log("mapEmailStructure: ", testFn);
+            expect(testFn).toContain('<!DOCTYPE html>');
+        })
+    })
+})
