@@ -170,7 +170,8 @@
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "stay": "Pauschalierter Aufenthalt",
-                        "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 6 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
+                        "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 8 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
+                        "stay-accommodation": "Verlängerungstag inkl. 30km Beförderungsleistung kostet 78,00 EUR + Quartierkosten oder Quartierbeistellung.",
                         "support-mode": {
                             "label": "Zusatzservice",
                             "player": "Begleitung als Mitspieler"
@@ -189,7 +190,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 4h sind im Preis inkludiert, weitere 4h sind gratis)\n- Verlängerungstag inkl. 30km Beförderungsleistung kostet 78,00 EUR + Quartierkosten oder Quartierbeistellung\n- Abholzeitpunkt für Golfreisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 4h sind im Preis inkludiert, weitere 4h sind gratis)\n- Abholzeitpunkt für Golfreisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {

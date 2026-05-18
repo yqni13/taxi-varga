@@ -171,6 +171,7 @@
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
                         "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
+                        "stay-accommodation": "An extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.",
                         "support-mode": {
                             "label": "Additional service",
                             "player": "Accompanied as player"
@@ -189,7 +190,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 4h are included in the price, following 4h are for free)\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- an extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.\n- for trips lasting several days, inquire directly by email:",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 4h are included in the price, following 4h are for free)\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {
