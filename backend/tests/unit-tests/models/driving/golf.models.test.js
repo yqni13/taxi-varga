@@ -10,11 +10,20 @@ const mockBoolean = false;
 
 describe('Flatrate tests, priority: calcGolfRoute', () => {
 
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
+    afterEach(() => {
+        jest.restoreAllMocks();
+    });
+
     describe('Testing valid fn calls', () => {
 
         test('Route (2542to2551to2542), params: service distance < 20, <passengers> = 1', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2542-2551-2542']);
             mockParam_params['supportMode'] = true;
+            mockParam_params['stay'] = 480;
             const mockResult = structuredClone(MockData_RouteMatrix['route2542-2551-2542']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -29,6 +38,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         test('Route (2340to2013to2340), params: service distance > 20, <passengers> = 1', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = true;
+            mockParam_params['stay'] = 600;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -43,7 +53,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         test('Route (2500to7574to2500), params: service distance > 200, <passengers> = 1', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2500-7574-2500']);
             mockParam_params['supportMode'] = false;
-            mockParam_params['stay'] = 780;
+            mockParam_params['stay'] = 900;
             const mockResult = structuredClone(MockData_RouteMatrix['route2500-7574-2500']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -58,6 +68,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
         test('Route (1010to2821to1010), params: service distance > 20, <passengers> = 1', async () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route1010-2821-1010']);
             mockParam_params['supportMode'] = false;
+            mockParam_params['stay'] = 480;
             const mockResult = structuredClone(MockData_RouteMatrix['route1010-2821-1010']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -73,6 +84,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = true;
             mockParam_params['passengers'] = 3;
+            mockParam_params['stay'] = 600;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -88,6 +100,7 @@ describe('Flatrate tests, priority: calcGolfRoute', () => {
             const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
             mockParam_params['supportMode'] = true;
             mockParam_params['passengers'] = 3;
+            mockParam_params['stay'] = 600;
             const mockResult = structuredClone(MockData_RouteMatrix['route2340-2013-2340']['apiResult']);
             const mockAPI = { requestRouteMatrix: jest.fn().mockResolvedValue(mockResult) };
 
@@ -173,26 +186,26 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
 
     describe('Testing valid fn calls, priority: time of stay', () => {
 
-        test('Params: <time> < 360', () => {
-            const mockParam_time = 359;
+        test('Params: <time> < 480', () => {
+            const mockParam_time = 479;
             const testFn = golfModel._calcStayCosts(mockParam_time);
-            const expectSubObj = { hours: 6, costs: 48 };
+            const expectSubObj = { hours: 8, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
         })
 
-        test('Params: <time> == 360', () => {
-            const mockParam_time = 360;
+        test('Params: <time> == 480', () => {
+            const mockParam_time = 480;
             const testFn = golfModel._calcStayCosts(mockParam_time);
-            const expectSubObj = { hours: 6, costs: 48 };
+            const expectSubObj = { hours: 8, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
         })
 
-        test('Params: <time> > 360', () => {
-            const mockParam_time = 420;
+        test('Params: <time> > 480', () => {
+            const mockParam_time = 520;
             const testFn = golfModel._calcStayCosts(mockParam_time);
-            const expectSubObj = { hours: 7, costs: 60 };
+            const expectSubObj = { hours: 9, costs: 60 };
 
             expect(testFn).toMatchObject(expectSubObj);
         })
@@ -203,7 +216,7 @@ describe('Flatrate tests, priority: _calcStayCosts', () => {
         test('Params: <time> = \'test\'', () => {
             const mockParam_time = 'test';
             const testFn = golfModel._calcStayCosts(mockParam_time);
-            const expectSubObj = { hours: 6, costs: 48 };
+            const expectSubObj = { hours: 8, costs: 48 };
 
             expect(testFn).toMatchObject(expectSubObj);
         })
