@@ -114,18 +114,18 @@ class DrivingGolfModel {
 
     _calcStayCosts(time) {
         if(typeof(time) !== 'number') {
-            return { hours: 6, costs: 48 };
+            return { hours: 8, costs: 48 };
         }
-        // convert min to hour values (min 6h)
-        time = time <= 360
-            ? 6
+        // convert min to hour values (min 8h)
+        time = time <= 480
+            ? 8
             : time % 60 !== 0 
                 ? Math.ceil(time / 60) 
                 : time / 60;
 
         return {
             hours: time,
-            costs: time > 6 ? (48 + (this.#prices.stay.perHour * (time - 6))) : 48
+            costs: time > 8 ? (48 + (this.#prices.stay.perHour * (time - 8))) : 48
         };
     }
 
