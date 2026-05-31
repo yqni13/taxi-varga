@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.8}}$
+### $\textsf{\color{brown}{v2.0.9}}$
 
 <br><br>
 
@@ -236,8 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.7\ =>\ {\textbf{\color{brown}v2.0.8}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated hero button navigating to page 'service' instead 'about'.
+$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'golf' stay costs.
 
 <br>
 
