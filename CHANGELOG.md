@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/06/06}$
+
+$\textsf{[v2.0.9\ =>\ {\textbf{\color{brown}v2.0.10}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated dependencies on frontend/backend.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/05/18}$
 
-$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
+$\textsf{[v2.0.8\ =>\ v2.0.9]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'golf' stay costs.
 
 <br>
