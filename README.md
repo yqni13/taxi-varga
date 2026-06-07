@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.9}}$
+### $\textsf{\color{brown}{v2.0.10}}$
 
 <br><br>
 
@@ -236,8 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'golf' stay costs.
+$\textsf{[v2.0.9\ =>\ {\textbf{\color{brown}v2.0.10}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated dependencies on frontend/backend.
 
 <br>
 
