@@ -4,13 +4,15 @@ const { UnexpectedException } = require("../../utils/exceptions/common.exception
 const CustomValidator = require('../../utils/customValidator.utils');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 const discountConfig = require('../../configs/discounts.json');
+const BaseDrivingModel = require('./base.driving.model');
 
-class DrivingGolfModel {
+class DrivingGolfModel extends BaseDrivingModel {
     #googleRoutes;
     #prices;
     #preferenceGcIdList;
 
     constructor(googleRoutesApi) {
+        super();
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
             base: 4,
@@ -86,7 +88,7 @@ class DrivingGolfModel {
                 golfcourseId: params.golfcourseDetails.placeId,
                 passengers: params.passengers
             });
-            totalCosts = this._mapLongDistanceDiscount(totalCosts, servDist);
+            totalCosts = this.mapLongDistanceDiscount(totalCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
             result['duration'] = Math.ceil(servTime);
@@ -137,17 +139,6 @@ class DrivingGolfModel {
         const discount = params.costs * this.#prices.discount.support;
         // Always put 25% discount on preference golf course.
         return isPreferenceGC || discount <= 48 ? params.costs - discount : params.costs - 48;
-    }
-
-    _mapLongDistanceDiscount(costs, servDist) {
-        const distanceRules = [
-            { max: 200, apply: (cost) => cost },
-            { max: 300, apply: (cost) => cost * (1 - this.#prices.discount.percent10) },
-            { max: 400, apply: (cost) => cost * (1 - this.#prices.discount.percent15) },
-            { max: Infinity, apply: (cost) => cost * (1 - this.#prices.discount.percent20) }
-        ];
-
-        return distanceRules.find(rule => servDist < rule.max).apply(costs);
     }
 }
 
