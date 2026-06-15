@@ -10,6 +10,16 @@ class BaseDrivingModel {
         return distanceRules.find(rule => servDist < rule.max).apply(costs);
     }
 
+    calcApproachDistanceAdvanced(servDist) {
+        const distanceRules = [
+            { max: 20, apply: (dist) => 0 },
+            { max: 60, apply: (dist) => dist - 20 },
+            { max: Infinity, apply: (dist) => dist }
+        ];
+
+        return distanceRules.find(rule => servDist < rule.max).apply(servDist);
+    }
+
     calculateSum(arr) {
         let sum = 0;
         arr.map(entry => sum += entry);

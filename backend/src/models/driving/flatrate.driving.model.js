@@ -3,12 +3,14 @@ const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const CustomValidator = require('../../utils/customValidator.utils');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
+const BaseDrivingModel = require('./base.driving.model');
 
-class DrivingFlatrateModel {
+class DrivingFlatrateModel extends BaseDrivingModel {
     #googleRoutes;
     #prices;
 
     constructor(googleRoutesApi) {
+        super();
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
             approach: {
@@ -47,7 +49,7 @@ class DrivingFlatrateModel {
 
             const tenancyObj = this._calcTenancyValues(Number(params['tenancy']));
 
-            const approachDistance = routes.h2o.distanceMeters > 20 ? routes.h2o.distanceMeters - 20 : 0;
+            const approachDistance = this.calcApproachDistanceAdvanced(routes.h2o.distanceMeters);
             const returnDistance = routes.d2h.distanceMeters > 20 ? routes.d2h.distanceMeters - 20 : 0;
 
             const approachCost = (approachDistance % 1) >= 5

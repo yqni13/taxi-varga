@@ -80,15 +80,24 @@ class DrivingGolfModel extends BaseDrivingModel {
             // Add up all additional charges.
             let additionalCharges = 0;
 
-            let totalCosts = this.#prices.base + servDistCosts + servTimeCosts + approachCosts + returnCosts + stayObj.costs + additionalCharges;
+            const preCostSum = this.calculateSum([
+                this.#prices.base,
+                servDistCosts,
+                servTimeCosts,
+                approachCosts,
+                returnCosts,
+                stayObj.costs,
+                additionalCharges
+            ]);
 
             // Map additional discounts.
-            totalCosts = this._mapSupportDiscount({
-                costs: totalCosts,
+            const preSupportDiscountCosts = this._mapSupportDiscount({
+                costs: preCostSum,
                 golfcourseId: params.golfcourseDetails.placeId,
                 passengers: params.passengers
             });
-            totalCosts = this.mapLongDistanceDiscount(totalCosts, servDist);
+
+            const totalCosts = this.mapLongDistanceDiscount(preSupportDiscountCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
             result['duration'] = Math.ceil(servTime);
@@ -111,7 +120,7 @@ class DrivingGolfModel extends BaseDrivingModel {
         if(typeof(distance) !== 'number') {
             return 0;
         }
-        return distance <= 20 ? 0 : (distance - 20) * this.#prices.approach.perKm;
+        return this.calcApproachDistanceAdvanced(distance) * this.#prices.approach.perKm;
     }
 
     _calcStayCosts(time) {

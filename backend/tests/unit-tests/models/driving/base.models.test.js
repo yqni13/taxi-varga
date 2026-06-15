@@ -50,6 +50,52 @@ describe('Base tests, priority: mapLongDistanceDiscount', () => {
     })
 })
 
+describe('Base tests, priority: calcApproachDistanceAdvanced', () => {
+
+    describe('Testing valid fn calls', () => {
+
+        test('Params: <servDist> = 15', () => {
+            const mockParam_servDist = 15;
+            const baseModel = new BaseDrivingModel();
+
+            const testFn = baseModel.calcApproachDistanceAdvanced(mockParam_servDist);
+            const expectResult = 0;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Params: <servDist> = 30', () => {
+            const mockParam_servDist = 30;
+            const baseModel = new BaseDrivingModel();
+
+            const testFn = baseModel.calcApproachDistanceAdvanced(mockParam_servDist);
+            const expectResult = 10;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Params: <servDist> = 60', () => {
+            const mockParam_servDist = 60;
+            const baseModel = new BaseDrivingModel();
+
+            const testFn = baseModel.calcApproachDistanceAdvanced(mockParam_servDist);
+            const expectResult = 60;
+
+            expect(testFn).toBe(expectResult);
+        })
+
+        test('Params: <servDist> = 80', () => {
+            const mockParam_servDist = 80;
+            const baseModel = new BaseDrivingModel();
+
+            const testFn = baseModel.calcApproachDistanceAdvanced(mockParam_servDist);
+            const expectResult = 80;
+
+            expect(testFn).toBe(expectResult);
+        })
+    })
+})
+
 describe('Base tests, priority: calculateSum', () => {
 
     describe('Testing valid fn calls', () => {
