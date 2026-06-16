@@ -1,8 +1,24 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/06/15}$
+
+$\textsf{[v2.0.10\ =>\ {\textbf{\color{brown}v2.0.12}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + discount on total costs for length of service distance
+  + discount on free distance for specific approach
+
+<br>
+
+### $\textsf{\color{skyblue}2026/06/06}$
+
+$\textsf{[v2.0.9\ =>\ v2.0.10]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated dependencies on frontend/backend.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/05/18}$
 
-$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
+$\textsf{[v2.0.8\ =>\ v2.0.9]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'golf' stay costs.
 
 <br>

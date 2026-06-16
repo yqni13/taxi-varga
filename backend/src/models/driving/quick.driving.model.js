@@ -4,12 +4,14 @@ const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { SortingOption } = require("../../utils/enums/sorting-option.enum");
 const { QuickRouteOption } = require("../../utils/enums/quickroute-option.enum");
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
+const BaseDrivingModel = require('./base.driving.model');
 
-class DrivingQuickModel {
+class DrivingQuickModel extends BaseDrivingModel {
     #googleRoutes;
     #prices;
 
     constructor(googleRoutesApi) {
+        super();
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
             base: 4,
@@ -80,14 +82,18 @@ class DrivingQuickModel {
             additionalCosts += latencyObj.costs;
             additionalCosts += this._calcServDistSurcharge(params.back2origin, servDist);
 
-            let totalCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
+            const preSurchargeCosts = this._calcServDistCosts(servCostParams) + additionalCosts;
 
             // Surcharge for busy hours.
-            totalCosts = this._updateCostsByTimeBasedSurcharge4To6(totalCosts, servTime, params['pickupTIME']);
+            const postSurchargeCosts = this._updateCostsByTimeBasedSurcharge4To6(preSurchargeCosts, servTime, params['pickupTIME']);
 
-            totalCosts = isOriginV && !isRouteV2V
-                ? this._updateCostsByTimeBasedSurcharge4To10(totalCosts, params['pickupTIME'])
-                : totalCosts;
+            const preCostSum = isOriginV && !isRouteV2V
+                ? this._updateCostsByTimeBasedSurcharge4To10(postSurchargeCosts, params['pickupTIME'])
+                : postSurchargeCosts;
+
+            const totalCosts = params['back2origin']
+                ? this.mapLongDistanceDiscount(preCostSum, servDist)
+                : preCostSum;
 
             result['price'] = (totalCosts % 1) >= 0.5
                 ? Math.ceil(totalCosts)
