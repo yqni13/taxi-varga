@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.9}}$
+### $\textsf{\color{brown}{v2.0.12}}$
 
 <br><br>
 
@@ -7,8 +7,8 @@
     <img src="frontend/public/assets/docs/responsive_overview.png" alt="no responsive design at the moment">
 </div>
 
-
 <br>
+
 <div align="center">
     <a href="https://v18.angular.dev/overview"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular"></a>
     <a href="https://nodejs.org/en"><img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js"></a>
@@ -21,7 +21,6 @@
 </div>
 
 <br>
-
 
 ### $\textsf{\color{teal}Hosting}$
 This project runs live (see link). The frontend is hosted by <a href="https://app.netlify.com/">Netlify</a>, while the backend is hosted by <a href="https://vercel.com/">Vercel</a>.<br>
@@ -236,8 +235,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.8\ =>\ {\textbf{\color{brown}v2.0.9}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'golf' stay costs.
+$\textsf{[v2.0.10\ =>\ {\textbf{\color{brown}v2.0.12}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + discount on total costs for length of service distance
+  + discount on free distance for specific approach
 
 <br>
 

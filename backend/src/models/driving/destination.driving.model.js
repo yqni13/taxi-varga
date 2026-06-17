@@ -4,12 +4,14 @@ const { ServiceOption } = require('../../utils/enums/service-option.enum');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
 const CustomValidator = require('../../utils/customValidator.utils');
 const { InvalidPropertiesException } = require('../../utils/exceptions/validation.exception');
+const BaseDrivingModel = require('./base.driving.model');
 
-class DrivingDestinationModel {
+class DrivingDestinationModel extends BaseDrivingModel {
     #googleRoutes;
     #prices;
 
     constructor(googleRoutesApi) {
+        super();
         this.#googleRoutes = googleRoutesApi;
         this.#prices = {
             base: 4,
@@ -108,11 +110,18 @@ class DrivingDestinationModel {
             additionalCharge += latencyCosts;
             additionalCharge += this._addChargeParkFlatByBH(params, servDist);
 
-            // Add up all discounts to substract.
-            let discounts = 0;
-            discounts += this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
+            const preCostSum = this.calculateSum([
+                approachCosts,
+                servCosts.dist,
+                servCosts.time,
+                returnCosts,
+                additionalCharge
+            ]);
 
-            const totalCosts = approachCosts + servCosts.dist + servCosts.time + returnCosts + additionalCharge - discounts;
+            // Map additional discounts.
+            const discountLaToVIA = this._calcDiscountLaToVIA(params.originDetails, params.destinationDetails, servDist, pickUp);
+            const postCostSum = this.substractAllDiscounts(preCostSum, [discountLaToVIA]);
+            const totalCosts = this.mapLongDistanceDiscount(postCostSum, servDist);
 
             result['duration'] = Math.ceil(servTime);
             result['price'] = (totalCosts % 1) >= 0.5
@@ -161,9 +170,8 @@ class DrivingDestinationModel {
         ];
 
         const price = servDistRules.find(rule => distances.service < rule.max).apply(isWithinBH, back2home);
-        return distances.approach <= 20
-            ? this.#prices.base
-            : this.#prices.base + ((distances.approach - 20) * price);
+        const approachDistance = this.calcApproachDistanceAdvanced(distances.approach);
+        return this.#prices.base + (approachDistance * price);
     }
 
     _calcReturnCosts(params, routes, isWithinBH) {
