@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/06/22}$
+
+$\textsf{[v2.0.12\ =>\ {\textbf{\color{brown}v2.0.13}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated information on service 'golf' order.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/06/15}$
 
-$\textsf{[v2.0.10\ =>\ {\textbf{\color{brown}v2.0.12}]}}$ app
+$\textsf{[v2.0.10\ =>\ v2.0.12]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 
   + discount on total costs for length of service distance
   + discount on free distance for specific approach

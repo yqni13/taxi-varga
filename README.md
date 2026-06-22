@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.12}}$
+### $\textsf{\color{brown}{v2.0.13}}$
 
 <br><br>
 
@@ -235,10 +235,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.10\ =>\ {\textbf{\color{brown}v2.0.12}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated 
-  + discount on total costs for length of service distance
-  + discount on free distance for specific approach
+$\textsf{[v2.0.12\ =>\ {\textbf{\color{brown}v2.0.13}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated information on service 'golf' order.
 
 <br>
 
