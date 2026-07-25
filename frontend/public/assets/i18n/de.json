@@ -170,7 +170,7 @@
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "stay": "Pauschalierter Aufenthalt",
-                        "stay-calc": "Aufenthalt: 48,00 EUR für die ersten 8 Stunden und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene Stunde.",
+                        "stay-calc": "Aufenthalt bis Rückfahrt maximal 8h ohne Mehrkosten - danach 12,00 EUR für jede weitere begonnene Stunde.",
                         "stay-accommodation": "Verlängerungstag inkl. 30km Beförderungsleistung kostet 78,00 EUR + Quartierkosten oder Quartierbeistellung.",
                         "support-mode": {
                             "label": "Zusatzservice",

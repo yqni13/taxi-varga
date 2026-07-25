@@ -170,7 +170,7 @@
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
-                        "stay-calc": "Stay: 48,00 EUR for the first 6 hours and 12,00 EUR for each additional hour. Every hour started is charged.",
+                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
                         "stay-accommodation": "An extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.",
                         "support-mode": {
                             "label": "Additional service",
