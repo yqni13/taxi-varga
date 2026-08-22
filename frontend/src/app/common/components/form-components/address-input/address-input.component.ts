@@ -192,7 +192,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
             }
         }
 
-        const array = data.body?.body.placeData.addressComponents;
+        const array = (data.body?.body.placeData.addressComponents as string[]);
         const postalAddress = data.body?.body.placeData.postalAddress;
         const route = data.body?.body.placeData.formattedAddress;
         const province = array.filter((entry: any) => entry.types[0] === 'administrative_area_level_1').map((entry: any) => entry.longText as string);

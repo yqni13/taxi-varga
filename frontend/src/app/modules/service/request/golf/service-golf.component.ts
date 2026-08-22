@@ -1,18 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
-import { Router } from "@angular/router";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "../../../../api/services/auth.api.service";
-import { TokenService } from "../../../../shared/services/token.service";
-import { ObservationService } from "../../../../shared/services/observation.service";
-import { TranslateService } from "@ngx-translate/core";
-import { NavigationService } from "../../../../shared/services/navigation.service";
-import { MailAPIService } from "../../../../api/services/mail.api.service";
-import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
-import { DateTimeService } from "../../../../shared/services/datetime.service";
-import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
-import { HttpObservationService } from "../../../../shared/services/http-observation.service";
+import { FormControl, Validators } from "@angular/forms";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subject, tap } from "rxjs";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
@@ -21,7 +11,6 @@ import { PassengerOptions } from "../../../../shared/enums/passenger-options.enu
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
@@ -41,35 +30,13 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
     protected AddressFilterOptionsEnum = AddressFilterOptions;
     protected PassengerOptionsEnum = PassengerOptions;
-    protected dropoffTimeByLang$: Subject<string>;
-    protected dropoffTimeByLangStatic: string;
-    protected minStayStamp$: Subject<string>;
-    protected maxStayStamp$: Subject<string>;
+    protected dropoffTimeByLang$ = new Subject<string>();
+    protected dropoffTimeByLangStatic = "";
+    protected minStayStamp$ = new Subject<string>();
+    protected maxStayStamp$ = new Subject<string>();
 
-    constructor(
-        router: Router,
-        fb: FormBuilder,
-        auth: AuthService,
-        elRef: ElementRef,
-        tokenService: TokenService,
-        observe: ObservationService,
-        translate: TranslateService,
-        navigation: NavigationService,
-        mailAPIService: MailAPIService,
-        snackbar: SnackbarMessageService,
-        datetimeService: DateTimeService,
-        customTranslate: CustomTranslateService,
-        httpObserve: HttpObservationService,
-        @Inject(DOCUMENT) document: Document,
-        drivingAPIService: DrivingAPIService,
-    ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
-
-        this.dropoffTimeByLang$ = new Subject<string>();
-        this.dropoffTimeByLangStatic = '';
-        this.minStayStamp$ = new Subject<string>();
-        this.maxStayStamp$ = new Subject<string>();
-
+    constructor() {
+        super();
         this.snackbarTextMail = 'laszlovarga@gmx.at';
     }
 

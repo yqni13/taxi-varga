@@ -34,31 +34,31 @@
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "* 57,00",
+                "price": "* 60,00",
                 "route": "Kottingbrunn / Schönau / Bad Vöslau - Flughafen Wien"
             },
             "entry1": {
-                "price": "* 60,00",
+                "price": "* 63,00",
                 "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
             },
             "entry2": {
-                "price": "75,00",
+                "price": "79,00",
                 "route": "Berndorf - Flughafen Wien"
             },
             "entry3": {
-                "price": "80,00",
+                "price": "85,00",
                 "route": "Wiener Neustadt - Flughafen Wien"
             },
             "entry4": {
-                "price": "85,00",
+                "price": "95,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Wien"
             },
             "entry5": {
-                "price": "90,00",
+                "price": "99,00",
                 "route": "Mattersburg - Flughafen Wien"
             },
             "entry6": {
-                "price": "91,00",
+                "price": "99,00",
                 "route": "Neunkirchen/Ternitz - Flughafen Wien"
             }
         },
