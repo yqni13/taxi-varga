@@ -1,18 +1,8 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
-import { Router } from "@angular/router";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { AuthService } from "../../../../api/services/auth.api.service";
-import { TokenService } from "../../../../shared/services/token.service";
-import { ObservationService } from "../../../../shared/services/observation.service";
-import { TranslateService } from "@ngx-translate/core";
-import { NavigationService } from "../../../../shared/services/navigation.service";
-import { MailAPIService } from "../../../../api/services/mail.api.service";
-import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
-import { DateTimeService } from "../../../../shared/services/datetime.service";
-import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
-import { HttpObservationService } from "../../../../shared/services/http-observation.service";
+import { FormControl, Validators } from "@angular/forms";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { filter, Subscription, tap } from "rxjs";
 import { DrivingQuickResponse } from "../../../../api/interfaces/driving-response.interface";
@@ -20,13 +10,12 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { QuickRouteOption } from "../../../../shared/enums/quickroute-option.enum";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { AddressAPIService } from "../../../../api/services/address.api.service";
 import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
-import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
 import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { AddressAPIService } from "../../../../api/services/address.api.service";
 
 @Component({
     selector: 'tava-service-quick',
@@ -42,48 +31,22 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 })
 export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    protected callDirectNr: string;
-    protected originByGPS: boolean;
+    private readonly addressAPI = inject(AddressAPIService);
+    private readonly domSanitizer = inject(DomSanitizer);
 
-    protected browserGeolocationSupport: boolean;
-    protected mapUrl: string | SafeResourceUrl | null;
-    protected isLoading: boolean;
-    protected isGeoChecked: boolean;
-    protected isSelectingGPSOption: boolean;
+    protected callDirectNr = "+436644465466";
+    protected originByGPS = false;
 
-    private originSubscription$: Subscription | undefined;
+    protected browserGeolocationSupport = false;
+    protected mapUrl: string | SafeResourceUrl | null = "";
+    protected isLoading = false;
+    protected isGeoChecked = false;
+    protected isSelectingGPSOption = false;
 
-    constructor(
-        router: Router,
-        fb: FormBuilder,
-        auth: AuthService,
-        elRef: ElementRef,
-        tokenService: TokenService,
-        observe: ObservationService,
-        translate: TranslateService,
-        navigation: NavigationService,
-        mailAPIService: MailAPIService,
-        snackbar: SnackbarMessageService,
-        datetimeService: DateTimeService,
-        customTranslate: CustomTranslateService,
-        httpObserve: HttpObservationService,
-        @Inject(DOCUMENT) document: Document,
-        drivingAPIService: DrivingAPIService,
-        private readonly addressAPI: AddressAPIService,
-        private readonly domSanitizer: DomSanitizer
-    ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
+    private originSubscription$: Subscription | undefined = new Subscription();
 
-        this.callDirectNr = '+436644465466';
-        this.originByGPS = false;
-
-        this.browserGeolocationSupport = true;
-        this.mapUrl = '';
-        this.isLoading = false;
-        this.isGeoChecked = false;
-        this.isSelectingGPSOption = false;
-
-        this.originSubscription$ = new Subscription();
+    constructor() {
+        super();
     }
 
     override async ngOnInit() {

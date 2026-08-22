@@ -170,8 +170,7 @@ class DrivingDestinationModel extends BaseDrivingModel {
         ];
 
         const price = servDistRules.find(rule => distances.service < rule.max).apply(isWithinBH, back2home);
-        const approachDistance = this.calcApproachDistanceAdvanced(distances.approach);
-        return this.#prices.base + (approachDistance * price);
+        return this.#prices.base + (distances.approach * price);
     }
 
     _calcReturnCosts(params, routes, isWithinBH) {

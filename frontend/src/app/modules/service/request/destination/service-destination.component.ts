@@ -1,23 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { filter, tap } from "rxjs";
-import { TranslateService } from "@ngx-translate/core";
-import { ObservationService } from "../../../../shared/services/observation.service";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { DateTimeService } from "../../../../shared/services/datetime.service";
-import { HttpObservationService } from '../../../../shared/services/http-observation.service';
+import { FormControl, Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
-import { MailAPIService } from "../../../../api/services/mail.api.service";
-import { Router } from "@angular/router";
-import { AuthService } from "../../../../api/services/auth.api.service";
-import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
-import { NavigationService } from "../../../../shared/services/navigation.service";
-import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
-import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
-import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
@@ -36,23 +24,8 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
     constructor(
-        router: Router,
-        fb: FormBuilder,
-        auth: AuthService,
-        elRef: ElementRef,
-        tokenService: TokenService,
-        observe: ObservationService,
-        translate: TranslateService,
-        navigation: NavigationService,
-        mailAPIService: MailAPIService,
-        snackbar: SnackbarMessageService,
-        datetimeService: DateTimeService,
-        customTranslate: CustomTranslateService,
-        httpObserve: HttpObservationService,
-        @Inject(DOCUMENT) document: Document,
-        drivingAPIService: DrivingAPIService,
     ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService);
+        super();
     }
 
     override async ngOnInit() {
@@ -124,6 +97,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
         });
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     getBack2HomeCheckboxValue(event: any) {
         this.serviceForm.get('back2home')?.setValue(event.target?.checked);
         if(!event.target?.checked) {

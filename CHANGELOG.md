@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/08/22}$
+
+$\textsf{[v2.0.13\ =>\ {\textbf{\color{brown}v2.0.15}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + sample data
+  + calculation for approach on "destination" service
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/06/22}$
 
-$\textsf{[v2.0.12\ =>\ {\textbf{\color{brown}v2.0.13}]}}$ app
+$\textsf{[v2.0.12\ =>\ v2.0.13]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated information on service 'golf' order.
 
 <br>
