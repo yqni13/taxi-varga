@@ -1,22 +1,11 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnInit, DOCUMENT } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { filter, Subject, tap } from "rxjs";
-import { TranslateService } from "@ngx-translate/core";
-import { ObservationService } from "../../../../shared/services/observation.service";
-import { FormBuilder, FormControl, Validators } from "@angular/forms";
-import { HttpObservationService } from "../../../../shared/services/http-observation.service";
-import { DateTimeService } from "../../../../shared/services/datetime.service";
+import { FormControl, Validators } from "@angular/forms";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
-import { MailAPIService } from "../../../../api/services/mail.api.service";
-import { Router } from "@angular/router";
-import { AuthService } from "../../../../api/services/auth.api.service";
-import { TokenService } from "../../../../shared/services/token.service";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
-import { NavigationService } from "../../../../shared/services/navigation.service";
-import { SnackbarMessageService } from "../../../../shared/services/snackbar.service";
-import { CustomTranslateService } from "../../../../shared/services/custom-translate.service";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
-import { DrivingAPIService } from "../../../../api/services/driving.api.service";
 import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
@@ -33,34 +22,13 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 })
 export class ServiceFlatrateComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    protected dropoffTimeByLang$: Subject<string>;
-    protected dropoffTimeByLangStatic: string;
-    protected minTenancyStamp$: Subject<string>;
-    protected maxTenancyStamp$: Subject<string>;
+    protected dropoffTimeByLang$ = new Subject<string>();
+    protected dropoffTimeByLangStatic = "";
+    protected minTenancyStamp$ = new Subject<string>();
+    protected maxTenancyStamp$ = new Subject<string>();
 
-    constructor(
-        router: Router,
-        fb: FormBuilder,
-        auth: AuthService,
-        elRef: ElementRef,
-        tokenService: TokenService,
-        observe: ObservationService,
-        translate: TranslateService,
-        navigation: NavigationService,
-        mailAPIService: MailAPIService,
-        snackbar: SnackbarMessageService,
-        datetimeService: DateTimeService,
-        customTranslate: CustomTranslateService,
-        httpObserve: HttpObservationService,
-        @Inject(DOCUMENT) document: Document,
-        drivingAPIService: DrivingAPIService,
-    ) {
-        super(router, fb, auth, elRef, tokenService, translate, observe, navigation, mailAPIService, datetimeService, snackbar, customTranslate, httpObserve, document, drivingAPIService)
-
-        this.dropoffTimeByLang$ = new Subject<string>();
-        this.dropoffTimeByLangStatic = '';
-        this.minTenancyStamp$ = new Subject<string>();
-        this.maxTenancyStamp$ = new Subject<string>();
+    constructor() {
+        super()
     }
 
     override async ngOnInit() {

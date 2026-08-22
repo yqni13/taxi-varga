@@ -34,31 +34,31 @@
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "* 57,00",
+                "price": "* 60,00",
                 "route": "Kottingbrunn / Schönau / Bad Vöslau - Vienna International Airport"
             },
             "entry1": {
-                "price": "* 60,00",
+                "price": "* 63,00",
                 "route": "Enzesfeld/Lindstart withrunn - Vienna International Airport"
             },
             "entry2": {
-                "price": "75,00",
+                "price": "79,00",
                 "route": "Berndorf - Vienna International Airport"
             },
             "entry3": {
-                "price": "80,00",
+                "price": "85,00",
                 "route": "Wiener Neustadt - Vienna International Airport"
             },
             "entry4": {
-                "price": "85,00",
+                "price": "95,00",
                 "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Vienna International Airport"
             },
             "entry5": {
-                "price": "90,00",
+                "price": "99,00",
                 "route": "Mattersburg - Vienna International Airport"
             },
             "entry6": {
-                "price": "91,00",
+                "price": "99,00",
                 "route": "Neunkirchen/Ternitz - Vienna International Airport"
             }
         },

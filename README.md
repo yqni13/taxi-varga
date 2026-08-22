@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.13}}$
+### $\textsf{\color{brown}{v2.0.15}}$
 
 <br><br>
 
@@ -235,8 +235,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.12\ =>\ {\textbf{\color{brown}v2.0.13}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated information on service 'golf' order.
+$\textsf{[v2.0.13\ =>\ {\textbf{\color{brown}v2.0.15}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + sample data
+  + calculation for approach on "destination" service
 
 <br>
 
