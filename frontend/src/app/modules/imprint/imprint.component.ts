@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule } from "@ngx-translate/core";
@@ -20,39 +20,28 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
 })
 export class ImprintComponent implements OnInit, OnDestroy {
 
-    protected selectedBg: string;
-    protected devData: any;
-    protected ownerData: any;
-    protected images: string[];
-    protected isPreloading: boolean;
+    private readonly observation = inject(ObservationService);
+    private readonly preload = inject(AssetsPreloadService);
 
-    private subscriptionThemeObservation$: Subscription;
+    protected selectedBg = '';
+    protected images: string[] = [];
+    protected isPreloading = true;
+    protected devData = {
+        project: 'taxi-varga',
+        version: 'v2.0.16',
+        github: 'https://github.com/yqni13/taxi-varga/tree/production',
+        portfolio: 'https://yqni13.com',
+        contact: BaseRoute.SUPPORT
+    };
+    protected ownerData = {
+        name: 'Ing. Laszlo Varga',
+        address: 'Anton Bruckner-Gasse 11\n2544 Leobersdorf, Österreich',
+        uid: 'ATU60067019',
+        email: 'laszlovarga@gmx.at',
+        phone: '+436644465466',
+    };
 
-    constructor(
-        private readonly observation: ObservationService,
-        private readonly preload: AssetsPreloadService
-    ) {
-        this.selectedBg = '';
-        this.subscriptionThemeObservation$ = new Subscription();
-        
-        this.devData = {
-            project: 'taxi-varga',
-            version: 'v2.0.15',
-            github: 'https://github.com/yqni13/taxi-varga/tree/production',
-            portfolio: 'https://yqni13.com',
-            contact: BaseRoute.SUPPORT
-        };
-
-        this.ownerData = {
-            name: 'Ing. Laszlo Varga',
-            address: 'Anton Bruckner-Gasse 11\n2544 Leobersdorf, Österreich',
-            uid: 'ATU60067019',
-            email: 'laszlovarga@gmx.at',
-            phone: '+436644465466',
-        };
-        this.images = [];
-        this.isPreloading = true;
-    }
+    private subscriptionThemeObservation$: Subscription = new Subscription();
 
     ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
