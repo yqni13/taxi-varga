@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.15}}$
+### $\textsf{\color{brown}{v2.0.16}}$
 
 <br><br>
 
@@ -10,7 +10,7 @@
 <br>
 
 <div align="center">
-    <a href="https://v18.angular.dev/overview"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular"></a>
+    <a href="https://v21.angular.dev/overview"><img src="frontend/public/assets/docs/icons/angular.png" alt="Angular"></a>
     <a href="https://nodejs.org/en"><img src="frontend/public/assets/docs/icons/nodejs.png" alt="Node.js"></a>
     <a href="https://mapsplatform.google.com/maps-products/?hl=en#places-section"><img src="frontend/public/assets/docs/icons/places.png" alt="GoolgePlacesAPI"></a>
     <a href="https://rxjs.dev/"><img src="frontend/public/assets/docs/icons/rxjs.png" alt="RxJS"></a>
@@ -34,6 +34,7 @@ For testing purposes one instance runs on env:stag while the live version runs o
 
 ### $\textsf{\color{teal}Prerequisites}$
 
+- Angular: v21+
 - node: v22+
 - Google API Key (geocode, places, distanceMatrix)
 - Betterstack Telemetry (logging)
@@ -235,10 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.13\ =>\ {\textbf{\color{brown}v2.0.15}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated:
-  + sample data
-  + calculation for approach on "destination" service
+$\textsf{[v2.0.15\ =>\ {\textbf{\color{brown}v2.0.16}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated service 'destination' on discount calculation.
 
 <br>
 
