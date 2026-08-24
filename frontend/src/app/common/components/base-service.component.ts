@@ -1,4 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -31,6 +32,21 @@ import { MetaFormValidationData } from "../../shared/interfaces/meta-request.int
 })
 export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    protected router = inject(Router);
+    protected fb = inject(FormBuilder);
+    protected auth = inject(AuthService);
+    protected elRef = inject(ElementRef);
+    protected tokenService = inject(TokenService);
+    protected translate = inject(TranslateService);
+    protected observe = inject(ObservationService);
+    protected navigation = inject(NavigationService);
+    protected mailAPIService = inject(MailAPIService);
+    protected datetimeService = inject(DateTimeService);
+    protected snackbar = inject(SnackbarMessageService);
+    protected customTranslate = inject(CustomTranslateService);
+    protected httpObserve = inject(HttpObservationService);
+    protected drivingAPIService = inject(DrivingAPIService);
+
     protected addressOptions = AddressOptions;
     protected selectedBg: string;
     protected hasOffer: boolean;
@@ -62,23 +78,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     private subscriptionHttpObservationEmail$: Subscription;
     private subscriptionHttpObservationError$: Subscription;
 
-    constructor(
-        protected router: Router,
-        protected fb: FormBuilder,
-        protected auth: AuthService,
-        protected elRef: ElementRef,
-        protected tokenService: TokenService,
-        protected translate: TranslateService,
-        protected observe: ObservationService,
-        protected navigation: NavigationService,
-        protected mailAPIService: MailAPIService,
-        protected datetimeService: DateTimeService,
-        protected snackbar: SnackbarMessageService,
-        protected customTranslate: CustomTranslateService,
-        protected httpObserve: HttpObservationService,
-        @Inject(DOCUMENT) protected document: Document,
-        protected drivingAPIService: DrivingAPIService,
-    ) {
+    constructor() {
         this.selectedBg = '';
         this.hasOffer = false;
         this.hasToken = false;
@@ -101,7 +101,7 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
         this.subscriptionHttpObservationDriving$ = new Subscription();
         this.subscriptionHttpObservationEmail$ = new Subscription();
         this.subscriptionHttpObservationError$ = new Subscription();
-        this.window = this.document.defaultView;
+        this.window = document.defaultView;
         this.metaProperties = this.initMetaProperties();
         this.validationData = this.initMetaValidationData();
         this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -181,9 +181,9 @@ export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     scrollToTop() {
-        if(this.scrollAnchor && this.document.scrollingElement !== null) {
+        if(this.scrollAnchor && document.scrollingElement !== null) {
             this.scrollAnchor.scrollTo(0,0);
-            this.document.scrollingElement.scrollTop = 0;
+            document.scrollingElement.scrollTop = 0;
         }
     }
 
