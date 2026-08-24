@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.16}}$
+### $\textsf{\color{brown}{v2.0.17}}$
 
 <br><br>
 
@@ -236,8 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.15\ =>\ {\textbf{\color{brown}v2.0.16}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated service 'destination' on discount calculation.
+$\textsf{[v2.0.16\ =>\ {\textbf{\color{brown}v2.0.17}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 'sample' page data.
 
 <br>
 
