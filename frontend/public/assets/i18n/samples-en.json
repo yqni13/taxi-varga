@@ -28,17 +28,17 @@
                 "route": "Leobersdorf - Vienna General Hospital"
             },
             "entry2": {
-                "price": "* 59,00",
+                "price": "60,00",
                 "route": "Leobersdorf - Vienna International Airport"
             }
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "* 60,00",
+                "price": "60,00",
                 "route": "Kottingbrunn / Schönau / Bad Vöslau - Vienna International Airport"
             },
             "entry1": {
-                "price": "* 63,00",
+                "price": "63,00",
                 "route": "Enzesfeld/Lindstart withrunn - Vienna International Airport"
             },
             "entry2": {
@@ -97,9 +97,8 @@
         "samples-utility": {
             "addendum": "from",
             "currency": "EUR",
-            "discount-info1": "* applies to pickup time 04:00 a.m. - 06:00 a.m.",
-            "discount-info2": "** Package price 1: players (1-2) with golf bags and optional foldable trolleys + removable tires,\nPackage price 2: players (3-4) with golfbags without trolleys",
-            "discount-info3": "*** Price advantage through personal club membership (Laszlo Varga)",
+            "discount-info1": "* Package price 1: players (1-2) with golf bags and optional foldable trolleys + removable tires,\nPackage price 2: players (3-4) with golfbags without trolleys",
+            "discount-info2": "** Price advantage through personal club membership (Laszlo Varga)",
             "header-golf": "Daily golf trip including 6 h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "price-classic": "Pp 1",

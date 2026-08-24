@@ -28,17 +28,17 @@
                 "route": "Leobersdorf - AKH Wien"
             },
             "entry2": {
-                "price": "* 59,00",
+                "price": "60,00",
                 "route": "Leobersdorf - Flughafen Wien"
             }
         },
         "samples-content-option3": {
             "entry0": {
-                "price": "* 60,00",
+                "price": "60,00",
                 "route": "Kottingbrunn / Schönau / Bad Vöslau - Flughafen Wien"
             },
             "entry1": {
-                "price": "* 63,00",
+                "price": "63,00",
                 "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
             },
             "entry2": {
@@ -97,9 +97,8 @@
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
-            "discount-info1": "* gilt für Fahrtbeginn zwischen 04:00 und 06:00 Uhr",
-            "discount-info2": "** Pauschalpreis 1: 1-2 SpielerInnen mit Golfbags und optional mit faltbaren Trolleys mit abnehmbaren Räder,\nPauschalpreis 2: 3-4 SpielerInnen mit Golfbags ohne Trolleys",
-            "discount-info3": "*** Preisvorteil durch persönliche Clubmitgliedschaft (Laszlo Varga)",
+            "discount-info1": "* Pauschalpreis 1: 1-2 SpielerInnen mit Golfbags und optional mit faltbaren Trolleys mit abnehmbaren Räder,\nPauschalpreis 2: 3-4 SpielerInnen mit Golfbags ohne Trolleys",
+            "discount-info2": "** Preisvorteil durch persönliche Clubmitgliedschaft (Laszlo Varga)",
             "header-golf": "Tages-Golfreisen inklusive 6 h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "price-classic": "Pp 1",

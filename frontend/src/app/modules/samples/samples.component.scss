@@ -111,7 +111,7 @@ td {
 }
 
 .tava-samples-price {
-    padding-left: calc(sass.$space5 * 2);
+    padding-left: sass.$space5;
     width: $price-width;
     white-space: nowrap;
 }

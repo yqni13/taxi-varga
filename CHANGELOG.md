@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/08/24}$
+
+$\textsf{[v2.0.16\ =>\ {\textbf{\color{brown}v2.0.17}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 'sample' page data.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/08/23}$
 
-$\textsf{[v2.0.15\ =>\ {\textbf{\color{brown}v2.0.16}]}}$ app
+$\textsf{[v2.0.15\ =>\ v2.0.16]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated service 'destination' on discount calculation.
 
 <br>
