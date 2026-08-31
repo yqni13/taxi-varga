@@ -22,7 +22,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 46 } };
+                const expectSubObj = { routeData: { price: 54 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -36,7 +36,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 53 } };
+                const expectSubObj = { routeData: { price: 61 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -50,7 +50,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 51 } };
+                const expectSubObj = { routeData: { price: 61 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -65,7 +65,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 58 } };
+                const expectSubObj = { routeData: { price: 68 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -80,7 +80,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 46 } };
+                const expectSubObj = { routeData: { price: 54 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -94,7 +94,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 11 } };
+                const expectSubObj = { routeData: { price: 13 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -108,7 +108,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 11 } };
+                const expectSubObj = { routeData: { price: 13 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -127,7 +127,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 102 } };
+                const expectSubObj = { routeData: { price: 110 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -143,7 +143,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 109 } };
+                const expectSubObj = { routeData: { price: 119 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -159,7 +159,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 108 } };
+                const expectSubObj = { routeData: { price: 116 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -175,7 +175,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 115 } };
+                const expectSubObj = { routeData: { price: 125 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -191,7 +191,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 126 } };
+                const expectSubObj = { routeData: { price: 134 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -207,7 +207,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 133 } };
+                const expectSubObj = { routeData: { price: 143 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -223,7 +223,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 81 } };
+                const expectSubObj = { routeData: { price: 89 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -239,7 +239,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 63 } };
+                const expectSubObj = { routeData: { price: 65 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -252,7 +252,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
                 jest.spyOn(CustomValidator, "validateReturnWithinExtendedBH").mockImplementation();
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 111 } };
+                const expectSubObj = { routeData: { price: 119 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -266,7 +266,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 67 } };
+                const expectSubObj = { routeData: { price: 70 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -280,7 +280,7 @@ describe('Destination tests, priority: calcDestinationRoute', () => {
 
                 const destinationModel = new DrivingDestinationModel(mockAPI);
                 const testFn = await destinationModel.calcDestinationRoute(mockParam_params);
-                const expectSubObj = { routeData: { price: 269 } };
+                const expectSubObj = { routeData: { price: 279 } };
 
                 expect(testFn).toMatchObject(expectSubObj);
                 expect(mockAPI.requestRouteMatrix).toHaveBeenCalled();
@@ -387,7 +387,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 15, service: 50 };
 
-            const mockResult = 4;
+            const mockResult = 10;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -399,7 +399,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 15, service: 50 };
 
-            const mockResult = 4;
+            const mockResult = 11.5;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -411,7 +411,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 50 };
 
-            const mockResult = 8;
+            const mockResult = 16;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -423,7 +423,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 50 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -435,7 +435,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 150 };
 
-            const mockResult = 8;
+            const mockResult = 16;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -447,7 +447,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 150 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -459,7 +459,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 300 };
 
-            const mockResult = 8;
+            const mockResult = 16;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -471,7 +471,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 300 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -491,7 +491,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 15, service: 50 };
 
-            const mockResult = 4;
+            const mockResult = 10;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -503,7 +503,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 15, service: 50 };
 
-            const mockResult = 4;
+            const mockResult = 11.5;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -515,7 +515,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 50 };
 
-            const mockResult = 8;
+            const mockResult = 16;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -527,7 +527,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 50 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -539,7 +539,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 150 };
 
-            const mockResult = 8.5;
+            const mockResult = 17.5;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -551,7 +551,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 150 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -563,7 +563,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = true;
             const mockParam_distances = { approach: 30, service: 300 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -575,7 +575,7 @@ describe('Destination tests, priority: _calcApproachCosts', () => {
             const mockParam_isWithinBH = false;
             const mockParam_distances = { approach: 30, service: 300 };
 
-            const mockResult = 9;
+            const mockResult = 19;
             const testFn = destinationModel._calcApproachCosts(
                 mockParam_isWithinBH, mockParam_distances, mockParam_back2home
             );
@@ -808,12 +808,12 @@ describe('Destination tests, priority: _calcDiscountLaToVIA', () => {
 
     describe('Testing fn calls with result = 6,-', () => {
 
-        test('Route (2351to1300), params <servDist> < 40', () => {
+        test('Route (2351to1300), params <servDist> <= 55, <pickUp> = 05:00', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route2351-1300']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
-            const mockParam_pickUp = '08:00';
+            const mockParam_pickUp = '05:00';
 
             const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
@@ -823,12 +823,12 @@ describe('Destination tests, priority: _calcDiscountLaToVIA', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (2525to1300), params <servDist> > 40 < 55, <pickUp> == "05:00"', () => {
+        test('Route (2525to1300), params <servDist> <= 55, <pickUp> == "09:59"', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route2525-1300']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
-            const mockParam_pickUp = '05:00';
+            const mockParam_pickUp = '09:59';
 
             const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp
@@ -886,12 +886,12 @@ describe('Destination tests, priority: _calcDiscountLaToVIA', () => {
             expect(testFn).toBe(expectResult);
         })
 
-        test('Route (2525to1300), params: <servDist> > 40 < 55, <pickUp> = "09:00"', () => {
+        test('Route (2525to1300), params: <servDist> less than 55km, <pickUp> = "10:01"', () => {
             const mockData = structuredClone(MockData_RouteMatrix['route2525-1300']);
             const mockParam_originDetails = mockData['originDetails'];
             const mockParam_destinationDetails = mockData['destinationDetails'];
             const mockParam_servDist = mockData['a_information']['servDist'];
-            const mockParam_pickUp = '09:00';
+            const mockParam_pickUp = '10:01';
 
             const testFn = destinationModel._calcDiscountLaToVIA(
                 mockParam_originDetails, mockParam_destinationDetails, mockParam_servDist, mockParam_pickUp

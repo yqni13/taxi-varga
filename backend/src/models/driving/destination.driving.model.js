@@ -170,8 +170,7 @@ class DrivingDestinationModel extends BaseDrivingModel {
         ];
 
         const price = servDistRules.find(rule => distances.service < rule.max).apply(isWithinBH, back2home);
-        const approachDistance = this.calcApproachDistanceAdvanced(distances.approach);
-        return this.#prices.base + (approachDistance * price);
+        return this.#prices.base + (distances.approach * price);
     }
 
     _calcReturnCosts(params, routes, isWithinBH) {
@@ -196,12 +195,8 @@ class DrivingDestinationModel extends BaseDrivingModel {
     _calcDiscountLaToVIA(originDetails, destinationDetails, servDist, pickUp) {
         const isOriginLA = Utils.checkAddressInLowerAustriaByProvince(originDetails.province ?? null);
         const isDestinationVIA = Utils.checkAddressAtViennaAirport(destinationDetails.zipCode ?? null);
-        if(servDist <= 40) {
+        if(servDist <= 55) {
             const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '09:59');
-            return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discount.la2via : 0;
-        }
-        if(servDist > 40 && servDist <= 55) {
-            const isTimeWithinRange = Utils.isTimeStartingWithinRange(pickUp, '04:00', '05:59');
             return isTimeWithinRange && isOriginLA && isDestinationVIA ? this.#prices.discount.la2via : 0;
         }
         return 0;
