@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/09/13}$
+
+$\textsf{[v2.0.17\ =>\ {\textbf{\color{brown}v2.0.18}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated text information on pages 'home' and 'samples'.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/08/24}$
 
-$\textsf{[v2.0.16\ =>\ {\textbf{\color{brown}v2.0.17}]}}$ app
+$\textsf{[v2.0.16\ =>\ v2.0.17]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 'sample' page data.
 
 <br>
