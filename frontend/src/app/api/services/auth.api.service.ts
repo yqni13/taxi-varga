@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { HttpClient, HttpResponse } from "@angular/common/http";
@@ -7,29 +7,28 @@ import { ServiceRoute } from "../routes/service.route.enum";
 import { environment } from '../../../environments/environment';
 import { AuthRequest } from "../interfaces/auth-request.interface";
 import { default as validationJson } from "../../../../public/assets/i18n/validation-en.json";
+import { AbstractApiServiceClass } from "./abstract.api.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class AuthService {
-    private url: string;
-    private credentials: AuthRequest;
-    private statusCodes: string[];
+export class AuthService extends AbstractApiServiceClass {
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly crypto: CryptoService,
-        private readonly datetime: DateTimeService
-    ) {
-        // this.url = '/api/v1/auth/init';
-        this.url = `${environment.API_BASE_URL}/api/v1/auth/init`;
-        this.credentials = {
-            user: '',
-            pass: '',
-            aud: ''
-        };
-        this.statusCodes = ['401', '404', '429', '500', '0'];
-    }
+    private readonly http = inject(HttpClient);
+    private readonly crypto = inject(CryptoService);
+    private readonly datetime = inject(DateTimeService);
+    
+    private statusCodes: string[] = ['401', '404', '429', '500', '0'];
+
+    private credentials: AuthRequest = {
+        user: '',
+        pass: '',
+        aud: ''
+    };
+    
+    private url = this.isDevEnv
+        ? '/api/v1/auth/init'
+        : `${environment.API_BASE_URL.trim()}/api/v1/auth/init`;
 
     getExceptionCollection(): string[] {
         return Object.keys(validationJson.validation.backend.header);
@@ -43,8 +42,8 @@ export class AuthService {
         const addition = this.datetime.getCurrentTimeInMilliseconds();
         try {
             this.credentials = {
-                user: await this.crypto.encryptRSA(environment.AUTH_USER),
-                pass: await this.crypto.encryptRSA(environment.AUTH_PASSWORD + addition.toString()),
+                user: await this.crypto.encryptRSA(environment.AUTH_USER.trim()),
+                pass: await this.crypto.encryptRSA(environment.AUTH_PASSWORD.trim() + addition.toString()),
                 aud: service
             }
         } catch(err) {

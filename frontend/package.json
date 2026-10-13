@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "node ./set-env.dev.ts && ng serve --open",
     "start-local-ssl": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 cmd /c \"node ./set-env.dev.ts && ng serve --ssl true --ssl-cert D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.crt --ssl-key D:/Dokumente/GitHub/taxi-varga/local_ssl/localhost.key --open\"",
+    "start-ssl-linux": "cross-env NODE_TLS_REJECT_UNAUTHORIZED=0 sh -c \"node ./set-env.dev.ts && ng serve --ssl true --ssl-cert ../local_ssl/localhost.crt --ssl-key ../local_ssl/localhost.key --open\"",
     "start:stag": "node set-env.ts && ng serve --configuration staging",
     "start:prod": "node set-env.ts && ng serve --configuration production",
     "build": "ng build",
