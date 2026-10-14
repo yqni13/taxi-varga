@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -28,6 +28,7 @@ import { MetaFormValidationData } from "../../shared/interfaces/meta-request.int
 
 @Component({
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {

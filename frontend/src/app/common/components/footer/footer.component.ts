@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
@@ -17,6 +17,7 @@ import { LanguageHandlerService } from "../../../shared/services/language-handle
         RouterModule,
         TranslateModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickOutside($event)'
     }

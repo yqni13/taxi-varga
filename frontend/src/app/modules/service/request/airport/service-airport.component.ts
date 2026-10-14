@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
@@ -17,6 +17,7 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-airport.component.scss'
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         DistanceFormatPipe,
         ...ServiceImportsModule

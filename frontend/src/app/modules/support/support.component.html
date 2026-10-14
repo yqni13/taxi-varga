@@ -15,7 +15,7 @@
 		<h1>{{'modules.support.title' | translate}}</h1>
 	</header>
 	<div class="tava-support-content">
-		<ng-container *tavaVar="supportForm.get('option')?.value as opt">
+		<ng-container *tavaVar="$safeNavigationMigration(supportForm.get('option')?.value) as opt">
 			@if (opt !== '') {
 				<div class="tava-support-category">
 					<i
@@ -167,7 +167,7 @@
 			}
 
 			<!-- ATTACHMENT PANEL -->
-			<ng-container *tavaVar="supportForm.get('attachment')?.value as attachment">
+			<ng-container *tavaVar="$safeNavigationMigration(supportForm.get('attachment')?.value) as attachment">
 				@if (opt !== ticketOption.FEEDBACK && attachment && attachment?.length > 0) {
 					<div id="tava-support-attachment-list" class="outer-border">
 						<div class="inner-border">

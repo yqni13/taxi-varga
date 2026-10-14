@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { FormControl, Validators } from "@angular/forms";
@@ -24,6 +24,7 @@ import { AddressAPIService } from "../../../../api/services/address.api.service"
         '../../service.component.scss',
         './service-quick.component.scss'
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         DistanceFormatPipe,
         ...ServiceImportsModule

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule } from "@ngx-translate/core";
@@ -12,6 +12,7 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-imprint',
     templateUrl: './imprint.component.html',
     styleUrl: './imprint.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

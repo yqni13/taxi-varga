@@ -1,6 +1,6 @@
 import { ServiceRoute } from '../../api/routes/service.route.enum';
 import { CommonModule } from "@angular/common";
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -13,6 +13,7 @@ import { BaseRoute } from '../../api/routes/base.route.enum';
     selector: 'tava-service',
     templateUrl: './service.component.html',
     styleUrl: './service.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -12,6 +12,7 @@ import { VarDirective } from "../../common/directives/ng-var.directive";
     selector: 'tava-samples',
     templateUrl: './samples.component.html',
     styleUrl: './samples.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

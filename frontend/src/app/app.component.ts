@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, DOCUMENT } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
 import { FooterComponent } from './common/components/footer/footer.component';
@@ -12,6 +12,7 @@ import { NavigationService } from './shared/services/navigation.service';
 	selector: 'app-root',
 	templateUrl: './app.component.html',
 	styleUrl: './app.component.scss',
+	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		NavigationComponent,
 		FooterComponent,
@@ -20,6 +21,8 @@ import { NavigationService } from './shared/services/navigation.service';
 	]
 })
 export class AppComponent implements OnInit {
+
+	// TODO(yqni13): check all components for correct changeDetection
 
 	protected title = 'taxi-varga';
 

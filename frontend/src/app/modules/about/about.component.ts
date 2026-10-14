@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -11,6 +11,7 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
     selector: 'tava-about',
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CarouselComponent,
         CommonModule,

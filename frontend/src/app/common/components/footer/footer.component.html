@@ -16,7 +16,8 @@
 							[attr.aria-disabled]="true"
 							routerLink="{{route.path}}"
 							routerLinkActive="tava-active-route"
-						>{{'common.footer.title.' + route.data?.['title'] | translate}}</span>
+						>{{'common.footer.title.' + $safeNavigationMigration(route.data?.['title']) | translate}}</span>
+						<!-- TODO(yqni13): check all null/undefined cases to remove temp $safeNavigationMigration fn() -->
 					</li>
 				}
 				<li class="tava-li-divider">

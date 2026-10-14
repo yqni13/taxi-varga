@@ -19,7 +19,7 @@
 						routerLink="{{ route.path }}"
 						routerLinkActive="tava-active-route"
 					>
-						{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} 
+						{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + $safeNavigationMigration(route.data?.['title']) | translate) : ''}} 
 						@if (deviceMode === deviceOptions.MOBILE) {
 							<i class="{{route.data?.['icon']}}"></i>
 						}

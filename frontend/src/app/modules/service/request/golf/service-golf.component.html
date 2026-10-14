@@ -72,7 +72,7 @@
 							{{'modules.service.content.golf.labels.passengers' | translate}}*
 						</span>
 					</div>
-					<ng-container *tavaVar="serviceForm.get('supportMode')?.value as supportMode">
+					<ng-container *tavaVar="$safeNavigationMigration(serviceForm.get('supportMode')?.value) as supportMode">
 						@if (supportMode !== null && serviceForm.get('passengers')?.value !== PassengerOptionsEnum.PPL4) {
 							<div class="tava-service-specific-block" id="form-checkbox">
 								<div class="tava-custom-input-checkbox">
@@ -140,7 +140,7 @@
 							{{('modules.service.content.form.order.contact' | translate) + ':'}}
 						</span>
 						<span class="tava-service-specific-offer-sum-right">
-							{{('shared.enum.gender.' + serviceForm.get('gender')?.value | translate) + customer}}
+							{{('shared.enum.gender.' + $safeNavigationMigration(serviceForm.get('gender')?.value) | translate) + customer}}
 						</span>
 					</div>
 				}
@@ -251,7 +251,7 @@
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{serviceForm.get('distance')?.value | distanceFormat}}
+						{{$safeNavigationMigration(serviceForm.get('distance')?.value) | distanceFormat}}
 					</span>
 				</div>
 				<div class="tava-service-specific-offer-sum">
@@ -301,7 +301,7 @@
 						{{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right" id="tava-service-offer-sum-price">
-						{{(serviceForm.get('price')?.value | currencyFormat)}}
+						{{($safeNavigationMigration(serviceForm.get('price')?.value) | currencyFormat)}}
 					</span>
 					<span id="tava-service-offer-hint-greenfee">
 						{{' (' + ('modules.service.content.form.order.hint-greenfee' | translate) + ')'}}

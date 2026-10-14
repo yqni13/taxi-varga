@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, Subject, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
@@ -16,6 +16,7 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
         '../../service.component.scss',
         './service-flatrate.component.scss'
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         ...ServiceImportsModule
     ]

@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Input, TemplateRef } from "@angular/core";
+import { Component, Input, TemplateRef, ChangeDetectionStrategy } from "@angular/core";
 
 @Component({
     selector: 'tava-carousel',
@@ -8,6 +8,7 @@ import { Component, Input, TemplateRef } from "@angular/core";
     imports: [
         CommonModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:keydown)': 'navByKeyInput($event)'
     }

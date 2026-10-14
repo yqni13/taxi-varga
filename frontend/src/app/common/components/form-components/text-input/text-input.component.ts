@@ -1,4 +1,4 @@
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -24,6 +24,7 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
             multi: true,
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickListening($event)',
         '(window:keydown)': 'keyListening($event)'

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { SnackbarMessageService } from "../../../shared/services/snackbar.service";
 import { CommonModule } from "@angular/common";
 import { SnackbarOption } from "../../../shared/enums/snackbar-options.enum";
@@ -11,6 +11,7 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
     imports: [
         CommonModule
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:keydown.escape)': 'closeOnEscape()'
     }

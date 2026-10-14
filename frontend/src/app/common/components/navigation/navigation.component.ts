@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, DOCUMENT } from "@angular/core";
+import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
@@ -12,6 +12,7 @@ import { AssetsPreloadService } from "../../../shared/services/assets-preload.se
     selector: 'tava-navigation',
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,

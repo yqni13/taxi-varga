@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, Inject, OnDestroy, OnInit, DOCUMENT } from "@angular/core";
+import { Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -10,6 +10,7 @@ import * as content from "../../../../public/assets/i18n/privacy-en.json";
     selector: 'app-privacy',
     templateUrl: './privacy.component.html',
     styleUrl: './privacy.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule

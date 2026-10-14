@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -31,6 +31,7 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
             multi: true,
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickOutside($event)',
         '(window:keydown)': 'tabOutside($event)'

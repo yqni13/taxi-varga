@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, ChangeDetectionStrategy } from "@angular/core";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { CastAbstract2FormControlPipe } from "../../../pipes/cast-abstract2form-control.pipe";
@@ -11,6 +11,7 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
     selector: 'tava-servicemeta',
     templateUrl: './service-meta.component.html',
     styleUrl: './service-meta.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CastAbstract2FormControlPipe,
         ReactiveFormsModule,

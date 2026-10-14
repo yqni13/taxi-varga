@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { FormControl, Validators } from "@angular/forms";
@@ -20,6 +20,7 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         DistanceFormatPipe,
         SelectInputComponent,

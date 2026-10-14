@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, ViewChild, DOCUMENT } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, ViewChild, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TextInputComponent } from "../../common/components/form-components/text-input/text-input.component";
@@ -27,6 +27,7 @@ import { NavigationService } from "../../shared/services/navigation.service";
     selector: 'app-support',
     templateUrl: './support.component.html',
     styleUrl: './support.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule,
