@@ -1,28 +1,31 @@
-import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy, inject } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
-import { NavigationEnd, Route, Router, RouterModule } from "@angular/router";
+import { NavigationEnd, Router, RouterModule } from "@angular/router";
 import _ from 'underscore';
 import { CommonModule } from "@angular/common";
 import { DeviceOptions } from "../../../shared/enums/device-option.enum";
 import { filter } from "rxjs";
 import { AssetsPreloadService } from "../../../shared/services/assets-preload.service";
+import { CustomRoute } from "../../../shared/interfaces/custom-route.interface";
 
 @Component({
     selector: 'tava-navigation',
-    templateUrl: './navigation.component.html',
-    styleUrl: './navigation.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './navigation.component.html',
+    styleUrl: './navigation.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class NavigationComponent implements OnInit {
 
+    private readonly navigation = inject(NavigationService);
+
     protected deviceOptions = DeviceOptions;
-    protected routes: Route[];
+    protected routes: CustomRoute[] = [];
     protected preloadImages: string[];
     protected isPreloading: boolean;
     protected deviceMode: DeviceOptions;
@@ -32,13 +35,11 @@ export class NavigationComponent implements OnInit {
 
     constructor(
         private readonly router: Router,
-        private readonly navigation: NavigationService,
         @Inject(DOCUMENT) private document: Document,
         private readonly assetPreload: AssetsPreloadService,
     ) {
         this.window = this.document.defaultView;
         this.maxMobileWidth = 1024;
-        this.routes = [];
         this.isPreloading = true;
         this.deviceMode = DeviceOptions.MOBILE;
 

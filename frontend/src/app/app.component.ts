@@ -10,15 +10,15 @@ import { NavigationService } from './shared/services/navigation.service';
 
 @Component({
 	selector: 'app-root',
-	templateUrl: './app.component.html',
-	styleUrl: './app.component.scss',
-	changeDetection: ChangeDetectionStrategy.Eager,
 	imports: [
 		NavigationComponent,
 		FooterComponent,
 		RouterOutlet,
 		SnackbarComponent
-	]
+	],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.scss',
+	changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AppComponent implements OnInit {
 
