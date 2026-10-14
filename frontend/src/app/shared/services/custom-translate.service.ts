@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { TranslateService } from "@ngx-translate/core";
 import { TranslateExtendedParams, TranslationParams } from "../interfaces/translate.interface";
 
@@ -7,11 +7,7 @@ import { TranslateExtendedParams, TranslationParams } from "../interfaces/transl
 })
 export class CustomTranslateService {
 
-    constructor(
-        private readonly translate: TranslateService,
-    ) {
-        //
-    }
+    private readonly translate = inject(TranslateService);
 
     apply(path: string, source?: any): string {
         if(path === '' || path.includes('undefined')) {

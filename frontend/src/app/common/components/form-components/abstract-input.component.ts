@@ -12,11 +12,7 @@ export class AbstractInputComponent implements ControlValueAccessor {
     private onTouch!: (value: unknown) => void;
 
     input!: unknown;
-    isFocused: boolean;
-
-    constructor() {
-        this.isFocused = false;
-    }
+    isFocused = false;
 
     writeValue(input: unknown) {
         this.input = input;

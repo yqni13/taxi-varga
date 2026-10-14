@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, ChangeDetectionStrategy, inject } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnInit, ChangeDetectionStrategy, inject, viewChild } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
@@ -26,32 +26,28 @@ import { CustomRoute } from "../../../shared/interfaces/custom-route.interface";
 export class FooterComponent implements OnInit, AfterViewInit {
 
     private readonly navigation = inject(NavigationService);
+    private readonly themeHandler = inject(ThemeHandlerService);
+    private readonly languageHandler = inject(LanguageHandlerService);
 
-    @ViewChild('themeMode') themeMode?: ElementRef; 
-    @ViewChild('themeIcon') themeIcon?: ElementRef; 
+    private readonly themeMode = viewChild<ElementRef>('themeMode');
+    private readonly themeIcon = viewChild<ElementRef>('themeIcon');
 
     protected languages = LanguageOptions;
     protected selectedLanguage: LanguageOptions;
-    protected showLanguageWindow: boolean;
-    protected creatorURL: string;
+    protected showLanguageWindow = false;
+    protected creatorURL = 'https://yqni13.com';
     protected routes: CustomRoute[] = [];
     protected selectedTheme: ThemeOptions;
     protected themes = ThemeOptions;
-    protected currentYear: string;
+    protected currentYear = new Date().getFullYear().toString();
 
     constructor(
-        private readonly themeHandler: ThemeHandlerService,
-        private readonly languageHandler: LanguageHandlerService,
     ) {
         this.selectedTheme = this.themeHandler.checkThemeSettings();
         this.themeHandler.setThemeSettings(this.selectedTheme);
 
         this.selectedLanguage = this.languageHandler.checkLanguageData();
         this.languageHandler.setLanguageData(this.selectedLanguage);
-
-        this.showLanguageWindow = false;
-        this.creatorURL = 'https://yqni13.com';
-        this.currentYear = new Date().getFullYear().toString();
     }
 
     protected setTheme() {
@@ -69,12 +65,12 @@ export class FooterComponent implements OnInit, AfterViewInit {
 
     private applyThemeClass() {
         if(this.themeMode) {
-            this.themeMode.nativeElement.classList.remove(ThemeOptions.darkMode, ThemeOptions.lightMode);
-            this.themeMode.nativeElement.classList.add(this.selectedTheme);
+            this.themeMode()?.nativeElement.classList.remove(ThemeOptions.darkMode, ThemeOptions.lightMode);
+            this.themeMode()?.nativeElement.classList.add(this.selectedTheme);
         } 
         if(this.themeIcon) {
-            this.themeIcon.nativeElement.classList.remove('icon-lightMode', 'icon-darkMode');
-            this.themeIcon.nativeElement.classList.add(`icon-${this.selectedTheme}`);
+            this.themeIcon()?.nativeElement.classList.remove('icon-lightMode', 'icon-darkMode');
+            this.themeIcon()?.nativeElement.classList.add(`icon-${this.selectedTheme}`);
         }
     }
 

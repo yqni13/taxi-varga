@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit, DOCUMENT, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, OnInit, ChangeDetectionStrategy, inject } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavigationComponent } from './common/components/navigation/navigation.component';
 import { FooterComponent } from './common/components/footer/footer.component';
@@ -22,24 +22,24 @@ import { NavigationService } from './shared/services/navigation.service';
 })
 export class AppComponent implements OnInit {
 
+	private readonly router = inject(Router);
+	private readonly elRef = inject(ElementRef);
+	private readonly tokenService = inject(TokenService);
+	private readonly navigation = inject(NavigationService);
+	protected readonly snackbarService = inject(SnackbarMessageService);
+
 	// TODO(yqni13): check all components for correct changeDetection
 
 	protected title = 'taxi-varga';
 
 	private scrollAnchor!: HTMLElement;
 
-	constructor(
-		protected readonly snackbarService: SnackbarMessageService,
-		private readonly navigation: NavigationService,
-		@Inject(DOCUMENT) private document: Document,
-		private readonly tokenService: TokenService,
-		private readonly elRef: ElementRef,
-		private readonly router: Router,
-	) {
+	ngOnInit() {
 		this.router.events.subscribe(event => {
 			if(event instanceof NavigationEnd) {
-				this.navigation.scrollToTop(this.scrollAnchor, this.document);
-				// destroy session (token) leaving a service mask
+				this.navigation.scrollToTop(this.scrollAnchor, document);
+
+				// Destroy session (token) leaving a service mask.
 				const servicePaths = Object.values(ServiceRoute) as string[];
 				const currentPath = event.url.startsWith('/') ? event.url.replace('/', '') : event.url;
 				if(!servicePaths.includes(currentPath)) {
@@ -47,9 +47,6 @@ export class AppComponent implements OnInit {
 				}
 			}
 		});
-	}
-
-	ngOnInit() {
 		this.scrollAnchor = this.elRef.nativeElement.querySelector(".tava-scroll-anchor");
 	}
 }

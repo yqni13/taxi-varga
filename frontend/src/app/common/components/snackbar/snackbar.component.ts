@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { SnackbarMessageService } from "../../../shared/services/snackbar.service";
 import { CommonModule } from "@angular/common";
 import { SnackbarOption } from "../../../shared/enums/snackbar-options.enum";
@@ -18,13 +18,16 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
 })
 export class SnackbarComponent implements OnInit {
 
+    private readonly snackbarService = inject(SnackbarMessageService);
+
     @Input() snackbarMsg: SnackbarMessage;
+
     protected snackbarOptions = SnackbarOption;
-    protected snackbarClass: string;
+    protected snackbarClass = '';
 
-    private isActive: boolean;
+    private isActive = false;
 
-    constructor(private snackbarService: SnackbarMessageService) {
+    constructor() {
         this.snackbarMsg = {
             title: '',
             text: '',
@@ -32,8 +35,6 @@ export class SnackbarComponent implements OnInit {
             phone: undefined,
             mail: undefined
         }
-        this.snackbarClass = '';
-        this.isActive = false;
     }
 
     getActiveStatus(): boolean {

@@ -11,15 +11,15 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
+    imports: [
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-flatrate.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-flatrate.component.scss'
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        ...ServiceImportsModule
-    ]
 })
 export class ServiceFlatrateComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
@@ -27,10 +27,6 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     protected dropoffTimeByLangStatic = "";
     protected minTenancyStamp$ = new Subject<string>();
     protected maxTenancyStamp$ = new Subject<string>();
-
-    constructor() {
-        super()
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.FLATRATE;

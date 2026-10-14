@@ -11,23 +11,18 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-destination',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-destination.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-destination.component.scss'
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
-
-    constructor(
-    ) {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;

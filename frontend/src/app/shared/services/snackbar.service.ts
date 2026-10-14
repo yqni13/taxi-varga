@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { SnackbarOption } from "../enums/snackbar-options.enum";
 import { Subject } from "rxjs";
 import { SnackbarMessage } from "../interfaces/snackbar.interface";
@@ -9,17 +9,11 @@ import { CustomTranslateService } from "./custom-translate.service";
 })
 export class SnackbarMessageService {
 
-    snackbarCollection: SnackbarMessage[];
-    subject: Subject<boolean>;
-    isActive: boolean;
+    private readonly customTranslate = inject(CustomTranslateService);
 
-    constructor(
-        private readonly customTranslate: CustomTranslateService
-    ) {
-        this.snackbarCollection = [];
-        this.subject = new Subject<boolean>();
-        this.isActive = false;
-    }
+    snackbarCollection: SnackbarMessage[] = [];
+    subject: Subject<boolean> = new Subject<boolean>();
+    isActive = false;
 
     onNotify() {
         this.subject.next(true);

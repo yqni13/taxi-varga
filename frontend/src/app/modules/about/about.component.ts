@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -9,33 +9,25 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
 
 @Component({
     selector: 'tava-about',
-    templateUrl: './about.component.html',
-    styleUrl: './about.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CarouselComponent,
         CommonModule,
         TranslateModule,
-    ]
+    ],
+    templateUrl: './about.component.html',
+    styleUrl: './about.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class AboutComponent implements OnInit, OnDestroy {
 
-    protected selectedBg: string;
-    protected images: string[];
-    protected isPreloading: boolean;
+    private readonly observation = inject(ObservationService);
+    private readonly assetsPreloadService = inject(AssetsPreloadService);
 
-    private subscriptionObservation$: Subscription;
+    protected selectedBg = '';
+    protected images: string[] = [];
+    protected isPreloading = true;
 
-    constructor(
-        private readonly observation: ObservationService,
-        private readonly assetsPreloadService: AssetsPreloadService
-    ) {
-        this.selectedBg = '';
-        this.images = [];
-        this.isPreloading = true;
-
-        this.subscriptionObservation$ = new Subscription();
-    }
+    private subscriptionObservation$: Subscription = new Subscription();
 
     ngOnInit() {
         this.images = [

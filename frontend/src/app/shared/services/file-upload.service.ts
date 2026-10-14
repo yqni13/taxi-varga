@@ -1,4 +1,4 @@
-import { ElementRef, Injectable } from "@angular/core";
+import { ElementRef, inject, Injectable } from "@angular/core";
 import { Subject } from "rxjs";
 import { SnackbarMessageService } from "./snackbar.service";
 import { SnackbarOption } from "../enums/snackbar-options.enum";
@@ -9,25 +9,16 @@ import { FileUploadValidations } from "../interfaces/file-upload.interface";
 })
 export class FileUploadService {
 
-    private maxSizeEachInBytes: number;
-    private maxNumber: number;
-    private allowedTypes: string[];
-    private allowedTypesIndicators: string[];
+    private readonly snackbar = inject(SnackbarMessageService);
+
+    private maxSizeEachInBytes = 0;
+    private maxNumber = 0;
+    private allowedTypes: string[] = [];
+    private allowedTypesIndicators: string[] = [];
     private fileTransfer = new Subject<any>();
 
-    protected selectedFiles: File[];
+    protected selectedFiles: File[] = [];
     fileTransfer$ = this.fileTransfer.asObservable();
-
-    constructor(
-        private readonly snackbar: SnackbarMessageService,
-    ) {
-        this.selectedFiles = [];
-
-        this.maxSizeEachInBytes = 0;
-        this.maxNumber = 0;
-        this.allowedTypes = [];
-        this.allowedTypesIndicators = [];
-    }
 
     selectFiles(event: any) {
         let newFiles: File[] = Array.from(event.target.files);

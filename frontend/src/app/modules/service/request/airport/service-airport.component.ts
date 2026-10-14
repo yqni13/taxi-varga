@@ -12,26 +12,22 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-airport',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-airport.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-airport.component.scss'
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected directionOptions = AirportOptions;
 
     private addressSubscription$: Subscription | undefined = new Subscription();
-
-    constructor() {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.AIRPORT;

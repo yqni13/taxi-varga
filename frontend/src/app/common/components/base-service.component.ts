@@ -49,64 +49,35 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
     protected drivingAPIService = inject(DrivingAPIService);
 
     protected addressOptions = AddressOptions;
-    protected selectedBg: string;
-    protected hasOffer: boolean;
-    protected hasToken: boolean;
-    protected hasOrder: boolean;
-    protected hasConfirmed: boolean;
-    protected pickupTimeByLang$: Subject<string>;
-    protected pickupTimeByLangStatic: string;
-    protected customer: string;
-    protected metaProperties: string[];
-    protected validationData: MetaFormValidationData;
-    protected termCancellation: boolean;
-    protected termSurchargeParking: boolean;
-    protected termSurchargeFuel: boolean;
-    protected loadOfferResponse: boolean;
-    protected loadOrderResponse: boolean;
-    protected serviceForm: FormGroup;
-    protected metaForm: FormGroup;
+    protected selectedBg = '';
+    protected hasOffer = false;
+    protected hasToken = false;
+    protected hasOrder = false;
+    protected hasConfirmed = false;
+    protected pickupTimeByLang$: Subject<string> = new Subject<string>();
+    protected pickupTimeByLangStatic = '';
+    protected customer = '';
+    protected metaProperties: string[] = this.initMetaProperties();
+    protected validationData: MetaFormValidationData = this.initMetaValidationData();
+    protected termCancellation = false;
+    protected termSurchargeParking = false;
+    protected termSurchargeFuel = false;
+    protected loadOfferResponse = false;
+    protected loadOrderResponse = false;
+    protected serviceForm: FormGroup = new FormGroup({});
+    protected metaForm: FormGroup = new FormGroup({});
     protected service!: ServiceRoute;
-    protected subscriptionHttpObservationDriving$: Subscription;
+    protected subscriptionHttpObservationDriving$: Subscription = new Subscription();
     protected snackbarTextMail?: string;
     protected snackbarTextPhone?: string;
-    protected window: any;
-    protected delay: any;
+    protected window = document.defaultView;
+    protected delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     private scrollAnchor!: HTMLElement;
-    private subscriptionThemeObservation$: Subscription;
-    private subscriptionLangObservation$: Subscription;
-    private subscriptionHttpObservationEmail$: Subscription;
-    private subscriptionHttpObservationError$: Subscription;
-
-    constructor() {
-        this.selectedBg = '';
-        this.hasOffer = false;
-        this.hasToken = false;
-        this.hasOrder = false;
-        this.hasConfirmed = false;
-        this.pickupTimeByLang$ = new Subject<string>();
-        this.pickupTimeByLangStatic = '';
-
-        this.serviceForm = new FormGroup({});
-        this.metaForm = new FormGroup({});
-        this.customer = '';
-        this.termCancellation = false;
-        this.termSurchargeParking = false;
-        this.termSurchargeFuel = false;
-        this.loadOfferResponse = false;
-        this.loadOrderResponse = false;
-
-        this.subscriptionThemeObservation$ = new Subscription();
-        this.subscriptionLangObservation$ = new Subscription();
-        this.subscriptionHttpObservationDriving$ = new Subscription();
-        this.subscriptionHttpObservationEmail$ = new Subscription();
-        this.subscriptionHttpObservationError$ = new Subscription();
-        this.window = document.defaultView;
-        this.metaProperties = this.initMetaProperties();
-        this.validationData = this.initMetaValidationData();
-        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    private subscriptionThemeObservation$: Subscription = new Subscription();
+    private subscriptionLangObservation$: Subscription = new Subscription();
+    private subscriptionHttpObservationEmail$: Subscription = new Subscription();
+    private subscriptionHttpObservationError$: Subscription = new Subscription();
 
     async ngOnInit() {
         this.subscriptionThemeObservation$ = this.observe.themeOption$.pipe(
@@ -124,12 +95,12 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
             })
         ).subscribe();
 
-        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val) => {
+        this.subscriptionLangObservation$ = this.translate.onLangChange.subscribe((val: any) => {
             this.configPickupTimeByLanguage(val.lang);
         });
 
         await this.auth.initSession(this.service);
-        this.auth.sendInitRequest().subscribe(response => {
+        this.auth.sendInitRequest().subscribe((response: any) => {
             // avoid refreshing token after reload of webpage
             const previousUrl = this.navigation.getPreviousUrl();
             if(previousUrl !== 'UNAVAILABLE') {

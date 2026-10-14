@@ -19,16 +19,16 @@ import { AddressAPIService } from "../../../../api/services/address.api.service"
 
 @Component({
     selector: 'tava-service-quick',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-quick.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-quick.component.scss'
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
 })
 export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -45,10 +45,6 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected isSelectingGPSOption = false;
 
     private originSubscription$: Subscription | undefined = new Subscription();
-
-    constructor() {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.QUICK;

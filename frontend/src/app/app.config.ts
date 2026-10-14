@@ -9,8 +9,8 @@ import { appHttpInterceptor } from './app.http.interceptor';
 import { authInterceptorFn } from './app.auth.interceptor';
 import { ThemeHandlerService } from './shared/services/theme-handler.service';
 
-export function createTranslateLoader(http: HttpClient) {
-  return new CustomTranslateLoader(http, './assets/i18n/', '.json');
+export function createTranslateLoader() {
+  return new CustomTranslateLoader();
 }
 
 export const appConfig: ApplicationConfig = {

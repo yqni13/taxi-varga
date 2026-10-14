@@ -15,17 +15,17 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-golf',
+    imports: [
+        DistanceFormatPipe,
+        SelectInputComponent,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-golf.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
     changeDetection: ChangeDetectionStrategy.Eager,
-    imports: [
-        DistanceFormatPipe,
-        SelectInputComponent,
-        ...ServiceImportsModule
-    ]
 })
 export class ServiceGolfComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
@@ -35,11 +35,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     protected dropoffTimeByLangStatic = "";
     protected minStayStamp$ = new Subject<string>();
     protected maxStayStamp$ = new Subject<string>();
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
-    constructor() {
-        super();
-        this.snackbarTextMail = 'laszlovarga@gmx.at';
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.GOLF;

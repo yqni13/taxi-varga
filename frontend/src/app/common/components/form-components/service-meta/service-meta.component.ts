@@ -9,9 +9,6 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
 
 @Component({
     selector: 'tava-servicemeta',
-    templateUrl: './service-meta.component.html',
-    styleUrl: './service-meta.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CastAbstract2FormControlPipe,
         ReactiveFormsModule,
@@ -19,7 +16,10 @@ import { MetaFormRequest, MetaFormValidationData } from "../../../../shared/inte
         TextareaInputComponent,
         TextInputComponent,
         SelectInputComponent
-    ]
+    ],
+    templateUrl: './service-meta.component.html',
+    styleUrl: './service-meta.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceMetaComponent {
 

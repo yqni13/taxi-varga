@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
-import { Component, Inject, OnDestroy, OnInit, DOCUMENT, ChangeDetectionStrategy } from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -8,30 +8,22 @@ import * as content from "../../../../public/assets/i18n/privacy-en.json";
 
 @Component({
     selector: 'app-privacy',
-    templateUrl: './privacy.component.html',
-    styleUrl: './privacy.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './privacy.component.html',
+    styleUrl: './privacy.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class PrivacyComponent implements OnInit, OnDestroy {
 
-    protected selectedBg: string;
-    protected privacyData: string[];
+    private readonly observation = inject(ObservationService);
 
-    private subscriptionThemeObservation$: Subscription;
+    protected selectedBg = '';
+    protected privacyData: string[] = this.configContentLoop();
 
-    constructor(
-        private readonly translate: TranslateService,
-        private readonly observation: ObservationService,
-        @Inject(DOCUMENT) private readonly document: Document
-    ) {
-        this.selectedBg = '';
-        this.privacyData = this.configContentLoop();
-        this.subscriptionThemeObservation$ = new Subscription();
-    }
+    private subscriptionThemeObservation$: Subscription = new Subscription();
 
     ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
@@ -56,7 +48,7 @@ export class PrivacyComponent implements OnInit, OnDestroy {
     }
 
     navigateToHeader(id: string) {
-        this.document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
+        document.getElementById(id)?.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
     
     ngOnDestroy() {
