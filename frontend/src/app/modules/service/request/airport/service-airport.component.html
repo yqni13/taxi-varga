@@ -80,7 +80,7 @@
 							></tava-addressinput>
 						</div>
 					}
-					@if ($safeNavigationMigration(serviceForm.get('airportMode')?.value) !== null) {
+					@if (serviceForm.get('airportMode')?.value !== null) {
 						<div
 							class="tava-service-specific-block"
 							id="form-datetime"
@@ -119,7 +119,7 @@
 							{{('modules.service.content.form.order.contact' | translate) + ':'}}
 						</span>
 						<span class="tava-service-specific-offer-sum-right">
-							{{('shared.enum.gender.' + $safeNavigationMigration(serviceForm.get('gender')?.value) | translate) + customer}}
+							{{('shared.enum.gender.' + (serviceForm.get('gender')?.value ?? null) | translate) + customer}}
 						</span>
 					</div>
 				}
@@ -211,7 +211,7 @@
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{$safeNavigationMigration(serviceForm.get('distance')?.value) | distanceFormat}}
+						{{(serviceForm.get('distance')?.value ?? null) | distanceFormat}}
 					</span>
 				</div>
 				<div class="tava-service-specific-offer-sum">
@@ -235,7 +235,7 @@
 						{{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{$safeNavigationMigration(serviceForm.get('price')?.value) | currencyFormat}}
+						{{(serviceForm.get('price')?.value ?? null) | currencyFormat}}
 					</span>
 				</div>
 				@if (hasOrder && !hasConfirmed) {

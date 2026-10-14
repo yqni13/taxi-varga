@@ -31,7 +31,7 @@ import { MetaFormValidationData } from "../../shared/interfaces/meta-request.int
     changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
-export class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
+export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected router = inject(Router);
     protected fb = inject(FormBuilder);

@@ -157,7 +157,7 @@
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{$safeNavigationMigration(serviceForm.get('servDist')?.value) | distanceFormat}}
+						{{(serviceForm.get('servDist')?.value ?? null) | distanceFormat}}
 					</span>
 				</div>
 				<div class="tava-service-specific-offer-sum">
@@ -210,7 +210,7 @@
 						{{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{$safeNavigationMigration(serviceForm.get('price')?.value) | currencyFormat}}
+						{{(serviceForm.get('price')?.value ?? null) | currencyFormat}}
 					</span>
 				</div>
 			</div>
