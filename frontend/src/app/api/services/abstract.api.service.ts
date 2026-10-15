@@ -1,10 +1,14 @@
-import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
+import { inject, Injectable } from "@angular/core";
+import { UtilsService } from "../../shared/services/utils.service";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
 })
 export abstract class AbstractApiServiceClass {
 
-    protected isDevEnv = environment.BUILD_MODE.trim() === 'development';
+    protected readonly http = inject(HttpClient);
+    protected readonly utils = inject(UtilsService);
+
+    protected isDevEnv = this.utils.isDeveloperEnvironment();
 }

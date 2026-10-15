@@ -22,10 +22,6 @@ import * as CustomValidators from "../helper/custom-validators";
 import { DrivingAPIService } from "../../api/services/driving.api.service";
 import { MetaFormValidationData } from "../../shared/interfaces/meta-request.interface";
 
-/**
- * This is the base class for all 'service' modules.
- */
-
 @Component({
     template: '',
     changeDetection: ChangeDetectionStrategy.Eager,

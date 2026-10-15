@@ -6,11 +6,11 @@ import { SnackbarMessage } from "../../../shared/interfaces/snackbar.interface";
 
 @Component({
     selector: 'tava-snackbar',
-    templateUrl: './snackbar.component.html',
-    styleUrl: './snackbar.component.scss',
     imports: [
         CommonModule
     ],
+    templateUrl: './snackbar.component.html',
+    styleUrl: './snackbar.component.scss',
     changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:keydown.escape)': 'closeOnEscape()'

@@ -32,30 +32,23 @@ export class FooterComponent implements OnInit, AfterViewInit {
     private readonly themeMode = viewChild<ElementRef>('themeMode');
     private readonly themeIcon = viewChild<ElementRef>('themeIcon');
 
+    protected themes = ThemeOptions;
     protected languages = LanguageOptions;
-    protected selectedLanguage: LanguageOptions;
     protected showLanguageWindow = false;
     protected creatorURL = 'https://yqni13.com';
     protected routes: CustomRoute[] = [];
-    protected selectedTheme: ThemeOptions;
-    protected themes = ThemeOptions;
     protected currentYear = new Date().getFullYear().toString();
+    protected selectedLanguage: LanguageOptions = this.languageHandler.checkLanguageData();
+    protected selectedTheme: ThemeOptions = this.themeHandler.checkThemeSettings();
 
-    constructor(
-    ) {
-        this.selectedTheme = this.themeHandler.checkThemeSettings();
+    ngOnInit() {
+        this.routes = this.navigation.getFootertRoutes();
         this.themeHandler.setThemeSettings(this.selectedTheme);
-
-        this.selectedLanguage = this.languageHandler.checkLanguageData();
         this.languageHandler.setLanguageData(this.selectedLanguage);
     }
 
     protected setTheme() {
         this.selectedTheme = this.themeHandler.switchTheme(this.selectedTheme);
-    }
-
-    ngOnInit() {
-        this.routes = this.navigation.getFootertRoutes();
     }
 
     ngAfterViewInit() {

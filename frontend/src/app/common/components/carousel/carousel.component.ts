@@ -3,11 +3,11 @@ import { Component, TemplateRef, ChangeDetectionStrategy, input } from "@angular
 
 @Component({
     selector: 'tava-carousel',
-    templateUrl: './carousel.component.html',
-    styleUrl: './carousel.component.scss',
     imports: [
         CommonModule
     ],
+    templateUrl: './carousel.component.html',
+    styleUrl: './carousel.component.scss',
     changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:keydown)': 'navByKeyInput($event)'

@@ -1,7 +1,6 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { HttpResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";
-import { UtilsService } from "../../shared/services/utils.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { AddressFilterOptions } from "../../shared/enums/addressfilter-options.enum";
 import { environment } from "../../../environments/environment";
@@ -11,9 +10,6 @@ import { AbstractApiServiceClass } from "./abstract.api.service";
     providedIn: 'root'
 })
 export class AddressAPIService extends AbstractApiServiceClass {
-
-    private readonly http = inject(HttpClient);
-    private readonly utils = inject(UtilsService);
 
     private domainPathV1 = '/api/v1/address';
 

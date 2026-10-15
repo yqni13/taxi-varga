@@ -1,6 +1,6 @@
 import { SupportRoute } from './../routes/support.route.enum';
-import { HttpClient, HttpResponse } from "@angular/common/http";
-import { inject, Injectable } from "@angular/core";
+import { HttpResponse } from "@angular/common/http";
+import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { SupportFeedbackData, SupportTicketData } from "../../modules/support/support-form.interface";
@@ -11,8 +11,6 @@ import { AbstractApiServiceClass } from './abstract.api.service';
     providedIn: 'root'
 })
 export class SupportAPIService extends AbstractApiServiceClass {
-
-    private readonly http = inject(HttpClient);
 
     private domainPathV1 = '/api/v1';
 

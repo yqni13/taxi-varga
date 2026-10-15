@@ -1,7 +1,7 @@
 import { inject, Injectable } from "@angular/core";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { catchError, Observable, throwError } from "rxjs";
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpResponse } from "@angular/common/http";
 import { CryptoService } from "../../shared/services/crypto.service";
 import { ServiceRoute } from "../routes/service.route.enum";
 import { environment } from '../../../environments/environment';
@@ -14,7 +14,6 @@ import { AbstractApiServiceClass } from "./abstract.api.service";
 })
 export class AuthService extends AbstractApiServiceClass {
 
-    private readonly http = inject(HttpClient);
     private readonly crypto = inject(CryptoService);
     private readonly datetime = inject(DateTimeService);
     

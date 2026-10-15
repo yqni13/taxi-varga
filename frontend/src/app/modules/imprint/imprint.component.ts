@@ -10,26 +10,26 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
 
 @Component({
     selector: 'tava-imprint',
-    templateUrl: './imprint.component.html',
-    styleUrl: './imprint.component.scss',
-    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './imprint.component.html',
+    styleUrl: './imprint.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ImprintComponent implements OnInit, OnDestroy {
 
-    private readonly observation = inject(ObservationService);
     private readonly preload = inject(AssetsPreloadService);
+    private readonly observation = inject(ObservationService);
 
     protected selectedBg = '';
     protected images: string[] = [];
     protected isPreloading = true;
     protected devData = {
         project: 'taxi-varga',
-        version: 'v2.0.18',
+        version: 'v3.0.1',
         github: 'https://github.com/yqni13/taxi-varga/tree/production',
         portfolio: 'https://yqni13.com',
         contact: BaseRoute.SUPPORT

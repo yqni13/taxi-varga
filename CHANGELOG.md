@@ -1,8 +1,16 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/15}$
+
+$\textsf{[v2.0.18\ =>\ {\textbf{\color{brown}v3.0.1}]}}$ app
+- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v21 to v22.
+- $\textsf{\color{orange}Patch:}$ Updated null-conditional operation due to change returning undefined instead of null.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/09/13}$
 
-$\textsf{[v2.0.17\ =>\ {\textbf{\color{brown}v2.0.18}]}}$ app
+$\textsf{[v2.0.17\ =>\ v2.0.18]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated text information on pages 'home' and 'samples'.
 
 <br>

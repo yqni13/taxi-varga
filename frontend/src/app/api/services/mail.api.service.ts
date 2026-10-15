@@ -1,9 +1,7 @@
-import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { CustomTranslateService } from "../../shared/services/custom-translate.service";
-import { UtilsService } from "../../shared/services/utils.service";
 import { CryptoService } from "../../shared/services/crypto.service";
 import { environment } from "../../../environments/environment";
 import { ServiceRoute } from "../routes/service.route.enum";
@@ -19,8 +17,6 @@ import { AbstractApiServiceClass } from "./abstract.api.service";
 })
 export class MailAPIService extends AbstractApiServiceClass {
 
-    private readonly http = inject(HttpClient);
-    private readonly utils = inject(UtilsService);
     private readonly crypto = inject(CryptoService);
     private readonly datetimeService = inject(DateTimeService);
     private readonly customTranslate = inject(CustomTranslateService);
@@ -43,7 +39,7 @@ export class MailAPIService extends AbstractApiServiceClass {
         const newData: any = data;
         Object.entries(translateData).forEach(([k, v]) => {
             Object.assign(newData, {[k]: v});
-        })
+        });
 
         try {
             this.mailData = {

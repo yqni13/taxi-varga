@@ -71,9 +71,9 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     protected showOptions = false;
     protected focusIndex = -1;
 
-    private delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     private sessionToken = '';
     private subscriptionFormControl$: Subscription = new Subscription();
+    private delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     constructor() {
         super();

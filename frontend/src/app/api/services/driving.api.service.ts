@@ -1,11 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
 import { inject, Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { catchError, Observable, throwError } from "rxjs";
 import { DateTimeService } from '../../shared/services/datetime.service';
-import { UtilsService } from '../../shared/services/utils.service';
 import { ServiceRoute } from '../routes/service.route.enum';
 import { environment } from '../../../environments/environment';
 import { AbstractApiServiceClass } from './abstract.api.service';
@@ -15,8 +13,6 @@ import { AbstractApiServiceClass } from './abstract.api.service';
 })
 export class DrivingAPIService extends AbstractApiServiceClass {
 
-    private readonly http = inject(HttpClient);
-    private readonly utils = inject(UtilsService);
     private readonly datetimeService = inject(DateTimeService);
     
     private domainPathV1 = '/api/v1/driving';

@@ -42,13 +42,19 @@ export class NavigationService {
     getNavigationRoutes(): CustomRoute[] {
         return this.router.config
             .filter((route: any) => route.data?.["showInNavbar"] && route.data!['title'])
-            .flatMap((route: any) => [{path: route.path, icon: route.data!['icon'], titleKey: route.data!['title']}, ...(route.children || [])]);
+            .flatMap((route: any) => [
+                { path: route.path, icon: route.data!['icon'], titleKey: route.data!['title'] },
+                ...(route.children || [])
+            ]);
     }
 
     getFootertRoutes(): CustomRoute[] {
         return this.router.config
             .filter((route: any) => route.data?.["showInFooter"] && route.data!['title'])
-            .flatMap((route: any) => [{path: route.path, titleKey: route.data!['title']}, ...(route.children || [])]);
+            .flatMap((route: any) => [
+                { path: route.path, titleKey: route.data!['title'] },
+                ...(route.children || [])
+            ]);
     }
 
     getNavigationIconPaths(): string[] {

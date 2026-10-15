@@ -7,16 +7,16 @@ import { AbstractInputComponent } from "../abstract-input.component";
 
 @Component({
     selector: 'tava-selectinput',
-    templateUrl: './select-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './select-input.component.scss',
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         TranslateModule,
         ValidationInputComponent
+    ],
+    templateUrl: './select-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './select-input.component.scss',
     ],
     providers: [
         {

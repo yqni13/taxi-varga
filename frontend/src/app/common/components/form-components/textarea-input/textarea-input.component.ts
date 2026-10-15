@@ -7,15 +7,15 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'tava-textareainput',
-    templateUrl: './textarea-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './textarea-input.component.scss'
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ValidationInputComponent
+    ],
+    templateUrl: './textarea-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './textarea-input.component.scss'
     ],
     providers: [
         {
@@ -42,7 +42,7 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
 
     @Output() byChange: EventEmitter<any>;
 
-    private subscriptionFormControl$: Subscription;
+    private subscriptionFormControl$: Subscription = new Subscription();
 
     constructor() {
         super();
@@ -56,8 +56,6 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
         this.maxLength = 0;
 
         this.byChange = new EventEmitter<any>();
-
-        this.subscriptionFormControl$ = new Subscription();
     }
 
     ngOnInit() {

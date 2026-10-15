@@ -36,8 +36,8 @@ export class NavigationComponent implements OnInit {
     private window = document.defaultView;
 
     ngOnInit() {
-        this.router.events
-            .pipe(filter(evt => evt instanceof NavigationEnd))
+        this.router.events.pipe(
+            filter(evt => evt instanceof NavigationEnd))
             .subscribe((event: any) => {
                 this.navigation.setPreviousUrl(this.navigation.getCurrentUrl());
                 this.navigation.setCurrentUrl(event.url);

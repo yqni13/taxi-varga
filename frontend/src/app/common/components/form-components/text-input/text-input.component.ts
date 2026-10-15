@@ -7,15 +7,15 @@ import { ValidationInputComponent } from "../validation-input/validation-input.c
 
 @Component({
     selector: 'tava-textinput',
-    templateUrl: './text-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './text-input.component.scss',
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ValidationInputComponent
+    ],
+    templateUrl: './text-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './text-input.component.scss',
     ],
     providers: [
         {
@@ -48,13 +48,13 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
 
     @Output() byChange: EventEmitter<any>;
 
-    protected classNameWarningIcon: string;
+    protected classNameWarningIcon = '';
     protected minVal: unknown;
     protected maxVal: unknown;
 
-    private subscriptionFormControl$: Subscription;
-    private subscriptionMinValString$: Subscription;
-    private subscriptionMaxValString$: Subscription;
+    private subscriptionFormControl$: Subscription = new Subscription();
+    private subscriptionMinValString$: Subscription = new Subscription();
+    private subscriptionMaxValString$: Subscription = new Subscription();
 
     constructor() {
         super();
@@ -73,10 +73,6 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
         this.minValNumber = null;
         this.maxValNumber = null;
         this.byChange = new EventEmitter<any>();
-        this.classNameWarningIcon = '';
-        this.subscriptionFormControl$ = new Subscription();
-        this.subscriptionMinValString$ = new Subscription();
-        this.subscriptionMaxValString$ = new Subscription();
     }
     
     ngOnInit() {
