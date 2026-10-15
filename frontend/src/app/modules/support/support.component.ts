@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, Inject, OnDestroy, OnInit, ViewChild, DOCUMENT } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, OnInit, ChangeDetectionStrategy, inject, viewChild } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
 import { TextInputComponent } from "../../common/components/form-components/text-input/text-input.component";
@@ -25,8 +25,6 @@ import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
     selector: 'app-support',
-    templateUrl: './support.component.html',
-    styleUrl: './support.component.scss',
     imports: [
         CommonModule,
         TranslateModule,
@@ -37,68 +35,54 @@ import { NavigationService } from "../../shared/services/navigation.service";
         VarDirective,
         StarRatingComponent,
         CastAbstract2FormControlPipe
-    ]
+    ],
+    templateUrl: './support.component.html',
+    styleUrl: './support.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
-export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
-    @ViewChild('fileInput') fileInput!: ElementRef;
-    @ViewChild('sendBtn') sendBtn!: ElementRef;
-    @ViewChild('resetBtn') resetBtn!: ElementRef;
+export class SupportComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    protected supportForm: FormGroup;
-    protected isLoadingResponse: boolean;
+    readonly fileUpload = inject(FileUploadService);
+    private readonly fb = inject(FormBuilder);
+    private readonly auth = inject(AuthService);
+    private readonly elRef = inject(ElementRef);
+    private readonly translate = inject(TranslateService);
+    private readonly navigation = inject(NavigationService);
+    private readonly supportApi = inject(SupportAPIService);
+    private readonly snackbar = inject(SnackbarMessageService);
+    private readonly httpObservation = inject(HttpObservationService);
+
+    private readonly fileInput = viewChild<ElementRef>('fileInput');
+    private readonly sendBtn = viewChild<ElementRef>('sendBtn');
+    private readonly resetBtn = viewChild<ElementRef>('resetBtn');
+
+    protected supportForm: FormGroup = new FormGroup({});
+    protected isLoadingResponse = false;
     protected ticketOption = SupportOption;
     protected deviceOption = SupportDeviceOption;
-    protected messageLength: number;
-    protected defaultRatingValue: number;
-    protected resetRatingValue: EventEmitter<number>;
-    protected ticketOptionIcons: Record<string, string>;
-    protected ticketOptionStylings: Record<string, Record<string, any>>;
+    protected messageLength = 0;
+    protected defaultRatingValue = 5;
+    protected resetRatingValue: EventEmitter<number> = new EventEmitter<number>();
 
-    private subscriptionHttpObservationSupport$: Subscription;
-    private subscriptionHttpObservationFeedback$: Subscription;
-    private subscriptionHttpObservationRating$: Subscription;
-    private subscriptionHttpObservationError$: Subscription;
-    private fileMaxNumberLimit: number;
+    protected ticketOptionIcons: Record<string, string> = {
+        [SupportOption.BUG]: 'icon-bug icon-base',
+        [SupportOption.FEEDBACK]: 'icon-feedback icon-base',
+        [SupportOption.SUPPORT]: 'icon-support icon-base'
+    };
+    protected ticketOptionStylings: Record<string, Record<string, any>> = {
+        [SupportOption.BUG]: {'color': 'var(--theme-snackbar-error)'},
+        [SupportOption.FEEDBACK]: {'color': 'var(--theme-snackbar-warning)'},
+        [SupportOption.SUPPORT]: {'color': 'var(--theme-snackbar-info)'},
+    };
+
+    private subscriptionHttpObservationSupport$: Subscription = new Subscription();
+    private subscriptionHttpObservationFeedback$: Subscription = new Subscription();
+    private subscriptionHttpObservationRating$: Subscription = new Subscription();
+    private subscriptionHttpObservationError$: Subscription = new Subscription();
+    private fileMaxNumberLimit = 5;
     private anchor!: HTMLElement;
-    private window: any;
-    private delay: any;
-
-    constructor(
-        private readonly fb: FormBuilder,
-        private readonly auth: AuthService,
-        private readonly elRef: ElementRef,
-        @Inject(DOCUMENT) private document: Document,
-        private readonly translate: TranslateService,
-        private readonly navigation: NavigationService,
-        private readonly supportApi: SupportAPIService,
-        private readonly snackbar: SnackbarMessageService,
-        private readonly httpObservation: HttpObservationService,
-        public fileUpload: FileUploadService
-    ) {
-        this.supportForm = new FormGroup({});
-        this.isLoadingResponse = false;
-        this.messageLength = 0;
-        this.defaultRatingValue = 5;
-        this.resetRatingValue = new EventEmitter<number>();
-        this.ticketOptionIcons = {
-            [SupportOption.BUG]: 'icon-bug icon-base',
-            [SupportOption.FEEDBACK]: 'icon-feedback icon-base',
-            [SupportOption.SUPPORT]: 'icon-support icon-base'
-        };
-        this.ticketOptionStylings = {
-            [SupportOption.BUG]: {'color': 'var(--theme-snackbar-error)'},
-            [SupportOption.FEEDBACK]: {'color': 'var(--theme-snackbar-warning)'},
-            [SupportOption.SUPPORT]: {'color': 'var(--theme-snackbar-info)'},
-        }
-
-        this.subscriptionHttpObservationSupport$ = new Subscription();
-        this.subscriptionHttpObservationFeedback$ = new Subscription();
-        this.subscriptionHttpObservationRating$ = new Subscription();
-        this.subscriptionHttpObservationError$ = new Subscription();
-        this.fileMaxNumberLimit = 5;
-        this.window = this.document.defaultView;
-        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-    }
+    private window = document.defaultView;
+    private delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     ngOnInit() {
         this.anchor = this.elRef.nativeElement.querySelector(".tava-support");
@@ -136,7 +120,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
                     this.httpObservation.setSupportStatus(false);
                     this.reset();
                 }
-                if(this.sendBtn) {
+                if(this.sendBtn()) {
                     this.setButtonUseStatus(true);
                 }
             })
@@ -151,7 +135,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
                     this.httpObservation.setFeedbackStatus(false);
                     this.reset();
                 }
-                if(this.sendBtn) {
+                if(this.sendBtn()) {
                     this.setButtonUseStatus(true);
                 }
             })
@@ -220,9 +204,9 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
     }
 
     private getPlaceholderByDeviceSuggestion(): string {
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(this.window.navigator.userAgent)) {
+        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(this.window!.navigator.userAgent)) {
             return this.deviceOption.MOBILE;
-        } else if(/Chrome/i.test(this.window.navigator.userAgent)) {
+        } else if(/Chrome/i.test(this.window!.navigator.userAgent)) {
             return this.deviceOption.COMPUTER;
         } else {
             return this.deviceOption.OTHER;
@@ -240,11 +224,11 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
 
     private setButtonUseStatus(isReady: boolean) {
         if(isReady) {
-            this.sendBtn.nativeElement.classList.remove('tava-readonly');
-            this.resetBtn.nativeElement.classList.remove('tava-readonly');
+            this.sendBtn()?.nativeElement.classList.remove('tava-readonly');
+            this.resetBtn()?.nativeElement.classList.remove('tava-readonly');
         } else {
-            this.sendBtn.nativeElement.classList.add('tava-readonly');
-            this.resetBtn.nativeElement.classList.add('tava-readonly');
+            this.sendBtn()?.nativeElement.classList.add('tava-readonly');
+            this.resetBtn()?.nativeElement.classList.add('tava-readonly');
         }
     }
 
@@ -257,7 +241,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
                 type: SnackbarOption.WARNING,
                 displayTime: 2000
             });
-            this.navigation.scrollToTop(this.anchor, this.document);
+            this.navigation.scrollToTop(this.anchor, document);
             return;
         }
 
@@ -317,7 +301,8 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
 
     handleFileReset() {
         // Needed to continue processing without stuck files interfering.
-        this.fileInput = this.fileUpload.resetInput(this.fileInput);
+        this.fileInput()?.nativeElement.set(this.fileUpload.resetInput(this.fileInput()!));
+        // TODO(yqni13): check if it still works
     }
 
     private resetValidationsOnOptionChange(option: SupportOption) {
@@ -349,7 +334,7 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy{
             this.initEdit({ option: this.supportForm.get('option')?.value });
             this.resetRatingValue.emit(this.defaultRatingValue);
             this.supportForm.markAsUntouched();
-            this.navigation.scrollToTop(this.anchor, this.document);
+            this.navigation.scrollToTop(this.anchor, document);
             await this.delay(750);
             this.isLoadingResponse = false;
         } else {

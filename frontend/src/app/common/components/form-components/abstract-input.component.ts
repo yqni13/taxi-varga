@@ -1,8 +1,9 @@
-import { Component } from "@angular/core";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { ControlValueAccessor } from "@angular/forms";
 
 @Component({
     template: '',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AbstractInputComponent implements ControlValueAccessor {
@@ -11,11 +12,7 @@ export class AbstractInputComponent implements ControlValueAccessor {
     private onTouch!: (value: unknown) => void;
 
     input!: unknown;
-    isFocused: boolean;
-
-    constructor() {
-        this.isFocused = false;
-    }
+    isFocused = false;
 
     writeValue(input: unknown) {
         this.input = input;

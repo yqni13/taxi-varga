@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
@@ -11,22 +11,18 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-destination',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-destination.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-destination.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
-
-    constructor(
-    ) {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;

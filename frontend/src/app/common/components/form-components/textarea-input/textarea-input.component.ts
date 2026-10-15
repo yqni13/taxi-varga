@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -7,15 +7,15 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'tava-textareainput',
-    templateUrl: './textarea-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './textarea-input.component.scss'
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         ValidationInputComponent
+    ],
+    templateUrl: './textarea-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './textarea-input.component.scss'
     ],
     providers: [
         {
@@ -24,6 +24,7 @@ import { Subscription } from "rxjs";
             multi: true,
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickListening($event)',
         '(window:keydown)': 'keyListening($event)'
@@ -41,7 +42,7 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
 
     @Output() byChange: EventEmitter<any>;
 
-    private subscriptionFormControl$: Subscription;
+    private subscriptionFormControl$: Subscription = new Subscription();
 
     constructor() {
         super();
@@ -55,8 +56,6 @@ export class TextareaInputComponent extends AbstractInputComponent implements On
         this.maxLength = 0;
 
         this.byChange = new EventEmitter<any>();
-
-        this.subscriptionFormControl$ = new Subscription();
     }
 
     ngOnInit() {

@@ -1,63 +1,54 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from "@angular/core";
-import { Route, RouterModule } from "@angular/router";
+import { AfterViewInit, Component, ElementRef, OnInit, ChangeDetectionStrategy, inject, viewChild } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { TranslateModule } from "@ngx-translate/core";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { LanguageOptions } from "../../../shared/enums/language-options.enum";
 import { ThemeHandlerService } from "../../../shared/services/theme-handler.service";
 import { ThemeOptions } from "../../../shared/enums/theme-options.enum";
 import { LanguageHandlerService } from "../../../shared/services/language-handler.service";
+import { CustomRoute } from "../../../shared/interfaces/custom-route.interface";
 
 @Component({
     selector: 'tava-footer',
-    templateUrl: './footer.component.html',
-    styleUrl: './footer.component.scss',
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule
     ],
+    templateUrl: './footer.component.html',
+    styleUrl: './footer.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickOutside($event)'
     }
 })
 export class FooterComponent implements OnInit, AfterViewInit {
 
-    @ViewChild('themeMode') themeMode?: ElementRef; 
-    @ViewChild('themeIcon') themeIcon?: ElementRef; 
+    private readonly navigation = inject(NavigationService);
+    private readonly themeHandler = inject(ThemeHandlerService);
+    private readonly languageHandler = inject(LanguageHandlerService);
 
-    protected languages = LanguageOptions;
-    protected selectedLanguage: LanguageOptions;
-    protected showLanguageWindow: boolean;
-    protected creatorURL: string;
-    protected routes: Route[];
-    protected selectedTheme: ThemeOptions;
+    private readonly themeMode = viewChild<ElementRef>('themeMode');
+    private readonly themeIcon = viewChild<ElementRef>('themeIcon');
+
     protected themes = ThemeOptions;
-    protected currentYear: string;
+    protected languages = LanguageOptions;
+    protected showLanguageWindow = false;
+    protected creatorURL = 'https://yqni13.com';
+    protected routes: CustomRoute[] = [];
+    protected currentYear = new Date().getFullYear().toString();
+    protected selectedLanguage: LanguageOptions = this.languageHandler.checkLanguageData();
+    protected selectedTheme: ThemeOptions = this.themeHandler.checkThemeSettings();
 
-    constructor(
-        private readonly themeHandler: ThemeHandlerService,
-        private readonly languageHandler: LanguageHandlerService,
-        private navigation: NavigationService
-    ) {
-        this.selectedTheme = this.themeHandler.checkThemeSettings();
+    ngOnInit() {
+        this.routes = this.navigation.getFootertRoutes();
         this.themeHandler.setThemeSettings(this.selectedTheme);
-
-        this.selectedLanguage = this.languageHandler.checkLanguageData();
         this.languageHandler.setLanguageData(this.selectedLanguage);
-
-        this.showLanguageWindow = false;
-        this.creatorURL = 'https://yqni13.com';
-        this.routes = [];
-        this.currentYear = new Date().getFullYear().toString();
     }
 
     protected setTheme() {
         this.selectedTheme = this.themeHandler.switchTheme(this.selectedTheme);
-    }
-
-    ngOnInit() {
-        this.routes = this.navigation.getFootertRoutes();
     }
 
     ngAfterViewInit() {
@@ -67,12 +58,12 @@ export class FooterComponent implements OnInit, AfterViewInit {
 
     private applyThemeClass() {
         if(this.themeMode) {
-            this.themeMode.nativeElement.classList.remove(ThemeOptions.darkMode, ThemeOptions.lightMode);
-            this.themeMode.nativeElement.classList.add(this.selectedTheme);
+            this.themeMode()?.nativeElement.classList.remove(ThemeOptions.darkMode, ThemeOptions.lightMode);
+            this.themeMode()?.nativeElement.classList.add(this.selectedTheme);
         } 
         if(this.themeIcon) {
-            this.themeIcon.nativeElement.classList.remove('icon-lightMode', 'icon-darkMode');
-            this.themeIcon.nativeElement.classList.add(`icon-${this.selectedTheme}`);
+            this.themeIcon()?.nativeElement.classList.remove('icon-lightMode', 'icon-darkMode');
+            this.themeIcon()?.nativeElement.classList.add(`icon-${this.selectedTheme}`);
         }
     }
 

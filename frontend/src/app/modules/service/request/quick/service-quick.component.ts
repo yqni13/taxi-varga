@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { FormControl, Validators } from "@angular/forms";
@@ -19,15 +19,16 @@ import { AddressAPIService } from "../../../../api/services/address.api.service"
 
 @Component({
     selector: 'tava-service-quick',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-quick.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-quick.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -44,10 +45,6 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected isSelectingGPSOption = false;
 
     private originSubscription$: Subscription | undefined = new Subscription();
-
-    constructor() {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.QUICK;

@@ -1,39 +1,36 @@
 import { CommonModule } from "@angular/common";
-import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ChangeDetectionStrategy, viewChild } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { Observable } from "rxjs";
 
 @Component({
     selector: 'tava-starrating',
-    templateUrl: './star-rating.component.html',
-    styleUrl: './star-rating.component.scss',
     imports: [
         CommonModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './star-rating.component.html',
+    styleUrl: './star-rating.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class StarRatingComponent implements OnInit, OnChanges {
 
-    @ViewChild('star1Ref') star1Ref!: ElementRef;
-    @ViewChild('star2Ref') star2Ref!: ElementRef;
-    @ViewChild('star3Ref') star3Ref!: ElementRef;
-    @ViewChild('star4Ref') star4Ref!: ElementRef;
-    @ViewChild('star5Ref') star5Ref!: ElementRef;
+    private readonly star1Ref = viewChild<ElementRef>('star1Ref');
+    private readonly star2Ref = viewChild<ElementRef>('star2Ref');
+    private readonly star3Ref = viewChild<ElementRef>('star3Ref');
+    private readonly star4Ref = viewChild<ElementRef>('star4Ref');
+    private readonly star5Ref = viewChild<ElementRef>('star5Ref');
 
-    @Input() startValue: number;
+    @Input() startValue = 0;
     @Input() resetValue: Observable<number>;
     @Output() byChange: EventEmitter<any>;
 
-    protected hasNewRating: boolean;
-    protected rawRating: number;
+    protected hasNewRating = false;
+    protected rawRating = this.startValue;
 
     constructor() {
-        this.startValue = 0;
         this.resetValue = new Observable();
         this.byChange = new EventEmitter<any>();
-        
-        this.hasNewRating = false;
-        this.rawRating = this.startValue;
     }
 
     ngOnInit() {
@@ -42,24 +39,24 @@ export class StarRatingComponent implements OnInit, OnChanges {
             change = this.convertFloat2Int(change);
             switch(change) {
                 case(1): {
-                    this.star1Ref.nativeElement.checked = true;
+                    this.star1Ref()?.nativeElement.checked.set(true);
                     break;
                 }
                 case(2): {
-                    this.star2Ref.nativeElement.checked = true;
+                    this.star2Ref()?.nativeElement.checked.set(true);
                     break;
                 }
                 case(3): {
-                    this.star3Ref.nativeElement.checked = true;
+                    this.star3Ref()?.nativeElement.checked.set(true);
                     break;
                 }
                 case(4): {
-                    this.star4Ref.nativeElement.checked = true;
+                    this.star4Ref()?.nativeElement.checked.set(true);
                     break;
                 }
                 case(5):
                 default:
-                    this.star5Ref.nativeElement.checked = true;
+                    this.star5Ref()?.nativeElement.checked.set(true);
             }
         })
     }

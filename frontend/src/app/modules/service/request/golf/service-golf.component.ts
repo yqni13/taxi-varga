@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { FormControl, Validators } from "@angular/forms";
@@ -15,16 +15,17 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-golf',
+    imports: [
+        DistanceFormatPipe,
+        SelectInputComponent,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-golf.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        SelectInputComponent,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceGolfComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
@@ -34,11 +35,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     protected dropoffTimeByLangStatic = "";
     protected minStayStamp$ = new Subject<string>();
     protected maxStayStamp$ = new Subject<string>();
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
-    constructor() {
-        super();
-        this.snackbarTextMail = 'laszlovarga@gmx.at';
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.GOLF;

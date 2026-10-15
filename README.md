@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v2.0.18}}$
+### $\textsf{\color{brown}{v3.0.1}}$
 
 <br><br>
 
@@ -34,8 +34,8 @@ For testing purposes one instance runs on env:stag while the live version runs o
 
 ### $\textsf{\color{teal}Prerequisites}$
 
-- Angular: v21+
-- node: v22+
+- Angular: v22+
+- node: v24+
 - Google API Key (geocode, places, distanceMatrix)
 - Betterstack Telemetry (logging)
 
@@ -70,7 +70,7 @@ node server.js
 
 | Feature | Description |
 |---------|-------------|
-| 🪁 Framework | Angular v21 |
+| 🪁 Framework | Angular v22 |
 | 🌍 Google API | Google places/routes/geolocation API calculation/visualization |
 | ⌨ Input | Customized form components (text/textarea/select) |
 | 🔍 Search | Customized search-input form component combined with Google Places API |
@@ -236,8 +236,9 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.17\ =>\ {\textbf{\color{brown}v2.0.18}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated text information on pages 'home' and 'samples'.
+$\textsf{[v2.0.18\ =>\ {\textbf{\color{brown}v3.0.1}]}}$ app
+- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v21 to v22.
+- $\textsf{\color{orange}Patch:}$ Updated null-conditional operation due to change returning undefined instead of null.
 
 <br>
 

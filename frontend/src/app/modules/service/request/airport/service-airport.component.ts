@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
@@ -12,25 +12,22 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 
 @Component({
     selector: 'tava-service-airport',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-airport.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-airport.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected directionOptions = AirportOptions;
 
     private addressSubscription$: Subscription | undefined = new Subscription();
-
-    constructor() {
-        super();
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.AIRPORT;
