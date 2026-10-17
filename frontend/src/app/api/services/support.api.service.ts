@@ -14,17 +14,9 @@ export class SupportAPIService extends AbstractApiServiceClass {
 
     private domainPathV1 = '/api/v1';
 
-    private urlTicket = this.isDevEnv
-        ? `${this.domainPathV1}/${SupportRoute.TICKETS}/create`
-        : `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.TICKETS}/create`;
-    
-    private urlFeedback = this.isDevEnv
-        ? `${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`
-        : `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`;
-    
-    private urlRating = this.isDevEnv
-        ? `${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`
-        : `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`;
+    private urlTicket = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.TICKETS}/create`;
+    private urlFeedback = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`;
+    private urlRating = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`;
 
     private ticketData: FormData = new FormData();
     private feedbackData: SupportFeedbackRequest = {

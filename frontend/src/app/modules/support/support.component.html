@@ -45,8 +45,7 @@
 						<div class="tava-support-form-wrapper-starrating">
 							<tava-starrating
 								[startValue]="defaultRatingValue"
-								[resetValue]="resetRatingValue"
-								(byChange)="getRatingInput($event)"
+								(byChange)="onRatingSubmit($event)"
 							></tava-starrating>
 						</div>
 					}

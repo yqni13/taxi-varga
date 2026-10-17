@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
+import { Component, OnInit, ChangeDetectionStrategy, inject, input, signal } from "@angular/core";
 import { SnackbarMessageService } from "../../../shared/services/snackbar.service";
 import { CommonModule } from "@angular/common";
 import { SnackbarOption } from "../../../shared/enums/snackbar-options.enum";
@@ -20,35 +20,25 @@ export class SnackbarComponent implements OnInit {
 
     private readonly snackbarService = inject(SnackbarMessageService);
 
-    @Input() snackbarMsg: SnackbarMessage;
+    readonly snackbarMsg = input.required<SnackbarMessage>();
+
+    private readonly isActive = signal(false);
 
     protected snackbarOptions = SnackbarOption;
     protected snackbarClass = '';
 
-    private isActive = false;
-
-    constructor() {
-        this.snackbarMsg = {
-            title: '',
-            text: '',
-            type: '',
-            phone: undefined,
-            mail: undefined
-        }
-    }
-
     getActiveStatus(): boolean {
-        return this.isActive;
+        return this.isActive();
     }
 
     ngOnInit() {
-        this.snackbarClass = this.snackbarMsg.type || SnackbarOption.INFO;
-        this.isActive = true;
+        this.snackbarClass = this.snackbarMsg().type || SnackbarOption.INFO;
+        this.isActive.set(true);
     }
 
     close() {
-        this.snackbarService.close(this.snackbarMsg);
-        this.isActive = false;
+        this.snackbarService.close(this.snackbarMsg());
+        this.isActive.set(false);
         this.scrollToTop();
     }
 
@@ -59,7 +49,7 @@ export class SnackbarComponent implements OnInit {
     }
 
     closeOnEscape() {        
-        if(this.isActive && !this.snackbarMsg.autoClose) {
+        if(this.isActive() && !this.snackbarMsg().autoClose) {
             this.close();
         }
     }
