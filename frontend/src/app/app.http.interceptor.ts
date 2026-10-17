@@ -22,9 +22,7 @@ export function appHttpInterceptor(req: HttpRequest<any>, next: HttpHandlerFn): 
         tap(async (httpEvent) => {
             if((httpEvent as HttpResponse<any>).status === HttpStatusCode.Ok) {
                 const httpbody = (httpEvent as HttpResponse<any>);
-                if(httpbody.body.title && httpbody.body.text) {
-                    console.log('successful communication!');
-                } else if(httpbody.url?.includes(`/${SupportRoute.FEEDBACK}`)
+                if (httpbody.url?.includes(`/${SupportRoute.FEEDBACK}`)
                 || httpbody.url?.includes(`/${SupportRoute.FEEDBACKRATING}`)
                 || httpbody.url?.includes(`/${SupportRoute.TICKETS}`)) {
                     supportIntercept.handleSupportResponse(httpEvent as HttpResponse<any>);

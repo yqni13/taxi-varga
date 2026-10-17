@@ -213,8 +213,8 @@ export class SupportComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    getRatingInput(input: HTMLInputElement) {
-        this.supportForm.get('rating')?.setValue(+input);
+    onRatingSubmit(input: number) {
+        this.supportForm.get('rating')?.setValue(input);
     }
 
     getFeedbackTerm(event: Event) {
