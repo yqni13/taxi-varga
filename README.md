@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.0.1}}$
+### $\textsf{\color{brown}{v3.0.2}}$
 
 <br><br>
 
@@ -236,9 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v2.0.18\ =>\ {\textbf{\color{brown}v3.0.1}]}}$ app
-- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v21 to v22.
-- $\textsf{\color{orange}Patch:}$ Updated null-conditional operation due to change returning undefined instead of null.
+$\textsf{[v3.0.1\ =>\ {\textbf{\color{brown}v3.0.2}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated signal based input/output fields on base components.
 
 <br>
 

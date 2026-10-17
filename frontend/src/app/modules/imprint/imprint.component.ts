@@ -29,7 +29,7 @@ export class ImprintComponent implements OnInit, OnDestroy {
     protected isPreloading = true;
     protected devData = {
         project: 'taxi-varga',
-        version: 'v3.0.1',
+        version: 'v3.0.2',
         github: 'https://github.com/yqni13/taxi-varga/tree/production',
         portfolio: 'https://yqni13.com',
         contact: BaseRoute.SUPPORT
