@@ -150,6 +150,7 @@
                         "latency": "Waiting time",
                         "origin": "Pickup address",
                         "passengers": "Number of passengers",
+                        "pickupTIME": "Time",
                         "return": "Return address",
                         "returnTarget": "Code",
                         "stay": "Stay",
@@ -170,8 +171,8 @@
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
-                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
                         "stay-accommodation": "An extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.",
+                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
                         "support-mode": {
                             "label": "Additional service",
                             "player": "Accompanied as player"
@@ -219,7 +220,7 @@
                 "quick": {
                     "info": {
                         "call": "Call",
-                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- max 3h latency with costs.\n- time of pickup for 'Quick' service between 04:00 a.m. and 12:00 p.m.",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- max 3h latency with costs.\n- pickup time in Vienna: 04:00 a.m. to 10:00 a.m.\n- pickup time in Leobersdorf: 02:00 p.m. to 07:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {

@@ -1,4 +1,4 @@
-export declare interface AuthRequest {
+export interface AuthRequest {
     user: string;
     pass: string;
     aud: string;

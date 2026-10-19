@@ -29,6 +29,7 @@
 .icon-service {
     width: 35px;
     height: 35px;
+    margin-top: 7px; /* Svg does not reach to bottom and floats above other nav icons. */
     --svg: url("/assets/app-icons/icon_service.svg");
     -webkit-mask-image: var(--svg);
     mask-image: var(--svg);
