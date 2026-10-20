@@ -62,7 +62,7 @@
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
                     "info": {
-                        "text": "time of pickup for 'Airport' service between 04:00 a.m. and 12:00 p.m.",
+                        "text": "- time of pickup for 'Airport' service between 04:00 a.m. and 12:00 p.m.\n- Additional charge of 5,00 EUR applies for pick-ups outside of the aforementioned time frame and such requests must be made via email:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- time of pickup for 'Destination' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
+                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- daily time of pickup for 'Destination' service orders from 04:00 a.m. to 07:00 p.m.\n- alternative booking time request directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -101,7 +101,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Tenancy will be charged for min 3h\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately\n- time of pickup for 'Flatrate' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
+                        "text": "- tenancy will be charged for min 3h\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately\n- time of pickup for 'Flatrate' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -191,7 +191,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 4h are included in the price, following 4h are for free)\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 4h are included in the price, following 4h are for free)\n- attractive price advantages when booking for youth U21, or for carpools where the driver also participates in the game\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {

@@ -221,7 +221,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             this.serviceForm.get('pickupTIME')?.setValidators([
                 Validators.required,
                 CustomValidators.invalidQuickPickupValidator(this.datetimeService),
-                CustomValidators.invalidTimeRangeValidatorByOrigin(params)
+                CustomValidators.invalidTimeRangeByHoursValidator(params)
             ]);
         } else if (Utils.checkAddressInViennaByZipCode(address.zipCode)) {
             const params: TimeRangeValidatorParams = {
@@ -234,7 +234,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             this.serviceForm.get('pickupTIME')?.setValidators([
                 Validators.required,
                 CustomValidators.invalidQuickPickupValidator(this.datetimeService),
-                CustomValidators.invalidTimeRangeValidatorByOrigin(params),
+                CustomValidators.invalidTimeRangeByHoursValidator(params),
             ]);
         }
         this.serviceForm.get('pickupTIME')?.setValue('');

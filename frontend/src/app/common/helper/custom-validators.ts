@@ -4,6 +4,7 @@ import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
 import { InvalidBHValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
 
+
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         const currentDateTime = (new Date(control?.value).getTime());
@@ -60,7 +61,7 @@ export const maxLatencyValidator = (datetimeService: DateTimeService) : Validato
     }
 }
 
-export const invalidTimeRangeValidatorByOrigin = (param: TimeRangeValidatorParams): ValidatorFn => {
+export const invalidTimeRangeByHoursValidator = (param: TimeRangeValidatorParams): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
         let time = 0;
         if (param.format === DatetimeOption.HHMM) {

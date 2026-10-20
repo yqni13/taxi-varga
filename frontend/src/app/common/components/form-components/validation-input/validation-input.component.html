@@ -71,6 +71,16 @@
 					{{ 'validation.frontend.form.business-invalid-time-only' | translate }}
 				</div>
 			}
+			@else if (control.hasError('invalidBHManual')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-time' | translate }}
+				</div>
+			}
+			@else if (control.hasError('invalidTimeRangeDestination')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.business-invalid-destination-time' | translate }}
+				</div>
+			}
 			@else if (control.hasError('negativeCurrentDateTime')) {
 				<div class="tava-validation-message">
 					{{ 'validation.frontend.form.datetime-invalid-negative' | translate }}
