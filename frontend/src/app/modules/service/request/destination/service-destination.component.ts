@@ -7,7 +7,7 @@ import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-destination',
@@ -23,6 +23,8 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
     changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
+
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;
@@ -46,12 +48,12 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     }
 
     private initForm() {
-        const invalidBHValidatorParams: InvalidBHValidatorParams = {
+        const params: TimeRangeValidatorParams = {
             service: this.datetimeService,
             format: DatetimeOption.FULL,
             startHour: 4,
-            endHour: 17,
-            isPickup: true
+            endHour: 19,
+            validation: 'invalidTimeRangeDestination'
         };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
@@ -63,7 +65,7 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
+                CustomValidators.invalidTimeRangeByHoursValidator(params)
             ]),
             latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
             pickupDATE: new FormControl(''),

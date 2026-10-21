@@ -1,11 +1,11 @@
-export declare interface DrivingAirportRequest {
+export interface DrivingAirportRequest {
     origin: string,
     originDetails: any,
     destination: string,
     destinationDetails: any
 }
 
-export declare interface DrivingDestinationRequest {
+export interface DrivingDestinationRequest {
     origin: string,
     originDetails: any,
     destination: string,
@@ -15,7 +15,7 @@ export declare interface DrivingDestinationRequest {
     pickupTIME: number
 }
 
-export declare interface DrivingFlatrateRequest {
+export interface DrivingFlatrateRequest {
     origin: string,
     originDetails: any,
     destination: string,
@@ -23,7 +23,7 @@ export declare interface DrivingFlatrateRequest {
     tenancy: number,
 }
 
-export declare interface DrivingGolfRequest {
+export interface DrivingGolfRequest {
     origin: string,
     originDetails: any,
     golfcourse: string,
@@ -35,7 +35,7 @@ export declare interface DrivingGolfRequest {
     passengers: number
 }
 
-export declare interface DrivingQuickRequest {
+export interface DrivingQuickRequest {
     origin: string,
     originDetails: any,
     destination: string,

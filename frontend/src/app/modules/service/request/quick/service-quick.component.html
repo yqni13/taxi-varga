@@ -113,13 +113,17 @@
 			</div>
 		}
 		@if (!hasOffer && hasToken) {
-			<div class="tava-button-wrapper">
-			<button
-				class="tava-button-simple"
-				[attr.aria-disabled]="true"
-				(click)="onQuickSubmit()"
-				(keydown.enter)="onQuickSubmit()"
-			>{{'modules.service.commands.forward' | translate}}</button>
+			<div
+				class="tava-button-wrapper"
+				[ngClass]="isSelectingGPSOption && !browserGeolocationSupport ? 'tava-order-submit-invalid' : ''"
+			>
+				<button
+					class="tava-button-simple"
+					[disabled]="isSelectingGPSOption && !browserGeolocationSupport"
+					[attr.aria-disabled]="true"
+					(click)="onQuickSubmit()"
+					(keydown.enter)="onQuickSubmit()"
+				>{{'modules.service.commands.forward' | translate}}</button>
 			</div>
 		}
 

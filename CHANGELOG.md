@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/20}$
+
+$\textsf{[v3.0.2\ =>\ {\textbf{\color{brown}v3.0.4}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + info text on multiple service info boxes & 'home' page
+  + validations on multiple services
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/17}$
 
-$\textsf{[v3.0.1\ =>\ {\textbf{\color{brown}v3.0.2}]}}$ app
+$\textsf{[v3.0.1\ =>\ v3.0.2]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated signal based input/output fields on base components.
 
 <br>

@@ -26,6 +26,7 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
     protected directionOptions = AirportOptions;
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
     private addressSubscription$: Subscription | undefined = new Subscription();
 

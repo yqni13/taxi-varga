@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.0.2}}$
+### $\textsf{\color{brown}{v3.0.4}}$
 
 <br><br>
 
@@ -236,8 +236,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.0.1\ =>\ {\textbf{\color{brown}v3.0.2}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated signal based input/output fields on base components.
+$\textsf{[v3.0.2\ =>\ {\textbf{\color{brown}v3.0.4}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + info text on multiple service info boxes & 'home' page
+  + validations on multiple services
 
 <br>
 
