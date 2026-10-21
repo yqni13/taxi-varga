@@ -220,7 +220,7 @@
                 "quick": {
                     "info": {
                         "call": "Anrufen",
-                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Berechnungen über diesen Service sind nur für Wien und Leobersdorf abrufbar - ansonsten ist der Service 'Pauschalfahrt' zu nutzen\n- max 3h Wartezeit kostenpflichtig\n- Abholzeit 04:00 bis 10:00 Uhr in Wien\n- Abholzeit 14:00 bis 19:00 Uhr in Leobersdorf",
+                        "text": "- Eine Vorbestellung zu diesem Service ist NICHT möglich und kann daher nur bei spontanem Zustieg oder auf Anruf mit kurzer Anfahrt angewandt werden\n- Abholzeit 04:00 bis 10:00 Uhr in Wien\n- Abholzeit 14:00 bis 19:00 Uhr in Leobersdorf",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
