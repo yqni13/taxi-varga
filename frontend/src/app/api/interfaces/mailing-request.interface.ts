@@ -1,6 +1,7 @@
 import { AirportOptions } from "../../shared/enums/airport-options.enum"
 import { PassengerOptions } from "../../shared/enums/passenger-options.enum"
 import { ServiceRoute } from "../routes/service.route.enum"
+import { ExtraGolfAddresses } from "./address-helper.interface"
 
 export interface MailingRequest {
     sender: string,
@@ -21,6 +22,7 @@ export interface MailingMessage {
     originAddress: string,
     golfcourseAddress?: string,
     destinationAddress: string,
+    extraAddresses?: ExtraGolfAddresses | null,
     back2home?: boolean,
     pickupDATE: string,
     pickupTIME: string,

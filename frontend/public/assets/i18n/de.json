@@ -198,6 +198,8 @@
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "extra": "Ich möchte zusätzliche Adressen für die Rückfahrt hinzufügen.",
+                        "extra-address": "Zusatzadresse",
                         "golfcourse": "Golfplatz",
                         "origin": "Abholadresse",
                         "passengers": "Anzahl mitreisender Personen/Spieler",

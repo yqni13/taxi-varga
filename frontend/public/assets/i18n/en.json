@@ -198,6 +198,8 @@
                         "datetime-end": "Date & time (return)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Return address",
+                        "extra": "I want to add additional addresses for the return.",
+                        "extra-address": "Extra address",
                         "golfcourse": "Golf course",
                         "origin": "Pickup address",
                         "passengers": "Number of passengers/players",

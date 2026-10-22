@@ -1,7 +1,8 @@
-export type AddressOptions = 'origin' | 'destination' | 'golfcourse';
-
-export const AddressOptions = {
-    ORIGIN: 'origin' as AddressOptions,
-    DESTINATION: 'destination' as AddressOptions,
-    GOLFCOURSE: 'golfcourse' as AddressOptions
+export enum AddressOptions {
+    ORIGIN = 'origin',
+    GOLFCOURSE = 'golfcourse',
+    DESTINATION = 'destination',
+    EXTRA1 = 'extra1',
+    EXTRA2 = 'extra2',
+    EXTRA3 = 'extra3'
 }

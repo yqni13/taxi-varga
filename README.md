@@ -236,10 +236,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.0.2\ =>\ {\textbf{\color{brown}v3.0.4}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated 
-  + info text on multiple service info boxes & 'home' page
-  + validations on multiple services
+$\textsf{[v3.0.4\ =>\ {\textbf{\color{brown}v3.x.x}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
 
 <br>
 

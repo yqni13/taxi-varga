@@ -34,6 +34,25 @@
     }
 }
 
+#tava-service-golf-address-control-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 40px;
+
+    button {
+        margin-left: sass.$space25;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .icon-plus {
+        color: var(--theme-button-plus);
+    }
+    .icon-minus {
+        color: var(--theme-button-minus);
+    }
+}
+
 .tava-service-golf-block-validation {
     display: flex;
     justify-content: center;

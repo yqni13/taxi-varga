@@ -58,6 +58,54 @@
 							></tava-addressinput>
 						</div>
 					}
+					<div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
+						<input
+							class="tava-text-input-checkbox"
+							type="checkbox"
+							[checked]="hasExtraAddresses()"
+							(change)="getExtraAddressCheckboxValue($event)"
+						>
+						<span class="tava-service-block-input">
+							{{'modules.service.content.golf.labels.extra' | translate}}
+						</span>
+					</div>
+					@if (hasExtraAddresses()) {
+						@for(entry of [].constructor(numOfExtraAddresses()); track entry; let i = $index) {
+							<div class="tava-service-specific-block" id="form-destination">
+								<span class="tava-service-block-label">
+									{{('modules.service.content.golf.labels.extra-address' | translate) + ' #' + ($index + 1)}}
+								</span>
+								<tava-addressinput
+									[placeholder]="'modules.service.content.golf.labels.placeholder.street' | translate"
+									[formControl]="serviceForm.get('extraAddress' + ($index + 1)) | controlCast"
+									[fieldName]="'modules.service.content.form.offer.extra' | translate"
+									(byPlaceSelection)="getAddressDetails($event, getAddressOptionsKey('EXTRA', $index+1))"
+								></tava-addressinput>
+							</div>
+						}
+						<div id="tava-service-golf-address-control-wrapper">
+							@if (numOfExtraAddresses() < 3) {
+								<button
+									class="tava-button-info"
+									(click)="addExtraAddress()"
+									(keydown.enter)="addExtraAddress()"
+									[attr.aria-disabled]="true"
+								>
+									<i class="icon-base icon-plus"></i>
+								</button>
+							}
+							@if (numOfExtraAddresses() > 0) {
+								<button
+									class="tava-button-info"
+									(click)="removeExtraAddress()"
+									(keydown.enter)="removeExtraAddress()"
+									[attr.aria-disabled]="true"
+								>
+									<i class="icon-base icon-minus"></i>
+								</button>
+							}
+						</div>
+					}
 					<div class="tava-service-specific-block service-form-indented flex-direction-small">
 						<tava-selectinput
 							[placeholder]="('modules.service.content.golf.labels.placeholder.number' | translate) + (':')"
@@ -198,6 +246,16 @@
 						{{serviceForm.get('destinationAddress')?.value}}
 					</span>
 				</div>
+				@for (entry of [].constructor(numOfExtraAddresses()); track entry; let i = $index) {
+					<div class="tava-service-specific-offer-sum">
+						<span class="tava-service-specific-offer-sum-left">
+							{{('modules.service.content.golf.labels.extra-address' | translate) + ' #' + ($index + 1) + ' :'}}
+						</span>
+						<span class="tava-service-specific-offer-sum-right">
+							{{serviceForm.get(`extraAddress${$index+1}`)?.value}}
+						</span>
+					</div>
+				}
 				<div class="tava-service-specific-offer-sum">
 					<span class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.date-pickup' | translate) + ':'}}

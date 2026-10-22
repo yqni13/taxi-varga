@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy, signal } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { FormControl, Validators } from "@angular/forms";
@@ -12,6 +12,7 @@ import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pip
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { ExtraGolfAddresses } from "../../../../api/interfaces/address-helper.interface";
 
 @Component({
     selector: 'tava-service-golf',
@@ -28,6 +29,9 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
     changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceGolfComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
+
+    protected readonly hasExtraAddresses = signal(false);
+    protected readonly numOfExtraAddresses = signal(0);
 
     protected AddressFilterOptionsEnum = AddressFilterOptions;
     protected PassengerOptionsEnum = PassengerOptions;
@@ -75,6 +79,13 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             golfcourseDetails: new FormControl(''),
             destinationAddress: new FormControl(''),            
             destinationDetails: new FormControl(''),
+            extraAddress1: new FormControl(''),
+            extraDetails1: new FormControl(''),
+            extraAddress2: new FormControl(''),
+            extraDetails2: new FormControl(''),
+            extraAddress3: new FormControl(''),
+            extraDetails3: new FormControl(''),
+            extraAddresses: new FormControl(''),
             return: new FormControl(null),
             datetimeStart: new FormControl('', [
                 Validators.required,
@@ -107,6 +118,13 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             golfcourseDetails: null,
             destinationAddress: '',
             destinationDetails: null,
+            extraAddress1: '',
+            extraDetails1: null,
+            extraAddress2: '',
+            extraDetails2: null,
+            extraAddress3: '',
+            extraDetails3: null,
+            extraAddresses: '',
             return: true,
             passengers: '',
             stay: null,
@@ -123,6 +141,21 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         });
     }
 
+    addExtraAddress() {
+        if (this.numOfExtraAddresses() < 4) {
+            this.numOfExtraAddresses.update(current => ++current);
+        }
+    }
+
+    removeExtraAddress() {
+        if (this.numOfExtraAddresses() > 1) {
+            this.numOfExtraAddresses.update(current => --current);
+        } else if (this.numOfExtraAddresses() === 1) {
+            this.hasExtraAddresses.set(false);
+            this.configExtraAddress(false);
+        }
+    }
+
     getOrigin4ReturnAddress() {
         this.serviceForm.get('destinationAddress')?.setValue(this.serviceForm.get('originAddress')?.value);
         this.serviceForm.get('destinationDetails')?.setValue(this.serviceForm.get('originDetails')?.value);
@@ -134,6 +167,15 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             this.configReturnAddress(true)
         } else {
             this.configReturnAddress(false);
+        }
+    }
+
+    getExtraAddressCheckboxValue(event: any) {
+        this.hasExtraAddresses.set(event.target?.checked);
+        if(event.target?.checked) {
+            this.configExtraAddress(true);
+        } else {
+            this.configExtraAddress(false);
         }
     }
 
@@ -150,6 +192,20 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         } else {
             this.serviceForm.get('destinationAddress')?.setValue(this.serviceForm.get('originAddress')?.value);
             this.serviceForm.get('destinationDetails')?.setValue(this.serviceForm.get('originDetails')?.value);
+        }
+    }
+
+    private configExtraAddress(hasExtra: boolean) {
+        if (hasExtra) {
+            this.numOfExtraAddresses.set(1);
+        } else {
+            this.numOfExtraAddresses.set(0);
+            this.serviceForm.get('extraAddress1')?.setValue('');
+            this.serviceForm.get('extraAddress2')?.setValue('');
+            this.serviceForm.get('extraAddress3')?.setValue('');
+            this.serviceForm.get('extraDetails1')?.setValue(null);
+            this.serviceForm.get('extraDetails2')?.setValue(null);
+            this.serviceForm.get('extraDetails3')?.setValue(null);
         }
     }
 
@@ -204,6 +260,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
         this.configDateTimeData();
         this.configSupportMode();
+        this.configExtraAddresses();
         this.drivingAPIService.setDataGolf(this.serviceForm.getRawValue());
         this.drivingAPIService.sendGolfRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -246,5 +303,24 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     private configSupportMode() {
         const val = this.serviceForm.get('supportMode')?.value;
         this.serviceForm.get('supportMode')?.setValue(val === null ? false : val);
+    }
+
+    private configExtraAddresses() {
+        let addresses: ExtraGolfAddresses | null = { extra1: null, extra2: null, extra3: null };
+        let isEmpty = true;
+        let numOfAddresses = 0;
+
+        // Maintain type safety in Typescript => Object.keys/entries needs type assertion for iteration.
+        const typeAssertedAddresses = Object.keys(addresses) as (keyof ExtraGolfAddresses)[];
+        typeAssertedAddresses.forEach((k, index: number) => {
+            if (this.serviceForm.get(`extraAddress${index+1}`)?.value !== '') {
+                addresses[k] = this.serviceForm.get(`extraAddress${index+1}`)?.value;
+                isEmpty = false;
+                numOfAddresses++;
+            }
+        })
+
+        this.numOfExtraAddresses.set(numOfAddresses);
+        this.serviceForm.get('extraAddresses')?.setValue(isEmpty ? null : addresses);
     }
 }
