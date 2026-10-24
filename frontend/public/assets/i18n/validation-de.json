@@ -119,11 +119,12 @@
                 "email-invalid": "Das Feld \"{{fieldName}}\" hat das falsche Format.",
                 "empty-address-select": "Es muss eine Adresse aus der Optionsliste gewählt sein.",
                 "invalid-phone-char": "Telefonnummer enthält ungültige Zeichen.",
+                "invalid-upper-stay-9": "Der Aufenthalt darf 9h nicht überschreiten.",
                 "latency-invalid-upper-limit": "Die Wartezeit darf 6h nicht überschreiten.",
                 "maxlength": "Ihre Eingabe ({{fieldValue}}) darf nicht länger als: {{fieldMax}} Zeichen sein.",
                 "missing-zipcode": "Die Adresse muss eine Postleitzahl beinhalten.",
                 "required": "Das Feld \"{{fieldName}}\" ist erforderlich.",
-                "stay-invalid-upper-limit": "Der Aufenthalt darf 72h nicht überschreiten.",
+                "stay-invalid-upper-limit": "Der Aufenthalt darf 8 Tage nicht überschreiten.",
                 "tenancy-invalid-upper-limit": "Die Mietdauer darf 24h nicht überschreiten.",
                 "tenancy-invalid-value": "Die Mietdauer muss in vollen Stunden ausgewählt werden.",
                 "tenancy-invalid-zero": "Die Mietdauer kann nicht Null betragen."

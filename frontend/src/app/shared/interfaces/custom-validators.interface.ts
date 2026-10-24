@@ -16,3 +16,9 @@ export interface TimeRangeValidatorParams {
     endHour: number,
     validation: string
 }
+
+export interface StayTimeValidatorParams {
+    service: DateTimeService,
+    maxHours: number,
+    validation: string
+}

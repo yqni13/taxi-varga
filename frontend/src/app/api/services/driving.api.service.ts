@@ -72,6 +72,8 @@ export class DrivingAPIService extends AbstractApiServiceClass {
         destinationDetails: null,
         stay: 0,
         supportMode: false,
+        youthOption: false,
+        isMultiDayTrip: false,
         passengers: 1
     };
 
@@ -135,6 +137,8 @@ export class DrivingAPIService extends AbstractApiServiceClass {
             destinationDetails: data.destinationDetails,
             stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
             supportMode: data.supportMode,
+            youthOption: data.youthOption,
+            isMultiDayTrip: data.isMultiDayTrip,
             passengers: Number(data.passengers)
         };
     }

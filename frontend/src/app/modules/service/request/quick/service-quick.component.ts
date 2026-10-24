@@ -14,7 +14,7 @@ import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
 import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
-import { TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { StayTimeValidatorParams, TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 import { AddressAPIService } from "../../../../api/services/address.api.service";
 import { AddressDetailsData, AddressDetailsResponse } from "../../../../api/interfaces/address-response.interface";
 
@@ -69,6 +69,11 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     private initForm() {
+        const stayTimeParams: StayTimeValidatorParams = {
+            service: this.datetimeService,
+            maxHours: 6,
+            validation: 'maxLatency'
+        }
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -83,7 +88,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                 CustomValidators.invalidQuickPickupValidator(this.datetimeService)
             ]),
             price: new FormControl(''),
-            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(stayTimeParams)),
             latencyTime: new FormControl(''),
             latencyCosts: new FormControl(''),
             servDist: new FormControl(''),

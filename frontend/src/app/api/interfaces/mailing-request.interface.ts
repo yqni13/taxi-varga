@@ -29,6 +29,7 @@ export interface MailingMessage {
     dropOffDATE?: string,
     dropOffTIME?: string,
     supportMode: boolean,
+    youthOption?: boolean,
     passengers?: PassengerOptions,
     stay?: string,
     tenancy?: string,

@@ -91,7 +91,7 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
     }
 
     configMinMaxValues() {
-        if(this.inputType === 'datetime-local' && this.minVal !== '') {
+        if(this.inputType === 'datetime-local' && this.minVal !== '' && this.minValString !== '') {
             this.minVal = this.minValString;
         } else if(this.inputType === 'number') {
             this.minVal = this.minValNumber;

@@ -32,6 +32,8 @@ export interface DrivingGolfRequest {
     destinationDetails: any,
     stay: number,
     supportMode: boolean,
+    youthOption: boolean,
+    isMultiDayTrip: boolean,
     passengers: number
 }
 

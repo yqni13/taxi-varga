@@ -51,6 +51,13 @@ export class DateTimeService {
         return `${date}T00:00`;
     }
 
+    getNextDayStartingTimestamp(originTs: string): string {
+        const timestamp = new Date(originTs);
+        const nextDay = timestamp.setDate(timestamp.getDate()+1);
+        const date = this.getDateFromTimestamp(new Date(nextDay).toString(), true);
+        return `${date}T00:00:00`;
+    }
+
     getRestrictionTimestampHoursBased(start: string, restrictionHours: number): string {
         const basis = Math.floor((new Date(start)).getTime() / 1000);
         const limit = new Date((basis + (restrictionHours * 60 * 60)) * 1000);

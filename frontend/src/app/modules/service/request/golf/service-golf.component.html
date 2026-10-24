@@ -39,7 +39,7 @@
 							class="tava-text-input-checkbox"
 							type="checkbox"
 							checked="true"
-							(change)="getReturnCheckboxValue($event)"
+							(change)="getReturnCheckboxValue($event.target.checked)"
 						>
 						<span class="tava-service-block-input">
 							{{'modules.service.content.golf.labels.return' | translate}}
@@ -63,7 +63,7 @@
 							class="tava-text-input-checkbox"
 							type="checkbox"
 							[checked]="hasExtraAddresses()"
-							(change)="getExtraAddressCheckboxValue($event)"
+							(change)="getExtraAddressCheckboxValue($event.target.checked)"
 						>
 						<span class="tava-service-block-input">
 							{{'modules.service.content.golf.labels.extra' | translate}}
@@ -127,13 +127,35 @@
 									<input
 										class="tava-text-input-checkbox"
 										type="checkbox"
-										(change)="getSupportCheckboxValue($event)"
+										(change)="getSupportCheckboxValue($event.target.checked)"
 									>
 									<span>{{'modules.service.content.golf.labels.support-mode.player' | translate}}</span>
 								</div>
 							</div>
 						}
 					</ng-container>
+					<div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
+						<input
+							class="tava-text-input-checkbox"
+							type="checkbox"
+							[checked]="this.serviceForm.get('youthOption')?.value"
+							(change)="getYouthCheckboxValue($event.target.checked)"
+						>
+						<span class="tava-service-block-input">
+							{{'modules.service.content.golf.labels.youth' | translate}}
+						</span>
+					</div>
+					<div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
+						<input
+							class="tava-text-input-checkbox"
+							type="checkbox"
+							[checked]="isMultiDayTrip()"
+							(change)="getTripCheckboxValue($event.target.checked)"
+						>
+						<span class="tava-service-block-input">
+							{{'modules.service.content.golf.labels.trip' | translate}}
+						</span>
+					</div>
 					<div class="tava-service-specific-block tava-datetime-double">
 						<div class="tava-service-stay-wrapper" id="tava-service-golf-stay-left">
 							<span class="tava-service-block-label">
@@ -147,23 +169,39 @@
 								(byChange)="configDateTimeEnd($event)"
 							></tava-textinput>
 						</div>
-						<div
-							class="tava-service-stay-wrapper"
-							id="tava-service-golf-stay-right"
-							*tavaVar="serviceForm.get('datetimeStart') as startFc"
-						>
-							<span class="tava-service-block-label">
-								{{('modules.service.content.golf.labels.datetime-end' | translate) + '*'}}
-							</span>
-							<tava-textinput
-								[inputType]="'datetime-local'"
-								[ngClass]="startFc?.value && !startFc?.invalid ? '' : 'tava-input-inactive'"
-								[minStringObservable]="minStayStamp$"
-								[maxStringObservable]="maxStayStamp$"
-								[formControl]="serviceForm.get('datetimeEnd') | controlCast"
-								[fieldName]="'modules.service.content.form.offer.datetime-end' | translate"
-							></tava-textinput>
-						</div>
+						@if (isMultiDayTrip()) {
+							<div
+								class="tava-service-stay-wrapper"
+								id="tava-service-golf-stay-right"
+								*tavaVar="serviceForm.get('datetimeStart') as startFc"
+							>
+								<span class="tava-service-block-label">
+									{{('modules.service.content.golf.labels.datetime-end' | translate) + '*'}}
+								</span>
+								<tava-textinput
+									[inputType]="'datetime-local'"
+									[ngClass]="startFc?.value && !startFc?.invalid ? '' : 'tava-input-inactive'"
+									[minStringObservable]="minStayStamp$"
+									[maxStringObservable]="maxStayStamp$"
+									[formControl]="serviceForm.get('datetimeEnd') | controlCast"
+									[fieldName]="'modules.service.content.form.offer.datetime-end' | translate"
+								></tava-textinput>
+							</div>
+						} @else {
+							<div
+								class="tava-service-stay-wrapper"
+								id="tava-service-golf-stay-right"
+							>
+								<span class="tava-service-block-label">
+									{{('modules.service.content.golf.labels.stay' | translate) + '*'}}
+								</span>
+								<tava-textinput
+									[inputType]="'time'"
+									[formControl]="serviceForm.get('daytrip') | controlCast"
+									[fieldName]="'modules.service.content.form.offer.stay' | translate"
+								></tava-textinput>
+							</div>
+						}
 					</div>
 				</form>
 			</div>
@@ -279,7 +317,7 @@
 						</span>
 					}
 				</div>
-				@if (!checkDateEqualDate()) {
+				@if (isMultiDayTrip()) {
 					<div class="tava-service-specific-offer-sum">
 						<span class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.order.date-return' | translate) + ':'}}
@@ -288,22 +326,22 @@
 							{{serviceForm.get('dropOffDATE')?.value}}
 						</span>
 					</div>
+					<div class="tava-service-specific-offer-sum" *tavaVar="(dropoffTimeByLang$ | async) as dropoff">
+						<span class="tava-service-specific-offer-sum-left">
+							{{('modules.service.content.form.order.time-return' | translate) + ':'}}
+						</span>
+						@if (dropoff !== null) {
+							<span class="tava-service-specific-offer-sum-right">
+								{{dropoff}}
+							</span>
+						}
+						@if (dropoff === null) {
+							<span class="tava-service-specific-offer-sum-right">
+								{{dropoffTimeByLangStatic}}
+							</span>
+						}
+					</div>
 				}
-				<div class="tava-service-specific-offer-sum" *tavaVar="(dropoffTimeByLang$ | async) as dropoff">
-					<span class="tava-service-specific-offer-sum-left">
-						{{('modules.service.content.form.order.time-return' | translate) + ':'}}
-					</span>
-					@if (dropoff !== null) {
-						<span class="tava-service-specific-offer-sum-right">
-							{{dropoff}}
-						</span>
-					}
-					@if (dropoff === null) {
-						<span class="tava-service-specific-offer-sum-right">
-							{{dropoffTimeByLangStatic}}
-						</span>
-					}
-				</div>
 				<div class="tava-service-specific-offer-sum">
 					<span class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
@@ -330,6 +368,24 @@
 						</span>
 					</div>
 				}
+				@if (serviceForm.get('youthOption')?.value) {
+					<div class="tava-service-specific-offer-sum">
+						<span class="tava-service-specific-offer-sum-left">
+							{{('modules.service.content.form.order.youth-option' | translate) + ':'}}
+						</span>
+						<span class="tava-service-specific-offer-sum-right">
+							{{serviceForm.get('youthOption')?.value}}
+						</span>
+					</div>
+				}
+				<div class="tava-service-specific-offer-sum">
+					<span class="tava-service-specific-offer-sum-left">
+						{{('modules.service.content.form.order.passengers' | translate) + ':'}}
+					</span>
+					<span class="tava-service-specific-offer-sum-right">
+						{{serviceForm.get('passengers')?.value}}
+					</span>
+				</div>
 				@if (serviceForm.get('supportMode')?.value === true) {
 					<div class="tava-service-specific-offer-sum">
 						<span class="tava-service-specific-offer-sum-left">
