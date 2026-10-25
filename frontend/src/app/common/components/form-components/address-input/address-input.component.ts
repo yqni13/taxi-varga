@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, ChangeDetectionStrategy, inject, viewChild, viewChildren, output } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
@@ -13,16 +13,16 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
 
 @Component({
     selector: 'tava-addressinput',
-    templateUrl: './address-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './address-input.component.scss'
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         TranslateModule,
         ValidationInputComponent
+    ],
+    templateUrl: './address-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './address-input.component.scss'
     ],
     providers: [
         {
@@ -31,6 +31,7 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
             multi: true,
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickOutside($event)',
         '(window:keydown)': 'tabOutside($event)'
@@ -38,8 +39,11 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
 })
 export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
-    @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
-    @ViewChildren('optionRef') optionRefList!: QueryList<ElementRef<HTMLElement>>;
+    private readonly translate = inject(TranslateService);
+    private readonly addressApiService = inject(AddressAPIService);
+
+    private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
+    private readonly optionRefList = viewChildren<ElementRef<HTMLElement>>('optionRef');
 
     @Input() fieldName: string;
     @Input() placeholder: string;
@@ -61,20 +65,17 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
     }
 
-    @Output() byChange: EventEmitter<any>;
-    @Output() byPlaceSelection: EventEmitter<AddressDetailsResponse>;
+    readonly byChange = output<EventEmitter<any>>();
+    readonly byPlaceSelection = output<EventEmitter<AddressDetailsResponse>>();
 
-    protected showOptions: boolean;
-    protected focusIndex: number;
+    protected showOptions = false;
+    protected focusIndex = -1;
 
-    private delay: any;
-    private sessionToken: string;
-    private subscriptionFormControl$: Subscription;
+    private sessionToken = '';
+    private subscriptionFormControl$: Subscription = new Subscription();
+    private delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-    constructor(
-        private readonly translate: TranslateService,
-        private readonly addressApiService: AddressAPIService,
-    ) {
+    constructor() {
         super();
 
         this.fieldName = '';
@@ -88,14 +89,6 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         this.maxVal = 0;
         this.isReadonly = false;
         this.filterOption = AddressFilterOptions.NOSPEC;
-        this.byChange = new EventEmitter<any>();
-        this.byPlaceSelection = new EventEmitter<AddressDetailsResponse>();
-        this.showOptions = false;
-        this.focusIndex = -1;
-        this.sessionToken = '';
-        this.subscriptionFormControl$ = new Subscription();
-
-        this.delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
     }
 
     ngOnInit() {
@@ -123,7 +116,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     ngAfterViewInit() {
         if(this.hasAutoFocus) {
-            this.inputRef.nativeElement.focus();
+            this.inputRef()?.nativeElement.focus();
         }
     }
     
@@ -255,16 +248,15 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     }
 
     focusOnOption(index: number) {
-        const optionList = this.optionRefList.toArray()[index];
-        optionList?.nativeElement.focus();
+        this.optionRefList()[index]?.nativeElement.focus();
     }
 
     focusOnInput() {
-        this.inputRef?.nativeElement.focus();
+        this.inputRef()?.nativeElement.focus();
         this.isFocused = true;
         // define input value length and set focus to last position of input
-        const inputLength = this.inputRef.nativeElement.value.length;
-        this.inputRef.nativeElement.setSelectionRange(inputLength, inputLength);
+        const inputLength = this.inputRef()?.nativeElement.value.length ?? null;
+        this.inputRef()?.nativeElement.setSelectionRange(inputLength, inputLength);
     }
 
     override clickOutside($event: any) {

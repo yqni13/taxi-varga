@@ -1,4 +1,4 @@
-export declare interface AssetsPreloadParams {
+export interface AssetsPreloadParams {
     images?: string[],
     videos?: string[]
 }

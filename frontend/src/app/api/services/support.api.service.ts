@@ -1,38 +1,29 @@
 import { SupportRoute } from './../routes/support.route.enum';
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { catchError, Observable, throwError } from "rxjs";
 import { environment } from "../../../environments/environment";
 import { SupportFeedbackData, SupportTicketData } from "../../modules/support/support-form.interface";
 import { SupportFeedbackRequest, SupportFeedbackResponse, SupportRatingResponse, SupportTicketRequest, SupportTicketResponse } from "../interfaces/support.interface";
+import { AbstractApiServiceClass } from './abstract.api.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SupportAPIService {
+export class SupportAPIService extends AbstractApiServiceClass {
 
-    private ticketData: FormData;
-    private feedbackData: SupportFeedbackRequest;
-    private domainPathV1: string;
-    private urlTicket: string;
-    private urlFeedback: string;
-    private urlRating: string;
+    private domainPathV1 = '/api/v1';
 
-    constructor(private readonly http: HttpClient) {
-        this.ticketData = new FormData();
-        this.feedbackData = {
-            user_email: '',
-            rating: 5,
-            term_accepted: true
-        };
-        this.domainPathV1 = '/api/v1';
-        // this.urlTicket = `${this.domainPathV1}/${SupportRoute.TICKETS}/create`;
-        // this.urlFeedback = `${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`;
-        // this.urlRating = `${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`;
-        this.urlTicket = `${environment.API_SUPPORT_URL}${this.domainPathV1}/${SupportRoute.TICKETS}/create`;
-        this.urlFeedback = `${environment.API_SUPPORT_URL}${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`;
-        this.urlRating = `${environment.API_SUPPORT_URL}${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`;
-    }
+    private urlTicket = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.TICKETS}/create`;
+    private urlFeedback = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACK}/create`;
+    private urlRating = `${environment.API_SUPPORT_URL.trim()}${this.domainPathV1}/${SupportRoute.FEEDBACKRATING}/name`;
+
+    private ticketData: FormData = new FormData();
+    private feedbackData: SupportFeedbackRequest = {
+        user_email: '',
+        rating: 5,
+        term_accepted: true
+    };
 
     setTicketData(data: SupportTicketData) {
         this.ticketData = new FormData(); // Reset to avoid zombie data.
@@ -66,7 +57,7 @@ export class SupportAPIService {
     sendTicketRequest(): Observable<HttpResponse<SupportTicketResponse>> {
         return this.http.post<SupportTicketResponse>(this.urlTicket, this.ticketData, { 
             headers: {
-                'Support-Api-Key': environment.API_SUPPORT_KEY
+                'Support-Api-Key': environment.API_SUPPORT_KEY.trim()
             },
             observe: 'response'
         }).pipe(
@@ -77,7 +68,7 @@ export class SupportAPIService {
     sendFeedbackRequest(): Observable<HttpResponse<SupportFeedbackResponse>> {
         return this.http.post<SupportFeedbackResponse>(this.urlFeedback, this.feedbackData, { 
             headers: {
-                'Support-Api-Key': environment.API_SUPPORT_KEY
+                'Support-Api-Key': environment.API_SUPPORT_KEY.trim()
             },
             observe: 'response'
         }).pipe(
@@ -88,7 +79,7 @@ export class SupportAPIService {
     sendRatingRequest(): Observable<HttpResponse<SupportRatingResponse>> {
         return this.http.get<SupportRatingResponse>(`${this.urlRating}/taxi-varga`, { 
             headers: {
-                'Support-Api-Key': environment.API_SUPPORT_KEY
+                'Support-Api-Key': environment.API_SUPPORT_KEY.trim()
             },
             observe: 'response'
         }).pipe(

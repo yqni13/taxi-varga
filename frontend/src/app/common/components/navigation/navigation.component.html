@@ -16,12 +16,12 @@
 					<span
 						class="tava-nav-routes"
 						[attr.aria-disabled]="true"
-						routerLink="{{ route.path }}"
+						routerLink="{{route.path}}"
 						routerLinkActive="tava-active-route"
 					>
-						{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.data?.['title'] | translate) : ''}} 
+						{{deviceMode === deviceOptions.STATIONARY ? ('common.navigation.' + route.titleKey | translate) : ''}}
 						@if (deviceMode === deviceOptions.MOBILE) {
-							<i class="{{route.data?.['icon']}}"></i>
+							<i class="{{route.icon}}"></i>
 						}
 					</span>
 					<!-- TODO(yqni13): preload error again because state of deviceMode is cached like theme mode -->

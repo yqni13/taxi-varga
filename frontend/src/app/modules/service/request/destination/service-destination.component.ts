@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
@@ -7,26 +7,37 @@ import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { StayTimeValidatorParams, TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-destination',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-destination.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-destination.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
-    constructor(
-    ) {
-        super();
-    }
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
+
+    private timeRangeParams: TimeRangeValidatorParams = {
+        service: this.datetimeService,
+        format: DatetimeOption.FULL,
+        startHour: 4,
+        endHour: 19,
+        validation: 'invalidTimeRangeDestination'
+    };
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 6,
+        validation: 'maxLatency'
+    };
 
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;
@@ -50,13 +61,6 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     }
 
     private initForm() {
-        const invalidBHValidatorParams: InvalidBHValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.FULL,
-            startHour: 4,
-            endHour: 17,
-            isPickup: true
-        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -67,9 +71,9 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
+                CustomValidators.invalidTimeRangeByHoursValidator(this.timeRangeParams)
             ]),
-            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(this.stayTimeParams)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),

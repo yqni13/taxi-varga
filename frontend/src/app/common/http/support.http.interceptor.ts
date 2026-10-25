@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { SnackbarMessageService } from "../../shared/services/snackbar.service";
 import { HttpObservationService } from "../../shared/services/http-observation.service";
 import { HttpResponse } from "@angular/common/http";
@@ -10,12 +10,8 @@ import { SupportRoute } from "../../api/routes/support.route.enum";
 })
 export class SupportHttpInterceptor {
 
-    constructor(
-        private readonly snackbarService: SnackbarMessageService,
-        private readonly httpObservationService: HttpObservationService
-    ) {
-        //
-    }
+    private readonly snackbarService = inject(SnackbarMessageService);
+    private readonly httpObservationService = inject(HttpObservationService);
 
     async handleSupportResponse(httpBody: HttpResponse<any>) {
         if(httpBody.url?.includes(`/${SupportRoute.FEEDBACKRATING}/name`)) {

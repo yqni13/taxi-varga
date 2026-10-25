@@ -1,6 +1,6 @@
 import { ServiceRoute } from '../../api/routes/service.route.enum';
 import { CommonModule } from "@angular/common";
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
@@ -11,36 +11,28 @@ import { BaseRoute } from '../../api/routes/base.route.enum';
 
 @Component({
     selector: 'tava-service',
-    templateUrl: './service.component.html',
-    styleUrl: './service.component.scss',
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './service.component.html',
+    styleUrl: './service.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceComponent implements OnInit, OnDestroy {
 
     private readonly navigation = inject(NavigationService);
     private readonly observation = inject(ObservationService);
 
-    protected selectedBg: string;
-    protected authorAirportImg: string;
-    protected authorFlatrateImg: string;
-    protected authorGolfImg: string;
-    protected authorQuickImg: string;
+    protected selectedBg = '';
+    protected authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
+    protected authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';
+    protected authorGolfImg = 'https://pixabay.com/de/users/zhaofugang1234-5835675/';
+    protected authorQuickImg = 'https://pixabay.com/de/photos/der-verkehr-thailand-stadt-stra%C3%9Fe-7025825/';
     protected ServiceRouteEnum = ServiceRoute;
 
-    private subscriptionThemeObservation$: Subscription;
-
-    constructor() {
-        this.selectedBg = '';
-        this.authorAirportImg = 'https://pixabay.com/de/users/pexels-2286921/';
-        this.authorFlatrateImg = 'https://pixabay.com/de/users/geralt-9301/';
-        this.authorGolfImg = 'https://pixabay.com/de/users/zhaofugang1234-5835675/';
-        this.authorQuickImg = 'https://pixabay.com/de/photos/der-verkehr-thailand-stadt-stra%C3%9Fe-7025825/';
-        this.subscriptionThemeObservation$ = new Subscription();
-    }
+    private subscriptionThemeObservation$: Subscription = new Subscription();
 
     ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(

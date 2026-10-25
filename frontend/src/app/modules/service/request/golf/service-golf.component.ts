@@ -1,44 +1,60 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy, signal } from "@angular/core";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { FormControl, Validators } from "@angular/forms";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
-import { filter, Subject, tap } from "rxjs";
+import { filter, ReplaySubject, Subject, tap } from "rxjs";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { SelectInputComponent } from "../../../../common/components/form-components/select-input/select-input.component";
 import { PassengerOptions } from "../../../../shared/enums/passenger-options.enum";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { InvalidBHValidatorParams, StayTimeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { ExtraGolfAddresses } from "../../../../api/interfaces/address-helper.interface";
 
 @Component({
     selector: 'tava-service-golf',
+    imports: [
+        DistanceFormatPipe,
+        SelectInputComponent,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-golf.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-golf.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        SelectInputComponent,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceGolfComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
+
+    protected readonly hasExtraAddresses = signal(false);
+    protected readonly numOfExtraAddresses = signal(0);
+    protected readonly isMultiDayTrip = signal(false);
 
     protected AddressFilterOptionsEnum = AddressFilterOptions;
     protected PassengerOptionsEnum = PassengerOptions;
     protected dropoffTimeByLang$ = new Subject<string>();
     protected dropoffTimeByLangStatic = "";
-    protected minStayStamp$ = new Subject<string>();
-    protected maxStayStamp$ = new Subject<string>();
+    protected minStayStamp$ = new ReplaySubject<string>();
+    protected maxStayStamp$ = new ReplaySubject<string>();
+    protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
-    constructor() {
-        super();
-        this.snackbarTextMail = 'laszlovarga@gmx.at';
-    }
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 9,
+        validation: 'maxStayTime9'
+    };
+    private invalidBHValidatorParams: InvalidBHValidatorParams = {
+        service: this.datetimeService,
+        format: DatetimeOption.FULL,
+        startHour: 4,
+        endHour: 12,
+        isPickup: true
+    };
+
 
     override async ngOnInit() {
         this.service = ServiceRoute.GOLF;
@@ -62,13 +78,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     private initForm() {
-        const invalidBHValidatorParams: InvalidBHValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.FULL,
-            startHour: 4,
-            endHour: 12,
-            isPickup: true
-        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -77,18 +86,28 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             golfcourseDetails: new FormControl(''),
             destinationAddress: new FormControl(''),            
             destinationDetails: new FormControl(''),
+            extraAddress1: new FormControl(''),
+            extraDetails1: new FormControl(''),
+            extraAddress2: new FormControl(''),
+            extraDetails2: new FormControl(''),
+            extraAddress3: new FormControl(''),
+            extraDetails3: new FormControl(''),
+            extraAddresses: new FormControl(''),
             return: new FormControl(null),
             datetimeStart: new FormControl('', [
                 Validators.required,
                 CustomValidators.priorityValidator([
                     CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
+                    CustomValidators.invalidBusinessHoursValidator(this.invalidBHValidatorParams)
                 ])
             ]),
             datetimeEnd: new FormControl(''),
+            daytrip: new FormControl('', [Validators.required, CustomValidators.maxStayTimeValidator(this.stayTimeParams)]),
             passengers: new FormControl('', Validators.required),
-            stay: new FormControl(''),
+            stayInHHmm: new FormControl(''),
+            stayInDays: new FormControl(''),
             supportMode: new FormControl(''),
+            youthOption: new FormControl(''),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             dropOffDATE: new FormControl(''),
@@ -109,12 +128,22 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             golfcourseDetails: null,
             destinationAddress: '',
             destinationDetails: null,
+            extraAddress1: '',
+            extraDetails1: null,
+            extraAddress2: '',
+            extraDetails2: null,
+            extraAddress3: '',
+            extraDetails3: null,
+            extraAddresses: '',
             return: true,
             passengers: '',
-            stay: null,
+            stayInHHmm: null,
+            stayInDays: null,
             supportMode: false,
+            youthOption: false,
             datetimeStart: '',
             datetimeEnd: '',
+            daytrip: '',
             pickupDATE: '',
             pickupTIME: '',
             dropOffDATE: '',
@@ -125,22 +154,47 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         });
     }
 
+    addExtraAddress() {
+        if (this.numOfExtraAddresses() < 4) {
+            this.numOfExtraAddresses.update(current => ++current);
+        }
+    }
+
+    removeExtraAddress() {
+        if (this.numOfExtraAddresses() > 1) {
+            this.numOfExtraAddresses.update(current => --current);
+        } else if (this.numOfExtraAddresses() === 1) {
+            this.hasExtraAddresses.set(false);
+            this.configExtraAddress(false);
+        }
+    }
+
     getOrigin4ReturnAddress() {
         this.serviceForm.get('destinationAddress')?.setValue(this.serviceForm.get('originAddress')?.value);
         this.serviceForm.get('destinationDetails')?.setValue(this.serviceForm.get('originDetails')?.value);
     }
 
-    getReturnCheckboxValue(event: any) {
-        this.serviceForm.get('return')?.setValue(event.target?.checked);
-        if(event.target?.checked) {
-            this.configReturnAddress(true)
-        } else {
-            this.configReturnAddress(false);
-        }
+    getReturnCheckboxValue(isChecked: boolean) {
+        this.serviceForm.get('return')?.setValue(isChecked);
+        this.configReturnAddress(isChecked);
     }
 
-    getSupportCheckboxValue(event: any) {
-        this.serviceForm.get('supportMode')?.setValue(event.target?.checked);
+    getExtraAddressCheckboxValue(isChecked: boolean) {
+        this.hasExtraAddresses.set(isChecked);
+        this.configExtraAddress(isChecked);
+    }
+
+    getSupportCheckboxValue(isChecked: boolean) {
+        this.serviceForm.get('supportMode')?.setValue(isChecked);
+    }
+
+    getYouthCheckboxValue(isChecked: boolean) {
+        this.serviceForm.get('youthOption')?.setValue(isChecked);
+    }
+
+    getTripCheckboxValue(isChecked: boolean) {
+        this.isMultiDayTrip.set(isChecked);
+        this.configDayTrip(isChecked);
     }
 
     private configReturnAddress(isOrigin: boolean) {
@@ -152,6 +206,20 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         } else {
             this.serviceForm.get('destinationAddress')?.setValue(this.serviceForm.get('originAddress')?.value);
             this.serviceForm.get('destinationDetails')?.setValue(this.serviceForm.get('originDetails')?.value);
+        }
+    }
+
+    private configExtraAddress(hasExtra: boolean) {
+        if (hasExtra) {
+            this.numOfExtraAddresses.set(1);
+        } else {
+            this.numOfExtraAddresses.set(0);
+            this.serviceForm.get('extraAddress1')?.setValue('');
+            this.serviceForm.get('extraAddress2')?.setValue('');
+            this.serviceForm.get('extraAddress3')?.setValue('');
+            this.serviceForm.get('extraDetails1')?.setValue(null);
+            this.serviceForm.get('extraDetails2')?.setValue(null);
+            this.serviceForm.get('extraDetails3')?.setValue(null);
         }
     }
 
@@ -167,9 +235,39 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         }
     }
 
+    configDayTrip(isMultiDayTrip: boolean) {
+        const datetimeEnd = this.serviceForm.get('datetimeEnd');
+        datetimeEnd?.clearValidators();
+        datetimeEnd?.setValue('');
+
+        const daytrip = this.serviceForm.get('daytrip');
+        daytrip?.clearValidators();
+
+        if (isMultiDayTrip) {
+            daytrip?.setValue('');
+            const datetimeStart = this.serviceForm.get('datetimeStart')?.value;
+            this.configDateTimeEnd(datetimeStart);
+        } else {
+            daytrip?.setValue('');
+            daytrip?.setValidators([
+                Validators.required,
+                CustomValidators.maxStayTimeValidator(this.stayTimeParams)
+            ]);
+            daytrip?.markAsUntouched();
+        }
+    }
+
     configDateTimeEnd($event: any) {
-        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 72);
-        this.minStayStamp$.next(this.datetimeService.getTodayStartingTimestamp(false, $event));
+        if (!this.isMultiDayTrip()) {
+            return;
+        }
+        const datetimeStart = this.serviceForm.get('datetimeStart');
+        if(!datetimeStart || datetimeStart?.value === '') {
+            return;
+        }
+        const mints = this.datetimeService.getNextDayStartingTimestamp($event);
+        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 192);
+        this.minStayStamp$.next(mints);
         this.maxStayStamp$.next(restrictDateTime);
         this.serviceForm.get('datetimeEnd')?.clearValidators();
         this.serviceForm.get('datetimeEnd')?.setValidators([
@@ -179,17 +277,10 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 this.serviceForm.get('datetimeStart')?.value
             ),
             CustomValidators.invalidZeroTenancyValidator(this.datetimeService, this.serviceForm.get('datetimeStart')?.value),
-            CustomValidators.invalidTenancyUpperLimitValidator(restrictDateTime, ServiceRoute.GOLF)
         ]);
         this.serviceForm.get('datetimeEnd')?.setValue('');
         this.serviceForm.get('datetimeEnd')?.markAsUntouched();
-    }
-
-    override addResponseRouteData2Form(response: any) {
-        super.addResponseRouteData2Form(response);
-        this.serviceForm.get('stay')?.setValue(
-            this.datetimeService.getTimeFromTotalHours(response.body?.body.routeData.stay)
-        );
+        this.serviceForm.get('datetimeEnd')?.markAsPristine();
     }
 
     async onSubmitOffer() {
@@ -206,6 +297,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
         this.configDateTimeData();
         this.configSupportMode();
+        this.configExtraAddresses();
         this.drivingAPIService.setDataGolf(this.serviceForm.getRawValue());
         this.drivingAPIService.sendGolfRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
@@ -216,24 +308,33 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     }
 
     private configDateTimeData() {
-        this.serviceForm.get('stay')?.setValue(this.datetimeService.getTimeDifferenceAsString(
-            this.serviceForm.get('datetimeStart')?.value,
-            this.serviceForm.get('datetimeEnd')?.value,
-            true
-        ));
-        
         this.serviceForm.get('pickupDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
             this.serviceForm.get('datetimeStart')?.value
         ));
         this.serviceForm.get('pickupTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
             this.serviceForm.get('datetimeStart')?.value
         ));
-        this.serviceForm.get('dropOffDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
-            this.serviceForm.get('datetimeEnd')?.value
-        ));
-        this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
-            this.serviceForm.get('datetimeEnd')?.value
-        ));
+
+        if (this.isMultiDayTrip()) {
+            this.serviceForm.get('stayInHHmm')?.setValue(this.datetimeService.getTimeDifferenceAsString(
+                this.serviceForm.get('datetimeStart')?.value,
+                this.serviceForm.get('datetimeEnd')?.value,
+                true
+            ));
+            this.serviceForm.get('stayInDays')?.setValue((this.datetimeService.getTimeDifferenceAsNumbers(
+                this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value),
+                this.serviceForm.get('datetimeEnd')?.value).days
+            ))
+            this.serviceForm.get('dropOffDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
+                this.serviceForm.get('datetimeEnd')?.value
+            ));
+            this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
+                this.serviceForm.get('datetimeEnd')?.value
+            ));
+        } else {
+            this.serviceForm.get('stayInDays')?.setValue(1);
+            this.serviceForm.get('stayInHHmm')?.setValue(this.serviceForm.get('daytrip')?.value);
+        }
 
         this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(
             this.serviceForm.get('pickupTIME')?.value,
@@ -248,5 +349,24 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
     private configSupportMode() {
         const val = this.serviceForm.get('supportMode')?.value;
         this.serviceForm.get('supportMode')?.setValue(val === null ? false : val);
+    }
+
+    private configExtraAddresses() {
+        let addresses: ExtraGolfAddresses | null = { extra1: null, extra2: null, extra3: null };
+        let isEmpty = true;
+        let numOfAddresses = 0;
+
+        // Maintain type safety in Typescript => Object.keys/entries needs type assertion for iteration.
+        const typeAssertedAddresses = Object.keys(addresses) as (keyof ExtraGolfAddresses)[];
+        typeAssertedAddresses.forEach((k, index: number) => {
+            if (this.serviceForm.get(`extraAddress${index+1}`)?.value !== '') {
+                addresses[k] = this.serviceForm.get(`extraAddress${index+1}`)?.value;
+                isEmpty = false;
+                numOfAddresses++;
+            }
+        })
+
+        this.numOfExtraAddresses.set(numOfAddresses);
+        this.serviceForm.get('extraAddresses')?.setValue(isEmpty ? null : addresses);
     }
 }

@@ -1,94 +1,91 @@
 import { HttpResponse } from '@angular/common/http';
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { inject, Injectable } from "@angular/core";
 import * as DrivingRequest from "../interfaces/driving-request.interface";
 import * as DrivingResponse from "../interfaces/driving-response.interface";
 import { catchError, Observable, throwError } from "rxjs";
 import { DateTimeService } from '../../shared/services/datetime.service';
-import { UtilsService } from '../../shared/services/utils.service';
 import { ServiceRoute } from '../routes/service.route.enum';
 import { environment } from '../../../environments/environment';
+import { AbstractApiServiceClass } from './abstract.api.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class DrivingAPIService {
+export class DrivingAPIService extends AbstractApiServiceClass {
+
+    private readonly datetimeService = inject(DateTimeService);
     
-    private domainPathV1: string;
+    private domainPathV1 = '/api/v1/driving';
 
-    private urlAirport: string;
-    private urlDestination: string;
-    private urlFlatrate: string;
-    private urlGolf: string;
-    private urlQuick: string;
+    private urlAirport = this.isDevEnv 
+        ? `${this.domainPathV1}/${ServiceRoute.AIRPORT}`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/${ServiceRoute.AIRPORT}`;
 
-    private dataAirport: DrivingRequest.DrivingAirportRequest;
-    private dataDestination: DrivingRequest.DrivingDestinationRequest;
-    private dataFlatrate: DrivingRequest.DrivingFlatrateRequest;
-    private dataGolf: DrivingRequest.DrivingGolfRequest;
-    private dataQuick: DrivingRequest.DrivingQuickRequest;
+    private urlDestination = this.isDevEnv 
+        ? `${this.domainPathV1}/${ServiceRoute.DESTINATION}`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/${ServiceRoute.DESTINATION}`;
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly utils: UtilsService,
-        private readonly datetimeService: DateTimeService
-    ) {
-        this.domainPathV1 = '/api/v1/driving';
+    private urlFlatrate = this.isDevEnv 
+        ? `${this.domainPathV1}/${ServiceRoute.FLATRATE}`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/${ServiceRoute.FLATRATE}`;
 
-        // this.urlAirport = `${this.domainPathV1}/${ServiceRoute.AIRPORT}`;
-        // this.urlDestination = `${this.domainPathV1}/${ServiceRoute.DESTINATION}`;
-        // this.urlFlatrate = `${this.domainPathV1}/${ServiceRoute.FLATRATE}`;
-        // this.urlGolf = `${this.domainPathV1}/${ServiceRoute.GOLF}`;
-        // this.urlQuick = `${this.domainPathV1}/${ServiceRoute.QUICK}`;
-        this.urlAirport = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.AIRPORT}`;
-        this.urlDestination = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.DESTINATION}`;
-        this.urlFlatrate = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.FLATRATE}`;
-        this.urlGolf = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.GOLF}`;
-        this.urlQuick = environment.API_BASE_URL + `${this.domainPathV1}/${ServiceRoute.QUICK}`;
+    private urlGolf = this.isDevEnv 
+        ? `${this.domainPathV1}/${ServiceRoute.GOLF}`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/${ServiceRoute.GOLF}`;
 
-        this.dataAirport = {
-            origin: '',
-            originDetails: null,
-            destination: '',
-            destinationDetails: null
-        };
-        this.dataDestination = {
-            origin: '',
-            originDetails: null,
-            destination: '',
-            destinationDetails: null,
-            back2home: false,
-            latency: 0,
-            pickupTIME: 0
-        };
-        this.dataFlatrate = {
-            origin: '',
-            originDetails: null,
-            destination: '',
-            destinationDetails: null,
-            tenancy: 0
-        };
-        this.dataGolf = {
-            origin: '',
-            originDetails: null,
-            golfcourse: '',
-            golfcourseDetails: null,
-            destination: '',
-            destinationDetails: null,
-            stay: 0,
-            supportMode: false,
-            passengers: 1
-        };
-        this.dataQuick = {
-            origin: '',
-            originDetails: null,
-            destination: '',
-            destinationDetails: null,
-            latency: 0,
-            back2origin: false,
-            pickupTIME: '00:00',
-        }
-    }
+    private urlQuick = this.isDevEnv 
+        ? `${this.domainPathV1}/${ServiceRoute.QUICK}`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/${ServiceRoute.QUICK}`;
+
+
+    private dataAirport: DrivingRequest.DrivingAirportRequest = {
+        origin: '',
+        originDetails: null,
+        destination: '',
+        destinationDetails: null
+    };
+
+    private dataDestination: DrivingRequest.DrivingDestinationRequest = {
+        origin: '',
+        originDetails: null,
+        destination: '',
+        destinationDetails: null,
+        back2home: false,
+        latency: 0,
+        pickupTIME: 0
+    };
+
+    private dataFlatrate: DrivingRequest.DrivingFlatrateRequest = {
+        origin: '',
+        originDetails: null,
+        destination: '',
+        destinationDetails: null,
+        tenancy: 0
+    };
+
+    private dataGolf: DrivingRequest.DrivingGolfRequest = {
+        origin: '',
+        originDetails: null,
+        golfcourse: '',
+        golfcourseDetails: null,
+        destination: '',
+        destinationDetails: null,
+        stayInMinutes: 0,
+        stayInDays: 1,
+        supportMode: false,
+        youthOption: false,
+        passengers: 1
+    };
+
+    private dataQuick: DrivingRequest.DrivingQuickRequest = {
+        origin: '',
+        originDetails: null,
+        destination: '',
+        destinationDetails: null,
+        latency: 0,
+        back2origin: false,
+        pickupTIME: '00:00',
+    };
 
     setDataAirport(data: any) {
         const airport = 'vie-schwechat';
@@ -138,8 +135,10 @@ export class DrivingAPIService {
             golfcourseDetails: data.golfcourseDetails,
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
-            stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
+            stayInMinutes: data.stayInDays > 1 ? undefined : this.datetimeService.getTimeInTotalMinutes(data.stayInHHmm ?? 0),
+            stayInDays: data.stayInDays,
             supportMode: data.supportMode,
+            youthOption: data.youthOption,
             passengers: Number(data.passengers)
         };
     }

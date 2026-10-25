@@ -1,57 +1,48 @@
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AddressAutocompleteRequest, AddressDetailsRequest, AddressGelocationRequest } from "../interfaces/address-request.interface";
-import { UtilsService } from "../../shared/services/utils.service";
 import { catchError, Observable, throwError } from "rxjs";
 import { AddressFilterOptions } from "../../shared/enums/addressfilter-options.enum";
 import { environment } from "../../../environments/environment";
+import { AbstractApiServiceClass } from "./abstract.api.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class AddressAPIService {
+export class AddressAPIService extends AbstractApiServiceClass {
 
-    private urlAutocomplete: string;
-    private urlDetails: string;
-    private urlGeolocation: string;
-    private domainPathV1: string;
+    private domainPathV1 = '/api/v1/address';
 
-    private dataAutocomplete: AddressAutocompleteRequest;
-    private dataDetails: AddressDetailsRequest;
-    private dataGeolocation: AddressGelocationRequest;
+    private urlAutocomplete = this.isDevEnv
+        ? `${this.domainPathV1}/autocomplete`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/autocomplete`;
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly utils: UtilsService
-    ) {
-        this.domainPathV1 = '/api/v1/address';
+    private urlDetails = this.isDevEnv
+        ? `${this.domainPathV1}/details`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/details`;
+    
+    private urlGeolocation = this.isDevEnv
+        ? `${this.domainPathV1}/geocode`
+        : `${environment.API_BASE_URL.trim()}${this.domainPathV1}/geocode`;
 
-        // this.urlAutocomplete = `${this.domainPathV1}/autocomplete`;
-        // this.urlDetails = `${this.domainPathV1}/details`;
-        // this.urlGeolocation = `${this.domainPathV1}/geocode`;
-        this.urlAutocomplete = `${environment.API_BASE_URL}${this.domainPathV1}/autocomplete`;
-        this.urlDetails = `${environment.API_BASE_URL}${this.domainPathV1}/details`;
-        this.urlGeolocation = `${environment.API_BASE_URL}${this.domainPathV1}/geocode`;
+    private dataAutocomplete: AddressAutocompleteRequest = {
+        address: '',
+        language: '',
+        filter: AddressFilterOptions.NOSPEC,
+        sessionToken: ''
+    };
 
-        this.dataAutocomplete = {
-            address: '',
-            language: '',
-            filter: AddressFilterOptions.NOSPEC,
-            sessionToken: ''
-        };
+    private dataDetails: AddressDetailsRequest = {
+        placeId: '',
+        language: '',
+        sessionToken: ''
+    };
 
-        this.dataDetails = {
-            placeId: '',
-            language: '',
-            sessionToken: ''
-        };
-
-        this.dataGeolocation = {
-            latitude: '',
-            longitude: '',
-            language: ''
-        };
-    }
+    private dataGeolocation: AddressGelocationRequest = {
+        latitude: '',
+        longitude: '',
+        language: ''
+    };
 
     setDataAutocomplete(data: any) {
         this.dataAutocomplete = {

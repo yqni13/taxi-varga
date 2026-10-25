@@ -85,7 +85,7 @@
 							{{('modules.service.content.form.order.contact' | translate) + ':'}}
 						</span>
 						<span class="tava-service-specific-offer-sum-right">
-							{{('shared.enum.gender.' + serviceForm.get('gender')?.value | translate) + customer}}
+							{{('shared.enum.gender.' + (serviceForm.get('gender')?.value ?? null) | translate) + customer}}
 						</span>
 					</div>
 				}
@@ -204,7 +204,7 @@
 						{{('modules.service.content.form.order.price-estimated' | translate) + ':'}}
 					</span>
 					<span class="tava-service-specific-offer-sum-right">
-						{{serviceForm.get('price')?.value | currencyFormat}}
+						{{(serviceForm.get('price')?.value ?? null) | currencyFormat}}
 					</span>
 				</div>
 				@if (hasOrder && !hasConfirmed) {
@@ -218,7 +218,7 @@
 							class="tava-service-block-input"
 							[ngClass]="!termCancellation ? 'tava-message-invalid' : ''"
 						>
-							{{'modules.service.content.form.order.terms-flatrate' | translate: {fieldValue: serviceForm.get('price')?.value} }}
+							{{'modules.service.content.form.order.terms-flatrate' | translate: {fieldValue: (serviceForm.get('price')?.value ?? null)} }}
 						</span>
 					</div>
 				}

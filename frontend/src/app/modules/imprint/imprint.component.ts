@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { ObservationService } from "../../shared/services/observation.service";
 import { TranslateModule } from "@ngx-translate/core";
@@ -10,25 +10,26 @@ import { AssetsPreloadService } from "../../shared/services/assets-preload.servi
 
 @Component({
     selector: 'tava-imprint',
-    templateUrl: './imprint.component.html',
-    styleUrl: './imprint.component.scss',
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule
-    ]
+    ],
+    templateUrl: './imprint.component.html',
+    styleUrl: './imprint.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ImprintComponent implements OnInit, OnDestroy {
 
-    private readonly observation = inject(ObservationService);
     private readonly preload = inject(AssetsPreloadService);
+    private readonly observation = inject(ObservationService);
 
     protected selectedBg = '';
     protected images: string[] = [];
     protected isPreloading = true;
     protected devData = {
         project: 'taxi-varga',
-        version: 'v2.0.18',
+        version: 'v3.2.2',
         github: 'https://github.com/yqni13/taxi-varga/tree/production',
         portfolio: 'https://yqni13.com',
         contact: BaseRoute.SUPPORT

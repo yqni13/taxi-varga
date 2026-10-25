@@ -12,35 +12,35 @@
         "services": {
             "content": {
                 "entry0": {
-                    "text": "Eine Fahrt zwischen Wien und dem Flughafen Wien-Schwechat mit viel Platz für Ihr Gepäck.",
                     "subtitle": "Wien",
+                    "text": "Eine Fahrt zwischen Wien und dem Flughafen Wien-Schwechat mit viel Platz für Ihr Gepäck.",
                     "title": "Flughafen Pauschalfahrt"
                 },
                 "entry1": {
-                    "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthalts vor Ort.",
                     "subtitle": "Niederösterreich",
+                    "text": "Eine Fahrt in, von oder nach Niederösterreich mit der Option eines Aufenthalts vor Ort.",
                     "title": "Flughafen & sonstige Pauschalfahrt"
                 },
                 "entry2": {
-                    "text": "Ein Tagesausflug zu einem Golfplatz Ihrer Wahl mit der Option auf Mitspielen im Flight oder bei einem Turnier.",
                     "subtitle": "",
+                    "text": "Ein Tagesausflug zu einem Golfplatz oder Fahrgemeinschaft bei Spielbeteiligung des Fahrers im Flight / Turnier.",
                     "title": "Golf-Tagesreise"
                 },
                 "entry3": {
-                    "text": "Statt eines fixen Ziels kann auch pauschal nach Zeit eine Reise in Anspruch genommen werden.",
                     "subtitle": "",
+                    "text": "Statt eines fixen Ziels kann auch pauschal nach Zeit eine Reise in Anspruch genommen werden.",
                     "title": "Zeitmiete"
                 },
                 "entry4": {
-                    "text": "Pauschalpreis prüfen und (je nach Verfügbarkeit) spontan telefonisch bestellen (keine Vorbestellung).",
                     "subtitle": "Wien & Leobersdorf",
+                    "text": "Pauschalpreis prüfen und (je nach Verfügbarkeit) spontan telefonisch bestellen (keine Vorbestellung).",
                     "title": "Spontane Pauschalfahrt"
                 }
             },
             "title": "Ein Service für jedes Anliegen"
         },
         "sub": {
-            "entry0": "Standard Abholzeit für alle Leistungen (täglich): 04:00 - 12:00 Uhr\nErweiterte Abholzeit nur für Service: \"Pauschalfahrt NÖ\" und \"Zeitmiete\" (täglich): 12:00 - 17:00 Uhr",
+            "entry0": "Täglich gelten folgende Abholzeiten:\nStandard für alle Leistungen: 04:00 - 12:00 Uhr\n\"Pauschalfahrt NÖ\", \"Spontanfahrt Leobersdorf\" und \"Zeitmiete\": 12:00 - 19:00 Uhr",
             "entry1": "Klassifizierung durch 40100: 5.0 Sterne (max)",
             "entry2": "Seniorentauglicher Ein- und Ausstieg durch erhöhte Sitzposition",
             "entry3": "Beförderung erfolgt bei:\nMax 4 Personen mit Gepäck\nMax 3 Personen mit Golf-Equipment\nMax 2 Personen mit Gepäck + Golf-Equipment",

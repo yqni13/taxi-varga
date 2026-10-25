@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { TimeDifferences } from "../interfaces/datetime.interface";
 
 @Injectable({
     providedIn: 'root'
@@ -51,6 +52,13 @@ export class DateTimeService {
         return `${date}T00:00`;
     }
 
+    getNextDayStartingTimestamp(originTs: string): string {
+        const timestamp = new Date(originTs);
+        const nextDay = timestamp.setDate(timestamp.getDate()+1);
+        const date = this.getDateFromTimestamp(new Date(nextDay).toString(), true);
+        return `${date}T00:00:00`;
+    }
+
     getRestrictionTimestampHoursBased(start: string, restrictionHours: number): string {
         const basis = Math.floor((new Date(start)).getTime() / 1000);
         const limit = new Date((basis + (restrictionHours * 60 * 60)) * 1000);
@@ -89,8 +97,8 @@ export class DateTimeService {
      * @returns string in total minutes
      */
     getTimeInTotalMinutes(time: string): number {
-        const hours = time[0] === '0' ? Number(time[1]) : Number(`${time[0]}${time[1]}`);
-        const minutes = time[3] === '0' ? Number(time[4]) : Number(`${time[3]}${time[4]}`);
+        const hours = Number(time.substring(0, time.indexOf(':')));
+        const minutes = Number(time.substring(time.indexOf(':')+1));
         return (hours * 60) + minutes;
     }
 
@@ -103,6 +111,19 @@ export class DateTimeService {
     getTimeDifferenceAsNumber(start: string, end: string): number {
         const asString = this.getTimeDifferenceAsString(start, end);
         return this.getTimeInTotalMinutes(asString);
+    }
+
+    getTimeDifferenceAsNumbers(start: string, end: string): TimeDifferences {
+        let diff = Date.parse(end) - Date.parse(start);
+        diff = isNaN(diff) ? 0 : diff;
+        return {
+                diffInMS: diff,
+                milliseconds: Math.floor(diff % 1000),
+                seconds: Math.floor(diff / 1000 % 60),
+                minutes: Math.floor(diff / 60000 % 60),
+                hours: Math.floor(diff / 3600000 % 24),
+                days: Math.floor(diff / 86400000)
+            };
     }
 
     getTimeDifferenceAsString(start: string, end: string, rawResult?: boolean): string {

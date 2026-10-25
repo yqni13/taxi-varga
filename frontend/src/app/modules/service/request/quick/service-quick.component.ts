@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { AfterViewInit, Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { FormControl, Validators } from "@angular/forms";
@@ -14,20 +14,22 @@ import { environment } from "../../../../../environments/environment";
 import { DomSanitizer, SafeResourceUrl } from "@angular/platform-browser";
 import * as Utils from "../../../../common/helper/common.helper";
 import { SnackbarOption } from "../../../../shared/enums/snackbar-options.enum";
-import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { StayTimeValidatorParams, TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 import { AddressAPIService } from "../../../../api/services/address.api.service";
+import { AddressDetailsData, AddressDetailsResponse } from "../../../../api/interfaces/address-response.interface";
 
 @Component({
     selector: 'tava-service-quick',
+    imports: [
+        DistanceFormatPipe,
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-quick.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-quick.component.scss'
     ],
-    imports: [
-        DistanceFormatPipe,
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceQuickComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -43,11 +45,13 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected isGeoChecked = false;
     protected isSelectingGPSOption = false;
 
-    private originSubscription$: Subscription | undefined = new Subscription();
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 6,
+        validation: 'maxLatency'
+    };
 
-    constructor() {
-        super();
-    }
+    private originSubscription$: Subscription | undefined = new Subscription();
 
     override async ngOnInit() {
         this.service = ServiceRoute.QUICK;
@@ -71,13 +75,6 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     private initForm() {
-        const invalidBHValidatorParams: InvalidBHValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.HHMM,
-            startHour: 4,
-            endHour: 12,
-            isPickup: true
-        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -89,10 +86,10 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             back2origin: new FormControl(''),
             pickupTIME: new FormControl('', [
                 Validators.required,
-                CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
+                CustomValidators.invalidQuickPickupValidator(this.datetimeService)
             ]),
             price: new FormControl(''),
-            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(this.stayTimeParams)),
             latencyTime: new FormControl(''),
             latencyCosts: new FormControl(''),
             servDist: new FormControl(''),
@@ -200,13 +197,55 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
         this.serviceForm.get('originAddress')?.markAsPristine();
         this.serviceForm.get('originAddress')?.markAsUntouched();
         this.serviceForm.get('originAddress')?.updateValueAndValidity({ onlySelf: true, emitEvent: false })
-        this.originSubscription$ = this.serviceForm.get('originDetails')?.valueChanges.subscribe((value) => {
-            if(value && !value.zipCode) {
-                this.serviceForm.get('originAddress')?.setErrors({missingZipcode: true});
-            } else if(value && !Utils.isQuickOriginValid(value.zipCode)) {
-                this.serviceForm.get('originAddress')?.setErrors({invalidQuickOrigin: true});
+        this.originSubscription$ = this.serviceForm.get('originDetails')?.valueChanges.subscribe((data: AddressDetailsData) => {
+            if (data && data.zipCode) {
+                this.validateOriginAddress(data);
+                this.setPickupValidatorOnOriginAddress(data);
             }
         })
+    }
+
+    private validateOriginAddress(address: AddressDetailsData) {
+        if (!address.zipCode) {
+            this.serviceForm.get('originAddress')?.setErrors({missingZipcode: true});
+        } else if (!Utils.isQuickOriginValid(address.zipCode!)) {
+            this.serviceForm.get('originAddress')?.setErrors({invalidQuickOrigin: true});
+        }
+    }
+
+    setPickupValidatorOnOriginAddress(data: unknown) {
+        const address = data as AddressDetailsResponse;
+        this.serviceForm.get('pickupTIME')?.clearValidators();
+        if (address.zipCode === '2544') {
+            const params: TimeRangeValidatorParams = {
+                service: this.datetimeService,
+                format: DatetimeOption.HHMM,
+                startHour: 14,
+                endHour: 19,
+                validation: 'invalidQuickOriginLeobersdorf'
+            };
+            this.serviceForm.get('pickupTIME')?.setValidators([
+                Validators.required,
+                CustomValidators.invalidQuickPickupValidator(this.datetimeService),
+                CustomValidators.invalidTimeRangeByHoursValidator(params)
+            ]);
+        } else if (Utils.checkAddressInViennaByZipCode(address.zipCode)) {
+            const params: TimeRangeValidatorParams = {
+                service: this.datetimeService,
+                format: DatetimeOption.HHMM,
+                startHour: 4,
+                endHour: 10,
+                validation: 'invalidQuickOriginVienna'
+            };
+            this.serviceForm.get('pickupTIME')?.setValidators([
+                Validators.required,
+                CustomValidators.invalidQuickPickupValidator(this.datetimeService),
+                CustomValidators.invalidTimeRangeByHoursValidator(params),
+            ]);
+        }
+        this.serviceForm.get('pickupTIME')?.setValue('');
+        this.serviceForm.get('pickupTIME')?.markAsPristine();
+        this.serviceForm.get('pickupTIME')?.markAsUntouched();
     }
 
     private transformMapUrl(placeId: string): SafeResourceUrl {
@@ -220,10 +259,15 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
             this.serviceForm.get('originDetailsByGeocode')?.setValue({
                 placeId: data.place_id,
                 address: data.formatted_address,
-                province: data.address_components.find((entry: any) => {return entry.types.includes('administrative_area_level_1')})['long_name'],
-                country: data.address_components.find((entry: any) => {return entry.types.includes('country')})['long_name'],
-                zipCode: data.address_components.find((entry: any) => {return entry.types.includes('postal_code')})['long_name'] ?? null
+                province: data.address_components.find((entry: any) => entry.types.includes('administrative_area_level_1'))['long_name'],
+                country: data.address_components.find((entry: any) => entry.types.includes('country'))['long_name'],
+                zipCode: data.address_components.find((entry: any) =>  entry.types.includes('postal_code'))?.['long_name'] ?? 1000
             });
+            if (data.zipCode) {
+                data.zipCode = data.zipCode.toString();
+                this.validateOriginAddress(data);
+                this.setPickupValidatorOnOriginAddress(data);
+            }
         } else {
             this.serviceForm.get('originAddressByGeocode')?.setValue('');
             this.serviceForm.get('originDetailsByGeocode')?.setValue(null);

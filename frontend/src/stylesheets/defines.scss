@@ -27,6 +27,8 @@
     --theme-snackbar-warning: #{sass.$color-lightmode-warning};
     --theme-hint-grey: #{sass.$color-grey-lightmode};
     --theme-button-bg: #{sass.$color-light-highlight};
+    --theme-button-plus: #{sass.$color-logo-green};
+    --theme-button-minus: #{sass.$color-valid-red};
     --theme-form-bg: #{sass.$color-grey-dark};
     --theme-shadow-color: #{sass.$color-ice-white};
     --filter-brightness: 1;
@@ -52,6 +54,8 @@
     --theme-snackbar-warning: #{sass.$color-darkmode-warning};
     --theme-hint-grey: #{sass.$color-grey-label};
     --theme-button-bg: #{sass.$color-dark-highlight};
+    --theme-button-plus: #{sass.$color-logo-green};
+    --theme-button-minus: #{sass.$color-valid-red};
     --theme-form-bg: none;
     --theme-shadow-color: #{sass.$color-text-black};
     --filter-brightness: 0.4;

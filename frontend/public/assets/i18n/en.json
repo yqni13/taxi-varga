@@ -62,7 +62,7 @@
                 "airport": {
                     "block-validation": "Please select your option of arrival or departure.",
                     "info": {
-                        "text": "time of pickup for 'Airport' service between 04:00 a.m. and 12:00 p.m.",
+                        "text": "- time of pickup for 'Airport' service between 04:00 a.m. and 12:00 p.m.\n- Additional charge of 5,00 EUR applies for pick-ups outside of the aforementioned time frame and such requests must be made via email:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -82,7 +82,7 @@
                 },
                 "destination": {
                     "info": {
-                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- time of pickup for 'Destination' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
+                        "text": "- 'Destination' service NÖ allows 1 address within Vienna or any other province.\n - if the option for returning to pickup address is selected, latency must not be bigger than 6h.\n- max 3h latency with costs\n- daily time of pickup for 'Destination' service orders from 04:00 a.m. to 07:00 p.m.\n- alternative booking time request directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -101,7 +101,7 @@
                 },
                 "flatrate": {
                     "info": {
-                        "text": "- Tenancy will be charged for min 3h\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately\n- time of pickup for 'Flatrate' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
+                        "text": "- tenancy will be charged for min 3h\n- 25 km per hour of rental time are included and cost 35,00 EUR. Additional costs for driving to/from your pickup/dropof address will be charged seperately\n- time of pickup for 'Flatrate' service orders between 04:00 a.m. and 17:00 p.m. and time of return ending up to 20:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -150,6 +150,7 @@
                         "latency": "Waiting time",
                         "origin": "Pickup address",
                         "passengers": "Number of passengers",
+                        "pickupTIME": "Time",
                         "return": "Return address",
                         "returnTarget": "Code",
                         "stay": "Stay",
@@ -167,11 +168,12 @@
                         "latency": "Waiting time",
                         "latency-calc": "Waiting times: 24,00 EUR for the first hour and 12,00 EUR for each additional hour. Every 1/2 hour started is charged.",
                         "licence": "The transport price meets the requirements of the valid, licensed Viennese taxi fare.",
+                        "passengers": "Number of passengers",
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
-                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
                         "stay-accommodation": "An extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.",
+                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
                         "support-mode": {
                             "label": "Additional service",
                             "player": "Accompanied as player"
@@ -185,18 +187,21 @@
                         "time-dropoff": "Time of service ending",
                         "time-pickup": "Time of pick-up",
                         "time-return": "Time of return",
-                        "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents."
+                        "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents.",
+                        "youth-option": "Option youngsters U21"
                     }
                 },
                 "golf": {
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club (first 4h are included in the price, following 4h are for free)\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club\n- attractive price advantages when booking for youth U21 (max 4 youngsters or 3 youngsters + 1 accompanying adult), or for carpools where the driver also participates in the game\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
                         "title": "Please note that"
                     },
                     "labels": {
                         "datetime-end": "Date & time (return)",
                         "datetime-start": "Date & time (pickup)",
                         "destination": "Return address",
+                        "extra": "I want to add additional addresses.",
+                        "extra-address": "Extra address",
                         "golfcourse": "Golf course",
                         "origin": "Pickup address",
                         "passengers": "Number of passengers/players",
@@ -206,10 +211,12 @@
                             "street": "Type address"
                         },
                         "return": "I want to return to my pickup address.",
-                        "stay": "My required time of stay.",
+                        "stay": "Time of stay",
                         "support-mode": {
                             "player": "I want you as playing partner."
-                        }
+                        },
+                        "trip": "I plan a multi-day trip.",
+                        "youth": "Youth U21 option"
                     },
                     "option": {
                         "title": "Golf day trip"
@@ -219,7 +226,7 @@
                 "quick": {
                     "info": {
                         "call": "Call",
-                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- Calculations via this service are only available for origin address Vienna or Leobersdorf - other routes are to be used in service 'destination'\n- max 3h latency with costs.\n- time of pickup for 'Quick' service between 04:00 a.m. and 12:00 p.m.",
+                        "text": "A pre-order for this service is NOT possible and can therefore only be applied in case of spontaneous boarding or on call with a short journey\n- pickup time in Vienna: 04:00 a.m. to 10:00 a.m.\n- pickup time in Leobersdorf: 02:00 p.m. to 07:00 p.m.",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -329,6 +336,10 @@
                 "BUG": "Bug",
                 "FEEDBACK": "Feedback",
                 "SUPPORT": "Support"
+            },
+            "yesno": {
+                "false": "NO",
+                "true": "YES"
             }
         }
     }
