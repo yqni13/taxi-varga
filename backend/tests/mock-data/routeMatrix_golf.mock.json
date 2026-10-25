@@ -111,7 +111,9 @@
             "province": "Niederösterreich",
             "zipCode": "2340"
         },
-        "stay": 480,
+        "stayInMinutes": 500,
+        "stayInDays": 1,
+        "youthOption": false,
         "supportMode": false,
         "passengers": 1
     },
@@ -226,7 +228,9 @@
             "province": "Niederösterreich",
             "zipCode": "2500"
         },
-        "stay": 360,
+        "stayInMinutes": 360,
+        "stayInDays": 1,
+        "youthOption": false,
         "supportMode": true,
         "passengers": 1
     },
@@ -342,7 +346,9 @@
             "province": "Niederösterreich",
             "zipCode": "2542"
         },
-        "stay": 360,
+        "stayInMinutes": 360,
+        "stayInDays": 1,
+        "youthOption": false,
         "supportMode": true,
         "passengers": 1
     },
@@ -457,7 +463,9 @@
             "province": "Niederösterreich",
             "zipCode": "2821"
         },
-        "stay": 360,
+        "stayInMinutes": 360,
+        "stayInDays": 1,
+        "youthOption": false,
         "supportMode": false,
         "passengers": 1
     }
