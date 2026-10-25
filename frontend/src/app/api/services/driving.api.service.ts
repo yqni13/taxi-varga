@@ -70,10 +70,10 @@ export class DrivingAPIService extends AbstractApiServiceClass {
         golfcourseDetails: null,
         destination: '',
         destinationDetails: null,
-        stay: 0,
+        stayInMinutes: 0,
+        stayInDays: 1,
         supportMode: false,
         youthOption: false,
-        isMultiDayTrip: false,
         passengers: 1
     };
 
@@ -135,10 +135,10 @@ export class DrivingAPIService extends AbstractApiServiceClass {
             golfcourseDetails: data.golfcourseDetails,
             destination: this.utils.configAPIAddressString(data.destinationAddress),
             destinationDetails: data.destinationDetails,
-            stay: this.datetimeService.getTimeInTotalMinutes(data.stay),
+            stayInMinutes: data.stayInDays > 1 ? undefined : this.datetimeService.getTimeInTotalMinutes(data.stayInHHmm ?? 0),
+            stayInDays: data.stayInDays,
             supportMode: data.supportMode,
             youthOption: data.youthOption,
-            isMultiDayTrip: data.isMultiDayTrip,
             passengers: Number(data.passengers)
         };
     }

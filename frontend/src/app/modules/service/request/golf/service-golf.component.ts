@@ -104,7 +104,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             datetimeEnd: new FormControl(''),
             daytrip: new FormControl('', [Validators.required, CustomValidators.maxStayTimeValidator(this.stayTimeParams)]),
             passengers: new FormControl('', Validators.required),
-            stay: new FormControl(''),
+            stayInHHmm: new FormControl(''),
+            stayInDays: new FormControl(''),
             supportMode: new FormControl(''),
             youthOption: new FormControl(''),
             pickupDATE: new FormControl(''),
@@ -136,7 +137,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
             extraAddresses: '',
             return: true,
             passengers: '',
-            stay: null,
+            stayInHHmm: null,
+            stayInDays: null,
             supportMode: false,
             youthOption: false,
             datetimeStart: '',
@@ -281,13 +283,6 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.serviceForm.get('datetimeEnd')?.markAsPristine();
     }
 
-    override addResponseRouteData2Form(response: any) {
-        super.addResponseRouteData2Form(response);
-        this.serviceForm.get('stay')?.setValue(
-            this.datetimeService.getTimeFromTotalHours(response.body?.body.routeData.stay)
-        );
-    }
-
     async onSubmitOffer() {
         this.serviceForm.markAllAsTouched();
 
@@ -303,10 +298,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         this.configDateTimeData();
         this.configSupportMode();
         this.configExtraAddresses();
-        this.drivingAPIService.setDataGolf({
-            ...this.serviceForm.getRawValue(),
-            isMultiDayTrip: this.isMultiDayTrip()
-        });
+        this.drivingAPIService.setDataGolf(this.serviceForm.getRawValue());
         this.drivingAPIService.sendGolfRequest().subscribe(data => {
             this.addResponseRouteData2Form(data);
         });
@@ -324,11 +316,15 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         ));
 
         if (this.isMultiDayTrip()) {
-            this.serviceForm.get('stay')?.setValue(this.datetimeService.getTimeDifferenceAsString(
+            this.serviceForm.get('stayInHHmm')?.setValue(this.datetimeService.getTimeDifferenceAsString(
                 this.serviceForm.get('datetimeStart')?.value,
                 this.serviceForm.get('datetimeEnd')?.value,
                 true
             ));
+            this.serviceForm.get('stayInDays')?.setValue((this.datetimeService.getTimeDifferenceAsNumbers(
+                this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value),
+                this.serviceForm.get('datetimeEnd')?.value).days
+            ))
             this.serviceForm.get('dropOffDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
                 this.serviceForm.get('datetimeEnd')?.value
             ));
@@ -336,7 +332,8 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 this.serviceForm.get('datetimeEnd')?.value
             ));
         } else {
-            this.serviceForm.get('stay')?.setValue(this.serviceForm.get('daytrip')?.value);
+            this.serviceForm.get('stayInDays')?.setValue(1);
+            this.serviceForm.get('stayInHHmm')?.setValue(this.serviceForm.get('daytrip')?.value);
         }
 
         this.pickupTimeByLangStatic = this.datetimeService.getTimeFromLanguage(

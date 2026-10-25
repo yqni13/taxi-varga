@@ -30,10 +30,10 @@ export interface DrivingGolfRequest {
     golfcourseDetails: any,
     destination: string,
     destinationDetails: any,
-    stay: number,
+    stayInMinutes?: number,
+    stayInDays: number,
     supportMode: boolean,
     youthOption: boolean,
-    isMultiDayTrip: boolean,
     passengers: number
 }
 

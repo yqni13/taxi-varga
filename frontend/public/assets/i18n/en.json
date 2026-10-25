@@ -336,6 +336,10 @@
                 "BUG": "Bug",
                 "FEEDBACK": "Feedback",
                 "SUPPORT": "Support"
+            },
+            "yesno": {
+                "false": "NO",
+                "true": "YES"
             }
         }
     }

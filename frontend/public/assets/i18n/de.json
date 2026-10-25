@@ -193,7 +193,7 @@
                 },
                 "golf": {
                     "info": {
-                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub\n- attraktive Preisvorteile bei Buchung von Jugendlichen U21 (max 4 Jugendliche oder 3 Jugendliche + 1 Begleitperson), oder bei Fahrgemeinschaften mit Spielbeteiligung des Fahrers\n- Abholzeitpunkt für Golfreisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub\n- attraktive Preisvorteile bei Buchung von Jugendlichen U21 (max 4 Jugendliche oder 3 Jugendliche + 1 Begleitperson), oder bei Fahrgemeinschaften mit Spielbeteiligung des Fahrers\n- Abholzeitpunkt für Golf-Reisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
@@ -221,7 +221,7 @@
                     "option": {
                         "title": "Golf-Tagesreise"
                     },
-                    "title": "Golfreise - Routendetails"
+                    "title": "Golf-Reise - Routendetails"
                 },
                 "quick": {
                     "info": {
@@ -336,6 +336,10 @@
                 "BUG": "Error",
                 "FEEDBACK": "Feedback",
                 "SUPPORT": "Hilfe"
+            },
+            "yesno": {
+                "false": "NEIN",
+                "true": "JA"
             }
         }
     }
