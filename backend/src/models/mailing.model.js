@@ -184,7 +184,7 @@ class MailingModel {
                 const newServiceBasic = `Daten zum Service:\nGewählte Anzahl Reisender: ${data.passengers}\n${data.youthOption ? 'Reisende sind Jugendliche U21: JA\n' : ''}Abholadresse: ${data.originTranslateDE}\nGolfplatz: ${data.golfcourseTranslateDE}\nRückkehradresse: ${data.destinationTranslateDE}\n${extraAddresses}Datum der Abholung: ${data.pickupDATE}\nZeitpunkt der Abholung: ${data.pickupTIME} Uhr`;
                 const msgStay = data.stayInDays > 1
                     ? `Datum der Rückfahrt: ${data.dropOffDATE}\Zeitpunkt der Rückfahrt: ${data.dropOffTIME} Uhr\nGeplanter Aufenthalt: ${data.stayInDays} Tage\n`
-                    : `Geplanter Aufenthalt: ${data.stayInMinutes} h\n`;
+                    : `Geplanter Aufenthalt: ${data.stayInHHmm} h\n`;
                 const msgServiceGolf = `${data.supportMode ? 'Zusätzlich gewählter Service: ' + support + '\n' : ''}Pauschalpreis: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgStay}\n${msgServiceGolf}`;
@@ -226,7 +226,7 @@ class MailingModel {
                 const newServiceBasic = `Service data:\nSelected number of passengers: ${data.passengers}\n${data.youthOption ? 'Traveling youngsters U21: YES\n' : ''}Pickup address: ${data.originTranslateEN}\nGolfcourse: ${data.golfcourseTranslateEN}\nReturn address: ${data.destinationTranslateEN}\n${extraAddresses}Date of pickup: ${data.pickupDATE}\nTime of pickup: ${data.pickupTimeEN}`;
                 const msgStay = data.stayInDays > 1
                     ? `Date of departure for return: ${data.dropOffDATE}\nTime of departure for return: ${data.dropOffTimeEN}\nIntended days of stay: ${data.stayInDays} days\n`
-                    : `Intended time of stay: ${data.stayInMinutes} h\n`;
+                    : `Intended time of stay: ${data.stayInHHmm} h\n`;
                 const msgServiceGolf = `${data.supportMode ? 'Selected auxiliary service: ' + support + '\n' : ''}Fixed price: ${data.price},00 EUR`;
 
                 msgOutput = `${msgStart}\n\n${msgCustomer}\n\n${newServiceBasic}\n${msgStay}\n${msgServiceGolf}`;

@@ -26,6 +26,19 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
 
     protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
+    private timeRangeParams: TimeRangeValidatorParams = {
+        service: this.datetimeService,
+        format: DatetimeOption.FULL,
+        startHour: 4,
+        endHour: 19,
+        validation: 'invalidTimeRangeDestination'
+    };
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 6,
+        validation: 'maxLatency'
+    };
+
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;
         super.ngOnInit();
@@ -48,18 +61,6 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     }
 
     private initForm() {
-        const timeRangeParams: TimeRangeValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.FULL,
-            startHour: 4,
-            endHour: 19,
-            validation: 'invalidTimeRangeDestination'
-        };
-        const stayTimeParams: StayTimeValidatorParams = {
-            service: this.datetimeService,
-            maxHours: 6,
-            validation: 'maxLatency'
-        }
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -70,9 +71,9 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                CustomValidators.invalidTimeRangeByHoursValidator(timeRangeParams)
+                CustomValidators.invalidTimeRangeByHoursValidator(this.timeRangeParams)
             ]),
-            latency: new FormControl('', CustomValidators.maxStayTimeValidator(stayTimeParams)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(this.stayTimeParams)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),

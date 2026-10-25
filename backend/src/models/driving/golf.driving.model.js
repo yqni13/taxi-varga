@@ -60,7 +60,7 @@ class DrivingGolfModel extends BaseDrivingModel {
             // Validate relevance & update stay time by removing origin route duration (in total minutes).
             if (params['stayInDays'] === 1) {
                 params['stayInMinutes'] = CustomValidator.validateTravelTimeRelevance(
-                    Number(params['stayInMinutes']),
+                    params['stayInMinutes'],
                     routes.o2g.duration,
                     ServiceOption.GOLF
                 );
@@ -80,7 +80,7 @@ class DrivingGolfModel extends BaseDrivingModel {
             const returnCosts = routes.d2h.distanceMeters * this.#prices.return.perKm;
 
             const stayCosts = params['stayInDays'] > 1
-                ? this._calcMultiDayStayCosts(Number(params['stayInDays']))
+                ? this._calcMultiDayStayCosts(params['stayInDays'])
                 : this._calcSingleDayStayCosts();
 
             // Add up all additional charges.
@@ -145,7 +145,7 @@ class DrivingGolfModel extends BaseDrivingModel {
     }
 
     _calcMultiDayStayCosts(days) {
-        return this.#prices.stay.perDay * days;
+        return days * this.#prices.stay.perDay;
     }
 
     _calcDiscountByYouthOrSupport(params) {

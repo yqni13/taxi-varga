@@ -45,6 +45,12 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     protected isGeoChecked = false;
     protected isSelectingGPSOption = false;
 
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 6,
+        validation: 'maxLatency'
+    };
+
     private originSubscription$: Subscription | undefined = new Subscription();
 
     override async ngOnInit() {
@@ -69,11 +75,6 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
     }
 
     private initForm() {
-        const stayTimeParams: StayTimeValidatorParams = {
-            service: this.datetimeService,
-            maxHours: 6,
-            validation: 'maxLatency'
-        }
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -88,7 +89,7 @@ export class ServiceQuickComponent extends BaseServiceComponent implements OnIni
                 CustomValidators.invalidQuickPickupValidator(this.datetimeService)
             ]),
             price: new FormControl(''),
-            latency: new FormControl('', CustomValidators.maxStayTimeValidator(stayTimeParams)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(this.stayTimeParams)),
             latencyTime: new FormControl(''),
             latencyCosts: new FormControl(''),
             servDist: new FormControl(''),
