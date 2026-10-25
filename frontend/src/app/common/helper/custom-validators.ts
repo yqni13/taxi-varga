@@ -2,7 +2,7 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@an
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
+import { InvalidBHValidatorParams, StayTimeValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
 
 
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
@@ -51,11 +51,11 @@ export const phoneRegExValidator = (): ValidatorFn => {
     }
 }
 
-export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const maxStayTimeValidator = (params: StayTimeValidatorParams) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const time = datetimeService.getTimeInTotalMinutes(control?.value);
-        if(time > (60 * 6)) {
-            return { maxLatency: true };
+        const time = params.service.getTimeInTotalMinutes(control?.value);
+        if(time > (60 * params.maxHours)) {
+            return { [params.validation]: true };
         }
         return null;
     }

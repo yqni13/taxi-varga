@@ -168,6 +168,7 @@
                         "latency": "Pauschalierte Wartezeit",
                         "latency-calc": "Wartezeiten: 24,00 EUR für die erste Stunde und 12,00 EUR für jede weitere Stunde. Verrechnet wird jede begonnene 1/2 Stunde.",
                         "licence": "Der Beförderungspreis erfüllt die Vorgaben des gültigen, lizenzierten Wiener Taxitarif.",
+                        "passengers": "Anzahl Mitreisender",
                         "price-estimated": "geschätzter Preis",
                         "price-fixed": "Pauschalpreis",
                         "stay": "Pauschalierter Aufenthalt",
@@ -186,18 +187,21 @@
                         "time-dropoff": "Zeitpunkt des Auftragsendes",
                         "time-pickup": "Zeitpunkt der Abholung",
                         "time-return": "Zeitpunkt der Rückfahrt",
-                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren."
+                        "warnings": "Die tatsächliche Dauer und/oder Distanz kann je nach unerwartetem Verkehr, Baustellen, oder Verkehrsunfällen variieren.",
+                        "youth-option": "Option Jugendliche U21"
                     }
                 },
                 "golf": {
                     "info": {
-                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub (die ersten 4h sind im Preis inkludiert, weitere 4h sind gratis)\n- attraktive Preisvorteile bei Buchung von Jugendlichen U21, oder bei Fahrgemeinschaften mit Spielbeteiligung des Fahrers\n- Abholzeitpunkt für Golfreisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
+                        "text": "- prüfen Sie vorab freie Startzeitplätze und Buchungsbedingungen im gewünschten Golfclub\n- wählen Sie Ihre Abhol- und Rückfahrzeit angepasst an die geplante Abschlagszeit und voraussichtliche Aufenthaltszeit im Golfclub\n- attraktive Preisvorteile bei Buchung von Jugendlichen U21 (max 4 Jugendliche oder 3 Jugendliche + 1 Begleitperson), oder bei Fahrgemeinschaften mit Spielbeteiligung des Fahrers\n- Abholzeitpunkt für Golf-Reisen zwischen 04:00 und 12:00 Uhr\n- bei mehrtägigen Reisen direkt per Mail anfragen:",
                         "title": "Bitte beachten Sie"
                     },
                     "labels": {
                         "datetime-end": "Datum & Uhrzeit (Rückfahrt)",
                         "datetime-start": "Datum & Uhrzeit (Abholung)",
                         "destination": "Zieladresse",
+                        "extra": "Ich möchte zusätzliche Adressen hinzufügen.",
+                        "extra-address": "Zusatzadresse",
                         "golfcourse": "Golfplatz",
                         "origin": "Abholadresse",
                         "passengers": "Anzahl mitreisender Personen/Spieler",
@@ -207,15 +211,17 @@
                             "street": "Adresse auswählen"
                         },
                         "return": "Ich möchte zur Abholadresse zurückkehren.",
-                        "stay": "Meine gewünschte Zeit des Aufenthalts.",
+                        "stay": "Aufenthalt",
                         "support-mode": {
                             "player": "Ich wünsche Sie als Mitspieler."
-                        }
+                        },
+                        "trip": "Ich plane eine Mehrtagesreise.",
+                        "youth": "Jugend U21 Option"
                     },
                     "option": {
                         "title": "Golf-Tagesreise"
                     },
-                    "title": "Golfreise - Routendetails"
+                    "title": "Golf-Reise - Routendetails"
                 },
                 "quick": {
                     "info": {
@@ -330,6 +336,10 @@
                 "BUG": "Error",
                 "FEEDBACK": "Feedback",
                 "SUPPORT": "Hilfe"
+            },
+            "yesno": {
+                "false": "NEIN",
+                "true": "JA"
             }
         }
     }

@@ -20,10 +20,12 @@ class DrivingGolfModel extends BaseDrivingModel {
                 percent10: 0.1,
                 percent15: 0.15,
                 percent20: 0.2,
-                support: 0.25
+                preference: 0.25,
+                perServKm: 0.15
             },
             stay: {
-                perHour: 12
+                singleDay: 48,
+                perDay: 54
             },
             service: {
                 above30Km: 0.5,
@@ -52,18 +54,19 @@ class DrivingGolfModel extends BaseDrivingModel {
             let result = {
                 distance: 0,
                 duration: 0,
-                stay: 0,
                 price: 0
             };
 
             // Validate relevance & update stay time by removing origin route duration (in total minutes).
-            params['stay'] = CustomValidator.validateTravelTimeRelevance(
-                Number(params['stay']),
-                routes.o2g.duration,
-                ServiceOption.GOLF
-            );
+            if (params['stayInDays'] === 1) {
+                params['stayInMinutes'] = CustomValidator.validateTravelTimeRelevance(
+                    params['stayInMinutes'],
+                    routes.o2g.duration,
+                    ServiceOption.GOLF
+                );
+            }
 
-            // Already converted (google-routes.api.js): distanceMeters to kilometers / duration to minutes.
+            // Already converted (google-routes.api.js): distanceMeters to kilometers & duration to minutes.
             const servDist = routes.o2g.distanceMeters + routes.g2d.distanceMeters;
             const servTime = routes.o2g.duration + routes.g2d.duration;
 
@@ -75,33 +78,47 @@ class DrivingGolfModel extends BaseDrivingModel {
                 ? servTime * this.#prices.service.below30Km
                 : servTime * this.#prices.service.above30Km;
             const returnCosts = routes.d2h.distanceMeters * this.#prices.return.perKm;
-            const stayObj = this._calcStayCosts(Number(params['stay']));
+
+            const stayCosts = params['stayInDays'] > 1
+                ? this._calcMultiDayStayCosts(params['stayInDays'])
+                : this._calcSingleDayStayCosts();
 
             // Add up all additional charges.
             let additionalCharges = 0;
 
-            const preCostSum = this.calculateSum([
+            const preBaseDiscountCostSum = this.calculateSum([
                 this.#prices.base,
                 servDistCosts,
                 servTimeCosts,
                 approachCosts,
                 returnCosts,
-                stayObj.costs,
+                stayCosts,
                 additionalCharges
             ]);
 
+            // Subtract all additional discounts.
+            const paramsYouthOrSupport = {
+                servDist: servDist,
+                isYouthOption: params['youthOption'],
+                isSupportMode: params['supportMode']
+            }
+            const discountYouthOrSupport = this._calcDiscountByYouthOrSupport(paramsYouthOrSupport);
+
+            const postBaseDiscountCostSum = this.substractAllDiscounts(preBaseDiscountCostSum, [
+                discountYouthOrSupport
+            ]);
+
             // Map additional discounts.
-            const preSupportDiscountCosts = this._mapSupportDiscount({
-                costs: preCostSum,
+            const prePreferenceDiscountCosts = this._mapPreferenceDiscount({
+                costs: postBaseDiscountCostSum,
                 golfcourseId: params.golfcourseDetails.placeId,
                 passengers: params.passengers
             });
 
-            const totalCosts = this.mapLongDistanceDiscount(preSupportDiscountCosts, servDist);
+            const totalCosts = this.mapLongDistanceDiscount(prePreferenceDiscountCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
             result['duration'] = Math.ceil(servTime);
-            result['stay'] = stayObj.hours;
             result['price'] = (totalCosts % 1) >= 0.5 ? Math.ceil(totalCosts) : Math.floor(totalCosts);
 
             return {routeData: result};
@@ -123,29 +140,26 @@ class DrivingGolfModel extends BaseDrivingModel {
         return this.calcApproachDistanceAdvanced(distance) * this.#prices.approach.perKm;
     }
 
-    _calcStayCosts(time) {
-        if(typeof(time) !== 'number') {
-            return { hours: 8, costs: 48 };
-        }
-        // convert min to hour values (min 8h)
-        time = time <= 480
-            ? 8
-            : time % 60 !== 0 
-                ? Math.ceil(time / 60) 
-                : time / 60;
-
-        return {
-            hours: time,
-            costs: time > 8 ? (48 + (this.#prices.stay.perHour * (time - 8))) : 48
-        };
+    _calcSingleDayStayCosts() {
+        return this.#prices.stay.singleDay;
     }
 
-    _mapSupportDiscount(params) {
+    _calcMultiDayStayCosts(days) {
+        return days * this.#prices.stay.perDay;
+    }
+
+    _calcDiscountByYouthOrSupport(params) {
+        return params.isYouthOption || params.isSupportMode 
+            ? params.servDist * this.#prices.discount.perServKm 
+            : 0;
+    }
+
+    _mapPreferenceDiscount(params) {
         const isPreferenceGC = this.#preferenceGcIdList.includes(params.golfcourseId);
         if(!isPreferenceGC && params.passengers > 2) {
             return params.costs;
         }
-        const discount = params.costs * this.#prices.discount.support;
+        const discount = params.costs * this.#prices.discount.preference;
         // Always put 25% discount on preference golf course.
         return isPreferenceGC || discount <= 48 ? params.costs - discount : params.costs - 48;
     }

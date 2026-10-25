@@ -1,8 +1,19 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/25}$
+
+$\textsf{[v3.0.4\ =>\ {\textbf{\color{brown}v3.2.2}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
+- $\textsf{\color{teal}Addition:}$ Added new input handling + validation for return date/time for service 'golf'.
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + apply discount on youth option
+  + calculation for stay costs on single/multi day trips
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/20}$
 
-$\textsf{[v3.0.2\ =>\ {\textbf{\color{brown}v3.0.4}]}}$ app
+$\textsf{[v3.0.2\ =>\ v3.0.4]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated 
   + info text on multiple service info boxes & 'home' page
   + validations on multiple services

@@ -7,7 +7,7 @@ import { ServiceRoute } from "../../../../api/routes/service.route.enum";
 import { BaseServiceComponent } from "../../../../common/components/base-service.component";
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { StayTimeValidatorParams, TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
 
 @Component({
     selector: 'tava-service-destination',
@@ -25,6 +25,19 @@ import { TimeRangeValidatorParams } from "../../../../shared/interfaces/custom-v
 export class ServiceDestinationComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
     protected override snackbarTextMail = 'laszlovarga@gmx.at';
+
+    private timeRangeParams: TimeRangeValidatorParams = {
+        service: this.datetimeService,
+        format: DatetimeOption.FULL,
+        startHour: 4,
+        endHour: 19,
+        validation: 'invalidTimeRangeDestination'
+    };
+    private stayTimeParams: StayTimeValidatorParams = {
+        service: this.datetimeService,
+        maxHours: 6,
+        validation: 'maxLatency'
+    };
 
     override async ngOnInit() {
         this.service = ServiceRoute.DESTINATION;
@@ -48,13 +61,6 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
     }
 
     private initForm() {
-        const params: TimeRangeValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.FULL,
-            startHour: 4,
-            endHour: 19,
-            validation: 'invalidTimeRangeDestination'
-        };
         this.serviceForm = this.fb.group({
             service: new FormControl(''),
             originAddress: new FormControl('', Validators.required),
@@ -65,9 +71,9 @@ export class ServiceDestinationComponent extends BaseServiceComponent implements
             datetime: new FormControl('', [
                 Validators.required,
                 CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                CustomValidators.invalidTimeRangeByHoursValidator(params)
+                CustomValidators.invalidTimeRangeByHoursValidator(this.timeRangeParams)
             ]),
-            latency: new FormControl('', CustomValidators.maxLatencyValidator(this.datetimeService)),
+            latency: new FormControl('', CustomValidators.maxStayTimeValidator(this.stayTimeParams)),
             pickupDATE: new FormControl(''),
             pickupTIME: new FormControl(''),
             distance: new FormControl(''),

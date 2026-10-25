@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.0.4}}$
+### $\textsf{\color{brown}{v3.2.2}}$
 
 <br><br>
 
@@ -236,10 +236,12 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.0.2\ =>\ {\textbf{\color{brown}v3.0.4}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated 
-  + info text on multiple service info boxes & 'home' page
-  + validations on multiple services
+$\textsf{[v3.0.4\ =>\ {\textbf{\color{brown}v3.2.2}]}}$ app
+- $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
+- $\textsf{\color{teal}Addition:}$ Added new input handling + validation for return date/time for service 'golf'.
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + apply discount on youth option
+  + calculation for stay costs on single/multi day trips
 
 <br>
 

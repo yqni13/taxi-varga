@@ -51,6 +51,11 @@
 					{{ 'validation.frontend.form.latency-invalid-upper-limit' | translate }}
 				</div>
 			}
+			@else if (control.hasError('maxStayTime9')) {
+				<div class="tava-validation-message">
+					{{ 'validation.frontend.form.invalid-upper-stay-9' | translate }}
+				</div>
+			}
 			@else if (control.hasError('invalidBusinessHours12')) {
 				<div class="tava-validation-message">
 					{{ 'validation.frontend.form.business-invalid-time12' | translate }}

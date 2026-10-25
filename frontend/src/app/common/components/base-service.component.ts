@@ -204,13 +204,31 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
         this.pickupTimeByLang$.next(this.datetimeService.getTimeFromLanguage(time, lang));
     }
 
-    getAddressDetails(event: any, option: AddressOptions) {
-        if(option === AddressOptions.ORIGIN) {
-            this.serviceForm.get('originDetails')?.setValue(event);
-        } else if(option === AddressOptions.GOLFCOURSE) {
-            this.serviceForm.get('golfcourseDetails')?.setValue(event);
-        }else {
-            this.serviceForm.get('destinationDetails')?.setValue(event);
+    getAddressDetails(details: any, option: AddressOptions) {
+        switch(option) {
+            case AddressOptions.ORIGIN: {
+                this.serviceForm.get('originDetails')?.setValue(details);
+                break;
+            }
+            case AddressOptions.DESTINATION: {
+                this.serviceForm.get('destinationDetails')?.setValue(details);
+                break;
+            }
+            case AddressOptions.EXTRA1: {
+                this.serviceForm.get('extraDetails1')?.setValue(details);
+                break;
+            }
+            case AddressOptions.EXTRA2: {
+                this.serviceForm.get('extraDetails2')?.setValue(details);
+                break;
+            }
+            case AddressOptions.EXTRA3: {
+                this.serviceForm.get('extraDetails3')?.setValue(details);
+                break;
+            }
+            case AddressOptions.GOLFCOURSE:
+            default:
+                this.serviceForm.get('golfcourseDetails')?.setValue(details);
         }
     }
 
@@ -298,6 +316,11 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
         this.loadOrderResponse = false;
         this.loadOfferResponse = false;
         this.hasOrder = false;
+    }
+
+    protected getAddressOptionsKey(name: string, index?: number): AddressOptions {
+        const key = `${name}${index ? index : ''}` as keyof typeof AddressOptions;
+        return AddressOptions[key];
     }
 
     ngOnDestroy() {
