@@ -17,6 +17,7 @@ jest.mock('../../src/models/driving/golf.driving.model.js', () => {
 
 const app = require('../../src/app.js');
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_RouteMatrix = require('../mock-data/routeMatrix_golf.mock.json');
 
@@ -24,6 +25,7 @@ describe('Integration test, service flow: Golf', () => {
 
     beforeAll(() => {
         jest.resetModules();
+        disableConsoleMessages();
     })
 
     beforeEach(() => {

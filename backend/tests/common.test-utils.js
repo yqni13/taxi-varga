@@ -19,7 +19,14 @@ function mapMockDecryptResult(mockResult, mockErrorMsg = null) {
     return decryptResult;
 }
 
+function disableConsoleMessages() {
+    jest.spyOn(console, 'info').mockImplementation();
+    jest.spyOn(console, 'debug').mockImplementation();
+    jest.spyOn(console, 'error').mockImplementation();
+}
+
 module.exports = {
     mapMockApiResult: mapMockApiResult,
-    mapMockDecryptResult: mapMockDecryptResult
+    mapMockDecryptResult: mapMockDecryptResult,
+    disableConsoleMessages: disableConsoleMessages
 }
