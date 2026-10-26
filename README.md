@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.2.2}}$
+### $\textsf{\color{brown}{v3.2.3}}$
 
 <br><br>
 
@@ -34,7 +34,7 @@ For testing purposes one instance runs on env:stag while the live version runs o
 
 ### $\textsf{\color{teal}Prerequisites}$
 
-- Angular: v22+
+- Angular: v22
 - node: v24+
 - Google API Key (geocode, places, distanceMatrix)
 - Betterstack Telemetry (logging)
@@ -53,11 +53,13 @@ git clone https://github.com/yqni13/taxi-varga
 Create new .env file and fill in your credentials/other env data [(see docs)](./CONFIGURATION.md).
 <br>Navigate/cd into the root paths (/frontend and /backend) and install dependencies via npm:
 ```sh
-$ npm ci
+$ npm install
 ```
-This web project uses Google API calls, which require the application to run on SSL (https) - for each environment (dev/stag/prod). Therefore, when running on localhost, you need to use a self-signed certificate and configure your local environment to trust the certificate and enable an SSL connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured within [set-env.ts](./frontend/set-env.ts) (env:prod). Create a local copy [(see docs)](./CONFIGURATION.md) for local development. Start application (frontend) in local environment:
+This web project uses Google API calls, which require the application to run on SSL (https) - for each environment (dev/stag/prod). Therefore, when running on localhost, you need to use a self-signed certificate and configure your local environment to trust the certificate and enable an SSL connection. See the following [start-via-ssl configurations](README_SSL.md) for help. Additionally, the script to overwrite env data needs to be configured within [set-env.ts](./frontend/set-env.ts) (env:prod). Create a local copy [(see docs)](./CONFIGURATION.md) for local development. Start application (frontend) in local environment.<br>
+As I work on Windows and Linux, I offer 2 scripts for local development (1. `cmd/Windows`, 2. `bash/Linux`):
 ```sh
-npm run start-local-ssl
+npm run start-ssl-cmd
+npm run start-ssl-bash
 ```
 which will open automatically on `https://localhost:4200/`. To run backend, use:
 ```sh
@@ -236,12 +238,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.0.4\ =>\ {\textbf{\color{brown}v3.2.2}]}}$ app
-- $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
-- $\textsf{\color{teal}Addition:}$ Added new input handling + validation for return date/time for service 'golf'.
-- $\textsf{\color{orange}Patch:}$ Updated:
-  + apply discount on youth option
-  + calculation for stay costs on single/multi day trips
+$\textsf{[v3.2.2\ =>\ {\textbf{\color{brown}v3.2.3}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated discount calculation for options regarding total costs.
 
 <br>
 
