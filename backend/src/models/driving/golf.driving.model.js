@@ -97,25 +97,25 @@ class DrivingGolfModel extends BaseDrivingModel {
             ]);
 
             // Subtract all additional discounts.
-            const paramsYouthOrSupport = {
+            const paramsByOptions = {
                 servDist: servDist,
                 isYouthOption: params['youthOption'],
-                isSupportMode: params['supportMode']
-            }
-            const discountYouthOrSupport = this._calcDiscountByYouthOrSupport(paramsYouthOrSupport);
+                isSupportOption: params['supportMode']
+            };
 
-            const postBaseDiscountCostSum = this.substractAllDiscounts(preBaseDiscountCostSum, [
-                discountYouthOrSupport
-            ]);
+            const discountByOptions = this._calcDiscountByOptions(paramsByOptions);
+            const postBaseDiscountCostSum = this.substractAllDiscounts(preBaseDiscountCostSum, [discountByOptions]);
 
             // Map additional discounts.
-            const prePreferenceDiscountCosts = this._mapPreferenceDiscount({
+            const paramsFlatRateDiscount = {
                 costs: postBaseDiscountCostSum,
-                golfcourseId: params.golfcourseDetails.placeId,
+                isYouthOption: params['youthOption'],
+                isSupportOption: params['supportMode'],
                 passengers: params.passengers
-            });
+            };
 
-            const totalCosts = this.mapLongDistanceDiscount(prePreferenceDiscountCosts, servDist);
+            const postFlatRateDiscountCosts = this._mapFlatRateDiscount(paramsFlatRateDiscount);
+            const totalCosts = this.mapLongDistanceDiscount(postFlatRateDiscountCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
             result['duration'] = Math.ceil(servTime);
@@ -137,6 +137,7 @@ class DrivingGolfModel extends BaseDrivingModel {
         if(typeof(distance) !== 'number') {
             return 0;
         }
+
         return this.calcApproachDistanceAdvanced(distance) * this.#prices.approach.perKm;
     }
 
@@ -148,20 +149,20 @@ class DrivingGolfModel extends BaseDrivingModel {
         return days * this.#prices.stay.perDay;
     }
 
-    _calcDiscountByYouthOrSupport(params) {
-        return params.isYouthOption || params.isSupportMode 
+    _calcDiscountByOptions(params) {
+        return params.isYouthOption || params.isSupportOption 
             ? params.servDist * this.#prices.discount.perServKm 
             : 0;
     }
 
-    _mapPreferenceDiscount(params) {
-        const isPreferenceGC = this.#preferenceGcIdList.includes(params.golfcourseId);
-        if(!isPreferenceGC && params.passengers > 2) {
-            return params.costs;
+    _mapFlatRateDiscount(params) {
+        // Always 25% (max 48€) discount on youth or support option.
+        if(params.isYouthOption || (params.isSupportOption && params.passengers < 4)) {
+            const discount = params.costs * this.#prices.discount.preference;
+            return discount <= 48 ? params.costs - discount : params.costs - 48;
         }
-        const discount = params.costs * this.#prices.discount.preference;
-        // Always put 25% discount on preference golf course.
-        return isPreferenceGC || discount <= 48 ? params.costs - discount : params.costs - 48;
+
+        return params.costs;
     }
 }
 

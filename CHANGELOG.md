@@ -1,8 +1,15 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/26}$
+
+$\textsf{[v3.2.2\ =>\ {\textbf{\color{brown}v3.2.3}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated discount calculation for options regarding total costs.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/25}$
 
-$\textsf{[v3.0.4\ =>\ {\textbf{\color{brown}v3.2.2}]}}$ app
+$\textsf{[v3.0.4\ =>\ v3.2.2]}$ app
 - $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
 - $\textsf{\color{teal}Addition:}$ Added new input handling + validation for return date/time for service 'golf'.
 - $\textsf{\color{orange}Patch:}$ Updated:

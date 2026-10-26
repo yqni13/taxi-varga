@@ -7,12 +7,17 @@ jest.mock('../../src/middleware/auth.middleware.js', () => {
 });
 
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_common = require('../mock-data/common.mock.json')['address'];
 const apiUrl_autocomplete = '/api/v1/address/autocomplete';
 const apiUrl_details = '/api/v1/address/details';
 
 describe('Integration test, priority: Address workflow', () => {
+
+    beforeAll(() => {
+        disableConsoleMessages();
+    });
 
     describe('Testing valid fn calls', () => {
 

@@ -17,6 +17,7 @@ jest.mock('../../src/models/driving/destination.driving.model.js', () => {
 
 const app = require('../../src/app.js');
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_RouteMatrix = require('../mock-data/routeMatrix_destination.mock.json');
 
@@ -24,6 +25,7 @@ describe('Integration test, service flow: Destination', () => {
 
     beforeAll(() => {
         jest.resetModules();
+        disableConsoleMessages();
     })
 
     beforeEach(() => {

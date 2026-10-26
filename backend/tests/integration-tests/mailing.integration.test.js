@@ -7,10 +7,15 @@ jest.mock('../../src/middleware/auth.middleware.js', () => {
 });
 
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_common = require('../mock-data/common.mock.json')['mailing'];
 
 describe('Integration test, priority: Mailing', () => {
+
+    beforeAll(() => {
+        disableConsoleMessages();
+    });
 
     describe('Testing valid fn calls', () => {
 
