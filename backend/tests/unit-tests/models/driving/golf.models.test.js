@@ -265,7 +265,7 @@ describe('Flatrate tests, priority: _calcDiscountByOptions', () => {
     })
 })
 
-describe('Flatrate tests, priority: _mapOptionsDiscount', () => {
+describe('Flatrate tests, priority: _mapFlatRateDiscount', () => {
 
     let golfModel;
     beforeEach(() => {
@@ -275,91 +275,91 @@ describe('Flatrate tests, priority: _mapOptionsDiscount', () => {
     describe('Testing valid fn calls, priority: time of stay', () => {
 
         test('Params: discount < 48, <youthOption> = false, <supportMode> = false', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 100,
                 isYouthOption: false,
                 isSupportOption: false,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 100;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: discount < 48, <youthOption> = true, <supportMode> = false', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 100,
                 isYouthOption: true,
                 isSupportOption: false,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 75;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: discount == 48, <youthOption> = true, <supportMode> = false', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 192,
                 isYouthOption: true,
                 isSupportOption: false,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 144;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: discount > 48, <youthOption> = true, <supportMode> = false', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 200,
                 isYouthOption: true,
                 isSupportOption: false,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 152;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: <costs> < 48, <youthOption> = false, <supportMode> = true', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 100,
                 isYouthOption: false,
                 isSupportOption: true,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 75;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: <costs> == 48, <youthOption> = false, <supportMode> = true', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 192,
                 isYouthOption: false,
                 isSupportOption: true,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 144;
 
             expect(testFn).toBe(expectSubObj);
         })
 
         test('Params: <costs> > 48, <youthOption> = false, <supportMode> = true', () => {
-            const mockParam_params = {
+            const mockParam_paramsFlatRateDiscount = {
                 costs: 200,
                 isYouthOption: false,
                 isSupportOption: true,
                 passengers: 1
             };
-            const testFn = golfModel._mapOptionsDiscount(mockParam_params);
+            const testFn = golfModel._mapFlatRateDiscount(mockParam_paramsFlatRateDiscount);
             const expectSubObj = 152;
 
             expect(testFn).toBe(expectSubObj);

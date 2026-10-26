@@ -107,14 +107,15 @@ class DrivingGolfModel extends BaseDrivingModel {
             const postBaseDiscountCostSum = this.substractAllDiscounts(preBaseDiscountCostSum, [discountByOptions]);
 
             // Map additional discounts.
-            const postOptionsDiscountCosts = this._mapOptionsDiscount({
+            const paramsFlatRateDiscount = {
                 costs: postBaseDiscountCostSum,
                 isYouthOption: params['youthOption'],
                 isSupportOption: params['supportMode'],
                 passengers: params.passengers
-            });
+            };
 
-            const totalCosts = this.mapLongDistanceDiscount(postOptionsDiscountCosts, servDist);
+            const postFlatRateDiscountCosts = this._mapFlatRateDiscount(paramsFlatRateDiscount);
+            const totalCosts = this.mapLongDistanceDiscount(postFlatRateDiscountCosts, servDist);
 
             result['distance'] = Math.ceil(servDist);
             result['duration'] = Math.ceil(servTime);
@@ -154,7 +155,7 @@ class DrivingGolfModel extends BaseDrivingModel {
             : 0;
     }
 
-    _mapOptionsDiscount(params) {
+    _mapFlatRateDiscount(params) {
         // Always 25% (max 48€) discount on youth or support option.
         if(params.isYouthOption || (params.isSupportOption && params.passengers < 4)) {
             const discount = params.costs * this.#prices.discount.preference;
