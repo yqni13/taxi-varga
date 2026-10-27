@@ -194,7 +194,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
 
     getTripCheckboxValue(isChecked: boolean) {
         this.isMultiDayTrip.set(isChecked);
-        this.configDayTrip(isChecked);
+        this.configDayTrip();
     }
 
     private configReturnAddress(isOrigin: boolean) {
@@ -235,7 +235,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         }
     }
 
-    configDayTrip(isMultiDayTrip: boolean) {
+    configDayTrip() {
         const datetimeEnd = this.serviceForm.get('datetimeEnd');
         datetimeEnd?.clearValidators();
         datetimeEnd?.setValue('');
@@ -243,7 +243,7 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
         const daytrip = this.serviceForm.get('daytrip');
         daytrip?.clearValidators();
 
-        if (isMultiDayTrip) {
+        if (this.isMultiDayTrip()) {
             daytrip?.setValue('');
             const datetimeStart = this.serviceForm.get('datetimeStart')?.value;
             this.configDateTimeEnd(datetimeStart);
@@ -254,19 +254,19 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 CustomValidators.maxStayTimeValidator(this.stayTimeParams)
             ]);
             daytrip?.markAsUntouched();
+            daytrip?.markAsPristine();
         }
     }
 
     configDateTimeEnd($event: any) {
-        if (!this.isMultiDayTrip()) {
-            return;
-        }
         const datetimeStart = this.serviceForm.get('datetimeStart');
-        if(!datetimeStart || datetimeStart?.value === '') {
+        if (!this.isMultiDayTrip() || !datetimeStart || datetimeStart?.value === '') {
             return;
         }
+
         const mints = this.datetimeService.getNextDayStartingTimestamp($event);
-        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, 192);
+        const restrictionHours = (8 * 24) - 24; // Max of 8 days but including 1st day starting from 00:00.
+        const restrictDateTime = this.datetimeService.getRestrictionTimestampHoursBased($event, restrictionHours);
         this.minStayStamp$.next(mints);
         this.maxStayStamp$.next(restrictDateTime);
         this.serviceForm.get('datetimeEnd')?.clearValidators();
@@ -321,13 +321,16 @@ export class ServiceGolfComponent extends BaseServiceComponent implements OnInit
                 this.serviceForm.get('datetimeEnd')?.value,
                 true
             ));
-            this.serviceForm.get('stayInDays')?.setValue((this.datetimeService.getTimeDifferenceAsNumbers(
-                this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value),
-                this.serviceForm.get('datetimeEnd')?.value).days
-            ))
+
+            const start = this.datetimeService.getTodayStartingTimestamp(false, this.serviceForm.get('datetimeStart')?.value);
+            const end = this.serviceForm.get('datetimeEnd')?.value;
+            let diff = this.datetimeService.getTimeDifferenceAsNumbers(start, end);
+            this.serviceForm.get('stayInDays')?.setValue(diff.startedDays);
+
             this.serviceForm.get('dropOffDATE')?.setValue(this.datetimeService.getDateFromTimestamp(
                 this.serviceForm.get('datetimeEnd')?.value
             ));
+
             this.serviceForm.get('dropOffTIME')?.setValue(this.datetimeService.getTimeFromTimestamp(
                 this.serviceForm.get('datetimeEnd')?.value
             ));

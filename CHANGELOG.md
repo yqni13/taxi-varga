@@ -1,8 +1,16 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/27}$
+
+$\textsf{[v3.2.3\ =>\ {\textbf{\color{brown}v3.2.5}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated parking charges on service 'destination'.
+- $\textsf{\color{red}Bugfix:}$ Requesting service 'golf' with multi-day trip works as expected. [Before: Validation was using days based on difference, causing wrong validation in backend for 2-day trips. Fixed by using the (intended) started (rounded up) days instead.]
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/26}$
 
-$\textsf{[v3.2.2\ =>\ {\textbf{\color{brown}v3.2.3}]}}$ app
+$\textsf{[v3.2.2\ =>\ v3.2.3]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated discount calculation for options regarding total costs.
 
 <br>
