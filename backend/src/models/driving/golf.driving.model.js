@@ -3,13 +3,11 @@ const { ServiceOption } = require("../../utils/enums/service-option.enum");
 const { UnexpectedException } = require("../../utils/exceptions/common.exception");
 const CustomValidator = require('../../utils/customValidator.utils');
 const { UnexpectedApiResponseException } = require('../../utils/exceptions/api.exception');
-const discountConfig = require('../../configs/discounts.json');
 const BaseDrivingModel = require('./base.driving.model');
 
 class DrivingGolfModel extends BaseDrivingModel {
     #googleRoutes;
     #prices;
-    #preferenceGcIdList;
 
     constructor(googleRoutesApi) {
         super();
@@ -38,7 +36,6 @@ class DrivingGolfModel extends BaseDrivingModel {
                 perKm: 0.4
             },
         };
-        this.#preferenceGcIdList = Object.values(discountConfig.service.golf.preference);
     }
 
     async calcGolfRoute(params) {
