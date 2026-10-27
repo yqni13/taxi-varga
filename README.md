@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.2.3}}$
+### $\textsf{\color{brown}{v3.2.4}}$
 
 <br><br>
 
@@ -238,8 +238,8 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.2.2\ =>\ {\textbf{\color{brown}v3.2.3}]}}$ app
-- $\textsf{\color{orange}Patch:}$ Updated discount calculation for options regarding total costs.
+$\textsf{[v3.2.3\ =>\ {\textbf{\color{brown}v3.2.4}]}}$ app
+- $\textsf{\color{red}Bugfix:}$ Requesting service 'golf' with multi-day trip works as expected. [Before: Validation was using days based on difference, causing wrong validation in backend for 2-day trips. Fixed by using the (intended) started (rounded up) days instead.]
 
 <br>
 

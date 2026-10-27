@@ -4,5 +4,6 @@ export interface TimeDifferences {
     seconds: number,
     minutes: number,
     hours: number,
-    days: number
+    days: number,
+    startedDays: number
 }

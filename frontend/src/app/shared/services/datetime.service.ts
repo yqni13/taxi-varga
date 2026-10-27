@@ -116,13 +116,16 @@ export class DateTimeService {
     getTimeDifferenceAsNumbers(start: string, end: string): TimeDifferences {
         let diff = Date.parse(end) - Date.parse(start);
         diff = isNaN(diff) ? 0 : diff;
+        const hours = Math.floor(diff / 3600000 % 24);
+        const days = Math.floor(diff / 86400000);
         return {
                 diffInMS: diff,
                 milliseconds: Math.floor(diff % 1000),
                 seconds: Math.floor(diff / 1000 % 60),
                 minutes: Math.floor(diff / 60000 % 60),
                 hours: Math.floor(diff / 3600000 % 24),
-                days: Math.floor(diff / 86400000)
+                days: Math.floor(diff / 86400000),
+                startedDays: hours > 0 ? days + 1 : days
             };
     }
 
