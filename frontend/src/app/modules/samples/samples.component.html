@@ -30,15 +30,15 @@
 				</span>
 			</div>
 			<table>
-				<tbody *tavaVar="'z-content-samples.samples-content-option1.entry' as contentPath1">
+				<tbody *tavaVar="'z-content-samples.samples-content-option1.entry' as viennaToAirportContentPath">
 					@for (entry of [].constructor(samplesOption1Length); track entry; let i = $index) {
 						<tr>
 						<td class="tava-samples-route tava-table-no-addendum">
-							{{contentPath1 + i + '.route' | translate}}
+							{{viennaToAirportContentPath + i + '.route' | translate}}
 						</td>
 						<td class="tava-samples-colon">:</td>
 						<td class="tava-samples-price">
-							{{contentPath1 + i + '.price' | translate}}
+							{{viennaToAirportContentPath + i + '.price' | translate}}
 						</td>
 						<td class="tava-samples-currency">
 							{{'z-content-samples.samples-utility.currency' | translate}}
@@ -55,11 +55,11 @@
 				</span>
 			</div>
 			<table>
-				<tbody *tavaVar="'z-content-samples.samples-content-option2.entry' as contentPath2">
+				<tbody *tavaVar="'z-content-samples.samples-content-option2.entry' as publicFacilitiesContentPath">
 					@for (entry of [].constructor(samplesOption2Length); track entry; let i = $index) {
 						<tr>
 							<ng-container
-								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath2 }"
+								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: publicFacilitiesContentPath }"
 							></ng-container>
 						</tr>
 					}
@@ -73,11 +73,11 @@
 				</span>
 			</div>
 			<table>
-				<tbody *tavaVar="'z-content-samples.samples-content-option3.entry' as contentPath3">
+				<tbody *tavaVar="'z-content-samples.samples-content-option3.entry' as lowerAustriaToAirportContentPath">
 					@for (entry of [].constructor(samplesOption3Length); track entry; let i = $index) {
 						<tr>
 							<ng-container
-								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: contentPath3 }"
+								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: lowerAustriaToAirportContentPath }"
 							></ng-container>
 						</tr>
 					}
@@ -98,49 +98,25 @@
 						</th>
 					</tr>
 				</thead>
-				<thead>
-					<tr>
-						<th class="tava-samples-header-bottom-close"></th>
-						<th class="tava-samples-header-bottom-close"></th>
-						<th class="tava-samples-header-bottom-close"></th>
-						<th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
-							{{'* ' + ('z-content-samples.samples-utility.price-classic' | translate)}}
-						</th>
-						<th colspan="1" class="tava-samples-header-bottom-close">|</th>
-						<th colspan="1" class="tava-samples-golf-table-header tava-samples-header-bottom-close">
-							{{'z-content-samples.samples-utility.price-support' | translate}}
-						</th>
-					</tr>
-				</thead>
-				<tbody *tavaVar="'z-content-samples.samples-content-option4.entry' as contentPath4">
-					@for (entry of samplesOption4Entries; track entry; let i = $index) {
+				@for (block of samplesGolf; track block; let blockIndex = $index) { <!-- different blocks for single/multi day trips (golf) -->
+					<thead>
 						<tr>
-							<td class="tava-samples-route" >
-								{{contentPath4 + i + '.route' | translate}}
-							</td>
-							<td class="tava-samples-colon">:</td>
-							<td class="tava-samples-addendum">
-								{{'z-content-samples.samples-utility.addendum' | translate}}
-							</td>
-							<td class="tava-samples-price samples-orientation-center">
-								{{contentPath4 + i + '.price-classic' | translate}}
-							</td>
-							<td class="tava-samples-price-divider samples-orientation-center">|</td>
-							<td class="tava-samples-price samples-orientation-center">
-								{{contentPath4 + i + '.price-support' | translate}}
-							</td>
-							<td class="tava-samples-currency">
-								{{'z-content-samples.samples-utility.currency' | translate}}
-							</td>
+							<th colspan="1" class="tava-samples-golf-header">
+								{{'z-content-samples.samples-content-option4.title.' + block.title | translate}}
+							</th>
 						</tr>
-					}
-				</tbody>
+					</thead>
+					<tbody *tavaVar="'z-content-samples.samples-content-option4.' + block.title + '.entry' as golfContentPath">
+						@for (entry of [].constructor(block.length); track entry; let i = $index) {
+							<tr>
+								<ng-container
+									*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: golfContentPath }"
+								></ng-container>
+							</tr>
+						}
+					</tbody>
+				}
 			</table>
 		</div>
-	</div>
-	<div class="tava-samples-footnote">
-		<span>
-			{{'z-content-samples.samples-utility.discount-info1' | translate}}
-		</span>
 	</div>
 </section>
