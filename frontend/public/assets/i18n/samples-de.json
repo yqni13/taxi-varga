@@ -56,49 +56,72 @@
             "entry5": {
                 "price": "99,00",
                 "route": "Mattersburg - Flughafen Wien"
-            },
-            "entry6": {
-                "price": "99,00",
-                "route": "Neunkirchen/Ternitz - Flughafen Wien"
             }
         },
         "samples-content-option4": {
-            "entry0": {
-                "price-classic": "110,00",
-                "price-support": "147,00",
-                "route": "Wien - Golfclub Himberg - Wien"
+            "single": {
+                "entry0": {
+                    "price": "90,00",
+                    "route": "Wien - Golfclub Brunn / Süßenbrunn - Wien"
+                },
+                "entry1": {
+                    "price": "105,00",
+                    "route": "Wien - Golfclub Himberg / Frühling / Ebreichsdorf / Fontana - Wien"
+                },
+                "entry2": {
+                    "price": "112,00",
+                    "route": "Wien - Golfclub Schönborn - Wien"
+                },
+                "entry3": {
+                    "price": "122,00",
+                    "route": "Wien - Golfclub Schönfeld / Enzesfeld - Wien"
+                },
+                "entry4": {
+                    "price": "132,00",
+                    "route": "Wien - Golfclub Atzenbrugg - Wien"
+                },
+                "entry5": {
+                    "price": "133,00",
+                    "route": "Wien - Golfclub Föhrenwald / Linsberg - Wien"
+                },
+                "entry6": {
+                    "price": "154,00",
+                    "route": "Wien - Golfclub Adamstal / St. Pölten - Wien"
+                },
+                "entry7": {
+                    "price": "226,00",
+                    "route": "Wien - Golfclub Haugschlag - Wien"
+                }
             },
-            "entry1": {
-                "price-classic": "113,00",
-                "price-support": "151,00",
-                "route": "Wien - Golfclub Ebreichsdorf - Wien"
+            "multi2": {
+                "entry0": {
+                    "price": "283,00",
+                    "route": "Wien - Golfclub Loipersdorf - Wien"
+                }
             },
-            "entry2": {
-                "price-classic": "115,00",
-                "price-support": "153,00",
-                "route": "Wien - Golfclub Frühling - Wien"
+            "multi3": {
+                "entry0": {
+                    "price": "432,00",
+                    "route": "Wien - Golfclub Schladming - Wien"
+                }
             },
-            "entry3": {
-                "price-classic": "146,00",
-                "price-support": "194,00",
-                "route": "Wien - Golfclub Atzenbrugg - Wien"
+            "multi4": {
+                "entry0": {
+                    "price": "585,00",
+                    "route": "Wien - Golfclub Kitzbühel-Schwarzsee-Reith - Wien"
+                }
             },
-            "entry4": {
-                "price-classic": "147,00",
-                "price-support": "147,00",
-                "route": "Wien - Golfclub Föhrenwald / Golfclub Linsberg - Wien"
-            },
-            "entry5": {
-                "price-classic": "176,00",
-                "price-support": "224,00",
-                "route": "Wien - Golfclub Adamstal - Wien"
+            "title": {
+                "single": "Tagesreise",
+                "multi2": "2-Tages-Reise",
+                "multi3": "3-Tages-Reise",
+                "multi4": "4-Tages-Reise"
             }
         },
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
-            "discount-info1": "* Pauschalpreis 1 (Pp1): gesamter Reise-Pauschalpreis bei \"Fahrer als Flightpartner\" oder bei \"Jugendlichen U21\",\nPauschalpreis 2 (Pp2): gesamter Reise-Pauschalpreis ohne \"Fahrer als Flightpartner\"",
-            "header-golf": "Tages-Golf-Reisen inklusive 8h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
+            "header-golf": "Tages-Golf-Reisen bis zu 9h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
             "price": "Preis",
             "price-classic": "Pp 1",
             "price-support": "Pp 2",

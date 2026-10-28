@@ -56,49 +56,72 @@
             "entry5": {
                 "price": "99,00",
                 "route": "Mattersburg - Vienna International Airport"
-            },
-            "entry6": {
-                "price": "99,00",
-                "route": "Neunkirchen/Ternitz - Vienna International Airport"
             }
         },
         "samples-content-option4": {
-            "entry0": {
-                "price-classic": "110,00",
-                "price-support": "147,00",
-                "route": "Vienna - Golf Club Himberg - Vienna"
+            "single": {
+                "entry0": {
+                    "price": "90,00",
+                    "route": "Vienna - Golf Club Brunn / Süßenbrunn - Vienna"
+                },
+                "entry1": {
+                    "price": "105,00",
+                    "route": "Vienna - Golf Club Himberg / Frühling / Ebreichsdorf / Fontana - Vienna"
+                },
+                "entry2": {
+                    "price": "112,00",
+                    "route": "Vienna - Golf Club Schönborn - Vienna"
+                },
+                "entry3": {
+                    "price": "122,00",
+                    "route": "Vienna - Golf Club Schönfeld / Enzesfeld - Vienna"
+                },
+                "entry4": {
+                    "price": "132,00",
+                    "route": "Vienna - Golf Club Atzenbrugg - Vienna"
+                },
+                "entry5": {
+                    "price": "133,00",
+                    "route": "Vienna - Golf Club Föhrenwald / Linsberg - Vienna"
+                },
+                "entry6": {
+                    "price": "154,00",
+                    "route": "Vienna - Golf Club Adamstal / St. Pölten - Vienna"
+                },
+                "entry7": {
+                    "price": "226,00",
+                    "route": "Vienna - Golf Club Haugschlag - Vienna"
+                }
             },
-            "entry1": {
-                "price-classic": "113,00",
-                "price-support": "151,00",
-                "route": "Vienna - Golf Club Ebreichsdorf - Vienna"
+            "multi2": {
+                "entry0": {
+                    "price": "283,00",
+                    "route": "Vienna - Golf Club Loipersdorf - Vienna"
+                }
             },
-            "entry2": {
-                "price-classic": "115,00",
-                "price-support": "153,00",
-                "route": "Vienna - Golf Club Frühling - Vienna"
+            "multi3": {
+                "entry0": {
+                    "price": "432,00",
+                    "route": "Vienna - Golf Club Schladming - Vienna"
+                }
             },
-            "entry3": {
-                "price-classic": "146,00",
-                "price-support": "194,00",
-                "route": "Vienna - Golf Club Atzenbrugg - Vienna"
+            "multi4": {
+                "entry0": {
+                    "price": "585,00",
+                    "route": "Vienna - Golf Club Kitzbühel-Schwarzsee-Reith - Vienna"
+                }
             },
-            "entry4": {
-                "price-classic": "147,00",
-                "price-support": "147,00",
-                "route": "Vienna - Golf Club Föhrenwald / Golf Club Linsberg - Vienna"
-            },
-            "entry5": {
-                "price-classic": "176,00",
-                "price-support": "224,00",
-                "route": "Vienna - Golf Club Adamstal - Vienna"
+            "title": {
+                "single": "Single-Day Trip",
+                "multi2": "2-Day Trip",
+                "multi3": "3-Day Trip",
+                "multi4": "4-Day Trip"
             }
         },
         "samples-utility": {
             "addendum": "from",
             "currency": "EUR",
-            "discount-info1": "* Package price 1 (Pp1): total package price for \"driver as flight-partner\" or \"youth U21\",\nPackage price 2 (Pp2): total package price without \"driver as flight-partner\"",
-            "header-golf": "Daily golf trip including 8h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
+            "header-golf": "Daily golf trip up to 9h stay at golf course\n(without greenfee; routes based on Vienna, central point)",
             "price": "Price",
             "price-classic": "Pp 1",
             "price-support": "Pp 2",
