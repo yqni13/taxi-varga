@@ -3,112 +3,112 @@
         "samples-content-option1": {
             "entry0": {
                 "price": "35,00",
-                "route": "Wien Bezirk: 11 - Flughafen Wien"
+                "route": "Wien Bezirk: 11"
             },
             "entry1": {
                 "price": "42,00",
-                "route": "Wien Bezirke: 1, 2, 3, 4, 10 - Flughafen Wien"
+                "route": "Wien Bezirke: 1, 2, 3, 4, 10"
             },
             "entry2": {
                 "price": "45,00",
-                "route": "Wien Bezirke: 5, 6, 7, 8, 9, 12, 15, 20 - Flughafen Wien"
+                "route": "Wien Bezirke: 5, 6, 7, 8, 9, 12, 15, 20"
             },
             "entry3": {
                 "price": "48,00",
-                "route": "Wien Bezirke: 13, 14, 16, 17, 18, 19, 21, 22, 23 - Flughafen Wien"
+                "route": "Wien Bezirke: 13, 14, 16, 17, 18, 19, 21, 22, 23"
             }
         },
         "samples-content-option2": {
             "entry0": {
                 "price": "55,00",
-                "route": "Leobersdorf - Wien Hauptbahnhof"
+                "route": "Wien Hauptbahnhof"
             },
             "entry1": {
                 "price": "61,00",
-                "route": "Leobersdorf - AKH Wien"
+                "route": "AKH Wien"
             },
             "entry2": {
                 "price": "60,00",
-                "route": "Leobersdorf - Flughafen Wien"
+                "route": "Flughafen Wien"
             }
         },
         "samples-content-option3": {
             "entry0": {
                 "price": "60,00",
-                "route": "Kottingbrunn / Schönau / Bad Vöslau - Flughafen Wien"
+                "route": "Kottingbrunn / Schönau / Bad Vöslau"
             },
             "entry1": {
                 "price": "63,00",
-                "route": "Enzesfeld/Lindabrunn - Flughafen Wien"
+                "route": "Enzesfeld/Lindabrunn"
             },
             "entry2": {
                 "price": "79,00",
-                "route": "Berndorf - Flughafen Wien"
+                "route": "Berndorf"
             },
             "entry3": {
                 "price": "85,00",
-                "route": "Wiener Neustadt - Flughafen Wien"
+                "route": "Wiener Neustadt"
             },
             "entry4": {
                 "price": "95,00",
-                "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl - Flughafen Wien"
+                "route": "Lanzenkirchen / Föhrenau / Katzelsdorf / Neudörfl"
             },
             "entry5": {
                 "price": "99,00",
-                "route": "Mattersburg - Flughafen Wien"
+                "route": "Mattersburg"
             }
         },
         "samples-content-option4": {
             "single": {
                 "entry0": {
                     "price": "90,00",
-                    "route": "Wien - Golfclub Brunn / Süßenbrunn - Wien"
+                    "route": "Golfclub Brunn / Süßenbrunn"
                 },
                 "entry1": {
                     "price": "105,00",
-                    "route": "Wien - Golfclub Himberg / Frühling / Ebreichsdorf / Fontana - Wien"
+                    "route": "Golfclub Himberg / Frühling / Ebreichsdorf / Fontana"
                 },
                 "entry2": {
                     "price": "112,00",
-                    "route": "Wien - Golfclub Schönborn - Wien"
+                    "route": "Golfclub Schönborn"
                 },
                 "entry3": {
                     "price": "122,00",
-                    "route": "Wien - Golfclub Schönfeld / Enzesfeld - Wien"
+                    "route": "Golfclub Schönfeld / Enzesfeld"
                 },
                 "entry4": {
                     "price": "132,00",
-                    "route": "Wien - Golfclub Atzenbrugg - Wien"
+                    "route": "Golfclub Atzenbrugg"
                 },
                 "entry5": {
                     "price": "133,00",
-                    "route": "Wien - Golfclub Föhrenwald / Linsberg - Wien"
+                    "route": "Golfclub Föhrenwald / Linsberg"
                 },
                 "entry6": {
                     "price": "154,00",
-                    "route": "Wien - Golfclub Adamstal / St. Pölten - Wien"
+                    "route": "Golfclub Adamstal / St. Pölten"
                 },
                 "entry7": {
                     "price": "226,00",
-                    "route": "Wien - Golfclub Haugschlag - Wien"
+                    "route": "Golfclub Haugschlag"
                 }
             },
             "multi2": {
                 "entry0": {
                     "price": "283,00",
-                    "route": "Wien - Golfclub Loipersdorf - Wien"
+                    "route": "Golfclub Loipersdorf"
                 }
             },
             "multi3": {
                 "entry0": {
                     "price": "432,00",
-                    "route": "Wien - Golfclub Schladming - Wien"
+                    "route": "Golfclub Schladming"
                 }
             },
             "multi4": {
                 "entry0": {
                     "price": "585,00",
-                    "route": "Wien - Golfclub Kitzbühel-Schwarzsee-Reith - Wien"
+                    "route": "Golfclub Kitzbühel-Schwarzsee-Reith"
                 }
             },
             "title": {
@@ -121,17 +121,15 @@
         "samples-utility": {
             "addendum": "ab",
             "currency": "EUR",
-            "header-golf": "Tages-Golf-Reisen bis zu 9h Aufenthalt am Golfplatz\n(ohne Greenfee; Routen basieren auf Wien Zentrum)",
+            "header-golf": "Tages-Golf-Reisen inklusive Rückfahrt nach max. 9h",
             "price": "Preis",
-            "price-classic": "Pp 1",
-            "price-support": "Pp 2",
             "route": "Route"
         },
         "samples-header": {
             "option1": "Wien\n-\nFlughafen",
             "option2": "Leobersdorf\n-\nöffentliche Einrichtungen",
             "option3": "Niederösterreich / Burgenland\n-\nFlughafen",
-            "option4": "Wien\nZentrum\n-\nGolfclub\n(Niederösterreich)"
+            "option4": "Wien\nZentrum\n-\nGolfclub"
         }
     }
 }
