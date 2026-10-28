@@ -30,15 +30,15 @@
 				</span>
 			</div>
 			<table>
-				<tbody *tavaVar="'z-content-samples.samples-content-option1.entry' as airportViennaContentPath">
+				<tbody *tavaVar="'z-content-samples.samples-content-option1.entry' as viennaToAirportContentPath">
 					@for (entry of [].constructor(samplesOption1Length); track entry; let i = $index) {
 						<tr>
 						<td class="tava-samples-route tava-table-no-addendum">
-							{{airportViennaContentPath + i + '.route' | translate}}
+							{{viennaToAirportContentPath + i + '.route' | translate}}
 						</td>
 						<td class="tava-samples-colon">:</td>
 						<td class="tava-samples-price">
-							{{airportViennaContentPath + i + '.price' | translate}}
+							{{viennaToAirportContentPath + i + '.price' | translate}}
 						</td>
 						<td class="tava-samples-currency">
 							{{'z-content-samples.samples-utility.currency' | translate}}
@@ -73,11 +73,11 @@
 				</span>
 			</div>
 			<table>
-				<tbody *tavaVar="'z-content-samples.samples-content-option3.entry' as airportLAContentPath">
+				<tbody *tavaVar="'z-content-samples.samples-content-option3.entry' as lowerAustriaToAirportContentPath">
 					@for (entry of [].constructor(samplesOption3Length); track entry; let i = $index) {
 						<tr>
 							<ng-container
-								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: airportLAContentPath }"
+								*ngTemplateOutlet="samplesRef; context: { i: i, contentPath: lowerAustriaToAirportContentPath }"
 							></ng-container>
 						</tr>
 					}
@@ -98,7 +98,7 @@
 						</th>
 					</tr>
 				</thead>
-				@for (block of samplesGolf; track block; let blockIndex = $index) { <!-- prices for single/multi day trips (golf) -->
+				@for (block of samplesGolf; track block; let blockIndex = $index) { <!-- different blocks for single/multi day trips (golf) -->
 					<thead>
 						<tr>
 							<th colspan="1" class="tava-samples-golf-header">
