@@ -48,10 +48,10 @@
             "title": "Imprint"
         },
         "privacy": {
-            "title": "Privacy policy"
+            "title": "Privacy Policy"
         },
         "samples": {
-            "title": "Flatrate samples"
+            "title": "Flatrate Samples"
         },
         "service": {
             "commands": {
@@ -77,7 +77,7 @@
                         "subtitle": "Vienna",
                         "title": "Airport"
                     },
-                    "title": "Airport - route details",
+                    "title": "Airport - Route Details",
                     "vie-schwechat": "Vienna International Airport"
                 },
                 "destination": {
@@ -97,7 +97,7 @@
                         "subtitle": "Lower Austria",
                         "title": "Airport &\nDestination"
                     },
-                    "title": "Destination - route details"
+                    "title": "Destination - Route Details"
                 },
                 "flatrate": {
                     "info": {
@@ -118,7 +118,7 @@
                     "option": {
                         "title": "Flatrate"
                     },
-                    "title": "Flatrate - route details"
+                    "title": "Flatrate - Route Details"
                 },
                 "form": {
                     "customer": {
@@ -221,7 +221,7 @@
                     "option": {
                         "title": "Golf day trip"
                     },
-                    "title": "Golf trip - route details"
+                    "title": "Golf Trip - Route Details"
                 },
                 "quick": {
                     "info": {
@@ -248,7 +248,7 @@
                             "title": "Location detection"
                         }
                     },
-                    "title": "Spontaneous drive to hitchhike - route details"
+                    "title": "Spontaneous drive to hitchhike - Route Details"
                 }
             }
         },
