@@ -7,7 +7,6 @@ div {
 
 section {
     min-height: calc(100vh - var(--size-nav-height));
-    height: auto;
 }
 
 .tava-home-content {
@@ -69,75 +68,55 @@ section {
     div {
         position: relative;
     }
-
-    h2,
-    h3 {
-        color: var(--theme-palette-contrast);
-        text-shadow: 1px 1px 5px sass.$color-text-black;
-        font-weight: bold;
-    }
-    h4 {
-        color: sass.$color-ice-white;
-        text-shadow: 1px 1px 5px sass.$color-text-black;
-        font-weight: bold;
-    }
-
-    span {
-        color: sass.$color-ice-white;
-        backdrop-filter: blur(5px);
-    }
 }
 
 .home-main {
     margin-top: 0;
+    flex-direction: column;
+    h2 {
+        color: sass.$color-ice-white;
+        margin: 2.5px 0;
+        text-align: start;
+        text-wrap: balance;
+        backdrop-filter: blur(5px);
+    }
 }
 
 .home-sub {
     align-items: center;
-}
-
-#tava-home-main-header {
+    height: auto;
+    padding: 4vh 0;
     h2 {
-        font-size: clamp(40px, 5.5vw, 80px);
+        color: var(--theme-palette-contrast);
+        text-shadow: 1px 1px 5px sass.$color-text-black;
+        font-weight: bold;
+        text-align: end;
     }
 }
 
-#tava-home-sub-header {
-    h3 {
-        font-size: clamp(20px, 3.3vw, 45px);
-    }
-}
-
-.tava-home-big-span {
+.tava-home-main-h2-wrapper {
     margin-top: sass.$space5;
     margin-bottom: sass.$space5;
     text-shadow: 1px 1px 5px sass.$color-text-black;
 }
 
-.tava-home-big-span {
-    font-size: clamp(21px, 2.8vw, 40px);
-}
-
-.tava-home-mid-span {
-    font-size: clamp(14px, 1.8vw, 25px);
-    font-weight: bold;
+.tava-home-sub-p-wrapper {
+    font-size: 1rem;
+    font-weight: 300;
     margin-top: 12.5px;
     margin-bottom: 12.5px;
     text-shadow: 1px 1px 5px sass.$color-text-black;
     white-space: pre-line;
-    span {
+    p {
+        text-wrap: balance;
         text-align: end;
         color: sass.$color-ice-white;
+        margin: 2.5px 0;
     }
 }
 
-.tava-home-small-span {
-    font-size: clamp(11px, 1.7vw, 18px);
-    font-weight: bold;
-}
-
 #tava-home-main-text2 {
-    span:nth-of-type(1) {
+    h2:nth-of-type(1) {
         font-weight: bold;
         color: var(--theme-palette-highlight);
         margin-right: sass.$space5;
@@ -153,11 +132,11 @@ section {
     margin-top: 10px;
     .tava-button-simple {
         box-shadow: 1px 1px 2px var(--theme-body-text);
-        font-size: 18px;
+        line-height: 1rem;
         font-weight: 400;
         &:hover {
             box-shadow: 1px 1px 2px var(--theme-palette-contrast);
-        }
+        } 
     }
     i {
         width: 20px;
@@ -184,21 +163,19 @@ section {
     margin-left: 0;
     margin-right: 0;
     h2 {
-        font-size: clamp(20px, 3.3vw, 45px);
+        text-wrap: balance;
         font-weight: bold;
         color: var(--theme-palette-contrast);
         text-shadow: 1px 1px 5px sass.$color-text-black;
     }
     
     h3 {
-        font-size: clamp(16px, 1.8vw, 25px);
         color: var(--theme-palette-highlight);
         text-shadow: 1px 1px 2px sass.$color-text-black;
     }
 }
 
 #tava-home-service-header {
-    width: 100%;
     max-width: none;
 }
 
@@ -211,10 +188,6 @@ section {
 .tava-home-service-card {
     flex-direction: column;
     border-radius: sass.$space15;
-
-    span {
-        font-size: clamp(12px, 1.3vw, 16px);
-    }
     .tava-home-service-img-wrapper {
         position: relative;
         max-width: none;
@@ -232,18 +205,18 @@ section {
 }
 
 .tava-author {
-        position: absolute;
-        display: flex;
-        align-self: end;
-        justify-content: right;
-        bottom: 0;
-        
-        a {
-            padding: sass.$space5 sass.$space15;
-            text-decoration: none;
-            cursor: help;
-            font-size: clamp(8px, 0.9vw, 12px);
-        }
+    position: absolute;
+    display: flex;
+    align-self: end;
+    justify-content: right;
+    bottom: 0;
+
+    a {
+        padding: sass.$space5 sass.$space15;
+        text-decoration: none;
+        cursor: help;
+        font-size: clamp(12px, 0.9vw, 12px);
+    }
 }
 
 .author-dark-bg a {

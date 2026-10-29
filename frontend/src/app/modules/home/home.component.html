@@ -8,35 +8,35 @@
 					<img [src]="activeBg['main']" alt="404-picture-not-found">
 				}
 				<div id="tava-home-main-header">
-					<h2>{{'home.main.title' | translate}}</h2>
+					<h1 class="header-hero">{{'home.main.title' | translate}}</h1>
 				</div>
-				<div class="tava-home-big-span" id="tava-home-main-text2">
-					<span>
+				<div class="tava-home-main-h2-wrapper" id="tava-home-main-text2">
+					<h2>
 						{{'home.main.text2-1' | translate}}
-					</span>
-					<span>
+					</h2>
+					<h2>
 						{{'home.main.text2-2' | translate}}
-					</span>
+					</h2>
 				</div>
-				<div class="tava-home-big-span" id="tava-home-main-tex1">
-					<span>
+				<div class="tava-home-main-h2-wrapper" id="tava-home-main-tex1">
+					<h2>
 						{{'home.main.text1' | translate}}
-					</span>
+					</h2>
 				</div>
-				<div class="tava-home-big-span" id="tava-home-main-text3">
-					<span>
+				<div class="tava-home-main-h2-wrapper" id="tava-home-main-text3">
+					<h2>
 						{{'home.main.text3' | translate}}
-					</span>
+					</h2>
 				</div>
 				<div id="tava-home-main-button">
 					<button
-							class="tava-button-simple"
-							[attr.aria-disabled]="true"
-							(click)="navigateToService()"
-							(keydown.enter)="navigateToService()"
-						>
-							{{'home.main.button' | translate}}
-							<i class="icon-GoTo icon-base"></i>
+						class="tava-button-simple"
+						[attr.aria-disabled]="true"
+						(click)="navigateToService()"
+						(keydown.enter)="navigateToService()"
+					>
+						{{'home.main.button' | translate}}
+						<i class="icon-GoTo icon-base"></i>
 					</button>
 				</div>
 			</div>
@@ -46,13 +46,13 @@
 				<img src="{{activeBg['sub']}}" alt="404-picture-not-found">
 				<div id="tava-home-sub-wrapper">
 					<div id="tava-home-sub-header">
-						<h3>{{'home.sub-title' | translate}}</h3>
+						<h2>{{'home.sub-title' | translate}}</h2>
 					</div>
 					@for (item of subCollection; track item; let i = $index) {
-						<div class="tava-home-mid-span">
-							<span>
+						<div class="tava-home-sub-p-wrapper">
+							<p>
 								{{'home.sub.entry' + i | translate}}
-							</span>
+							</p>
 						</div>
 					}
 				</div>
@@ -77,7 +77,7 @@
 								<span>{{item.text | translate}}</span>
 								<img src="{{item.imgPath}}" alt="404-picture-not-found">
 								@if (item.authorPath.length > 0) {
-									<span class="tava-author author-light-bg author-service-img">
+									<p class="tava-author author-light-bg author-service-img">
 										<a
 											href="{{item.authorPath}}"
 											target="_blank"
@@ -86,7 +86,7 @@
 										>
 											{{'shared.assets.author' | translate}}
 										</a>
-									</span>
+									</p>
 								}
 							</div>
 						</div>

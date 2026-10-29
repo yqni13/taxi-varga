@@ -2,8 +2,8 @@
 
 @use 'stylesheets/backgrounds.scss';
 @use 'stylesheets/defines.scss';
-@use 'stylesheets/icons.scss';
 @use 'stylesheets/media.scss';
+@use 'stylesheets/icons.scss';
 
 
 html {
@@ -15,6 +15,7 @@ html {
     -ms-user-select: none;
     -moz-user-select: none;
     font-family: sass.$font-text-family;
+    font-size: 16px;
 }
 
 body {
@@ -41,9 +42,13 @@ header {
     justify-content: center;
 }
 
+.header-hero {
+    color: var(--theme-palette-contrast);
+    font-weight: bold;
+}
+
 h1 {
     color: var(--theme-palette-highlight);
-    font-size: clamp(25px, 4vw, 55px);
     font-weight: bold;
     margin: sass.$space50 0;
     text-align: center;
@@ -52,9 +57,7 @@ h1 {
 
 h2 {
     color: var(--theme-palette-highlight);
-    font-size: clamp(22px, 3.2vw, 44px);
     font-weight: normal;
-    margin: sass.$space50 0;
     text-align: center;
     text-shadow: 1px 1px 1px sass.$color-text-black;
 }
