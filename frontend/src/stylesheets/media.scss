@@ -11,7 +11,7 @@
 // width > 1440px
 @media screen and (width > sass.$device-desktop-xk) {
     .header-hero { font-size: 5.75rem; }
-    h1 { font-size: 2.5rem; }
+    h1 { font-size: 2.5rem; margin: 50px 0; }
     h2 { font-size: 2rem; }
     h3 { font-size: 1.75rem; }
     h4 { font-size: 1.375rem; }
@@ -86,7 +86,6 @@
             .tava-about-text {
                 width: 80vw;
                 max-width: 700px;
-                text-align: justify;
                 margin: 0 auto;
             }
         }
@@ -123,16 +122,16 @@
             }
 
             td {
-                font-size: 16px;
+                font-size: 1rem;
             }
 
             .tava-samples-table-header {
                 justify-content: start;
                 width: 250px;
-                margin-bottom: none;
+                margin-bottom: 0;
 
                 span {
-                    font-size: 15px;
+                    font-size: 1.125rem;
                 }
             }
         }
@@ -313,7 +312,7 @@
 // 1024px > width <= 1440px
 @media screen and (width <= sass.$device-desktop-xk) {
     .header-hero { font-size: 4.75rem; }
-    h1 { font-size: 2.5rem; }
+    h1 { font-size: 2.5rem; margin: 50px 0; }
     h2 { font-size: 2rem; }
     h3 { font-size: 1.75rem; }
     h4 { font-size: 1.375rem; }
@@ -389,7 +388,6 @@
             .tava-about-text {
                 width: 80vw;
                 max-width: 700px;
-                text-align: justify;
                 margin: 0 auto;
             }
         }
@@ -421,21 +419,21 @@
             }
 
             .tava-samples-golf-header {
-                font-size: 0.9em;
+                font-size: 1.125em;
                 padding-bottom: sass.$space15;
             }
 
             td {
-                font-size: 16px;
+                font-size: 1rem;
             }
 
             .tava-samples-table-header {
                 justify-content: start;
                 width: 250px;
-                margin-bottom: none;
+                margin-bottom: 0;
 
                 span {
-                    font-size: 14px;
+                    font-size: 1.125rem;
                 }
             }
         }
@@ -664,11 +662,10 @@
         .tava-samples-table-wrapper {
             flex-direction: column;
             padding: sass.$space15;
-            $wrapper-width: 450px;
 
             .tava-samples-table-header {
                 justify-content: center;
-                width: $wrapper-width;
+                width: 100%;
                 margin-bottom: sass.$space25;
             }
         }
@@ -788,8 +785,16 @@
 
     .tava-about {
         header {
-            margin: 0 sass.$space15;
-            width: calc(100% - (sass.$space15 * 2));
+            margin: 0 auto;
+            width: 80vw;
+            max-width: 700px;
+        }
+        .tava-about-content {
+            .tava-about-text {
+                max-width: 700px;
+                width: 80vw;
+                margin: 0 auto;
+            }
         }
     }
     
@@ -810,27 +815,27 @@
             padding-bottom: sass.$space25!important;
 
             .tava-samples-table-wrapper {
-                $wrapper-width: 400px;
+                $wrapper-width: 80vw;
 
                 table {
                     width: $wrapper-width;
+                    max-width: 700px;
                 }
 
-                th {
-                    font-size: 14px;
-                    padding-bottom: sass.$space5;
+                .tava-samples-special-header {
+                    font-size: 0.9rem;
+                }
+                .tava-samples-golf-header {
+                    font-size: 1.125rem;
                 }
 
                 td {
-                    font-size: 14px;
+                    font-size: 1rem;
                 }
 
                 .tava-samples-table-header {
                     width: $wrapper-width;
-                }
-
-                .tava-samples-route {
-                    width: 240px!important;
+                    max-width: 700px;
                 }
             }
         }
@@ -983,6 +988,7 @@
 // width <= 500px
 @media screen and (width <= sass.$device-phone-portrait) {
     .header-hero { font-size: 3rem; }
+    h1 { margin: 35px 0; }
     .tava-home {
         $block-margin: sass.$space25;
         $text-margin: sass.$space25;
@@ -1042,26 +1048,22 @@
             padding-bottom: 0!important;
 
             .tava-samples-table-wrapper {
-                margin: 0 10vw sass.$space50 10vw;
+                margin: 0 auto 50px auto;
+                width: 85vw;
     
                 table {
-                    width: auto;
-                }
-
-                th {
-                    font-size: 11px;
-                    padding-bottom: sass.$space5;
+                    width: 85vw;
                 }
     
                 td {
-                    font-size: clamp(9px, 2.4vw, 11px);
+                    font-size: 0.9rem;
                 }
     
                 .tava-samples-table-header {
                     width: auto;
     
                     span {
-                        font-size: 12px;
+                        font-size: 1rem;
                     }
                 }
     

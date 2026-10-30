@@ -88,7 +88,6 @@ section {
     padding: 4vh 0;
     h2 {
         color: var(--theme-palette-contrast);
-        text-shadow: 1px 1px 5px sass.$color-text-black;
         font-weight: bold;
         text-align: end;
     }
@@ -120,7 +119,6 @@ section {
         font-weight: bold;
         color: var(--theme-palette-highlight);
         margin-right: sass.$space5;
-        text-shadow: 1px 1px 1px sass.$color-text-black!important;
     }
 }
 
@@ -166,7 +164,6 @@ section {
         text-wrap: balance;
         font-weight: bold;
         color: var(--theme-palette-contrast);
-        text-shadow: 1px 1px 5px sass.$color-text-black;
     }
     
     h3 {
