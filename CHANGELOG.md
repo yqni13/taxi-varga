@@ -1,8 +1,17 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/10/31}$
+
+$\textsf{[v3.2.7\ =>\ {\textbf{\color{brown}v3.2.9}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + basic font-sizes headers and paragraphs
+  + stylings on all pages regarding contrast and borders
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/28}$
 
-$\textsf{[v3.2.5\ =>\ {\textbf{\color{brown}v3.2.7}]}}$ app
+$\textsf{[v3.2.5\ =>\ v3.2.7]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + page 'samples' data and template usage
   + contrast colors and remove unused/redundant stylings

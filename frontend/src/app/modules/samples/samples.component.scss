@@ -1,19 +1,19 @@
 @use '../../../stylesheets/utilities' as sass;
 
 
-$colon-width: 10px;
+$colon-width: 30px;
 $price-width: 50px;
 $currency-width: 40px;
 
 .bg-pattern-dark {
     .tava-samples-table-header span {
-        text-shadow: 1px 1px 1px sass.$color-text-black;
+        text-shadow: 1px 1px 1px sass.$color-link-dark;
     }
 }
 
 .bg-pattern-light {
     .tava-samples-table-header span {
-        text-shadow: 1px 1px 1px sass.$color-ice-white;
+        text-shadow: 1px 1px 1px sass.$color-link-light;
     }
 }
 
@@ -30,13 +30,28 @@ $currency-width: 40px;
     display: flex;
     margin-bottom: sass.$space50;
     border-radius: sass.$space15;
-    border: 2px outset grey;
+    border-width: 2px;
+    border-style: solid;
+    border-top-color: var(--theme-box-shadow-out);
+    border-left-color: var(--theme-box-shadow-out);
+    border-right-color: var(--theme-box-shadow-in);
+    border-bottom-color: var(--theme-box-shadow-in);
+    box-shadow: 6px 6px 16px var(--theme-shadow-with-opacity);
 }
 
 .tava-samples-table-header {
     display: flex;
 
     span {
+        width: 150px;
+        text-align: center;
+        align-content: center;
+        white-space: pre-line;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: var(--theme-palette-contrast);
+    }
+    h4 {
         width: 150px;
         text-align: center;
         align-content: center;
@@ -83,18 +98,8 @@ td {
 }
 
 .tava-samples-route {
-    text-wrap: wrap;
+    text-wrap: pretty;
     white-space: pre-line;
-}
-
-.tava-table-no-addendum {
-    width: 100%;
-    padding: 5px 0;
-}
-
-.tava-samples-colon {
-    text-align: start;
-    width: $colon-width;
 }
 
 .tava-samples-addendum {
