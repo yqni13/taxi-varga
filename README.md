@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.2.7}}$
+### $\textsf{\color{brown}{v3.2.9}}$
 
 <br><br>
 
@@ -238,10 +238,10 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.2.5\ =>\ {\textbf{\color{brown}v3.2.7}]}}$ app
+$\textsf{[v3.2.7\ =>\ {\textbf{\color{brown}v3.2.9}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
-  + page 'samples' data and template usage
-  + contrast colors and remove unused/redundant stylings
+  + basic font-sizes headers and paragraphs
+  + stylings on all pages regarding contrast and borders
 
 <br>
 
