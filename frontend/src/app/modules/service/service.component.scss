@@ -63,28 +63,6 @@
     #tava-service-route-description-flatrate span {
         padding: 9px 0;
     }
-
-    .tava-author {
-        position: absolute;
-        display: flex;
-        align-self: end;
-        justify-content: right;
-        
-        a {
-            padding: sass.$space5 sass.$space15;
-            text-decoration: none;
-            cursor: help;
-            font-size: 11px;
-        }
-    }
-
-    .author-dark-bg a {
-        color: sass.$color-grey-label;
-    }
-
-    .author-light-bg a {
-        color: sass.$color-ice-white;
-    }
 }
 
 /* SERVICE OVERVIEW STYLING --- SERVICE OVERVIEW STYLING */
@@ -100,10 +78,11 @@
     .tava-service-form {
         background-color: var(--theme-form-bg);
     }
-
-    span {
-        font-size: clamp(12px, 1.6vw, 18px);
+    p {
+        font-size: 1rem;
         color: sass.$color-ice-white;
+        margin: 0;
+        padding: 0;
     }
 }
 
@@ -138,19 +117,18 @@
 
     .tava-service-specific-offer-sum {
         display: flex;
-        flex-direction: row;
         width: 100%;
         padding: sass.$space5 0;
         align-items: center;
 
         .tava-service-specific-offer-sum-left {
-            text-align: end;
+            color: var(--theme-hint-grey);
             overflow-wrap: anywhere;
         }
-        .tava-service-specific-offer-sum-right {
-            text-align: start;
-            margin-left: sass.$space5;
-        }
+    }
+
+    .tava-always-row {
+        flex-direction: row!important;
     }
 
     #tava-service-offer-customer-last {
@@ -164,11 +142,17 @@
         width: auto;
         margin: sass.$space15 0 sass.$space25 0;
         text-align: center;
-        border: 1px outset var(--theme-snackbar-warning);
+        border-width: 2px;
+        border-style: solid;
+        border-top-color: var(--theme-box-shadow-out);
+        border-left-color: var(--theme-box-shadow-out);
+        border-right-color: var(--theme-box-shadow-in);
+        border-bottom-color: var(--theme-box-shadow-in);
+        box-shadow: 6px 6px 16px var(--theme-shadow-with-opacity);
         border-radius: sass.$space15;
         padding: sass.$space15;
         font-style: italic;
-        span {
+        p {
             color: var(--theme-snackbar-warning)!important;
             opacity: var(--warning-opacity);
             text-shadow: 1px 1px 5px var(--warning-shadow);
@@ -224,7 +208,7 @@
     display: flex;
     padding: calc(sass.$space25 / 2) sass.$space25;
 
-    span {
+    p {
         font-style: italic;
         text-align: justify;
         opacity: 0.8;

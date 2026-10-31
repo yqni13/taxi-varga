@@ -11,16 +11,26 @@ $color-default-white: #ffffff;
 $color-valid-red: #ea2222;
 $color-fullscale-bg: #181818;
 
+$color-in-light: #e0e0e0;
+$color-out-light: #dbdddf;
+$color-in-dark: #424242;
+$color-out-dark: #494949;
+
+$color-link-dark: #161515;
+$color-link-light: #a37e02;
+
 $color-text-black: #161515;
+$color-text-black-opacity: rgb(22, 21, 21, 0.35);
 $color-light-green: #2f7b34;
 $color-logo-green: #327b34;
 
 $color-grey-light: #a39f9f;
 $color-grey-dark: #3c3c3b;
 $color-grey-label: #9898989f;
+$color-grey-opacity: rgba(150, 150, 150, 0.35);
 $color-grey-lightmode: #999999;
 
-$color-icon-sun: #b95300;
+$color-icon-sun: #dba800;
 $color-icon-moon: #b17a0b;
 
 /* snackbar color definitions */
@@ -29,7 +39,7 @@ $color-lightmode-error: #b01515;
 $color-darkmode-error: #d62323;
 
 $color-border-info: #1226d3;
-$color-lightmode-info: #1306d6e6;
+$color-lightmode-info: #1d5effe6;
 $color-darkmode-info: #3778d8;
 
 $color-border-success: #0e4512;

@@ -1,8 +1,8 @@
 <section class="tava-service-destination" ngClass="{{selectedBg}}">
 	<header>
-		<h2>
+		<h1>
 			{{'modules.service.content.destination.title' | translate}}
-		</h2>
+		</h1>
 	</header>
 	<div class="tava-service-specific-content">
 
@@ -85,137 +85,137 @@
 			<div class="tava-service-specific-content-sum-offer tava-service-form">
 				@if (hasOrder && !hasConfirmed) {
 					<div class="tava-service-specific-offer-sum">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.order.contact' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{('shared.enum.gender.' + (serviceForm.get('gender')?.value ?? null) | translate) + customer}}
-						</span>
+						</p>
 					</div>
 				}
 				@if (hasOrder && !hasConfirmed) {
 					<div class="tava-service-specific-offer-sum">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.customer.phone' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{serviceForm.get('phone')?.value}}
-						</span>
+						</p>
 					</div>
 				}
 				@if (hasOrder && !hasConfirmed) {
 					<div class="tava-service-specific-offer-sum">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.customer.email' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{serviceForm.get('email')?.value}}
-						</span>
+						</p>
 					</div>
 				}
 				@if (hasOrder && !hasConfirmed) {
 					<div class="tava-service-specific-offer-sum" id="tava-service-offer-customer-last">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.customer.note' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{serviceForm.get('note')?.value !== '' ? serviceForm.get('note')?.value : '-/-'}}
-						</span>
+						</p>
 					</div>
 				}
 				<div class="tava-service-specific-offer-sum">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.offer.origin' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{serviceForm.get('originAddress')?.value}}
-					</span>
+					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.offer.destination' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{serviceForm.get('destinationAddress')?.value}}
-					</span>
+					</p>
 				</div>
 				@if (serviceForm.get('back2home')?.value) {
 					<div class="tava-service-specific-offer-sum">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.offer.back2home' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{serviceForm.get('originAddress')?.value}}
-						</span>
+						</p>
 					</div>
 				}
 				<div class="tava-service-specific-offer-sum">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{serviceForm.get('pickupDATE')?.value}}
-					</span>
+					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.time-pickup' | translate) + ':'}}
-					</span>
+					</p>
 					@if (pickup !== null) {
-						<span class="tava-service-specific-offer-sum-right">
+						<p class="tava-service-specific-offer-sum-right">
 							{{pickup}}
-						</span>
+						</p>
 					}
 					@if (pickup === null) {
-						<span class="tava-service-specific-offer-sum-right">
+						<p class="tava-service-specific-offer-sum-right">
 							{{pickupTimeByLangStatic}}
-						</span>
+						</p>
 					}
 				</div>
 				<div class="tava-service-specific-offer-sum">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{(serviceForm.get('distance')?.value ?? null) | distanceFormat}}
-					</span>
+					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.duration' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{serviceForm.get('duration')?.value + ' h'}}
-					</span>
+					</p>
 				</div>
 				@if (serviceForm.get('back2home')?.value) {
 					<div class="tava-service-specific-offer-sum">
-						<span class="tava-service-specific-offer-sum-left">
+						<p class="tava-service-specific-offer-sum-left">
 							{{('modules.service.content.form.order.latency' | translate) + ':'}}
-						</span>
-						<span class="tava-service-specific-offer-sum-right">
+						</p>
+						<p class="tava-service-specific-offer-sum-right">
 							{{serviceForm.get('latency')?.value + ' h'}}
-						</span>
+						</p>
 					</div>
 				}
 				<div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">
-					<span>
+					<p>
 						{{('modules.service.content.form.order.warnings' | translate)}}
-					</span>
-					<span>
+					</p>
+					<p>
 						{{('modules.service.content.form.order.licence' | translate)}}
-					</span>
-					<span>
+					</p>
+					<p>
 						{{'modules.service.content.form.order.latency-calc' | translate}}
-					</span>
+					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum" id="tava-service-offer-price">
-					<span class="tava-service-specific-offer-sum-left">
+					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
-					</span>
-					<span class="tava-service-specific-offer-sum-right">
+					</p>
+					<p class="tava-service-specific-offer-sum-right">
 						{{(serviceForm.get('price')?.value ?? null) | currencyFormat}}
-					</span>
+					</p>
 				</div>
 				@if (hasOrder && !hasConfirmed) {
 					<div class="tava-service-terms first-term tava-custom-input-checkbox">

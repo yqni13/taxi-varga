@@ -202,26 +202,7 @@ section {
 }
 
 .tava-author {
-    position: absolute;
-    display: flex;
-    align-self: end;
-    justify-content: right;
     bottom: 0;
-
-    a {
-        padding: sass.$space5 sass.$space15;
-        text-decoration: none;
-        cursor: help;
-        font-size: clamp(12px, 0.9vw, 12px);
-    }
-}
-
-.author-dark-bg a {
-    color: sass.$color-grey-label;
-}
-
-.author-light-bg a {
-    color: sass.$color-ice-white;
 }
 
 .author-service-img {

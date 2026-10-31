@@ -32,6 +32,9 @@
     --theme-button-minus: #{sass.$color-valid-red};
     --theme-form-bg: #{sass.$color-grey-dark};
     --theme-shadow-color: #{sass.$color-ice-white};
+    --theme-box-shadow-in: #{sass.$color-in-light};
+    --theme-box-shadow-out: #{sass.$color-out-light};
+    --theme-shadow-with-opacity: #{sass.$color-text-black-opacity};
     --filter-brightness: 1;
     --divider-opacity: 0.8;
     --warning-opacity: 0.7;
@@ -60,6 +63,9 @@
     --theme-button-minus: #{sass.$color-valid-red};
     --theme-form-bg: none;
     --theme-shadow-color: #{sass.$color-text-black};
+    --theme-box-shadow-in: #{sass.$color-in-dark};
+    --theme-box-shadow-out: #{sass.$color-out-dark};
+    --theme-shadow-with-opacity: #{sass.$color-grey-opacity};
     --filter-brightness: 0.4;
     --divider-opacity: 0.1;
     --warning-opacity: 0.6;

@@ -213,11 +213,24 @@
         }
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
+                flex-direction: row;
+                .tava-service-specific-offer-sum-left {
+                    text-align: end;
+                    width: 33%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    text-align: start;
+                    width: 67%;
+                    margin-left: sass.$space5;
+                }
+            }
+            .tava-always-row {
                 .tava-service-specific-offer-sum-left {
                     width: 33%;
                 }
                 .tava-service-specific-offer-sum-right {
                     width: 67%;
+                    margin-left: sass.$space5;
                 }
             }
         }
@@ -484,11 +497,24 @@
         }
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
+                flex-direction: row;
+                .tava-service-specific-offer-sum-left {
+                    text-align: end;
+                    width: 30%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    text-align: start;
+                    width: 70%;
+                    margin-left: sass.$space5;
+                }
+            }
+            .tava-always-row {
                 .tava-service-specific-offer-sum-left {
                     width: 30%;
                 }
                 .tava-service-specific-offer-sum-right {
                     width: 70%;
+                    margin-left: sass.$space5;
                 }
             }
         }
@@ -928,6 +954,15 @@
                     width: 65%;
                 }
             }
+            .tava-always-row {
+                .tava-service-specific-offer-sum-left {
+                    width: 45%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    width: 55%;
+                    margin-left: 5px;
+                }
+            }
         }
     }
 
@@ -1085,6 +1120,35 @@
     }
 
     .tava-service-specific-content {
+        .tava-service-specific-content-sum-offer {
+            .tava-service-specific-offer-sum {
+                flex-direction: column;
+                border-bottom: 1px solid var(--theme-box-shadow-out);
+                margin-bottom: 5px;
+                .tava-service-specific-offer-sum-left {
+                    text-align: start;
+                    width: 100%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    text-align: start;
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+            .tava-always-row {
+                border: none;
+                margin-bottom: 0;
+                .tava-service-specific-offer-sum-left {
+                    text-align: end;
+                    width: 60%;
+                }
+                .tava-service-specific-offer-sum-right {
+                    text-align: start;
+                    width: 40%;
+                    margin-left: 5px;
+                }
+            }
+        }
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;

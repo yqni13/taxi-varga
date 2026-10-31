@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/prefer-on-push-component-change-detection */
 import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
