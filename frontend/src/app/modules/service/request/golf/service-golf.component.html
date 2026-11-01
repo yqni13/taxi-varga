@@ -1,5 +1,5 @@
 <section class="tava-service-golf" ngClass="{{selectedBg}}">
-	<header>
+	<header class="tava-service-header">
 		<h1>
 			{{'modules.service.content.golf.title' | translate}}
 		</h1>
@@ -141,9 +141,15 @@
 							[checked]="this.serviceForm.get('youthOption')?.value"
 							(change)="getYouthCheckboxValue($event.target.checked)"
 						>
-						<span class="tava-service-block-input">
-							{{'modules.service.content.golf.labels.youth' | translate}}
-						</span>
+						@if (serviceForm.get('passengers')?.value > 1) {
+							<span class="tava-service-block-input">
+								{{'modules.service.content.golf.labels.youth-multiple' | translate}}
+							</span>
+						} @else {
+							<span class="tava-service-block-input">
+								{{'modules.service.content.golf.labels.youth-single' | translate}}
+							</span>
+						}
 					</div>
 					<div class="tava-service-specific-block tava-custom-input-checkbox" id="form-checkbox">
 						<input
@@ -392,9 +398,6 @@
 					</p>
 					<p>
 						{{('modules.service.content.form.order.licence' | translate)}}
-					</p>
-					<p>
-						{{'modules.service.content.form.order.stay-calc' | translate}}
 					</p>
 					<p>
 						{{'modules.service.content.form.order.stay-accommodation' | translate}}

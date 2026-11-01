@@ -69,6 +69,10 @@
 /* ##################################################### */
 /* SERVICE SPECIFIC STYLING --- SERVICE SPECIFIC STYLING */
 
+.tava-service-header {
+    margin: 0 auto;
+}
+
 .tava-service-specific-content {
     display: flex;
     justify-content: center;
@@ -93,8 +97,13 @@
     margin-left: 4px;
 }
 
-.tava-custom-input-checkbox input[type="checkbox"] {
-    border: 2px solid sass.$color-ice-white;
+.tava-custom-input-checkbox {
+    input[type="checkbox"] {
+        border: 2px solid sass.$color-ice-white;
+    }
+    span {
+        color: sass.$color-ice-white;
+    }
 }
 .tava-custom-input-radio input[type="radio"] {
     border: 2px solid sass.$color-ice-white;
@@ -194,6 +203,9 @@
     display: flex;
     flex-direction: column;
     margin-bottom: sass.$space25;
+    span {
+        color: sass.$color-ice-white;
+    }
 }
 
 .tava-service-specific-content-input-order {
@@ -206,9 +218,10 @@
 
 .tava-service-terms {
     display: flex;
-    padding: calc(sass.$space25 / 2) sass.$space25;
+    padding: calc(25px / 2) 10px calc(25px / 2) sass.$space25;
 
     p {
+        font-size: 1rem;
         font-style: italic;
         text-align: justify;
         opacity: 0.8;

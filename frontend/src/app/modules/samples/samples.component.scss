@@ -73,6 +73,7 @@ th.tava-samples-special-header {
 }
 
 .tava-samples-special-header {
+    text-wrap: pretty;
     line-height: sass.$text-line-height;
     text-shadow: 1px 1px 2px var(--warning-shadow);
 }
