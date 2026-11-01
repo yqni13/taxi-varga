@@ -1,8 +1,18 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/11/01}$
+
+$\textsf{[v3.2.9\ =>\ {\textbf{\color{brown}v3.2.12}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + header margins on all services
+  + translations and text-content on multiple pages
+  + missing stylings in light mode for paragraphs and checkboxes
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/10/31}$
 
-$\textsf{[v3.2.7\ =>\ {\textbf{\color{brown}v3.2.9}]}}$ app
+$\textsf{[v3.2.7\ =>\ v3.2.9]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
   + basic font-sizes headers and paragraphs
   + stylings on all pages regarding contrast and borders
