@@ -172,8 +172,7 @@
                         "price-estimated": "Estimated price",
                         "price-fixed": "Fixed price",
                         "stay": "Charged stay",
-                        "stay-accommodation": "An extension day including 30km transport costs 78,00 EUR + accommodation costs or provision of accommodation.",
-                        "stay-calc": "Stay until return journey maximum 8h without additional costs - thereafter 12,00 EUR for each additional hour started.",
+                        "stay-accommodation": "An extension day including 30km transport costs 54,00 EUR + accommodation costs or provision of accommodation.",
                         "support-mode": {
                             "label": "Additional service",
                             "player": "Accompanied as player"
@@ -188,12 +187,12 @@
                         "time-pickup": "Time of pick-up",
                         "time-return": "Time of return",
                         "warnings": "Actual duration and/or distance can vary due to unexpected traffic, construction sites or road accidents.",
-                        "youth-option": "Option youngsters U21"
+                        "youth-option": "Traveling youngsters U21"
                     }
                 },
                 "golf": {
                     "info": {
-                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club\n- attractive price advantages when booking for youth U21 (max 4 youngsters or 3 youngsters + 1 accompanying adult), or for carpools where the driver also participates in the game\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire directly by email:",
+                        "text": "- check free tee time places and booking conditions at the desired golf club in advance\n- choose your pick-up and drop-off time adapted to the planned tee time and estimated time of stay at the golf club\n- attractive price advantages when booking for youth U21 (max 4 youngsters or 3 youngsters + 1 accompanying adult), or for carpools where the driver also participates in the game\n- time of pickup for 'Golf' service orders between 04:00 a.m. and 12:00 p.m.\n- for trips lasting several days, inquire also by email possible:",
                         "title": "Please note that"
                     },
                     "labels": {
@@ -216,7 +215,8 @@
                             "player": "I want you as playing partner."
                         },
                         "trip": "I plan a multi-day trip.",
-                        "youth": "Youth U21 option"
+                        "youth-multiple": "Traveling at least with one youngster U21.",
+                        "youth-single": "I travel as youngster U21."
                     },
                     "option": {
                         "title": "Golf day trip"

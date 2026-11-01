@@ -23,17 +23,6 @@
     margin-top: sass.$space25;
 }
 
-.tava-service-specific-content {
-    .tava-service-golf-radio-wrapper {
-        display: flex;
-        flex-direction: column;
-    
-        label {
-            margin: sass.$space5 0;
-        }
-    }
-}
-
 #tava-service-golf-address-control-wrapper {
     display: flex;
     flex-direction: row;
@@ -92,9 +81,6 @@
 
 .tava-service-specific-content-sum-offer {
     .tava-service-specific-offer-sum {
-        #tava-service-offer-sum-price {
-            width: auto;
-        }
         #tava-service-offer-hint-greenfee {
             padding-left: sass.$space5;
             font-style: italic;

@@ -214,6 +214,9 @@
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
                 flex-direction: row;
+                #tava-service-offer-sum-price {
+                    width: auto;
+                }
                 .tava-service-specific-offer-sum-left {
                     text-align: end;
                     width: 33%;
@@ -232,11 +235,6 @@
                     width: 67%;
                     margin-left: sass.$space5;
                 }
-            }
-        }
-        .tava-service-golf-radio-wrapper {
-            span {
-                width: calc(100% - sass.$space50);
             }
         }
         .flex-direction-small {
@@ -498,6 +496,9 @@
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
                 flex-direction: row;
+                #tava-service-offer-sum-price {
+                    width: auto;
+                }
                 .tava-service-specific-offer-sum-left {
                     text-align: end;
                     width: 30%;
@@ -516,11 +517,6 @@
                     width: 70%;
                     margin-left: sass.$space5;
                 }
-            }
-        }
-        .tava-service-golf-radio-wrapper {
-            span {
-                width: calc(100% - sass.$space50);
             }
         }
         .flex-direction-small {
@@ -912,6 +908,10 @@
         }
     }
 
+    .tava-service-header {
+        width: calc(100% - (25px * 2));
+    }
+
     .tava-service-specific-content {
         .tava-datetime-double {
             flex-direction: column!important;
@@ -932,7 +932,7 @@
         .tava-service-form {
             $padding-portrait-size: calc(sass.$space25 / 2);
             $padding-landscape-size: sass.$space25;
-            $margin-landscape-size: sass.$space50;
+            $margin-landscape-size: sass.$space25;
 
             width: calc(100% - ($padding-landscape-size * 2) - ($margin-landscape-size * 2));
             max-width: 500px;
@@ -942,7 +942,7 @@
         }
         .tava-service-terms {
             input {
-                margin: 0 sass.$space50 0 0!important;
+                margin: 0 sass.$space25 0 0!important;
             }
         }
         .tava-service-specific-content-sum-offer {
@@ -1119,12 +1119,19 @@
         }
     }
 
+    .tava-service-header {
+        width: calc(100% - (25px * 2));
+    }
+
     .tava-service-specific-content {
         .tava-service-specific-content-sum-offer {
             .tava-service-specific-offer-sum {
                 flex-direction: column;
                 border-bottom: 1px solid var(--theme-box-shadow-out);
                 margin-bottom: 5px;
+                #tava-service-offer-sum-price {
+                    width: 100%;
+                }
                 .tava-service-specific-offer-sum-left {
                     text-align: start;
                     width: 100%;
@@ -1158,11 +1165,6 @@
             max-width: none;
             margin: 0 $margin-landscape-size;
             padding: $padding-portrait-size $padding-landscape-size;
-        }
-        .tava-service-golf-radio-wrapper {
-            span {
-                width: calc(100% - 35px);
-            }
         }
         .flex-direction-small {
             flex-direction: column-reverse!important;
