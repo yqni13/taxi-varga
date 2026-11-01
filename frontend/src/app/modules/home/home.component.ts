@@ -1,5 +1,5 @@
 import { DrivingServiceBase } from './../../shared/interfaces/driving-overview.interface';
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { TranslateModule } from "@ngx-translate/core";
 import { CommonModule } from "@angular/common";
 import { Subscription, tap } from "rxjs";
@@ -19,6 +19,7 @@ import { NavigationService } from "../../shared/services/navigation.service";
         TranslateModule
     ],
     templateUrl: './home.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit, OnDestroy {

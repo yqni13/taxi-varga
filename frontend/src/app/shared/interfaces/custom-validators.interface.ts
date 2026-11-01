@@ -8,3 +8,17 @@ export interface InvalidBHValidatorParams {
     endHour: number
     isPickup: boolean
 }
+
+export interface TimeRangeValidatorParams {
+    service: DateTimeService,
+    format: DatetimeOption,
+    startHour: number,
+    endHour: number,
+    validation: string
+}
+
+export interface StayTimeValidatorParams {
+    service: DateTimeService,
+    maxHours: number,
+    validation: string
+}

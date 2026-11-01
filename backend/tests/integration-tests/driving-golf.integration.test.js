@@ -17,6 +17,7 @@ jest.mock('../../src/models/driving/golf.driving.model.js', () => {
 
 const app = require('../../src/app.js');
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_RouteMatrix = require('../mock-data/routeMatrix_golf.mock.json');
 
@@ -24,6 +25,7 @@ describe('Integration test, service flow: Golf', () => {
 
     beforeAll(() => {
         jest.resetModules();
+        disableConsoleMessages();
     })
 
     beforeEach(() => {
@@ -122,8 +124,8 @@ describe('Integration test, service flow: Golf', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Params: <stay>, validator: exists({values: "null"})', async () => {
-                const invalidParam = 'stay';
+            test('Params: <stayInDays>, validator: exists({values: "null"})', async () => {
+                const invalidParam = 'stayInDays';
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
                 delete mockParam_params[`${invalidParam}`];
 
@@ -138,10 +140,10 @@ describe('Integration test, service flow: Golf', () => {
                 expect(mockResponse.body.headers.data).toContainEqual(mockError);
             })
 
-            test('Params: <stay>, validator: isInt({max: 4320})', async () => {
-                const invalidParam = 'stay';
+            test('Params: <stayInMinutes>, validator: isInt({max: 540})', async () => {
+                const invalidParam = 'stayInMinutes';
                 const mockParam_params = structuredClone(MockData_RouteMatrix['route2340-2013-2340']);
-                mockParam_params[`${invalidParam}`] = 4321;
+                mockParam_params[`${invalidParam}`] = 541;
 
                 mockError['msg'] = 'backend-invalid-stay';
                 mockError['path'] = invalidParam;

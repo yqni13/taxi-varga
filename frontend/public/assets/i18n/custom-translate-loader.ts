@@ -2,16 +2,13 @@ import { TranslateLoader } from '@ngx-translate/core';
 import { HttpClient } from '@angular/common/http';
 import { forkJoin, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { inject } from '@angular/core';
 
 export class CustomTranslateLoader implements TranslateLoader {
 
-    constructor(
-        private http: HttpClient, 
-        private prefix = './assets/i18n/', 
-        private suffix = '.json'
-    ) { 
-            //
-    }
+    private readonly http = inject(HttpClient);
+
+    private readonly prefix = './assets/i18n/';
 
     public getTranslation(language: string): Observable<any> {
         // list of files each language to load

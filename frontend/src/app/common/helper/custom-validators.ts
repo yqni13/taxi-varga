@@ -2,7 +2,8 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@an
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams } from "../../shared/interfaces/custom-validators.interface";
+import { InvalidBHValidatorParams, StayTimeValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
+
 
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -50,11 +51,39 @@ export const phoneRegExValidator = (): ValidatorFn => {
     }
 }
 
-export const maxLatencyValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+export const maxStayTimeValidator = (params: StayTimeValidatorParams) : ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
-        const time = datetimeService.getTimeInTotalMinutes(control?.value);
-        if(time > (60 * 6)) {
-            return { maxLatency: true };
+        const time = params.service.getTimeInTotalMinutes(control?.value);
+        if(time > (60 * params.maxHours)) {
+            return { [params.validation]: true };
+        }
+        return null;
+    }
+}
+
+export const invalidTimeRangeByHoursValidator = (param: TimeRangeValidatorParams): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        let time = 0;
+        if (param.format === DatetimeOption.HHMM) {
+            time = param.service.getTimeInTotalMinutes(control?.value);
+        } else if (param.format === DatetimeOption.FULL) {
+            time = param.service.getTimeInTotalMinutes(param.service.getTimeFromTimestamp(control?.value));
+        }
+        if (time < (60 * param.startHour) || time > (60 * param.endHour)) {
+            return { [param.validation]: true };
+        }
+        return null;
+    }
+}
+
+export const invalidQuickPickupValidator = (service: DateTimeService): ValidatorFn => {
+    return (control: AbstractControl): ValidationErrors | null => {
+        let time = 0;
+        time = service.getTimeInTotalMinutes(control?.value);
+        if (time < (60 * 4)
+        || (time > (60 * 10) && time < (60 * 14))
+        || time > (60 * 19)) {
+            return { invalidQuickOriginTimeOuter: true };
         }
         return null;
     }

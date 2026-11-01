@@ -35,38 +35,39 @@ which also needs to be entered in angular.json on path "architect/serve/" as:
 <br>
 
 ### API url's
-Due to the proxy configuration, the api call urls need to be adapted too by removing the domain added from env var (every API call). See example:
+Due to the proxy configuration local development auto uses localhost as HTTPS:
 ```sh
-this.url = '/api/v1/auth/init';
-```
-instead of
-```sh
-this.url = `${environment.API_BASE_URL}/api/v1/auth/init`;
+this.url = this.isDevEnv 
+    ? '/api/v1/auth/init'
+    : `${environment.API_BASE_URL}/api/v1/auth/init`;
 ```
 <br>
 
 ### server.js
 
-Finally, `server.js` for the backend must be adapted to local SSL usage:
+Finally, `server.js` for the backend must run differently to run SSL on local development:
 ```sh
 require('dotenv').config();
 const { Config } = require('./src/configs/config');
 const app = require('./src/app');
-const https = require('https');
-const fs = require('fs');
 
-const options = {
-    key: fs.readFileSync("dev_ssl/be-key.pem", "utf8"),
-    cert: fs.readFileSync("dev_ssl/be-cert.pem", "utf8")
+if (Config.MODE.trim() === 'development') {
+    const https = require('https');
+    const fs = require('fs');
+
+    const options = {
+        key: fs.readFileSync("dev_ssl/be-key.pem", "utf8"),
+        cert: fs.readFileSync("dev_ssl/be-cert.pem", "utf8")
+    }
+
+    const port = Config.PORT;
+    https.createServer(options, app).listen(port, () => {
+        console.log(`LOCAL SSL SERVER ACTIVE ON PORT ${port}!`)
+    });
+} else {
+    const port = Config.PORT;
+    app.listen(port, () => {
+        console.log(`TAXI-VARGA SERVER RUNNING ON PORT: ${port}!`);
+    });
 }
-
-const port = Config.PORT;
-https.createServer(options, app).listen(port, () => {
-    console.log(`LOCAL SSL SERVER ACTIVE ON PORT ${port}!`)
-});
-
-// const port = Config.PORT;
-// app.listen(port, () => {
-//     console.log(`TAXI-VARGA SERVER RUNNING ON PORT: ${port}!`);
-// });
 ```

@@ -1,6 +1,6 @@
 import { QuickRouteOption } from "../../shared/enums/quickroute-option.enum"
 
-export declare interface DrivingAirportResponse {
+export interface DrivingAirportResponse {
     body: {
         routeData: {
             distance: number,
@@ -10,7 +10,7 @@ export declare interface DrivingAirportResponse {
     }
 }
 
-export declare interface DrivingDestinationResponse {
+export interface DrivingDestinationResponse {
     body: {
         routeData: {
             distance: number,
@@ -20,7 +20,7 @@ export declare interface DrivingDestinationResponse {
     }
 }
 
-export declare interface DrivingFlatrateResponse {
+export interface DrivingFlatrateResponse {
     body: {
         routeData: {
             tenancy: number,
@@ -29,7 +29,7 @@ export declare interface DrivingFlatrateResponse {
     }
 }
 
-export declare interface DrivingGolfResponse {
+export interface DrivingGolfResponse {
     body: {
         routeData: {
             distance: number,
@@ -40,7 +40,7 @@ export declare interface DrivingGolfResponse {
     }
 }
 
-export declare interface DrivingQuickResponse {
+export interface DrivingQuickResponse {
     body: {
         routeData: {
             price: number,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { filter, Subject, tap } from "rxjs";
 import { FormControl, Validators } from "@angular/forms";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
@@ -11,14 +11,15 @@ import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
 
 @Component({
     selector: 'tava-service-flatrate',
+    imports: [
+        ...ServiceImportsModule
+    ],
     templateUrl: './service-flatrate.component.html',
     styleUrls: [
         '../../service.component.scss',
         './service-flatrate.component.scss'
     ],
-    imports: [
-        ...ServiceImportsModule
-    ]
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ServiceFlatrateComponent extends BaseServiceComponent implements OnInit, AfterViewInit {
 
@@ -26,10 +27,6 @@ export class ServiceFlatrateComponent extends BaseServiceComponent implements On
     protected dropoffTimeByLangStatic = "";
     protected minTenancyStamp$ = new Subject<string>();
     protected maxTenancyStamp$ = new Subject<string>();
-
-    constructor() {
-        super()
-    }
 
     override async ngOnInit() {
         this.service = ServiceRoute.FLATRATE;

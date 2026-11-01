@@ -9,8 +9,9 @@
     white-space: pre-line;
 
     p {
-        font-size: sass.$content-text-size;
+        font-size: 1rem;
         line-height: sass.$text-line-height;
+        text-align: left;
     }
 }
 

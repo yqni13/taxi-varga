@@ -41,7 +41,7 @@ class DrivingDestinationModel extends BaseDrivingModel {
                 per30Min: 12
             },
             parking: {
-                base: 10
+                base: 6
             },
             discount: {
                 la2via: 6
@@ -108,7 +108,15 @@ class DrivingDestinationModel extends BaseDrivingModel {
             // Add up all additional charges.
             let additionalCharge = 0;
             additionalCharge += latencyCosts;
-            additionalCharge += this._addChargeParkFlatByBH(params, servDist);
+
+            const paramsParkFlatCharge = {
+                isWithinBH: isWithinBH,
+                back2home: params.back2home,
+                servDist: servDist,
+                originZipCode: params.originDetails.zipCode,
+                originProvince: params.originDetails.province
+            };
+            additionalCharge += this._addChargeParkFlatByBH(paramsParkFlatCharge);
 
             const preCostSum = this.calculateSum([
                 approachCosts,
@@ -202,17 +210,17 @@ class DrivingDestinationModel extends BaseDrivingModel {
         return 0;
     }
 
-    _addChargeParkFlatByBH(params, servDist) {
+    _addChargeParkFlatByBH(params) {
         let charge = 0;
-        if(params.back2home || servDist > 60) {
+        if(!params.isWithinBH || params.back2home || params.servDist > 60) {
             return charge;
         }
 
         let zipCode = '';
-        if(!params.originDetails.zipCode && params.originDetails.province) {
-            zipCode = Utils.checkAddressInViennaByProvince(params.originDetails.province) ? '1010' : '0000';
+        if(!params.originZipCode && params.originProvince) {
+            zipCode = Utils.checkAddressInViennaByProvince(params.originProvince) ? '1010' : '0000';
         } else {
-            zipCode = params.originDetails.zipCode;
+            zipCode = params.originZipCode ?? '2544';
         }
 
         charge = Utils.checkAddressAtViennaAirport(zipCode) || Utils.checkAddressInViennaByZipCode(zipCode) 

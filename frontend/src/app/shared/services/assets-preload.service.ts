@@ -6,10 +6,6 @@ import { AssetsPreloadParams } from "../interfaces/assets-preload.interface";
 })
 export class AssetsPreloadService {
 
-    constructor() {
-        //
-    }
-
     private preloadImages(paths: string[] | undefined): Promise<void[]> {
         if(!paths || paths.length === 0) {
             return Promise.resolve([]);
