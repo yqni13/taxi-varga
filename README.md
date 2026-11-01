@@ -1,5 +1,5 @@
 # yqni13 | $\texttt{\color{seagreen}{TAXI-VARGA}}$
-### $\textsf{\color{brown}{v3.2.9}}$
+### $\textsf{\color{brown}{v3.2.12}}$
 
 <br><br>
 
@@ -82,7 +82,7 @@ node server.js
 | 📧 Email | Email service with node.js & nodemailer |
 | 🗯️ Notification | Customized snackbar + extended translation service |
 | 🎨 Themes | Customized theme options (dark/light mode) |
-| 📱 Design | Responsive design 400px > width < 1800px supported via flexbox & media queries |
+| 📱 Design | Responsive design 320px > width < 1800px supported via flexbox & media queries |
 
 <br>
 
@@ -238,10 +238,11 @@ $ npm run lint
 ## 📈 $\textsf{\color{salmon}Updates}$
 [see changelog for all updates](CHANGELOG.md)
 
-$\textsf{[v3.2.7\ =>\ {\textbf{\color{brown}v3.2.9}]}}$ app
+$\textsf{[v3.2.9\ =>\ {\textbf{\color{brown}v3.2.12}]}}$ app
 - $\textsf{\color{orange}Patch:}$ Updated:
-  + basic font-sizes headers and paragraphs
-  + stylings on all pages regarding contrast and borders
+  + header margins on all services
+  + translations and text-content on multiple pages
+  + missing stylings in light mode for paragraphs and checkboxes
 
 <br>
 
