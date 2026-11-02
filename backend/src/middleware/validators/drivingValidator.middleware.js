@@ -87,13 +87,20 @@ exports.drivingGolfSchema = [
         .withMessage('backend-required'),    
     body('destinationDetails')
         .custom((value, { req }) => CustomValidator.validatePlaceDetails(req.body.destination, value)),
-    body('stay')
+    body('stayInMinutes')
+        .isInt({ max: 540 }) // x < 9h (only when single day event)
+        .withMessage('backend-invalid-stay')
+        .optional(),
+    body('stayInDays')
         .exists({values: 'null'})
         .withMessage('backend-required')
         .bail()
-        .isInt({ max: 4320 }) // x < 72h
-        .withMessage('backend-invalid-stay'),
+        .isInt({max: 8}) // x < 8 days
+        .withMessage('backend-invalid-stayindays'),
     body('supportMode')
+        .isBoolean()
+        .withMessage('backend-required'),
+    body('youthOption')
         .isBoolean()
         .withMessage('backend-required'),
     body('passengers')

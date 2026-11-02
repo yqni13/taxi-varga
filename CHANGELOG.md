@@ -1,8 +1,86 @@
 ## 📜 $\textsf{\color{salmon}{List\ of\ updates}}$
 
+### $\textsf{\color{skyblue}2026/11/01}$
+
+$\textsf{[v3.2.9\ =>\ {\textbf{\color{brown}v3.2.12}]}}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + header margins on all services
+  + translations and text-content on multiple pages
+  + missing stylings in light mode for paragraphs and checkboxes
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/31}$
+
+$\textsf{[v3.2.7\ =>\ v3.2.9]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + basic font-sizes headers and paragraphs
+  + stylings on all pages regarding contrast and borders
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/28}$
+
+$\textsf{[v3.2.5\ =>\ v3.2.7]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + page 'samples' data and template usage
+  + contrast colors and remove unused/redundant stylings
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/27}$
+
+$\textsf{[v3.2.3\ =>\ v3.2.5]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated parking charges on service 'destination'.
+- $\textsf{\color{red}Bugfix:}$ Requesting service 'golf' with multi-day trip works as expected. [Before: Validation was using days based on difference, causing wrong validation in backend for 2-day trips. Fixed by using the (intended) started (rounded up) days instead.]
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/26}$
+
+$\textsf{[v3.2.2\ =>\ v3.2.3]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated discount calculation for options regarding total costs.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/25}$
+
+$\textsf{[v3.0.4\ =>\ v3.2.2]}$ app
+- $\textsf{\color{teal}Addition:}$ Added feature to add extra addresses for service 'golf'.
+- $\textsf{\color{teal}Addition:}$ Added new input handling + validation for return date/time for service 'golf'.
+- $\textsf{\color{orange}Patch:}$ Updated:
+  + apply discount on youth option
+  + calculation for stay costs on single/multi day trips
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/20}$
+
+$\textsf{[v3.0.2\ =>\ v3.0.4]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated 
+  + info text on multiple service info boxes & 'home' page
+  + validations on multiple services
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/17}$
+
+$\textsf{[v3.0.1\ =>\ v3.0.2]}$ app
+- $\textsf{\color{orange}Patch:}$ Updated signal based input/output fields on base components.
+
+<br>
+
+### $\textsf{\color{skyblue}2026/10/15}$
+
+$\textsf{[v2.0.18\ =>\ v3.0.1]}$ app
+- $\textsf{\color{green}Change:}$ Upgraded Angular framework from v21 to v22.
+- $\textsf{\color{orange}Patch:}$ Updated null-conditional operation due to change returning undefined instead of null.
+
+<br>
+
 ### $\textsf{\color{skyblue}2026/09/13}$
 
-$\textsf{[v2.0.17\ =>\ {\textbf{\color{brown}v2.0.18}]}}$ app
+$\textsf{[v2.0.17\ =>\ v2.0.18]}$ app
 - $\textsf{\color{orange}Patch:}$ Updated text information on pages 'home' and 'samples'.
 
 <br>

@@ -1,4 +1,4 @@
-import { Inject, Injectable, DOCUMENT } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { ThemeOptions } from "../enums/theme-options.enum";
 import { ObservationService } from "./observation.service";
 
@@ -7,15 +7,10 @@ import { ObservationService } from "./observation.service";
 })
 export class ThemeHandlerService {
 
-    private isLocalStorageAvailable: any;
-    
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private readonly observation: ObservationService,
-    ) {
-        this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
-    }
+    private readonly observation = inject(ObservationService);
 
+    private isLocalStorageAvailable = typeof localStorage !== 'undefined';
+    
     initTheme() {
         const theme: ThemeOptions = this.checkThemeSettings();
         this.setThemeSettings(theme ? theme : ThemeOptions.darkMode);
@@ -38,14 +33,14 @@ export class ThemeHandlerService {
         if(this.isLocalStorageAvailable) {
             if(theme) {
                 localStorage.setItem("taxi-varga.at-theme", theme);
-                this.document.body.setAttribute("data-theme", theme);
+                document.body.setAttribute("data-theme", theme);
                 this.observation.setThemeOption(theme);
                 return;
             }
         }
         
         this.observation.setThemeOption(ThemeOptions.darkMode);
-        this.document.body.setAttribute("data-theme", 'darkMode');
+        document.body.setAttribute("data-theme", 'darkMode');
     }
 
     switchTheme(theme: ThemeOptions): ThemeOptions {

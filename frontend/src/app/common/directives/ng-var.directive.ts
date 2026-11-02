@@ -1,10 +1,14 @@
-import { Directive, Input, TemplateRef, ViewContainerRef } from "@angular/core";
+import { Directive, inject, Input, TemplateRef, ViewContainerRef } from "@angular/core";
 
 @Directive({
     selector: '[tavaVar]',
     standalone: true
 })
 export class VarDirective {
+
+    private readonly templateRef = inject(TemplateRef<any>);
+    private readonly vcRef = inject(ViewContainerRef);
+
     @Input()
     set tavaVar(context: unknown) {
         this.context.$implicit = this.context.tavaVar = context;
@@ -24,9 +28,4 @@ export class VarDirective {
     };
 
     private hasView = false;
-
-    constructor(
-        private templateRef: TemplateRef<any>,
-        private vcRef: ViewContainerRef
-    ) {}
 }

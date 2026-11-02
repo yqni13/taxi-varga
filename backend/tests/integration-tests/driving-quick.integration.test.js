@@ -19,6 +19,7 @@ jest.mock('../../src/models/driving/quick.driving.model.js', () => {
 
 const app = require('../../src/app.js');
 const request = require('supertest');
+const { disableConsoleMessages } = require('../common.test-utils.js');
 const { ErrorStatusCodes } = require('../../src/utils/errorStatusCodes.utils.js');
 const MockData_RouteMatrix = require('../mock-data/routeMatrix_quick.mock.json');
 const apiUrl = '/api/v1/driving/quick';
@@ -27,6 +28,7 @@ describe('Integration test, service flow: Quick', () => {
 
     beforeAll(() => {
         jest.resetModules();
+        disableConsoleMessages();
     })
 
     beforeEach(() => {

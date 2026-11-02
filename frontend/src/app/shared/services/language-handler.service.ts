@@ -1,4 +1,4 @@
-import { Inject, Injectable, DOCUMENT } from "@angular/core";
+import { Injectable, inject } from "@angular/core";
 import { LanguageOptions } from "../enums/language-options.enum";
 import { TranslateService } from "@ngx-translate/core";
 
@@ -8,14 +8,9 @@ import { TranslateService } from "@ngx-translate/core";
 
 export class LanguageHandlerService {
 
-    private isLocalStorageAvailable: any;
+    private readonly translate = inject(TranslateService);
 
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private readonly translate: TranslateService
-    ) {
-        this.isLocalStorageAvailable = typeof localStorage !== 'undefined';
-    }
+    private isLocalStorageAvailable = typeof localStorage !== 'undefined';
 
     checkLanguageData(): LanguageOptions {
         if(this.isLocalStorageAvailable) {
@@ -43,12 +38,12 @@ export class LanguageHandlerService {
                 localStorage.setItem("taxi-varga.at-language", language);
                 this.translate.use(language);
                 // change lang in index.html to prevent unwanted google translation
-                this.document.querySelector('html')?.setAttribute('lang', language);
+                document.querySelector('html')?.setAttribute('lang', language);
                 return;
             }
         }
         
-        this.document.querySelector('html')?.setAttribute('lang', 'de');
+        document.querySelector('html')?.setAttribute('lang', 'de');
         this.translate.use(LanguageOptions.DE);
     }
 }

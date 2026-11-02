@@ -1,45 +1,38 @@
+/* eslint-disable @angular-eslint/prefer-on-push-component-change-detection */
 import { CommonModule } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
-import { TranslateModule, TranslateService } from "@ngx-translate/core";
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, inject } from "@angular/core";
+import { TranslateModule } from "@ngx-translate/core";
 import { ObservationService } from "../../shared/services/observation.service";
 import { Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
 import { RouterModule } from "@angular/router";
 import * as content from "../../../../public/assets/i18n/samples-en.json";
 import { VarDirective } from "../../common/directives/ng-var.directive";
+import { SamplesGolfContent } from "../../shared/interfaces/samples.interface";
 
 @Component({
     selector: 'tava-samples',
-    templateUrl: './samples.component.html',
-    styleUrl: './samples.component.scss',
     imports: [
         CommonModule,
         RouterModule,
         TranslateModule,
         VarDirective
-    ]
+    ],
+    templateUrl: './samples.component.html',
+    styleUrl: './samples.component.scss',
+    changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class SamplesComponent implements OnInit, OnDestroy {
 
-    protected selectedBg: string;
-    protected samplesOption1Length: number;
-    protected samplesOption2Length: number;
-    protected samplesOption3Length: number;
-    protected samplesOption4Entries: any;
+    private readonly observation = inject(ObservationService);
 
-    private subscriptionThemeObservation$: Subscription;
+    protected selectedBg = '';
+    protected samplesOption1Length = Object.keys(content["z-content-samples"]["samples-content-option1"]).length;
+    protected samplesOption2Length = Object.keys(content["z-content-samples"]["samples-content-option2"]).length;
+    protected samplesOption3Length = Object.keys(content["z-content-samples"]["samples-content-option3"]).length;
+    protected samplesGolf: SamplesGolfContent[] = this.getGolfSamples();
 
-    constructor(
-        private readonly translate: TranslateService,
-        private readonly observation: ObservationService
-    ) {
-        this.selectedBg = '';
-        this.samplesOption1Length = Object.keys(content["z-content-samples"]["samples-content-option1"]).length;
-        this.samplesOption2Length = Object.keys(content["z-content-samples"]["samples-content-option2"]).length;
-        this.samplesOption3Length = Object.keys(content["z-content-samples"]["samples-content-option3"]).length;
-        this.samplesOption4Entries = Object.entries(content["z-content-samples"]["samples-content-option4"]);
-        this.subscriptionThemeObservation$ = new Subscription();
-    }
+    private subscriptionThemeObservation$: Subscription = new Subscription();
 
     ngOnInit() {
         this.subscriptionThemeObservation$ = this.observation.themeOption$.pipe(
@@ -56,6 +49,15 @@ export class SamplesComponent implements OnInit, OnDestroy {
                 }
             })
         ).subscribe();
+    }
+
+    getGolfSamples(): SamplesGolfContent[] {
+        return [
+            { title: 'single', length: Object.keys(content["z-content-samples"]["samples-content-option4"]["single"]).length },
+            { title: 'multi2', length: Object.keys(content["z-content-samples"]["samples-content-option4"]["multi2"]).length },
+            { title: 'multi3', length: Object.keys(content["z-content-samples"]["samples-content-option4"]["multi3"]).length },
+            { title: 'multi4', length: Object.keys(content["z-content-samples"]["samples-content-option4"]["multi4"]).length },
+        ];
     }
 
     ngOnDestroy() {

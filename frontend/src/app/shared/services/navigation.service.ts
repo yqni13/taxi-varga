@@ -1,19 +1,17 @@
-import { Injectable } from "@angular/core";
-import { Route, Router } from "@angular/router";
+import { inject, Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { CustomRoute } from "../interfaces/custom-route.interface";
 
 @Injectable({
     providedIn: 'root',
 })
 export class NavigationService {
 
-    private currentUrl: string;
-    private previousUrl: string;
-    private warning = 'UNAVAILABLE';
+    private readonly router = inject(Router);
 
-    constructor(private router: Router) {
-        this.currentUrl = this.warning;
-        this.previousUrl = this.warning;
-    }
+    private warning = 'UNAVAILABLE';
+    private currentUrl = this.warning;
+    private previousUrl = this.warning;
 
     setCurrentUrl(url: string) {
         if(url.length < 1) {
@@ -41,16 +39,22 @@ export class NavigationService {
         return this.previousUrl;
     }
 
-    getNavigationRoutes(): Route[] {
+    getNavigationRoutes(): CustomRoute[] {
         return this.router.config
-            .flatMap((route: any) => [route, ...(route.children || [])])
-            .filter((route: any) => route.data?.["showInNavbar"]);
+            .filter((route: any) => route.data?.["showInNavbar"] && route.data!['title'])
+            .flatMap((route: any) => [
+                { path: route.path, icon: route.data!['icon'], titleKey: route.data!['title'] },
+                ...(route.children || [])
+            ]);
     }
 
-    getFootertRoutes(): Route[] {
+    getFootertRoutes(): CustomRoute[] {
         return this.router.config
-            .flatMap((route: any) => [route, ...(route.children || [])])
-            .filter((route: any) => route.data?.["showInFooter"]);
+            .filter((route: any) => route.data?.["showInFooter"] && route.data!['title'])
+            .flatMap((route: any) => [
+                { path: route.path, titleKey: route.data!['title'] },
+                ...(route.children || [])
+            ]);
     }
 
     getNavigationIconPaths(): string[] {

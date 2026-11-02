@@ -1,9 +1,7 @@
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { inject, Injectable } from "@angular/core";
 import { MailingMessage, MailingRequest } from "../interfaces/mailing-request.interface";
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { CustomTranslateService } from "../../shared/services/custom-translate.service";
-import { UtilsService } from "../../shared/services/utils.service";
 import { CryptoService } from "../../shared/services/crypto.service";
 import { environment } from "../../../environments/environment";
 import { ServiceRoute } from "../routes/service.route.enum";
@@ -12,49 +10,36 @@ import { LanguageOptions } from "../../shared/enums/language-options.enum";
 import { catchError, throwError } from "rxjs";
 import { default as baseEN } from "../../../../public/assets/i18n/en.json";
 import { default as baseDE } from "../../../../public/assets/i18n/de.json";
+import { AbstractApiServiceClass } from "./abstract.api.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class MailAPIService {
-    private mailData: MailingRequest;
-    private urlSend: string;
-    private mailSubject: string;
+export class MailAPIService extends AbstractApiServiceClass {
 
-    constructor(
-        private readonly http: HttpClient,
-        private readonly utils: UtilsService,
-        private readonly crypto: CryptoService,
-        private readonly datetimeService: DateTimeService,
-        private readonly customTranslate: CustomTranslateService
-    ) {
-        this.mailData = {
-            sender: '',
-            subject: '',
-            body: ''
-        }
+    private readonly crypto = inject(CryptoService);
+    private readonly datetimeService = inject(DateTimeService);
+    private readonly customTranslate = inject(CustomTranslateService);
 
-        this.mailSubject = '';
-        
-        try {
-            this.mailSubject = environment.MAIL_SUBJECT;
-        } catch(err) {
-            console.log("MailService: env var MAIL_SUBJECT not found", err);
-            // TODO(yqni13): client side exception handling missing
-        }
+    private urlSend = this.isDevEnv 
+        ? '/api/v1/mailing/send'
+        : `${environment.API_BASE_URL.trim()}/api/v1/mailing/send`;
 
-        // this.urlSend = '/api/v1/mailing/send';
-        this.urlSend = environment.API_BASE_URL + '/api/v1/mailing/send';
-    }
+    private mailSubject = environment.MAIL_SUBJECT.trim();
+
+    private mailData: MailingRequest = {
+        sender: '',
+        subject: '',
+        body: ''
+    };
 
     async setMailData(data: MailingMessage) {
-
         data.phone = this.utils.configPhoneNumber(data.phone);
         const translateData = this.setTranslationValues(data);
         const newData: any = data;
         Object.entries(translateData).forEach(([k, v]) => {
             Object.assign(newData, {[k]: v});
-        })
+        });
 
         try {
             this.mailData = {

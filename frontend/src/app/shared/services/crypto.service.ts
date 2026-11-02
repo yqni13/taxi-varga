@@ -7,16 +7,11 @@ import { isPlatformBrowser } from "@angular/common";
 })
 export class CryptoService {
 
-    private publicKey: string;
-    private privateKey: string;
-    private ivPosition: number;
     private readonly platformId = inject(PLATFORM_ID);
 
-    constructor() {
-        this.publicKey = environment.PUBLIC_KEY;
-        this.privateKey = environment.PRIVATE_KEY;
-        this.ivPosition = environment.IV_POSITION;
-    }
+    private publicKey = environment.PUBLIC_KEY;
+    private privateKey = environment.PRIVATE_KEY;
+    private ivPosition = environment.IV_POSITION;
 
     async encryptAES(data: string): Promise<string> {
         const passphrase = 'passw0rd';

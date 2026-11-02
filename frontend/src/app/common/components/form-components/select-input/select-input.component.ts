@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, Output } from "@angular/core";
+import { Component, EventEmitter, forwardRef, Input, Output, ChangeDetectionStrategy } from "@angular/core";
 import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
 import { TranslateModule } from "@ngx-translate/core";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
@@ -7,16 +7,16 @@ import { AbstractInputComponent } from "../abstract-input.component";
 
 @Component({
     selector: 'tava-selectinput',
-    templateUrl: './select-input.component.html',
-    styleUrls: [
-        '../abstract-input.component.scss',
-        './select-input.component.scss',
-    ],
     imports: [
         CommonModule,
         ReactiveFormsModule,
         TranslateModule,
         ValidationInputComponent
+    ],
+    templateUrl: './select-input.component.html',
+    styleUrls: [
+        '../abstract-input.component.scss',
+        './select-input.component.scss',
     ],
     providers: [
         {
@@ -25,6 +25,7 @@ import { AbstractInputComponent } from "../abstract-input.component";
             multi: true,
         }
     ],
+    changeDetection: ChangeDetectionStrategy.Eager,
     host: {
         '(window:click)': 'clickListening($event)',
         '(window:keydown)': 'keyListening($event)'
