@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/prefer-on-push-component-change-detection */
-import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import { AfterViewInit, Component, OnDestroy, OnInit, ChangeDetectionStrategy, signal } from "@angular/core";
 import { filter, Subscription, tap } from "rxjs";
-import { FormControl, Validators } from "@angular/forms";
+import { Validators } from "@angular/forms";
 import { DistanceFormatPipe } from "../../../../common/pipes/distance-format.pipe";
 import * as CustomValidators from "../../../../common/helper/custom-validators";
 import { ServiceRoute } from "../../../../api/routes/service.route.enum";
@@ -9,7 +9,9 @@ import { BaseServiceComponent } from "../../../../common/components/base-service
 import { ServiceImportsModule } from "../../../../common/helper/service-imports.helper";
 import { AirportOptions } from "../../../../shared/enums/airport-options.enum";
 import { DatetimeOption } from "../../../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { InvalidBHParams } from "../../../../shared/interfaces/custom-validators.interface";
+import { ServiceGolfForm } from "../../../../shared/interfaces/service-form.interface";
+import { FieldTree, form, required } from "@angular/forms/signals";
 
 @Component({
     selector: 'tava-service-airport',
@@ -26,15 +28,25 @@ import { InvalidBHValidatorParams } from "../../../../shared/interfaces/custom-v
 })
 export class ServiceAirportComponent extends BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
 
+    protected override serviceModel = signal<ServiceGolfForm>(this.initServiceForm());
+    protected override serviceForm = this.setForm();
+
     protected directionOptions = AirportOptions;
     protected override snackbarTextMail = 'laszlovarga@gmx.at';
 
     private addressSubscription$: Subscription | undefined = new Subscription();
+    private invalidBHParams: InvalidBHParams = {
+        dtServ: this.datetimeService,
+        options: { min: 4, max: 12 },
+        isPickup: true,
+        format: DatetimeOption.FULL
+    };
 
     override async ngOnInit() {
-        this.service = ServiceRoute.AIRPORT;
-        super.ngOnInit();
-        this.initEdit();
+        this.service = this.serviceForm.service().value();
+        // this.service = ServiceRoute.AIRPORT;
+        // super.ngOnInit();
+        // this.initEdit();
     }
 
     override ngAfterViewInit() {
@@ -44,7 +56,7 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
             tap((isStatus200: boolean) => {
                 if(isStatus200) {
                     this.hasOffer = true;
-                    this.mapMetaFormControls(this.serviceForm);
+                    this.mapMetaFormControls(this.serviceForm());
                     this.httpObserve.setDrivingAirportStatus(false);
                 }
                 this.loadOfferResponse = false;
@@ -52,60 +64,78 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
         ).subscribe();
     }
 
-    private initForm() {
-        const invalidBHValidatorParams: InvalidBHValidatorParams = {
-            service: this.datetimeService,
-            format: DatetimeOption.FULL,
-            startHour: 4,
-            endHour: 12,
-            isPickup: true
-        };
-        this.serviceForm = this.fb.group({
-            service: new FormControl(''),
-            airportMode: new FormControl('', Validators.required),
-            originAddress: new FormControl(''),
-            originDetails: new FormControl(''),
-            destinationAddress: new FormControl(''),  
-            destinationDetails: new FormControl(''),
-            datetime: new FormControl('', [
-                Validators.required,
-                CustomValidators.priorityValidator([
-                    CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
-                    CustomValidators.invalidBusinessHoursValidator(invalidBHValidatorParams)
-                ])
-            ]),
-            pickupDATE: new FormControl(''),
-            pickupTIME: new FormControl(''),
-            distance: new FormControl(''),
-            duration: new FormControl(''),
-            price: new FormControl('')
-        });
-    }
-
-    private initEdit() {
-        this.initForm();
-        this.serviceForm.patchValue({
-            service: this.service,
-            airportMode: null,
-            originAddress: '',
-            originDetails: null,
-            destinationAddress: '',
-            destinationDetails: null,
+    private initServiceForm(): ServiceGolfForm {
+        return {
+            ...this.initServiceBaseForm(),
+            ...this.initServiceMetaForm(),
+            service: ServiceRoute.AIRPORT,
+            airportMode: '' as AirportOptions,
             datetime: '',
             pickupDATE: '',
             pickupTIME: '',
-            distance: null,
-            duration: null,
-            price: null
+            distance: 0,
+            duration: ''
+        };
+    }
+
+    private setForm(): FieldTree<ServiceGolfForm> {
+        return form(this.serviceModel, (schemaPath) => {
+            required(schemaPath.airportMode);
+
+            required(schemaPath.datetime);
+            CustomValidators.negativeCurrDateTime(schemaPath.datetime, this.datetimeService);
+            CustomValidators.invalidBH(schemaPath.datetime, this.invalidBHParams);
         });
     }
+
+    // private initForm() {
+    //     this.serviceForm = this.fb.group({
+    //         service: new FormControl(''),
+    //         airportMode: new FormControl('', Validators.required),
+    //         originAddress: new FormControl(''),
+    //         originDetails: new FormControl(''),
+    //         destinationAddress: new FormControl(''),  
+    //         destinationDetails: new FormControl(''),
+    //         datetime: new FormControl('', [
+    //             Validators.required,
+    //             CustomValidators.priorityValidator([
+    //                 CustomValidators.negativeCurrentDateTimeValidator(this.datetimeService),
+    //                 CustomValidators.invalidBusinessHoursValidator(this.invalidBHValidatorParams)
+    //             ])
+    //         ]),
+    //         pickupDATE: new FormControl(''),
+    //         pickupTIME: new FormControl(''),
+    //         distance: new FormControl(''),
+    //         duration: new FormControl(''),
+    //         price: new FormControl('')
+    //     });
+    // }
+
+    // private initEdit() {
+    //     this.initForm();
+    //     this.serviceForm.patchValue({
+    //         service: this.service,
+    //         airportMode: null,
+    //         originAddress: '',
+    //         originDetails: null,
+    //         destinationAddress: '',
+    //         destinationDetails: null,
+    //         datetime: '',
+    //         pickupDATE: '',
+    //         pickupTIME: '',
+    //         distance: null,
+    //         duration: null,
+    //         price: null
+    //     });
+    // }
+
     getDirectionRadioValue() {
         /**
          * $event = native DOM event !== value from FormControl
          * even property binding [value]="..." can result "on" (default radio value)
          * radio select changes FormControl val => (change) triggers process
          */
-        this.transformAddressFields(this.serviceForm.get('airportMode')?.value);
+        this.transformAddressFields(this.serviceForm.airportMode().value());
     }
 
     private transformAddressFields(direction: AirportOptions) {
@@ -156,9 +186,9 @@ export class ServiceAirportComponent extends BaseServiceComponent implements OnI
     }
 
     async onSubmitOffer() {
-        this.serviceForm.markAllAsTouched();
+        this.serviceForm().markAsTouched();
 
-        if(this.serviceForm.invalid) {
+        if(this.serviceForm().invalid()) {
             if(this.serviceForm.get('airportMode')?.value === null) {
                 this.serviceForm.get('originAddress')?.markAsUntouched();
                 this.serviceForm.get('destinationAddress')?.markAsUntouched();

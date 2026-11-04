@@ -2,7 +2,8 @@ import { AbstractControl, FormControl, ValidationErrors, ValidatorFn } from "@an
 import { DateTimeService } from "../../shared/services/datetime.service";
 import { ServiceRoute } from "../../api/routes/service.route.enum";
 import { DatetimeOption } from "../../shared/enums/datetime-options.enum";
-import { InvalidBHValidatorParams, StayTimeValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
+import { InvalidBHParams, StayTimeValidatorParams, TimeRangeValidatorParams } from "../../shared/interfaces/custom-validators.interface";
+import { SchemaPath, validate } from "@angular/forms/signals";
 
 
 export const invalidTenancyUpperLimitValidator = (maxLimit: string, service: ServiceRoute): ValidatorFn => {
@@ -89,41 +90,72 @@ export const invalidQuickPickupValidator = (service: DateTimeService): Validator
     }
 }
 
-export const invalidBusinessHoursValidator = (param: InvalidBHValidatorParams) : ValidatorFn => {
-    return (control: AbstractControl): ValidationErrors | null => {
+export function invalidBH(path: SchemaPath<string>, params: InvalidBHParams) {
+    validate(path, ({value}) => {
         let time = 0;
-        if(param.format === DatetimeOption.HHMM) {
-            time = param.service.getTimeInTotalMinutes(control?.value);
-        } else if(param.format === DatetimeOption.FULL) {
-            time = param.service.getTimeInTotalMinutes(param.service.getTimeFromTimestamp(control?.value));
+        if (params.format === DatetimeOption.HHMM) {
+            time = params.dtServ.getTimeInTotalMinutes(value());
+        } else if (params.format === DatetimeOption.FULL) {
+            time = params.dtServ.getTimeInTotalMinutes(params.dtServ.getTimeFromTimestamp(value()));
         }
-        if(time < (60 * param.startHour) || time > (60 * param.endHour)) {
-            if(param.format === DatetimeOption.HHMM) {
-                return { invalidBHTimeOnly: true };
-            } else if(param.isPickup) {
-                return param.endHour === 12 ? { invalidBusinessHours12: true } : { invalidBusinessHours17: true };
+
+        if (time < (60 * params.options.min) || time > (60 * params.options.max)) {
+            if (params.format === DatetimeOption.HHMM) {
+                return { kind: 'invalidBHTimeOnly' };
+            } else if (params.isPickup) {
+                return params.options.max === 12 ? { kind: 'invalidBusinessHours12' } : { kind: 'invalidBusinessHours17' };
             } else {
-                return { invalidBusinessReturn: true };
+                return { kind: 'invalidBusinessReturn' };
             }
         }
         return null;
-    }
+    })
 }
+// export const invalidBusinessHoursValidator = (param: InvalidBHValidatorParams) : ValidatorFn => {
+//     return (control: AbstractControl): ValidationErrors | null => {
+//         let time = 0;
+//         if(param.format === DatetimeOption.HHMM) {
+//             time = param.service.getTimeInTotalMinutes(control?.value);
+//         } else if(param.format === DatetimeOption.FULL) {
+//             time = param.service.getTimeInTotalMinutes(param.service.getTimeFromTimestamp(control?.value));
+//         }
+//         if(time < (60 * param.startHour) || time > (60 * param.endHour)) {
+//             if(param.format === DatetimeOption.HHMM) {
+//                 return { invalidBHTimeOnly: true };
+//             } else if(param.isPickup) {
+//                 return param.endHour === 12 ? { invalidBusinessHours12: true } : { invalidBusinessHours17: true };
+//             } else {
+//                 return { invalidBusinessReturn: true };
+//             }
+//         }
+//         return null;
+//     }
+// }
 
-export const negativeCurrentDateTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
-    return (control: AbstractControl): ValidationErrors | null => {
-        /**
-         * @description datetime value must not be in the past compared to current datetime
-         * @param {string} currentDateTime
-         */
+export function negativeCurrDateTime(path: SchemaPath<string>, dtService: DateTimeService) {
+    validate(path, ({value}) => {
         const currentDateTime = new Date().toString();
-        const difference = datetimeService.getTimeDifferenceNoLimit(currentDateTime, control?.value);
+        const difference = dtService.getTimeDifferenceNoLimit(currentDateTime, value());
         if(difference < -1) {
-            return { negativeCurrentDateTime: true };
+            return { kind: 'negativeCurrentDateTime' };
         }
         return null;
-    }
+    })
 }
+// export const negativeCurrentDateTimeValidator = (datetimeService: DateTimeService) : ValidatorFn => {
+//     return (control: AbstractControl): ValidationErrors | null => {
+//         /**
+//          * @description datetime value must not be in the past compared to current datetime
+//          * @param {string} currentDateTime
+//          */
+//         const currentDateTime = new Date().toString();
+//         const difference = datetimeService.getTimeDifferenceNoLimit(currentDateTime, control?.value);
+//         if(difference < -1) {
+//             return { negativeCurrentDateTime: true };
+//         }
+//         return null;
+//     }
+// }
 
 export const negativeFixedDateTimeValidator = (datetimeService: DateTimeService, fixedDateTime: string): ValidatorFn => {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -139,6 +171,7 @@ export const negativeFixedDateTimeValidator = (datetimeService: DateTimeService,
     }
 }
 
+
 /**
  * @description Add multiple validators ordered by priority. First validator to trigger ends loop without
  * triggering remaining validators.
@@ -152,6 +185,9 @@ export const negativeFixedDateTimeValidator = (datetimeService: DateTimeService,
  * @fires only validateNotNegativeVal()
  */
 export const priorityValidator = (validators: ValidatorFn[]): ValidatorFn => {
+    
+    // !!! not necessary anymore with new validation system - only 1 active validation + order !!!
+    
     return (control: AbstractControl): ValidationErrors | null => {
         for (const validator of validators) {
             const result = validator(control);

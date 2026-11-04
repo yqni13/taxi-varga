@@ -1,6 +1,16 @@
 import { DatetimeOption } from "../enums/datetime-options.enum";
 import { DateTimeService } from "../services/datetime.service";
 
+export interface ValidateBaseParams {
+    dtServ: DateTimeService
+}
+
+export interface InvalidBHParams extends ValidateBaseParams {
+    options: { min: number, max: number },
+    isPickup: boolean,
+    format: DatetimeOption
+}
+
 export interface InvalidBHValidatorParams {
     service: DateTimeService,
     format: DatetimeOption,

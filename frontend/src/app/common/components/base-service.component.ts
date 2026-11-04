@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject, ChangeDetectionStrategy } from "@angular/core";
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, inject, signal } from "@angular/core";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { filter, Subject, Subscription, tap } from "rxjs";
 import { ThemeOptions } from "../../shared/enums/theme-options.enum";
@@ -21,10 +21,11 @@ import { BaseRoute } from "../../api/routes/base.route.enum";
 import * as CustomValidators from "../helper/custom-validators";
 import { DrivingAPIService } from "../../api/services/driving.api.service";
 import { MetaFormValidationData } from "../../shared/interfaces/meta-request.interface";
+import { FieldTree, form } from "@angular/forms/signals";
+import { ServiceBaseForm, ServiceMetaForm } from "../../shared/interfaces/service-form.interface";
 
 @Component({
     template: '',
-    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: true
 })
 export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnDestroy {
@@ -44,6 +45,9 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
     protected httpObserve = inject(HttpObservationService);
     protected drivingAPIService = inject(DrivingAPIService);
 
+    protected serviceModel = signal<unknown>({});
+    protected serviceForm: FieldTree<unknown> = form(this.serviceModel);
+
     protected addressOptions = AddressOptions;
     protected selectedBg = '';
     protected hasOffer = false;
@@ -60,7 +64,7 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
     protected termSurchargeFuel = false;
     protected loadOfferResponse = false;
     protected loadOrderResponse = false;
-    protected serviceForm: FormGroup = new FormGroup({});
+    // protected serviceForm: FormGroup = new FormGroup({});
     protected metaForm: FormGroup = new FormGroup({});
     protected service!: ServiceRoute;
     protected subscriptionHttpObservationDriving$: Subscription = new Subscription();
@@ -153,6 +157,28 @@ export abstract class BaseServiceComponent implements OnInit, AfterViewInit, OnD
             this.scrollAnchor.scrollTo(0,0);
             document.scrollingElement.scrollTop = 0;
         }
+    }
+
+    protected initServiceMetaForm(): ServiceMetaForm {
+        return {
+            gender: '',
+            title: '',
+            firstName: '',
+            lastName: '',
+            phone: '',
+            email: '',
+            note: ''
+        };
+    }
+
+    protected initServiceBaseForm(): ServiceBaseForm {
+        return {
+            originAddress: '',
+            originDetails: null,
+            destinationAddress: '',
+            destinationDetails: null,
+            price: 0
+        };
     }
 
     restrictDatePicker(): string {

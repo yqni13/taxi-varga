@@ -13,7 +13,7 @@
 					<div
 						class="tava-service-specific-block"
 						id="form-radio"
-						*tavaVar="serviceForm.get('airportMode') as airportMode"
+						*tavaVar="serviceForm.airportMode() as airportMode"
 					>
 						<div class="tava-service-airport-radio-wrapper">
 							<label class="tava-form-radio-left tava-custom-input-radio">
@@ -46,7 +46,8 @@
 							</div>
 						}
 					</div>
-					@if (serviceForm.get('airportMode')?.value === directionOptions.DEPARTURE) {
+					@if (serviceForm.airportMode().value() === directionOptions.DEPARTURE) {
+					<!-- @if (serviceForm.get('airportMode')?.value === directionOptions.DEPARTURE) { -->
 						<div
 							class="tava-service-specific-block"
 							id="form-origin"
@@ -56,14 +57,14 @@
 							</span>
 							<tava-addressinput
 								[placeholder]="'modules.service.content.airport.labels.placeholder' | translate"
-								[formControl]="serviceForm.get('originAddress') | controlCast"
+								[fieldState]="serviceForm.originAddress()"
 								[fieldName]="'modules.service.content.form.offer.origin' | translate"
 								[exceptions]="['vie-schwechat']"
 								(byPlaceSelection)="getAddressDetails($event, addressOptions.ORIGIN)"
 							></tava-addressinput>
 						</div>
 					}
-					@if (serviceForm.get('airportMode')?.value === directionOptions.ARRIVAL) {
+					@if (serviceForm.airportMode().value() === directionOptions.ARRIVAL) {
 						<div
 							class="tava-service-specific-block"
 							id="form-destination"
@@ -73,14 +74,14 @@
 							</span>
 							<tava-addressinput
 								[placeholder]="'modules.service.content.airport.labels.placeholder' | translate"
-								[formControl]="serviceForm.get('destinationAddress') | controlCast"
+								[fieldState]="serviceForm.destinationAddress()"
 								[fieldName]="'modules.service.content.form.offer.destination' | translate"
 								[exceptions]="['vie-schwechat']"
 								(byPlaceSelection)="getAddressDetails($event, addressOptions.DESTINATION)"
 							></tava-addressinput>
 						</div>
 					}
-					@if (serviceForm.get('airportMode')?.value !== null) {
+					@if (serviceForm.airportMode().value() !== null) {
 						<div
 							class="tava-service-specific-block"
 							id="form-datetime"
@@ -91,7 +92,7 @@
 							<tava-textinput
 								[inputType]="'datetime-local'"
 								[minValString]="restrictDatePicker()"
-								[formControl]="serviceForm.get('datetime') | controlCast"
+								[fieldState]="serviceForm.datetime()"
 								[fieldName]="'modules.service.content.form.offer.datetime' | translate"
 							></tava-textinput>
 						</div>
@@ -119,7 +120,7 @@
 							{{('modules.service.content.form.order.contact' | translate) + ':'}}
 						</p>
 						<p class="tava-service-specific-offer-sum-right">
-							{{('shared.enum.gender.' + (serviceForm.get('gender')?.value ?? null) | translate) + customer}}
+							{{('shared.enum.gender.' + (serviceForm.gender().value()) | translate) + customer}}
 						</p>
 					</div>
 				}
@@ -129,7 +130,7 @@
 							{{('modules.service.content.form.customer.phone' | translate) + ':'}}
 						</p>
 						<p class="tava-service-specific-offer-sum-right">
-							{{serviceForm.get('phone')?.value}}
+							{{serviceForm.phone().value()}}
 						</p>
 					</div>
 				}
@@ -139,7 +140,7 @@
 							{{('modules.service.content.form.customer.email' | translate) + ':'}}
 						</p>
 						<p class="tava-service-specific-offer-sum-right">
-							{{serviceForm.get('email')?.value}}
+							{{serviceForm.email().value()}}
 						</p>
 					</div>
 				}
@@ -149,7 +150,7 @@
 							{{('modules.service.content.form.customer.note' | translate) + ':'}}
 						</p>
 						<p class="tava-service-specific-offer-sum-right">
-							{{serviceForm.get('note')?.value !== '' ? serviceForm.get('note')?.value : '-/-'}}
+							{{serviceForm.note().value() !== '' ? serviceForm.note().value() : '-/-'}}
 						</p>
 					</div>
 				}
@@ -157,14 +158,14 @@
 					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.offer.origin' | translate) + ':'}}
 					</p>
-					@if (serviceForm.get('originAddress')?.value === 'vie-schwechat') {
+					@if (serviceForm.originAddress().value() === 'vie-schwechat') {
 						<p class="tava-service-specific-offer-sum-right">
 							{{'modules.service.content.airport.vie-schwechat' | translate}}
 						</p>
 					}
-					@if (serviceForm.get('originAddress')?.value !== 'vie-schwechat') {
+					@if (serviceForm.originAddress().value() !== 'vie-schwechat') {
 						<p class="tava-service-specific-offer-sum-right">
-							{{serviceForm.get('originAddress')?.value}}
+							{{serviceForm.originAddress().value()}}
 						</p>
 					}
 				</div>
@@ -172,14 +173,14 @@
 					<p class="tava-service-specific-offer-sum-left">
 						{{('modules.service.content.form.offer.destination' | translate) + ':'}}
 					</p>
-					@if (serviceForm.get('destinationAddress')?.value === 'vie-schwechat') {
+					@if (serviceForm.destinationAddress().value() === 'vie-schwechat') {
 						<p class="tava-service-specific-offer-sum-right">
 							{{'modules.service.content.airport.vie-schwechat' | translate}}
 						</p>
 					}
-					@if (serviceForm.get('destinationAddress')?.value !== 'vie-schwechat') {
+					@if (serviceForm.destinationAddress().value() !== 'vie-schwechat') {
 						<p class="tava-service-specific-offer-sum-right">
-							{{serviceForm.get('destinationAddress')?.value}}
+							{{serviceForm.destinationAddress().value()}}
 						</p>
 					}
 				</div>
@@ -188,7 +189,7 @@
 						{{('modules.service.content.form.order.date-pickup' | translate) + ':'}}
 					</p>
 					<p class="tava-service-specific-offer-sum-right">
-						{{serviceForm.get('pickupDATE')?.value}}
+						{{serviceForm.pickupDATE().value()}}
 					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum" *tavaVar="(pickupTimeByLang$ | async) as pickup">
@@ -211,7 +212,7 @@
 						{{('modules.service.content.form.order.distance' | translate) + ':'}}
 					</p>
 					<p class="tava-service-specific-offer-sum-right">
-						{{(serviceForm.get('distance')?.value ?? null) | distanceFormat}}
+						{{(serviceForm.distance().value()) | distanceFormat}}
 					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum">
@@ -219,7 +220,7 @@
 						{{('modules.service.content.form.order.duration' | translate) + ':'}}
 					</p>
 					<p class="tava-service-specific-offer-sum-right">
-						{{serviceForm.get('duration')?.value + ' h'}}
+						{{serviceForm.duration().value() + ' h'}}
 					</p>
 				</div>
 				<div class="tava-service-specific-offer-sum" id="tava-service-offer-warnings">
@@ -235,7 +236,7 @@
 						{{('modules.service.content.form.order.price-fixed' | translate) + ':'}}
 					</p>
 					<p class="tava-service-specific-offer-sum-right">
-						{{(serviceForm.get('price')?.value ?? null) | currencyFormat}}
+						{{(serviceForm.price().value()) | currencyFormat}}
 					</p>
 				</div>
 				@if (hasOrder && !hasConfirmed) {

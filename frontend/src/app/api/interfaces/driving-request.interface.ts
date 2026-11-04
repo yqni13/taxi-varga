@@ -1,15 +1,15 @@
 export interface DrivingAirportRequest {
     origin: string,
-    originDetails: any,
+    originDetails: unknown,
     destination: string,
-    destinationDetails: any
+    destinationDetails: unknown
 }
 
 export interface DrivingDestinationRequest {
     origin: string,
-    originDetails: any,
+    originDetails: unknown,
     destination: string,
-    destinationDetails: any,
+    destinationDetails: unknown,
     back2home: boolean,
     latency: number,
     pickupTIME: number
@@ -17,19 +17,19 @@ export interface DrivingDestinationRequest {
 
 export interface DrivingFlatrateRequest {
     origin: string,
-    originDetails: any,
+    originDetails: unknown,
     destination: string,
-    destinationDetails: any,
+    destinationDetails: unknown,
     tenancy: number,
 }
 
 export interface DrivingGolfRequest {
     origin: string,
-    originDetails: any,
+    originDetails: unknown,
     golfcourse: string,
-    golfcourseDetails: any,
+    golfcourseDetails: unknown,
     destination: string,
-    destinationDetails: any,
+    destinationDetails: unknown,
     stayInMinutes?: number,
     stayInDays: number,
     supportMode: boolean,
@@ -39,9 +39,9 @@ export interface DrivingGolfRequest {
 
 export interface DrivingQuickRequest {
     origin: string,
-    originDetails: any,
+    originDetails: unknown,
     destination: string,
-    destinationDetails: any,
+    destinationDetails: unknown,
     latency: number,
     back2origin: boolean,
     pickupTIME: string
