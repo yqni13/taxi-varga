@@ -1,24 +1,32 @@
-<div class="tava-textarea-wrapper" ngClass="{{ngClass}}">
-	<div class="tava-textarea {{className}}">
+<div class="tava-textarea-wrapper" ngClass="{{ngClass()}}">
+	<div class="tava-textarea {{className()}}">
 		<textarea
-			placeholder="{{placeholder}}"
-			id="{{'tava-' + fieldName}}"
-			[formControl]="formControl"
-			rows="{{rows}}"
-			maxlength="{{maxLength}}"
-			ngClass="{{formControl.errors && !isFocused ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
+			id="{{'tava-' + fieldName()}}"
+			[formField]="field"
+			placeholder="{{placeholder()}}"
+			rows="{{rows()}}"
+			ngClass="{{hasError() && !isFocused() ? 'tava-input-padding-error' : 'tava-input-padding-base'}}"
 		></textarea>
-		@if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
+		@if (((isFocused() && hasErrorOnFocus()) || !isFocused()) && hasError()) {
 			<i
-				class="icon-warning icon-base"
 				id="error-icon"
+				class="icon-base icon-Warning"
 			></i>
 		}
 	</div>
-	@if (!isFocused) {
+	@if (hasError()) {
 		<tava-validation
-			[ngControl]="formControl"
-			[fieldName]="fieldName"
+			[fieldState]="fieldState()"
+            [fieldName]="fieldName()"
+            [isFocused]="isFocused()"
+            [errOnFocusList]="errorOnFocusList"
 		></tava-validation>
 	}
+	@if (lengthLimit() !== 0 && field().value().length <= lengthLimit()) {
+        <span id="textareainput-length">
+            {{(lengthLimit()
+            - field().value().length)
+            + ' / ' + lengthLimit()}}
+        </span>
+    }
 </div>

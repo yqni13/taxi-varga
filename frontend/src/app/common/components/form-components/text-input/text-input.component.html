@@ -1,32 +1,32 @@
-<div class="tava-text-wrapper" ngClass="{{ngClass}}">
-	<div class="tava-text {{className}}">
+<div class="tava-text-wrapper" ngClass="{{ngClass()}}">
+	<div class="tava-text {{className()}}">
 		<input
-			type="{{inputType}}"
-			placeholder="{{placeholder}}"
-			id="{{'tava-' + fieldName}}"
-			[readonly]="readonly"
-			[formControl]="formControl"
-			min="{{minVal}}"
-			max="{{maxVal}}"
-			[readOnly]="isReadonly"
+			type="{{inputType()}}"
+			placeholder="{{placeholder()}}"
+			id="{{'tava-' + fieldName()}}"
+			[formField]="field"
+			min="{{minVal()}}"
+			max="{{maxVal()}}"
 			ngClass="{{
-				formControl.errors && !isFocused && inputType !== 'time' && inputType !== 'datetime-local'
-					? 'tava-input-padding-error'
+				hasError() && !isFocused() && inputType() !== 'time' && inputType() !== 'datetime-local' 
+					? 'tava-input-padding-error' 
 					: 'tava-input-padding-base'
 			}}"
 		>
-		@if (!isFocused && formControl.invalid && (formControl.dirty || formControl.touched)) {
+		@if (((isFocused() && hasErrorOnFocus()) || !isFocused()) && hasError()) {
 			<i
-			class="icon-warning icon-base"
-			id="error-icon"
-			[ngClass]="classNameWarningIcon"
+				id="error-icon"
+				class="icon-warning icon-base"
+				[ngClass]="classNameWarningIcon"
 			></i>
 		}
 	</div>
-	@if (!isFocused) {
+	@if (hasError()) {
 		<tava-validation
-			[ngControl]="formControl"
-			[fieldName]="fieldName"
+			[fieldState]="fieldState()"
+            [fieldName]="fieldName()"
+            [isFocused]="isFocused()"
+            [errOnFocusList]="errorOnFocusList"
 		></tava-validation>
 	}
 </div>

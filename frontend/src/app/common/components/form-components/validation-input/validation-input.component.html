@@ -1,4 +1,19 @@
-<ng-container *tavaVar="ngControl as control">
+<ng-container *tavaVar="field() as field">
+    <div class="validation-errors">
+        @for(err of field.errors(); track $index) {
+            @if (isFocused() && displayErrorOnFocus(err.kind) || !isFocused()) {
+                <!-- LIMIT ACTIVE VALIDATIONS TO 1 ONLY -->
+                @if ($index < 1) {
+                    <div class="validation-message">
+                        {{mapErrorValues(err.kind)}}
+                    </div>
+                }
+            }
+        }
+    </div>
+</ng-container>
+
+<!-- <ng-container *tavaVar="ngControl as control">
 	@if (control.invalid && (control.dirty || control.touched)) {
 		<div class="tava-validation-errors">
 			@if (control.hasError('required')) {
@@ -123,4 +138,4 @@
 			}
 		</div>
 	}
-</ng-container>
+</ng-container> -->

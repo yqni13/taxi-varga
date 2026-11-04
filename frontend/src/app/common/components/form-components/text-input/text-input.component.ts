@@ -1,106 +1,70 @@
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from "@angular/core";
-import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
+import { Component, OnInit, effect, input } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { AbstractInputComponent } from "../abstract-input.component";
-import { Observable, Subscription } from "rxjs";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
+import { FormField } from "@angular/forms/signals";
 
 @Component({
     selector: 'tava-textinput',
     imports: [
         CommonModule,
-        ReactiveFormsModule,
+        FormField,
         ValidationInputComponent
     ],
     templateUrl: './text-input.component.html',
     styleUrls: [
         '../abstract-input.component.scss',
         './text-input.component.scss',
-    ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TextInputComponent),
-            multi: true,
-        }
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    host: {
-        '(window:click)': 'clickListening($event)',
-        '(window:keydown)': 'keyListening($event)'
-    }
+    ]
 })
-export class TextInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+export class TextInputComponent extends AbstractInputComponent implements OnInit {
 
-    @Input() fieldName: string;
-    @Input() formControl: FormControl;
-    @Input() readonly: boolean;
-    @Input() placeholder: string;
-    @Input() inputType: string;
-    @Input() className: string;
-    @Input() ngClass: string;
-    @Input() isReadonly: boolean;
-    @Input() minValString: string;
-    @Input() minStringObservable: Observable<string>;
-    @Input() maxStringObservable: Observable<string>;
-    @Input() minValNumber: number | null;
-    @Input() maxValNumber: number | null;
-
-    @Output() byChange: EventEmitter<any>;
+    readonly inputType = input('text');
+    readonly minVal = input<string|number>('');
+    readonly maxVal = input<string|number>('');
+    // @Input() minValString = '';
+    // @Input() minStringObservable = new Observable<string>();
+    // @Input() maxStringObservable = new Observable<string>();
+    // @Input() minValNumber: number | null = null;
+    // @Input() maxValNumber: number | null = null;
 
     protected classNameWarningIcon = '';
-    protected minVal: unknown;
-    protected maxVal: unknown;
+    // protected minVal: unknown;
+    // protected maxVal: unknown;
 
-    private subscriptionFormControl$: Subscription = new Subscription();
-    private subscriptionMinValString$: Subscription = new Subscription();
-    private subscriptionMaxValString$: Subscription = new Subscription();
+
+    // private subscriptionMinValString$: Subscription = new Subscription();
+    // private subscriptionMaxValString$: Subscription = new Subscription();
 
     constructor() {
         super();
-
-        this.fieldName = '';
-        this.formControl = new FormControl();
-        this.readonly = false;
-        this.placeholder = '';
-        this.inputType = '';
-        this.className = '';
-        this.ngClass = '';
-        this.isReadonly = false;
-        this.minValString = '';
-        this.minStringObservable = new Observable<string>();
-        this.maxStringObservable = new Observable<string>();
-        this.minValNumber = null;
-        this.maxValNumber = null;
-        this.byChange = new EventEmitter<any>();
+        effect(() => {
+            this.handleInputChanges(this.field().value());
+        });
     }
-    
+
     ngOnInit() {
-        this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
-            this.byChange.emit(change);
-            this.isFocused = true;
-        })
-        this.subscriptionMinValString$ = this.minStringObservable.subscribe(val => {
-            this.minVal = val ?? this.minValNumber;
-        })
-        this.subscriptionMaxValString$ = this.maxStringObservable.subscribe(val => {
-            this.maxVal = val ?? this.maxValNumber;
-        })
+        // this.subscriptionMinValString$ = this.minStringObservable.subscribe(val => {
+        //     this.minVal = val ?? this.minValNumber;
+        // })
+        // this.subscriptionMaxValString$ = this.maxStringObservable.subscribe(val => {
+        //     this.maxVal = val ?? this.maxValNumber;
+        // })
         this.configWarningIconByInputType();
-        this.configMinMaxValues();
+        // this.configMinMaxValues();
     }
 
-    configMinMaxValues() {
-        if(this.inputType === 'datetime-local' && this.minVal !== '' && this.minValString !== '') {
-            this.minVal = this.minValString;
-        } else if(this.inputType === 'number') {
-            this.minVal = this.minValNumber;
-            this.maxVal = this.maxValNumber;
-        }
-    }
+    // configMinMaxValues() {
+    //     if(this.inputType() === 'datetime-local' && this.minVal !== '' && this.minValString !== '') {
+    //         this.minVal = this.minValString;
+    //     } else if(this.inputType() === 'number') {
+    //         this.minVal = this.minValNumber;
+    //         this.maxVal = this.maxValNumber;
+    //     }
+    // }
 
     configWarningIconByInputType() {
-        switch(this.inputType) {
+        switch(this.inputType()) {
             case('datetime-local'): {
                 this.classNameWarningIcon = 'tava-warning-input-datetime-local';
                 break;
@@ -112,19 +76,5 @@ export class TextInputComponent extends AbstractInputComponent implements OnInit
             default:
                 this.classNameWarningIcon = 'tava-warning-input-text';
         }
-    }
-
-    clickListening($event: any) {
-        this.clickOutside($event, this.fieldName);
-    }
-
-    keyListening($event: any) {
-        this.tabOutside($event, this.fieldName);
-    }
-
-    ngOnDestroy() {
-        this.subscriptionFormControl$.unsubscribe();
-        this.subscriptionMinValString$.unsubscribe();
-        this.subscriptionMaxValString$.unsubscribe();
     }
 }

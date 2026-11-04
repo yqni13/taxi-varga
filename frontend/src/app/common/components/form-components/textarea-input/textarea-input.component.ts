@@ -1,79 +1,32 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, forwardRef, Input, OnDestroy, OnInit, Output, ChangeDetectionStrategy } from "@angular/core";
-import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
+import { Component, effect, signal } from "@angular/core";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
-import { Subscription } from "rxjs";
+import { FormField } from "@angular/forms/signals";
 
 @Component({
     selector: 'tava-textareainput',
     imports: [
         CommonModule,
-        ReactiveFormsModule,
+        FormField,
         ValidationInputComponent
     ],
     templateUrl: './textarea-input.component.html',
     styleUrls: [
         '../abstract-input.component.scss',
         './textarea-input.component.scss'
-    ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => TextareaInputComponent),
-            multi: true,
-        }
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    host: {
-        '(window:click)': 'clickListening($event)',
-        '(window:keydown)': 'keyListening($event)'
-    }
+    ]
 })
-export class TextareaInputComponent extends AbstractInputComponent implements OnInit, OnDestroy {
+export class TextareaInputComponent extends AbstractInputComponent {
 
-    @Input() fieldName: string;
-    @Input() formControl: FormControl;
-    @Input() placeholder: string;
-    @Input() ngClass: string;
-    @Input() className: string;
-    @Input() rows: number;
-    @Input() maxLength: number;
-
-    @Output() byChange: EventEmitter<any>;
-
-    private subscriptionFormControl$: Subscription = new Subscription();
+    readonly rows = signal(0);
+    readonly maxLength = signal(0);
+    readonly lengthLimit = signal(0);
 
     constructor() {
         super();
-
-        this.fieldName = '';
-        this.formControl = new FormControl();
-        this.placeholder = '';
-        this.ngClass = '';
-        this.className = '';
-        this.rows = 0;
-        this.maxLength = 0;
-
-        this.byChange = new EventEmitter<any>();
-    }
-
-    ngOnInit() {
-        this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(change => {
-            this.byChange.emit(change);
-            this.isFocused = true;
-        })
-    }
-
-    clickListening($event: any) {
-        this.clickOutside($event, this.fieldName);
-    }
-
-    keyListening($event: any) {
-        this.tabOutside($event, this.fieldName);
-    }
-
-    ngOnDestroy() {
-        this.subscriptionFormControl$.unsubscribe();
+        effect(() => {
+            this.handleInputChanges(this.field().value());
+        });
     }
 }

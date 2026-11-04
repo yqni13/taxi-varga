@@ -1,40 +1,60 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
-import { ControlValueAccessor } from "@angular/forms";
+import { Component, computed, input, output, signal } from "@angular/core";
+import { Field, FieldState } from "@angular/forms/signals";
 
 @Component({
     template: '',
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+    host: {
+        '(focusin)': 'onFocusIn()',
+        '(focusout)': 'onFocusOut($event)'
+    }
 })
-export class AbstractInputComponent implements ControlValueAccessor {
+export class AbstractInputComponent {
 
-    private onChange!: (value: unknown) => void;
-    private onTouch!: (value: unknown) => void;
+    readonly fieldState = input.required<FieldState<string | number>>();
+    readonly fieldName = input.required<string>();
+    readonly placeholder = input('');
+    readonly className = input('');
+    readonly ngClass = input('');
 
-    input!: unknown;
-    isFocused = false;
+    readonly byChange = output<unknown>();
 
-    writeValue(input: unknown) {
-        this.input = input;
-    }
-    registerOnChange(fn: any) {
-        this.onChange = fn;
-    }
-    registerOnTouched(fn: any) {
-        this.onTouch = fn;
-    }
+    readonly isFocused = signal(false);
+    readonly hasErrorOnFocus = computed(() => this.hasErrorOnFocusList());
 
-    clickOutside($event: any, fieldName: string) {
-        if($event.target?.id === `tava-${fieldName}`) {
-            this.isFocused = true;
-        } else {
-            this.isFocused = false;
-        }
+    readonly errorOnFocusList = ['maxlength'];
+
+    readonly hasError = computed(() => 
+        this.field().invalid()
+        && (this.field().dirty() || this.field().touched())
+    );
+
+    get field(): Field<string> {
+        return this.fieldState().fieldTree as unknown as Field<string>;
     }
 
-    tabOutside($event: any, fieldName: string) {
-        if($event.key === 'Tab' && ($event.target?.id === `tava-${fieldName}`)) {
-            this.isFocused = false;
+    hasErrorOnFocusList(): boolean {
+        let hasErrorFromList = false;
+        this.field().errors().forEach((entry) => {
+            if(this.errorOnFocusList.includes(entry.kind)) {
+                hasErrorFromList = true;
+            }
+        })
+
+        return hasErrorFromList;
+    }
+
+    handleInputChanges(value: string|number) {
+        this.byChange.emit(value);
+    }
+
+    onFocusIn() {
+        this.isFocused.set(true);
+    }
+
+    onFocusOut(event: FocusEvent) {
+        const host = event.currentTarget as HTMLElement;
+        if (!host.contains(event.relatedTarget as Node | null)) {
+            this.isFocused.set(false);
         }
     }
 }

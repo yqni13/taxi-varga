@@ -1,21 +1,20 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewInit, Component, ElementRef, EventEmitter, forwardRef, Input, OnDestroy, OnInit, ChangeDetectionStrategy, inject, viewChild, viewChildren, output } from "@angular/core";
-import { FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from "@angular/forms";
+import { AfterViewInit, Component, ElementRef, OnInit, inject, viewChild, viewChildren, output, input, effect, signal } from "@angular/core";
 import { ValidationInputComponent } from "../validation-input/validation-input.component";
 import { AbstractInputComponent } from "../abstract-input.component";
 import { TranslateModule, TranslateService } from "@ngx-translate/core";
-import { Subscription } from "rxjs";
 import { AddressAPIService } from "../../../../api/services/address.api.service";
 import { v4 as uuidv4 } from 'uuid';
 import { AddressAutocompleteResponse, AddressDetailsResponse } from "../../../../api/interfaces/address-response.interface";
 import * as CustomValidators from "../../../helper/custom-validators";
 import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-options.enum";
+import { Field, FieldState, FormField } from "@angular/forms/signals";
 
 @Component({
     selector: 'tava-addressinput',
     imports: [
         CommonModule,
-        ReactiveFormsModule,
+        FormField,
         TranslateModule,
         ValidationInputComponent
     ],
@@ -23,21 +22,9 @@ import { AddressFilterOptions } from "../../../../shared/enums/addressfilter-opt
     styleUrls: [
         '../abstract-input.component.scss',
         './address-input.component.scss'
-    ],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => AddressInputComponent),
-            multi: true,
-        }
-    ],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    host: {
-        '(window:click)': 'clickOutside($event)',
-        '(window:keydown)': 'tabOutside($event)'
-    }
+    ]
 })
-export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AddressInputComponent extends AbstractInputComponent implements OnInit, AfterViewInit {
 
     private readonly translate = inject(TranslateService);
     private readonly addressApiService = inject(AddressAPIService);
@@ -45,86 +32,102 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
     private readonly inputRef = viewChild<ElementRef<HTMLInputElement>>('inputRef');
     private readonly optionRefList = viewChildren<ElementRef<HTMLElement>>('optionRef');
 
-    @Input() fieldName: string;
-    @Input() placeholder: string;
-    @Input() formControl: FormControl;
-    @Input() placeControl: FormControl;
-    @Input() options: AddressAutocompleteResponse[];
-    @Input() className: string;
-    @Input() ngClass: string;
-    @Input() exceptions: string[];
-    @Input() maxVal: number;
-    @Input() isReadonly: boolean;
-    @Input() filterOption: AddressFilterOptions;
-    @Input() set hasAutoFocus(value: boolean) {
-        if(value) {
-            this.focusOnInput();
-            this.showOptions = true;
-        } else {
-            this.isFocused = false;
-        }
-    }
-
-    readonly byChange = output<EventEmitter<any>>();
-    readonly byPlaceSelection = output<EventEmitter<AddressDetailsResponse>>();
-
+    readonly options = input<AddressAutocompleteResponse[]>([]);
+    readonly exceptions = input<string[]>([]);
+    readonly filterOption = input<AddressFilterOptions>(AddressFilterOptions.NOSPEC);
+    readonly hasAutoFocus = input(false);
+    
+    readonly byPlaceSelection = output<AddressDetailsResponse>();
+    
+    readonly placeState = signal<AddressDetailsResponse>(this.initPlaceState());
     protected showOptions = false;
     protected focusIndex = -1;
 
     private sessionToken = '';
-    private subscriptionFormControl$: Subscription = new Subscription();
     private delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
     constructor() {
         super();
+        effect(() => {
+            const autoFocus = this.hasAutoFocus();
+            this.handleAutoFocus(autoFocus);
+            const input = this.field().value();
+            this.handleInputChanges(input);
+        })
+    }
 
-        this.fieldName = '';
-        this.placeholder = '';
-        this.formControl = new FormControl();
-        this.placeControl = new FormControl();
-        this.options = [];
-        this.className = '';
-        this.ngClass = '';
-        this.exceptions = [];
-        this.maxVal = 0;
-        this.isReadonly = false;
-        this.filterOption = AddressFilterOptions.NOSPEC;
+    override handleInputChanges(value: string | number): void {
+        if(this.placeState() !== null && this.placeState().address !== this.field().value()) {
+            this.sessionToken = uuidv4();
+            this.placeControl.reset();
+            this.byPlaceSelection.emit(this.placeState());
+            if(this.field().value() !== '') {
+                this.formControl.updateValueAndValidity();
+            }
+        }
+        if(this.placeState() !== null) {
+            this.byPlaceSelection.emit(this.placeState());
+        }
+        if(this.placeState() === null) {
+            this.getOptions();
+        }
+        this.isFocused.set(true);
+        this.byChange.emit(value);
     }
 
     ngOnInit() {
         this.formControl.addValidators(CustomValidators.emptyAddressSelectValidator(this.placeControl));
-        this.sessionToken = uuidv4();
-        this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
-            if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
-                this.sessionToken = uuidv4();
-                this.placeControl.reset();
-                this.byPlaceSelection.emit(this.placeControl?.value);
-                if(this.formControl.value !== '') {
-                    this.formControl.updateValueAndValidity();
-                }
-            }
-            if(this.placeControl?.value !== null) {
-                this.byPlaceSelection.emit(this.placeControl?.value);
-            }
-            if(this.placeControl?.value === null) {
-                this.getOptions();
-            }
-            this.isFocused = true;
-            this.byChange.emit(changes);
-        });
+        this.sessionToken = uuidv4(); // STAYS
+        // this.subscriptionFormControl$ = this.formControl.valueChanges.subscribe(changes => {
+        //     if(this.placeControl?.value !== null && this.placeControl?.value.address !== this.formControl?.value) {
+        //         this.sessionToken = uuidv4();
+        //         this.placeControl.reset();
+        //         this.byPlaceSelection.emit(this.placeControl?.value);
+        //         if(this.formControl.value !== '') {
+        //             this.formControl.updateValueAndValidity();
+        //         }
+        //     }
+        //     if(this.placeControl?.value !== null) {
+        //         this.byPlaceSelection.emit(this.placeControl?.value);
+        //     }
+        //     if(this.placeControl?.value === null) {
+        //         this.getOptions();
+        //     }
+        //     this.isFocused = true;
+        //     this.byChange.emit(changes);
+        // });
     }
 
     ngAfterViewInit() {
-        if(this.hasAutoFocus) {
+        if(this.hasAutoFocus()) {
             this.inputRef()?.nativeElement.focus();
         }
+    }
+
+    handleAutoFocus(value: boolean) {
+        if(value) {
+            this.focusOnInput();
+            this.showOptions = true;
+        } else {
+            this.isFocused.set(false);
+        }
+    }
+
+    initPlaceState(): AddressDetailsResponse {
+        return {
+            address: '',
+            zipCode: '',
+            province: '',
+            country: '',
+            placeId: ''
+        };
     }
     
     getOptions() {
         this.placeControl.reset();
-        if(this.formControl?.value !== '' && !this.exceptions.includes(this.formControl?.value)) {
+        if(this.field().value() !== '' && !this.exceptions().includes(this.field().value())) {
             const data = {
-                address: this.formControl?.value,
+                address: this.field().value(),
                 language: this.translate.currentLang,
                 filter: this.filterOption,
                 sessionToken: this.sessionToken
@@ -134,7 +137,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
                 if(data.body?.body.placeData.status !== 'ZERO_RESULTS') {
                     this.confOptions(data);
                 } else {
-                    this.options.length = 0;
+                    this.options().length = 0;
                     this.showOptions = false;
                 }
             })
@@ -145,9 +148,9 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     confOptions(data: any) {
         this.delay(50);
-        this.options.length = 0;
+        this.options().length = 0;
         data.body?.body.placeData.suggestions.forEach((entry: any) => {
-            this.options.push({
+            this.options().push({
                 descriptionFull: entry['placePrediction']['text']['text'],
                 descriptionMain: entry['placePrediction']['structuredFormat']['mainText']['text'],
                 placeId: entry['placePrediction']['placeId']
@@ -164,13 +167,13 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         }
         this.addressApiService.setDataDetails(data);
         this.addressApiService.sendDetailsRequest().subscribe(data => {
-            this.placeControl?.setValue(this.getAddressDetailsFromResponse(data, id));
-            this.formControl?.setValue(this.placeControl?.value.address);
+            this.placeState.set(this.getAddressDetailsFromResponse(data, id));
+            this.fieldState.set(this.placeState().address);
             this.formControl.updateValueAndValidity();
             this.sessionToken = '';
-            this.options.length = 0;
+            this.options().length = 0;
             this.showOptions = false;
-            this.isFocused = false;
+            this.isFocused.set(false);
         })
     }
 
@@ -237,7 +240,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
                 this.focusOnInput();
             }
         } else if(event.key === 'Enter') {
-            this.selectPlace(this.options[index].placeId);
+            this.selectPlace(this.options()[index].placeId);
         } else if(event.key === 'Escape' && this.focusIndex !== -1) {
             this.focusIndex = -1;
             this.focusOnInput();
@@ -253,7 +256,7 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
 
     focusOnInput() {
         this.inputRef()?.nativeElement.focus();
-        this.isFocused = true;
+        this.isFocused.set(true);
         // define input value length and set focus to last position of input
         const inputLength = this.inputRef()?.nativeElement.value.length ?? null;
         this.inputRef()?.nativeElement.setSelectionRange(inputLength, inputLength);
@@ -275,9 +278,5 @@ export class AddressInputComponent extends AbstractInputComponent implements OnI
         } else if($event.key === 'Escape') {
             this.showOptions = false;
         }
-    }
-
-    ngOnDestroy() {
-        this.subscriptionFormControl$.unsubscribe();
     }
 }
